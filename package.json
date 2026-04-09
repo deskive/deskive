@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "react-is": "^19.2.0"
-  },
-  "devDependencies": {
-    "sharp": "^0.34.5"
-  }
-}
