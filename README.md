@@ -1,4 +1,7 @@
 <p align="center">
+  <a href="https://deskive.com">
+    <img src="frontend/public/logo.png" alt="Deskive" width="80">
+  </a>
   <h1 align="center">Deskive</h1>
   <p align="center">
     <strong>Open-source workspace collaboration platform</strong>
@@ -10,13 +13,17 @@
 
 <p align="center">
   <a href="https://github.com/deskive/deskive/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License"></a>
+  <a href="https://github.com/deskive/deskive/actions/workflows/ci.yml"><img src="https://github.com/deskive/deskive/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
   <a href="https://github.com/deskive/deskive/stargazers"><img src="https://img.shields.io/github/stars/deskive/deskive?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/deskive/deskive/issues"><img src="https://img.shields.io/github/issues/deskive/deskive" alt="Issues"></a>
+  <a href="https://github.com/deskive/deskive/pulls"><img src="https://img.shields.io/github/issues-pr/deskive/deskive" alt="Pull Requests"></a>
 </p>
 
 <p align="center">
+  <a href="https://deskive.com">Website</a> |
   <a href="#quick-start">Quick Start</a> |
   <a href="#features">Features</a> |
+  <a href="https://github.com/deskive/deskive/discussions">Discussions</a> |
   <a href="CONTRIBUTING.md">Contributing</a>
 </p>
 
@@ -36,7 +43,44 @@
 
 ## What is Deskive?
 
-Deskive is an open-source workspace collaboration platform that brings together real-time communication, project management, video conferencing, file management, and AI-powered productivity tools into a single, self-hostable application.
+Deskive is an open-source workspace collaboration platform that brings together real-time communication, project management, video conferencing, file management, and AI-powered productivity tools into a single, self-hostable application. Think of it as an open-source alternative to Slack + Notion + Zoom + Asana combined.
+
+<p align="center">
+  <img src="frontend/public/dashboard.png" alt="Deskive Dashboard" width="800">
+  <br>
+  <em>Deskive workspace dashboard</em>
+</p>
+
+### How It Works
+
+1. **Create a Workspace** -- Set up your team workspace with channels, projects, and file storage
+2. **Communicate** -- Real-time chat with threads, reactions, mentions, GIFs, and video calls
+3. **Manage Projects** -- Kanban boards, sprints, task dependencies, time tracking
+4. **Collaborate** -- Shared notes, whiteboards, documents with digital signatures
+5. **AI Assists** -- AutoPilot handles daily briefings, meeting summaries, and smart scheduling
+
+## Why Deskive? (Comparison)
+
+| Feature | Deskive | Slack | Notion | Asana | Microsoft Teams |
+|---------|---------|-------|--------|-------|-----------------|
+| **Real-time Chat** | Channels, threads, reactions, GIFs | Channels, threads | Comments only | Comments only | Channels, threads |
+| **Video Calls** | HD via LiveKit, recording, transcription | Huddles (basic) | No | No | Built-in |
+| **Project Management** | Kanban, sprints, time tracking, dependencies | No | Basic boards | Full-featured | Planner (basic) |
+| **File Management** | Cloud storage, versioning, sharing | Basic uploads | Embedded | Attachments | SharePoint |
+| **Notes/Docs** | Block editor, real-time collaboration | Canvas (basic) | Full-featured | No | Loop |
+| **Calendar** | Events, meeting rooms, availability | No | No | Timeline | Built-in |
+| **Whiteboard** | Collaborative visual workspace | No | No | No | Whiteboard |
+| **AI Tools** | AutoPilot, meeting intelligence, memory | AI summary | AI writing | AI status | Copilot |
+| **Forms Builder** | Forms with analytics | No | No | Forms | Forms |
+| **Budget Tracking** | Budgets, expenses, billing rates | No | No | No | No |
+| **Approval Workflows** | Built-in approval system | Workflow Builder | No | Approvals | Power Automate |
+| **Bot Automation** | Custom bots with triggers/actions | Bolt SDK | No | Rules | Power Automate |
+| **Email Integration** | Gmail OAuth, SMTP/IMAP | No | No | Email-to-task | Outlook |
+| **Self-Hosted** | Docker Compose | No | No | No | No |
+| **Open Source** | Apache 2.0 | No | No | No | No |
+| **Desktop App** | Tauri (macOS, Windows, Linux) | Electron | Electron | No | Electron |
+| **Mobile App** | Flutter (iOS, Android) | Native | Native | Native | Native |
+| **Pricing** | Free (self-hosted) | $8.75/user/mo | $10/user/mo | $10.99/user/mo | $4/user/mo |
 
 ## Quick Start
 
@@ -62,6 +106,20 @@ npm run dev
 ```
 
 Visit `http://localhost:5175` to access the app.
+
+### Docker (Recommended)
+
+```bash
+git clone https://github.com/deskive/deskive.git
+cd deskive
+docker compose --env-file .env.docker up -d
+```
+
+### One-Command Start
+
+```bash
+./start.sh
+```
 
 ## Features
 
@@ -123,12 +181,27 @@ deskive/
 │   └── src-tauri/           # Desktop app (Tauri)
 ├── flutter/                 # Flutter mobile app (iOS + Android)
 │   └── lib/                 # Screens, services, providers
+├── docker-compose.yml       # One-command self-hosting
+├── start.sh                 # Development startup script
 └── .github/workflows/       # CI/CD
 ```
+
+## Project Activity
+
+<p align="center">
+  <img src="https://img.shields.io/github/stars/deskive/deskive?style=for-the-badge&logo=github&color=yellow" alt="GitHub Stars">
+  <img src="https://img.shields.io/github/forks/deskive/deskive?style=for-the-badge&logo=github&color=blue" alt="Forks">
+  <img src="https://img.shields.io/github/contributors/deskive/deskive?style=for-the-badge&logo=github&color=green" alt="Contributors">
+  <img src="https://img.shields.io/github/last-commit/deskive/deskive?style=for-the-badge&logo=github&color=orange" alt="Last Commit">
+</p>
 
 ## Contributing
 
 We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+- [Bug Reports](https://github.com/deskive/deskive/issues/new?template=bug_report.yml)
+- [Feature Requests](https://github.com/deskive/deskive/issues/new?template=feature_request.yml)
+- [Discussions](https://github.com/deskive/deskive/discussions)
 
 ## Security
 
