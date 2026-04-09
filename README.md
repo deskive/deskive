@@ -203,6 +203,12 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 - [Feature Requests](https://github.com/deskive/deskive/issues/new?template=feature_request.yml)
 - [Discussions](https://github.com/deskive/deskive/discussions)
 
+## Contributors
+
+<a href="https://github.com/deskive/deskive/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=deskive/deskive&anon=1&max=100&columns=10" />
+</a>
+
 ## Security
 
 Please report security vulnerabilities responsibly. See [SECURITY.md](SECURITY.md).
