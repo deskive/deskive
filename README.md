@@ -205,11 +205,13 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## Contributors
 
+Thank you to all the amazing people who have contributed to Deskive! 🎉
+
 <a href="https://github.com/deskive/deskive/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=deskive/deskive&max=100&columns=10" />
+  <img src="https://contrib.rocks/image?repo=deskive/deskive-private&anon=1&max=100&columns=10" />
 </a>
 
-Made with [contrib.rocks](https://contrib.rocks).
+Want to see your face here? Check out our [Contributing Guide](CONTRIBUTING.md) and start contributing today!
 
 ## Security
 
