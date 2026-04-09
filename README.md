@@ -206,8 +206,10 @@ We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 ## Contributors
 
 <a href="https://github.com/deskive/deskive/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=deskive/deskive&anon=1&max=100&columns=10" />
+  <img src="https://contrib.rocks/image?repo=deskive/deskive&max=100&columns=10" />
 </a>
+
+Made with [contrib.rocks](https://contrib.rocks).
 
 ## Security
 
