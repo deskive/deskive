@@ -1831,7 +1831,7 @@ export class SlackWhiteboardService {
     // Generate secure random password (user won't use it)
     const randomPassword = randomBytes(32).toString('hex');
 
-    const response = await this.db.authClient.auth.register({
+    const response = /* TODO: use AuthService */ await this.db.authClient.auth.register({
       email,
       password: randomPassword,
       name,
