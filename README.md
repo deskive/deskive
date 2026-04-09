@@ -63,24 +63,24 @@ Deskive is an open-source workspace collaboration platform that brings together 
 
 | Feature | Deskive | Slack | Notion | Asana | Microsoft Teams |
 |---------|---------|-------|--------|-------|-----------------|
-| **Real-time Chat** | Channels, threads, reactions, GIFs | Channels, threads | Comments only | Comments only | Channels, threads |
-| **Video Calls** | HD via LiveKit, recording, transcription | Huddles (basic) | No | No | Built-in |
-| **Project Management** | Kanban, sprints, time tracking, dependencies | No | Basic boards | Full-featured | Planner (basic) |
-| **File Management** | Cloud storage, versioning, sharing | Basic uploads | Embedded | Attachments | SharePoint |
-| **Notes/Docs** | Block editor, real-time collaboration | Canvas (basic) | Full-featured | No | Loop |
-| **Calendar** | Events, meeting rooms, availability | No | No | Timeline | Built-in |
-| **Whiteboard** | Collaborative visual workspace | No | No | No | Whiteboard |
-| **AI Tools** | AutoPilot, meeting intelligence, memory | AI summary | AI writing | AI status | Copilot |
-| **Forms Builder** | Forms with analytics | No | No | Forms | Forms |
-| **Budget Tracking** | Budgets, expenses, billing rates | No | No | No | No |
-| **Approval Workflows** | Built-in approval system | Workflow Builder | No | Approvals | Power Automate |
-| **Bot Automation** | Custom bots with triggers/actions | Bolt SDK | No | Rules | Power Automate |
-| **Email Integration** | Gmail OAuth, SMTP/IMAP | No | No | Email-to-task | Outlook |
-| **Self-Hosted** | Docker Compose | No | No | No | No |
-| **Open Source** | Apache 2.0 | No | No | No | No |
-| **Desktop App** | Tauri (macOS, Windows, Linux) | Electron | Electron | No | Electron |
-| **Mobile App** | Flutter (iOS, Android) | Native | Native | Native | Native |
-| **Pricing** | Free (self-hosted) | $8.75/user/mo | $10/user/mo | $10.99/user/mo | $4/user/mo |
+| **Real-time Chat** | ✅ Channels, threads, reactions, GIFs | ✅ Channels, threads | ⚠️ Comments only | ⚠️ Comments only | ✅ Channels, threads |
+| **Video Calls** | ✅ HD, recording, transcription | ⚠️ Huddles (basic) | ❌ | ❌ | ✅ Built-in |
+| **Project Management** | ✅ Kanban, sprints, time tracking | ❌ | ⚠️ Basic boards | ✅ Full-featured | ⚠️ Planner (basic) |
+| **File Management** | ✅ Cloud storage, versioning, sharing | ⚠️ Basic uploads | ⚠️ Embedded | ⚠️ Attachments | ✅ SharePoint |
+| **Notes/Docs** | ✅ Block editor, real-time collab | ⚠️ Canvas (basic) | ✅ Full-featured | ❌ | ⚠️ Loop |
+| **Calendar** | ✅ Events, meeting rooms, availability | ❌ | ❌ | ⚠️ Timeline | ✅ Built-in |
+| **Whiteboard** | ✅ Collaborative workspace | ❌ | ❌ | ❌ | ✅ Whiteboard |
+| **AI Tools** | ✅ AutoPilot, meeting intel, memory | ⚠️ AI summary | ⚠️ AI writing | ⚠️ AI status | ✅ Copilot |
+| **Forms Builder** | ✅ Forms with analytics | ❌ | ❌ | ✅ Forms | ✅ Forms |
+| **Budget Tracking** | ✅ Budgets, expenses, billing | ❌ | ❌ | ❌ | ❌ |
+| **Approval Workflows** | ✅ Built-in approval system | ⚠️ Workflow Builder | ❌ | ✅ Approvals | ✅ Power Automate |
+| **Bot Automation** | ✅ Custom bots, triggers/actions | ✅ Bolt SDK | ❌ | ⚠️ Rules | ✅ Power Automate |
+| **Email Integration** | ✅ Gmail OAuth, SMTP/IMAP | ❌ | ❌ | ⚠️ Email-to-task | ✅ Outlook |
+| **Self-Hosted** | ✅ Docker Compose | ❌ | ❌ | ❌ | ❌ |
+| **Open Source** | ✅ Apache 2.0 | ❌ | ❌ | ❌ | ❌ |
+| **Desktop App** | ✅ Tauri (macOS, Windows, Linux) | ✅ Electron | ✅ Electron | ❌ | ✅ Electron |
+| **Mobile App** | ✅ Flutter (iOS, Android) | ✅ Native | ✅ Native | ✅ Native | ✅ Native |
+| **Pricing** | 🟢 Free (self-hosted) | 💰 $8.75/user/mo | 💰 $10/user/mo | 💰 $10.99/user/mo | 💰 $4/user/mo |
 
 ## Quick Start
 
