@@ -63,7 +63,7 @@
     "html2pdf.js": "^0.12.1",
     "lib0": "^0.2.99",
     "livekit-client": "^2.15.14",
-    "lucide-react": "^0.542.0",
+    "lucide-react": "^1.8.0",
     "mammoth": "^1.11.0",
     "postcss": "^8.5.6",
     "react": "^19.1.1",
