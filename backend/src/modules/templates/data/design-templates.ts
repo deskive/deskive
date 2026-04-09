@@ -1,0 +1,3187 @@
+/**
+ * Design & Creative Project Templates
+ * Pre-built templates for design projects, brand development, and creative workflows
+ */
+
+export const DESIGN_TEMPLATES = [
+  // ==================== 1. BRAND IDENTITY DESIGN ====================
+  {
+    name: 'Brand Identity Design',
+    slug: 'brand-identity-design',
+    description:
+      'Complete brand identity development from research to final delivery. Includes logo design, color palette, typography, and brand guidelines.',
+    category: 'design',
+    icon: 'Palette',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'discovery', name: 'Discovery', order: 0, color: '#6B7280' },
+      { id: 'concept', name: 'Concept', order: 1, color: '#3B82F6' },
+      { id: 'design', name: 'Design', order: 2, color: '#F59E0B' },
+      { id: 'refinement', name: 'Refinement', order: 3, color: '#8B5CF6' },
+      { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Client Industry',
+        type: 'select',
+        description: 'Client industry sector',
+        options: ['Technology', 'Healthcare', 'Finance', 'Retail', 'Education', 'Food & Beverage', 'Other'],
+        isRequired: false,
+      },
+      {
+        name: 'Deliverables',
+        type: 'multiselect',
+        description: 'Project deliverables',
+        options: ['Logo', 'Color Palette', 'Typography', 'Brand Guidelines', 'Stationery', 'Social Media Kit'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery & Research',
+          description: 'Understanding the brand and market',
+          tasks: [
+            {
+              title: 'Client discovery session',
+              description:
+                'Deep dive into client vision, values, and goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['discovery', 'client'],
+              subtasks: [
+                { title: 'Conduct brand questionnaire' },
+                { title: 'Discuss target audience' },
+                { title: 'Define brand personality' },
+                { title: 'Gather inspiration references' },
+              ],
+            },
+            {
+              title: 'Competitor analysis',
+              description:
+                'Research competitor branding and positioning.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
+            {
+              title: 'Market and trend research',
+              description:
+                'Study industry design trends and best practices.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'medium',
+              labels: ['research', 'trends'],
+            },
+            {
+              title: 'Create mood boards',
+              description:
+                'Develop visual mood boards for direction approval.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['creative', 'mood-board'],
+            },
+          ],
+        },
+        {
+          name: 'Concept Development',
+          description: 'Initial design concepts',
+          tasks: [
+            {
+              title: 'Logo sketching',
+              description:
+                'Create initial logo sketches and concepts.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['logo', 'sketching'],
+              subtasks: [
+                { title: 'Create 20+ rough sketches' },
+                { title: 'Select top 5-7 directions' },
+                { title: 'Refine selected concepts' },
+              ],
+            },
+            {
+              title: 'Develop 3 logo concepts',
+              description:
+                'Create polished versions of 3 distinct directions.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['logo', 'concepts'],
+            },
+            {
+              title: 'Color palette exploration',
+              description:
+                'Develop color palettes for each concept.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['color', 'exploration'],
+            },
+            {
+              title: 'Typography selection',
+              description:
+                'Research and select typefaces.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'medium',
+              labels: ['typography', 'selection'],
+            },
+            {
+              title: 'Present concepts to client',
+              description:
+                'Present design concepts for feedback.',
+              assigneeRole: 'lead',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['presentation', 'client'],
+            },
+          ],
+        },
+        {
+          name: 'Design Refinement',
+          description: 'Refine selected direction',
+          tasks: [
+            {
+              title: 'Refine selected concept',
+              description:
+                'Iterate on chosen concept based on feedback.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['refinement', 'iteration'],
+            },
+            {
+              title: 'Finalize logo variations',
+              description:
+                'Create all logo variations and lockups.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['logo', 'variations'],
+              subtasks: [
+                { title: 'Primary logo' },
+                { title: 'Secondary/alternate logo' },
+                { title: 'Icon/favicon' },
+                { title: 'Horizontal lockup' },
+                { title: 'Stacked lockup' },
+              ],
+            },
+            {
+              title: 'Finalize color system',
+              description:
+                'Define final color palette with codes.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['color', 'system'],
+            },
+            {
+              title: 'Finalize typography system',
+              description:
+                'Define type hierarchy and usage rules.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['typography', 'system'],
+            },
+          ],
+        },
+        {
+          name: 'Brand Applications',
+          description: 'Apply brand to collateral',
+          tasks: [
+            {
+              title: 'Design business cards',
+              description:
+                'Create business card designs.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['stationery', 'collateral'],
+            },
+            {
+              title: 'Design letterhead and envelope',
+              description:
+                'Create stationery system.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['stationery', 'collateral'],
+            },
+            {
+              title: 'Design social media templates',
+              description:
+                'Create social media profile assets and templates.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['social', 'templates'],
+            },
+            {
+              title: 'Create brand mockups',
+              description:
+                'Prepare realistic brand application mockups.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['mockups', 'presentation'],
+            },
+          ],
+        },
+        {
+          name: 'Delivery',
+          description: 'Final delivery and handoff',
+          tasks: [
+            {
+              title: 'Create brand guidelines',
+              description:
+                'Comprehensive brand usage guidelines document.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['guidelines', 'documentation'],
+              subtasks: [
+                { title: 'Logo usage rules' },
+                { title: 'Color specifications' },
+                { title: 'Typography guide' },
+                { title: 'Dos and donts' },
+              ],
+            },
+            {
+              title: 'Prepare final files',
+              description:
+                'Export and organize all deliverable files.',
+              assigneeRole: 'member',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['files', 'export'],
+              subtasks: [
+                { title: 'Vector files (AI, EPS, SVG)' },
+                { title: 'Raster files (PNG, JPG)' },
+                { title: 'PDF files' },
+                { title: 'Web-ready files' },
+              ],
+            },
+            {
+              title: 'Final presentation',
+              description:
+                'Present final brand identity to client.',
+              assigneeRole: 'lead',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['presentation', 'delivery'],
+            },
+            {
+              title: 'File handoff',
+              description:
+                'Deliver final files and documentation.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['handoff', 'delivery'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['discovery', 'concept', 'design', 'refinement', 'delivery'],
+      },
+    },
+    settings: {
+      revisionRounds: 3,
+      requiresApproval: true,
+    },
+  },
+
+  // ==================== 2. WEBSITE REDESIGN ====================
+  {
+    name: 'Website Redesign',
+    slug: 'website-redesign',
+    description:
+      'End-to-end website redesign project from UX research to development handoff. Perfect for comprehensive site overhauls.',
+    category: 'design',
+    icon: 'Layout',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux_design', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui_design', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Site Type',
+        type: 'select',
+        description: 'Type of website',
+        options: ['Corporate', 'E-commerce', 'SaaS', 'Portfolio', 'Blog', 'Landing Page'],
+        isRequired: true,
+      },
+      {
+        name: 'Page Count',
+        type: 'select',
+        description: 'Number of unique pages',
+        options: ['1-5', '6-10', '11-20', '20+'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research & Discovery',
+          description: 'Understanding users and requirements',
+          tasks: [
+            {
+              title: 'Stakeholder interviews',
+              description:
+                'Gather requirements and goals from stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'discovery'],
+            },
+            {
+              title: 'Current site audit',
+              description:
+                'Analyze current site performance and issues.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['audit', 'analysis'],
+              subtasks: [
+                { title: 'UX audit' },
+                { title: 'Content audit' },
+                { title: 'Technical audit' },
+                { title: 'Analytics review' },
+              ],
+            },
+            {
+              title: 'User research',
+              description:
+                'Conduct user interviews or surveys.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'user'],
+            },
+            {
+              title: 'Competitive analysis',
+              description:
+                'Review competitor websites.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['research', 'competitive'],
+            },
+            {
+              title: 'Create user personas',
+              description:
+                'Develop user personas based on research.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['personas', 'ux'],
+            },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Information architecture and wireframes',
+          tasks: [
+            {
+              title: 'Site map and IA',
+              description:
+                'Define information architecture and navigation.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['ia', 'structure'],
+            },
+            {
+              title: 'User flows',
+              description:
+                'Map out key user journeys and flows.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['ux', 'flows'],
+            },
+            {
+              title: 'Low-fidelity wireframes',
+              description:
+                'Create wireframes for key pages.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['wireframes', 'lofi'],
+            },
+            {
+              title: 'Wireframe review',
+              description:
+                'Present wireframes for stakeholder feedback.',
+              assigneeRole: 'lead',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['review', 'presentation'],
+            },
+            {
+              title: 'Prototype key flows',
+              description:
+                'Create interactive prototype for testing.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['prototype', 'testing'],
+            },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design and components',
+          tasks: [
+            {
+              title: 'Design system setup',
+              description:
+                'Set up design tokens and component library.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['design-system', 'setup'],
+              subtasks: [
+                { title: 'Color tokens' },
+                { title: 'Typography scale' },
+                { title: 'Spacing system' },
+                { title: 'Grid system' },
+              ],
+            },
+            {
+              title: 'Homepage design',
+              description:
+                'Design homepage and key landing experience.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['ui', 'homepage'],
+            },
+            {
+              title: 'Interior pages design',
+              description:
+                'Design all interior page templates.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['ui', 'pages'],
+            },
+            {
+              title: 'Component library',
+              description:
+                'Build reusable UI component library.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['components', 'library'],
+            },
+            {
+              title: 'Responsive designs',
+              description:
+                'Create mobile and tablet variations.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'high',
+              labels: ['responsive', 'mobile'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Iteration',
+          description: 'Feedback and refinement',
+          tasks: [
+            {
+              title: 'Design review session',
+              description:
+                'Present designs for stakeholder review.',
+              assigneeRole: 'lead',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['review', 'presentation'],
+            },
+            {
+              title: 'Incorporate feedback',
+              description:
+                'Refine designs based on feedback.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['iteration', 'refinement'],
+            },
+            {
+              title: 'Final design approval',
+              description:
+                'Get final sign-off on all designs.',
+              assigneeRole: 'lead',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['approval', 'sign-off'],
+            },
+          ],
+        },
+        {
+          name: 'Developer Handoff',
+          description: 'Prepare for development',
+          tasks: [
+            {
+              title: 'Annotate designs',
+              description:
+                'Add specs, notes, and interactions.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['handoff', 'specs'],
+            },
+            {
+              title: 'Export assets',
+              description:
+                'Export all images, icons, and graphics.',
+              assigneeRole: 'member',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['assets', 'export'],
+            },
+            {
+              title: 'Developer walkthrough',
+              description:
+                'Walk dev team through designs.',
+              assigneeRole: 'lead',
+              dueOffset: 64,
+              priority: 'high',
+              labels: ['handoff', 'walkthrough'],
+            },
+            {
+              title: 'Support during development',
+              description:
+                'Answer questions and provide assets as needed.',
+              assigneeRole: 'member',
+              dueOffset: 80,
+              priority: 'medium',
+              labels: ['support', 'development'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'ux_design', 'ui_design', 'review', 'handoff'],
+      },
+    },
+    settings: {
+      figmaIntegration: true,
+      requiresDevHandoff: true,
+    },
+  },
+
+  // ==================== 3. MOBILE APP DESIGN ====================
+  {
+    name: 'Mobile App Design',
+    slug: 'mobile-app-design',
+    description:
+      'Complete mobile app design project from user research to design system. Covers both iOS and Android design patterns.',
+    category: 'design',
+    icon: 'Smartphone',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'wireframes', name: 'Wireframes', order: 1, color: '#3B82F6' },
+      { id: 'visual_design', name: 'Visual Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Platform',
+        type: 'multiselect',
+        description: 'Target platforms',
+        options: ['iOS', 'Android', 'Cross-platform'],
+        isRequired: true,
+      },
+      {
+        name: 'App Category',
+        type: 'select',
+        description: 'App category',
+        options: ['Social', 'Productivity', 'E-commerce', 'Health', 'Finance', 'Entertainment'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research',
+          description: 'User and market research',
+          tasks: [
+            {
+              title: 'Define app requirements',
+              description:
+                'Document core features and requirements.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['requirements', 'planning'],
+            },
+            {
+              title: 'User research',
+              description:
+                'Conduct user interviews and surveys.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'user'],
+            },
+            {
+              title: 'Competitive app analysis',
+              description:
+                'Analyze competitor apps and features.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['research', 'competitive'],
+            },
+            {
+              title: 'Create user personas',
+              description:
+                'Develop detailed user personas.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['personas', 'ux'],
+            },
+            {
+              title: 'Define user journeys',
+              description:
+                'Map key user flows and journeys.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['ux', 'journeys'],
+            },
+          ],
+        },
+        {
+          name: 'Wireframing',
+          description: 'Structure and layout',
+          tasks: [
+            {
+              title: 'App architecture',
+              description:
+                'Define navigation structure and IA.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['ia', 'navigation'],
+            },
+            {
+              title: 'Low-fi wireframes',
+              description:
+                'Create wireframes for all screens.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['wireframes', 'lofi'],
+            },
+            {
+              title: 'Wireframe prototype',
+              description:
+                'Create clickable wireframe prototype.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['prototype', 'wireframes'],
+            },
+            {
+              title: 'Usability testing',
+              description:
+                'Test wireframes with users.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['testing', 'usability'],
+            },
+          ],
+        },
+        {
+          name: 'Visual Design',
+          description: 'UI design and components',
+          tasks: [
+            {
+              title: 'Define visual direction',
+              description:
+                'Create style exploration and direction.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['visual', 'exploration'],
+            },
+            {
+              title: 'Design system foundation',
+              description:
+                'Create design tokens and foundations.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['design-system', 'tokens'],
+            },
+            {
+              title: 'Core screen designs',
+              description:
+                'Design main app screens.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['ui', 'screens'],
+            },
+            {
+              title: 'Component library',
+              description:
+                'Build UI component library.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['components', 'library'],
+            },
+            {
+              title: 'All screen variations',
+              description:
+                'Complete all screen states and variations.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['ui', 'states'],
+            },
+            {
+              title: 'Icon design',
+              description:
+                'Design custom icons and illustrations.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'medium',
+              labels: ['icons', 'illustration'],
+            },
+          ],
+        },
+        {
+          name: 'Prototype & Test',
+          description: 'Interactive prototype and testing',
+          tasks: [
+            {
+              title: 'High-fidelity prototype',
+              description:
+                'Create interactive prototype with animations.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['prototype', 'hifi'],
+            },
+            {
+              title: 'Micro-interactions',
+              description:
+                'Design micro-interactions and animations.',
+              assigneeRole: 'member',
+              dueOffset: 58,
+              priority: 'medium',
+              labels: ['animation', 'interactions'],
+            },
+            {
+              title: 'User testing',
+              description:
+                'Conduct usability testing with prototype.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['testing', 'usability'],
+            },
+            {
+              title: 'Iterate based on feedback',
+              description:
+                'Refine designs based on test results.',
+              assigneeRole: 'member',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['iteration', 'refinement'],
+            },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Development handoff',
+          tasks: [
+            {
+              title: 'Prepare design specs',
+              description:
+                'Document all design specifications.',
+              assigneeRole: 'member',
+              dueOffset: 68,
+              priority: 'high',
+              labels: ['specs', 'documentation'],
+            },
+            {
+              title: 'Export assets',
+              description:
+                'Export all assets at required resolutions.',
+              assigneeRole: 'member',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['assets', 'export'],
+            },
+            {
+              title: 'Developer handoff session',
+              description:
+                'Walk through designs with dev team.',
+              assigneeRole: 'lead',
+              dueOffset: 72,
+              priority: 'high',
+              labels: ['handoff', 'walkthrough'],
+            },
+            {
+              title: 'Design QA',
+              description:
+                'Review implemented designs for accuracy.',
+              assigneeRole: 'member',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['qa', 'review'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'wireframes', 'visual_design', 'prototype', 'handoff'],
+      },
+    },
+    settings: {
+      platformGuidelines: true,
+      prototypeRequired: true,
+    },
+  },
+
+  // ==================== 4. DESIGN SPRINT ====================
+  {
+    name: 'Design Sprint',
+    slug: 'design-sprint',
+    description:
+      '5-day Google Ventures-style design sprint framework. Rapidly solve design challenges and validate ideas with users.',
+    category: 'design',
+    icon: 'Zap',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'day1', name: 'Day 1: Map', order: 0, color: '#6B7280' },
+      { id: 'day2', name: 'Day 2: Sketch', order: 1, color: '#3B82F6' },
+      { id: 'day3', name: 'Day 3: Decide', order: 2, color: '#F59E0B' },
+      { id: 'day4', name: 'Day 4: Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'day5', name: 'Day 5: Test', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Sprint Goal',
+        type: 'text',
+        description: 'Main challenge to solve',
+        isRequired: true,
+      },
+      {
+        name: 'Team Size',
+        type: 'number',
+        description: 'Number of participants',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Day 1: Map',
+          description: 'Understand and map the problem',
+          tasks: [
+            {
+              title: 'Set the challenge',
+              description:
+                'Define the long-term goal and sprint questions.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['day1', 'goal'],
+            },
+            {
+              title: 'Map the experience',
+              description:
+                'Create a map of the user journey.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['day1', 'mapping'],
+            },
+            {
+              title: 'Expert interviews',
+              description:
+                'Interview experts and gather insights.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['day1', 'interviews'],
+            },
+            {
+              title: 'Choose target',
+              description:
+                'Select the target moment in the journey.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['day1', 'target'],
+            },
+          ],
+        },
+        {
+          name: 'Day 2: Sketch',
+          description: 'Ideate solutions',
+          tasks: [
+            {
+              title: 'Lightning demos',
+              description:
+                'Review inspiring solutions from other products.',
+              assigneeRole: 'member',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['day2', 'inspiration'],
+            },
+            {
+              title: 'Individual sketching',
+              description:
+                'Each participant sketches solutions.',
+              assigneeRole: 'member',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['day2', 'sketching'],
+              subtasks: [
+                { title: 'Notes taking' },
+                { title: 'Mind mapping' },
+                { title: 'Crazy 8s exercise' },
+                { title: 'Solution sketch' },
+              ],
+            },
+            {
+              title: 'Compile sketches',
+              description:
+                'Collect and organize all solution sketches.',
+              assigneeRole: 'lead',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['day2', 'organization'],
+            },
+          ],
+        },
+        {
+          name: 'Day 3: Decide',
+          description: 'Choose the best solution',
+          tasks: [
+            {
+              title: 'Art museum',
+              description:
+                'Display and review all sketches.',
+              assigneeRole: 'lead',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['day3', 'review'],
+            },
+            {
+              title: 'Heat map voting',
+              description:
+                'Vote on promising solutions.',
+              assigneeRole: 'member',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['day3', 'voting'],
+            },
+            {
+              title: 'Speed critique',
+              description:
+                'Discuss top solutions as a team.',
+              assigneeRole: 'lead',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['day3', 'critique'],
+            },
+            {
+              title: 'Supervote and decide',
+              description:
+                'Make final decision on solution to prototype.',
+              assigneeRole: 'lead',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['day3', 'decision'],
+            },
+            {
+              title: 'Create storyboard',
+              description:
+                'Storyboard the prototype flow.',
+              assigneeRole: 'member',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['day3', 'storyboard'],
+            },
+          ],
+        },
+        {
+          name: 'Day 4: Prototype',
+          description: 'Build a realistic prototype',
+          tasks: [
+            {
+              title: 'Assign roles',
+              description:
+                'Assign prototyping roles to team.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day4', 'setup'],
+            },
+            {
+              title: 'Build prototype',
+              description:
+                'Create realistic prototype following storyboard.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day4', 'building'],
+            },
+            {
+              title: 'Stitch together',
+              description:
+                'Connect all prototype screens.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day4', 'assembly'],
+            },
+            {
+              title: 'Trial run',
+              description:
+                'Do a trial run of the prototype.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day4', 'testing'],
+            },
+          ],
+        },
+        {
+          name: 'Day 5: Test',
+          description: 'Validate with users',
+          tasks: [
+            {
+              title: 'Prepare interview guide',
+              description:
+                'Create script for user interviews.',
+              assigneeRole: 'lead',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['day5', 'preparation'],
+            },
+            {
+              title: 'Conduct user tests',
+              description:
+                'Test prototype with 5 target users.',
+              assigneeRole: 'member',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['day5', 'testing'],
+            },
+            {
+              title: 'Document observations',
+              description:
+                'Note observations and patterns.',
+              assigneeRole: 'member',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['day5', 'observations'],
+            },
+            {
+              title: 'Sprint debrief',
+              description:
+                'Review findings and decide next steps.',
+              assigneeRole: 'lead',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['day5', 'debrief'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['day1', 'day2', 'day3', 'day4', 'day5'],
+      },
+    },
+    settings: {
+      timeboxed: true,
+      fiveDays: true,
+    },
+  },
+
+  // ==================== 5. DESIGN SYSTEM ====================
+  {
+    name: 'Design System Creation',
+    slug: 'design-system-creation',
+    description:
+      'Build a comprehensive design system from scratch. Includes foundations, components, documentation, and governance.',
+    category: 'design',
+    icon: 'Layers',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'foundations', name: 'Foundations', order: 1, color: '#3B82F6' },
+      { id: 'components', name: 'Components', order: 2, color: '#F59E0B' },
+      { id: 'documentation', name: 'Documentation', order: 3, color: '#8B5CF6' },
+      { id: 'launch', name: 'Launch', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Scope',
+        type: 'select',
+        description: 'Design system scope',
+        options: ['Full System', 'Component Library', 'Documentation Only'],
+        isRequired: true,
+      },
+      {
+        name: 'Platforms',
+        type: 'multiselect',
+        description: 'Target platforms',
+        options: ['Web', 'iOS', 'Android', 'Design (Figma)'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Audit & Planning',
+          description: 'Assess current state and plan',
+          tasks: [
+            {
+              title: 'UI inventory audit',
+              description:
+                'Catalog all existing UI patterns.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['audit', 'inventory'],
+            },
+            {
+              title: 'Stakeholder interviews',
+              description:
+                'Gather needs from teams who will use the system.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'stakeholders'],
+            },
+            {
+              title: 'Define system principles',
+              description:
+                'Establish guiding design principles.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['principles', 'planning'],
+            },
+            {
+              title: 'Create component roadmap',
+              description:
+                'Prioritize which components to build first.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'roadmap'],
+            },
+          ],
+        },
+        {
+          name: 'Design Foundations',
+          description: 'Core design tokens and foundations',
+          tasks: [
+            {
+              title: 'Color system',
+              description:
+                'Define color palette and usage guidelines.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['foundations', 'color'],
+              subtasks: [
+                { title: 'Primary colors' },
+                { title: 'Secondary colors' },
+                { title: 'Semantic colors' },
+                { title: 'Dark mode colors' },
+              ],
+            },
+            {
+              title: 'Typography system',
+              description:
+                'Define type scale and text styles.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['foundations', 'typography'],
+            },
+            {
+              title: 'Spacing and layout',
+              description:
+                'Define spacing scale and grid system.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['foundations', 'spacing'],
+            },
+            {
+              title: 'Elevation and shadows',
+              description:
+                'Define shadow and elevation system.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'medium',
+              labels: ['foundations', 'elevation'],
+            },
+            {
+              title: 'Motion and animation',
+              description:
+                'Define animation principles and tokens.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'medium',
+              labels: ['foundations', 'motion'],
+            },
+            {
+              title: 'Icon system',
+              description:
+                'Define icon style and create base set.',
+              assigneeRole: 'member',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['foundations', 'icons'],
+            },
+          ],
+        },
+        {
+          name: 'Component Library',
+          description: 'Build UI components',
+          tasks: [
+            {
+              title: 'Buttons',
+              description:
+                'Design button components and variants.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['components', 'core'],
+            },
+            {
+              title: 'Form inputs',
+              description:
+                'Design form field components.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['components', 'forms'],
+            },
+            {
+              title: 'Navigation',
+              description:
+                'Design navigation components.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['components', 'navigation'],
+            },
+            {
+              title: 'Cards and containers',
+              description:
+                'Design card and container components.',
+              assigneeRole: 'member',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['components', 'layout'],
+            },
+            {
+              title: 'Modals and dialogs',
+              description:
+                'Design modal and dialog components.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['components', 'overlays'],
+            },
+            {
+              title: 'Data display',
+              description:
+                'Design tables, lists, and data components.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'high',
+              labels: ['components', 'data'],
+            },
+          ],
+        },
+        {
+          name: 'Documentation',
+          description: 'Document everything',
+          tasks: [
+            {
+              title: 'Usage guidelines',
+              description:
+                'Write usage documentation for each component.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['documentation', 'usage'],
+            },
+            {
+              title: 'Code documentation',
+              description:
+                'Document implementation and code examples.',
+              assigneeRole: 'member',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['documentation', 'code'],
+            },
+            {
+              title: 'Accessibility guidelines',
+              description:
+                'Document accessibility requirements.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['documentation', 'a11y'],
+            },
+            {
+              title: 'Contribution guidelines',
+              description:
+                'Create process for contributing to system.',
+              assigneeRole: 'lead',
+              dueOffset: 62,
+              priority: 'medium',
+              labels: ['documentation', 'governance'],
+            },
+          ],
+        },
+        {
+          name: 'Launch & Governance',
+          description: 'Release and maintain',
+          tasks: [
+            {
+              title: 'Beta release',
+              description:
+                'Release to pilot teams for feedback.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['launch', 'beta'],
+            },
+            {
+              title: 'Gather feedback',
+              description:
+                'Collect and analyze user feedback.',
+              assigneeRole: 'member',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['feedback', 'iteration'],
+            },
+            {
+              title: 'Official launch',
+              description:
+                'Launch design system to all teams.',
+              assigneeRole: 'lead',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['launch', 'release'],
+            },
+            {
+              title: 'Establish governance',
+              description:
+                'Set up processes for maintenance and updates.',
+              assigneeRole: 'lead',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['governance', 'process'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['audit', 'foundations', 'components', 'documentation', 'launch'],
+      },
+    },
+    settings: {
+      versionControl: true,
+      crossPlatform: true,
+    },
+  },
+
+  // ==================== 6. LOGO DESIGN PROJECT ====================
+  {
+    name: 'Logo Design Project',
+    slug: 'logo-design-project',
+    description:
+      'Focused logo design project from concept to final delivery. Perfect for standalone logo projects or rebranding.',
+    category: 'design',
+    icon: 'Hexagon',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'brief', name: 'Brief', order: 0, color: '#6B7280' },
+      { id: 'concepts', name: 'Concepts', order: 1, color: '#3B82F6' },
+      { id: 'refinement', name: 'Refinement', order: 2, color: '#F59E0B' },
+      { id: 'finalization', name: 'Finalization', order: 3, color: '#8B5CF6' },
+      { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Logo Type',
+        type: 'select',
+        description: 'Type of logo needed',
+        options: ['Wordmark', 'Lettermark', 'Symbol', 'Combination', 'Emblem'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery & Brief',
+          description: 'Understanding the brand',
+          tasks: [
+            { title: 'Complete design brief', description: 'Gather all requirements and preferences.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['brief', 'discovery'] },
+            { title: 'Research industry logos', description: 'Study competitor and industry logos.', assigneeRole: 'member', dueOffset: 2, priority: 'medium', labels: ['research'] },
+            { title: 'Create mood board', description: 'Compile visual inspiration and direction.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['mood-board'] },
+          ],
+        },
+        {
+          name: 'Concept Development',
+          description: 'Initial logo concepts',
+          tasks: [
+            { title: 'Sketch initial concepts', description: 'Create 15-20 rough logo sketches.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['sketching'] },
+            { title: 'Develop 3 digital concepts', description: 'Refine top concepts in vector format.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['concepts'] },
+            { title: 'Present concepts to client', description: 'Share concepts for feedback.', assigneeRole: 'lead', dueOffset: 12, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+        {
+          name: 'Refinement',
+          description: 'Refine selected direction',
+          tasks: [
+            { title: 'Refine chosen concept', description: 'Iterate based on client feedback.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['refinement'] },
+            { title: 'Explore color variations', description: 'Test different color options.', assigneeRole: 'member', dueOffset: 17, priority: 'medium', labels: ['color'] },
+            { title: 'Test at different sizes', description: 'Ensure logo works at all sizes.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['testing'] },
+          ],
+        },
+        {
+          name: 'Finalization',
+          description: 'Final logo versions',
+          tasks: [
+            { title: 'Create logo variations', description: 'Design all required logo versions.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['variations'] },
+            { title: 'Prepare color versions', description: 'Full color, black, white, and grayscale.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['color'] },
+            { title: 'Final client approval', description: 'Get sign-off on final logo.', assigneeRole: 'lead', dueOffset: 24, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Delivery',
+          description: 'Export and handoff',
+          tasks: [
+            { title: 'Export all file formats', description: 'Prepare AI, EPS, SVG, PNG, JPG files.', assigneeRole: 'member', dueOffset: 26, priority: 'high', labels: ['export'] },
+            { title: 'Create usage guidelines', description: 'Basic logo usage documentation.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['guidelines'] },
+            { title: 'Deliver final files', description: 'Hand off organized file package.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['delivery'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['brief', 'concepts', 'refinement', 'finalization', 'delivery'] },
+    },
+    settings: { revisionRounds: 2 },
+  },
+
+  // ==================== 7. VISUAL IDENTITY SYSTEM ====================
+  {
+    name: 'Visual Identity System',
+    slug: 'visual-identity-system',
+    description:
+      'Comprehensive visual identity development including all brand touchpoints and applications.',
+    category: 'design',
+    icon: 'Grid',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'strategy', name: 'Strategy', order: 0, color: '#6B7280' },
+      { id: 'design', name: 'Design', order: 1, color: '#3B82F6' },
+      { id: 'applications', name: 'Applications', order: 2, color: '#F59E0B' },
+      { id: 'documentation', name: 'Documentation', order: 3, color: '#8B5CF6' },
+      { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Brand Scope',
+        type: 'multiselect',
+        description: 'Identity elements to develop',
+        options: ['Logo', 'Color System', 'Typography', 'Imagery Style', 'Iconography', 'Patterns'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Brand Strategy',
+          description: 'Define brand foundations',
+          tasks: [
+            { title: 'Brand positioning workshop', description: 'Define brand values and positioning.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] },
+            { title: 'Audience analysis', description: 'Define target audience profiles.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['research'] },
+            { title: 'Visual audit', description: 'Audit existing visual materials.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['audit'] },
+            { title: 'Define visual direction', description: 'Establish creative direction.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['direction'] },
+          ],
+        },
+        {
+          name: 'Core Identity Design',
+          description: 'Design core identity elements',
+          tasks: [
+            { title: 'Logo system design', description: 'Design primary and secondary logos.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['logo'] },
+            { title: 'Color palette development', description: 'Create comprehensive color system.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['color'] },
+            { title: 'Typography system', description: 'Select and define type hierarchy.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['typography'] },
+            { title: 'Graphic elements', description: 'Design patterns and graphic devices.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['graphics'] },
+          ],
+        },
+        {
+          name: 'Brand Applications',
+          description: 'Apply identity to touchpoints',
+          tasks: [
+            { title: 'Stationery design', description: 'Business cards, letterhead, envelopes.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['stationery'] },
+            { title: 'Digital templates', description: 'Email signatures, social media templates.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['digital'] },
+            { title: 'Marketing collateral', description: 'Brochures, flyers, presentations.', assigneeRole: 'member', dueOffset: 38, priority: 'medium', labels: ['collateral'] },
+            { title: 'Environmental design', description: 'Signage and physical applications.', assigneeRole: 'member', dueOffset: 42, priority: 'low', labels: ['environmental'] },
+          ],
+        },
+        {
+          name: 'Documentation',
+          description: 'Create brand guidelines',
+          tasks: [
+            { title: 'Write brand guidelines', description: 'Comprehensive usage documentation.', assigneeRole: 'member', dueOffset: 48, priority: 'high', labels: ['guidelines'] },
+            { title: 'Create asset library', description: 'Organize all brand assets.', assigneeRole: 'member', dueOffset: 52, priority: 'high', labels: ['assets'] },
+            { title: 'Usage examples', description: 'Show correct and incorrect usage.', assigneeRole: 'member', dueOffset: 54, priority: 'medium', labels: ['examples'] },
+          ],
+        },
+        {
+          name: 'Delivery',
+          description: 'Final handoff',
+          tasks: [
+            { title: 'Final presentation', description: 'Present complete identity system.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['presentation'] },
+            { title: 'Export all assets', description: 'Prepare all files for delivery.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['export'] },
+            { title: 'Brand training session', description: 'Train team on brand usage.', assigneeRole: 'lead', dueOffset: 62, priority: 'medium', labels: ['training'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['strategy', 'design', 'applications', 'documentation', 'delivery'] },
+    },
+    settings: { comprehensiveSystem: true },
+  },
+
+  // ==================== 8. UI DESIGN SPRINT ====================
+  {
+    name: 'UI Design Sprint',
+    slug: 'ui-design-sprint',
+    description:
+      'Fast-paced UI design sprint focused on rapid interface design and iteration.',
+    category: 'design',
+    icon: 'Monitor',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'design', name: 'Design', order: 1, color: '#3B82F6' },
+      { id: 'iteration', name: 'Iteration', order: 2, color: '#F59E0B' },
+      { id: 'polish', name: 'Polish', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Sprint Duration',
+        type: 'select',
+        description: 'Length of sprint',
+        options: ['1 Week', '2 Weeks', '3 Weeks'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Sprint Planning',
+          description: 'Define sprint scope',
+          tasks: [
+            { title: 'Define sprint goals', description: 'Set clear objectives for the sprint.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Gather requirements', description: 'Collect all design requirements.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['requirements'] },
+            { title: 'Review existing designs', description: 'Analyze current UI patterns.', assigneeRole: 'member', dueOffset: 1, priority: 'medium', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Design Phase',
+          description: 'Create UI designs',
+          tasks: [
+            { title: 'Create wireframes', description: 'Quick wireframes for all screens.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['wireframes'] },
+            { title: 'Design key screens', description: 'High-fidelity designs for main screens.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['ui-design'] },
+            { title: 'Component design', description: 'Design reusable UI components.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['components'] },
+            { title: 'Design review', description: 'Team review of designs.', assigneeRole: 'lead', dueOffset: 9, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Iteration',
+          description: 'Refine based on feedback',
+          tasks: [
+            { title: 'Incorporate feedback', description: 'Apply review feedback to designs.', assigneeRole: 'member', dueOffset: 11, priority: 'high', labels: ['iteration'] },
+            { title: 'Design remaining screens', description: 'Complete all secondary screens.', assigneeRole: 'member', dueOffset: 13, priority: 'high', labels: ['ui-design'] },
+            { title: 'Stakeholder review', description: 'Present to stakeholders.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Polish',
+          description: 'Final refinements',
+          tasks: [
+            { title: 'Final design polish', description: 'Refine all visual details.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['polish'] },
+            { title: 'Responsive variations', description: 'Create mobile/tablet versions.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['responsive'] },
+            { title: 'Design QA', description: 'Check consistency across designs.', assigneeRole: 'member', dueOffset: 19, priority: 'medium', labels: ['qa'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare design specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export all required assets.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['assets'] },
+            { title: 'Handoff meeting', description: 'Walk through designs with developers.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'design', 'iteration', 'polish', 'handoff'] },
+    },
+    settings: { sprintBased: true },
+  },
+
+  // ==================== 9. UX RESEARCH PROJECT ====================
+  {
+    name: 'UX Research Project',
+    slug: 'ux-research-project',
+    description:
+      'Comprehensive UX research project including user interviews, surveys, and usability testing.',
+    category: 'design',
+    icon: 'Search',
+    color: '#14B8A6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'recruiting', name: 'Recruiting', order: 1, color: '#3B82F6' },
+      { id: 'research', name: 'Research', order: 2, color: '#F59E0B' },
+      { id: 'analysis', name: 'Analysis', order: 3, color: '#8B5CF6' },
+      { id: 'reporting', name: 'Reporting', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Research Methods',
+        type: 'multiselect',
+        description: 'Methods to use',
+        options: ['Interviews', 'Surveys', 'Usability Testing', 'Card Sorting', 'Diary Studies', 'Analytics Review'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research Planning',
+          description: 'Plan the research',
+          tasks: [
+            { title: 'Define research objectives', description: 'Set clear research goals and questions.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Choose research methods', description: 'Select appropriate methodologies.', assigneeRole: 'lead', dueOffset: 2, priority: 'high', labels: ['methods'] },
+            { title: 'Create research plan', description: 'Document full research plan.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['planning'] },
+            { title: 'Develop discussion guide', description: 'Create interview/test scripts.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['guides'] },
+          ],
+        },
+        {
+          name: 'Participant Recruiting',
+          description: 'Find research participants',
+          tasks: [
+            { title: 'Define participant criteria', description: 'Set screening criteria.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['recruiting'] },
+            { title: 'Create screener survey', description: 'Build participant screener.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['recruiting'] },
+            { title: 'Recruit participants', description: 'Find and schedule participants.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['recruiting'] },
+          ],
+        },
+        {
+          name: 'Conduct Research',
+          description: 'Execute research sessions',
+          tasks: [
+            { title: 'Conduct user interviews', description: 'Run scheduled interview sessions.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['interviews'] },
+            { title: 'Run usability tests', description: 'Execute usability testing sessions.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['testing'] },
+            { title: 'Document observations', description: 'Take detailed session notes.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['documentation'] },
+            { title: 'Debrief sessions', description: 'Team debriefs after each session.', assigneeRole: 'lead', dueOffset: 25, priority: 'medium', labels: ['debrief'] },
+          ],
+        },
+        {
+          name: 'Analysis',
+          description: 'Analyze research data',
+          tasks: [
+            { title: 'Transcribe sessions', description: 'Transcribe recorded sessions.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['analysis'] },
+            { title: 'Affinity mapping', description: 'Organize findings into themes.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['analysis'] },
+            { title: 'Identify patterns', description: 'Find patterns and insights.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['insights'] },
+            { title: 'Prioritize findings', description: 'Rank findings by impact.', assigneeRole: 'lead', dueOffset: 37, priority: 'high', labels: ['prioritization'] },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Document and share findings',
+          tasks: [
+            { title: 'Create research report', description: 'Write comprehensive findings report.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['report'] },
+            { title: 'Design recommendations', description: 'Translate insights to recommendations.', assigneeRole: 'lead', dueOffset: 45, priority: 'high', labels: ['recommendations'] },
+            { title: 'Present findings', description: 'Present to stakeholders.', assigneeRole: 'lead', dueOffset: 48, priority: 'high', labels: ['presentation'] },
+            { title: 'Archive research', description: 'Store all research materials.', assigneeRole: 'member', dueOffset: 50, priority: 'medium', labels: ['archive'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'recruiting', 'research', 'analysis', 'reporting'] },
+    },
+    settings: { participantBased: true },
+  },
+
+  // ==================== 10. USER TESTING ====================
+  {
+    name: 'User Testing',
+    slug: 'user-testing',
+    description:
+      'Focused usability testing project to validate designs with real users.',
+    category: 'design',
+    icon: 'Users',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'setup', name: 'Setup', order: 0, color: '#6B7280' },
+      { id: 'recruiting', name: 'Recruiting', order: 1, color: '#3B82F6' },
+      { id: 'testing', name: 'Testing', order: 2, color: '#F59E0B' },
+      { id: 'analysis', name: 'Analysis', order: 3, color: '#8B5CF6' },
+      { id: 'reporting', name: 'Reporting', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Test Type',
+        type: 'select',
+        description: 'Type of testing',
+        options: ['Moderated', 'Unmoderated', 'Remote', 'In-Person'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Test Setup',
+          description: 'Prepare for testing',
+          tasks: [
+            { title: 'Define test objectives', description: 'Set what you want to learn.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Create test script', description: 'Write tasks and scenarios.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['script'] },
+            { title: 'Prepare prototype', description: 'Ensure prototype is ready for testing.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['prototype'] },
+            { title: 'Set up testing tools', description: 'Configure recording and testing tools.', assigneeRole: 'member', dueOffset: 4, priority: 'medium', labels: ['tools'] },
+          ],
+        },
+        {
+          name: 'Recruiting',
+          description: 'Find test participants',
+          tasks: [
+            { title: 'Create screener', description: 'Build participant screening survey.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['recruiting'] },
+            { title: 'Recruit 5-8 participants', description: 'Find qualified testers.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['recruiting'] },
+            { title: 'Schedule sessions', description: 'Book testing time slots.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['scheduling'] },
+          ],
+        },
+        {
+          name: 'Testing Sessions',
+          description: 'Run the tests',
+          tasks: [
+            { title: 'Conduct test sessions', description: 'Run all scheduled sessions.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['testing'] },
+            { title: 'Take session notes', description: 'Document observations per session.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['notes'] },
+            { title: 'Record sessions', description: 'Capture video recordings.', assigneeRole: 'member', dueOffset: 18, priority: 'medium', labels: ['recording'] },
+          ],
+        },
+        {
+          name: 'Analysis',
+          description: 'Analyze results',
+          tasks: [
+            { title: 'Review recordings', description: 'Watch and annotate recordings.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['analysis'] },
+            { title: 'Identify usability issues', description: 'Document all problems found.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['issues'] },
+            { title: 'Calculate success metrics', description: 'Compute task success rates.', assigneeRole: 'member', dueOffset: 25, priority: 'medium', labels: ['metrics'] },
+            { title: 'Prioritize issues', description: 'Rank issues by severity.', assigneeRole: 'lead', dueOffset: 26, priority: 'high', labels: ['prioritization'] },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Share findings',
+          tasks: [
+            { title: 'Create findings report', description: 'Document all findings and recommendations.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['report'] },
+            { title: 'Create highlight reel', description: 'Edit video clips of key moments.', assigneeRole: 'member', dueOffset: 32, priority: 'medium', labels: ['video'] },
+            { title: 'Present to team', description: 'Share findings with stakeholders.', assigneeRole: 'lead', dueOffset: 34, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['setup', 'recruiting', 'testing', 'analysis', 'reporting'] },
+    },
+    settings: { participantCount: 5 },
+  },
+
+  // ==================== 11. COMPONENT LIBRARY DESIGN ====================
+  {
+    name: 'Component Library Design',
+    slug: 'component-library-design',
+    description:
+      'Design a reusable UI component library for consistent product development.',
+    category: 'design',
+    icon: 'Box',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'inventory', name: 'Inventory', order: 0, color: '#6B7280' },
+      { id: 'foundations', name: 'Foundations', order: 1, color: '#3B82F6' },
+      { id: 'components', name: 'Components', order: 2, color: '#F59E0B' },
+      { id: 'patterns', name: 'Patterns', order: 3, color: '#8B5CF6' },
+      { id: 'documentation', name: 'Documentation', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Platform',
+        type: 'select',
+        description: 'Target platform',
+        options: ['Web', 'iOS', 'Android', 'Cross-platform'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Component Inventory',
+          description: 'Audit existing components',
+          tasks: [
+            { title: 'Audit existing UI', description: 'Catalog all current components.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['audit'] },
+            { title: 'Identify duplicates', description: 'Find redundant components.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['analysis'] },
+            { title: 'Define component list', description: 'List components to build.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Design Foundations',
+          description: 'Core design tokens',
+          tasks: [
+            { title: 'Define color tokens', description: 'Set up color system.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['tokens'] },
+            { title: 'Define typography tokens', description: 'Set up type scale.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['tokens'] },
+            { title: 'Define spacing tokens', description: 'Set up spacing scale.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['tokens'] },
+            { title: 'Define elevation tokens', description: 'Set up shadow system.', assigneeRole: 'member', dueOffset: 16, priority: 'medium', labels: ['tokens'] },
+          ],
+        },
+        {
+          name: 'Core Components',
+          description: 'Design base components',
+          tasks: [
+            { title: 'Design buttons', description: 'All button variants and states.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['components'] },
+            { title: 'Design inputs', description: 'Form input components.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['components'] },
+            { title: 'Design cards', description: 'Card and container components.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['components'] },
+            { title: 'Design navigation', description: 'Nav and menu components.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['components'] },
+            { title: 'Design modals', description: 'Modal and dialog components.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['components'] },
+          ],
+        },
+        {
+          name: 'Patterns',
+          description: 'Common UI patterns',
+          tasks: [
+            { title: 'Design form patterns', description: 'Common form layouts.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['patterns'] },
+            { title: 'Design list patterns', description: 'List and table patterns.', assigneeRole: 'member', dueOffset: 43, priority: 'high', labels: ['patterns'] },
+            { title: 'Design empty states', description: 'Empty and error states.', assigneeRole: 'member', dueOffset: 45, priority: 'medium', labels: ['patterns'] },
+          ],
+        },
+        {
+          name: 'Documentation',
+          description: 'Document the library',
+          tasks: [
+            { title: 'Write usage guidelines', description: 'Document how to use each component.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['docs'] },
+            { title: 'Create code specs', description: 'Specs for developers.', assigneeRole: 'member', dueOffset: 54, priority: 'high', labels: ['specs'] },
+            { title: 'Organize Figma library', description: 'Structure library in Figma.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['figma'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['inventory', 'foundations', 'components', 'patterns', 'documentation'] },
+    },
+    settings: { figmaLibrary: true },
+  },
+
+  // ==================== 12. WEB APP DESIGN ====================
+  {
+    name: 'Web App Design',
+    slug: 'web-app-design',
+    description:
+      'Full web application design project from research to developer handoff.',
+    category: 'design',
+    icon: 'Globe',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'discovery', name: 'Discovery', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'App Type',
+        type: 'select',
+        description: 'Type of web app',
+        options: ['SaaS', 'Dashboard', 'E-commerce', 'Portal', 'Internal Tool'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery',
+          description: 'Understand requirements',
+          tasks: [
+            { title: 'Stakeholder kickoff', description: 'Gather requirements and goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['discovery'] },
+            { title: 'User research', description: 'Understand user needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+            { title: 'Feature mapping', description: 'Map out all features.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning'] },
+            { title: 'Competitive analysis', description: 'Review competitor apps.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['research'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Information architecture and flows',
+          tasks: [
+            { title: 'Create site map', description: 'Define app structure.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['ia'] },
+            { title: 'Design user flows', description: 'Map key user journeys.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['ux'] },
+            { title: 'Create wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['wireframes'] },
+            { title: 'Wireframe review', description: 'Review with stakeholders.', assigneeRole: 'lead', dueOffset: 24, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Design system setup', description: 'Set up foundations and tokens.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['design-system'] },
+            { title: 'Core screens design', description: 'Design main app screens.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['ui'] },
+            { title: 'Secondary screens', description: 'Design all other screens.', assigneeRole: 'member', dueOffset: 48, priority: 'high', labels: ['ui'] },
+            { title: 'Responsive designs', description: 'Tablet and mobile versions.', assigneeRole: 'member', dueOffset: 52, priority: 'high', labels: ['responsive'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and refinement',
+          tasks: [
+            { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 55, priority: 'high', labels: ['review'] },
+            { title: 'Incorporate feedback', description: 'Refine based on feedback.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off on designs.', assigneeRole: 'lead', dueOffset: 62, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 65, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export all graphics and icons.', assigneeRole: 'member', dueOffset: 67, priority: 'high', labels: ['assets'] },
+            { title: 'Developer walkthrough', description: 'Walk through designs.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['discovery', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { responsiveDesign: true },
+  },
+
+  // ==================== 13. LANDING PAGE DESIGN ====================
+  {
+    name: 'Landing Page Design',
+    slug: 'landing-page-design',
+    description:
+      'Design high-converting landing pages for marketing campaigns.',
+    category: 'design',
+    icon: 'FileText',
+    color: '#22C55E',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'brief', name: 'Brief', order: 0, color: '#6B7280' },
+      { id: 'wireframe', name: 'Wireframe', order: 1, color: '#3B82F6' },
+      { id: 'design', name: 'Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Page Goal',
+        type: 'select',
+        description: 'Primary conversion goal',
+        options: ['Lead Generation', 'Product Sales', 'Sign-ups', 'Downloads', 'Event Registration'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Brief & Strategy',
+          description: 'Understand campaign goals',
+          tasks: [
+            { title: 'Review campaign brief', description: 'Understand goals and messaging.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['brief'] },
+            { title: 'Define value proposition', description: 'Clarify main message.', assigneeRole: 'lead', dueOffset: 1, priority: 'high', labels: ['strategy'] },
+            { title: 'Review competitor pages', description: 'Analyze competitor landing pages.', assigneeRole: 'member', dueOffset: 2, priority: 'medium', labels: ['research'] },
+          ],
+        },
+        {
+          name: 'Wireframe',
+          description: 'Structure the page',
+          tasks: [
+            { title: 'Define content blocks', description: 'Plan page sections and content.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['content'] },
+            { title: 'Create wireframe', description: 'Wireframe page layout.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['wireframe'] },
+            { title: 'Wireframe review', description: 'Get feedback on structure.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Visual Design',
+          description: 'Design the page',
+          tasks: [
+            { title: 'Design hero section', description: 'Design above-the-fold area.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['design'] },
+            { title: 'Design full page', description: 'Complete page design.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['design'] },
+            { title: 'Mobile version', description: 'Responsive mobile design.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['responsive'] },
+            { title: 'Create graphics', description: 'Design custom illustrations or graphics.', assigneeRole: 'member', dueOffset: 17, priority: 'medium', labels: ['graphics'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and approval',
+          tasks: [
+            { title: 'Stakeholder review', description: 'Present for feedback.', assigneeRole: 'lead', dueOffset: 19, priority: 'high', labels: ['review'] },
+            { title: 'Apply revisions', description: 'Implement feedback.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['revisions'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Prepare for development',
+          tasks: [
+            { title: 'Export assets', description: 'Export all images and graphics.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['assets'] },
+            { title: 'Prepare specs', description: 'Document responsive specs.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['specs'] },
+            { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 26, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['brief', 'wireframe', 'design', 'review', 'handoff'] },
+    },
+    settings: { conversionFocused: true },
+  },
+
+  // ==================== 14. E-COMMERCE DESIGN ====================
+  {
+    name: 'E-commerce Design',
+    slug: 'e-commerce-design',
+    description:
+      'Complete e-commerce store design including product pages, cart, and checkout.',
+    category: 'design',
+    icon: 'ShoppingCart',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Store Type',
+        type: 'select',
+        description: 'Type of e-commerce',
+        options: ['Fashion', 'Electronics', 'Food & Beverage', 'Beauty', 'Home & Garden', 'General'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research',
+          description: 'Understand requirements',
+          tasks: [
+            { title: 'Stakeholder interviews', description: 'Gather business requirements.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['research'] },
+            { title: 'User research', description: 'Understand shopper needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+            { title: 'Competitor analysis', description: 'Review competitor stores.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['research'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Shopping experience design',
+          tasks: [
+            { title: 'Site architecture', description: 'Plan category and product structure.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['ia'] },
+            { title: 'Shopping flow design', description: 'Map browse to purchase journey.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['ux'] },
+            { title: 'Wireframe key pages', description: 'Wireframe home, PLP, PDP, cart, checkout.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['wireframes'] },
+            { title: 'UX review', description: 'Review flows with stakeholders.', assigneeRole: 'lead', dueOffset: 24, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Design system', description: 'Set up e-commerce design system.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['design-system'] },
+            { title: 'Homepage design', description: 'Design store homepage.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['ui'] },
+            { title: 'Product listing page', description: 'Design category/search pages.', assigneeRole: 'member', dueOffset: 36, priority: 'high', labels: ['ui'] },
+            { title: 'Product detail page', description: 'Design product pages.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['ui'] },
+            { title: 'Cart and checkout', description: 'Design purchase flow.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['ui'] },
+            { title: 'Mobile designs', description: 'Responsive mobile designs.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['responsive'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and approval',
+          tasks: [
+            { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 53, priority: 'high', labels: ['review'] },
+            { title: 'Apply feedback', description: 'Refine designs.', assigneeRole: 'member', dueOffset: 58, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 60, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specifications', description: 'Document all design specs.', assigneeRole: 'member', dueOffset: 63, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export all images and icons.', assigneeRole: 'member', dueOffset: 65, priority: 'high', labels: ['assets'] },
+            { title: 'Developer handoff', description: 'Walk through designs.', assigneeRole: 'lead', dueOffset: 68, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { conversionOptimized: true },
+  },
+
+  // ==================== 15. DASHBOARD DESIGN ====================
+  {
+    name: 'Dashboard Design',
+    slug: 'dashboard-design',
+    description:
+      'Design data-rich dashboards with charts, metrics, and actionable insights.',
+    category: 'design',
+    icon: 'BarChart2',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'requirements', name: 'Requirements', order: 0, color: '#6B7280' },
+      { id: 'wireframes', name: 'Wireframes', order: 1, color: '#3B82F6' },
+      { id: 'design', name: 'Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Dashboard Type',
+        type: 'select',
+        description: 'Type of dashboard',
+        options: ['Analytics', 'Operations', 'Executive', 'Marketing', 'Sales', 'Financial'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Requirements',
+          description: 'Understand data needs',
+          tasks: [
+            { title: 'Stakeholder interviews', description: 'Understand metrics and KPIs needed.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['requirements'] },
+            { title: 'Data inventory', description: 'List all available data sources.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['data'] },
+            { title: 'Define user roles', description: 'Identify who uses the dashboard.', assigneeRole: 'member', dueOffset: 4, priority: 'medium', labels: ['users'] },
+            { title: 'Prioritize metrics', description: 'Rank metrics by importance.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['prioritization'] },
+          ],
+        },
+        {
+          name: 'Wireframes',
+          description: 'Plan dashboard layout',
+          tasks: [
+            { title: 'Information architecture', description: 'Organize data hierarchy.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['ia'] },
+            { title: 'Wireframe layouts', description: 'Create layout options.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['wireframes'] },
+            { title: 'Chart type selection', description: 'Choose best visualizations.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['charts'] },
+            { title: 'Wireframe review', description: 'Review with stakeholders.', assigneeRole: 'lead', dueOffset: 16, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Design system setup', description: 'Set up data viz design system.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['design-system'] },
+            { title: 'Design main dashboard', description: 'Design primary dashboard view.', assigneeRole: 'member', dueOffset: 26, priority: 'high', labels: ['ui'] },
+            { title: 'Design detail views', description: 'Design drill-down views.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['ui'] },
+            { title: 'Design chart components', description: 'Design reusable chart library.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['components'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and iteration',
+          tasks: [
+            { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 38, priority: 'high', labels: ['review'] },
+            { title: 'Apply feedback', description: 'Iterate on designs.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 44, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specs', description: 'Document chart specs and behaviors.', assigneeRole: 'member', dueOffset: 47, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export all design assets.', assigneeRole: 'member', dueOffset: 49, priority: 'high', labels: ['assets'] },
+            { title: 'Developer walkthrough', description: 'Walk through implementation.', assigneeRole: 'lead', dueOffset: 51, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['requirements', 'wireframes', 'design', 'review', 'handoff'] },
+    },
+    settings: { dataVisualization: true },
+  },
+
+  // ==================== 16. ADMIN PANEL DESIGN ====================
+  {
+    name: 'Admin Panel Design',
+    slug: 'admin-panel-design',
+    description:
+      'Design comprehensive admin panels for managing applications and content.',
+    category: 'design',
+    icon: 'Settings',
+    color: '#64748B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'requirements', name: 'Requirements', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Admin Type',
+        type: 'select',
+        description: 'Type of admin panel',
+        options: ['CMS', 'User Management', 'E-commerce Admin', 'Analytics Admin', 'Full Platform'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Requirements',
+          description: 'Understand admin needs',
+          tasks: [
+            { title: 'Gather requirements', description: 'Document all admin functions needed.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['requirements'] },
+            { title: 'Define user roles', description: 'Map admin roles and permissions.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['roles'] },
+            { title: 'Feature prioritization', description: 'Prioritize admin features.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['prioritization'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Admin experience design',
+          tasks: [
+            { title: 'Navigation structure', description: 'Design admin navigation.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['navigation'] },
+            { title: 'User flows', description: 'Map key admin workflows.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['ux'] },
+            { title: 'Wireframes', description: 'Wireframe all admin screens.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['wireframes'] },
+            { title: 'UX review', description: 'Review with stakeholders.', assigneeRole: 'lead', dueOffset: 24, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Admin design system', description: 'Set up admin UI foundations.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['design-system'] },
+            { title: 'Dashboard design', description: 'Design admin dashboard.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['ui'] },
+            { title: 'CRUD screens', description: 'Design list and detail views.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['ui'] },
+            { title: 'Form designs', description: 'Design all admin forms.', assigneeRole: 'member', dueOffset: 44, priority: 'high', labels: ['forms'] },
+            { title: 'Settings screens', description: 'Design configuration screens.', assigneeRole: 'member', dueOffset: 48, priority: 'medium', labels: ['ui'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and approval',
+          tasks: [
+            { title: 'Design review', description: 'Present for feedback.', assigneeRole: 'lead', dueOffset: 52, priority: 'high', labels: ['review'] },
+            { title: 'Incorporate feedback', description: 'Apply revisions.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 61, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export design assets.', assigneeRole: 'member', dueOffset: 63, priority: 'high', labels: ['assets'] },
+            { title: 'Developer handoff', description: 'Walk through designs.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['requirements', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { roleBasedAccess: true },
+  },
+
+  // ==================== 17. SAAS PRODUCT DESIGN ====================
+  {
+    name: 'SaaS Product Design',
+    slug: 'saas-product-design',
+    description:
+      'End-to-end SaaS product design including onboarding, core features, and settings.',
+    category: 'design',
+    icon: 'Cloud',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'discovery', name: 'Discovery', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'SaaS Category',
+        type: 'select',
+        description: 'Type of SaaS product',
+        options: ['Productivity', 'Marketing', 'Sales', 'HR', 'Finance', 'Developer Tools'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery',
+          description: 'Product discovery',
+          tasks: [
+            { title: 'Product strategy session', description: 'Define product vision and goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] },
+            { title: 'User research', description: 'Research target users.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+            { title: 'Competitive analysis', description: 'Analyze competitors.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['research'] },
+            { title: 'Feature mapping', description: 'Map product features.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['features'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'User experience design',
+          tasks: [
+            { title: 'Information architecture', description: 'Define product structure.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['ia'] },
+            { title: 'User flows', description: 'Map key user journeys.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['flows'] },
+            { title: 'Onboarding design', description: 'Design user onboarding.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['onboarding'] },
+            { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['wireframes'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Design system', description: 'Create product design system.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['design-system'] },
+            { title: 'Dashboard design', description: 'Design main dashboard.', assigneeRole: 'member', dueOffset: 44, priority: 'high', labels: ['ui'] },
+            { title: 'Core features UI', description: 'Design main product screens.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['ui'] },
+            { title: 'Settings and account', description: 'Design settings screens.', assigneeRole: 'member', dueOffset: 62, priority: 'medium', labels: ['ui'] },
+            { title: 'Responsive designs', description: 'Mobile and tablet versions.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['responsive'] },
+          ],
+        },
+        {
+          name: 'Prototype',
+          description: 'Interactive prototype',
+          tasks: [
+            { title: 'Build prototype', description: 'Create interactive prototype.', assigneeRole: 'member', dueOffset: 74, priority: 'high', labels: ['prototype'] },
+            { title: 'User testing', description: 'Test with target users.', assigneeRole: 'member', dueOffset: 80, priority: 'high', labels: ['testing'] },
+            { title: 'Iterate on feedback', description: 'Refine based on testing.', assigneeRole: 'member', dueOffset: 85, priority: 'high', labels: ['iteration'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare documentation', description: 'Document all specs.', assigneeRole: 'member', dueOffset: 90, priority: 'high', labels: ['docs'] },
+            { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 93, priority: 'high', labels: ['assets'] },
+            { title: 'Developer handoff', description: 'Walk through with dev team.', assigneeRole: 'lead', dueOffset: 96, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['discovery', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { subscriptionModel: true },
+  },
+
+  // ==================== 18. B2B PRODUCT DESIGN ====================
+  {
+    name: 'B2B Product Design',
+    slug: 'b2b-product-design',
+    description:
+      'Design business-to-business software with complex workflows and enterprise features.',
+    category: 'design',
+    icon: 'Briefcase',
+    color: '#1E40AF',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'discovery', name: 'Discovery', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Industry',
+        type: 'select',
+        description: 'Target industry',
+        options: ['Healthcare', 'Finance', 'Manufacturing', 'Logistics', 'Legal', 'General'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery',
+          description: 'Understand business needs',
+          tasks: [
+            { title: 'Stakeholder interviews', description: 'Interview business stakeholders.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['discovery'] },
+            { title: 'User research', description: 'Research end users and workflows.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+            { title: 'Process mapping', description: 'Map existing business processes.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['process'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Experience design',
+          tasks: [
+            { title: 'Workflow design', description: 'Design optimized workflows.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['workflows'] },
+            { title: 'Role-based experiences', description: 'Design for different user roles.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['roles'] },
+            { title: 'Wireframes', description: 'Wireframe key screens.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['wireframes'] },
+            { title: 'UX validation', description: 'Validate with users.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['validation'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Enterprise design system', description: 'Create scalable design system.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['design-system'] },
+            { title: 'Core screens', description: 'Design main application screens.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['ui'] },
+            { title: 'Complex forms', description: 'Design data-heavy forms.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['forms'] },
+            { title: 'Reporting views', description: 'Design reports and exports.', assigneeRole: 'member', dueOffset: 68, priority: 'medium', labels: ['reporting'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Stakeholder review',
+          tasks: [
+            { title: 'Design review', description: 'Present to stakeholders.', assigneeRole: 'lead', dueOffset: 72, priority: 'high', labels: ['review'] },
+            { title: 'Apply feedback', description: 'Iterate based on feedback.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 82, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Development handoff',
+          tasks: [
+            { title: 'Technical specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 86, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Prepare all assets.', assigneeRole: 'member', dueOffset: 89, priority: 'high', labels: ['assets'] },
+            { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 92, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['discovery', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { enterpriseFeatures: true },
+  },
+
+  // ==================== 19. B2C PRODUCT DESIGN ====================
+  {
+    name: 'B2C Product Design',
+    slug: 'b2c-product-design',
+    description:
+      'Design consumer-facing products with focus on engagement and user experience.',
+    category: 'design',
+    icon: 'Heart',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'discovery', name: 'Discovery', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'testing', name: 'Testing', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Consumer Segment',
+        type: 'select',
+        description: 'Target consumer segment',
+        options: ['Gen Z', 'Millennials', 'Gen X', 'Baby Boomers', 'All Ages'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Discovery',
+          description: 'Consumer research',
+          tasks: [
+            { title: 'Consumer research', description: 'Research target consumers.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+            { title: 'Market analysis', description: 'Analyze market and trends.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['market'] },
+            { title: 'Define personas', description: 'Create consumer personas.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['personas'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'User experience',
+          tasks: [
+            { title: 'Journey mapping', description: 'Map consumer journeys.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['journeys'] },
+            { title: 'Feature prioritization', description: 'Prioritize features.', assigneeRole: 'lead', dueOffset: 17, priority: 'high', labels: ['features'] },
+            { title: 'Wireframes', description: 'Create wireframes.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['wireframes'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Visual direction', description: 'Define visual style.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['visual'] },
+            { title: 'Design system', description: 'Create design system.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design-system'] },
+            { title: 'Key screens', description: 'Design main screens.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['ui'] },
+            { title: 'All screens', description: 'Complete all designs.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['ui'] },
+          ],
+        },
+        {
+          name: 'Testing',
+          description: 'User testing',
+          tasks: [
+            { title: 'Prototype creation', description: 'Build interactive prototype.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['prototype'] },
+            { title: 'Consumer testing', description: 'Test with target consumers.', assigneeRole: 'member', dueOffset: 66, priority: 'high', labels: ['testing'] },
+            { title: 'Iterate designs', description: 'Apply testing feedback.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['iteration'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['assets'] },
+            { title: 'Handoff session', description: 'Hand off to developers.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['discovery', 'ux', 'ui', 'testing', 'handoff'] },
+    },
+    settings: { engagementFocused: true },
+  },
+
+  // ==================== 20. MARKETPLACE DESIGN ====================
+  {
+    name: 'Marketplace Design',
+    slug: 'marketplace-design',
+    description:
+      'Design two-sided marketplace platforms connecting buyers and sellers.',
+    category: 'design',
+    icon: 'Store',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Marketplace Type',
+        type: 'select',
+        description: 'Type of marketplace',
+        options: ['Product', 'Service', 'Rental', 'Freelance', 'B2B'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research',
+          description: 'Market research',
+          tasks: [
+            { title: 'Buyer research', description: 'Research buyer personas.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+            { title: 'Seller research', description: 'Research seller personas.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+            { title: 'Competitive analysis', description: 'Analyze competitor marketplaces.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          ],
+        },
+        {
+          name: 'UX Design',
+          description: 'Experience design',
+          tasks: [
+            { title: 'Buyer journey', description: 'Design buyer experience.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['buyer-ux'] },
+            { title: 'Seller journey', description: 'Design seller experience.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['seller-ux'] },
+            { title: 'Wireframes', description: 'Wireframe both experiences.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['wireframes'] },
+            { title: 'UX review', description: 'Review with stakeholders.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'UI Design',
+          description: 'Visual design',
+          tasks: [
+            { title: 'Design system', description: 'Create marketplace design system.', assigneeRole: 'member', dueOffset: 34, priority: 'high', labels: ['design-system'] },
+            { title: 'Buyer interface', description: 'Design buyer-facing screens.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['buyer-ui'] },
+            { title: 'Seller interface', description: 'Design seller dashboard.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['seller-ui'] },
+            { title: 'Mobile designs', description: 'Responsive designs.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['responsive'] },
+          ],
+        },
+        {
+          name: 'Review',
+          description: 'Feedback and approval',
+          tasks: [
+            { title: 'Design review', description: 'Present all designs.', assigneeRole: 'lead', dueOffset: 66, priority: 'high', labels: ['review'] },
+            { title: 'Apply feedback', description: 'Iterate on designs.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['iteration'] },
+            { title: 'Final approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 75, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Handoff',
+          description: 'Developer handoff',
+          tasks: [
+            { title: 'Prepare specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 79, priority: 'high', labels: ['specs'] },
+            { title: 'Export assets', description: 'Export design assets.', assigneeRole: 'member', dueOffset: 81, priority: 'high', labels: ['assets'] },
+            { title: 'Developer handoff', description: 'Walk through designs.', assigneeRole: 'lead', dueOffset: 84, priority: 'high', labels: ['handoff'] },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { twoSidedPlatform: true },
+  },
+
+  // ==================== 21. SOCIAL PLATFORM DESIGN ====================
+  {
+    name: 'Social Platform Design',
+    slug: 'social-platform-design',
+    description: 'Design social networking platforms with feeds, profiles, and engagement features.',
+    category: 'design',
+    icon: 'Users',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Platform Focus', type: 'select', description: 'Primary platform focus', options: ['Content Sharing', 'Networking', 'Community', 'Dating', 'Professional'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research target user behaviors.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze social platforms.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          { title: 'Feature mapping', description: 'Map social features needed.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['features'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'User flows', description: 'Design social interaction flows.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['flows'] },
+          { title: 'Feed design', description: 'Design content feed experience.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['feed'] },
+          { title: 'Profile wireframes', description: 'Wireframe user profiles.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['wireframes'] },
+          { title: 'Engagement features', description: 'Design likes, comments, shares.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['engagement'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create social platform design system.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design-system'] },
+          { title: 'Feed UI', description: 'Design feed interface.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['ui'] },
+          { title: 'Profile UI', description: 'Design profile screens.', assigneeRole: 'member', dueOffset: 48, priority: 'high', labels: ['ui'] },
+          { title: 'Messaging UI', description: 'Design messaging features.', assigneeRole: 'member', dueOffset: 54, priority: 'high', labels: ['ui'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create interactive social flows.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test with target users.', assigneeRole: 'member', dueOffset: 66, priority: 'high', labels: ['testing'] },
+          { title: 'Iterate designs', description: 'Refine based on feedback.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['iteration'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export design assets.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['assets'] },
+          { title: 'Handoff session', description: 'Walk through with developers.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { socialFeatures: true },
+  },
+
+  // ==================== 22. MESSAGING APP DESIGN ====================
+  {
+    name: 'Messaging App Design',
+    slug: 'messaging-app-design',
+    description: 'Design messaging and chat applications with real-time communication features.',
+    category: 'design',
+    icon: 'MessageCircle',
+    color: '#22C55E',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Messaging Type', type: 'select', description: 'Type of messaging', options: ['Personal', 'Team/Work', 'Customer Support', 'Community'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research messaging behaviors.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze messaging apps.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          { title: 'Feature requirements', description: 'Define messaging features.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['features'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Conversation flows', description: 'Design chat interaction flows.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['flows'] },
+          { title: 'Message types', description: 'Design text, media, reactions.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['messages'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create messaging design system.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['design-system'] },
+          { title: 'Chat UI', description: 'Design conversation interface.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['ui'] },
+          { title: 'Contacts and lists', description: 'Design contact management.', assigneeRole: 'member', dueOffset: 44, priority: 'high', labels: ['ui'] },
+          { title: 'Notifications', description: 'Design notification system.', assigneeRole: 'member', dueOffset: 48, priority: 'medium', labels: ['notifications'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create interactive chat flows.', assigneeRole: 'member', dueOffset: 54, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test chat experience.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 66, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { realTimeFeatures: true },
+  },
+
+  // ==================== 23. VIDEO PLATFORM DESIGN ====================
+  {
+    name: 'Video Platform Design',
+    slug: 'video-platform-design',
+    description: 'Design video streaming and sharing platforms with playback and discovery features.',
+    category: 'design',
+    icon: 'Video',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Platform Type', type: 'select', description: 'Type of video platform', options: ['Streaming', 'User Generated', 'Educational', 'Live Streaming', 'Enterprise'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research viewing behaviors.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze video platforms.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          { title: 'Content strategy', description: 'Define content organization.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['content'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Discovery flows', description: 'Design content discovery.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['discovery'] },
+          { title: 'Player experience', description: 'Design video player UX.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['player'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create video platform design system.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design-system'] },
+          { title: 'Browse UI', description: 'Design browse and discovery.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['ui'] },
+          { title: 'Player UI', description: 'Design video player interface.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['player'] },
+          { title: 'Creator tools', description: 'Design upload and management.', assigneeRole: 'member', dueOffset: 58, priority: 'medium', labels: ['creator'] },
+        ]},
+        { name: 'Review', description: 'Feedback and approval', tasks: [
+          { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 62, priority: 'high', labels: ['review'] },
+          { title: 'Apply feedback', description: 'Iterate on designs.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['iteration'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document all specifications.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export design assets.', assigneeRole: 'member', dueOffset: 74, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Walk through designs.', assigneeRole: 'lead', dueOffset: 76, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { videoFeatures: true },
+  },
+
+  // ==================== 24. MUSIC APP DESIGN ====================
+  {
+    name: 'Music App Design',
+    slug: 'music-app-design',
+    description: 'Design music streaming and discovery applications with playback and playlist features.',
+    category: 'design',
+    icon: 'Music',
+    color: '#1DB954',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'App Focus', type: 'select', description: 'Primary focus', options: ['Streaming', 'Discovery', 'Podcasts', 'Radio', 'Creator Tools'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research listening behaviors.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze music apps.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          { title: 'Feature mapping', description: 'Map music features.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['features'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Discovery flows', description: 'Design music discovery.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['discovery'] },
+          { title: 'Player experience', description: 'Design playback experience.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['player'] },
+          { title: 'Library management', description: 'Design playlist and library.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['library'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create music app design system.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['design-system'] },
+          { title: 'Home and browse', description: 'Design discovery interface.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['ui'] },
+          { title: 'Now playing', description: 'Design player interface.', assigneeRole: 'member', dueOffset: 46, priority: 'high', labels: ['player'] },
+          { title: 'Library UI', description: 'Design library screens.', assigneeRole: 'member', dueOffset: 52, priority: 'high', labels: ['ui'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create interactive music flows.', assigneeRole: 'member', dueOffset: 58, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test with music listeners.', assigneeRole: 'member', dueOffset: 64, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 74, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { audioFeatures: true },
+  },
+
+  // ==================== 25. FITNESS APP DESIGN ====================
+  {
+    name: 'Fitness App Design',
+    slug: 'fitness-app-design',
+    description: 'Design fitness and workout applications with tracking and progress features.',
+    category: 'design',
+    icon: 'Activity',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Fitness Focus', type: 'select', description: 'Primary focus', options: ['Workout Tracking', 'Running', 'Gym', 'Yoga', 'Nutrition', 'All-in-One'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research fitness user needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze fitness apps.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['competitive'] },
+          { title: 'Feature requirements', description: 'Define tracking features.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['features'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Workout flows', description: 'Design workout experience.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['workout'] },
+          { title: 'Progress tracking', description: 'Design tracking and analytics.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['tracking'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create fitness design system.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design-system'] },
+          { title: 'Dashboard UI', description: 'Design home and stats.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['ui'] },
+          { title: 'Workout UI', description: 'Design workout interface.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['ui'] },
+          { title: 'Progress UI', description: 'Design charts and progress.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['charts'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create workout flow prototype.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test with fitness users.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 74, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 78, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { healthFeatures: true },
+  },
+
+  // ==================== 26. FINANCE APP DESIGN ====================
+  {
+    name: 'Finance App Design',
+    slug: 'finance-app-design',
+    description: 'Design financial applications for banking, investing, or budgeting.',
+    category: 'design',
+    icon: 'DollarSign',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Finance Type', type: 'select', description: 'Type of finance app', options: ['Banking', 'Investing', 'Budgeting', 'Payments', 'Crypto', 'All-in-One'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'User research', description: 'Research financial user needs.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+          { title: 'Compliance review', description: 'Understand regulatory requirements.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['compliance'] },
+          { title: 'Competitive analysis', description: 'Analyze finance apps.', assigneeRole: 'member', dueOffset: 10, priority: 'medium', labels: ['competitive'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Transaction flows', description: 'Design money movement flows.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['transactions'] },
+          { title: 'Security UX', description: 'Design secure authentication.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['security'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create finance design system.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['design-system'] },
+          { title: 'Dashboard UI', description: 'Design account overview.', assigneeRole: 'member', dueOffset: 46, priority: 'high', labels: ['ui'] },
+          { title: 'Transaction UI', description: 'Design payment interfaces.', assigneeRole: 'member', dueOffset: 54, priority: 'high', labels: ['ui'] },
+          { title: 'Analytics UI', description: 'Design financial analytics.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['charts'] },
+        ]},
+        { name: 'Review', description: 'Feedback and compliance', tasks: [
+          { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['review'] },
+          { title: 'Compliance check', description: 'Verify regulatory compliance.', assigneeRole: 'lead', dueOffset: 68, priority: 'high', labels: ['compliance'] },
+          { title: 'Apply feedback', description: 'Iterate on designs.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['iteration'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { securityFocused: true },
+  },
+
+  // ==================== 27. HEALTHCARE APP DESIGN ====================
+  {
+    name: 'Healthcare App Design',
+    slug: 'healthcare-app-design',
+    description: 'Design healthcare and medical applications with patient-focused features.',
+    category: 'design',
+    icon: 'Heart',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Healthcare Type', type: 'select', description: 'Type of healthcare app', options: ['Telehealth', 'Patient Portal', 'Health Tracking', 'Mental Health', 'Medical Records'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'Patient research', description: 'Research patient needs.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+          { title: 'Provider research', description: 'Research healthcare provider needs.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['research'] },
+          { title: 'Compliance review', description: 'HIPAA and regulatory review.', assigneeRole: 'lead', dueOffset: 12, priority: 'high', labels: ['compliance'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Patient flows', description: 'Design patient journeys.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['patient'] },
+          { title: 'Accessibility design', description: 'Ensure accessibility compliance.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['a11y'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create healthcare design system.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['design-system'] },
+          { title: 'Patient UI', description: 'Design patient interfaces.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['ui'] },
+          { title: 'Provider UI', description: 'Design provider interfaces.', assigneeRole: 'member', dueOffset: 58, priority: 'high', labels: ['ui'] },
+        ]},
+        { name: 'Review', description: 'Compliance review', tasks: [
+          { title: 'Design review', description: 'Present designs for feedback.', assigneeRole: 'lead', dueOffset: 64, priority: 'high', labels: ['review'] },
+          { title: 'Compliance validation', description: 'Validate HIPAA compliance.', assigneeRole: 'lead', dueOffset: 68, priority: 'high', labels: ['compliance'] },
+          { title: 'Accessibility audit', description: 'Verify accessibility.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['a11y'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 75, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 77, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'review', 'handoff'] },
+    },
+    settings: { hipaaCompliant: true },
+  },
+
+  // ==================== 28. EDUCATION APP DESIGN ====================
+  {
+    name: 'Education App Design',
+    slug: 'education-app-design',
+    description: 'Design educational and learning applications with course and progress features.',
+    category: 'design',
+    icon: 'BookOpen',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Education Type', type: 'select', description: 'Type of education', options: ['K-12', 'Higher Education', 'Corporate Training', 'Language Learning', 'Skills Training'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'Learner research', description: 'Research student needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Instructor research', description: 'Research educator needs.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+          { title: 'Learning science review', description: 'Apply learning principles.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['learning'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Learning flows', description: 'Design learning journeys.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['learning'] },
+          { title: 'Progress tracking', description: 'Design progress and achievements.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['progress'] },
+          { title: 'Wireframes', description: 'Wireframe all screens.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['wireframes'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create education design system.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['design-system'] },
+          { title: 'Course UI', description: 'Design course interfaces.', assigneeRole: 'member', dueOffset: 46, priority: 'high', labels: ['ui'] },
+          { title: 'Assessment UI', description: 'Design quiz and test interfaces.', assigneeRole: 'member', dueOffset: 54, priority: 'high', labels: ['assessment'] },
+          { title: 'Dashboard UI', description: 'Design progress dashboards.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['ui'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create learning flow prototype.', assigneeRole: 'member', dueOffset: 66, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test with learners.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 80, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 82, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { learningFeatures: true },
+  },
+
+  // ==================== 29. TRAVEL APP DESIGN ====================
+  {
+    name: 'Travel App Design',
+    slug: 'travel-app-design',
+    description: 'Design travel and booking applications with search, booking, and trip management.',
+    category: 'design',
+    icon: 'Map',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Travel Type', type: 'select', description: 'Type of travel app', options: ['Flights', 'Hotels', 'Experiences', 'All-in-One', 'Business Travel'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'Traveler research', description: 'Research traveler needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Booking flows analysis', description: 'Analyze booking patterns.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['analysis'] },
+          { title: 'Competitive analysis', description: 'Analyze travel apps.', assigneeRole: 'member', dueOffset: 10, priority: 'medium', labels: ['competitive'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Search and discovery', description: 'Design search experience.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['search'] },
+          { title: 'Booking flow', description: 'Design booking process.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['booking'] },
+          { title: 'Trip management', description: 'Design trip organization.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['trips'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create travel design system.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design-system'] },
+          { title: 'Search UI', description: 'Design search interfaces.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['ui'] },
+          { title: 'Booking UI', description: 'Design booking flow.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['ui'] },
+          { title: 'Trip UI', description: 'Design trip screens.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['ui'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create booking flow prototype.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test with travelers.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 74, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 78, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { bookingFeatures: true },
+  },
+
+  // ==================== 30. FOOD DELIVERY DESIGN ====================
+  {
+    name: 'Food Delivery Design',
+    slug: 'food-delivery-design',
+    description: 'Design food delivery and ordering applications with menu and checkout features.',
+    category: 'design',
+    icon: 'ShoppingBag',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'ux', name: 'UX Design', order: 1, color: '#3B82F6' },
+      { id: 'ui', name: 'UI Design', order: 2, color: '#F59E0B' },
+      { id: 'prototype', name: 'Prototype', order: 3, color: '#8B5CF6' },
+      { id: 'handoff', name: 'Handoff', order: 4, color: '#10B981' },
+    ],
+    customFields: [{ name: 'Delivery Type', type: 'select', description: 'Type of food delivery', options: ['Restaurant Delivery', 'Grocery Delivery', 'Meal Kits', 'Quick Commerce'], isRequired: true }],
+    structure: {
+      sections: [
+        { name: 'Research', description: 'User research', tasks: [
+          { title: 'Customer research', description: 'Research ordering behaviors.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
+          { title: 'Restaurant research', description: 'Research merchant needs.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research'] },
+          { title: 'Competitive analysis', description: 'Analyze delivery apps.', assigneeRole: 'member', dueOffset: 10, priority: 'medium', labels: ['competitive'] },
+        ]},
+        { name: 'UX Design', description: 'Experience design', tasks: [
+          { title: 'Discovery flow', description: 'Design restaurant discovery.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['discovery'] },
+          { title: 'Ordering flow', description: 'Design menu and cart.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['ordering'] },
+          { title: 'Checkout flow', description: 'Design payment and tracking.', assigneeRole: 'member', dueOffset: 27, priority: 'high', labels: ['checkout'] },
+        ]},
+        { name: 'UI Design', description: 'Visual design', tasks: [
+          { title: 'Design system', description: 'Create food delivery design system.', assigneeRole: 'member', dueOffset: 34, priority: 'high', labels: ['design-system'] },
+          { title: 'Browse UI', description: 'Design discovery screens.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['ui'] },
+          { title: 'Menu UI', description: 'Design restaurant and menu.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['ui'] },
+          { title: 'Tracking UI', description: 'Design order tracking.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['tracking'] },
+        ]},
+        { name: 'Prototype', description: 'Interactive prototype', tasks: [
+          { title: 'Build prototype', description: 'Create ordering flow prototype.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['prototype'] },
+          { title: 'User testing', description: 'Test ordering experience.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['testing'] },
+        ]},
+        { name: 'Handoff', description: 'Developer handoff', tasks: [
+          { title: 'Prepare specs', description: 'Document specifications.', assigneeRole: 'member', dueOffset: 74, priority: 'high', labels: ['specs'] },
+          { title: 'Export assets', description: 'Export all assets.', assigneeRole: 'member', dueOffset: 76, priority: 'high', labels: ['assets'] },
+          { title: 'Developer handoff', description: 'Hand off to development.', assigneeRole: 'lead', dueOffset: 78, priority: 'high', labels: ['handoff'] },
+        ]},
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'ux', 'ui', 'prototype', 'handoff'] },
+    },
+    settings: { orderingFeatures: true },
+  },
+];

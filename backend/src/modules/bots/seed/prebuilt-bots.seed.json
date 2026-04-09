@@ -1,0 +1,48 @@
+[
+  {
+    "id": "calendar-event-bot",
+    "name": "calendar-event-bot",
+    "display_name": "Productivity Assistant",
+    "description": "Your personal productivity assistant that manages calendar events and project tasks. Sends reminders, handles updates, and responds to your productivity commands via direct messages.",
+    "avatar_url": "https://api.dicebear.com/7.x/bottts/svg?seed=calendar",
+    "bot_type": "prebuilt",
+    "status": "active",
+    "category": "productivity",
+    "features": [
+      "Automatic event reminders (15 minutes and 1 hour before)",
+      "Real-time event update notifications",
+      "Manage calendar events (reschedule, update location, cancel)",
+      "View and manage your projects and tasks",
+      "Update task status and details",
+      "View project members and task assignments",
+      "Natural language command processing"
+    ],
+    "settings": {
+      "default_reminder_intervals": [15, 60],
+      "notify_on_updates": true,
+      "can_modify_events": true,
+      "can_modify_tasks": true
+    },
+    "permissions": [
+      "read:calendar",
+      "write:calendar",
+      "read:projects",
+      "write:projects",
+      "read:tasks",
+      "write:tasks",
+      "send:messages"
+    ],
+    "is_public": true,
+    "setup_instructions": "Once activated, the Productivity Assistant will be available in your Direct Messages. Chat with it naturally to manage your calendar events, projects, and tasks.",
+    "usage_examples": [
+      "Show my events",
+      "What's on my calendar today?",
+      "Reschedule Team Meeting to 3pm tomorrow",
+      "Show my projects",
+      "What are my tasks?",
+      "Mark task as complete",
+      "Show tasks in Project Alpha",
+      "Update task priority to high"
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+# Deskive - Robots.txt
+# https://deskive.com
+
+User-agent: *
+
+# Allow all public pages
+Allow: /
+Allow: /pricing
+Allow: /downloads
+Allow: /support
+
+# Product pages
+Allow: /products/
+Allow: /products/chat
+Allow: /products/projects
+Allow: /products/files
+Allow: /products/calendar
+Allow: /products/notes
+Allow: /products/video-calls
+
+# Feature pages
+Allow: /features/
+Allow: /features/ai-chat
+Allow: /features/analytics
+Allow: /features/calendar
+Allow: /features/notes
+Allow: /features/teams
+Allow: /features/projects
+Allow: /features/video-calls
+Allow: /features/integrations
+Allow: /features/monitoring
+Allow: /features/automation
+
+# Blog
+Allow: /blog
+Allow: /blog/
+
+# Company pages
+Allow: /careers
+Allow: /press
+Allow: /changelog
+
+# Legal pages
+Allow: /privacy
+Allow: /terms
+Allow: /cookies
+Allow: /data-deletion
+
+# Disallow authentication pages (not useful for search)
+Disallow: /auth/
+Disallow: /auth/login
+Disallow: /auth/register
+Disallow: /auth/callback
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /verify-email
+Disallow: /invitation/
+
+# Disallow all workspace/internal pages (require authentication)
+Disallow: /workspaces/
+Disallow: /workspaces
+Disallow: /admin/
+Disallow: /admin
+Disallow: /create-workspace
+Disallow: /notifications
+
+# Disallow video call internal pages
+Disallow: /call/
+Disallow: /incoming-call
+Disallow: /video/meeting/
+
+# Disallow whiteboard (internal tool)
+Disallow: /whiteboard/
+Disallow: /whiteboard
+
+# Allow static assets
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$
+Allow: /*.ico$
+
+# Crawl-delay for polite crawling
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://deskive.com/sitemap.xml

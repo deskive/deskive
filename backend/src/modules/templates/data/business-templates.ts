@@ -1,0 +1,1272 @@
+/**
+ * Business & Operations Project Templates
+ * Pre-built templates for business planning, OKRs, process improvement, and operations
+ */
+
+export const BUSINESS_TEMPLATES = [
+  // ==================== 1. OKR PLANNING ====================
+  {
+    name: 'OKR Planning',
+    slug: 'okr-planning',
+    description:
+      'Quarterly OKR (Objectives and Key Results) planning template. Set company, team, and individual objectives with measurable key results.',
+    category: 'business',
+    icon: 'Target',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'drafting', name: 'Drafting', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Review', order: 1, color: '#3B82F6' },
+      { id: 'approved', name: 'Approved', order: 2, color: '#F59E0B' },
+      { id: 'in_progress', name: 'In Progress', order: 3, color: '#8B5CF6' },
+      { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Quarter',
+        type: 'select',
+        description: 'Planning quarter',
+        options: ['Q1', 'Q2', 'Q3', 'Q4'],
+        isRequired: true,
+      },
+      {
+        name: 'Level',
+        type: 'select',
+        description: 'OKR level',
+        options: ['Company', 'Department', 'Team', 'Individual'],
+        isRequired: true,
+      },
+      {
+        name: 'Progress',
+        type: 'select',
+        description: 'Current progress',
+        options: ['0-25%', '26-50%', '51-75%', '76-100%'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Planning Phase',
+          description: 'Set objectives and key results',
+          tasks: [
+            {
+              title: 'Review previous quarter OKRs',
+              description:
+                'Analyze outcomes and learnings from last quarter.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['review', 'planning'],
+              subtasks: [
+                { title: 'Score previous OKRs' },
+                { title: 'Document learnings' },
+                { title: 'Identify carry-over items' },
+              ],
+            },
+            {
+              title: 'Define company objectives',
+              description:
+                'Set 3-5 company-level objectives for the quarter.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['objectives', 'company'],
+            },
+            {
+              title: 'Define key results',
+              description:
+                'Create measurable key results for each objective.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['key-results', 'metrics'],
+            },
+            {
+              title: 'Cascade to departments',
+              description:
+                'Help departments align their OKRs to company OKRs.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['alignment', 'cascade'],
+            },
+            {
+              title: 'Team OKR workshops',
+              description:
+                'Facilitate team-level OKR setting sessions.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['workshops', 'teams'],
+            },
+          ],
+        },
+        {
+          name: 'Alignment & Approval',
+          description: 'Review and finalize OKRs',
+          tasks: [
+            {
+              title: 'Cross-team alignment review',
+              description:
+                'Ensure OKRs are aligned across teams.',
+              assigneeRole: 'lead',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['alignment', 'review'],
+            },
+            {
+              title: 'Leadership approval',
+              description:
+                'Get sign-off from leadership on final OKRs.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['approval', 'leadership'],
+            },
+            {
+              title: 'Publish OKRs',
+              description:
+                'Make OKRs visible to entire organization.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['communication', 'transparency'],
+            },
+            {
+              title: 'OKR kickoff communication',
+              description:
+                'Announce quarterly OKRs to the company.',
+              assigneeRole: 'lead',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['communication', 'kickoff'],
+            },
+          ],
+        },
+        {
+          name: 'Tracking & Check-ins',
+          description: 'Monitor progress throughout quarter',
+          tasks: [
+            {
+              title: 'Weekly check-in template',
+              description:
+                'Template for weekly OKR progress updates.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['tracking', 'weekly'],
+            },
+            {
+              title: 'Mid-quarter review',
+              description:
+                'Comprehensive progress review at quarter midpoint.',
+              assigneeRole: 'lead',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['review', 'midpoint'],
+              subtasks: [
+                { title: 'Collect progress updates' },
+                { title: 'Identify at-risk OKRs' },
+                { title: 'Adjust if needed' },
+              ],
+            },
+            {
+              title: 'Address blockers',
+              description:
+                'Track and resolve obstacles to OKR progress.',
+              assigneeRole: 'lead',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['blockers', 'support'],
+            },
+          ],
+        },
+        {
+          name: 'Quarter End',
+          description: 'Score and reflect',
+          tasks: [
+            {
+              title: 'Final scoring',
+              description:
+                'Score all OKRs and key results.',
+              assigneeRole: 'member',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['scoring', 'evaluation'],
+            },
+            {
+              title: 'Create retrospective report',
+              description:
+                'Document quarter outcomes and insights.',
+              assigneeRole: 'lead',
+              dueOffset: 88,
+              priority: 'high',
+              labels: ['retrospective', 'documentation'],
+            },
+            {
+              title: 'Share results company-wide',
+              description:
+                'Present OKR results to organization.',
+              assigneeRole: 'lead',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['communication', 'results'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['drafting', 'review', 'approved', 'in_progress', 'completed'],
+      },
+    },
+    settings: {
+      quarterlyRecurrence: true,
+      progressTracking: true,
+    },
+  },
+
+  // ==================== 2. BUSINESS PLAN ====================
+  {
+    name: 'Business Plan Development',
+    slug: 'business-plan-development',
+    description:
+      'Comprehensive business plan creation template. From market research to financial projections and executive summary.',
+    category: 'business',
+    icon: 'FileText',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'drafting', name: 'Drafting', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'finalization', name: 'Finalization', order: 3, color: '#8B5CF6' },
+      { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Business Type',
+        type: 'select',
+        description: 'Type of business',
+        options: ['Startup', 'Small Business', 'Enterprise', 'Non-profit'],
+        isRequired: false,
+      },
+      {
+        name: 'Purpose',
+        type: 'select',
+        description: 'Plan purpose',
+        options: ['Funding', 'Internal Planning', 'Partnership', 'Bank Loan'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research Phase',
+          description: 'Gather data and insights',
+          tasks: [
+            {
+              title: 'Market research',
+              description:
+                'Research target market size, trends, and dynamics.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'market'],
+              subtasks: [
+                { title: 'Market size analysis' },
+                { title: 'Industry trends' },
+                { title: 'Growth projections' },
+              ],
+            },
+            {
+              title: 'Competitor analysis',
+              description:
+                'Analyze competitive landscape and positioning.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
+            {
+              title: 'Customer research',
+              description:
+                'Define target customer segments and needs.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['research', 'customer'],
+            },
+            {
+              title: 'SWOT analysis',
+              description:
+                'Conduct strengths, weaknesses, opportunities, threats analysis.',
+              assigneeRole: 'lead',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['analysis', 'strategy'],
+            },
+          ],
+        },
+        {
+          name: 'Plan Sections',
+          description: 'Write each section of the plan',
+          tasks: [
+            {
+              title: 'Executive summary',
+              description:
+                'Write compelling executive summary (last to finalize).',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['writing', 'summary'],
+            },
+            {
+              title: 'Company description',
+              description:
+                'Describe company, mission, vision, and values.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['writing', 'company'],
+            },
+            {
+              title: 'Products/services description',
+              description:
+                'Detail offerings and value proposition.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['writing', 'products'],
+            },
+            {
+              title: 'Market analysis section',
+              description:
+                'Write up market research findings.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['writing', 'market'],
+            },
+            {
+              title: 'Marketing strategy',
+              description:
+                'Define go-to-market and marketing approach.',
+              assigneeRole: 'member',
+              dueOffset: 23,
+              priority: 'high',
+              labels: ['writing', 'marketing'],
+            },
+            {
+              title: 'Operations plan',
+              description:
+                'Describe operational model and processes.',
+              assigneeRole: 'member',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['writing', 'operations'],
+            },
+            {
+              title: 'Management team',
+              description:
+                'Present leadership team and structure.',
+              assigneeRole: 'member',
+              dueOffset: 27,
+              priority: 'medium',
+              labels: ['writing', 'team'],
+            },
+          ],
+        },
+        {
+          name: 'Financials',
+          description: 'Financial projections and analysis',
+          tasks: [
+            {
+              title: 'Revenue projections',
+              description:
+                'Create 3-5 year revenue forecasts.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['financials', 'projections'],
+            },
+            {
+              title: 'Expense budget',
+              description:
+                'Project operating expenses.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['financials', 'budget'],
+            },
+            {
+              title: 'Cash flow projections',
+              description:
+                'Create cash flow statements.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['financials', 'cash-flow'],
+            },
+            {
+              title: 'Break-even analysis',
+              description:
+                'Calculate break-even point.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['financials', 'analysis'],
+            },
+            {
+              title: 'Funding requirements',
+              description:
+                'Define funding needs and use of funds.',
+              assigneeRole: 'lead',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['financials', 'funding'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Finalization',
+          description: 'Polish and finalize the plan',
+          tasks: [
+            {
+              title: 'Internal review',
+              description:
+                'Review plan with team and stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['review', 'internal'],
+            },
+            {
+              title: 'Expert/advisor review',
+              description:
+                'Get feedback from advisors or mentors.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'medium',
+              labels: ['review', 'external'],
+            },
+            {
+              title: 'Incorporate feedback',
+              description:
+                'Revise plan based on feedback.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['revision', 'improvement'],
+            },
+            {
+              title: 'Design and formatting',
+              description:
+                'Professional formatting and design.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'medium',
+              labels: ['design', 'formatting'],
+            },
+            {
+              title: 'Final proofread',
+              description:
+                'Final review for errors and consistency.',
+              assigneeRole: 'lead',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['review', 'quality'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'drafting', 'review', 'finalization', 'completed'],
+      },
+    },
+    settings: {
+      templateDocument: true,
+      financialModeling: true,
+    },
+  },
+
+  // ==================== 3. PROCESS IMPROVEMENT ====================
+  {
+    name: 'Process Improvement',
+    slug: 'process-improvement',
+    description:
+      'Systematic process optimization using Lean/Six Sigma principles. Map, analyze, and improve business processes.',
+    category: 'business',
+    icon: 'GitBranch',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'define', name: 'Define', order: 0, color: '#6B7280' },
+      { id: 'measure', name: 'Measure', order: 1, color: '#3B82F6' },
+      { id: 'analyze', name: 'Analyze', order: 2, color: '#F59E0B' },
+      { id: 'improve', name: 'Improve', order: 3, color: '#8B5CF6' },
+      { id: 'control', name: 'Control', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Process Area',
+        type: 'select',
+        description: 'Area of improvement',
+        options: ['Sales', 'Operations', 'Customer Service', 'Finance', 'HR', 'IT', 'Manufacturing'],
+        isRequired: true,
+      },
+      {
+        name: 'Impact Level',
+        type: 'select',
+        description: 'Expected impact',
+        options: ['High', 'Medium', 'Low'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Define',
+          description: 'Define the problem and scope',
+          tasks: [
+            {
+              title: 'Identify process for improvement',
+              description:
+                'Select and scope the process to improve.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['define', 'scoping'],
+            },
+            {
+              title: 'Define problem statement',
+              description:
+                'Create clear problem statement and goals.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['define', 'problem'],
+            },
+            {
+              title: 'Identify stakeholders',
+              description:
+                'Map all process stakeholders.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['define', 'stakeholders'],
+            },
+            {
+              title: 'Create project charter',
+              description:
+                'Document scope, objectives, and team.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['define', 'charter'],
+            },
+          ],
+        },
+        {
+          name: 'Measure',
+          description: 'Measure current state',
+          tasks: [
+            {
+              title: 'Map current process',
+              description:
+                'Create as-is process map.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['measure', 'mapping'],
+              subtasks: [
+                { title: 'Document process steps' },
+                { title: 'Identify inputs and outputs' },
+                { title: 'Note decision points' },
+              ],
+            },
+            {
+              title: 'Collect baseline data',
+              description:
+                'Gather current performance metrics.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['measure', 'data'],
+            },
+            {
+              title: 'Identify KPIs',
+              description:
+                'Define metrics to track improvement.',
+              assigneeRole: 'lead',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['measure', 'kpis'],
+            },
+            {
+              title: 'Document pain points',
+              description:
+                'Gather feedback on current issues.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['measure', 'feedback'],
+            },
+          ],
+        },
+        {
+          name: 'Analyze',
+          description: 'Analyze root causes',
+          tasks: [
+            {
+              title: 'Root cause analysis',
+              description:
+                'Identify root causes of problems.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['analyze', 'root-cause'],
+              subtasks: [
+                { title: '5 Whys analysis' },
+                { title: 'Fishbone diagram' },
+                { title: 'Pareto analysis' },
+              ],
+            },
+            {
+              title: 'Data analysis',
+              description:
+                'Analyze collected data for patterns.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['analyze', 'data'],
+            },
+            {
+              title: 'Identify waste',
+              description:
+                'Find non-value-added activities.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['analyze', 'waste'],
+            },
+            {
+              title: 'Prioritize opportunities',
+              description:
+                'Rank improvement opportunities.',
+              assigneeRole: 'lead',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['analyze', 'prioritization'],
+            },
+          ],
+        },
+        {
+          name: 'Improve',
+          description: 'Implement improvements',
+          tasks: [
+            {
+              title: 'Design future state',
+              description:
+                'Create to-be process design.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['improve', 'design'],
+            },
+            {
+              title: 'Develop solutions',
+              description:
+                'Create detailed improvement solutions.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['improve', 'solutions'],
+            },
+            {
+              title: 'Pilot improvements',
+              description:
+                'Test solutions on small scale.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['improve', 'pilot'],
+            },
+            {
+              title: 'Refine and adjust',
+              description:
+                'Iterate based on pilot results.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['improve', 'iteration'],
+            },
+            {
+              title: 'Full implementation',
+              description:
+                'Roll out improvements organization-wide.',
+              assigneeRole: 'lead',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['improve', 'rollout'],
+            },
+          ],
+        },
+        {
+          name: 'Control',
+          description: 'Sustain improvements',
+          tasks: [
+            {
+              title: 'Create control plan',
+              description:
+                'Document how to maintain improvements.',
+              assigneeRole: 'lead',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['control', 'planning'],
+            },
+            {
+              title: 'Update documentation',
+              description:
+                'Update SOPs and process docs.',
+              assigneeRole: 'member',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['control', 'documentation'],
+            },
+            {
+              title: 'Train team members',
+              description:
+                'Train staff on new process.',
+              assigneeRole: 'member',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['control', 'training'],
+            },
+            {
+              title: 'Set up monitoring',
+              description:
+                'Establish ongoing monitoring and alerts.',
+              assigneeRole: 'member',
+              dueOffset: 68,
+              priority: 'high',
+              labels: ['control', 'monitoring'],
+            },
+            {
+              title: 'Project closeout',
+              description:
+                'Document results and lessons learned.',
+              assigneeRole: 'lead',
+              dueOffset: 75,
+              priority: 'medium',
+              labels: ['control', 'closeout'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['define', 'measure', 'analyze', 'improve', 'control'],
+      },
+    },
+    settings: {
+      dmaicFramework: true,
+      metricsTracking: true,
+    },
+  },
+
+  // ==================== 4. VENDOR EVALUATION ====================
+  {
+    name: 'Vendor Evaluation',
+    slug: 'vendor-evaluation',
+    description:
+      'Structured vendor/supplier selection process. From requirements to final selection and contract negotiation.',
+    category: 'business',
+    icon: 'Briefcase',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'requirements', name: 'Requirements', order: 0, color: '#6B7280' },
+      { id: 'research', name: 'Research', order: 1, color: '#3B82F6' },
+      { id: 'evaluation', name: 'Evaluation', order: 2, color: '#F59E0B' },
+      { id: 'selection', name: 'Selection', order: 3, color: '#8B5CF6' },
+      { id: 'contract', name: 'Contract', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Category',
+        type: 'select',
+        description: 'Vendor category',
+        options: ['Software', 'Services', 'Manufacturing', 'Consulting', 'Equipment'],
+        isRequired: true,
+      },
+      {
+        name: 'Budget Range',
+        type: 'text',
+        description: 'Estimated budget',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Requirements Definition',
+          description: 'Define what you need',
+          tasks: [
+            {
+              title: 'Gather requirements',
+              description:
+                'Document all requirements from stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['requirements', 'gathering'],
+            },
+            {
+              title: 'Prioritize requirements',
+              description:
+                'Classify as must-have vs nice-to-have.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['requirements', 'prioritization'],
+            },
+            {
+              title: 'Create evaluation criteria',
+              description:
+                'Define scoring criteria and weights.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['criteria', 'scoring'],
+            },
+            {
+              title: 'Set budget and timeline',
+              description:
+                'Define budget constraints and timeline.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['budget', 'timeline'],
+            },
+          ],
+        },
+        {
+          name: 'Vendor Research',
+          description: 'Find potential vendors',
+          tasks: [
+            {
+              title: 'Market research',
+              description:
+                'Research available vendors in the market.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['research', 'market'],
+            },
+            {
+              title: 'Create long list',
+              description:
+                'Compile initial list of potential vendors.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['research', 'vendors'],
+            },
+            {
+              title: 'Send RFI/RFP',
+              description:
+                'Send request for information/proposal.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['rfp', 'outreach'],
+            },
+            {
+              title: 'Shortlist vendors',
+              description:
+                'Narrow down to 3-5 vendors for evaluation.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['research', 'shortlist'],
+            },
+          ],
+        },
+        {
+          name: 'Evaluation',
+          description: 'Evaluate shortlisted vendors',
+          tasks: [
+            {
+              title: 'Vendor demos',
+              description:
+                'Schedule and attend vendor demonstrations.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['evaluation', 'demos'],
+            },
+            {
+              title: 'Reference checks',
+              description:
+                'Contact vendor references.',
+              assigneeRole: 'member',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['evaluation', 'references'],
+            },
+            {
+              title: 'Technical evaluation',
+              description:
+                'Assess technical capabilities.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['evaluation', 'technical'],
+            },
+            {
+              title: 'Security and compliance review',
+              description:
+                'Review security and compliance posture.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['evaluation', 'security'],
+            },
+            {
+              title: 'Score vendors',
+              description:
+                'Complete scoring for all vendors.',
+              assigneeRole: 'lead',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['evaluation', 'scoring'],
+            },
+          ],
+        },
+        {
+          name: 'Selection & Contract',
+          description: 'Select and contract',
+          tasks: [
+            {
+              title: 'Selection decision',
+              description:
+                'Make final vendor selection.',
+              assigneeRole: 'lead',
+              dueOffset: 48,
+              priority: 'high',
+              labels: ['selection', 'decision'],
+            },
+            {
+              title: 'Negotiate terms',
+              description:
+                'Negotiate contract terms and pricing.',
+              assigneeRole: 'lead',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['negotiation', 'contract'],
+            },
+            {
+              title: 'Legal review',
+              description:
+                'Have legal review contract.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['legal', 'review'],
+            },
+            {
+              title: 'Sign contract',
+              description:
+                'Execute final agreement.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['contract', 'signing'],
+            },
+            {
+              title: 'Notify unsuccessful vendors',
+              description:
+                'Communicate decision to other vendors.',
+              assigneeRole: 'member',
+              dueOffset: 65,
+              priority: 'medium',
+              labels: ['communication', 'closure'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['requirements', 'research', 'evaluation', 'selection', 'contract'],
+      },
+    },
+    settings: {
+      scoringMatrix: true,
+      complianceRequired: true,
+    },
+  },
+
+  // ==================== 5. BUDGET PLANNING ====================
+  {
+    name: 'Annual Budget Planning',
+    slug: 'annual-budget-planning',
+    description:
+      'Comprehensive annual budget planning template. From department requests to final approval and tracking.',
+    category: 'business',
+    icon: 'DollarSign',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'preparation', name: 'Preparation', order: 0, color: '#6B7280' },
+      { id: 'collection', name: 'Collection', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'approval', name: 'Approval', order: 3, color: '#8B5CF6' },
+      { id: 'finalized', name: 'Finalized', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Fiscal Year',
+        type: 'text',
+        description: 'Budget year',
+        isRequired: true,
+      },
+      {
+        name: 'Department',
+        type: 'select',
+        description: 'Department',
+        options: ['Company-wide', 'Engineering', 'Marketing', 'Sales', 'Operations', 'Finance', 'HR'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Preparation',
+          description: 'Setup budget process',
+          tasks: [
+            {
+              title: 'Set budget timeline',
+              description:
+                'Define key dates for budget process.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['preparation', 'timeline'],
+            },
+            {
+              title: 'Prepare templates',
+              description:
+                'Create budget submission templates.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['preparation', 'templates'],
+            },
+            {
+              title: 'Set guidelines',
+              description:
+                'Define budget guidelines and assumptions.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['preparation', 'guidelines'],
+            },
+            {
+              title: 'Kick off meeting',
+              description:
+                'Brief department heads on process.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['preparation', 'communication'],
+            },
+          ],
+        },
+        {
+          name: 'Budget Collection',
+          description: 'Gather department budgets',
+          tasks: [
+            {
+              title: 'Distribute templates',
+              description:
+                'Send templates to all departments.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['collection', 'distribution'],
+            },
+            {
+              title: 'Department submissions',
+              description:
+                'Collect budget submissions from all departments.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['collection', 'submissions'],
+            },
+            {
+              title: 'Follow up on late submissions',
+              description:
+                'Chase any outstanding submissions.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['collection', 'follow-up'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Consolidation',
+          description: 'Review and consolidate',
+          tasks: [
+            {
+              title: 'Initial review',
+              description:
+                'Review all submissions for completeness.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['review', 'validation'],
+            },
+            {
+              title: 'Consolidate budgets',
+              description:
+                'Roll up to company-wide budget.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['review', 'consolidation'],
+            },
+            {
+              title: 'Identify gaps/issues',
+              description:
+                'Flag any concerns or over-budget areas.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['review', 'analysis'],
+            },
+            {
+              title: 'Department meetings',
+              description:
+                'Meet with departments to discuss submissions.',
+              assigneeRole: 'lead',
+              dueOffset: 48,
+              priority: 'high',
+              labels: ['review', 'meetings'],
+            },
+            {
+              title: 'Make adjustments',
+              description:
+                'Revise budgets based on discussions.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['review', 'adjustments'],
+            },
+          ],
+        },
+        {
+          name: 'Approval',
+          description: 'Get final approval',
+          tasks: [
+            {
+              title: 'Prepare presentation',
+              description:
+                'Create budget presentation for leadership.',
+              assigneeRole: 'lead',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['approval', 'presentation'],
+            },
+            {
+              title: 'Leadership review',
+              description:
+                'Present to executive team.',
+              assigneeRole: 'lead',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['approval', 'leadership'],
+            },
+            {
+              title: 'Board approval',
+              description:
+                'Get board approval if required.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['approval', 'board'],
+            },
+            {
+              title: 'Final revisions',
+              description:
+                'Incorporate any final changes.',
+              assigneeRole: 'member',
+              dueOffset: 68,
+              priority: 'high',
+              labels: ['approval', 'revisions'],
+            },
+          ],
+        },
+        {
+          name: 'Finalization',
+          description: 'Finalize and communicate',
+          tasks: [
+            {
+              title: 'Finalize budget',
+              description:
+                'Lock in final approved budget.',
+              assigneeRole: 'lead',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['finalization', 'lock'],
+            },
+            {
+              title: 'Load into systems',
+              description:
+                'Enter budget into financial systems.',
+              assigneeRole: 'member',
+              dueOffset: 72,
+              priority: 'high',
+              labels: ['finalization', 'systems'],
+            },
+            {
+              title: 'Communicate to organization',
+              description:
+                'Share approved budget with departments.',
+              assigneeRole: 'lead',
+              dueOffset: 74,
+              priority: 'high',
+              labels: ['finalization', 'communication'],
+            },
+            {
+              title: 'Setup tracking',
+              description:
+                'Configure budget vs actual tracking.',
+              assigneeRole: 'member',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['finalization', 'tracking'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['preparation', 'collection', 'review', 'approval', 'finalized'],
+      },
+    },
+    settings: {
+      annualProcess: true,
+      trackingRequired: true,
+    },
+  },
+];

@@ -1,0 +1,54 @@
+{
+  "action": "create_task",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "creates task successfully",
+      "input": {
+        "name": "New Task",
+        "notes": "Task description"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 200,
+        "response": {
+          "data": {
+            "gid": "task-123",
+            "name": "New Task",
+            "notes": "Task description",
+            "permalink_url": "https://app.asana.com/0/task-123"
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "gid": "task-123",
+          "name": "New Task"
+        }
+      }
+    },
+    {
+      "name": "handles validation error",
+      "input": {
+        "name": ""
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/tasks",
+        "status": 400,
+        "response": {
+          "errors": [
+            {
+              "message": "name: Missing required field"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

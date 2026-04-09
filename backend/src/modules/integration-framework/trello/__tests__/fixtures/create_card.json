@@ -1,0 +1,30 @@
+{
+  "action": "create_card",
+  "baseUrl": "https://api.trello.com/1",
+  "testCases": [
+    {
+      "name": "creates card successfully",
+      "input": {
+        "name": "New Card",
+        "desc": "Card description"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/cards",
+        "status": 200,
+        "response": {
+          "id": "card-123",
+          "name": "New Card",
+          "desc": "Card description"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "card-123",
+          "name": "New Card"
+        }
+      }
+    }
+  ]
+}

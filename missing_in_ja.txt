@@ -1,0 +1,4206 @@
+================================================================================
+COMPLETE LIST OF KEYS MISSING IN ja.json
+================================================================================
+
+Total: 2099 keys
+
+1. common.confirm
+   en.json: "Confirm"
+2. navigation.bots
+   en.json: "Bots"
+3. modules.chat.startConversation.selectMembers
+   en.json: "Select members"
+4. modules.calendar.googleCalendar
+   en.json: {...} (18 keys)
+5. modules.calendar.googleCalendar.title
+   en.json: "Google Calendar"
+6. modules.calendar.googleCalendar.loading
+   en.json: "Checking connection..."
+7. modules.calendar.googleCalendar.connected
+   en.json: "Connected"
+8. modules.calendar.googleCalendar.notConnected
+   en.json: "Not connected"
+9. modules.calendar.googleCalendar.connectDescription
+   en.json: "Sync events from your Google Calendar to see them here."
+10. modules.calendar.googleCalendar.connect
+   en.json: "Connect Google Calendar"
+11. modules.calendar.googleCalendar.disconnect
+   en.json: "Disconnect"
+12. modules.calendar.googleCalendar.disconnectTitle
+   en.json: "Disconnect Google Calendar"
+13. modules.calendar.googleCalendar.disconnectDescription
+   en.json: "This will remove all synced events from your calendar. This action cannot be undone."
+14. modules.calendar.googleCalendar.sync
+   en.json: "Sync Now"
+15. modules.calendar.googleCalendar.lastSynced
+   en.json: "Last synced: {time}"
+16. modules.calendar.googleCalendar.connectedSuccess
+   en.json: "Google Calendar connected successfully!"
+17. modules.calendar.googleCalendar.connectedError
+   en.json: "Failed to connect Google Calendar."
+18. modules.calendar.googleCalendar.disconnectSuccess
+   en.json: "Google Calendar disconnected."
+19. modules.calendar.googleCalendar.disconnectError
+   en.json: "Failed to disconnect Google Calendar."
+20. modules.calendar.googleCalendar.syncSuccess
+   en.json: "Synced {synced} events, removed {deleted} events."
+21. modules.calendar.googleCalendar.syncError
+   en.json: "Failed to sync Google Calendar."
+22. modules.calendar.googleCalendar.connectError
+   en.json: "Failed to start Google Calendar connection."
+23. modules.notes.editor
+   en.json: {...} (55 keys)
+24. modules.notes.editor.untitled
+   en.json: "Untitled"
+25. modules.notes.editor.saving
+   en.json: "Saving..."
+26. modules.notes.editor.saved
+   en.json: "Saved"
+27. modules.notes.editor.moreActions
+   en.json: "More actions"
+28. modules.notes.editor.duplicate
+   en.json: "Duplicate"
+29. modules.notes.editor.share
+   en.json: "Share"
+30. modules.notes.editor.archive
+   en.json: "Archive"
+31. modules.notes.editor.delete
+   en.json: "Delete"
+32. modules.notes.editor.restore
+   en.json: "Restore"
+33. modules.notes.editor.permanentlyDelete
+   en.json: "Permanently Delete"
+34. modules.notes.editor.charsSelected
+   en.json: "{count} chars selected"
+35. modules.notes.editor.charactersCount
+   en.json: "{count} characters"
+36. modules.notes.editor.loadingEditor
+   en.json: "Loading editor..."
+37. modules.notes.editor.generatingSummary
+   en.json: "Generating Summary"
+38. modules.notes.editor.analyzingContent
+   en.json: "AI is analyzing your content..."
+39. modules.notes.editor.processingText
+   en.json: "Processing Text"
+40. modules.notes.editor.improvingContent
+   en.json: "AI is improving your content..."
+41. modules.notes.editor.startWriting
+   en.json: "Start writing..."
+42. modules.notes.editor.aiGeneratedSummary
+   en.json: "AI Generated Summary"
+43. modules.notes.editor.replaceWithSummary
+   en.json: "Replace Content with Summary"
+44. modules.notes.editor.dismiss
+   en.json: "Dismiss"
+45. modules.notes.editor.aiImprovedWriting
+   en.json: "AI Improved Writing"
+46. modules.notes.editor.aiGrammarCorrection
+   en.json: "AI Grammar Correction"
+47. modules.notes.editor.aiExpandedContent
+   en.json: "AI Expanded Content"
+48. modules.notes.editor.aiCondensedContent
+   en.json: "AI Condensed Content"
+49. modules.notes.editor.replaceWithImproved
+   en.json: "Replace Content with Improved Text"
+50. modules.notes.editor.replaceWithCorrected
+   en.json: "Replace Content with Corrected Text"
+51. modules.notes.editor.replaceWithExpanded
+   en.json: "Replace Content with Expanded Text"
+52. modules.notes.editor.replaceWithCondensed
+   en.json: "Replace Content with Condensed Text"
+53. modules.notes.editor.attachments
+   en.json: "Attachments"
+54. modules.notes.editor.noContent
+   en.json: "No content"
+55. modules.notes.editor.noTextToTranslate
+   en.json: "There is no text to translate."
+56. modules.notes.editor.contentTranslated
+   en.json: "Content Translated"
+57. modules.notes.editor.translatedAndSaved
+   en.json: "Note content has been translated to {language} and saved."
+58. modules.notes.editor.translationSavedLocally
+   en.json: "Translation saved locally"
+59. modules.notes.editor.translatedNotSaved
+   en.json: "Content was translated but could not be saved to server. Please save manually."
+60. modules.notes.editor.translationResult
+   en.json: "Translation Result"
+61. modules.notes.editor.translationFailed
+   en.json: "Translation Failed"
+62. modules.notes.editor.noTextToSummarize
+   en.json: "There is no text to summarize."
+63. modules.notes.editor.summarizationFailed
+   en.json: "Summarization Failed"
+64. modules.notes.editor.contentReplaced
+   en.json: "Content Replaced"
+65. modules.notes.editor.replacedWithSummary
+   en.json: "Note content has been replaced with the summary and saved."
+66. modules.notes.editor.failedToSave
+   en.json: "Failed to save"
+67. modules.notes.editor.replacedNotSaved
+   en.json: "Content was replaced but could not be saved. Please try again."
+68. modules.notes.editor.noTextToImprove
+   en.json: "There is no text to improve."
+69. modules.notes.editor.improveFailed
+   en.json: "{action} Failed"
+70. modules.notes.editor.replacedAndSaved
+   en.json: "Note content has been {action} and saved."
+71. modules.notes.editor.improved
+   en.json: "improved"
+72. modules.notes.editor.corrected
+   en.json: "corrected"
+73. modules.notes.editor.expanded
+   en.json: "expanded"
+74. modules.notes.editor.condensed
+   en.json: "condensed"
+75. modules.notes.editor.attachmentAdded
+   en.json: "Attachment added"
+76. modules.notes.editor.attachedToNote
+   en.json: "{title} has been attached to this note."
+77. modules.notes.editor.attachmentRemoved
+   en.json: "Attachment removed"
+78. modules.notes.editor.removedFromNote
+   en.json: "The attachment has been removed from this note."
+79. modules.notes.creator
+   en.json: {...} (5 keys)
+80. modules.notes.creator.untitled
+   en.json: "Untitled"
+81. modules.notes.creator.creatingNote
+   en.json: "Creating note..."
+82. modules.notes.creator.noteCreatedAutoSaving
+   en.json: "Note created. Auto-saving as you type..."
+83. modules.notes.creator.startWriting
+   en.json: "Start writing..."
+84. modules.notes.creator.loadingEditor
+   en.json: "Loading editor..."
+85. modules.notes.createModal
+   en.json: {...} (22 keys)
+86. modules.notes.createModal.createNewNote
+   en.json: "Create New Note"
+87. modules.notes.createModal.icon
+   en.json: "Icon"
+88. modules.notes.createModal.category
+   en.json: "Category"
+89. modules.notes.createModal.selectCategory
+   en.json: "Select a category"
+90. modules.notes.createModal.work
+   en.json: "Work"
+91. modules.notes.createModal.personal
+   en.json: "Personal"
+92. modules.notes.createModal.study
+   en.json: "Study"
+93. modules.notes.createModal.project
+   en.json: "Project"
+94. modules.notes.createModal.meeting
+   en.json: "Meeting"
+95. modules.notes.createModal.subcategory
+   en.json: "Subcategory"
+96. modules.notes.createModal.subcategoryPlaceholder
+   en.json: "e.g. JavaScript, React, Node.js"
+97. modules.notes.createModal.keywords
+   en.json: "Keywords"
+98. modules.notes.createModal.keywordsPlaceholder
+   en.json: "Separate tags with commas"
+99. modules.notes.createModal.keywordsHelper
+   en.json: "e.g. frontend, tutorial, important"
+100. modules.notes.createModal.title
+   en.json: "Title"
+101. modules.notes.createModal.titleRequired
+   en.json: "Title *"
+102. modules.notes.createModal.titlePlaceholder
+   en.json: "Enter note title..."
+103. modules.notes.createModal.description
+   en.json: "Description"
+104. modules.notes.createModal.descriptionPlaceholder
+   en.json: "Write your note content here..."
+105. modules.notes.createModal.clear
+   en.json: "Clear"
+106. modules.notes.createModal.creating
+   en.json: "Creating..."
+107. modules.notes.createModal.createNote
+   en.json: "Create Note"
+108. modules.notes.aiFeatures
+   en.json: {...} (21 keys)
+109. modules.notes.aiFeatures.aiTranslation
+   en.json: "AI Translation"
+110. modules.notes.aiFeatures.translateTo
+   en.json: "Translate to:"
+111. modules.notes.aiFeatures.textToTranslate
+   en.json: "Text to translate"
+112. modules.notes.aiFeatures.textPlaceholder
+   en.json: "Enter or paste the text you want to translate..."
+113. modules.notes.aiFeatures.translating
+   en.json: "Translating..."
+114. modules.notes.aiFeatures.translate
+   en.json: "Translate"
+115. modules.notes.aiFeatures.translationResult
+   en.json: "Translation Result"
+116. modules.notes.aiFeatures.copy
+   en.json: "Copy"
+117. modules.notes.aiFeatures.aiWritingAssistant
+   en.json: "AI Writing Assistant"
+118. modules.notes.aiFeatures.quickActions
+   en.json: "Quick Actions"
+119. modules.notes.aiFeatures.summarizeContent
+   en.json: "Summarize content"
+120. modules.notes.aiFeatures.createBulletPoints
+   en.json: "Create bullet points"
+121. modules.notes.aiFeatures.improveWriting
+   en.json: "Improve writing"
+122. modules.notes.aiFeatures.addMoreDetails
+   en.json: "Add more details"
+123. modules.notes.aiFeatures.generateIdeas
+   en.json: "Generate ideas"
+124. modules.notes.aiFeatures.createOutline
+   en.json: "Create outline"
+125. modules.notes.aiFeatures.customPrompt
+   en.json: "Custom Prompt"
+126. modules.notes.aiFeatures.promptPlaceholder
+   en.json: "Ask the AI to help with your content..."
+127. modules.notes.aiFeatures.processing
+   en.json: "Processing..."
+128. modules.notes.aiFeatures.askAI
+   en.json: "Ask AI"
+129. modules.notes.aiFeatures.aiResponse
+   en.json: "AI Response"
+130. modules.notes.aiToolsMenu
+   en.json: {...} (11 keys)
+131. modules.notes.aiToolsMenu.aiTools
+   en.json: "AI Tools"
+132. modules.notes.aiToolsMenu.translateText
+   en.json: "Translate Text"
+133. modules.notes.aiToolsMenu.translate
+   en.json: "Translate"
+134. modules.notes.aiToolsMenu.selectLanguage
+   en.json: "Select Language"
+135. modules.notes.aiToolsMenu.aiActions
+   en.json: "AI Actions"
+136. modules.notes.aiToolsMenu.summarizeText
+   en.json: "Summarize Text"
+137. modules.notes.aiToolsMenu.improveWriting
+   en.json: "Improve Writing"
+138. modules.notes.aiToolsMenu.fixGrammar
+   en.json: "Fix Grammar & Spelling"
+139. modules.notes.aiToolsMenu.makeLonger
+   en.json: "Make Longer"
+140. modules.notes.aiToolsMenu.makeShorter
+   en.json: "Make Shorter"
+141. modules.notes.aiToolsMenu.charactersSelected
+   en.json: "{count} characters selected"
+142. modules.notes.shareModal
+   en.json: {...} (15 keys)
+143. modules.notes.shareModal.shareNote
+   en.json: "Share "{title}""
+144. modules.notes.shareModal.shareWithMembers
+   en.json: "Share this note with workspace members"
+145. modules.notes.shareModal.searchMembers
+   en.json: "Search members..."
+146. modules.notes.shareModal.loadingMembers
+   en.json: "Loading members..."
+147. modules.notes.shareModal.noMembersFound
+   en.json: "No members found"
+148. modules.notes.shareModal.membersSelected
+   en.json: "{count} member selected"
+149. modules.notes.shareModal.membersSelectedPlural
+   en.json: "{count} members selected"
+150. modules.notes.shareModal.cancel
+   en.json: "Cancel"
+151. modules.notes.shareModal.sharing
+   en.json: "Sharing..."
+152. modules.notes.shareModal.share
+   en.json: "Share"
+153. modules.notes.shareModal.noMemberSelected
+   en.json: "Please select at least one member to share with"
+154. modules.notes.shareModal.workspaceNotFound
+   en.json: "Workspace not found"
+155. modules.notes.shareModal.sharedSuccess
+   en.json: "Successfully shared "{title}" with {count} member"
+156. modules.notes.shareModal.sharedSuccessPlural
+   en.json: "Successfully shared "{title}" with {count} members"
+157. modules.notes.shareModal.shareFailed
+   en.json: "Failed to share note. Please try again."
+158. modules.notes.mergeDialog
+   en.json: {...} (18 keys)
+159. modules.notes.mergeDialog.mergeNotes
+   en.json: "Merge Notes"
+160. modules.notes.mergeDialog.description
+   en.json: "Combine {count} selected notes into a single note. Choose how you want to merge them."
+161. modules.notes.mergeDialog.notesToMerge
+   en.json: "Notes to merge"
+162. modules.notes.mergeDialog.blocks
+   en.json: "blocks"
+163. modules.notes.mergeDialog.mergeOptions
+   en.json: "Merge options"
+164. modules.notes.mergeDialog.includeHeaders
+   en.json: "Include note headers and metadata"
+165. modules.notes.mergeDialog.addDividers
+   en.json: "Add dividers between notes"
+166. modules.notes.mergeDialog.sortByDate
+   en.json: "Sort by creation date (oldest first)"
+167. modules.notes.mergeDialog.customTitle
+   en.json: "Custom title (optional)"
+168. modules.notes.mergeDialog.titlePlaceholder
+   en.json: "Merged Note ({count} notes)"
+169. modules.notes.mergeDialog.mergeSummary
+   en.json: "Merge Summary"
+170. modules.notes.mergeDialog.totalBlocks
+   en.json: "Total content blocks:"
+171. modules.notes.mergeDialog.uniqueTags
+   en.json: "Unique tags:"
+172. modules.notes.mergeDialog.tagsToInclude
+   en.json: "Tags to include:"
+173. modules.notes.mergeDialog.moreCount
+   en.json: "+{count} more"
+174. modules.notes.mergeDialog.cancel
+   en.json: "Cancel"
+175. modules.notes.mergeDialog.merge
+   en.json: "Merge Notes"
+176. modules.notes.mergeDialog.invalidDate
+   en.json: "Invalid date"
+177. modules.notes.bulkActions
+   en.json: {...} (9 keys)
+178. modules.notes.bulkActions.selected
+   en.json: "{count} selected"
+179. modules.notes.bulkActions.restore
+   en.json: "Restore ({count})"
+180. modules.notes.bulkActions.deletePermanently
+   en.json: "Delete Permanently"
+181. modules.notes.bulkActions.favorite
+   en.json: "Favorite"
+182. modules.notes.bulkActions.unfavorite
+   en.json: "Unfavorite"
+183. modules.notes.bulkActions.archive
+   en.json: "Archive"
+184. modules.notes.bulkActions.unarchive
+   en.json: "Unarchive"
+185. modules.notes.bulkActions.merge
+   en.json: "Merge"
+186. modules.notes.bulkActions.moveToTrash
+   en.json: "Move to Trash"
+187. modules.notes.notesView
+   en.json: {...} (29 keys)
+188. modules.notes.notesView.loadingNote
+   en.json: "Loading note..."
+189. modules.notes.notesView.loadingNotes
+   en.json: "Loading notes..."
+190. modules.notes.notesView.errorLoading
+   en.json: "Error loading notes"
+191. modules.notes.notesView.getStarted
+   en.json: "Get started with Notes"
+192. modules.notes.notesView.getStartedDescription
+   en.json: "Create your first note to capture ideas, take meeting notes, or write documentation."
+193. modules.notes.notesView.newNote
+   en.json: "New Note"
+194. modules.notes.notesView.import
+   en.json: "Import"
+195. modules.notes.notesView.noWorkspace
+   en.json: "No workspace selected"
+196. modules.notes.notesView.noNoteSelected
+   en.json: "No note selected"
+197. modules.notes.notesView.success
+   en.json: "Success"
+198. modules.notes.notesView.error
+   en.json: "Error"
+199. modules.notes.notesView.notesDeleted
+   en.json: "{count} notes permanently deleted"
+200. modules.notes.notesView.notesMovedToTrash
+   en.json: "{count} notes moved to trash"
+201. modules.notes.notesView.notesArchived
+   en.json: "{count} notes archived"
+202. modules.notes.notesView.failedArchive
+   en.json: "Failed to archive notes. Please try again."
+203. modules.notes.notesView.notesUnarchived
+   en.json: "{count} notes unarchived"
+204. modules.notes.notesView.failedUnarchive
+   en.json: "Failed to unarchive notes. Please try again."
+205. modules.notes.notesView.addedToFavorites
+   en.json: "{count} notes added to favorites"
+206. modules.notes.notesView.removedFromFavorites
+   en.json: "{count} notes removed from favorites"
+207. modules.notes.notesView.notesRestored
+   en.json: "{count} notes restored"
+208. modules.notes.notesView.failedAction
+   en.json: "Failed to {action} notes. Please try again."
+209. modules.notes.notesView.notesMerged
+   en.json: "Successfully merged {count} notes"
+210. modules.notes.notesView.needTwoNotes
+   en.json: "Need at least 2 notes to merge"
+211. modules.notes.notesView.noteDuplicated
+   en.json: "Note duplicated successfully"
+212. modules.notes.notesView.failedDuplicate
+   en.json: "Failed to duplicate note. Please try again."
+213. modules.notes.notesView.noteCreatedSuccess
+   en.json: "Note created successfully"
+214. modules.notes.notesView.failedCreateNote
+   en.json: "Failed to create note. Please try again."
+215. modules.notes.notesView.errorLoadingNote
+   en.json: "Error loading note"
+216. modules.notes.notesView.failedLoadNote
+   en.json: "Failed to load note. Please try again."
+217. modules.notes.sidebar
+   en.json: {...} (23 keys)
+218. modules.notes.sidebar.notes
+   en.json: "Notes"
+219. modules.notes.sidebar.searchNotes
+   en.json: "Search notes..."
+220. modules.notes.sidebar.newNote
+   en.json: "New Note"
+221. modules.notes.sidebar.notesSection
+   en.json: "Notes"
+222. modules.notes.sidebar.archivedSection
+   en.json: "Archived"
+223. modules.notes.sidebar.trashSection
+   en.json: "Trash"
+224. modules.notes.sidebar.noNotesYet
+   en.json: "No notes yet"
+225. modules.notes.sidebar.createFirstNote
+   en.json: "Create your first note to get started"
+226. modules.notes.sidebar.archived
+   en.json: "Archived"
+227. modules.notes.sidebar.trash
+   en.json: "Trash"
+228. modules.notes.sidebar.treeView
+   en.json: "Tree View"
+229. modules.notes.sidebar.listView
+   en.json: "List View"
+230. modules.notes.sidebar.gridView
+   en.json: "Grid View"
+231. modules.notes.sidebar.unfavorite
+   en.json: "Unfavorite"
+232. modules.notes.sidebar.favorite
+   en.json: "Favorite"
+233. modules.notes.sidebar.duplicate
+   en.json: "Duplicate"
+234. modules.notes.sidebar.share
+   en.json: "Share"
+235. modules.notes.sidebar.archive
+   en.json: "Archive"
+236. modules.notes.sidebar.unarchive
+   en.json: "Unarchive"
+237. modules.notes.sidebar.restore
+   en.json: "Restore"
+238. modules.notes.sidebar.deletePermanently
+   en.json: "Delete Permanently"
+239. modules.notes.sidebar.moveToTrash
+   en.json: "Move to Trash"
+240. modules.notes.sidebar.untitled
+   en.json: "Untitled"
+241. modules.integrations.title
+   en.json: "Integrations"
+242. modules.integrations.description
+   en.json: "Connect your favorite tools and services"
+243. modules.integrations.marketplace
+   en.json: "Marketplace"
+244. modules.integrations.installed
+   en.json: "Installed"
+245. modules.integrations.category
+   en.json: {...} (34 keys)
+246. modules.integrations.category.communication
+   en.json: "Communication"
+247. modules.integrations.category.communicationDesc
+   en.json: "Chat, messaging, and team communication tools"
+248. modules.integrations.category.projectManagement
+   en.json: "Project Management"
+249. modules.integrations.category.projectManagementDesc
+   en.json: "Task tracking, project planning, and team coordination"
+250. modules.integrations.category.fileStorage
+   en.json: "File Storage"
+251. modules.integrations.category.fileStorageDesc
+   en.json: "Cloud storage and file sharing services"
+252. modules.integrations.category.calendar
+   en.json: "Calendar"
+253. modules.integrations.category.calendarDesc
+   en.json: "Scheduling, meetings, and time management"
+254. modules.integrations.category.development
+   en.json: "Development"
+255. modules.integrations.category.developmentDesc
+   en.json: "Developer tools and CI/CD platforms"
+256. modules.integrations.category.crm
+   en.json: "CRM"
+257. modules.integrations.category.crmDesc
+   en.json: "Customer relationship management systems"
+258. modules.integrations.category.codeRepositories
+   en.json: "Code Repositories"
+259. modules.integrations.category.codeRepositoriesDesc
+   en.json: "Git repositories and version control systems"
+260. modules.integrations.category.analytics
+   en.json: "Analytics"
+261. modules.integrations.category.analyticsDesc
+   en.json: "Data analysis and business intelligence tools"
+262. modules.integrations.category.design
+   en.json: "Design"
+263. modules.integrations.category.designDesc
+   en.json: "Design and creative tools"
+264. modules.integrations.category.productivity
+   en.json: "Productivity"
+265. modules.integrations.category.productivityDesc
+   en.json: "Productivity and workflow tools"
+266. modules.integrations.category.marketing
+   en.json: "Marketing"
+267. modules.integrations.category.marketingDesc
+   en.json: "Marketing automation and campaign tools"
+268. modules.integrations.category.hr
+   en.json: "HR"
+269. modules.integrations.category.hrDesc
+   en.json: "Human resources and recruiting tools"
+270. modules.integrations.category.finance
+   en.json: "Finance"
+271. modules.integrations.category.financeDesc
+   en.json: "Financial management and accounting tools"
+272. modules.integrations.category.socialMedia
+   en.json: "Social Media"
+273. modules.integrations.category.socialMediaDesc
+   en.json: "Social media management tools"
+274. modules.integrations.category.ecommerce
+   en.json: "E-Commerce"
+275. modules.integrations.category.ecommerceDesc
+   en.json: "E-commerce and online store tools"
+276. modules.integrations.category.security
+   en.json: "Security"
+277. modules.integrations.category.securityDesc
+   en.json: "Security and compliance tools"
+278. modules.integrations.category.other
+   en.json: "Other"
+279. modules.integrations.category.otherDesc
+   en.json: "Other integrations"
+280. modules.integrations.page.available
+   en.json: "{count} available"
+281. modules.integrations.tabs.installed
+   en.json: "Installed"
+282. modules.integrations.sections.popularIntegrations
+   en.json: "Popular Integrations"
+283. modules.integrations.sections.allIntegrations
+   en.json: "All Integrations"
+284. modules.integrations.sections.totalCount
+   en.json: "({count} total)"
+285. modules.integrations.card
+   en.json: {...} (7 keys)
+286. modules.integrations.card.verified
+   en.json: "Verified"
+287. modules.integrations.card.install
+   en.json: "Install"
+288. modules.integrations.card.installed
+   en.json: "Installed"
+289. modules.integrations.card.free
+   en.json: "Free"
+290. modules.integrations.card.freemium
+   en.json: "Freemium"
+291. modules.integrations.card.paid
+   en.json: "${cost}/{interval}"
+292. modules.integrations.card.reviews
+   en.json: "({count})"
+293. modules.integrations.filters
+   en.json: {...} (13 keys)
+294. modules.integrations.filters.title
+   en.json: "Filters"
+295. modules.integrations.filters.categories
+   en.json: "Categories"
+296. modules.integrations.filters.authTypes
+   en.json: "Authentication"
+297. modules.integrations.filters.pricing
+   en.json: "Pricing"
+298. modules.integrations.filters.clearAll
+   en.json: "Clear All"
+299. modules.integrations.filters.quickFilters
+   en.json: "Quick Filters"
+300. modules.integrations.filters.popularIntegrations
+   en.json: "Popular integrations"
+301. modules.integrations.filters.verifiedIntegrations
+   en.json: "Verified integrations"
+302. modules.integrations.filters.activeFilters
+   en.json: "Active Filters"
+303. modules.integrations.filters.popular
+   en.json: "Popular"
+304. modules.integrations.filters.verified
+   en.json: "Verified"
+305. modules.integrations.filters.auth
+   en.json: {...} (10 keys)
+306. modules.integrations.filters.auth.oauth2
+   en.json: "OAuth 2.0"
+307. modules.integrations.filters.auth.oauth2Desc
+   en.json: "Secure authorization flow"
+308. modules.integrations.filters.auth.apiKey
+   en.json: "API Key"
+309. modules.integrations.filters.auth.apiKeyDesc
+   en.json: "Simple API key authentication"
+310. modules.integrations.filters.auth.basicAuth
+   en.json: "Basic Auth"
+311. modules.integrations.filters.auth.basicAuthDesc
+   en.json: "Username and password"
+312. modules.integrations.filters.auth.jwt
+   en.json: "JWT Token"
+313. modules.integrations.filters.auth.jwtDesc
+   en.json: "JSON Web Token"
+314. modules.integrations.filters.auth.webhookOnly
+   en.json: "Webhook Only"
+315. modules.integrations.filters.auth.webhookOnlyDesc
+   en.json: "Receive-only integration"
+316. modules.integrations.filters.pricingTypes
+   en.json: {...} (6 keys)
+317. modules.integrations.filters.pricingTypes.free
+   en.json: "Free"
+318. modules.integrations.filters.pricingTypes.freeDesc
+   en.json: "Completely free to use"
+319. modules.integrations.filters.pricingTypes.freemium
+   en.json: "Freemium"
+320. modules.integrations.filters.pricingTypes.freemiumDesc
+   en.json: "Free with paid upgrades"
+321. modules.integrations.filters.pricingTypes.paid
+   en.json: "Paid"
+322. modules.integrations.filters.pricingTypes.paidDesc
+   en.json: "Requires subscription"
+323. modules.integrations.empty.noInstalled
+   en.json: "No integrations installed"
+324. modules.integrations.empty.noInstalledDesc
+   en.json: "Get started by installing your first integration from the marketplace."
+325. modules.integrations.empty.browseMarketplace
+   en.json: "Browse Marketplace"
+326. modules.videoCallsApp.modal.durations.1.5hours
+   en.json: "undefined"
+327. productPages.shared
+   en.json: {...} (9 keys)
+328. productPages.shared.freeForever
+   en.json: "Free forever"
+329. productPages.shared.noCreditCard
+   en.json: "No credit card required"
+330. productPages.shared.popular
+   en.json: "Popular"
+331. productPages.shared.mobileApps
+   en.json: "Mobile Apps"
+332. productPages.shared.mobileApp
+   en.json: "Mobile App"
+333. productPages.shared.essentialsTitle
+   en.json: "All the Essentials, Built-in"
+334. productPages.shared.flexibleViews
+   en.json: "Flexible Views"
+335. productPages.shared.aiPowered
+   en.json: "AI-Powered"
+336. productPages.shared.powerFeatures
+   en.json: "Power Features"
+337. productPages.chat
+   en.json: {...} (11 keys)
+338. productPages.chat.badge
+   en.json: "Deskive Chat"
+339. productPages.chat.title
+   en.json: "Chat Powered by AI."
+340. productPages.chat.titleHighlight
+   en.json: "Work in Perfect Sync."
+341. productPages.chat.subtitle
+   en.json: "The world's most intelligent team chat. Convert conversations to tasks, summarize with AI, merge thr..."
+342. productPages.chat.cta
+   en.json: "Try Deskive Chat Free"
+343. productPages.chat.sections
+   en.json: {...} (10 keys)
+344. productPages.chat.sections.aiSuperpowers
+   en.json: "AI Superpowers"
+345. productPages.chat.sections.aiTitle
+   en.json: "Chat Meets Intelligence"
+346. productPages.chat.sections.aiSubtitle
+   en.json: "Transform how you communicate with cutting-edge AI features built right into every conversation"
+347. productPages.chat.sections.advancedTitle
+   en.json: "Power User Tools"
+348. productPages.chat.sections.advancedSubtitle
+   en.json: "Everything you need to manage conversations at scale with advanced organization and automation"
+349. productPages.chat.sections.collaborationTitle
+   en.json: "Work Together, Better"
+350. productPages.chat.sections.collaborationSubtitle
+   en.json: "Rich media, code sharing, voice messages, and more—built for modern teams"
+351. productPages.chat.sections.essentialsSubtitle
+   en.json: "Everything you need for productive team communication"
+352. productPages.chat.sections.mobileTitle
+   en.json: "Chat on the Go"
+353. productPages.chat.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full feature parity. Stay connected anywhere, anytime."
+354. productPages.chat.aiFeatures
+   en.json: {...} (6 keys)
+355. productPages.chat.aiFeatures.chatSummary
+   en.json: {...} (2 keys)
+356. productPages.chat.aiFeatures.chatSummary.title
+   en.json: "AI Chat Summary"
+357. productPages.chat.aiFeatures.chatSummary.description
+   en.json: "Instantly summarize long conversations with AI. Get the key points without reading everything."
+358. productPages.chat.aiFeatures.smartReplies
+   en.json: {...} (2 keys)
+359. productPages.chat.aiFeatures.smartReplies.title
+   en.json: "Smart Replies"
+360. productPages.chat.aiFeatures.smartReplies.description
+   en.json: "AI suggests contextual responses. Reply faster with intelligent suggestions."
+361. productPages.chat.aiFeatures.chatToNote
+   en.json: {...} (2 keys)
+362. productPages.chat.aiFeatures.chatToNote.title
+   en.json: "Chat to Note"
+363. productPages.chat.aiFeatures.chatToNote.description
+   en.json: "Convert conversations into structured notes automatically. Never lose important discussions."
+364. productPages.chat.aiFeatures.chatToTask
+   en.json: {...} (2 keys)
+365. productPages.chat.aiFeatures.chatToTask.title
+   en.json: "Chat to Task"
+366. productPages.chat.aiFeatures.chatToTask.description
+   en.json: "Turn messages into actionable tasks instantly. Extract action items from conversations."
+367. productPages.chat.aiFeatures.sentimentAnalysis
+   en.json: {...} (2 keys)
+368. productPages.chat.aiFeatures.sentimentAnalysis.title
+   en.json: "Sentiment Analysis"
+369. productPages.chat.aiFeatures.sentimentAnalysis.description
+   en.json: "Understand team mood and engagement with AI-powered sentiment tracking."
+370. productPages.chat.aiFeatures.autoCategorization
+   en.json: {...} (2 keys)
+371. productPages.chat.aiFeatures.autoCategorization.title
+   en.json: "Auto-categorization"
+372. productPages.chat.aiFeatures.autoCategorization.description
+   en.json: "AI automatically organizes and tags conversations based on content and context."
+373. productPages.chat.advancedFeatures
+   en.json: {...} (12 keys)
+374. productPages.chat.advancedFeatures.mergeChats
+   en.json: {...} (2 keys)
+375. productPages.chat.advancedFeatures.mergeChats.title
+   en.json: "Merge Chats"
+376. productPages.chat.advancedFeatures.mergeChats.description
+   en.json: "Combine multiple related conversations into one unified thread."
+377. productPages.chat.advancedFeatures.scheduledMessages
+   en.json: {...} (2 keys)
+378. productPages.chat.advancedFeatures.scheduledMessages.title
+   en.json: "Scheduled Messages"
+379. productPages.chat.advancedFeatures.scheduledMessages.description
+   en.json: "Schedule messages to send at the perfect time. Never miss important updates."
+380. productPages.chat.advancedFeatures.pinMessages
+   en.json: {...} (2 keys)
+381. productPages.chat.advancedFeatures.pinMessages.title
+   en.json: "Pin Messages"
+382. productPages.chat.advancedFeatures.pinMessages.description
+   en.json: "Pin important messages to the top. Keep critical info always visible."
+383. productPages.chat.advancedFeatures.messageTemplates
+   en.json: {...} (2 keys)
+384. productPages.chat.advancedFeatures.messageTemplates.title
+   en.json: "Message Templates"
+385. productPages.chat.advancedFeatures.messageTemplates.description
+   en.json: "Create reusable message templates for common responses."
+386. productPages.chat.advancedFeatures.pollsSurveys
+   en.json: {...} (2 keys)
+387. productPages.chat.advancedFeatures.pollsSurveys.title
+   en.json: "Polls & Surveys"
+388. productPages.chat.advancedFeatures.pollsSurveys.description
+   en.json: "Create interactive polls directly in chat for quick team feedback."
+389. productPages.chat.advancedFeatures.messageForwarding
+   en.json: {...} (2 keys)
+390. productPages.chat.advancedFeatures.messageForwarding.title
+   en.json: "Message Forwarding"
+391. productPages.chat.advancedFeatures.messageForwarding.description
+   en.json: "Forward messages to other channels or team members with context."
+392. productPages.chat.advancedFeatures.chatExport
+   en.json: {...} (2 keys)
+393. productPages.chat.advancedFeatures.chatExport.title
+   en.json: "Chat Export"
+394. productPages.chat.advancedFeatures.chatExport.description
+   en.json: "Export conversations to PDF, CSV, or JSON for records and compliance."
+395. productPages.chat.advancedFeatures.autoArchive
+   en.json: {...} (2 keys)
+396. productPages.chat.advancedFeatures.autoArchive.title
+   en.json: "Auto-Archive"
+397. productPages.chat.advancedFeatures.autoArchive.description
+   en.json: "Automatically archive inactive chats to keep your workspace clean."
+398. productPages.chat.advancedFeatures.bookmarks
+   en.json: {...} (2 keys)
+399. productPages.chat.advancedFeatures.bookmarks.title
+   en.json: "Bookmarks"
+400. productPages.chat.advancedFeatures.bookmarks.description
+   en.json: "Bookmark important messages and conversations for quick access."
+401. productPages.chat.advancedFeatures.tagsLabels
+   en.json: {...} (2 keys)
+402. productPages.chat.advancedFeatures.tagsLabels.title
+   en.json: "Tags & Labels"
+403. productPages.chat.advancedFeatures.tagsLabels.description
+   en.json: "Organize conversations with custom tags and color-coded labels."
+404. productPages.chat.advancedFeatures.advancedFilters
+   en.json: {...} (2 keys)
+405. productPages.chat.advancedFeatures.advancedFilters.title
+   en.json: "Advanced Filters"
+406. productPages.chat.advancedFeatures.advancedFilters.description
+   en.json: "Filter messages by date, user, attachments, mentions, and more."
+407. productPages.chat.advancedFeatures.messageThreads
+   en.json: {...} (2 keys)
+408. productPages.chat.advancedFeatures.messageThreads.title
+   en.json: "Message Threads"
+409. productPages.chat.advancedFeatures.messageThreads.description
+   en.json: "Keep conversations organized with nested threaded replies."
+410. productPages.chat.collaborationFeatures
+   en.json: {...} (6 keys)
+411. productPages.chat.collaborationFeatures.screenSharing
+   en.json: {...} (2 keys)
+412. productPages.chat.collaborationFeatures.screenSharing.title
+   en.json: "Screen Sharing"
+413. productPages.chat.collaborationFeatures.screenSharing.description
+   en.json: "Share your screen instantly from any conversation."
+414. productPages.chat.collaborationFeatures.codeSnippets
+   en.json: {...} (2 keys)
+415. productPages.chat.collaborationFeatures.codeSnippets.title
+   en.json: "Code Snippets"
+416. productPages.chat.collaborationFeatures.codeSnippets.description
+   en.json: "Share code with syntax highlighting for 100+ languages."
+417. productPages.chat.collaborationFeatures.voiceMessages
+   en.json: {...} (2 keys)
+418. productPages.chat.collaborationFeatures.voiceMessages.title
+   en.json: "Voice Messages"
+419. productPages.chat.collaborationFeatures.voiceMessages.description
+   en.json: "Record and send voice messages when typing takes too long."
+420. productPages.chat.collaborationFeatures.richMedia
+   en.json: {...} (2 keys)
+421. productPages.chat.collaborationFeatures.richMedia.title
+   en.json: "Rich Media"
+422. productPages.chat.collaborationFeatures.richMedia.description
+   en.json: "Share images, videos, GIFs, and documents seamlessly."
+423. productPages.chat.collaborationFeatures.customEmojis
+   en.json: {...} (2 keys)
+424. productPages.chat.collaborationFeatures.customEmojis.title
+   en.json: "Custom Emojis"
+425. productPages.chat.collaborationFeatures.customEmojis.description
+   en.json: "Create team-specific emojis and reactions for fun communication."
+426. productPages.chat.collaborationFeatures.liveTranscription
+   en.json: {...} (2 keys)
+427. productPages.chat.collaborationFeatures.liveTranscription.title
+   en.json: "Live Transcription"
+428. productPages.chat.collaborationFeatures.liveTranscription.description
+   en.json: "Real-time transcription of voice and video calls."
+429. productPages.chat.coreFeatures
+   en.json: {...} (10 keys)
+430. productPages.chat.coreFeatures.channels
+   en.json: "Channels"
+431. productPages.chat.coreFeatures.directMessages
+   en.json: "Direct Messages"
+432. productPages.chat.coreFeatures.threads
+   en.json: "Threads"
+433. productPages.chat.coreFeatures.voiceVideo
+   en.json: "Voice & Video"
+434. productPages.chat.coreFeatures.notifications
+   en.json: "Notifications"
+435. productPages.chat.coreFeatures.reactions
+   en.json: "Reactions"
+436. productPages.chat.coreFeatures.search
+   en.json: "Search"
+437. productPages.chat.coreFeatures.fileSharing
+   en.json: "File Sharing"
+438. productPages.chat.coreFeatures.mentions
+   en.json: "Mentions"
+439. productPages.chat.coreFeatures.realtimeSync
+   en.json: "Real-time Sync"
+440. productPages.chat.mobileSection
+   en.json: {...} (6 keys)
+441. productPages.chat.mobileSection.lightningFastTitle
+   en.json: "Lightning Fast"
+442. productPages.chat.mobileSection.lightningFastDesc
+   en.json: "10x faster than competitors with optimized performance"
+443. productPages.chat.mobileSection.uptimeTitle
+   en.json: "99.9% Uptime"
+444. productPages.chat.mobileSection.uptimeDesc
+   en.json: "Always reliable, always available when you need it"
+445. productPages.chat.mobileSection.offlineModeTitle
+   en.json: "Offline Mode"
+446. productPages.chat.mobileSection.offlineModeDesc
+   en.json: "Work without internet, sync when back online"
+447. productPages.projects
+   en.json: {...} (13 keys)
+448. productPages.projects.meta
+   en.json: {...} (2 keys)
+449. productPages.projects.meta.title
+   en.json: "Project Management - Kanban Boards & Task Tracking"
+450. productPages.projects.meta.description
+   en.json: "Manage projects with Kanban boards, Gantt charts, and sprint planning. Track tasks, deadlines, and t..."
+451. productPages.projects.badge
+   en.json: "Project Management"
+452. productPages.projects.title
+   en.json: "Plan, Track, Deliver."
+453. productPages.projects.titleHighlight
+   en.json: "All in One Place."
+454. productPages.projects.subtitle
+   en.json: "The most powerful project management platform. Kanban, Gantt, Agile sprints, AI planning, resource m..."
+455. productPages.projects.cta
+   en.json: "Start Managing Projects Free"
+456. productPages.projects.sections
+   en.json: {...} (17 keys)
+457. productPages.projects.sections.flexibleViews
+   en.json: "Flexible Views"
+458. productPages.projects.sections.viewsTitle
+   en.json: "Work Your Way"
+459. productPages.projects.sections.viewsSubtitle
+   en.json: "Switch between views instantly. Same data, different perspectives for every workflow."
+460. productPages.projects.sections.aiPowered
+   en.json: "AI-Powered"
+461. productPages.projects.sections.aiTitle
+   en.json: "Intelligent Project Management"
+462. productPages.projects.sections.aiSubtitle
+   en.json: "AI that plans, predicts, and optimizes your projects automatically"
+463. productPages.projects.sections.powerFeatures
+   en.json: "Power Features"
+464. productPages.projects.sections.powerTitle
+   en.json: "Enterprise-Grade Capabilities"
+465. productPages.projects.sections.powerSubtitle
+   en.json: "Advanced features for complex projects and large teams"
+466. productPages.projects.sections.collaboration
+   en.json: "Collaboration"
+467. productPages.projects.sections.collaborationTitle
+   en.json: "Work Together Seamlessly"
+468. productPages.projects.sections.collaborationSubtitle
+   en.json: "Real-time collaboration tools to keep everyone aligned and productive"
+469. productPages.projects.sections.essentialsTitle
+   en.json: "All the Essentials, Built-in"
+470. productPages.projects.sections.essentialsSubtitle
+   en.json: "Everything you need for successful project delivery"
+471. productPages.projects.sections.mobileApps
+   en.json: "Mobile Apps"
+472. productPages.projects.sections.mobileTitle
+   en.json: "Manage Projects Anywhere"
+473. productPages.projects.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full feature parity. Update tasks, track time, and collaborate on t..."
+474. productPages.projects.mobile
+   en.json: {...} (3 keys)
+475. productPages.projects.mobile.offlineMode
+   en.json: {...} (2 keys)
+476. productPages.projects.mobile.offlineMode.title
+   en.json: "Offline Mode"
+477. productPages.projects.mobile.offlineMode.description
+   en.json: "Work without internet, sync when back online"
+478. productPages.projects.mobile.quickTaskEntry
+   en.json: {...} (2 keys)
+479. productPages.projects.mobile.quickTaskEntry.title
+   en.json: "Quick Task Entry"
+480. productPages.projects.mobile.quickTaskEntry.description
+   en.json: "Create and assign tasks in seconds with voice input"
+481. productPages.projects.mobile.timeTracking
+   en.json: {...} (2 keys)
+482. productPages.projects.mobile.timeTracking.title
+   en.json: "Time Tracking"
+483. productPages.projects.mobile.timeTracking.description
+   en.json: "Start/stop timers with one tap from anywhere"
+484. productPages.projects.views
+   en.json: {...} (6 keys)
+485. productPages.projects.views.kanban
+   en.json: {...} (2 keys)
+486. productPages.projects.views.kanban.title
+   en.json: "Kanban Boards"
+487. productPages.projects.views.kanban.description
+   en.json: "Visual drag-and-drop boards with swim lanes, WIP limits, and custom columns."
+488. productPages.projects.views.list
+   en.json: {...} (2 keys)
+489. productPages.projects.views.list.title
+   en.json: "List View"
+490. productPages.projects.views.list.description
+   en.json: "Powerful list view with sorting, filtering, grouping, and bulk actions."
+491. productPages.projects.views.calendar
+   en.json: {...} (2 keys)
+492. productPages.projects.views.calendar.title
+   en.json: "Calendar View"
+493. productPages.projects.views.calendar.description
+   en.json: "Visual calendar showing tasks, deadlines, and milestones at a glance."
+494. productPages.projects.views.gantt
+   en.json: {...} (2 keys)
+495. productPages.projects.views.gantt.title
+   en.json: "Gantt Timeline"
+496. productPages.projects.views.gantt.description
+   en.json: "Interactive Gantt charts with dependencies, critical path, and baseline tracking."
+497. productPages.projects.views.table
+   en.json: {...} (2 keys)
+498. productPages.projects.views.table.title
+   en.json: "Table View"
+499. productPages.projects.views.table.description
+   en.json: "Spreadsheet-like interface with formulas, calculations, and data export."
+500. productPages.projects.views.portfolio
+   en.json: {...} (2 keys)
+501. productPages.projects.views.portfolio.title
+   en.json: "Portfolio View"
+502. productPages.projects.views.portfolio.description
+   en.json: "Manage multiple projects with portfolio-level insights and resource allocation."
+503. productPages.projects.advanced
+   en.json: {...} (12 keys)
+504. productPages.projects.advanced.dependencies
+   en.json: {...} (2 keys)
+505. productPages.projects.advanced.dependencies.title
+   en.json: "Dependencies"
+506. productPages.projects.advanced.dependencies.description
+   en.json: "Manage task dependencies with visual relationship mapping."
+507. productPages.projects.advanced.milestones
+   en.json: {...} (2 keys)
+508. productPages.projects.advanced.milestones.title
+   en.json: "Milestones"
+509. productPages.projects.advanced.milestones.description
+   en.json: "Set and track project milestones with automatic progress calculations."
+510. productPages.projects.advanced.customFields
+   en.json: {...} (2 keys)
+511. productPages.projects.advanced.customFields.title
+   en.json: "Custom Fields"
+512. productPages.projects.advanced.customFields.description
+   en.json: "Add unlimited custom fields for any data type you need to track."
+513. productPages.projects.advanced.automations
+   en.json: {...} (2 keys)
+514. productPages.projects.advanced.automations.title
+   en.json: "Automations"
+515. productPages.projects.advanced.automations.description
+   en.json: "Automate repetitive tasks with triggers, conditions, and actions."
+516. productPages.projects.advanced.templates
+   en.json: {...} (2 keys)
+517. productPages.projects.advanced.templates.title
+   en.json: "Templates"
+518. productPages.projects.advanced.templates.description
+   en.json: "Reusable project templates to jumpstart new projects instantly."
+519. productPages.projects.advanced.labelsAndTags
+   en.json: {...} (2 keys)
+520. productPages.projects.advanced.labelsAndTags.title
+   en.json: "Labels & Tags"
+521. productPages.projects.advanced.labelsAndTags.description
+   en.json: "Organize tasks with custom labels, priorities, and categories."
+522. productPages.projects.advanced.timeTracking
+   en.json: {...} (2 keys)
+523. productPages.projects.advanced.timeTracking.title
+   en.json: "Time Tracking"
+524. productPages.projects.advanced.timeTracking.description
+   en.json: "Built-in time tracking with billable hours and detailed reports."
+525. productPages.projects.advanced.advancedFilters
+   en.json: {...} (2 keys)
+526. productPages.projects.advanced.advancedFilters.title
+   en.json: "Advanced Filters"
+527. productPages.projects.advanced.advancedFilters.description
+   en.json: "Powerful filtering and search across all project data."
+528. productPages.projects.advanced.subtasks
+   en.json: {...} (2 keys)
+529. productPages.projects.advanced.subtasks.title
+   en.json: "Subtasks"
+530. productPages.projects.advanced.subtasks.description
+   en.json: "Break down tasks into unlimited subtask levels."
+531. productPages.projects.advanced.baselineTracking
+   en.json: {...} (2 keys)
+532. productPages.projects.advanced.baselineTracking.title
+   en.json: "Baseline Tracking"
+533. productPages.projects.advanced.baselineTracking.description
+   en.json: "Save project baselines to compare planned vs actual progress."
+534. productPages.projects.advanced.fileAttachments
+   en.json: {...} (2 keys)
+535. productPages.projects.advanced.fileAttachments.title
+   en.json: "File Attachments"
+536. productPages.projects.advanced.fileAttachments.description
+   en.json: "Attach unlimited files to tasks with version control."
+537. productPages.projects.advanced.checklists
+   en.json: {...} (2 keys)
+538. productPages.projects.advanced.checklists.title
+   en.json: "Checklists"
+539. productPages.projects.advanced.checklists.description
+   en.json: "Add checklists to tasks for step-by-step completion."
+540. productPages.projects.ai
+   en.json: {...} (6 keys)
+541. productPages.projects.ai.projectPlanning
+   en.json: {...} (2 keys)
+542. productPages.projects.ai.projectPlanning.title
+   en.json: "AI Project Planning"
+543. productPages.projects.ai.projectPlanning.description
+   en.json: "AI generates project plans, timelines, and task breakdowns from descriptions."
+544. productPages.projects.ai.smartScheduling
+   en.json: {...} (2 keys)
+545. productPages.projects.ai.smartScheduling.title
+   en.json: "Smart Scheduling"
+546. productPages.projects.ai.smartScheduling.description
+   en.json: "AI optimizes task scheduling based on team capacity and dependencies."
+547. productPages.projects.ai.riskDetection
+   en.json: {...} (2 keys)
+548. productPages.projects.ai.riskDetection.title
+   en.json: "Risk Detection"
+549. productPages.projects.ai.riskDetection.description
+   en.json: "AI identifies project risks and suggests mitigation strategies."
+550. productPages.projects.ai.predictiveAnalytics
+   en.json: {...} (2 keys)
+551. productPages.projects.ai.predictiveAnalytics.title
+   en.json: "Predictive Analytics"
+552. productPages.projects.ai.predictiveAnalytics.description
+   en.json: "Forecast completion dates and resource needs with AI predictions."
+553. productPages.projects.ai.autoDocumentation
+   en.json: {...} (2 keys)
+554. productPages.projects.ai.autoDocumentation.title
+   en.json: "Auto Documentation"
+555. productPages.projects.ai.autoDocumentation.description
+   en.json: "AI generates project documentation, reports, and status updates."
+556. productPages.projects.ai.resourceOptimization
+   en.json: {...} (2 keys)
+557. productPages.projects.ai.resourceOptimization.title
+   en.json: "Resource Optimization"
+558. productPages.projects.ai.resourceOptimization.description
+   en.json: "AI recommends optimal resource allocation across projects."
+559. productPages.projects.collaboration
+   en.json: {...} (6 keys)
+560. productPages.projects.collaboration.taskComments
+   en.json: {...} (2 keys)
+561. productPages.projects.collaboration.taskComments.title
+   en.json: "Task Comments"
+562. productPages.projects.collaboration.taskComments.description
+   en.json: "Threaded comments with mentions and file attachments."
+563. productPages.projects.collaboration.teamCollaboration
+   en.json: {...} (2 keys)
+564. productPages.projects.collaboration.teamCollaboration.title
+   en.json: "Team Collaboration"
+565. productPages.projects.collaboration.teamCollaboration.description
+   en.json: "Real-time collaboration with live cursors and activity feeds."
+566. productPages.projects.collaboration.guestAccess
+   en.json: {...} (2 keys)
+567. productPages.projects.collaboration.guestAccess.title
+   en.json: "Guest Access"
+568. productPages.projects.collaboration.guestAccess.description
+   en.json: "Share projects with clients and stakeholders securely."
+569. productPages.projects.collaboration.realtimeUpdates
+   en.json: {...} (2 keys)
+570. productPages.projects.collaboration.realtimeUpdates.title
+   en.json: "Real-time Updates"
+571. productPages.projects.collaboration.realtimeUpdates.description
+   en.json: "Instant notifications and updates across all devices."
+572. productPages.projects.collaboration.docsIntegration
+   en.json: {...} (2 keys)
+573. productPages.projects.collaboration.docsIntegration.title
+   en.json: "Docs Integration"
+574. productPages.projects.collaboration.docsIntegration.description
+   en.json: "Embed and link documents directly within tasks."
+575. productPages.projects.collaboration.versionHistory
+   en.json: {...} (2 keys)
+576. productPages.projects.collaboration.versionHistory.title
+   en.json: "Version History"
+577. productPages.projects.collaboration.versionHistory.description
+   en.json: "Complete audit trail of all changes with rollback capability."
+578. productPages.projects.coreFeatures
+   en.json: {...} (12 keys)
+579. productPages.projects.coreFeatures.kanbanBoards
+   en.json: "Kanban Boards"
+580. productPages.projects.coreFeatures.ganttCharts
+   en.json: "Gantt Charts"
+581. productPages.projects.coreFeatures.sprintPlanning
+   en.json: "Sprint Planning"
+582. productPages.projects.coreFeatures.taskManagement
+   en.json: "Task Management"
+583. productPages.projects.coreFeatures.timeTracking
+   en.json: "Time Tracking"
+584. productPages.projects.coreFeatures.analytics
+   en.json: "Analytics"
+585. productPages.projects.coreFeatures.teamCollaboration
+   en.json: "Team Collaboration"
+586. productPages.projects.coreFeatures.automation
+   en.json: "Automation"
+587. productPages.projects.coreFeatures.dependencies
+   en.json: "Dependencies"
+588. productPages.projects.coreFeatures.milestones
+   en.json: "Milestones"
+589. productPages.projects.coreFeatures.customFields
+   en.json: "Custom Fields"
+590. productPages.projects.coreFeatures.templates
+   en.json: "Templates"
+591. productPages.files
+   en.json: {...} (11 keys)
+592. productPages.files.badge
+   en.json: "File Management"
+593. productPages.files.title
+   en.json: "Store, Organize, Collaborate."
+594. productPages.files.titleHighlight
+   en.json: "All Your Files in One Place."
+595. productPages.files.subtitle
+   en.json: "Secure cloud storage with AI-powered organization, version control, rich previews, and real-time col..."
+596. productPages.files.cta
+   en.json: "Start Storing Files Free"
+597. productPages.files.sections
+   en.json: {...} (9 keys)
+598. productPages.files.sections.viewsTitle
+   en.json: "View Files Your Way"
+599. productPages.files.sections.viewsSubtitle
+   en.json: "Switch between views instantly. Same files, different perspectives for every workflow."
+600. productPages.files.sections.aiTitle
+   en.json: "Intelligent File Management"
+601. productPages.files.sections.aiSubtitle
+   en.json: "AI that organizes, tags, and finds your files automatically"
+602. productPages.files.sections.powerTitle
+   en.json: "Enterprise-Grade File Management"
+603. productPages.files.sections.powerSubtitle
+   en.json: "Advanced features for teams that need more than basic storage"
+604. productPages.files.sections.essentialsSubtitle
+   en.json: "Everything you need for seamless file management"
+605. productPages.files.sections.mobileTitle
+   en.json: "Access Files Anywhere"
+606. productPages.files.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full feature parity. Upload, organize, and share files on the go."
+607. productPages.files.views
+   en.json: {...} (6 keys)
+608. productPages.files.views.grid
+   en.json: {...} (2 keys)
+609. productPages.files.views.grid.title
+   en.json: "Grid View"
+610. productPages.files.views.grid.description
+   en.json: "Visual grid layout with large thumbnails and quick actions."
+611. productPages.files.views.list
+   en.json: {...} (2 keys)
+612. productPages.files.views.list.title
+   en.json: "List View"
+613. productPages.files.views.list.description
+   en.json: "Compact list with sorting, filtering, and bulk selection."
+614. productPages.files.views.gallery
+   en.json: {...} (2 keys)
+615. productPages.files.views.gallery.title
+   en.json: "Gallery View"
+616. productPages.files.views.gallery.description
+   en.json: "Beautiful gallery for images and media with lightbox preview."
+617. productPages.files.views.table
+   en.json: {...} (2 keys)
+618. productPages.files.views.table.title
+   en.json: "Table View"
+619. productPages.files.views.table.description
+   en.json: "Spreadsheet-like table with custom columns and data export."
+620. productPages.files.views.timeline
+   en.json: {...} (2 keys)
+621. productPages.files.views.timeline.title
+   en.json: "Timeline View"
+622. productPages.files.views.timeline.description
+   en.json: "Chronological timeline showing files by creation or modification date."
+623. productPages.files.views.tree
+   en.json: {...} (2 keys)
+624. productPages.files.views.tree.title
+   en.json: "Tree View"
+625. productPages.files.views.tree.description
+   en.json: "Hierarchical folder tree with expandable nested folders."
+626. productPages.files.aiFeatures
+   en.json: {...} (6 keys)
+627. productPages.files.aiFeatures.fileOrganization
+   en.json: {...} (2 keys)
+628. productPages.files.aiFeatures.fileOrganization.title
+   en.json: "AI File Organization"
+629. productPages.files.aiFeatures.fileOrganization.description
+   en.json: "AI automatically organizes files into smart folders based on content and context."
+630. productPages.files.aiFeatures.smartTagging
+   en.json: {...} (2 keys)
+631. productPages.files.aiFeatures.smartTagging.title
+   en.json: "Smart Tagging"
+632. productPages.files.aiFeatures.smartTagging.description
+   en.json: "AI generates relevant tags for files automatically. Never manually tag again."
+633. productPages.files.aiFeatures.semanticSearch
+   en.json: {...} (2 keys)
+634. productPages.files.aiFeatures.semanticSearch.title
+   en.json: "Semantic Search"
+635. productPages.files.aiFeatures.semanticSearch.description
+   en.json: "Find files by describing what you need. AI understands context and intent."
+636. productPages.files.aiFeatures.imageGeneration
+   en.json: {...} (2 keys)
+637. productPages.files.aiFeatures.imageGeneration.title
+   en.json: "AI Image Generation"
+638. productPages.files.aiFeatures.imageGeneration.description
+   en.json: "Generate images, graphics, and designs with AI directly in your workspace."
+639. productPages.files.aiFeatures.documentAnalysis
+   en.json: {...} (2 keys)
+640. productPages.files.aiFeatures.documentAnalysis.title
+   en.json: "Document Analysis"
+641. productPages.files.aiFeatures.documentAnalysis.description
+   en.json: "AI extracts key information from documents, PDFs, and images automatically."
+642. productPages.files.aiFeatures.duplicateDetection
+   en.json: {...} (2 keys)
+643. productPages.files.aiFeatures.duplicateDetection.title
+   en.json: "Duplicate Detection"
+644. productPages.files.aiFeatures.duplicateDetection.description
+   en.json: "AI identifies duplicate and similar files to save storage space."
+645. productPages.files.advancedFeatures
+   en.json: {...} (12 keys)
+646. productPages.files.advancedFeatures.versionControl
+   en.json: {...} (2 keys)
+647. productPages.files.advancedFeatures.versionControl.title
+   en.json: "Version Control"
+648. productPages.files.advancedFeatures.versionControl.description
+   en.json: "Automatic versioning with unlimited version history and rollback."
+649. productPages.files.advancedFeatures.fileRecovery
+   en.json: {...} (2 keys)
+650. productPages.files.advancedFeatures.fileRecovery.title
+   en.json: "File Recovery"
+651. productPages.files.advancedFeatures.fileRecovery.description
+   en.json: "Recover deleted files up to 90 days. Never lose important data."
+652. productPages.files.advancedFeatures.bulkOperations
+   en.json: {...} (2 keys)
+653. productPages.files.advancedFeatures.bulkOperations.title
+   en.json: "Bulk Operations"
+654. productPages.files.advancedFeatures.bulkOperations.description
+   en.json: "Move, copy, tag, or share hundreds of files with one click."
+655. productPages.files.advancedFeatures.richPreview
+   en.json: {...} (2 keys)
+656. productPages.files.advancedFeatures.richPreview.title
+   en.json: "Rich Preview"
+657. productPages.files.advancedFeatures.richPreview.description
+   en.json: "Preview 40+ file types without downloading. Images, PDFs, videos, code."
+658. productPages.files.advancedFeatures.smartDownload
+   en.json: {...} (2 keys)
+659. productPages.files.advancedFeatures.smartDownload.title
+   en.json: "Smart Download"
+660. productPages.files.advancedFeatures.smartDownload.description
+   en.json: "Download entire folders as ZIP. Resume interrupted downloads."
+661. productPages.files.advancedFeatures.shareLinks
+   en.json: {...} (2 keys)
+662. productPages.files.advancedFeatures.shareLinks.title
+   en.json: "Share Links"
+663. productPages.files.advancedFeatures.shareLinks.description
+   en.json: "Generate secure share links with expiration and password protection."
+664. productPages.files.advancedFeatures.customTags
+   en.json: {...} (2 keys)
+665. productPages.files.advancedFeatures.customTags.title
+   en.json: "Custom Tags"
+666. productPages.files.advancedFeatures.customTags.description
+   en.json: "Organize with unlimited custom tags and color coding."
+667. productPages.files.advancedFeatures.advancedFilters
+   en.json: {...} (2 keys)
+668. productPages.files.advancedFeatures.advancedFilters.title
+   en.json: "Advanced Filters"
+669. productPages.files.advancedFeatures.advancedFilters.description
+   en.json: "Filter by type, size, date, tags, owner, and custom attributes."
+670. productPages.files.advancedFeatures.favorites
+   en.json: {...} (2 keys)
+671. productPages.files.advancedFeatures.favorites.title
+   en.json: "Favorites"
+672. productPages.files.advancedFeatures.favorites.description
+   en.json: "Star important files and folders for quick access."
+673. productPages.files.advancedFeatures.pinnedFiles
+   en.json: {...} (2 keys)
+674. productPages.files.advancedFeatures.pinnedFiles.title
+   en.json: "Pinned Files"
+675. productPages.files.advancedFeatures.pinnedFiles.description
+   en.json: "Pin files to top of folders for easy access to frequently used items."
+676. productPages.files.advancedFeatures.mediaPlayback
+   en.json: {...} (2 keys)
+677. productPages.files.advancedFeatures.mediaPlayback.title
+   en.json: "Media Playback"
+678. productPages.files.advancedFeatures.mediaPlayback.description
+   en.json: "Play videos and audio directly in browser with subtitle support."
+679. productPages.files.advancedFeatures.fileCompression
+   en.json: {...} (2 keys)
+680. productPages.files.advancedFeatures.fileCompression.title
+   en.json: "File Compression"
+681. productPages.files.advancedFeatures.fileCompression.description
+   en.json: "Compress and decompress ZIP, RAR, 7Z files online."
+682. productPages.files.coreFeatures
+   en.json: {...} (12 keys)
+683. productPages.files.coreFeatures.folders
+   en.json: "Folders"
+684. productPages.files.coreFeatures.multiUpload
+   en.json: "Multi-Upload"
+685. productPages.files.coreFeatures.versions
+   en.json: "Versions"
+686. productPages.files.coreFeatures.sharing
+   en.json: "Sharing"
+687. productPages.files.coreFeatures.preview
+   en.json: "Preview"
+688. productPages.files.coreFeatures.smartSearch
+   en.json: "Smart Search"
+689. productPages.files.coreFeatures.viewModes
+   en.json: "View Modes"
+690. productPages.files.coreFeatures.security
+   en.json: "Security"
+691. productPages.files.coreFeatures.downloads
+   en.json: "Downloads"
+692. productPages.files.coreFeatures.tags
+   en.json: "Tags"
+693. productPages.files.coreFeatures.cloudSync
+   en.json: "Cloud Sync"
+694. productPages.files.coreFeatures.recovery
+   en.json: "Recovery"
+695. productPages.files.mobile
+   en.json: {...} (3 keys)
+696. productPages.files.mobile.offlineAccess
+   en.json: {...} (2 keys)
+697. productPages.files.mobile.offlineAccess.title
+   en.json: "Offline Access"
+698. productPages.files.mobile.offlineAccess.description
+   en.json: "Access files offline, auto-sync when back online"
+699. productPages.files.mobile.cameraUpload
+   en.json: {...} (2 keys)
+700. productPages.files.mobile.cameraUpload.title
+   en.json: "Camera Upload"
+701. productPages.files.mobile.cameraUpload.description
+   en.json: "Automatically backup photos and videos from your phone"
+702. productPages.files.mobile.quickShare
+   en.json: {...} (2 keys)
+703. productPages.files.mobile.quickShare.title
+   en.json: "Quick Share"
+704. productPages.files.mobile.quickShare.description
+   en.json: "Share files directly from your phone with one tap"
+705. productPages.calendar
+   en.json: {...} (12 keys)
+706. productPages.calendar.meta
+   en.json: {...} (2 keys)
+707. productPages.calendar.meta.title
+   en.json: "Calendar & Scheduling - Smart Meeting Management"
+708. productPages.calendar.meta.description
+   en.json: "Schedule meetings, manage events, and sync calendars seamlessly. Smart scheduling with timezone supp..."
+709. productPages.calendar.badge
+   en.json: "Calendar & Scheduling"
+710. productPages.calendar.title
+   en.json: "Schedule Smarter, Meet Better."
+711. productPages.calendar.titleHighlight
+   en.json: "Never Miss a Beat."
+712. productPages.calendar.subtitle
+   en.json: "Intelligent calendar with AI-powered scheduling, team availability, recurring events, timezone suppo..."
+713. productPages.calendar.cta
+   en.json: "Start Scheduling Free"
+714. productPages.calendar.sections
+   en.json: {...} (9 keys)
+715. productPages.calendar.sections.viewsTitle
+   en.json: "See Your Schedule Your Way"
+716. productPages.calendar.sections.viewsSubtitle
+   en.json: "Switch between views instantly. Same events, different perspectives for every planning need."
+717. productPages.calendar.sections.aiTitle
+   en.json: "Intelligent Scheduling"
+718. productPages.calendar.sections.aiSubtitle
+   en.json: "AI that schedules meetings, blocks focus time, and optimizes your calendar automatically"
+719. productPages.calendar.sections.powerTitle
+   en.json: "Enterprise-Grade Calendar"
+720. productPages.calendar.sections.powerSubtitle
+   en.json: "Advanced features for teams that need powerful scheduling capabilities"
+721. productPages.calendar.sections.essentialsSubtitle
+   en.json: "Everything you need for smart scheduling"
+722. productPages.calendar.sections.mobileTitle
+   en.json: "Your Calendar Everywhere"
+723. productPages.calendar.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full feature parity. View, create, and manage events on the go."
+724. productPages.calendar.views
+   en.json: {...} (6 keys)
+725. productPages.calendar.views.month
+   en.json: {...} (2 keys)
+726. productPages.calendar.views.month.title
+   en.json: "Month View"
+727. productPages.calendar.views.month.description
+   en.json: "Classic monthly calendar with all events at a glance. Perfect overview."
+728. productPages.calendar.views.week
+   en.json: {...} (2 keys)
+729. productPages.calendar.views.week.title
+   en.json: "Week View"
+730. productPages.calendar.views.week.description
+   en.json: "Detailed weekly schedule with time slots. See your week in detail."
+731. productPages.calendar.views.day
+   en.json: {...} (2 keys)
+732. productPages.calendar.views.day.title
+   en.json: "Day View"
+733. productPages.calendar.views.day.description
+   en.json: "Hour-by-hour daily schedule. Focus on what matters today."
+734. productPages.calendar.views.agenda
+   en.json: {...} (2 keys)
+735. productPages.calendar.views.agenda.title
+   en.json: "Agenda View"
+736. productPages.calendar.views.agenda.description
+   en.json: "List of upcoming events sorted chronologically. Clean and simple."
+737. productPages.calendar.views.timeline
+   en.json: {...} (2 keys)
+738. productPages.calendar.views.timeline.title
+   en.json: "Timeline View"
+739. productPages.calendar.views.timeline.description
+   en.json: "Visual timeline showing event duration and overlaps. Great for planning."
+740. productPages.calendar.views.year
+   en.json: {...} (2 keys)
+741. productPages.calendar.views.year.title
+   en.json: "Year View"
+742. productPages.calendar.views.year.description
+   en.json: "See the entire year at once. Plan long-term projects effortlessly."
+743. productPages.calendar.ai
+   en.json: {...} (6 keys)
+744. productPages.calendar.ai.smartScheduling
+   en.json: {...} (2 keys)
+745. productPages.calendar.ai.smartScheduling.title
+   en.json: "Smart Scheduling"
+746. productPages.calendar.ai.smartScheduling.description
+   en.json: "AI finds the best meeting times based on team availability and preferences."
+747. productPages.calendar.ai.meetingAssistant
+   en.json: {...} (2 keys)
+748. productPages.calendar.ai.meetingAssistant.title
+   en.json: "Meeting Assistant"
+749. productPages.calendar.ai.meetingAssistant.description
+   en.json: "AI assistant schedules, reschedules, and sends calendar invites automatically."
+750. productPages.calendar.ai.timeBlocking
+   en.json: {...} (2 keys)
+751. productPages.calendar.ai.timeBlocking.title
+   en.json: "Time Blocking AI"
+752. productPages.calendar.ai.timeBlocking.description
+   en.json: "AI suggests optimal time blocks for focused work based on your patterns."
+753. productPages.calendar.ai.smartReminders
+   en.json: {...} (2 keys)
+754. productPages.calendar.ai.smartReminders.title
+   en.json: "Smart Reminders"
+755. productPages.calendar.ai.smartReminders.description
+   en.json: "AI sends reminders at the perfect time based on your schedule and location."
+756. productPages.calendar.ai.travelTime
+   en.json: {...} (2 keys)
+757. productPages.calendar.ai.travelTime.title
+   en.json: "Travel Time Detection"
+758. productPages.calendar.ai.travelTime.description
+   en.json: "AI calculates travel time and blocks buffer time before meetings."
+759. productPages.calendar.ai.meetingPrep
+   en.json: {...} (2 keys)
+760. productPages.calendar.ai.meetingPrep.title
+   en.json: "Meeting Prep"
+761. productPages.calendar.ai.meetingPrep.description
+   en.json: "AI generates meeting agendas and summaries from calendar descriptions."
+762. productPages.calendar.advanced
+   en.json: {...} (12 keys)
+763. productPages.calendar.advanced.recurringEvents
+   en.json: {...} (2 keys)
+764. productPages.calendar.advanced.recurringEvents.title
+   en.json: "Recurring Events"
+765. productPages.calendar.advanced.recurringEvents.description
+   en.json: "Daily, weekly, monthly, yearly with custom patterns and exceptions."
+766. productPages.calendar.advanced.videoMeetings
+   en.json: {...} (2 keys)
+767. productPages.calendar.advanced.videoMeetings.title
+   en.json: "Video Meetings"
+768. productPages.calendar.advanced.videoMeetings.description
+   en.json: "Auto-create meeting links for Zoom, Google Meet, or Microsoft Teams."
+769. productPages.calendar.advanced.calendarSync
+   en.json: {...} (2 keys)
+770. productPages.calendar.advanced.calendarSync.title
+   en.json: "Calendar Sync"
+771. productPages.calendar.advanced.calendarSync.description
+   en.json: "Two-way sync with Google, Outlook, Apple Calendar, and iCloud."
+772. productPages.calendar.advanced.timezoneSupport
+   en.json: {...} (2 keys)
+773. productPages.calendar.advanced.timezoneSupport.title
+   en.json: "Timezone Support"
+774. productPages.calendar.advanced.timezoneSupport.description
+   en.json: "Schedule across timezones with automatic conversion."
+775. productPages.calendar.advanced.teamCalendars
+   en.json: {...} (2 keys)
+776. productPages.calendar.advanced.teamCalendars.title
+   en.json: "Team Calendars"
+777. productPages.calendar.advanced.teamCalendars.description
+   en.json: "Shared team calendars with availability and out-of-office status."
+778. productPages.calendar.advanced.availabilitySharing
+   en.json: {...} (2 keys)
+779. productPages.calendar.advanced.availabilitySharing.title
+   en.json: "Availability Sharing"
+780. productPages.calendar.advanced.availabilitySharing.description
+   en.json: "Share availability links for easy scheduling without back-and-forth."
+781. productPages.calendar.advanced.smartNotifications
+   en.json: {...} (2 keys)
+782. productPages.calendar.advanced.smartNotifications.title
+   en.json: "Smart Notifications"
+783. productPages.calendar.advanced.smartNotifications.description
+   en.json: "Email, push, SMS reminders with customizable timing."
+784. productPages.calendar.advanced.locationSupport
+   en.json: {...} (2 keys)
+785. productPages.calendar.advanced.locationSupport.title
+   en.json: "Location Support"
+786. productPages.calendar.advanced.locationSupport.description
+   en.json: "Add meeting locations with map links and directions."
+787. productPages.calendar.advanced.guestInvitations
+   en.json: {...} (2 keys)
+788. productPages.calendar.advanced.guestInvitations.title
+   en.json: "Guest Invitations"
+789. productPages.calendar.advanced.guestInvitations.description
+   en.json: "Invite external guests with RSVP tracking and updates."
+790. productPages.calendar.advanced.eventTemplates
+   en.json: {...} (2 keys)
+791. productPages.calendar.advanced.eventTemplates.title
+   en.json: "Event Templates"
+792. productPages.calendar.advanced.eventTemplates.description
+   en.json: "Save recurring meeting types as templates for quick scheduling."
+793. productPages.calendar.advanced.calendarFilters
+   en.json: {...} (2 keys)
+794. productPages.calendar.advanced.calendarFilters.title
+   en.json: "Calendar Filters"
+795. productPages.calendar.advanced.calendarFilters.description
+   en.json: "Filter by calendar, event type, attendees, or custom tags."
+796. productPages.calendar.advanced.exportEvents
+   en.json: {...} (2 keys)
+797. productPages.calendar.advanced.exportEvents.title
+   en.json: "Export Events"
+798. productPages.calendar.advanced.exportEvents.description
+   en.json: "Export to iCal, CSV, or PDF for backup and sharing."
+799. productPages.calendar.coreFeatures
+   en.json: {...} (12 keys)
+800. productPages.calendar.coreFeatures.multipleViews
+   en.json: "Multiple Views"
+801. productPages.calendar.coreFeatures.smartScheduling
+   en.json: "Smart Scheduling"
+802. productPages.calendar.coreFeatures.recurringEvents
+   en.json: "Recurring Events"
+803. productPages.calendar.coreFeatures.teamCalendars
+   en.json: "Team Calendars"
+804. productPages.calendar.coreFeatures.videoMeetings
+   en.json: "Video Meetings"
+805. productPages.calendar.coreFeatures.timezoneSupport
+   en.json: "Timezone Support"
+806. productPages.calendar.coreFeatures.reminders
+   en.json: "Reminders"
+807. productPages.calendar.coreFeatures.calendarSync
+   en.json: "Calendar Sync"
+808. productPages.calendar.coreFeatures.quickActions
+   en.json: "Quick Actions"
+809. productPages.calendar.coreFeatures.availability
+   en.json: "Availability"
+810. productPages.calendar.coreFeatures.locations
+   en.json: "Locations"
+811. productPages.calendar.coreFeatures.meetingLinks
+   en.json: "Meeting Links"
+812. productPages.calendar.mobile
+   en.json: {...} (3 keys)
+813. productPages.calendar.mobile.pushNotifications
+   en.json: {...} (2 keys)
+814. productPages.calendar.mobile.pushNotifications.title
+   en.json: "Push Notifications"
+815. productPages.calendar.mobile.pushNotifications.description
+   en.json: "Never miss a meeting with smart mobile reminders"
+816. productPages.calendar.mobile.quickEventEntry
+   en.json: {...} (2 keys)
+817. productPages.calendar.mobile.quickEventEntry.title
+   en.json: "Quick Event Entry"
+818. productPages.calendar.mobile.quickEventEntry.description
+   en.json: "Add events in seconds with voice input and smart parsing"
+819. productPages.calendar.mobile.offlineAccess
+   en.json: {...} (2 keys)
+820. productPages.calendar.mobile.offlineAccess.title
+   en.json: "Offline Access"
+821. productPages.calendar.mobile.offlineAccess.description
+   en.json: "View your schedule offline, sync when back online"
+822. productPages.notes
+   en.json: {...} (8 keys)
+823. productPages.notes.meta
+   en.json: {...} (2 keys)
+824. productPages.notes.meta.title
+   en.json: "Notes & Documentation - Collaborative Knowledge Base"
+825. productPages.notes.meta.description
+   en.json: "Create beautiful docs with block-based editor, templates, and collaborative editing. Build your team..."
+826. productPages.notes.hero
+   en.json: {...} (6 keys)
+827. productPages.notes.hero.badge
+   en.json: "Notes & Documentation"
+828. productPages.notes.hero.title
+   en.json: "Write, Organize, Collaborate."
+829. productPages.notes.hero.titleHighlight
+   en.json: "Your Team's Knowledge Hub."
+830. productPages.notes.hero.description
+   en.json: "Powerful note-taking with a Notion-style block editor, AI writing assistance, real-time collaboratio..."
+831. productPages.notes.hero.button
+   en.json: "Start Writing Free"
+832. productPages.notes.hero.trustLine
+   en.json: "Free forever • No credit card required"
+833. productPages.notes.blocks
+   en.json: {...} (9 keys)
+834. productPages.notes.blocks.badge
+   en.json: "Block Types"
+835. productPages.notes.blocks.title
+   en.json: "Build with Powerful Blocks"
+836. productPages.notes.blocks.subtitle
+   en.json: "Create rich, dynamic documents with drag-and-drop blocks. Mix and match content types to build exact..."
+837. productPages.notes.blocks.textBlocks
+   en.json: {...} (2 keys)
+838. productPages.notes.blocks.textBlocks.title
+   en.json: "Text Blocks"
+839. productPages.notes.blocks.textBlocks.description
+   en.json: "Rich text paragraphs with inline formatting, colors, and highlights."
+840. productPages.notes.blocks.headings
+   en.json: {...} (2 keys)
+841. productPages.notes.blocks.headings.title
+   en.json: "Headings & Titles"
+842. productPages.notes.blocks.headings.description
+   en.json: "Multiple heading levels for structured document organization."
+843. productPages.notes.blocks.lists
+   en.json: {...} (2 keys)
+844. productPages.notes.blocks.lists.title
+   en.json: "Lists & Checklists"
+845. productPages.notes.blocks.lists.description
+   en.json: "Bulleted lists, numbered lists, and interactive to-do lists."
+846. productPages.notes.blocks.code
+   en.json: {...} (2 keys)
+847. productPages.notes.blocks.code.title
+   en.json: "Code Blocks"
+848. productPages.notes.blocks.code.description
+   en.json: "Syntax-highlighted code with 100+ programming languages."
+849. productPages.notes.blocks.tables
+   en.json: {...} (2 keys)
+850. productPages.notes.blocks.tables.title
+   en.json: "Tables & Databases"
+851. productPages.notes.blocks.tables.description
+   en.json: "Powerful tables with sorting, filtering, and formulas."
+852. productPages.notes.blocks.media
+   en.json: {...} (2 keys)
+853. productPages.notes.blocks.media.title
+   en.json: "Media Embeds"
+854. productPages.notes.blocks.media.description
+   en.json: "Images, videos, files, and 40+ external service embeds."
+855. productPages.notes.ai
+   en.json: {...} (9 keys)
+856. productPages.notes.ai.badge
+   en.json: "AI-Powered"
+857. productPages.notes.ai.title
+   en.json: "Write Faster with AI"
+858. productPages.notes.ai.subtitle
+   en.json: "AI-powered writing tools that help you create, edit, and improve your notes instantly."
+859. productPages.notes.ai.writing
+   en.json: {...} (2 keys)
+860. productPages.notes.ai.writing.title
+   en.json: "AI Writing Assistant"
+861. productPages.notes.ai.writing.description
+   en.json: "AI helps you write, edit, and improve your content with smart suggestions."
+862. productPages.notes.ai.summarization
+   en.json: {...} (2 keys)
+863. productPages.notes.ai.summarization.title
+   en.json: "Auto-Summarization"
+864. productPages.notes.ai.summarization.description
+   en.json: "AI generates summaries, key points, and TL;DR from long documents."
+865. productPages.notes.ai.formatting
+   en.json: {...} (2 keys)
+866. productPages.notes.ai.formatting.title
+   en.json: "Smart Formatting"
+867. productPages.notes.ai.formatting.description
+   en.json: "AI automatically formats text, fixes grammar, and improves readability."
+868. productPages.notes.ai.translation
+   en.json: {...} (2 keys)
+869. productPages.notes.ai.translation.title
+   en.json: "Translation"
+870. productPages.notes.ai.translation.description
+   en.json: "Translate notes to 100+ languages with AI-powered translation."
+871. productPages.notes.ai.generation
+   en.json: {...} (2 keys)
+872. productPages.notes.ai.generation.title
+   en.json: "Content Generation"
+873. productPages.notes.ai.generation.description
+   en.json: "Generate outlines, templates, and content from simple prompts."
+874. productPages.notes.ai.codeExplanation
+   en.json: {...} (2 keys)
+875. productPages.notes.ai.codeExplanation.title
+   en.json: "Code Explanation"
+876. productPages.notes.ai.codeExplanation.description
+   en.json: "AI explains code blocks and suggests improvements automatically."
+877. productPages.notes.features
+   en.json: {...} (15 keys)
+878. productPages.notes.features.badge
+   en.json: "Advanced Features"
+879. productPages.notes.features.title
+   en.json: "Enterprise-Grade Power"
+880. productPages.notes.features.subtitle
+   en.json: "Everything you need for professional note-taking and knowledge management at scale."
+881. productPages.notes.features.blockEditor
+   en.json: {...} (2 keys)
+882. productPages.notes.features.blockEditor.title
+   en.json: "Block-Based Editor"
+883. productPages.notes.features.blockEditor.description
+   en.json: "Notion-style drag-and-drop blocks for flexible content creation."
+884. productPages.notes.features.collaboration
+   en.json: {...} (2 keys)
+885. productPages.notes.features.collaboration.title
+   en.json: "Real-time Collaboration"
+886. productPages.notes.features.collaboration.description
+   en.json: "Multiple users edit simultaneously with live cursors and changes."
+887. productPages.notes.features.templates
+   en.json: {...} (2 keys)
+888. productPages.notes.features.templates.title
+   en.json: "Templates Library"
+889. productPages.notes.features.templates.description
+   en.json: "Pre-built templates for meetings, docs, wikis, and custom templates."
+890. productPages.notes.features.nestedPages
+   en.json: {...} (2 keys)
+891. productPages.notes.features.nestedPages.title
+   en.json: "Nested Pages"
+892. productPages.notes.features.nestedPages.description
+   en.json: "Organize notes in unlimited nested pages and folders."
+893. productPages.notes.features.links
+   en.json: {...} (2 keys)
+894. productPages.notes.features.links.title
+   en.json: "Bi-directional Links"
+895. productPages.notes.features.links.description
+   en.json: "Link notes together and see backlinks automatically."
+896. productPages.notes.features.versionHistory
+   en.json: {...} (2 keys)
+897. productPages.notes.features.versionHistory.title
+   en.json: "Version History"
+898. productPages.notes.features.versionHistory.description
+   en.json: "Track all changes with unlimited version history and restore."
+899. productPages.notes.features.search
+   en.json: {...} (2 keys)
+900. productPages.notes.features.search.title
+   en.json: "Full-Text Search"
+901. productPages.notes.features.search.description
+   en.json: "Find anything instantly across all notes and pages."
+902. productPages.notes.features.tags
+   en.json: {...} (2 keys)
+903. productPages.notes.features.tags.title
+   en.json: "Tags & Labels"
+904. productPages.notes.features.tags.description
+   en.json: "Organize with custom tags, labels, and color coding."
+905. productPages.notes.features.bookmarks
+   en.json: {...} (2 keys)
+906. productPages.notes.features.bookmarks.title
+   en.json: "Bookmarks"
+907. productPages.notes.features.bookmarks.description
+   en.json: "Save important sections and pages for quick access."
+908. productPages.notes.features.export
+   en.json: {...} (2 keys)
+909. productPages.notes.features.export.title
+   en.json: "Export Options"
+910. productPages.notes.features.export.description
+   en.json: "Export to Markdown, PDF, HTML, or Word documents."
+911. productPages.notes.features.styling
+   en.json: {...} (2 keys)
+912. productPages.notes.features.styling.title
+   en.json: "Custom Styling"
+913. productPages.notes.features.styling.description
+   en.json: "Customize colors, fonts, and layouts for your pages."
+914. productPages.notes.features.multiColumn
+   en.json: {...} (2 keys)
+915. productPages.notes.features.multiColumn.title
+   en.json: "Multi-Column Layout"
+916. productPages.notes.features.multiColumn.description
+   en.json: "Create multi-column layouts for advanced page designs."
+917. productPages.notes.essentials
+   en.json: {...} (14 keys)
+918. productPages.notes.essentials.title
+   en.json: "All the Essentials, Built-in"
+919. productPages.notes.essentials.subtitle
+   en.json: "Everything you need for powerful note-taking and knowledge management."
+920. productPages.notes.essentials.blockEditor
+   en.json: "Block Editor"
+921. productPages.notes.essentials.richText
+   en.json: "Rich Text"
+922. productPages.notes.essentials.collaboration
+   en.json: "Collaboration"
+923. productPages.notes.essentials.templates
+   en.json: "Templates"
+924. productPages.notes.essentials.organization
+   en.json: "Organization"
+925. productPages.notes.essentials.fullSearch
+   en.json: "Full Search"
+926. productPages.notes.essentials.media
+   en.json: "Media"
+927. productPages.notes.essentials.codeBlocks
+   en.json: "Code Blocks"
+928. productPages.notes.essentials.tables
+   en.json: "Tables"
+929. productPages.notes.essentials.linking
+   en.json: "Linking"
+930. productPages.notes.essentials.todos
+   en.json: "To-Dos"
+931. productPages.notes.essentials.aiWriting
+   en.json: "AI Writing"
+932. productPages.notes.mobile
+   en.json: {...} (4 keys)
+933. productPages.notes.mobile.badge
+   en.json: "Mobile Apps"
+934. productPages.notes.mobile.title
+   en.json: "Take Notes on the Go"
+935. productPages.notes.mobile.description
+   en.json: "Native iOS and Android apps with full feature parity. Create, edit, and organize notes anywhere, any..."
+936. productPages.notes.mobile.features
+   en.json: {...} (3 keys)
+937. productPages.notes.mobile.features.0
+   en.json: {...} (2 keys)
+938. productPages.notes.mobile.features.0.title
+   en.json: "Edit Anywhere"
+939. productPages.notes.mobile.features.0.description
+   en.json: "Full-featured editor on mobile with offline support"
+940. productPages.notes.mobile.features.1
+   en.json: {...} (2 keys)
+941. productPages.notes.mobile.features.1.title
+   en.json: "Quick Capture"
+942. productPages.notes.mobile.features.1.description
+   en.json: "Capture ideas instantly with quick note creation and voice input"
+943. productPages.notes.mobile.features.2
+   en.json: {...} (2 keys)
+944. productPages.notes.mobile.features.2.title
+   en.json: "Rich Media"
+945. productPages.notes.mobile.features.2.description
+   en.json: "Add photos, videos, and files directly from your phone"
+946. productPages.notes.sections
+   en.json: {...} (9 keys)
+947. productPages.notes.sections.blocksTitle
+   en.json: "Every Block Type You Need"
+948. productPages.notes.sections.blocksSubtitle
+   en.json: "Build rich, beautiful documents with flexible content blocks for any use case"
+949. productPages.notes.sections.aiTitle
+   en.json: "Intelligent Writing Assistant"
+950. productPages.notes.sections.aiSubtitle
+   en.json: "AI that helps you write better, faster, and smarter with automated assistance"
+951. productPages.notes.sections.powerTitle
+   en.json: "Professional Documentation"
+952. productPages.notes.sections.powerSubtitle
+   en.json: "Advanced features for teams that need powerful note-taking and documentation"
+953. productPages.notes.sections.essentialsSubtitle
+   en.json: "Everything you need for powerful documentation"
+954. productPages.notes.sections.mobileTitle
+   en.json: "Write Notes Anywhere"
+955. productPages.notes.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full editing capabilities. Create, edit, and organize notes on the ..."
+956. productPages.videoCalls
+   en.json: {...} (23 keys)
+957. productPages.videoCalls.meta
+   en.json: {...} (2 keys)
+958. productPages.videoCalls.meta.title
+   en.json: "Video Calls & Conferencing - HD Video Meetings | Deskive"
+959. productPages.videoCalls.meta.description
+   en.json: "Professional video conferencing with HD quality, AI transcription, screen sharing, recording, and se..."
+960. productPages.videoCalls.badge
+   en.json: "Video Conferencing"
+961. productPages.videoCalls.title
+   en.json: "Meet Face-to-Face, Anywhere."
+962. productPages.videoCalls.titleHighlight
+   en.json: "Crystal Clear. Every Time."
+963. productPages.videoCalls.subtitle
+   en.json: "Professional video conferencing with HD quality, AI transcription, screen sharing, recording, and se..."
+964. productPages.videoCalls.cta
+   en.json: "Start Your First Meeting"
+965. productPages.videoCalls.meetingTypes
+   en.json: {...} (6 keys)
+966. productPages.videoCalls.meetingTypes.teamMeetings
+   en.json: {...} (2 keys)
+967. productPages.videoCalls.meetingTypes.teamMeetings.title
+   en.json: "Team Meetings"
+968. productPages.videoCalls.meetingTypes.teamMeetings.description
+   en.json: "Daily standups, sprint planning, and team huddles with up to 100 participants"
+969. productPages.videoCalls.meetingTypes.webinars
+   en.json: {...} (2 keys)
+970. productPages.videoCalls.meetingTypes.webinars.title
+   en.json: "Webinars & Presentations"
+971. productPages.videoCalls.meetingTypes.webinars.description
+   en.json: "Host large-scale webinars with screen sharing, Q&A, and live polling"
+972. productPages.videoCalls.meetingTypes.oneOnOne
+   en.json: {...} (2 keys)
+973. productPages.videoCalls.meetingTypes.oneOnOne.title
+   en.json: "1:1 Conversations"
+974. productPages.videoCalls.meetingTypes.oneOnOne.description
+   en.json: "Personal video calls for mentoring, coaching, and performance reviews"
+975. productPages.videoCalls.meetingTypes.liveStreaming
+   en.json: {...} (2 keys)
+976. productPages.videoCalls.meetingTypes.liveStreaming.title
+   en.json: "Live Streaming"
+977. productPages.videoCalls.meetingTypes.liveStreaming.description
+   en.json: "Broadcast meetings to unlimited viewers with interactive chat"
+978. productPages.videoCalls.meetingTypes.breakoutRooms
+   en.json: {...} (2 keys)
+979. productPages.videoCalls.meetingTypes.breakoutRooms.title
+   en.json: "Breakout Rooms"
+980. productPages.videoCalls.meetingTypes.breakoutRooms.description
+   en.json: "Split participants into smaller groups for focused discussions"
+981. productPages.videoCalls.meetingTypes.scheduledMeetings
+   en.json: {...} (2 keys)
+982. productPages.videoCalls.meetingTypes.scheduledMeetings.title
+   en.json: "Scheduled Meetings"
+983. productPages.videoCalls.meetingTypes.scheduledMeetings.description
+   en.json: "Calendar integration for seamless scheduling and automatic reminders"
+984. productPages.videoCalls.aiFeatures
+   en.json: {...} (6 keys)
+985. productPages.videoCalls.aiFeatures.transcription
+   en.json: {...} (2 keys)
+986. productPages.videoCalls.aiFeatures.transcription.title
+   en.json: "Live Transcription"
+987. productPages.videoCalls.aiFeatures.transcription.description
+   en.json: "Real-time transcription in 30+ languages with speaker identification"
+988. productPages.videoCalls.aiFeatures.summaries
+   en.json: {...} (2 keys)
+989. productPages.videoCalls.aiFeatures.summaries.title
+   en.json: "AI Meeting Summaries"
+990. productPages.videoCalls.aiFeatures.summaries.description
+   en.json: "Automatic meeting summaries with key points and action items"
+991. productPages.videoCalls.aiFeatures.highlights
+   en.json: {...} (2 keys)
+992. productPages.videoCalls.aiFeatures.highlights.title
+   en.json: "Smart Highlights"
+993. productPages.videoCalls.aiFeatures.highlights.description
+   en.json: "AI extracts important moments and decisions from your meetings"
+994. productPages.videoCalls.aiFeatures.translation
+   en.json: {...} (2 keys)
+995. productPages.videoCalls.aiFeatures.translation.title
+   en.json: "Real-time Translation"
+996. productPages.videoCalls.aiFeatures.translation.description
+   en.json: "Automatic translation of transcripts and subtitles in multiple languages"
+997. productPages.videoCalls.aiFeatures.noteTaking
+   en.json: {...} (2 keys)
+998. productPages.videoCalls.aiFeatures.noteTaking.title
+   en.json: "AI Note-Taking"
+999. productPages.videoCalls.aiFeatures.noteTaking.description
+   en.json: "Intelligent note-taking that captures context and important details"
+1000. productPages.videoCalls.aiFeatures.sentiment
+   en.json: {...} (2 keys)
+1001. productPages.videoCalls.aiFeatures.sentiment.title
+   en.json: "Sentiment Analysis"
+1002. productPages.videoCalls.aiFeatures.sentiment.description
+   en.json: "Understand team mood and engagement with AI-powered sentiment analysis"
+1003. productPages.videoCalls.advancedFeatures
+   en.json: {...} (12 keys)
+1004. productPages.videoCalls.advancedFeatures.screenSharing
+   en.json: {...} (2 keys)
+1005. productPages.videoCalls.advancedFeatures.screenSharing.title
+   en.json: "Screen Sharing"
+1006. productPages.videoCalls.advancedFeatures.screenSharing.description
+   en.json: "Share your screen, specific apps, or browser tabs with high quality"
+1007. productPages.videoCalls.advancedFeatures.recording
+   en.json: {...} (2 keys)
+1008. productPages.videoCalls.advancedFeatures.recording.title
+   en.json: "Cloud Recording"
+1009. productPages.videoCalls.advancedFeatures.recording.description
+   en.json: "Automatic recording and cloud storage for all your meetings"
+1010. productPages.videoCalls.advancedFeatures.backgrounds
+   en.json: {...} (2 keys)
+1011. productPages.videoCalls.advancedFeatures.backgrounds.title
+   en.json: "Virtual Backgrounds"
+1012. productPages.videoCalls.advancedFeatures.backgrounds.description
+   en.json: "Custom backgrounds and blur effects for professional appearance"
+1013. productPages.videoCalls.advancedFeatures.reactions
+   en.json: {...} (2 keys)
+1014. productPages.videoCalls.advancedFeatures.reactions.title
+   en.json: "Reactions & Emojis"
+1015. productPages.videoCalls.advancedFeatures.reactions.description
+   en.json: "Express yourself with live emoji reactions and hand raising"
+1016. productPages.videoCalls.advancedFeatures.galleryView
+   en.json: {...} (2 keys)
+1017. productPages.videoCalls.advancedFeatures.galleryView.title
+   en.json: "Gallery View"
+1018. productPages.videoCalls.advancedFeatures.galleryView.description
+   en.json: "See all participants at once in customizable grid layouts"
+1019. productPages.videoCalls.advancedFeatures.picInPic
+   en.json: {...} (2 keys)
+1020. productPages.videoCalls.advancedFeatures.picInPic.title
+   en.json: "Picture-in-Picture"
+1021. productPages.videoCalls.advancedFeatures.picInPic.description
+   en.json: "Keep meetings visible while working on other tasks"
+1022. productPages.videoCalls.advancedFeatures.waitingRooms
+   en.json: {...} (2 keys)
+1023. productPages.videoCalls.advancedFeatures.waitingRooms.title
+   en.json: "Waiting Rooms"
+1024. productPages.videoCalls.advancedFeatures.waitingRooms.description
+   en.json: "Control who joins your meeting with virtual waiting rooms"
+1025. productPages.videoCalls.advancedFeatures.filters
+   en.json: {...} (2 keys)
+1026. productPages.videoCalls.advancedFeatures.filters.title
+   en.json: "Beauty Filters"
+1027. productPages.videoCalls.advancedFeatures.filters.description
+   en.json: "Look your best with professional video enhancement filters"
+1028. productPages.videoCalls.advancedFeatures.noiseCancellation
+   en.json: {...} (2 keys)
+1029. productPages.videoCalls.advancedFeatures.noiseCancellation.title
+   en.json: "Noise Cancellation"
+1030. productPages.videoCalls.advancedFeatures.noiseCancellation.description
+   en.json: "AI-powered noise suppression for crystal clear audio"
+1031. productPages.videoCalls.advancedFeatures.whiteboard
+   en.json: {...} (2 keys)
+1032. productPages.videoCalls.advancedFeatures.whiteboard.title
+   en.json: "Interactive Whiteboard"
+1033. productPages.videoCalls.advancedFeatures.whiteboard.description
+   en.json: "Collaborate on ideas with real-time whiteboard sharing"
+1034. productPages.videoCalls.advancedFeatures.export
+   en.json: {...} (2 keys)
+1035. productPages.videoCalls.advancedFeatures.export.title
+   en.json: "Export & Download"
+1036. productPages.videoCalls.advancedFeatures.export.description
+   en.json: "Export recordings, transcripts, and notes in multiple formats"
+1037. productPages.videoCalls.advancedFeatures.controls
+   en.json: {...} (2 keys)
+1038. productPages.videoCalls.advancedFeatures.controls.title
+   en.json: "Host Controls"
+1039. productPages.videoCalls.advancedFeatures.controls.description
+   en.json: "Manage participants with mute, spotlight, and permission controls"
+1040. productPages.videoCalls.collaborationFeatures
+   en.json: {...} (6 keys)
+1041. productPages.videoCalls.collaborationFeatures.chat
+   en.json: {...} (2 keys)
+1042. productPages.videoCalls.collaborationFeatures.chat.title
+   en.json: "In-Meeting Chat"
+1043. productPages.videoCalls.collaborationFeatures.chat.description
+   en.json: "Text chat with file sharing and private messaging during calls"
+1044. productPages.videoCalls.collaborationFeatures.notes
+   en.json: {...} (2 keys)
+1045. productPages.videoCalls.collaborationFeatures.notes.title
+   en.json: "Shared Notes"
+1046. productPages.videoCalls.collaborationFeatures.notes.description
+   en.json: "Collaborative note-taking with real-time synchronization"
+1047. productPages.videoCalls.collaborationFeatures.coHosts
+   en.json: {...} (2 keys)
+1048. productPages.videoCalls.collaborationFeatures.coHosts.title
+   en.json: "Co-Hosts & Moderators"
+1049. productPages.videoCalls.collaborationFeatures.coHosts.description
+   en.json: "Assign co-hosts to help manage large meetings and webinars"
+1050. productPages.videoCalls.collaborationFeatures.polls
+   en.json: {...} (2 keys)
+1051. productPages.videoCalls.collaborationFeatures.polls.title
+   en.json: "Live Polls & Q&A"
+1052. productPages.videoCalls.collaborationFeatures.polls.description
+   en.json: "Engage participants with interactive polls and Q&A sessions"
+1053. productPages.videoCalls.collaborationFeatures.timer
+   en.json: {...} (2 keys)
+1054. productPages.videoCalls.collaborationFeatures.timer.title
+   en.json: "Meeting Timer"
+1055. productPages.videoCalls.collaborationFeatures.timer.description
+   en.json: "Built-in timers and agendas to keep meetings on track"
+1056. productPages.videoCalls.collaborationFeatures.guestAccess
+   en.json: {...} (2 keys)
+1057. productPages.videoCalls.collaborationFeatures.guestAccess.title
+   en.json: "Guest Access"
+1058. productPages.videoCalls.collaborationFeatures.guestAccess.description
+   en.json: "Invite external participants without requiring account creation"
+1059. productPages.videoCalls.coreFeatures
+   en.json: {...} (12 keys)
+1060. productPages.videoCalls.coreFeatures.hdVideo
+   en.json: "HD Video Quality"
+1061. productPages.videoCalls.coreFeatures.screenShare
+   en.json: "Screen Sharing"
+1062. productPages.videoCalls.coreFeatures.recording
+   en.json: "Cloud Recording"
+1063. productPages.videoCalls.coreFeatures.backgrounds
+   en.json: "Virtual Backgrounds"
+1064. productPages.videoCalls.coreFeatures.chat
+   en.json: "In-Meeting Chat"
+1065. productPages.videoCalls.coreFeatures.breakoutRooms
+   en.json: "Breakout Rooms"
+1066. productPages.videoCalls.coreFeatures.transcription
+   en.json: "Live Transcription"
+1067. productPages.videoCalls.coreFeatures.security
+   en.json: "End-to-End Encryption"
+1068. productPages.videoCalls.coreFeatures.quickJoin
+   en.json: "One-Click Join"
+1069. productPages.videoCalls.coreFeatures.audioControls
+   en.json: "Advanced Audio"
+1070. productPages.videoCalls.coreFeatures.hostControls
+   en.json: "Host Controls"
+1071. productPages.videoCalls.coreFeatures.guestInvite
+   en.json: "Guest Access"
+1072. productPages.videoCalls.mobile
+   en.json: {...} (3 keys)
+1073. productPages.videoCalls.mobile.hdCalls
+   en.json: {...} (2 keys)
+1074. productPages.videoCalls.mobile.hdCalls.title
+   en.json: "HD Mobile Calls"
+1075. productPages.videoCalls.mobile.hdCalls.description
+   en.json: "Full HD video quality optimized for mobile networks and devices"
+1076. productPages.videoCalls.mobile.audioOnly
+   en.json: {...} (2 keys)
+1077. productPages.videoCalls.mobile.audioOnly.title
+   en.json: "Audio-Only Mode"
+1078. productPages.videoCalls.mobile.audioOnly.description
+   en.json: "Save data with audio-only mode while staying connected"
+1079. productPages.videoCalls.mobile.oneTapJoin
+   en.json: {...} (2 keys)
+1080. productPages.videoCalls.mobile.oneTapJoin.title
+   en.json: "One-Tap Join"
+1081. productPages.videoCalls.mobile.oneTapJoin.description
+   en.json: "Join meetings instantly from calendar notifications"
+1082. productPages.videoCalls.sections
+   en.json: {...} (11 keys)
+1083. productPages.videoCalls.sections.meetingTypesTitle
+   en.json: "Every Type of Meeting"
+1084. productPages.videoCalls.sections.meetingTypesSubtitle
+   en.json: "From team huddles to large webinars, host any type of meeting with ease"
+1085. productPages.videoCalls.sections.aiTitle
+   en.json: "Intelligent Meeting Assistant"
+1086. productPages.videoCalls.sections.aiSubtitle
+   en.json: "AI that transcribes, summarizes, and makes your meetings more productive"
+1087. productPages.videoCalls.sections.powerTitle
+   en.json: "Professional Video Conferencing"
+1088. productPages.videoCalls.sections.powerSubtitle
+   en.json: "Advanced features for teams that demand the best video quality and collaboration"
+1089. productPages.videoCalls.sections.collaborationTitle
+   en.json: "Collaborate in Real-Time"
+1090. productPages.videoCalls.sections.collaborationSubtitle
+   en.json: "Interactive tools to keep everyone engaged and productive during meetings"
+1091. productPages.videoCalls.sections.essentialsSubtitle
+   en.json: "Everything you need for productive meetings"
+1092. productPages.videoCalls.sections.mobileTitle
+   en.json: "Meet from Anywhere"
+1093. productPages.videoCalls.sections.mobileSubtitle
+   en.json: "Native iOS and Android apps with full video calling features. Join meetings on the go with the same ..."
+1094. productPages.videoCalls.page
+   en.json: {...} (5 keys)
+1095. productPages.videoCalls.page.title
+   en.json: "Video Calls"
+1096. productPages.videoCalls.page.subtitle
+   en.json: "Start AI-powered video calls with your team"
+1097. productPages.videoCalls.page.newMeeting
+   en.json: "New Meeting"
+1098. productPages.videoCalls.page.scheduleMeeting
+   en.json: "Schedule Meeting"
+1099. productPages.videoCalls.page.loading
+   en.json: "Loading..."
+1100. productPages.videoCalls.tabs
+   en.json: {...} (3 keys)
+1101. productPages.videoCalls.tabs.contacts
+   en.json: "Contacts"
+1102. productPages.videoCalls.tabs.history
+   en.json: "History"
+1103. productPages.videoCalls.tabs.scheduled
+   en.json: "Scheduled"
+1104. productPages.videoCalls.contacts
+   en.json: {...} (6 keys)
+1105. productPages.videoCalls.contacts.title
+   en.json: "Contacts"
+1106. productPages.videoCalls.contacts.searchPlaceholder
+   en.json: "Search contacts..."
+1107. productPages.videoCalls.contacts.filter
+   en.json: {...} (3 keys)
+1108. productPages.videoCalls.contacts.filter.all
+   en.json: "All"
+1109. productPages.videoCalls.contacts.filter.online
+   en.json: "Online"
+1110. productPages.videoCalls.contacts.filter.offline
+   en.json: "Offline"
+1111. productPages.videoCalls.contacts.status
+   en.json: {...} (4 keys)
+1112. productPages.videoCalls.contacts.status.online
+   en.json: "Online"
+1113. productPages.videoCalls.contacts.status.offline
+   en.json: "Offline"
+1114. productPages.videoCalls.contacts.status.away
+   en.json: "Away"
+1115. productPages.videoCalls.contacts.status.busy
+   en.json: "Busy"
+1116. productPages.videoCalls.contacts.quickActions
+   en.json: {...} (6 keys)
+1117. productPages.videoCalls.contacts.quickActions.quickVideoCall
+   en.json: "Quick Video Call"
+1118. productPages.videoCalls.contacts.quickActions.quickVideoCallDesc
+   en.json: "Start instant meeting"
+1119. productPages.videoCalls.contacts.quickActions.scheduleMeeting
+   en.json: "Schedule Meeting"
+1120. productPages.videoCalls.contacts.quickActions.scheduleMeetingDesc
+   en.json: "Plan for later"
+1121. productPages.videoCalls.contacts.quickActions.aiFeatures
+   en.json: "AI Features"
+1122. productPages.videoCalls.contacts.quickActions.aiFeaturesDesc
+   en.json: "Settings & preferences"
+1123. productPages.videoCalls.contacts.callButtons
+   en.json: {...} (2 keys)
+1124. productPages.videoCalls.contacts.callButtons.audio
+   en.json: "Audio"
+1125. productPages.videoCalls.contacts.callButtons.video
+   en.json: "Video"
+1126. productPages.videoCalls.history
+   en.json: {...} (9 keys)
+1127. productPages.videoCalls.history.title
+   en.json: "Call History"
+1128. productPages.videoCalls.history.recentCalls
+   en.json: "{count} recent calls"
+1129. productPages.videoCalls.history.noHistory
+   en.json: "No Call History"
+1130. productPages.videoCalls.history.noHistoryDesc
+   en.json: "Your completed calls will appear here."
+1131. productPages.videoCalls.history.callAgain
+   en.json: "Call Again"
+1132. productPages.videoCalls.history.schedule
+   en.json: "Schedule"
+1133. productPages.videoCalls.history.recorded
+   en.json: "Recorded"
+1134. productPages.videoCalls.history.formatDuration
+   en.json: "{hours}h {minutes}m"
+1135. productPages.videoCalls.history.formatDurationMinutes
+   en.json: "{minutes}m"
+1136. productPages.videoCalls.scheduled
+   en.json: {...} (5 keys)
+1137. productPages.videoCalls.scheduled.title
+   en.json: "Scheduled"
+1138. productPages.videoCalls.scheduled.noScheduled
+   en.json: "No Scheduled Meetings"
+1139. productPages.videoCalls.scheduled.noScheduledDesc
+   en.json: "You don't have any scheduled video calls at the moment."
+1140. productPages.videoCalls.scheduled.scheduleFirst
+   en.json: "Schedule a Meeting"
+1141. productPages.videoCalls.scheduled.join
+   en.json: "Join"
+1142. productPages.videoCalls.schedule
+   en.json: {...} (20 keys)
+1143. productPages.videoCalls.schedule.modalTitle
+   en.json: "Schedule Meeting"
+1144. productPages.videoCalls.schedule.platformLabel
+   en.json: "Meeting Platform"
+1145. productPages.videoCalls.schedule.platforms
+   en.json: {...} (3 keys)
+1146. productPages.videoCalls.schedule.platforms.video
+   en.json: {...} (2 keys)
+1147. productPages.videoCalls.schedule.platforms.video.name
+   en.json: "Video"
+1148. productPages.videoCalls.schedule.platforms.video.description
+   en.json: "Full HD video with AI features"
+1149. productPages.videoCalls.schedule.platforms.audio
+   en.json: {...} (2 keys)
+1150. productPages.videoCalls.schedule.platforms.audio.name
+   en.json: "Audio"
+1151. productPages.videoCalls.schedule.platforms.audio.description
+   en.json: "Crystal clear audio meetings"
+1152. productPages.videoCalls.schedule.platforms.webinar
+   en.json: {...} (2 keys)
+1153. productPages.videoCalls.schedule.platforms.webinar.name
+   en.json: "Webinar"
+1154. productPages.videoCalls.schedule.platforms.webinar.description
+   en.json: "Large audience presentations"
+1155. productPages.videoCalls.schedule.meetingTitle
+   en.json: "Meeting Title *"
+1156. productPages.videoCalls.schedule.meetingTitlePlaceholder
+   en.json: "Enter meeting title"
+1157. productPages.videoCalls.schedule.meetingDescription
+   en.json: "Description (Optional)"
+1158. productPages.videoCalls.schedule.meetingDescriptionPlaceholder
+   en.json: "Add meeting agenda or notes..."
+1159. productPages.videoCalls.schedule.duration
+   en.json: "Duration"
+1160. productPages.videoCalls.schedule.durationOptions
+   en.json: {...} (7 keys)
+1161. productPages.videoCalls.schedule.durationOptions.15
+   en.json: "15 minutes"
+1162. productPages.videoCalls.schedule.durationOptions.30
+   en.json: "30 minutes"
+1163. productPages.videoCalls.schedule.durationOptions.45
+   en.json: "45 minutes"
+1164. productPages.videoCalls.schedule.durationOptions.60
+   en.json: "1 hour"
+1165. productPages.videoCalls.schedule.durationOptions.90
+   en.json: "1.5 hours"
+1166. productPages.videoCalls.schedule.durationOptions.120
+   en.json: "2 hours"
+1167. productPages.videoCalls.schedule.durationOptions.180
+   en.json: "3 hours"
+1168. productPages.videoCalls.schedule.startImmediately
+   en.json: "Start meeting immediately"
+1169. productPages.videoCalls.schedule.startImmediatelyDesc
+   en.json: "(Send real-time call to all attendees now)"
+1170. productPages.videoCalls.schedule.date
+   en.json: "Date"
+1171. productPages.videoCalls.schedule.time
+   en.json: "Time"
+1172. productPages.videoCalls.schedule.timezone
+   en.json: "Timezone"
+1173. productPages.videoCalls.schedule.location
+   en.json: {...} (9 keys)
+1174. productPages.videoCalls.schedule.location.label
+   en.json: "Meeting Location"
+1175. productPages.videoCalls.schedule.location.virtual
+   en.json: "Virtual"
+1176. productPages.videoCalls.schedule.location.virtualDesc
+   en.json: "Online meeting"
+1177. productPages.videoCalls.schedule.location.physical
+   en.json: "In-Person"
+1178. productPages.videoCalls.schedule.location.physicalDesc
+   en.json: "Physical location"
+1179. productPages.videoCalls.schedule.location.hybrid
+   en.json: "Hybrid"
+1180. productPages.videoCalls.schedule.location.hybridDesc
+   en.json: "Both online & in-person"
+1181. productPages.videoCalls.schedule.location.physicalLocation
+   en.json: "Physical Location"
+1182. productPages.videoCalls.schedule.location.physicalLocationPlaceholder
+   en.json: "Enter meeting location (address, room number, etc.)"
+1183. productPages.videoCalls.schedule.attendees
+   en.json: {...} (3 keys)
+1184. productPages.videoCalls.schedule.attendees.label
+   en.json: "Add Attendees"
+1185. productPages.videoCalls.schedule.attendees.placeholder
+   en.json: "Select workspace members..."
+1186. productPages.videoCalls.schedule.attendees.selected
+   en.json: "Selected attendees will receive email and calendar invitations"
+1187. productPages.videoCalls.schedule.summary
+   en.json: {...} (8 keys)
+1188. productPages.videoCalls.schedule.summary.title
+   en.json: "Meeting Summary"
+1189. productPages.videoCalls.schedule.summary.dateTime
+   en.json: "Date & Time:"
+1190. productPages.videoCalls.schedule.summary.duration
+   en.json: "Duration:"
+1191. productPages.videoCalls.schedule.summary.durationMinutes
+   en.json: "{minutes} minutes"
+1192. productPages.videoCalls.schedule.summary.location
+   en.json: "Location:"
+1193. productPages.videoCalls.schedule.summary.recurrence
+   en.json: "Recurrence:"
+1194. productPages.videoCalls.schedule.summary.attendees
+   en.json: "Attendees:"
+1195. productPages.videoCalls.schedule.summary.attendeesSelected
+   en.json: "{count} selected"
+1196. productPages.videoCalls.schedule.actions
+   en.json: {...} (5 keys)
+1197. productPages.videoCalls.schedule.actions.create
+   en.json: "Schedule Meeting"
+1198. productPages.videoCalls.schedule.actions.creating
+   en.json: "Scheduling Meeting..."
+1199. productPages.videoCalls.schedule.actions.startNow
+   en.json: "Start Call Now"
+1200. productPages.videoCalls.schedule.actions.starting
+   en.json: "Starting Call..."
+1201. productPages.videoCalls.schedule.actions.cancel
+   en.json: "Cancel"
+1202. productPages.videoCalls.schedule.errors
+   en.json: {...} (3 keys)
+1203. productPages.videoCalls.schedule.errors.workspaceNotFound
+   en.json: "Workspace not found"
+1204. productPages.videoCalls.schedule.errors.titleRequired
+   en.json: "Please enter a meeting title"
+1205. productPages.videoCalls.schedule.errors.attendeesRequired
+   en.json: "Please select at least one attendee"
+1206. productPages.videoCalls.schedule.success
+   en.json: {...} (2 keys)
+1207. productPages.videoCalls.schedule.success.scheduled
+   en.json: "Meeting scheduled successfully!"
+1208. productPages.videoCalls.schedule.success.started
+   en.json: "Call started! Joining now..."
+1209. productPages.videoCalls.sidebar
+   en.json: {...} (2 keys)
+1210. productPages.videoCalls.sidebar.left
+   en.json: {...} (7 keys)
+1211. productPages.videoCalls.sidebar.left.contacts
+   en.json: "Contacts"
+1212. productPages.videoCalls.sidebar.left.recentContactsTitle
+   en.json: "WORKSPACE MEMBERS"
+1213. productPages.videoCalls.sidebar.left.addContact
+   en.json: "Add"
+1214. productPages.videoCalls.sidebar.left.sections
+   en.json: {...} (4 keys)
+1215. productPages.videoCalls.sidebar.left.sections.favorites
+   en.json: "Favorites"
+1216. productPages.videoCalls.sidebar.left.sections.recent
+   en.json: "Recent"
+1217. productPages.videoCalls.sidebar.left.sections.team
+   en.json: "Team"
+1218. productPages.videoCalls.sidebar.left.sections.external
+   en.json: "External"
+1219. productPages.videoCalls.sidebar.left.tabs
+   en.json: {...} (3 keys)
+1220. productPages.videoCalls.sidebar.left.tabs.contacts
+   en.json: "Contacts"
+1221. productPages.videoCalls.sidebar.left.tabs.history
+   en.json: "History"
+1222. productPages.videoCalls.sidebar.left.tabs.meetings
+   en.json: "Meetings"
+1223. productPages.videoCalls.sidebar.left.scheduleNew
+   en.json: "Schedule New Meeting"
+1224. productPages.videoCalls.sidebar.left.quickActions
+   en.json: {...} (3 keys)
+1225. productPages.videoCalls.sidebar.left.quickActions.audioCall
+   en.json: "Audio Call"
+1226. productPages.videoCalls.sidebar.left.quickActions.videoCall
+   en.json: "Video Call"
+1227. productPages.videoCalls.sidebar.left.quickActions.scheduleMeeting
+   en.json: "Schedule Meeting"
+1228. productPages.videoCalls.sidebar.right
+   en.json: {...} (7 keys)
+1229. productPages.videoCalls.sidebar.right.analytics
+   en.json: {...} (5 keys)
+1230. productPages.videoCalls.sidebar.right.analytics.title
+   en.json: "Your Analytics"
+1231. productPages.videoCalls.sidebar.right.analytics.totalMeetings
+   en.json: "Total Meetings"
+1232. productPages.videoCalls.sidebar.right.analytics.totalTime
+   en.json: "Total Time"
+1233. productPages.videoCalls.sidebar.right.analytics.thisWeek
+   en.json: "This Week"
+1234. productPages.videoCalls.sidebar.right.analytics.avgDuration
+   en.json: "Avg Duration"
+1235. productPages.videoCalls.sidebar.right.recentMeetings
+   en.json: {...} (4 keys)
+1236. productPages.videoCalls.sidebar.right.recentMeetings.title
+   en.json: "Recent Meetings"
+1237. productPages.videoCalls.sidebar.right.recentMeetings.viewDetails
+   en.json: "View Details"
+1238. productPages.videoCalls.sidebar.right.recentMeetings.participants
+   en.json: "{count} participants"
+1239. productPages.videoCalls.sidebar.right.recentMeetings.status
+   en.json: {...} (4 keys)
+1240. productPages.videoCalls.sidebar.right.recentMeetings.status.completed
+   en.json: "Completed"
+1241. productPages.videoCalls.sidebar.right.recentMeetings.status.active
+   en.json: "Active"
+1242. productPages.videoCalls.sidebar.right.recentMeetings.status.scheduled
+   en.json: "Scheduled"
+1243. productPages.videoCalls.sidebar.right.recentMeetings.status.cancelled
+   en.json: "Cancelled"
+1244. productPages.videoCalls.sidebar.right.summaries
+   en.json: {...} (3 keys)
+1245. productPages.videoCalls.sidebar.right.summaries.title
+   en.json: "Recent Summaries"
+1246. productPages.videoCalls.sidebar.right.summaries.keyPoints
+   en.json: "{count} key points"
+1247. productPages.videoCalls.sidebar.right.summaries.viewFull
+   en.json: "View Full"
+1248. productPages.videoCalls.sidebar.right.notes
+   en.json: {...} (3 keys)
+1249. productPages.videoCalls.sidebar.right.notes.title
+   en.json: "Recent Notes"
+1250. productPages.videoCalls.sidebar.right.notes.aiAccuracy
+   en.json: "{percent}% AI"
+1251. productPages.videoCalls.sidebar.right.notes.viewNote
+   en.json: "View Note"
+1252. productPages.videoCalls.sidebar.right.details
+   en.json: {...} (10 keys)
+1253. productPages.videoCalls.sidebar.right.details.meetingDetails
+   en.json: "Meeting Details"
+1254. productPages.videoCalls.sidebar.right.details.duration
+   en.json: "Duration:"
+1255. productPages.videoCalls.sidebar.right.details.date
+   en.json: "Date:"
+1256. productPages.videoCalls.sidebar.right.details.time
+   en.json: "Time:"
+1257. productPages.videoCalls.sidebar.right.details.status
+   en.json: "Status:"
+1258. productPages.videoCalls.sidebar.right.details.participants
+   en.json: "Participants ({count})"
+1259. productPages.videoCalls.sidebar.right.details.joinMeeting
+   en.json: "Join Meeting"
+1260. productPages.videoCalls.sidebar.right.details.downloadRecording
+   en.json: "Download Recording"
+1261. productPages.videoCalls.sidebar.right.details.copyDetails
+   en.json: "Copy Details"
+1262. productPages.videoCalls.sidebar.right.details.detailsCopied
+   en.json: "Meeting details copied to clipboard"
+1263. productPages.videoCalls.sidebar.right.summary
+   en.json: {...} (7 keys)
+1264. productPages.videoCalls.sidebar.right.summary.meetingSummary
+   en.json: "Meeting Summary"
+1265. productPages.videoCalls.sidebar.right.summary.summary
+   en.json: "Summary:"
+1266. productPages.videoCalls.sidebar.right.summary.keyPoints
+   en.json: "Key Points"
+1267. productPages.videoCalls.sidebar.right.summary.downloadPdf
+   en.json: "Download PDF"
+1268. productPages.videoCalls.sidebar.right.summary.copySummary
+   en.json: "Copy Summary"
+1269. productPages.videoCalls.sidebar.right.summary.summaryCopied
+   en.json: "Summary copied to clipboard"
+1270. productPages.videoCalls.sidebar.right.summary.pdfDownloaded
+   en.json: "Summary downloaded as PDF"
+1271. productPages.videoCalls.sidebar.right.note
+   en.json: {...} (14 keys)
+1272. productPages.videoCalls.sidebar.right.note.meetingNote
+   en.json: "Meeting Note"
+1273. productPages.videoCalls.sidebar.right.note.aiAccuracy
+   en.json: "{percent}% AI Accuracy"
+1274. productPages.videoCalls.sidebar.right.note.aiGenerated
+   en.json: "AI-Generated Content"
+1275. productPages.videoCalls.sidebar.right.note.context
+   en.json: "Meeting Context"
+1276. productPages.videoCalls.sidebar.right.note.confidence
+   en.json: "AI Confidence Score"
+1277. productPages.videoCalls.sidebar.right.note.accuracy
+   en.json: "{percent}% accuracy"
+1278. productPages.videoCalls.sidebar.right.note.generated
+   en.json: "Generated"
+1279. productPages.videoCalls.sidebar.right.note.saveToNotes
+   en.json: "Save to Notes"
+1280. productPages.videoCalls.sidebar.right.note.export
+   en.json: "Export"
+1281. productPages.videoCalls.sidebar.right.note.copyNote
+   en.json: "Copy Note"
+1282. productPages.videoCalls.sidebar.right.note.noteSaved
+   en.json: "Note "{title}" saved to Notes app"
+1283. productPages.videoCalls.sidebar.right.note.noteExported
+   en.json: "Note exported as document"
+1284. productPages.videoCalls.sidebar.right.note.noteCopied
+   en.json: "Note copied to clipboard"
+1285. productPages.videoCalls.sidebar.right.note.recordingDownloaded
+   en.json: "Meeting recording downloaded"
+1286. productPages.videoCalls.actions
+   en.json: {...} (10 keys)
+1287. productPages.videoCalls.actions.startingCall
+   en.json: "Starting call..."
+1288. productPages.videoCalls.actions.callCreated
+   en.json: "Call created!"
+1289. productPages.videoCalls.actions.joinCall
+   en.json: "Join Call"
+1290. productPages.videoCalls.actions.endCall
+   en.json: "End Call"
+1291. productPages.videoCalls.actions.muteAudio
+   en.json: "Mute Audio"
+1292. productPages.videoCalls.actions.unmuteAudio
+   en.json: "Unmute Audio"
+1293. productPages.videoCalls.actions.stopVideo
+   en.json: "Stop Video"
+1294. productPages.videoCalls.actions.startVideo
+   en.json: "Start Video"
+1295. productPages.videoCalls.actions.shareScreen
+   en.json: "Share Screen"
+1296. productPages.videoCalls.actions.stopSharing
+   en.json: "Stop Sharing"
+1297. productPages.videoCalls.errors
+   en.json: {...} (4 keys)
+1298. productPages.videoCalls.errors.workspaceNotFound
+   en.json: "Workspace not found"
+1299. productPages.videoCalls.errors.callFailed
+   en.json: "Failed to start call"
+1300. productPages.videoCalls.errors.callStartFailed
+   en.json: "Failed to start call"
+1301. productPages.videoCalls.errors.scheduleFailed
+   en.json: "Failed to schedule meeting"
+1302. productPages.videoCalls.formatTime
+   en.json: {...} (5 keys)
+1303. productPages.videoCalls.formatTime.justNow
+   en.json: "Just now"
+1304. productPages.videoCalls.formatTime.hoursAgo
+   en.json: "{hours}h ago"
+1305. productPages.videoCalls.formatTime.daysAgo
+   en.json: "{days}d ago"
+1306. productPages.videoCalls.formatTime.duration
+   en.json: "{hours}h {minutes}m"
+1307. productPages.videoCalls.formatTime.durationMinutes
+   en.json: "{minutes}m"
+1308. productPages.integrations
+   en.json: {...} (6 keys)
+1309. productPages.integrations.badge
+   en.json: "Powerful Integrations"
+1310. productPages.integrations.title
+   en.json: "Connect Everything You Use"
+1311. productPages.integrations.titleHighlight
+   en.json: "Unify Your Entire Stack."
+1312. productPages.integrations.subtitle
+   en.json: "Seamlessly integrate with 500+ apps and services. Connect your favorite development tools, business ..."
+1313. productPages.integrations.cta
+   en.json: "Explore Integrations"
+1314. productPages.integrations.sections
+   en.json: {...} (7 keys)
+1315. productPages.integrations.sections.connectTitle
+   en.json: "Integration Made Simple"
+1316. productPages.integrations.sections.connectSubtitle
+   en.json: "From no-code solutions to advanced API integrations - connect your tools effortlessly"
+1317. productPages.integrations.sections.developersTitle
+   en.json: "Built for Developers"
+1318. productPages.integrations.sections.developersSubtitle
+   en.json: "Complete REST API, webhooks, and SDKs for seamless integration with any platform"
+1319. productPages.integrations.sections.businessTitle
+   en.json: "Built for Business"
+1320. productPages.integrations.sections.businessSubtitle
+   en.json: "Pre-built connectors for CRM, marketing, finance, and business intelligence tools"
+1321. productPages.integrations.sections.essentialsSubtitle
+   en.json: "Everything you need to unify your workflow"
+1322. productPages.monitoring
+   en.json: {...} (6 keys)
+1323. productPages.monitoring.badge
+   en.json: "System Monitoring"
+1324. productPages.monitoring.title
+   en.json: "Stay Ahead of Issues"
+1325. productPages.monitoring.titleHighlight
+   en.json: "Before They Impact Users."
+1326. productPages.monitoring.subtitle
+   en.json: "Monitor your entire infrastructure with real-time alerts, comprehensive metrics, and intelligent ano..."
+1327. productPages.monitoring.cta
+   en.json: "Start Monitoring"
+1328. productPages.monitoring.sections
+   en.json: {...} (7 keys)
+1329. productPages.monitoring.sections.visibilityTitle
+   en.json: "Complete Infrastructure Visibility"
+1330. productPages.monitoring.sections.visibilitySubtitle
+   en.json: "Monitor everything from servers to applications with comprehensive observability tools"
+1331. productPages.monitoring.sections.alertsTitle
+   en.json: "Intelligent Alerting"
+1332. productPages.monitoring.sections.alertsSubtitle
+   en.json: "Smart alerts with customizable thresholds, escalation policies, and multi-channel notifications"
+1333. productPages.monitoring.sections.performanceTitle
+   en.json: "Performance Analytics"
+1334. productPages.monitoring.sections.performanceSubtitle
+   en.json: "Detailed metrics, trend analysis, and capacity planning to optimize your systems"
+1335. productPages.monitoring.sections.essentialsSubtitle
+   en.json: "Everything you need for complete system visibility"
+1336. productPages.automation
+   en.json: {...} (6 keys)
+1337. productPages.automation.badge
+   en.json: "Workflow Automation"
+1338. productPages.automation.title
+   en.json: "Automate Everything"
+1339. productPages.automation.titleHighlight
+   en.json: "Focus on What Matters."
+1340. productPages.automation.subtitle
+   en.json: "Build powerful automation workflows with drag-and-drop simplicity. Connect apps, trigger actions, an..."
+1341. productPages.automation.cta
+   en.json: "Create Your First Workflow"
+1342. productPages.automation.sections
+   en.json: {...} (7 keys)
+1343. productPages.automation.sections.automationTitle
+   en.json: "Automation Made Simple"
+1344. productPages.automation.sections.automationSubtitle
+   en.json: "From simple triggers to complex workflows - automate any process with ease"
+1345. productPages.automation.sections.aiTitle
+   en.json: "AI-Powered Automation"
+1346. productPages.automation.sections.aiSubtitle
+   en.json: "AI suggests and creates automation workflows based on your patterns and needs"
+1347. productPages.automation.sections.powerTitle
+   en.json: "Advanced Workflows"
+1348. productPages.automation.sections.powerSubtitle
+   en.json: "Complex conditional logic, custom scripts, and error handling for reliable automation"
+1349. productPages.automation.sections.essentialsSubtitle
+   en.json: "Everything you need to automate your workflows"
+1350. pricing.meta
+   en.json: {...} (3 keys)
+1351. pricing.meta.title
+   en.json: "Pricing Plans - Simple, Transparent, Affordable"
+1352. pricing.meta.description
+   en.json: "Choose the perfect Deskive plan for your team. Free tier available. Paid plans start at $29/month. A..."
+1353. pricing.meta.keywords
+   en.json: "pricing, plans, cost, free trial, workspace pricing, team collaboration pricing"
+1354. pricing.header
+   en.json: {...} (5 keys)
+1355. pricing.header.badge
+   en.json: "Simple Pricing"
+1356. pricing.header.title
+   en.json: "Choose Your"
+1357. pricing.header.titleHighlight
+   en.json: "Plan"
+1358. pricing.header.subtitle
+   en.json: "Start free and scale as you grow. No hidden fees, no surprises."
+1359. pricing.header.subtitleBold
+   en.json: "14-day free trial on all paid plans."
+1360. pricing.promo
+   en.json: {...} (4 keys)
+1361. pricing.promo.limitedTime
+   en.json: "Limited Time Offer"
+1362. pricing.promo.twoMonthsFree
+   en.json: "Get 2 Months Free with Annual Plans"
+1363. pricing.promo.bestValue
+   en.json: "🎉 Best Value"
+1364. pricing.promo.joinThousands
+   en.json: "Join thousands of teams already using Deskive. Start free, upgrade anytime."
+1365. pricing.billing
+   en.json: {...} (9 keys)
+1366. pricing.billing.monthly
+   en.json: "Monthly"
+1367. pricing.billing.annual
+   en.json: "Annual"
+1368. pricing.billing.twoMonthsFree
+   en.json: "2 months free"
+1369. pricing.billing.save
+   en.json: "Save 17%"
+1370. pricing.billing.perMo
+   en.json: "/mo"
+1371. pricing.billing.perMonth
+   en.json: "per month"
+1372. pricing.billing.perYear
+   en.json: "/year"
+1373. pricing.billing.forever
+   en.json: "forever"
+1374. pricing.billing.contactSales
+   en.json: "contact sales"
+1375. pricing.trustedBy
+   en.json: "Trusted by teams worldwide"
+1376. pricing.features
+   en.json: {...} (3 keys)
+1377. pricing.features.freeTrial
+   en.json: "14-day free trial"
+1378. pricing.features.noCreditCard
+   en.json: "No credit card required"
+1379. pricing.features.cancelAnytime
+   en.json: "Cancel anytime"
+1380. pricing.loading
+   en.json: {...} (1 keys)
+1381. pricing.loading.text
+   en.json: "Loading pricing plans..."
+1382. pricing.error
+   en.json: {...} (1 keys)
+1383. pricing.error.text
+   en.json: "Showing default pricing plans."
+1384. pricing.plans
+   en.json: {...} (4 keys)
+1385. pricing.plans.free
+   en.json: {...} (7 keys)
+1386. pricing.plans.free.name
+   en.json: "Free"
+1387. pricing.plans.free.price
+   en.json: "$0"
+1388. pricing.plans.free.period
+   en.json: "forever"
+1389. pricing.plans.free.description
+   en.json: "Perfect for individuals and small teams getting started"
+1390. pricing.plans.free.buttonText
+   en.json: "Get Started"
+1391. pricing.plans.free.features
+   en.json: {...} (8 keys)
+1392. pricing.plans.free.notIncluded
+   en.json: {...} (6 keys)
+1393. pricing.plans.starter
+   en.json: {...} (8 keys)
+1394. pricing.plans.starter.name
+   en.json: "Starter"
+1395. pricing.plans.starter.price
+   en.json: "$9.99"
+1396. pricing.plans.starter.yearlyPrice
+   en.json: "$99.99"
+1397. pricing.plans.starter.period
+   en.json: "per month"
+1398. pricing.plans.starter.description
+   en.json: "Ideal for growing teams that need more power"
+1399. pricing.plans.starter.buttonText
+   en.json: "Get Started"
+1400. pricing.plans.starter.features
+   en.json: {...} (12 keys)
+1401. pricing.plans.starter.notIncluded
+   en.json: {...} (4 keys)
+1402. pricing.plans.professional
+   en.json: {...} (8 keys)
+1403. pricing.plans.professional.name
+   en.json: "Professional"
+1404. pricing.plans.professional.price
+   en.json: "$19.99"
+1405. pricing.plans.professional.yearlyPrice
+   en.json: "$199.99"
+1406. pricing.plans.professional.period
+   en.json: "per month"
+1407. pricing.plans.professional.description
+   en.json: "Complete solution for professional teams"
+1408. pricing.plans.professional.buttonText
+   en.json: "Get Started"
+1409. pricing.plans.professional.badge
+   en.json: "Most Popular"
+1410. pricing.plans.professional.features
+   en.json: {...} (14 keys)
+1411. pricing.plans.enterprise
+   en.json: {...} (7 keys)
+1412. pricing.plans.enterprise.name
+   en.json: "Enterprise"
+1413. pricing.plans.enterprise.price
+   en.json: "$49.99"
+1414. pricing.plans.enterprise.yearlyPrice
+   en.json: "$499.99"
+1415. pricing.plans.enterprise.period
+   en.json: "per month"
+1416. pricing.plans.enterprise.description
+   en.json: "Tailored solutions for large organizations"
+1417. pricing.plans.enterprise.buttonText
+   en.json: "Get Started"
+1418. pricing.plans.enterprise.features
+   en.json: {...} (15 keys)
+1419. pricing.faq
+   en.json: {...} (6 keys)
+1420. pricing.faq.badge
+   en.json: "Got questions?"
+1421. pricing.faq.title
+   en.json: "Frequently Asked"
+1422. pricing.faq.titleHighlight
+   en.json: "Questions"
+1423. pricing.faq.subtitle
+   en.json: "Have questions? We have answers. If you can't find what you're looking for, our support team is here..."
+1424. pricing.faq.questions
+   en.json: {...} (6 keys)
+1425. pricing.faq.contact
+   en.json: {...} (2 keys)
+1426. pricing.faq.contact.text
+   en.json: "Still have questions?"
+1427. pricing.faq.contact.buttonText
+   en.json: "Contact Sales Team"
+1428. featurePages.calendar
+   en.json: {...} (13 keys)
+1429. featurePages.calendar.title
+   en.json: "Calendar & Scheduling"
+1430. featurePages.calendar.description
+   en.json: "Manage your schedule with AI-powered calendar. Smart scheduling, meeting coordination, and calendar ..."
+1431. featurePages.calendar.badge
+   en.json: "Smart Calendar"
+1432. featurePages.calendar.heroTitle
+   en.json: "Intelligent Scheduling That Works For You"
+1433. featurePages.calendar.heroSubtitle
+   en.json: "AI-powered calendar management with smart scheduling, automatic conflict resolution, and seamless in..."
+1434. featurePages.calendar.calendarIntelligence
+   en.json: "Calendar Intelligence at Its Best"
+1435. featurePages.calendar.calendarIntelligenceSubtitle
+   en.json: "Let AI handle the complexity while you focus on what matters most"
+1436. featurePages.calendar.features
+   en.json: {...} (12 keys)
+1437. featurePages.calendar.features.smartScheduling
+   en.json: "Smart Scheduling"
+1438. featurePages.calendar.features.smartSchedulingDesc
+   en.json: "AI automatically finds the best meeting times based on preferences and availability"
+1439. featurePages.calendar.features.intelligentReminders
+   en.json: "Intelligent Reminders"
+1440. featurePages.calendar.features.intelligentRemindersDesc
+   en.json: "Context-aware notifications that adapt to your schedule and priorities"
+1441. featurePages.calendar.features.teamCoordination
+   en.json: "Team Coordination"
+1442. featurePages.calendar.features.teamCoordinationDesc
+   en.json: "Effortlessly coordinate with team members and find mutual availability"
+1443. featurePages.calendar.features.multipleViews
+   en.json: "Multiple Views"
+1444. featurePages.calendar.features.multipleViewsDesc
+   en.json: "Day, week, month, and custom views with powerful filtering and search"
+1445. featurePages.calendar.features.locationIntelligence
+   en.json: "Location Intelligence"
+1446. featurePages.calendar.features.locationIntelligenceDesc
+   en.json: "Automatic travel time calculation and location-based scheduling"
+1447. featurePages.calendar.features.recurringEvents
+   en.json: "Recurring Events"
+1448. featurePages.calendar.features.recurringEventsDesc
+   en.json: "Flexible recurring patterns with smart conflict detection and resolution"
+1449. featurePages.calendar.useCases
+   en.json: {...} (6 keys)
+1450. featurePages.calendar.useCases.perfectForEverySchedule
+   en.json: "Perfect for Every Schedule"
+1451. featurePages.calendar.useCases.perfectForEveryScheduleDesc
+   en.json: "From busy executives to creative teams, organize your time effectively"
+1452. featurePages.calendar.useCases.forProfessionals
+   en.json: "For Professionals"
+1453. featurePages.calendar.useCases.forProfessionalsDesc
+   en.json: "Schedule meetings across time zones effortlessly, Block focus time for deep work automatically, Mana..."
+1454. featurePages.calendar.useCases.forTeams
+   en.json: "For Teams"
+1455. featurePages.calendar.useCases.forTeamsDesc
+   en.json: "Share calendars with flexible permission controls, Book shared resources and meeting rooms, Coordina..."
+1456. featurePages.calendar.worksWithEverything
+   en.json: "Works With Everything"
+1457. featurePages.calendar.worksWithEverythingSubtitle
+   en.json: "Seamlessly integrate with your existing calendar and productivity tools"
+1458. featurePages.calendar.cta
+   en.json: "Take Control of Your Time Today"
+1459. featurePages.calendar.ctaSubtitle
+   en.json: "Join millions of users who've transformed their productivity with smart scheduling"
+1460. featurePages.notes
+   en.json: {...} (7 keys)
+1461. featurePages.notes.meta
+   en.json: {...} (2 keys)
+1462. featurePages.notes.meta.title
+   en.json: "Notes & Documentation - Collaborative Note-Taking"
+1463. featurePages.notes.meta.description
+   en.json: "Create, organize, and share notes with powerful knowledge management tools. Block-based editor, AI w..."
+1464. featurePages.notes.hero
+   en.json: {...} (6 keys)
+1465. featurePages.notes.hero.badge
+   en.json: "Collaborative Notes"
+1466. featurePages.notes.hero.title
+   en.json: "Write, Organize, Collaborate."
+1467. featurePages.notes.hero.titleHighlight
+   en.json: "All in One Note."
+1468. featurePages.notes.hero.description
+   en.json: "The most powerful note-taking platform. Block-based editor, AI writing assistant, real-time collabor..."
+1469. featurePages.notes.hero.button
+   en.json: "Start Taking Notes Free"
+1470. featurePages.notes.hero.trustLine
+   en.json: "Free forever • No credit card required"
+1471. featurePages.notes.blocks
+   en.json: {...} (9 keys)
+1472. featurePages.notes.blocks.badge
+   en.json: "Block Types"
+1473. featurePages.notes.blocks.title
+   en.json: "Build with Powerful Blocks"
+1474. featurePages.notes.blocks.subtitle
+   en.json: "Create rich, dynamic documents with drag-and-drop blocks. Mix and match content types to build exact..."
+1475. featurePages.notes.blocks.textBlocks
+   en.json: {...} (2 keys)
+1476. featurePages.notes.blocks.textBlocks.title
+   en.json: "Text Blocks"
+1477. featurePages.notes.blocks.textBlocks.description
+   en.json: "Rich text paragraphs with inline formatting, colors, and highlights."
+1478. featurePages.notes.blocks.headings
+   en.json: {...} (2 keys)
+1479. featurePages.notes.blocks.headings.title
+   en.json: "Headings & Titles"
+1480. featurePages.notes.blocks.headings.description
+   en.json: "Multiple heading levels for structured document organization."
+1481. featurePages.notes.blocks.lists
+   en.json: {...} (2 keys)
+1482. featurePages.notes.blocks.lists.title
+   en.json: "Lists & Checklists"
+1483. featurePages.notes.blocks.lists.description
+   en.json: "Bulleted lists, numbered lists, and interactive to-do lists."
+1484. featurePages.notes.blocks.code
+   en.json: {...} (2 keys)
+1485. featurePages.notes.blocks.code.title
+   en.json: "Code Blocks"
+1486. featurePages.notes.blocks.code.description
+   en.json: "Syntax-highlighted code with 100+ programming languages."
+1487. featurePages.notes.blocks.tables
+   en.json: {...} (2 keys)
+1488. featurePages.notes.blocks.tables.title
+   en.json: "Tables & Databases"
+1489. featurePages.notes.blocks.tables.description
+   en.json: "Powerful tables with sorting, filtering, and formulas."
+1490. featurePages.notes.blocks.media
+   en.json: {...} (2 keys)
+1491. featurePages.notes.blocks.media.title
+   en.json: "Media Embeds"
+1492. featurePages.notes.blocks.media.description
+   en.json: "Images, videos, files, and 40+ external service embeds."
+1493. featurePages.notes.ai
+   en.json: {...} (9 keys)
+1494. featurePages.notes.ai.badge
+   en.json: "AI-Powered"
+1495. featurePages.notes.ai.title
+   en.json: "Write Faster with AI"
+1496. featurePages.notes.ai.subtitle
+   en.json: "AI-powered writing tools that help you create, edit, and improve your notes instantly."
+1497. featurePages.notes.ai.writing
+   en.json: {...} (2 keys)
+1498. featurePages.notes.ai.writing.title
+   en.json: "AI Writing Assistant"
+1499. featurePages.notes.ai.writing.description
+   en.json: "AI helps you write, edit, and improve your content with smart suggestions."
+1500. featurePages.notes.ai.summarization
+   en.json: {...} (2 keys)
+1501. featurePages.notes.ai.summarization.title
+   en.json: "Auto-Summarization"
+1502. featurePages.notes.ai.summarization.description
+   en.json: "AI generates summaries, key points, and TL;DR from long documents."
+1503. featurePages.notes.ai.formatting
+   en.json: {...} (2 keys)
+1504. featurePages.notes.ai.formatting.title
+   en.json: "Smart Formatting"
+1505. featurePages.notes.ai.formatting.description
+   en.json: "AI automatically formats text, fixes grammar, and improves readability."
+1506. featurePages.notes.ai.translation
+   en.json: {...} (2 keys)
+1507. featurePages.notes.ai.translation.title
+   en.json: "Translation"
+1508. featurePages.notes.ai.translation.description
+   en.json: "Translate notes to 100+ languages with AI-powered translation."
+1509. featurePages.notes.ai.generation
+   en.json: {...} (2 keys)
+1510. featurePages.notes.ai.generation.title
+   en.json: "Content Generation"
+1511. featurePages.notes.ai.generation.description
+   en.json: "Generate outlines, templates, and content from simple prompts."
+1512. featurePages.notes.ai.codeExplanation
+   en.json: {...} (2 keys)
+1513. featurePages.notes.ai.codeExplanation.title
+   en.json: "Code Explanation"
+1514. featurePages.notes.ai.codeExplanation.description
+   en.json: "AI explains code blocks and suggests improvements automatically."
+1515. featurePages.notes.features
+   en.json: {...} (15 keys)
+1516. featurePages.notes.features.badge
+   en.json: "Advanced Features"
+1517. featurePages.notes.features.title
+   en.json: "Enterprise-Grade Power"
+1518. featurePages.notes.features.subtitle
+   en.json: "Everything you need for professional note-taking and knowledge management at scale."
+1519. featurePages.notes.features.blockEditor
+   en.json: {...} (2 keys)
+1520. featurePages.notes.features.blockEditor.title
+   en.json: "Block-Based Editor"
+1521. featurePages.notes.features.blockEditor.description
+   en.json: "Notion-style drag-and-drop blocks for flexible content creation."
+1522. featurePages.notes.features.collaboration
+   en.json: {...} (2 keys)
+1523. featurePages.notes.features.collaboration.title
+   en.json: "Real-time Collaboration"
+1524. featurePages.notes.features.collaboration.description
+   en.json: "Multiple users edit simultaneously with live cursors and changes."
+1525. featurePages.notes.features.templates
+   en.json: {...} (2 keys)
+1526. featurePages.notes.features.templates.title
+   en.json: "Templates Library"
+1527. featurePages.notes.features.templates.description
+   en.json: "Pre-built templates for meetings, docs, wikis, and custom templates."
+1528. featurePages.notes.features.nestedPages
+   en.json: {...} (2 keys)
+1529. featurePages.notes.features.nestedPages.title
+   en.json: "Nested Pages"
+1530. featurePages.notes.features.nestedPages.description
+   en.json: "Organize notes in unlimited nested pages and folders."
+1531. featurePages.notes.features.links
+   en.json: {...} (2 keys)
+1532. featurePages.notes.features.links.title
+   en.json: "Bi-directional Links"
+1533. featurePages.notes.features.links.description
+   en.json: "Link notes together and see backlinks automatically."
+1534. featurePages.notes.features.versionHistory
+   en.json: {...} (2 keys)
+1535. featurePages.notes.features.versionHistory.title
+   en.json: "Version History"
+1536. featurePages.notes.features.versionHistory.description
+   en.json: "Track all changes with unlimited version history and restore."
+1537. featurePages.notes.features.search
+   en.json: {...} (2 keys)
+1538. featurePages.notes.features.search.title
+   en.json: "Full-Text Search"
+1539. featurePages.notes.features.search.description
+   en.json: "Find anything instantly across all notes and pages."
+1540. featurePages.notes.features.tags
+   en.json: {...} (2 keys)
+1541. featurePages.notes.features.tags.title
+   en.json: "Tags & Labels"
+1542. featurePages.notes.features.tags.description
+   en.json: "Organize with custom tags, labels, and color coding."
+1543. featurePages.notes.features.bookmarks
+   en.json: {...} (2 keys)
+1544. featurePages.notes.features.bookmarks.title
+   en.json: "Bookmarks"
+1545. featurePages.notes.features.bookmarks.description
+   en.json: "Save important sections and pages for quick access."
+1546. featurePages.notes.features.export
+   en.json: {...} (2 keys)
+1547. featurePages.notes.features.export.title
+   en.json: "Export Options"
+1548. featurePages.notes.features.export.description
+   en.json: "Export to Markdown, PDF, HTML, or Word documents."
+1549. featurePages.notes.features.styling
+   en.json: {...} (2 keys)
+1550. featurePages.notes.features.styling.title
+   en.json: "Custom Styling"
+1551. featurePages.notes.features.styling.description
+   en.json: "Customize colors, fonts, and layouts for your pages."
+1552. featurePages.notes.features.multiColumn
+   en.json: {...} (2 keys)
+1553. featurePages.notes.features.multiColumn.title
+   en.json: "Multi-Column Layout"
+1554. featurePages.notes.features.multiColumn.description
+   en.json: "Create multi-column layouts for advanced page designs."
+1555. featurePages.notes.essentials
+   en.json: {...} (14 keys)
+1556. featurePages.notes.essentials.title
+   en.json: "All the Essentials, Built-in"
+1557. featurePages.notes.essentials.subtitle
+   en.json: "Everything you need for powerful note-taking and knowledge management."
+1558. featurePages.notes.essentials.blockEditor
+   en.json: "Block Editor"
+1559. featurePages.notes.essentials.richText
+   en.json: "Rich Text"
+1560. featurePages.notes.essentials.collaboration
+   en.json: "Collaboration"
+1561. featurePages.notes.essentials.templates
+   en.json: "Templates"
+1562. featurePages.notes.essentials.organization
+   en.json: "Organization"
+1563. featurePages.notes.essentials.fullSearch
+   en.json: "Full Search"
+1564. featurePages.notes.essentials.media
+   en.json: "Media"
+1565. featurePages.notes.essentials.codeBlocks
+   en.json: "Code Blocks"
+1566. featurePages.notes.essentials.tables
+   en.json: "Tables"
+1567. featurePages.notes.essentials.linking
+   en.json: "Linking"
+1568. featurePages.notes.essentials.todos
+   en.json: "To-Dos"
+1569. featurePages.notes.essentials.aiWriting
+   en.json: "AI Writing"
+1570. featurePages.notes.mobile
+   en.json: {...} (4 keys)
+1571. featurePages.notes.mobile.badge
+   en.json: "Mobile Apps"
+1572. featurePages.notes.mobile.title
+   en.json: "Take Notes on the Go"
+1573. featurePages.notes.mobile.description
+   en.json: "Native iOS and Android apps with full feature parity. Create, edit, and organize notes anywhere, any..."
+1574. featurePages.notes.mobile.features
+   en.json: {...} (3 keys)
+1575. featurePages.notes.mobile.features.0
+   en.json: {...} (2 keys)
+1576. featurePages.notes.mobile.features.0.title
+   en.json: "Edit Anywhere"
+1577. featurePages.notes.mobile.features.0.description
+   en.json: "Full-featured editor on mobile with offline support"
+1578. featurePages.notes.mobile.features.1
+   en.json: {...} (2 keys)
+1579. featurePages.notes.mobile.features.1.title
+   en.json: "Quick Capture"
+1580. featurePages.notes.mobile.features.1.description
+   en.json: "Capture ideas instantly with quick note creation and voice input"
+1581. featurePages.notes.mobile.features.2
+   en.json: {...} (2 keys)
+1582. featurePages.notes.mobile.features.2.title
+   en.json: "Rich Media"
+1583. featurePages.notes.mobile.features.2.description
+   en.json: "Add photos, videos, and files directly from your phone"
+1584. legal.privacy.sections.section1.content.6
+   en.json: "• Slack Integration Data: When you connect Deskive to Slack, we collect Slack user IDs, workspace ID..."
+1585. legal.privacy.sections.section5.content.3
+   en.json: "You can request deletion of your data at any time by contacting us at support@deskive.com or using t..."
+1586. legal.privacy.sections.section11.content.6
+   en.json: "All sub-processors are required to maintain security standards consistent with our privacy policy an..."
+1587. legal.privacy.sections.section12
+   en.json: {...} (2 keys)
+1588. legal.privacy.sections.section12.title
+   en.json: "12. Contact Us"
+1589. legal.privacy.sections.section12.content
+   en.json: {...} (6 keys)
+1590. legal.privacy.sections.section12.content.0
+   en.json: "If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices..."
+1591. legal.privacy.sections.section12.content.1
+   en.json: "Email: support@deskive.com"
+1592. legal.privacy.sections.section12.content.2
+   en.json: "Address: Nissho II 1F Room 1-B, 6-5-5 Nagatsuta, Midori-ku, Yokohama, Japan"
+1593. legal.privacy.sections.section12.content.3
+   en.json: "Phone: +81 45-508-9779"
+1594. legal.privacy.sections.section12.content.4
+   en.json: "Data Protection Officer: support@deskive.com"
+1595. legal.privacy.sections.section12.content.5
+   en.json: "We will respond to all inquiries within 48 business hours."
+1596. legal.chat
+   en.json: {...} (27 keys)
+1597. legal.chat.title
+   en.json: "Chat"
+1598. legal.chat.searchMessages
+   en.json: "Search messages..."
+1599. legal.chat.previousResult
+   en.json: "Previous result"
+1600. legal.chat.nextResult
+   en.json: "Next result"
+1601. legal.chat.voiceCall
+   en.json: "Voice call"
+1602. legal.chat.videoCall
+   en.json: "Video call"
+1603. legal.chat.bookmarkedMessages
+   en.json: "Bookmarked messages"
+1604. legal.chat.toggleAISummaries
+   en.json: "Toggle AI Summaries"
+1605. legal.chat.pinnedMessages
+   en.json: {...} (3 keys)
+1606. legal.chat.pinnedMessages.singular
+   en.json: "pinned message"
+1607. legal.chat.pinnedMessages.plural
+   en.json: "pinned messages"
+1608. legal.chat.pinnedMessages.count
+   en.json: "{count} pinned {text}"
+1609. legal.chat.selectedMessages
+   en.json: "{count} selected"
+1610. legal.chat.deleteButton
+   en.json: "Delete"
+1611. legal.chat.loadingMessages
+   en.json: "Loading messages..."
+1612. legal.chat.loadingOlderMessages
+   en.json: "Loading older messages..."
+1613. legal.chat.noMoreMessages
+   en.json: "No more messages"
+1614. legal.chat.noMessagesYet
+   en.json: "No messages yet. Start the conversation!"
+1615. legal.chat.replyingTo
+   en.json: "Replying to {name}"
+1616. legal.chat.directMessage
+   en.json: "Direct Message"
+1617. legal.chat.typingIndicator
+   en.json: {...} (3 keys)
+1618. legal.chat.typingIndicator.singular
+   en.json: "{name}"
+1619. legal.chat.typingIndicator.two
+   en.json: "{name1} and {name2}"
+1620. legal.chat.typingIndicator.plural
+   en.json: "{count} people"
+1621. legal.chat.inputPlaceholder
+   en.json: "Type a message..."
+1622. legal.chat.sendMessage
+   en.json: "Send message"
+1623. legal.chat.uploadFile
+   en.json: "Upload file"
+1624. legal.chat.addEmoji
+   en.json: "Add emoji"
+1625. legal.chat.scheduleMessage
+   en.json: "Schedule message"
+1626. legal.chat.aiAssistant
+   en.json: "AI Assistant"
+1627. legal.chat.error
+   en.json: "Error loading messages"
+1628. legal.chat.createChannel
+   en.json: {...} (17 keys)
+1629. legal.chat.createChannel.title
+   en.json: "Create a channel"
+1630. legal.chat.createChannel.editTitle
+   en.json: "Edit channel"
+1631. legal.chat.createChannel.channelName
+   en.json: "Channel name"
+1632. legal.chat.createChannel.channelNamePlaceholder
+   en.json: "e.g. marketing"
+1633. legal.chat.createChannel.description
+   en.json: "Description (optional)"
+1634. legal.chat.createChannel.makePrivate
+   en.json: "Make private"
+1635. legal.chat.createChannel.allWorkspaceMembers
+   en.json: "All workspace members can access this channel"
+1636. legal.chat.createChannel.onlySelectedMembers
+   en.json: "Only selected members can access this channel"
+1637. legal.chat.createChannel.addMembers
+   en.json: "Add members (optional)"
+1638. legal.chat.createChannel.channelMembers
+   en.json: "Channel members"
+1639. legal.chat.createChannel.searchMembers
+   en.json: "Search members..."
+1640. legal.chat.createChannel.loadingMembers
+   en.json: "Loading members..."
+1641. legal.chat.createChannel.noMembersFound
+   en.json: "No members found"
+1642. legal.chat.createChannel.noMembers
+   en.json: "No members available"
+1643. legal.chat.createChannel.cancel
+   en.json: "Cancel"
+1644. legal.chat.createChannel.create
+   en.json: "Create"
+1645. legal.chat.createChannel.update
+   en.json: "Update"
+1646. legal.chat.startConversation
+   en.json: {...} (5 keys)
+1647. legal.chat.startConversation.title
+   en.json: "Start a conversation"
+1648. legal.chat.startConversation.searchPlaceholder
+   en.json: "Search people or type an email to invite..."
+1649. legal.chat.startConversation.noMembers
+   en.json: "No members to show"
+1650. legal.chat.startConversation.cancel
+   en.json: "Cancel"
+1651. legal.chat.startConversation.selectMembers
+   en.json: "Select members"
+1652. legal.files
+   en.json: {...} (15 keys)
+1653. legal.files.title
+   en.json: "Files"
+1654. legal.files.searchPlaceholder
+   en.json: "Search files, content, tags..."
+1655. legal.files.allFiles
+   en.json: "All Files"
+1656. legal.files.dashboard
+   en.json: "Dashboard"
+1657. legal.files.messages
+   en.json: {...} (13 keys)
+1658. legal.files.messages.workspaceRequired
+   en.json: "Workspace ID is required"
+1659. legal.files.messages.itemNotFound
+   en.json: "Item not found"
+1660. legal.files.messages.folderDeleted
+   en.json: "Folder deleted successfully"
+1661. legal.files.messages.fileDeleted
+   en.json: "File deleted successfully"
+1662. legal.files.messages.restoreSuccess
+   en.json: "Restored {folders} folder(s) and {files} file(s)"
+1663. legal.files.messages.fileRestored
+   en.json: "File "{name}" restored successfully"
+1664. legal.files.messages.downloading
+   en.json: "Downloading file..."
+1665. legal.files.messages.downloadSuccess
+   en.json: "File downloaded successfully"
+1666. legal.files.messages.folderCreated
+   en.json: "Folder "{name}" created successfully"
+1667. legal.files.messages.folderRenamed
+   en.json: "Folder renamed to "{name}""
+1668. legal.files.messages.fileRenamed
+   en.json: "File renamed to "{name}""
+1669. legal.files.messages.fileStarred
+   en.json: "File starred"
+1670. legal.files.messages.fileUnstarred
+   en.json: "File unstarred"
+1671. legal.files.projects
+   en.json: "Projects"
+1672. legal.files.calendar
+   en.json: "Calendar"
+1673. legal.files.notes
+   en.json: "Notes"
+1674. legal.files.loading
+   en.json: "Loading files..."
+1675. legal.files.categories
+   en.json: {...} (11 keys)
+1676. legal.files.categories.allFiles
+   en.json: "All Files"
+1677. legal.files.categories.recent
+   en.json: "Recent"
+1678. legal.files.categories.starred
+   en.json: "Starred"
+1679. legal.files.categories.sharedWithMe
+   en.json: "Shared with Me"
+1680. legal.files.categories.trash
+   en.json: "Trash"
+1681. legal.files.categories.documents
+   en.json: "Documents"
+1682. legal.files.categories.pdfs
+   en.json: "PDFs"
+1683. legal.files.categories.images
+   en.json: "Images"
+1684. legal.files.categories.spreadsheets
+   en.json: "Spreadsheets"
+1685. legal.files.categories.videos
+   en.json: "Videos"
+1686. legal.files.categories.audio
+   en.json: "Audio"
+1687. legal.files.actions
+   en.json: {...} (10 keys)
+1688. legal.files.actions.upload
+   en.json: "Upload"
+1689. legal.files.actions.createFolder
+   en.json: "Create Folder"
+1690. legal.files.actions.delete
+   en.json: "Delete"
+1691. legal.files.actions.restore
+   en.json: "Restore"
+1692. legal.files.actions.download
+   en.json: "Download"
+1693. legal.files.actions.rename
+   en.json: "Rename"
+1694. legal.files.actions.copy
+   en.json: "Copy"
+1695. legal.files.actions.move
+   en.json: "Move"
+1696. legal.files.actions.star
+   en.json: "Star"
+1697. legal.files.actions.unstar
+   en.json: "Unstar"
+1698. legal.files.buttons
+   en.json: {...} (3 keys)
+1699. legal.files.buttons.newFolder
+   en.json: "New Folder"
+1700. legal.files.buttons.importFromDrive
+   en.json: "Import from Drive"
+1701. legal.files.buttons.importFromDropbox
+   en.json: "Import from Dropbox"
+1702. legal.files.filters
+   en.json: {...} (2 keys)
+1703. legal.files.filters.type
+   en.json: "Type"
+1704. legal.files.filters.dateModifiedButton
+   en.json: "Date modified"
+1705. legal.files.storage
+   en.json: {...} (1 keys)
+1706. legal.files.storage.planFree
+   en.json: "Free"
+1707. legal.files.tabs
+   en.json: {...} (5 keys)
+1708. legal.files.tabs.messageAttachments
+   en.json: "Message Attachments"
+1709. legal.files.tabs.projectAssets
+   en.json: "Project Assets"
+1710. legal.files.tabs.calendarDocuments
+   en.json: "Calendar Documents"
+1711. legal.files.tabs.noteAttachments
+   en.json: "Note Attachments"
+1712. legal.files.tabs.comingSoon
+   en.json: "Coming soon..."
+1713. legal.calendar
+   en.json: {...} (7 keys)
+1714. legal.calendar.title
+   en.json: "Calendar"
+1715. legal.calendar.googleCalendar
+   en.json: {...} (33 keys)
+1716. legal.calendar.googleCalendar.title
+   en.json: "Google Calendar"
+1717. legal.calendar.googleCalendar.loading
+   en.json: "Loading..."
+1718. legal.calendar.googleCalendar.connected
+   en.json: "Connected"
+1719. legal.calendar.googleCalendar.notConnected
+   en.json: "Not connected to Google Calendar"
+1720. legal.calendar.googleCalendar.connect
+   en.json: "Connect Google Calendar"
+1721. legal.calendar.googleCalendar.disconnect
+   en.json: "Disconnect"
+1722. legal.calendar.googleCalendar.sync
+   en.json: "Sync"
+1723. legal.calendar.googleCalendar.syncing
+   en.json: "Syncing..."
+1724. legal.calendar.googleCalendar.refreshing
+   en.json: "Refreshing..."
+1725. legal.calendar.googleCalendar.saving
+   en.json: "Saving..."
+1726. legal.calendar.googleCalendar.connectDescription
+   en.json: "Connect your Google Calendar to sync events and schedules."
+1727. legal.calendar.googleCalendar.connectError
+   en.json: "Failed to connect to Google Calendar:"
+1728. legal.calendar.googleCalendar.connectedSuccess
+   en.json: "Google Calendar connected successfully"
+1729. legal.calendar.googleCalendar.connectedError
+   en.json: "Failed to connect Google Calendar"
+1730. legal.calendar.googleCalendar.syncError
+   en.json: "Failed to refresh calendar"
+1731. legal.calendar.googleCalendar.syncTooltip
+   en.json: "Refresh calendar to fetch latest events from Google"
+1732. legal.calendar.googleCalendar.disconnectSuccess
+   en.json: "Google Calendar disconnected successfully"
+1733. legal.calendar.googleCalendar.disconnectError
+   en.json: "Failed to disconnect Google Calendar"
+1734. legal.calendar.googleCalendar.disconnectTitle
+   en.json: "Disconnect Google Calendar"
+1735. legal.calendar.googleCalendar.disconnectDescription
+   en.json: "This will remove your Google Calendar connection and stop syncing events. You can reconnect at any t..."
+1736. legal.calendar.googleCalendar.selectCalendars
+   en.json: "Select Calendars to Sync ({selected}/{total})"
+1737. legal.calendar.googleCalendar.selectAtLeastOne
+   en.json: "Please select at least one calendar to sync"
+1738. legal.calendar.googleCalendar.pleaseSelectCalendar
+   en.json: "Please select at least one calendar"
+1739. legal.calendar.googleCalendar.selectionUpdated
+   en.json: "Calendar selection updated. Syncing events..."
+1740. legal.calendar.googleCalendar.selectionUpdateFailed
+   en.json: "Failed to update calendar selection"
+1741. legal.calendar.googleCalendar.calendarsRefreshed
+   en.json: "Available calendars refreshed"
+1742. legal.calendar.googleCalendar.calendarsRefreshFailed
+   en.json: "Failed to refresh calendars"
+1743. legal.calendar.googleCalendar.calendarRefreshed
+   en.json: "Calendar refreshed! Events are now fetched directly from Google."
+1744. legal.calendar.googleCalendar.refreshAvailableCalendars
+   en.json: "Refresh available calendars"
+1745. legal.calendar.googleCalendar.saveAndSync
+   en.json: "Save & Sync"
+1746. legal.calendar.googleCalendar.primary
+   en.json: "Primary"
+1747. legal.calendar.googleCalendar.neverSynced
+   en.json: "Never synced"
+1748. legal.calendar.googleCalendar.autoSync
+   en.json: "Auto-sync: 10min"
+1749. legal.calendar.views
+   en.json: {...} (6 keys)
+1750. legal.calendar.views.month
+   en.json: "Month"
+1751. legal.calendar.views.week
+   en.json: "Week"
+1752. legal.calendar.views.day
+   en.json: "Day"
+1753. legal.calendar.views.agenda
+   en.json: "Agenda"
+1754. legal.calendar.views.timeline
+   en.json: "Timeline"
+1755. legal.calendar.views.year
+   en.json: "Year"
+1756. legal.calendar.actions
+   en.json: {...} (9 keys)
+1757. legal.calendar.actions.today
+   en.json: "Today"
+1758. legal.calendar.actions.previous
+   en.json: "Previous"
+1759. legal.calendar.actions.next
+   en.json: "Next"
+1760. legal.calendar.actions.createEvent
+   en.json: "Create Event"
+1761. legal.calendar.actions.quickMeeting
+   en.json: "Quick Meeting"
+1762. legal.calendar.actions.scheduleAssistant
+   en.json: "Schedule Assistant"
+1763. legal.calendar.actions.filters
+   en.json: "Filters"
+1764. legal.calendar.actions.settings
+   en.json: "Settings"
+1765. legal.calendar.actions.analytics
+   en.json: "Analytics"
+1766. legal.calendar.event
+   en.json: {...} (13 keys)
+1767. legal.calendar.event.title
+   en.json: "Event Title"
+1768. legal.calendar.event.description
+   en.json: "Description"
+1769. legal.calendar.event.startTime
+   en.json: "Start Time"
+1770. legal.calendar.event.endTime
+   en.json: "End Time"
+1771. legal.calendar.event.location
+   en.json: "Location"
+1772. legal.calendar.event.attendees
+   en.json: "Attendees"
+1773. legal.calendar.event.category
+   en.json: "Category"
+1774. legal.calendar.event.recurring
+   en.json: "Recurring"
+1775. legal.calendar.event.reminders
+   en.json: "Reminders"
+1776. legal.calendar.event.allDay
+   en.json: "All Day Event"
+1777. legal.calendar.event.save
+   en.json: "Save Event"
+1778. legal.calendar.event.cancel
+   en.json: "Cancel"
+1779. legal.calendar.event.delete
+   en.json: "Delete Event"
+1780. legal.calendar.categories
+   en.json: {...} (5 keys)
+1781. legal.calendar.categories.work
+   en.json: "Work"
+1782. legal.calendar.categories.personal
+   en.json: "Personal"
+1783. legal.calendar.categories.meeting
+   en.json: "Meeting"
+1784. legal.calendar.categories.deadline
+   en.json: "Deadline"
+1785. legal.calendar.categories.other
+   en.json: "Other"
+1786. legal.calendar.recurring
+   en.json: {...} (6 keys)
+1787. legal.calendar.recurring.none
+   en.json: "Does not repeat"
+1788. legal.calendar.recurring.daily
+   en.json: "Daily"
+1789. legal.calendar.recurring.weekly
+   en.json: "Weekly"
+1790. legal.calendar.recurring.monthly
+   en.json: "Monthly"
+1791. legal.calendar.recurring.yearly
+   en.json: "Yearly"
+1792. legal.calendar.recurring.custom
+   en.json: "Custom"
+1793. legal.notes
+   en.json: {...} (9 keys)
+1794. legal.notes.title
+   en.json: "Notes"
+1795. legal.notes.searchPlaceholder
+   en.json: "Search notes..."
+1796. legal.notes.newNote
+   en.json: "New Note"
+1797. legal.notes.newFolder
+   en.json: "New Folder"
+1798. legal.notes.actions
+   en.json: {...} (8 keys)
+1799. legal.notes.actions.save
+   en.json: "Save"
+1800. legal.notes.actions.delete
+   en.json: "Delete"
+1801. legal.notes.actions.share
+   en.json: "Share"
+1802. legal.notes.actions.export
+   en.json: "Export"
+1803. legal.notes.actions.duplicate
+   en.json: "Duplicate"
+1804. legal.notes.actions.moveTo
+   en.json: "Move to"
+1805. legal.notes.actions.addTag
+   en.json: "Add Tag"
+1806. legal.notes.actions.archive
+   en.json: "Archive"
+1807. legal.notes.editor
+   en.json: {...} (19 keys)
+1808. legal.notes.editor.heading1
+   en.json: "Heading 1"
+1809. legal.notes.editor.heading2
+   en.json: "Heading 2"
+1810. legal.notes.editor.heading3
+   en.json: "Heading 3"
+1811. legal.notes.editor.paragraph
+   en.json: "Paragraph"
+1812. legal.notes.editor.bold
+   en.json: "Bold"
+1813. legal.notes.editor.italic
+   en.json: "Italic"
+1814. legal.notes.editor.underline
+   en.json: "Underline"
+1815. legal.notes.editor.strikethrough
+   en.json: "Strikethrough"
+1816. legal.notes.editor.code
+   en.json: "Code"
+1817. legal.notes.editor.codeBlock
+   en.json: "Code Block"
+1818. legal.notes.editor.bulletList
+   en.json: "Bullet List"
+1819. legal.notes.editor.numberedList
+   en.json: "Numbered List"
+1820. legal.notes.editor.checkbox
+   en.json: "Checkbox"
+1821. legal.notes.editor.quote
+   en.json: "Quote"
+1822. legal.notes.editor.divider
+   en.json: "Divider"
+1823. legal.notes.editor.link
+   en.json: "Link"
+1824. legal.notes.editor.image
+   en.json: "Image"
+1825. legal.notes.editor.table
+   en.json: "Table"
+1826. legal.notes.editor.emoji
+   en.json: "Emoji"
+1827. legal.notes.sidebar
+   en.json: {...} (7 keys)
+1828. legal.notes.sidebar.allNotes
+   en.json: "All Notes"
+1829. legal.notes.sidebar.recent
+   en.json: "Recent"
+1830. legal.notes.sidebar.favorites
+   en.json: "Favorites"
+1831. legal.notes.sidebar.shared
+   en.json: "Shared"
+1832. legal.notes.sidebar.archived
+   en.json: "Archived"
+1833. legal.notes.sidebar.tags
+   en.json: "Tags"
+1834. legal.notes.sidebar.folders
+   en.json: "Folders"
+1835. legal.notes.templates
+   en.json: {...} (6 keys)
+1836. legal.notes.templates.title
+   en.json: "Templates"
+1837. legal.notes.templates.blank
+   en.json: "Blank Note"
+1838. legal.notes.templates.meeting
+   en.json: "Meeting Notes"
+1839. legal.notes.templates.project
+   en.json: "Project Plan"
+1840. legal.notes.templates.todo
+   en.json: "To-Do List"
+1841. legal.notes.templates.brainstorm
+   en.json: "Brainstorming"
+1842. legal.notes.messages
+   en.json: {...} (5 keys)
+1843. legal.notes.messages.saved
+   en.json: "Note saved"
+1844. legal.notes.messages.deleted
+   en.json: "Note deleted"
+1845. legal.notes.messages.restored
+   en.json: "Note restored"
+1846. legal.notes.messages.shared
+   en.json: "Note shared successfully"
+1847. legal.notes.messages.exported
+   en.json: "Note exported successfully"
+1848. analytics.files
+   en.json: {...} (12 keys)
+1849. analytics.files.totalFiles
+   en.json: "Total Files"
+1850. analytics.files.storageUsed
+   en.json: "Storage Used"
+1851. analytics.files.storageUtilization
+   en.json: "Storage Utilization"
+1852. analytics.files.duplicateFiles
+   en.json: "Duplicate Files"
+1853. analytics.files.fileActivity
+   en.json: "File Activity"
+1854. analytics.files.uploads
+   en.json: "Uploads"
+1855. analytics.files.downloads
+   en.json: "Downloads"
+1856. analytics.files.shares
+   en.json: "Shares"
+1857. analytics.files.fileTypeDistribution
+   en.json: "File Type Distribution"
+1858. analytics.files.storageBreakdown
+   en.json: "Storage Breakdown"
+1859. analytics.files.files
+   en.json: "files"
+1860. analytics.files.ofTotal
+   en.json: "of total"
+1861. analytics.calendar
+   en.json: {...} (18 keys)
+1862. analytics.calendar.totalEvents
+   en.json: "Total Events"
+1863. analytics.calendar.meetingsHeld
+   en.json: "Meetings Held"
+1864. analytics.calendar.avgDuration
+   en.json: "Avg Duration"
+1865. analytics.calendar.onTimeRate
+   en.json: "On-Time Rate"
+1866. analytics.calendar.peakMeetingHours
+   en.json: "Peak Meeting Hours"
+1867. analytics.calendar.meetingDistribution
+   en.json: "Meeting Distribution by Day"
+1868. analytics.calendar.meetingInsights
+   en.json: "Meeting Insights"
+1869. analytics.calendar.attendance
+   en.json: "Attendance"
+1870. analytics.calendar.averageAttendees
+   en.json: "Average Attendees"
+1871. analytics.calendar.completionRate
+   en.json: "Completion Rate"
+1872. analytics.calendar.efficiency
+   en.json: "Efficiency"
+1873. analytics.calendar.productivityScore
+   en.json: "Productivity Score"
+1874. analytics.calendar.noShowRate
+   en.json: "No-Show Rate"
+1875. analytics.calendar.cancelledEvents
+   en.json: "Cancelled Events"
+1876. analytics.calendar.timeUsage
+   en.json: "Time Usage"
+1877. analytics.calendar.totalMeetingTime
+   en.json: "Total Meeting Time"
+1878. analytics.calendar.recurringEvents
+   en.json: "Recurring Events"
+1879. analytics.calendar.peakDayLabel
+   en.json: "Peak Day"
+1880. settings.notifications.categories.email
+   en.json: {...} (2 keys)
+1881. settings.notifications.categories.email.label
+   en.json: "Email Notifications"
+1882. settings.notifications.categories.email.description
+   en.json: "Receive notifications when new emails arrive in your connected Gmail"
+1883. ai.assistant.confirmAction
+   en.json: "Confirm Action"
+1884. ai.suggestions.projects.updateProject
+   en.json: "Update project priority to high"
+1885. ai.suggestions.projects.deleteProject
+   en.json: "Delete project"
+1886. ai.suggestions.files.searchFiles
+   en.json: "Search for files by name"
+1887. ai.suggestions.files.starImportant
+   en.json: "Star important files"
+1888. ai.toast.projectUpdated
+   en.json: "Project Updated"
+1889. ai.toast.projectUpdatedDesc
+   en.json: ""{name}" has been updated successfully."
+1890. ai.toast.projectDeleted
+   en.json: "Project Deleted"
+1891. ai.toast.projectDeletedDesc
+   en.json: ""{name}" has been deleted successfully."
+1892. ai.toast.projectNotFound
+   en.json: "Project Not Found"
+1893. ai.toast.projectNotFoundDesc
+   en.json: "Could not find project "{name}". Please check the name and try again."
+1894. ai.toast.deleteConfirmation
+   en.json: "Are you sure you want to delete "{name}"? This action cannot be undone."
+1895. budget.integrations
+   en.json: {...} (26 keys)
+1896. budget.integrations.page
+   en.json: {...} (7 keys)
+1897. budget.integrations.page.title
+   en.json: "Integrations"
+1898. budget.integrations.page.subtitle
+   en.json: "Connect your favorite tools and services to streamline your workflow"
+1899. budget.integrations.page.loading
+   en.json: "Loading integrations..."
+1900. budget.integrations.page.searchPlaceholder
+   en.json: "Search integrations..."
+1901. budget.integrations.page.filterBy
+   en.json: "Filtering by:"
+1902. budget.integrations.page.noResults
+   en.json: "No integrations found"
+1903. budget.integrations.page.noResultsDesc
+   en.json: "Try adjusting your search or filters."
+1904. budget.integrations.tabs
+   en.json: {...} (2 keys)
+1905. budget.integrations.tabs.marketplace
+   en.json: "Marketplace"
+1906. budget.integrations.tabs.connected
+   en.json: "Connected"
+1907. budget.integrations.sections
+   en.json: {...} (2 keys)
+1908. budget.integrations.sections.popular
+   en.json: "Popular"
+1909. budget.integrations.sections.all
+   en.json: "All Integrations"
+1910. budget.integrations.categories
+   en.json: {...} (23 keys)
+1911. budget.integrations.categories.communication
+   en.json: "Communication"
+1912. budget.integrations.categories.fileStorage
+   en.json: "File Storage"
+1913. budget.integrations.categories.calendar
+   en.json: "Calendar"
+1914. budget.integrations.categories.email
+   en.json: "Email"
+1915. budget.integrations.categories.projectManagement
+   en.json: "Project Management"
+1916. budget.integrations.categories.crm
+   en.json: "CRM"
+1917. budget.integrations.categories.development
+   en.json: "Development"
+1918. budget.integrations.categories.analytics
+   en.json: "Analytics"
+1919. budget.integrations.categories.marketing
+   en.json: "Marketing"
+1920. budget.integrations.categories.documentation
+   en.json: "Documentation"
+1921. budget.integrations.categories.design
+   en.json: "Design"
+1922. budget.integrations.categories.timeTracking
+   en.json: "Time Tracking"
+1923. budget.integrations.categories.videoConferencing
+   en.json: "Video Conferencing"
+1924. budget.integrations.categories.automation
+   en.json: "Automation"
+1925. budget.integrations.categories.productivity
+   en.json: "Productivity"
+1926. budget.integrations.categories.hr
+   en.json: "HR"
+1927. budget.integrations.categories.finance
+   en.json: "Finance"
+1928. budget.integrations.categories.support
+   en.json: "Support"
+1929. budget.integrations.categories.security
+   en.json: "Security"
+1930. budget.integrations.categories.ecommerce
+   en.json: "E-Commerce"
+1931. budget.integrations.categories.socialMedia
+   en.json: "Social Media"
+1932. budget.integrations.categories.ai
+   en.json: "AI & Machine Learning"
+1933. budget.integrations.categories.other
+   en.json: "Other"
+1934. budget.integrations.status
+   en.json: {...} (4 keys)
+1935. budget.integrations.status.connected
+   en.json: "Connected"
+1936. budget.integrations.status.verified
+   en.json: "Verified"
+1937. budget.integrations.status.installed
+   en.json: "Installed"
+1938. budget.integrations.status.comingSoon
+   en.json: "Coming Soon"
+1939. budget.integrations.pricing
+   en.json: {...} (3 keys)
+1940. budget.integrations.pricing.free
+   en.json: "Free"
+1941. budget.integrations.pricing.freemium
+   en.json: "Freemium"
+1942. budget.integrations.pricing.paid
+   en.json: "Paid"
+1943. budget.integrations.actions
+   en.json: {...} (8 keys)
+1944. budget.integrations.actions.connect
+   en.json: "Connect"
+1945. budget.integrations.actions.disconnect
+   en.json: "Disconnect"
+1946. budget.integrations.actions.open
+   en.json: "Open"
+1947. budget.integrations.actions.install
+   en.json: "Install Integration"
+1948. budget.integrations.actions.uninstall
+   en.json: "Uninstall"
+1949. budget.integrations.actions.visitWebsite
+   en.json: "Visit Website"
+1950. budget.integrations.actions.back
+   en.json: "Back"
+1951. budget.integrations.actions.backToIntegrations
+   en.json: "Back to Integrations"
+1952. budget.integrations.connect
+   en.json: "Connect"
+1953. budget.integrations.disconnect
+   en.json: "Disconnect"
+1954. budget.integrations.connected
+   en.json: "Connected"
+1955. budget.integrations.disconnected
+   en.json: "Disconnected"
+1956. budget.integrations.connectedDescription
+   en.json: "Successfully connected to {name}"
+1957. budget.integrations.disconnectedDescription
+   en.json: "Successfully disconnected from {name}"
+1958. budget.integrations.connectError
+   en.json: "Connection Error"
+1959. budget.integrations.disconnectError
+   en.json: "Disconnect Error"
+1960. budget.integrations.connectionError
+   en.json: "Connection error"
+1961. budget.integrations.tokenExpired
+   en.json: "Token expired. Please reconnect."
+1962. budget.integrations.connectWithApiKey
+   en.json: "Connect {name}"
+1963. budget.integrations.apiKeyDescription
+   en.json: "Enter your {name} API key to connect."
+1964. budget.integrations.apiKey
+   en.json: "API Key"
+1965. budget.integrations.findApiKey
+   en.json: "How to find your API key"
+1966. budget.integrations.disconnectTitle
+   en.json: "Disconnect {name}?"
+1967. budget.integrations.disconnectWarning
+   en.json: "This will remove the connection to {name}. You can reconnect at any time."
+1968. budget.integrations.connectedAs
+   en.json: "Connected as:"
+1969. budget.integrations.empty
+   en.json: {...} (3 keys)
+1970. budget.integrations.empty.noConnected
+   en.json: "No connected integrations"
+1971. budget.integrations.empty.noConnectedDesc
+   en.json: "Get started by connecting your first integration from the marketplace."
+1972. budget.integrations.empty.browse
+   en.json: "Browse Marketplace"
+1973. budget.integrations.detail
+   en.json: {...} (27 keys)
+1974. budget.integrations.detail.loading
+   en.json: "Loading integration..."
+1975. budget.integrations.detail.features
+   en.json: "Features"
+1976. budget.integrations.detail.screenshots
+   en.json: "Screenshots"
+1977. budget.integrations.detail.details
+   en.json: "Integration Details"
+1978. budget.integrations.detail.category
+   en.json: "Category"
+1979. budget.integrations.detail.authentication
+   en.json: "Authentication"
+1980. budget.integrations.detail.webhookSupport
+   en.json: "Webhook Support"
+1981. budget.integrations.detail.supported
+   en.json: "Supported"
+1982. budget.integrations.detail.notSupported
+   en.json: "Not Supported"
+1983. budget.integrations.detail.lastUpdated
+   en.json: "Last Updated"
+1984. budget.integrations.detail.support
+   en.json: "Support & Documentation"
+1985. budget.integrations.detail.apiDocumentation
+   en.json: "API Documentation"
+1986. budget.integrations.detail.contactSupport
+   en.json: "Contact Support"
+1987. budget.integrations.detail.usageStats
+   en.json: "Usage Statistics"
+1988. budget.integrations.detail.successRate
+   en.json: "Success Rate"
+1989. budget.integrations.detail.totalRequests
+   en.json: "Total Requests"
+1990. budget.integrations.detail.avgResponseTime
+   en.json: "Avg Response Time"
+1991. budget.integrations.detail.overview
+   en.json: "Overview"
+1992. budget.integrations.detail.configuration
+   en.json: "Configuration"
+1993. budget.integrations.detail.webhooks
+   en.json: "Webhooks"
+1994. budget.integrations.detail.logs
+   en.json: "Logs"
+1995. budget.integrations.detail.installing
+   en.json: "Installing..."
+1996. budget.integrations.detail.installationFailed
+   en.json: "Installation failed"
+1997. budget.integrations.detail.integrationInstalled
+   en.json: "Integration installed"
+1998. budget.integrations.detail.integrationUninstalled
+   en.json: "Integration uninstalled"
+1999. budget.integrations.detail.reviews
+   en.json: "reviews"
+2000. budget.integrations.detail.installs
+   en.json: "installs"
+2001. budget.apps
+   en.json: {...} (5 keys)
+2002. budget.apps.page
+   en.json: {...} (8 keys)
+2003. budget.apps.page.title
+   en.json: "Connectors"
+2004. budget.apps.page.subtitle
+   en.json: "Connect external apps to extend Deskive's capabilities"
+2005. budget.apps.page.searchPlaceholder
+   en.json: "Search connectors..."
+2006. budget.apps.page.connectorsAvailable
+   en.json: "{count} connector{plural} available"
+2007. budget.apps.page.noConnectorsFound
+   en.json: "No connectors found"
+2008. budget.apps.page.noConnectorsMatch
+   en.json: "No connectors match "{query}""
+2009. budget.apps.page.noConnectorsInCategory
+   en.json: "No connectors in the {category} category"
+2010. budget.apps.page.clearFilters
+   en.json: "Clear filters"
+2011. budget.apps.categories
+   en.json: {...} (9 keys)
+2012. budget.apps.categories.all
+   en.json: "All"
+2013. budget.apps.categories.communication
+   en.json: "Communication"
+2014. budget.apps.categories.productivity
+   en.json: "Productivity"
+2015. budget.apps.categories.development
+   en.json: "Development"
+2016. budget.apps.categories.business
+   en.json: "Business"
+2017. budget.apps.categories.marketing
+   en.json: "Marketing"
+2018. budget.apps.categories.design
+   en.json: "Design"
+2019. budget.apps.categories.aiAutomation
+   en.json: "AI & Automation"
+2020. budget.apps.categories.security
+   en.json: "Security"
+2021. budget.apps.actions
+   en.json: {...} (5 keys)
+2022. budget.apps.actions.connect
+   en.json: "Connect"
+2023. budget.apps.actions.open
+   en.json: "Open"
+2024. budget.apps.actions.disconnect
+   en.json: "Disconnect"
+2025. budget.apps.actions.connecting
+   en.json: "Connecting..."
+2026. budget.apps.actions.notAvailable
+   en.json: "Not Available"
+2027. budget.apps.descriptions
+   en.json: {...} (6 keys)
+2028. budget.apps.descriptions.gmail
+   en.json: "Send and receive emails directly within Deskive"
+2029. budget.apps.descriptions.googleCalendar
+   en.json: "Sync and manage your Google Calendar events"
+2030. budget.apps.descriptions.googleDrive
+   en.json: "Access and manage your Google Drive files"
+2031. budget.apps.descriptions.github
+   en.json: "Connect your GitHub account to view repositories"
+2032. budget.apps.descriptions.googleSheets
+   en.json: "View, edit, and sync Google Sheets spreadsheets"
+2033. budget.apps.descriptions.dropbox
+   en.json: "Access and manage your Dropbox files"
+2034. budget.apps.categoryLabels
+   en.json: {...} (4 keys)
+2035. budget.apps.categoryLabels.email
+   en.json: "EMAIL"
+2036. budget.apps.categoryLabels.calendar
+   en.json: "CALENDAR"
+2037. budget.apps.categoryLabels.fileStorage
+   en.json: "FILE STORAGE"
+2038. budget.apps.categoryLabels.development
+   en.json: "DEVELOPMENT"
+2039. budget.templates
+   en.json: {...} (35 keys)
+2040. budget.templates.pageTitle
+   en.json: "Project Templates"
+2041. budget.templates.pageDescription
+   en.json: "Choose a template to quickly create a new project with predefined tasks and structure."
+2042. budget.templates.refreshButton
+   en.json: "Refresh Templates"
+2043. budget.templates.seedSuccess
+   en.json: {...} (2 keys)
+2044. budget.templates.seedSuccess.title
+   en.json: "Templates seeded"
+2045. budget.templates.seedSuccess.description
+   en.json: "System templates have been added successfully."
+2046. budget.templates.seedError
+   en.json: {...} (2 keys)
+2047. budget.templates.seedError.title
+   en.json: "Error"
+2048. budget.templates.seedError.description
+   en.json: "Failed to seed templates."
+2049. budget.templates.workspaceNotFound
+   en.json: "Workspace not found"
+2050. budget.templates.searchPlaceholder
+   en.json: "Search templates..."
+2051. budget.templates.noTemplatesFound
+   en.json: "No templates found."
+2052. budget.templates.featured
+   en.json: "Featured"
+2053. budget.templates.system
+   en.json: "System"
+2054. budget.templates.tasks
+   en.json: "tasks"
+2055. budget.templates.usedTimes
+   en.json: "Used {count} times"
+2056. budget.templates.showingTemplates
+   en.json: "Showing {start} - {end} of {total} templates"
+2057. budget.templates.previous
+   en.json: "Previous"
+2058. budget.templates.next
+   en.json: "Next"
+2059. budget.templates.cancel
+   en.json: "Cancel"
+2060. budget.templates.useThisTemplate
+   en.json: "Use This Template"
+2061. budget.templates.createFromTemplate
+   en.json: "Create Project from Template"
+2062. budget.templates.customizeProject
+   en.json: "Customize your new project before creating it."
+2063. budget.templates.projectName
+   en.json: "Project Name"
+2064. budget.templates.enterProjectName
+   en.json: "Enter project name"
+2065. budget.templates.description
+   en.json: "Description (optional)"
+2066. budget.templates.enterProjectDescription
+   en.json: "Enter project description"
+2067. budget.templates.createProject
+   en.json: "Create Project"
+2068. budget.templates.templateStructure
+   en.json: "Template Structure"
+2069. budget.templates.customFields
+   en.json: "Custom Fields"
+2070. budget.templates.boardStages
+   en.json: "Board Stages"
+2071. budget.templates.blankProject
+   en.json: "Blank Project"
+2072. budget.templates.startFromScratch
+   en.json: "Start from scratch"
+2073. budget.templates.projectCreated
+   en.json: "Project created"
+2074. budget.templates.projectCreatedDescription
+   en.json: ""{projectName}" has been created from the "{templateName}" template."
+2075. budget.templates.createProjectError
+   en.json: "Failed to create project from template."
+2076. budget.templates.complexity
+   en.json: "complexity"
+2077. budget.templates.moreTasks
+   en.json: "+{count} more tasks..."
+2078. budget.templates.categories
+   en.json: {...} (21 keys)
+2079. budget.templates.categories.all
+   en.json: "All"
+2080. budget.templates.categories.softwareDevelopment
+   en.json: "Software Development"
+2081. budget.templates.categories.marketing
+   en.json: "Marketing"
+2082. budget.templates.categories.hr
+   en.json: "HR & People"
+2083. budget.templates.categories.design
+   en.json: "Design & Creative"
+2084. budget.templates.categories.business
+   en.json: "Business & Operations"
+2085. budget.templates.categories.events
+   en.json: "Events & Webinars"
+2086. budget.templates.categories.research
+   en.json: "Research & Analysis"
+2087. budget.templates.categories.personal
+   en.json: "Personal & Productivity"
+2088. budget.templates.categories.sales
+   en.json: "Sales"
+2089. budget.templates.categories.finance
+   en.json: "Finance"
+2090. budget.templates.categories.itSupport
+   en.json: "IT Support"
+2091. budget.templates.categories.education
+   en.json: "Education"
+2092. budget.templates.categories.freelance
+   en.json: "Freelance"
+2093. budget.templates.categories.operations
+   en.json: "Operations"
+2094. budget.templates.categories.healthcare
+   en.json: "Healthcare"
+2095. budget.templates.categories.legal
+   en.json: "Legal"
+2096. budget.templates.categories.realEstate
+   en.json: "Real Estate"
+2097. budget.templates.categories.manufacturing
+   en.json: "Manufacturing"
+2098. budget.templates.categories.nonprofit
+   en.json: "Non-Profit"
+2099. budget.templates.categories.media
+   en.json: "Media & Entertainment"
+
+================================================================================

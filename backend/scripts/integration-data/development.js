@@ -1,0 +1,426 @@
+/**
+ * Development & DevOps Integrations
+ * Already implemented: github, linear
+ */
+
+const developmentIntegrations = [
+  {
+    slug: 'gitlab',
+    name: 'GitLab',
+    description: 'Connect GitLab for DevOps and source code management.',
+    category: 'DEVELOPMENT',
+    provider: 'GitLab',
+    logoUrl: 'https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png',
+    website: 'https://gitlab.com',
+    documentationUrl: 'https://docs.gitlab.com/ee/api/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://gitlab.com/oauth/authorize',
+      tokenUrl: 'https://gitlab.com/oauth/token',
+      userInfoUrl: 'https://gitlab.com/api/v4/user',
+      scopes: ['api', 'read_user', 'read_repository', 'write_repository'],
+      clientIdEnvKey: 'GITLAB_CLIENT_ID',
+      clientSecretEnvKey: 'GITLAB_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://gitlab.com/api/v4',
+    capabilities: ['read_repos', 'create_issues', 'manage_merge_requests', 'manage_pipelines'],
+    features: ['Repository access', 'Issue tracking', 'CI/CD pipelines', 'Code review'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: true
+  },
+  {
+    slug: 'bitbucket',
+    name: 'Bitbucket',
+    description: 'Connect Bitbucket for Git repository management.',
+    category: 'DEVELOPMENT',
+    provider: 'Atlassian',
+    logoUrl: 'https://wac-cdn.atlassian.com/assets/img/favicons/bitbucket/favicon-32x32.png',
+    website: 'https://bitbucket.org',
+    documentationUrl: 'https://developer.atlassian.com/cloud/bitbucket/rest/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://bitbucket.org/site/oauth2/authorize',
+      tokenUrl: 'https://bitbucket.org/site/oauth2/access_token',
+      userInfoUrl: 'https://api.bitbucket.org/2.0/user',
+      scopes: ['repository', 'pullrequest', 'issue', 'webhook'],
+      clientIdEnvKey: 'BITBUCKET_CLIENT_ID',
+      clientSecretEnvKey: 'BITBUCKET_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.bitbucket.org/2.0',
+    capabilities: ['read_repos', 'create_issues', 'manage_prs', 'manage_pipelines'],
+    features: ['Repository access', 'Pull requests', 'Pipelines', 'Code review'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'azure-devops',
+    name: 'Azure DevOps',
+    description: 'Connect Azure DevOps for CI/CD and project management.',
+    category: 'DEVELOPMENT',
+    provider: 'Microsoft',
+    logoUrl: 'https://cdn.vsassets.io/content/icons/favicon.ico',
+    website: 'https://dev.azure.com',
+    documentationUrl: 'https://docs.microsoft.com/en-us/rest/api/azure/devops/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://app.vssps.visualstudio.com/oauth2/authorize',
+      tokenUrl: 'https://app.vssps.visualstudio.com/oauth2/token',
+      scopes: ['vso.code', 'vso.work', 'vso.build_execute', 'vso.release_manage'],
+      clientIdEnvKey: 'AZURE_DEVOPS_CLIENT_ID',
+      clientSecretEnvKey: 'AZURE_DEVOPS_CLIENT_SECRET',
+      extraTokenParams: { client_assertion_type: 'urn:ietf:params:oauth:client-assertion-type:jwt-bearer' }
+    },
+    apiBaseUrl: 'https://dev.azure.com',
+    capabilities: ['read_repos', 'manage_work_items', 'trigger_builds', 'manage_releases'],
+    features: ['Boards', 'Pipelines', 'Repos', 'Test Plans'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'circleci',
+    name: 'CircleCI',
+    description: 'Connect CircleCI for continuous integration.',
+    category: 'DEVELOPMENT',
+    provider: 'CircleCI',
+    logoUrl: 'https://circleci.com/favicon.ico',
+    website: 'https://circleci.com',
+    documentationUrl: 'https://circleci.com/docs/api/v2/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API Token',
+      helpText: 'Create a personal API token in User Settings > Personal API Tokens',
+      headerName: 'Circle-Token'
+    },
+    apiBaseUrl: 'https://circleci.com/api/v2',
+    capabilities: ['read_pipelines', 'trigger_builds', 'read_artifacts', 'manage_projects'],
+    features: ['Pipeline status', 'Build triggers', 'Artifact access', 'Insights'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'jenkins',
+    name: 'Jenkins',
+    description: 'Connect Jenkins for automation server integration.',
+    category: 'DEVELOPMENT',
+    provider: 'Jenkins',
+    logoUrl: 'https://www.jenkins.io/favicon.ico',
+    website: 'https://jenkins.io',
+    documentationUrl: 'https://www.jenkins.io/doc/book/using/remote-access-api/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'Jenkins Credentials',
+      helpText: 'Use username and API token from Jenkins > User > Configure',
+      fields: [
+        { name: 'instanceUrl', label: 'Jenkins URL', type: 'text' },
+        { name: 'username', label: 'Username', type: 'text' },
+        { name: 'apiToken', label: 'API Token', type: 'password' }
+      ]
+    },
+    apiBaseUrl: '{instanceUrl}',
+    capabilities: ['read_jobs', 'trigger_builds', 'read_builds', 'manage_queue'],
+    features: ['Build status', 'Job triggers', 'Console output', 'Queue management'],
+    pricingType: 'free',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'vercel',
+    name: 'Vercel',
+    description: 'Connect Vercel for frontend deployment.',
+    category: 'DEVELOPMENT',
+    provider: 'Vercel',
+    logoUrl: 'https://vercel.com/favicon.ico',
+    website: 'https://vercel.com',
+    documentationUrl: 'https://vercel.com/docs/rest-api',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://vercel.com/oauth/authorize',
+      tokenUrl: 'https://api.vercel.com/v2/oauth/access_token',
+      userInfoUrl: 'https://api.vercel.com/v2/user',
+      scopes: [],
+      clientIdEnvKey: 'VERCEL_CLIENT_ID',
+      clientSecretEnvKey: 'VERCEL_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.vercel.com',
+    capabilities: ['read_deployments', 'trigger_deployments', 'read_projects', 'manage_domains'],
+    features: ['Deployment status', 'Preview deployments', 'Domain management', 'Analytics'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'netlify',
+    name: 'Netlify',
+    description: 'Connect Netlify for web deployment.',
+    category: 'DEVELOPMENT',
+    provider: 'Netlify',
+    logoUrl: 'https://www.netlify.com/favicon.ico',
+    website: 'https://netlify.com',
+    documentationUrl: 'https://docs.netlify.com/api/get-started/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://app.netlify.com/authorize',
+      tokenUrl: 'https://api.netlify.com/oauth/token',
+      userInfoUrl: 'https://api.netlify.com/api/v1/user',
+      scopes: [],
+      clientIdEnvKey: 'NETLIFY_CLIENT_ID',
+      clientSecretEnvKey: 'NETLIFY_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.netlify.com/api/v1',
+    capabilities: ['read_sites', 'trigger_builds', 'manage_deploys', 'manage_forms'],
+    features: ['Site management', 'Deploy previews', 'Form handling', 'Functions'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'heroku',
+    name: 'Heroku',
+    description: 'Connect Heroku for cloud platform deployment.',
+    category: 'DEVELOPMENT',
+    provider: 'Salesforce',
+    logoUrl: 'https://www.heroku.com/favicon.ico',
+    website: 'https://heroku.com',
+    documentationUrl: 'https://devcenter.heroku.com/articles/platform-api-reference',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://id.heroku.com/oauth/authorize',
+      tokenUrl: 'https://id.heroku.com/oauth/token',
+      scopes: ['global', 'read', 'write', 'read-protected'],
+      clientIdEnvKey: 'HEROKU_CLIENT_ID',
+      clientSecretEnvKey: 'HEROKU_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.heroku.com',
+    apiConfig: { defaultHeaders: { Accept: 'application/vnd.heroku+json; version=3' } },
+    capabilities: ['read_apps', 'manage_dynos', 'read_logs', 'manage_addons'],
+    features: ['App management', 'Dyno scaling', 'Log streaming', 'Add-on provisioning'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'aws',
+    name: 'AWS',
+    description: 'Connect Amazon Web Services for cloud infrastructure.',
+    category: 'DEVELOPMENT',
+    provider: 'Amazon',
+    logoUrl: 'https://a0.awsstatic.com/libra-css/images/site/fav/favicon.ico',
+    website: 'https://aws.amazon.com',
+    documentationUrl: 'https://docs.aws.amazon.com/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'AWS Credentials',
+      helpText: 'Create access keys in IAM > Users > Security credentials',
+      fields: [
+        { name: 'accessKeyId', label: 'Access Key ID', type: 'text' },
+        { name: 'secretAccessKey', label: 'Secret Access Key', type: 'password' },
+        { name: 'region', label: 'Region', type: 'text' }
+      ]
+    },
+    apiBaseUrl: 'https://{service}.{region}.amazonaws.com',
+    capabilities: ['manage_s3', 'manage_ec2', 'manage_lambda', 'read_cloudwatch'],
+    features: ['S3 storage', 'EC2 instances', 'Lambda functions', 'CloudWatch metrics'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'google-cloud',
+    name: 'Google Cloud',
+    description: 'Connect Google Cloud Platform for cloud services.',
+    category: 'DEVELOPMENT',
+    provider: 'Google',
+    logoUrl: 'https://www.gstatic.com/devrel-devsite/prod/v4e4b30e4e05a6a66c5a58e2e2e8a54cf2d76f6c96ee2fbac3b57effd31a0c7a53/cloud/images/favicons/onecloud/favicon.ico',
+    website: 'https://cloud.google.com',
+    documentationUrl: 'https://cloud.google.com/apis/docs/overview',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+      tokenUrl: 'https://oauth2.googleapis.com/token',
+      userInfoUrl: 'https://www.googleapis.com/oauth2/v2/userinfo',
+      scopes: ['cloud-platform', 'compute', 'devstorage.read_write'],
+      scopePrefix: 'https://www.googleapis.com/auth/',
+      clientIdEnvKey: 'GOOGLE_OAUTH_CLIENT_ID',
+      clientSecretEnvKey: 'GOOGLE_OAUTH_CLIENT_SECRET',
+      extraAuthParams: { access_type: 'offline', prompt: 'consent' }
+    },
+    apiBaseUrl: 'https://cloudresourcemanager.googleapis.com/v1',
+    capabilities: ['manage_projects', 'manage_storage', 'manage_compute', 'read_billing'],
+    features: ['Project management', 'Cloud Storage', 'Compute Engine', 'Cloud Functions'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'digitalocean',
+    name: 'DigitalOcean',
+    description: 'Connect DigitalOcean for cloud infrastructure.',
+    category: 'DEVELOPMENT',
+    provider: 'DigitalOcean',
+    logoUrl: 'https://www.digitalocean.com/favicon.ico',
+    website: 'https://digitalocean.com',
+    documentationUrl: 'https://docs.digitalocean.com/reference/api/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://cloud.digitalocean.com/v1/oauth/authorize',
+      tokenUrl: 'https://cloud.digitalocean.com/v1/oauth/token',
+      scopes: ['read', 'write'],
+      clientIdEnvKey: 'DIGITALOCEAN_CLIENT_ID',
+      clientSecretEnvKey: 'DIGITALOCEAN_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.digitalocean.com/v2',
+    capabilities: ['manage_droplets', 'manage_databases', 'manage_apps', 'manage_spaces'],
+    features: ['Droplet management', 'Managed databases', 'App Platform', 'Spaces storage'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'sentry',
+    name: 'Sentry',
+    description: 'Connect Sentry for error tracking and monitoring.',
+    category: 'DEVELOPMENT',
+    provider: 'Sentry',
+    logoUrl: 'https://sentry.io/favicon.ico',
+    website: 'https://sentry.io',
+    documentationUrl: 'https://docs.sentry.io/api/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://sentry.io/oauth/authorize/',
+      tokenUrl: 'https://sentry.io/oauth/token/',
+      scopes: ['project:read', 'project:write', 'event:read', 'org:read'],
+      clientIdEnvKey: 'SENTRY_CLIENT_ID',
+      clientSecretEnvKey: 'SENTRY_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://sentry.io/api/0',
+    capabilities: ['read_issues', 'resolve_issues', 'read_events', 'manage_projects'],
+    features: ['Error tracking', 'Performance monitoring', 'Release tracking', 'Alerts'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'datadog',
+    name: 'Datadog',
+    description: 'Connect Datadog for monitoring and analytics.',
+    category: 'DEVELOPMENT',
+    provider: 'Datadog',
+    logoUrl: 'https://www.datadoghq.com/favicon.ico',
+    website: 'https://datadoghq.com',
+    documentationUrl: 'https://docs.datadoghq.com/api/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API & App Keys',
+      helpText: 'Get keys from Organization Settings > API Keys',
+      fields: [
+        { name: 'apiKey', label: 'API Key', type: 'password' },
+        { name: 'appKey', label: 'Application Key', type: 'password' }
+      ],
+      headerName: 'DD-API-KEY'
+    },
+    apiBaseUrl: 'https://api.datadoghq.com/api/v1',
+    capabilities: ['read_metrics', 'read_events', 'manage_monitors', 'read_dashboards'],
+    features: ['Infrastructure monitoring', 'APM', 'Log management', 'Custom dashboards'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'newrelic',
+    name: 'New Relic',
+    description: 'Connect New Relic for observability.',
+    category: 'DEVELOPMENT',
+    provider: 'New Relic',
+    logoUrl: 'https://newrelic.com/favicon.ico',
+    website: 'https://newrelic.com',
+    documentationUrl: 'https://docs.newrelic.com/docs/apis/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API Key',
+      helpText: 'Create a user API key in New Relic > API keys',
+      headerName: 'Api-Key'
+    },
+    apiBaseUrl: 'https://api.newrelic.com/v2',
+    capabilities: ['read_applications', 'read_metrics', 'manage_alerts', 'read_dashboards'],
+    features: ['APM', 'Infrastructure', 'Browser monitoring', 'Synthetic monitoring'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'pagerduty',
+    name: 'PagerDuty',
+    description: 'Connect PagerDuty for incident management.',
+    category: 'DEVELOPMENT',
+    provider: 'PagerDuty',
+    logoUrl: 'https://www.pagerduty.com/favicon.ico',
+    website: 'https://pagerduty.com',
+    documentationUrl: 'https://developer.pagerduty.com/api-reference/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://app.pagerduty.com/oauth/authorize',
+      tokenUrl: 'https://app.pagerduty.com/oauth/token',
+      scopes: ['read', 'write'],
+      clientIdEnvKey: 'PAGERDUTY_CLIENT_ID',
+      clientSecretEnvKey: 'PAGERDUTY_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.pagerduty.com',
+    capabilities: ['read_incidents', 'create_incidents', 'manage_schedules', 'manage_services'],
+    features: ['Incident management', 'On-call schedules', 'Escalation policies', 'Status pages'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'opsgenie',
+    name: 'Opsgenie',
+    description: 'Connect Opsgenie for alerting and on-call management.',
+    category: 'DEVELOPMENT',
+    provider: 'Atlassian',
+    logoUrl: 'https://www.atlassian.com/favicon.ico',
+    website: 'https://opsgenie.com',
+    documentationUrl: 'https://docs.opsgenie.com/docs/api-overview',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API Key',
+      helpText: 'Create an API key in Settings > API key management',
+      headerName: 'Authorization',
+      headerPrefix: 'GenieKey '
+    },
+    apiBaseUrl: 'https://api.opsgenie.com/v2',
+    capabilities: ['read_alerts', 'create_alerts', 'manage_schedules', 'manage_teams'],
+    features: ['Alert management', 'On-call schedules', 'Escalations', 'Incident response'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'travis-ci',
+    name: 'Travis CI',
+    description: 'Connect Travis CI for continuous integration.',
+    category: 'DEVELOPMENT',
+    provider: 'Travis CI',
+    logoUrl: 'https://www.travis-ci.com/favicon.ico',
+    website: 'https://travis-ci.com',
+    documentationUrl: 'https://docs.travis-ci.com/api/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API Token',
+      helpText: 'Get your API token from Travis CI Settings',
+      headerName: 'Authorization',
+      headerPrefix: 'token '
+    },
+    apiBaseUrl: 'https://api.travis-ci.com',
+    capabilities: ['read_builds', 'trigger_builds', 'read_repos', 'manage_caches'],
+    features: ['Build status', 'Build triggers', 'Repository management', 'Build logs'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  }
+];
+
+module.exports = { developmentIntegrations };

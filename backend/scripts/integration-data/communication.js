@@ -1,0 +1,337 @@
+/**
+ * Communication & Messaging Integrations
+ * Already implemented: slack, microsoft-teams
+ */
+
+const communicationIntegrations = [
+  {
+    slug: 'discord',
+    name: 'Discord',
+    description: 'Connect Discord to receive notifications and manage server communications.',
+    category: 'COMMUNICATION',
+    provider: 'Discord',
+    logoUrl: 'https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg',
+    website: 'https://discord.com',
+    documentationUrl: 'https://discord.com/developers/docs',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://discord.com/oauth2/authorize',
+      tokenUrl: 'https://discord.com/api/oauth2/token',
+      revokeUrl: 'https://discord.com/api/oauth2/token/revoke',
+      userInfoUrl: 'https://discord.com/api/users/@me',
+      scopes: ['identify', 'email', 'guilds', 'guilds.members.read'],
+      clientIdEnvKey: 'DISCORD_CLIENT_ID',
+      clientSecretEnvKey: 'DISCORD_CLIENT_SECRET',
+      userInfoMapping: { id: 'id', email: 'email', name: 'username', avatar: 'avatar' }
+    },
+    apiBaseUrl: 'https://discord.com/api/v10',
+    capabilities: ['send_messages', 'read_channels', 'manage_guilds'],
+    features: ['Server notifications', 'Channel sync', 'Member management'],
+    pricingType: 'free',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'telegram',
+    name: 'Telegram',
+    description: 'Connect Telegram bot to send notifications and messages.',
+    category: 'COMMUNICATION',
+    provider: 'Telegram',
+    logoUrl: 'https://telegram.org/img/t_logo.svg',
+    website: 'https://telegram.org',
+    documentationUrl: 'https://core.telegram.org/bots/api',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'Bot Token',
+      helpText: 'Create a bot via @BotFather and copy the token'
+    },
+    apiBaseUrl: 'https://api.telegram.org',
+    capabilities: ['send_messages', 'receive_messages', 'manage_groups'],
+    features: ['Bot messaging', 'Group notifications', 'Inline keyboards'],
+    pricingType: 'free',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'whatsapp',
+    name: 'WhatsApp Business',
+    description: 'Connect WhatsApp Business to send notifications and messages to customers.',
+    category: 'COMMUNICATION',
+    provider: 'Meta',
+    logoUrl: 'https://static.whatsapp.net/rsrc.php/v3/y7/r/DSxOAUB0raA.png',
+    website: 'https://business.whatsapp.com',
+    documentationUrl: 'https://developers.facebook.com/docs/whatsapp',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://www.facebook.com/v18.0/dialog/oauth',
+      tokenUrl: 'https://graph.facebook.com/v18.0/oauth/access_token',
+      userInfoUrl: 'https://graph.facebook.com/v18.0/me',
+      scopes: ['whatsapp_business_management', 'whatsapp_business_messaging'],
+      clientIdEnvKey: 'WHATSAPP_CLIENT_ID',
+      clientSecretEnvKey: 'WHATSAPP_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://graph.facebook.com/v18.0',
+    capabilities: ['send_messages', 'receive_messages', 'manage_templates'],
+    features: ['Business messaging', 'Template messages', 'Media sharing'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'twilio',
+    name: 'Twilio',
+    description: 'Connect Twilio for SMS, voice, and messaging capabilities.',
+    category: 'COMMUNICATION',
+    provider: 'Twilio',
+    logoUrl: 'https://www.twilio.com/assets/icons/twilio-icon-512.png',
+    website: 'https://twilio.com',
+    documentationUrl: 'https://www.twilio.com/docs',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'Account SID & Auth Token',
+      helpText: 'Find your Account SID and Auth Token in the Twilio Console',
+      fields: [
+        { name: 'accountSid', label: 'Account SID', type: 'text' },
+        { name: 'authToken', label: 'Auth Token', type: 'password' }
+      ]
+    },
+    apiBaseUrl: 'https://api.twilio.com/2010-04-01',
+    capabilities: ['send_sms', 'send_voice', 'manage_numbers'],
+    features: ['SMS messaging', 'Voice calls', 'Phone number management'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'intercom',
+    name: 'Intercom',
+    description: 'Connect Intercom for customer messaging and support.',
+    category: 'COMMUNICATION',
+    provider: 'Intercom',
+    logoUrl: 'https://static.intercomassets.com/assets/default-avatars/fin/128-6a5eabbb84cc2b038b2a3e6cd197c8ba48a3808948db09bfa7abf311a0a47f54.png',
+    website: 'https://intercom.com',
+    documentationUrl: 'https://developers.intercom.com/docs',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://app.intercom.com/oauth',
+      tokenUrl: 'https://api.intercom.io/auth/eagle/token',
+      userInfoUrl: 'https://api.intercom.io/me',
+      scopes: [],
+      clientIdEnvKey: 'INTERCOM_CLIENT_ID',
+      clientSecretEnvKey: 'INTERCOM_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.intercom.io',
+    capabilities: ['send_messages', 'manage_contacts', 'read_conversations'],
+    features: ['Live chat', 'Customer data', 'Conversation management'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'zendesk-chat',
+    name: 'Zendesk Chat',
+    description: 'Connect Zendesk Chat for live customer support.',
+    category: 'COMMUNICATION',
+    provider: 'Zendesk',
+    logoUrl: 'https://d1eipm3vz40ber.cloudfront.net/images/p-zendesk-logo.svg',
+    website: 'https://zendesk.com/chat',
+    documentationUrl: 'https://developer.zendesk.com/api-reference/live-chat/chat-api/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://{subdomain}.zendesk.com/oauth/authorizations/new',
+      tokenUrl: 'https://{subdomain}.zendesk.com/oauth/tokens',
+      scopes: ['read', 'write', 'chat'],
+      clientIdEnvKey: 'ZENDESK_CLIENT_ID',
+      clientSecretEnvKey: 'ZENDESK_CLIENT_SECRET',
+      requiresSubdomain: true
+    },
+    apiBaseUrl: 'https://www.zopim.com/api/v2',
+    capabilities: ['read_chats', 'send_messages', 'manage_agents'],
+    features: ['Live chat', 'Chat history', 'Agent management'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'crisp',
+    name: 'Crisp',
+    description: 'Connect Crisp for customer messaging and support.',
+    category: 'COMMUNICATION',
+    provider: 'Crisp',
+    logoUrl: 'https://crisp.chat/favicon-512x512.png',
+    website: 'https://crisp.chat',
+    documentationUrl: 'https://docs.crisp.chat/api/v1/',
+    authType: 'api_key',
+    authConfig: {
+      fieldLabel: 'API Credentials',
+      helpText: 'Get your API credentials from Crisp Settings > API',
+      fields: [
+        { name: 'identifier', label: 'Identifier', type: 'text' },
+        { name: 'key', label: 'Key', type: 'password' }
+      ]
+    },
+    apiBaseUrl: 'https://api.crisp.chat/v1',
+    capabilities: ['send_messages', 'manage_conversations', 'read_visitors'],
+    features: ['Live chat', 'Visitor tracking', 'Conversation management'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'drift',
+    name: 'Drift',
+    description: 'Connect Drift for conversational marketing and sales.',
+    category: 'COMMUNICATION',
+    provider: 'Drift',
+    logoUrl: 'https://www.drift.com/wp-content/themes/flavor/assets/images/favicon/favicon-96x96.png',
+    website: 'https://drift.com',
+    documentationUrl: 'https://devdocs.drift.com/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://dev.drift.com/authorize',
+      tokenUrl: 'https://driftapi.com/oauth2/token',
+      userInfoUrl: 'https://driftapi.com/users/me',
+      scopes: [],
+      clientIdEnvKey: 'DRIFT_CLIENT_ID',
+      clientSecretEnvKey: 'DRIFT_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://driftapi.com',
+    capabilities: ['send_messages', 'manage_conversations', 'read_contacts'],
+    features: ['Live chat', 'Bot automation', 'Lead capture'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'livechat',
+    name: 'LiveChat',
+    description: 'Connect LiveChat for customer service and online sales.',
+    category: 'COMMUNICATION',
+    provider: 'LiveChat',
+    logoUrl: 'https://cdn.livechat-files.com/api/file/lc/img/100019504/df59db5fc14c9c1ba3f0fab1d7a8ff50.png',
+    website: 'https://livechat.com',
+    documentationUrl: 'https://developers.livechat.com/docs',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://accounts.livechat.com/oauth/authorize',
+      tokenUrl: 'https://accounts.livechat.com/token',
+      userInfoUrl: 'https://accounts.livechat.com/v2/accounts/me',
+      scopes: ['chats--all:rw', 'customers:ro', 'agents--all:ro'],
+      clientIdEnvKey: 'LIVECHAT_CLIENT_ID',
+      clientSecretEnvKey: 'LIVECHAT_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://api.livechatinc.com/v3.5',
+    capabilities: ['read_chats', 'send_messages', 'manage_agents'],
+    features: ['Live chat', 'Chat archives', 'Agent management'],
+    pricingType: 'paid',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'rocketchat',
+    name: 'Rocket.Chat',
+    description: 'Connect self-hosted Rocket.Chat for team communications.',
+    category: 'COMMUNICATION',
+    provider: 'Rocket.Chat',
+    logoUrl: 'https://rocket.chat/favicon.ico',
+    website: 'https://rocket.chat',
+    documentationUrl: 'https://developer.rocket.chat/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: '{instance}/oauth/authorize',
+      tokenUrl: '{instance}/oauth/token',
+      userInfoUrl: '{instance}/api/v1/me',
+      scopes: [],
+      clientIdEnvKey: 'ROCKETCHAT_CLIENT_ID',
+      clientSecretEnvKey: 'ROCKETCHAT_CLIENT_SECRET',
+      requiresInstanceUrl: true
+    },
+    apiBaseUrl: '{instance}/api/v1',
+    capabilities: ['send_messages', 'read_channels', 'manage_users'],
+    features: ['Team messaging', 'Channel sync', 'File sharing'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'mattermost',
+    name: 'Mattermost',
+    description: 'Connect self-hosted Mattermost for secure team collaboration.',
+    category: 'COMMUNICATION',
+    provider: 'Mattermost',
+    logoUrl: 'https://mattermost.com/wp-content/uploads/2022/02/icon_WS.png',
+    website: 'https://mattermost.com',
+    documentationUrl: 'https://api.mattermost.com/',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: '{instance}/oauth/authorize',
+      tokenUrl: '{instance}/oauth/access_token',
+      userInfoUrl: '{instance}/api/v4/users/me',
+      scopes: [],
+      clientIdEnvKey: 'MATTERMOST_CLIENT_ID',
+      clientSecretEnvKey: 'MATTERMOST_CLIENT_SECRET',
+      requiresInstanceUrl: true
+    },
+    apiBaseUrl: '{instance}/api/v4',
+    capabilities: ['send_messages', 'read_channels', 'manage_teams'],
+    features: ['Team messaging', 'Channel sync', 'File sharing'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'google-chat',
+    name: 'Google Chat',
+    description: 'Connect Google Chat for team messaging and collaboration.',
+    category: 'COMMUNICATION',
+    provider: 'Google',
+    logoUrl: 'https://fonts.gstatic.com/s/i/productlogos/chat_2020q4/v8/192px.svg',
+    website: 'https://chat.google.com',
+    documentationUrl: 'https://developers.google.com/chat/api',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+      tokenUrl: 'https://oauth2.googleapis.com/token',
+      revokeUrl: 'https://oauth2.googleapis.com/revoke',
+      userInfoUrl: 'https://www.googleapis.com/oauth2/v2/userinfo',
+      scopes: ['chat.spaces.readonly', 'chat.messages', 'chat.memberships.readonly'],
+      scopePrefix: 'https://www.googleapis.com/auth/',
+      clientIdEnvKey: 'GOOGLE_OAUTH_CLIENT_ID',
+      clientSecretEnvKey: 'GOOGLE_OAUTH_CLIENT_SECRET',
+      extraAuthParams: { access_type: 'offline', prompt: 'consent' }
+    },
+    apiBaseUrl: 'https://chat.googleapis.com/v1',
+    capabilities: ['send_messages', 'read_spaces', 'list_members'],
+    features: ['Space messaging', 'Thread replies', 'Card messages'],
+    pricingType: 'free',
+    isVerified: true,
+    isFeatured: false
+  },
+  {
+    slug: 'webex',
+    name: 'Webex',
+    description: 'Connect Cisco Webex for messaging and team collaboration.',
+    category: 'COMMUNICATION',
+    provider: 'Cisco',
+    logoUrl: 'https://www.webex.com/content/dam/wbx/us/images/favicon/favicon.ico',
+    website: 'https://webex.com',
+    documentationUrl: 'https://developer.webex.com/docs',
+    authType: 'oauth2',
+    authConfig: {
+      authorizationUrl: 'https://webexapis.com/v1/authorize',
+      tokenUrl: 'https://webexapis.com/v1/access_token',
+      userInfoUrl: 'https://webexapis.com/v1/people/me',
+      scopes: ['spark:all', 'spark:people_read', 'spark:rooms_read', 'spark:messages_write'],
+      clientIdEnvKey: 'WEBEX_CLIENT_ID',
+      clientSecretEnvKey: 'WEBEX_CLIENT_SECRET'
+    },
+    apiBaseUrl: 'https://webexapis.com/v1',
+    capabilities: ['send_messages', 'read_rooms', 'manage_teams'],
+    features: ['Team messaging', 'Space management', 'File sharing'],
+    pricingType: 'freemium',
+    isVerified: true,
+    isFeatured: false
+  }
+];
+
+module.exports = { communicationIntegrations };

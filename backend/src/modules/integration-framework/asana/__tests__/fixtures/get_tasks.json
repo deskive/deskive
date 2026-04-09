@@ -1,0 +1,36 @@
+{
+  "action": "get_tasks",
+  "baseUrl": "https://app.asana.com/api/1.0",
+  "testCases": [
+    {
+      "name": "fetches tasks successfully",
+      "input": {
+        "projectId": "proj-123"
+      },
+      "mock": {
+        "method": "GET",
+        "path": "/tasks",
+        "status": 200,
+        "response": {
+          "data": [
+            {
+              "gid": "task-1",
+              "name": "Task 1"
+            },
+            {
+              "gid": "task-2",
+              "name": "Task 2"
+            }
+          ]
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": [
+          { "gid": "task-1" },
+          { "gid": "task-2" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+import { PM_PLANS_TEMPLATES } from './pm-plans';
+import { PM_TRACKING_TEMPLATES } from './pm-tracking';
+import { PM_CLOSURE_TEMPLATES } from './pm-closure';
+import { PM_AGILE_TEMPLATES } from './pm-agile';
+import { PM_DOCUMENTATION_TEMPLATES } from './pm-documentation';
+
+export const ALL_PM_TEMPLATES = [
+  ...PM_PLANS_TEMPLATES,
+  ...PM_TRACKING_TEMPLATES,
+  ...PM_CLOSURE_TEMPLATES,
+  ...PM_AGILE_TEMPLATES,
+  ...PM_DOCUMENTATION_TEMPLATES,
+];
+
+export {
+  PM_PLANS_TEMPLATES,
+  PM_TRACKING_TEMPLATES,
+  PM_CLOSURE_TEMPLATES,
+  PM_AGILE_TEMPLATES,
+  PM_DOCUMENTATION_TEMPLATES,
+};

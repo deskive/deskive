@@ -1,0 +1,83 @@
+{
+  "timestamp": "2025-11-21T23:22:07.373Z",
+  "duration": "12.27s",
+  "configuration": {
+    "targetSizeKB": 200,
+    "outputFormat": "png"
+  },
+  "summary": {
+    "totalImages": 8,
+    "processedImages": 8,
+    "failedImages": 0,
+    "totalOriginalSizeMB": "4.09",
+    "totalOptimizedSizeMB": "1.02",
+    "totalSavedMB": "3.06",
+    "compressionRatio": "25.1%"
+  },
+  "details": [
+    {
+      "name": "calendar.png",
+      "originalSize": 583013,
+      "optimizedSize": 134080,
+      "savedBytes": 448933,
+      "savedPercent": 77,
+      "resized": true
+    },
+    {
+      "name": "dashboard.png",
+      "originalSize": 420909,
+      "optimizedSize": 94700,
+      "savedBytes": 326209,
+      "savedPercent": 77.5,
+      "resized": true
+    },
+    {
+      "name": "file.png",
+      "originalSize": 546704,
+      "optimizedSize": 121173,
+      "savedBytes": 425531,
+      "savedPercent": 77.8,
+      "resized": true
+    },
+    {
+      "name": "message.png",
+      "originalSize": 554776,
+      "optimizedSize": 119406,
+      "savedBytes": 435370,
+      "savedPercent": 78.5,
+      "resized": true
+    },
+    {
+      "name": "note.png",
+      "originalSize": 408555,
+      "optimizedSize": 85059,
+      "savedBytes": 323496,
+      "savedPercent": 79.2,
+      "resized": true
+    },
+    {
+      "name": "project.png",
+      "originalSize": 622276,
+      "optimizedSize": 144480,
+      "savedBytes": 477796,
+      "savedPercent": 76.8,
+      "resized": true
+    },
+    {
+      "name": "search.png",
+      "originalSize": 341614,
+      "optimizedSize": 186677,
+      "savedBytes": 154937,
+      "savedPercent": 45.4,
+      "resized": false
+    },
+    {
+      "name": "video-call.png",
+      "originalSize": 809503,
+      "optimizedSize": 188901,
+      "savedBytes": 620602,
+      "savedPercent": 76.7,
+      "resized": true
+    }
+  ]
+}

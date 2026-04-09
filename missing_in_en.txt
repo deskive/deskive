@@ -1,0 +1,4140 @@
+================================================================================
+COMPLETE LIST OF KEYS MISSING IN en.json
+================================================================================
+
+Total: 2066 keys
+
+1. common.back
+   ja.json: "戻る"
+2. common.active
+   ja.json: "アクティブ"
+3. common.inactive
+   ja.json: "非アクティブ"
+4. modules.notes.emptyState
+   ja.json: {...} (2 keys)
+5. modules.notes.emptyState.title
+   ja.json: "ノートを始める"
+6. modules.notes.emptyState.description
+   ja.json: "最初のノートを作成して、アイデアを記録したり、議事録を取ったり、ドキュメントを作成したりできます。"
+7. modules.notes.buttons
+   ja.json: {...} (2 keys)
+8. modules.notes.buttons.newNote
+   ja.json: "新規ノート"
+9. modules.notes.buttons.import
+   ja.json: "インポート"
+10. modules.integrations.page.filterBy
+   ja.json: "フィルター条件:"
+11. modules.integrations.tabs.connected
+   ja.json: "接続済み"
+12. modules.integrations.sections.popular
+   ja.json: "人気"
+13. modules.integrations.sections.all
+   ja.json: "すべての統合"
+14. modules.integrations.categories.communication
+   ja.json: "コミュニケーション"
+15. modules.integrations.categories.fileStorage
+   ja.json: "ファイルストレージ"
+16. modules.integrations.categories.calendar
+   ja.json: "カレンダー"
+17. modules.integrations.categories.email
+   ja.json: "メール"
+18. modules.integrations.categories.projectManagement
+   ja.json: "プロジェクト管理"
+19. modules.integrations.categories.crm
+   ja.json: "CRM"
+20. modules.integrations.categories.development
+   ja.json: "開発"
+21. modules.integrations.categories.analytics
+   ja.json: "分析"
+22. modules.integrations.categories.marketing
+   ja.json: "マーケティング"
+23. modules.integrations.categories.documentation
+   ja.json: "ドキュメント"
+24. modules.integrations.categories.design
+   ja.json: "デザイン"
+25. modules.integrations.categories.timeTracking
+   ja.json: "時間追跡"
+26. modules.integrations.categories.videoConferencing
+   ja.json: "ビデオ会議"
+27. modules.integrations.categories.automation
+   ja.json: "自動化"
+28. modules.integrations.categories.productivity
+   ja.json: "生産性"
+29. modules.integrations.categories.hr
+   ja.json: "人事"
+30. modules.integrations.categories.finance
+   ja.json: "財務"
+31. modules.integrations.categories.support
+   ja.json: "サポート"
+32. modules.integrations.categories.security
+   ja.json: "セキュリティ"
+33. modules.integrations.categories.ecommerce
+   ja.json: "Eコマース"
+34. modules.integrations.categories.socialMedia
+   ja.json: "ソーシャルメディア"
+35. modules.integrations.categories.ai
+   ja.json: "AI＆機械学習"
+36. modules.integrations.categories.other
+   ja.json: "その他"
+37. modules.integrations.status
+   ja.json: {...} (4 keys)
+38. modules.integrations.status.connected
+   ja.json: "接続済み"
+39. modules.integrations.status.verified
+   ja.json: "検証済み"
+40. modules.integrations.status.installed
+   ja.json: "インストール済み"
+41. modules.integrations.status.comingSoon
+   ja.json: "近日公開"
+42. modules.integrations.pricing
+   ja.json: {...} (3 keys)
+43. modules.integrations.pricing.free
+   ja.json: "無料"
+44. modules.integrations.pricing.freemium
+   ja.json: "フリーミアム"
+45. modules.integrations.pricing.paid
+   ja.json: "有料"
+46. modules.integrations.actions
+   ja.json: {...} (8 keys)
+47. modules.integrations.actions.connect
+   ja.json: "接続"
+48. modules.integrations.actions.disconnect
+   ja.json: "切断"
+49. modules.integrations.actions.open
+   ja.json: "開く"
+50. modules.integrations.actions.install
+   ja.json: "統合をインストール"
+51. modules.integrations.actions.uninstall
+   ja.json: "アンインストール"
+52. modules.integrations.actions.visitWebsite
+   ja.json: "ウェブサイトを表示"
+53. modules.integrations.actions.back
+   ja.json: "戻る"
+54. modules.integrations.actions.backToIntegrations
+   ja.json: "統合に戻る"
+55. modules.integrations.connect
+   ja.json: "接続"
+56. modules.integrations.disconnect
+   ja.json: "切断"
+57. modules.integrations.connected
+   ja.json: "接続しました"
+58. modules.integrations.disconnected
+   ja.json: "切断しました"
+59. modules.integrations.connectedDescription
+   ja.json: "{name}に正常に接続しました"
+60. modules.integrations.disconnectedDescription
+   ja.json: "{name}から正常に切断しました"
+61. modules.integrations.connectError
+   ja.json: "接続エラー"
+62. modules.integrations.disconnectError
+   ja.json: "切断エラー"
+63. modules.integrations.connectionError
+   ja.json: "接続エラー"
+64. modules.integrations.tokenExpired
+   ja.json: "トークンの有効期限が切れました。再接続してください。"
+65. modules.integrations.connectWithApiKey
+   ja.json: "{name}を接続"
+66. modules.integrations.apiKeyDescription
+   ja.json: "{name}のAPIキーを入力して接続します。"
+67. modules.integrations.apiKey
+   ja.json: "APIキー"
+68. modules.integrations.findApiKey
+   ja.json: "APIキーの見つけ方"
+69. modules.integrations.disconnectTitle
+   ja.json: "{name}を切断しますか？"
+70. modules.integrations.disconnectWarning
+   ja.json: "{name}への接続を削除します。いつでも再接続できます。"
+71. modules.integrations.connectedAs
+   ja.json: "接続中のアカウント:"
+72. modules.integrations.empty.noConnected
+   ja.json: "接続された統合がありません"
+73. modules.integrations.empty.noConnectedDesc
+   ja.json: "マーケットプレイスから最初の統合を接続して開始しましょう。"
+74. modules.integrations.empty.browse
+   ja.json: "マーケットプレイスを閲覧"
+75. modules.integrations.detail
+   ja.json: {...} (27 keys)
+76. modules.integrations.detail.loading
+   ja.json: "統合を読み込み中..."
+77. modules.integrations.detail.features
+   ja.json: "機能"
+78. modules.integrations.detail.screenshots
+   ja.json: "スクリーンショット"
+79. modules.integrations.detail.details
+   ja.json: "統合の詳細"
+80. modules.integrations.detail.category
+   ja.json: "カテゴリー"
+81. modules.integrations.detail.authentication
+   ja.json: "認証"
+82. modules.integrations.detail.webhookSupport
+   ja.json: "Webhookサポート"
+83. modules.integrations.detail.supported
+   ja.json: "サポート済み"
+84. modules.integrations.detail.notSupported
+   ja.json: "サポートなし"
+85. modules.integrations.detail.lastUpdated
+   ja.json: "最終更新"
+86. modules.integrations.detail.support
+   ja.json: "サポートとドキュメント"
+87. modules.integrations.detail.apiDocumentation
+   ja.json: "APIドキュメント"
+88. modules.integrations.detail.contactSupport
+   ja.json: "サポートに連絡"
+89. modules.integrations.detail.usageStats
+   ja.json: "使用統計"
+90. modules.integrations.detail.successRate
+   ja.json: "成功率"
+91. modules.integrations.detail.totalRequests
+   ja.json: "リクエスト総数"
+92. modules.integrations.detail.avgResponseTime
+   ja.json: "平均応答時間"
+93. modules.integrations.detail.overview
+   ja.json: "概要"
+94. modules.integrations.detail.configuration
+   ja.json: "設定"
+95. modules.integrations.detail.webhooks
+   ja.json: "Webhook"
+96. modules.integrations.detail.logs
+   ja.json: "ログ"
+97. modules.integrations.detail.installing
+   ja.json: "インストール中..."
+98. modules.integrations.detail.installationFailed
+   ja.json: "インストールに失敗しました"
+99. modules.integrations.detail.integrationInstalled
+   ja.json: "統合がインストールされました"
+100. modules.integrations.detail.integrationUninstalled
+   ja.json: "統合がアンインストールされました"
+101. modules.integrations.detail.reviews
+   ja.json: "件のレビュー"
+102. modules.integrations.detail.installs
+   ja.json: "件のインストール"
+103. modules.integrationsModule1
+   ja.json: {...} (12 keys)
+104. modules.integrationsModule1.title
+   ja.json: "連携"
+105. modules.integrationsModule1.description
+   ja.json: "お気に入りのツールやサービスを接続"
+106. modules.integrationsModule1.marketplace
+   ja.json: "マーケットプレイス"
+107. modules.integrationsModule1.installed
+   ja.json: "インストール済み"
+108. modules.integrationsModule1.categories
+   ja.json: "カテゴリー"
+109. modules.integrationsModule1.category
+   ja.json: {...} (34 keys)
+110. modules.integrationsModule1.category.communication
+   ja.json: "コミュニケーション"
+111. modules.integrationsModule1.category.communicationDesc
+   ja.json: "チャット、メッセージング、チームコミュニケーションツール"
+112. modules.integrationsModule1.category.projectManagement
+   ja.json: "プロジェクト管理"
+113. modules.integrationsModule1.category.projectManagementDesc
+   ja.json: "タスク追跡、プロジェクト計画、チーム連携"
+114. modules.integrationsModule1.category.fileStorage
+   ja.json: "ファイルストレージ"
+115. modules.integrationsModule1.category.fileStorageDesc
+   ja.json: "クラウドストレージとファイル共有サービス"
+116. modules.integrationsModule1.category.calendar
+   ja.json: "カレンダー"
+117. modules.integrationsModule1.category.calendarDesc
+   ja.json: "スケジュール、会議、時間管理"
+118. modules.integrationsModule1.category.development
+   ja.json: "開発"
+119. modules.integrationsModule1.category.developmentDesc
+   ja.json: "開発者ツールとCI/CDプラットフォーム"
+120. modules.integrationsModule1.category.crm
+   ja.json: "CRM"
+121. modules.integrationsModule1.category.crmDesc
+   ja.json: "顧客関係管理システム"
+122. modules.integrationsModule1.category.codeRepositories
+   ja.json: "コードリポジトリ"
+123. modules.integrationsModule1.category.codeRepositoriesDesc
+   ja.json: "Gitリポジトリとバージョン管理システム"
+124. modules.integrationsModule1.category.analytics
+   ja.json: "分析"
+125. modules.integrationsModule1.category.analyticsDesc
+   ja.json: "データ分析とビジネスインテリジェンスツール"
+126. modules.integrationsModule1.category.design
+   ja.json: "デザイン"
+127. modules.integrationsModule1.category.designDesc
+   ja.json: "デザインとクリエイティブツール"
+128. modules.integrationsModule1.category.productivity
+   ja.json: "生産性"
+129. modules.integrationsModule1.category.productivityDesc
+   ja.json: "生産性とワークフローツール"
+130. modules.integrationsModule1.category.marketing
+   ja.json: "マーケティング"
+131. modules.integrationsModule1.category.marketingDesc
+   ja.json: "マーケティング自動化とキャンペーンツール"
+132. modules.integrationsModule1.category.hr
+   ja.json: "人事"
+133. modules.integrationsModule1.category.hrDesc
+   ja.json: "人事と採用ツール"
+134. modules.integrationsModule1.category.finance
+   ja.json: "財務"
+135. modules.integrationsModule1.category.financeDesc
+   ja.json: "財務管理と会計ツール"
+136. modules.integrationsModule1.category.socialMedia
+   ja.json: "ソーシャルメディア"
+137. modules.integrationsModule1.category.socialMediaDesc
+   ja.json: "ソーシャルメディア管理ツール"
+138. modules.integrationsModule1.category.ecommerce
+   ja.json: "Eコマース"
+139. modules.integrationsModule1.category.ecommerceDesc
+   ja.json: "Eコマースとオンラインストアツール"
+140. modules.integrationsModule1.category.security
+   ja.json: "セキュリティ"
+141. modules.integrationsModule1.category.securityDesc
+   ja.json: "セキュリティとコンプライアンスツール"
+142. modules.integrationsModule1.category.other
+   ja.json: "その他"
+143. modules.integrationsModule1.category.otherDesc
+   ja.json: "その他の連携"
+144. modules.integrationsModule1.page
+   ja.json: {...} (7 keys)
+145. modules.integrationsModule1.page.title
+   ja.json: "連携"
+146. modules.integrationsModule1.page.subtitle
+   ja.json: "お気に入りのツールやサービスを接続してワークフローを効率化"
+147. modules.integrationsModule1.page.loading
+   ja.json: "連携を読み込み中..."
+148. modules.integrationsModule1.page.searchPlaceholder
+   ja.json: "連携を検索..."
+149. modules.integrationsModule1.page.noResults
+   ja.json: "連携が見つかりません"
+150. modules.integrationsModule1.page.noResultsDesc
+   ja.json: "検索条件やフィルターを調整してみてください。"
+151. modules.integrationsModule1.page.available
+   ja.json: "{count}件利用可能"
+152. modules.integrationsModule1.tabs
+   ja.json: {...} (2 keys)
+153. modules.integrationsModule1.tabs.marketplace
+   ja.json: "マーケットプレイス"
+154. modules.integrationsModule1.tabs.installed
+   ja.json: "インストール済み"
+155. modules.integrationsModule1.sections
+   ja.json: {...} (3 keys)
+156. modules.integrationsModule1.sections.popularIntegrations
+   ja.json: "人気の連携"
+157. modules.integrationsModule1.sections.allIntegrations
+   ja.json: "すべての連携"
+158. modules.integrationsModule1.sections.totalCount
+   ja.json: "（合計{count}件）"
+159. modules.integrationsModule1.card
+   ja.json: {...} (7 keys)
+160. modules.integrationsModule1.card.verified
+   ja.json: "認証済み"
+161. modules.integrationsModule1.card.install
+   ja.json: "インストール"
+162. modules.integrationsModule1.card.installed
+   ja.json: "インストール済み"
+163. modules.integrationsModule1.card.free
+   ja.json: "無料"
+164. modules.integrationsModule1.card.freemium
+   ja.json: "フリーミアム"
+165. modules.integrationsModule1.card.paid
+   ja.json: "${cost}/{interval}"
+166. modules.integrationsModule1.card.reviews
+   ja.json: "（{count}件）"
+167. modules.integrationsModule1.filters
+   ja.json: {...} (13 keys)
+168. modules.integrationsModule1.filters.title
+   ja.json: "フィルター"
+169. modules.integrationsModule1.filters.categories
+   ja.json: "カテゴリー"
+170. modules.integrationsModule1.filters.authTypes
+   ja.json: "認証"
+171. modules.integrationsModule1.filters.pricing
+   ja.json: "料金"
+172. modules.integrationsModule1.filters.clearAll
+   ja.json: "すべてクリア"
+173. modules.integrationsModule1.filters.quickFilters
+   ja.json: "クイックフィルター"
+174. modules.integrationsModule1.filters.popularIntegrations
+   ja.json: "人気の連携"
+175. modules.integrationsModule1.filters.verifiedIntegrations
+   ja.json: "認証済みの連携"
+176. modules.integrationsModule1.filters.activeFilters
+   ja.json: "適用中のフィルター"
+177. modules.integrationsModule1.filters.popular
+   ja.json: "人気"
+178. modules.integrationsModule1.filters.verified
+   ja.json: "認証済み"
+179. modules.integrationsModule1.filters.auth
+   ja.json: {...} (10 keys)
+180. modules.integrationsModule1.filters.auth.oauth2
+   ja.json: "OAuth 2.0"
+181. modules.integrationsModule1.filters.auth.oauth2Desc
+   ja.json: "安全な認可フロー"
+182. modules.integrationsModule1.filters.auth.apiKey
+   ja.json: "APIキー"
+183. modules.integrationsModule1.filters.auth.apiKeyDesc
+   ja.json: "シンプルなAPIキー認証"
+184. modules.integrationsModule1.filters.auth.basicAuth
+   ja.json: "Basic認証"
+185. modules.integrationsModule1.filters.auth.basicAuthDesc
+   ja.json: "ユーザー名とパスワード"
+186. modules.integrationsModule1.filters.auth.jwt
+   ja.json: "JWTトークン"
+187. modules.integrationsModule1.filters.auth.jwtDesc
+   ja.json: "JSON Webトークン"
+188. modules.integrationsModule1.filters.auth.webhookOnly
+   ja.json: "Webhookのみ"
+189. modules.integrationsModule1.filters.auth.webhookOnlyDesc
+   ja.json: "受信専用の連携"
+190. modules.integrationsModule1.filters.pricingTypes
+   ja.json: {...} (6 keys)
+191. modules.integrationsModule1.filters.pricingTypes.free
+   ja.json: "無料"
+192. modules.integrationsModule1.filters.pricingTypes.freeDesc
+   ja.json: "完全無料で利用可能"
+193. modules.integrationsModule1.filters.pricingTypes.freemium
+   ja.json: "フリーミアム"
+194. modules.integrationsModule1.filters.pricingTypes.freemiumDesc
+   ja.json: "無料で有料アップグレードあり"
+195. modules.integrationsModule1.filters.pricingTypes.paid
+   ja.json: "有料"
+196. modules.integrationsModule1.filters.pricingTypes.paidDesc
+   ja.json: "サブスクリプションが必要"
+197. modules.integrationsModule1.empty
+   ja.json: {...} (3 keys)
+198. modules.integrationsModule1.empty.noInstalled
+   ja.json: "インストールされた連携はありません"
+199. modules.integrationsModule1.empty.noInstalledDesc
+   ja.json: "マーケットプレイスから最初の連携をインストールしてください。"
+200. modules.integrationsModule1.empty.browseMarketplace
+   ja.json: "マーケットプレイスを見る"
+201. modules.notesProduct1
+   ja.json: {...} (17 keys)
+202. modules.notesProduct1.title
+   ja.json: "ノート"
+203. modules.notesProduct1.description
+   ja.json: "リッチテキストエディタとドキュメント"
+204. modules.notesProduct1.benefits
+   ja.json: "強力なエディタ、テンプレート、リアルタイムコラボレーションですべてを文書化。"
+205. modules.notesProduct1.features
+   ja.json: {...} (4 keys)
+206. modules.notesProduct1.features.richEditor
+   ja.json: "リッチエディタ"
+207. modules.notesProduct1.features.templates
+   ja.json: "テンプレート"
+208. modules.notesProduct1.features.collaboration
+   ja.json: "コラボレーション"
+209. modules.notesProduct1.features.export
+   ja.json: "エクスポート"
+210. modules.notesProduct1.leftSidebar
+   ja.json: {...} (41 keys)
+211. modules.notesProduct1.leftSidebar.searchPlaceholder
+   ja.json: "ノートを検索..."
+212. modules.notesProduct1.leftSidebar.selected
+   ja.json: "選択中"
+213. modules.notesProduct1.leftSidebar.clear
+   ja.json: "クリア"
+214. modules.notesProduct1.leftSidebar.merge
+   ja.json: "結合"
+215. modules.notesProduct1.leftSidebar.favorite
+   ja.json: "お気に入り"
+216. modules.notesProduct1.leftSidebar.archive
+   ja.json: "アーカイブ"
+217. modules.notesProduct1.leftSidebar.delete
+   ja.json: "削除"
+218. modules.notesProduct1.leftSidebar.loadingNotes
+   ja.json: "ノートを読み込み中..."
+219. modules.notesProduct1.leftSidebar.searchResults
+   ja.json: "検索結果"
+220. modules.notesProduct1.leftSidebar.searching
+   ja.json: "検索中..."
+221. modules.notesProduct1.leftSidebar.favorites
+   ja.json: "お気に入り"
+222. modules.notesProduct1.leftSidebar.allNotes
+   ja.json: "すべてのノート"
+223. modules.notesProduct1.leftSidebar.recent
+   ja.json: "最近"
+224. modules.notesProduct1.leftSidebar.archived
+   ja.json: "アーカイブ済み"
+225. modules.notesProduct1.leftSidebar.trash
+   ja.json: "ゴミ箱"
+226. modules.notesProduct1.leftSidebar.removeFavorites
+   ja.json: "お気に入りから削除"
+227. modules.notesProduct1.leftSidebar.addFavorites
+   ja.json: "お気に入りに追加"
+228. modules.notesProduct1.leftSidebar.addSubNote
+   ja.json: "サブノートを追加"
+229. modules.notesProduct1.leftSidebar.duplicate
+   ja.json: "複製"
+230. modules.notesProduct1.leftSidebar.share
+   ja.json: "共有"
+231. modules.notesProduct1.leftSidebar.restore
+   ja.json: "復元"
+232. modules.notesProduct1.leftSidebar.deletePermanently
+   ja.json: "完全に削除"
+233. modules.notesProduct1.leftSidebar.unarchive
+   ja.json: "アーカイブ解除"
+234. modules.notesProduct1.leftSidebar.success
+   ja.json: "成功"
+235. modules.notesProduct1.leftSidebar.subNoteCreated
+   ja.json: "サブノートが正常に作成されました"
+236. modules.notesProduct1.leftSidebar.noteCreated
+   ja.json: "ノートが正常に作成されました"
+237. modules.notesProduct1.leftSidebar.error
+   ja.json: "エラー"
+238. modules.notesProduct1.leftSidebar.failedCreate
+   ja.json: "ノートの作成に失敗しました。もう一度お試しください。"
+239. modules.notesProduct1.leftSidebar.noteDeleted
+   ja.json: "ノートが正常に削除されました"
+240. modules.notesProduct1.leftSidebar.failedDelete
+   ja.json: "ノートの削除に失敗しました。もう一度お試しください。"
+241. modules.notesProduct1.leftSidebar.noteRestored
+   ja.json: "ノートが正常に復元されました"
+242. modules.notesProduct1.leftSidebar.failedRestore
+   ja.json: "ノートの復元に失敗しました。もう一度お試しください。"
+243. modules.notesProduct1.leftSidebar.notePermanentlyDeleted
+   ja.json: "ノートが完全に削除されました"
+244. modules.notesProduct1.leftSidebar.failedPermanentDelete
+   ja.json: "ノートの完全削除に失敗しました。もう一度お試しください。"
+245. modules.notesProduct1.leftSidebar.addedToFavorites
+   ja.json: "お気に入りに追加されました"
+246. modules.notesProduct1.leftSidebar.removedFromFavorites
+   ja.json: "お気に入りから削除されました"
+247. modules.notesProduct1.leftSidebar.failedToggleFavorite
+   ja.json: "お気に入りステータスの更新に失敗しました。もう一度お試しください。"
+248. modules.notesProduct1.leftSidebar.noteArchived
+   ja.json: "ノートが正常にアーカイブされました"
+249. modules.notesProduct1.leftSidebar.failedArchive
+   ja.json: "ノートのアーカイブに失敗しました。もう一度お試しください。"
+250. modules.notesProduct1.leftSidebar.noteUnarchived
+   ja.json: "ノートのアーカイブが正常に解除されました"
+251. modules.notesProduct1.leftSidebar.failedUnarchive
+   ja.json: "ノートのアーカイブ解除に失敗しました。もう一度お試しください。"
+252. modules.notesProduct1.rightSidebar
+   ja.json: {...} (24 keys)
+253. modules.notesProduct1.rightSidebar.documentInfo
+   ja.json: "ドキュメント情報"
+254. modules.notesProduct1.rightSidebar.collaborators
+   ja.json: "コラボレーター"
+255. modules.notesProduct1.rightSidebar.recentActivity
+   ja.json: "最近のアクティビティ"
+256. modules.notesProduct1.rightSidebar.quickActions
+   ja.json: "クイックアクション"
+257. modules.notesProduct1.rightSidebar.exportAsPDF
+   ja.json: "PDFとしてエクスポート"
+258. modules.notesProduct1.rightSidebar.noNoteSelected
+   ja.json: "ノートが選択されていません"
+259. modules.notesProduct1.rightSidebar.selectNotePrompt
+   ja.json: "サイドバーからノートを選択して、詳細と最近のアクティビティを表示します。"
+260. modules.notesProduct1.rightSidebar.untitled
+   ja.json: "無題"
+261. modules.notesProduct1.rightSidebar.createdAgo
+   ja.json: "{time}前に作成"
+262. modules.notesProduct1.rightSidebar.lastEdited
+   ja.json: "{time}前に最終編集"
+263. modules.notesProduct1.rightSidebar.favorite
+   ja.json: "お気に入り"
+264. modules.notesProduct1.rightSidebar.archived
+   ja.json: "アーカイブ済み"
+265. modules.notesProduct1.rightSidebar.blocks
+   ja.json: "ブロック"
+266. modules.notesProduct1.rightSidebar.block
+   ja.json: "ブロック"
+267. modules.notesProduct1.rightSidebar.characters
+   ja.json: "文字"
+268. modules.notesProduct1.rightSidebar.owner
+   ja.json: "所有者"
+269. modules.notesProduct1.rightSidebar.you
+   ja.json: "あなた"
+270. modules.notesProduct1.rightSidebar.authorNotAvailable
+   ja.json: "作成者情報が利用できません"
+271. modules.notesProduct1.rightSidebar.noCollaborators
+   ja.json: "まだコラボレーターはいません"
+272. modules.notesProduct1.rightSidebar.member
+   ja.json: "メンバー"
+273. modules.notesProduct1.rightSidebar.noActivity
+   ja.json: "表示するアクティビティはありません"
+274. modules.notesProduct1.rightSidebar.createdNote
+   ja.json: "このノートを作成しました"
+275. modules.notesProduct1.rightSidebar.updatedNote
+   ja.json: "このノートを更新しました"
+276. modules.notesProduct1.rightSidebar.autoSaved
+   ja.json: "ノートが自動保存されました"
+277. modules.notesProduct1.editor
+   ja.json: {...} (55 keys)
+278. modules.notesProduct1.editor.untitled
+   ja.json: "無題"
+279. modules.notesProduct1.editor.saving
+   ja.json: "保存中..."
+280. modules.notesProduct1.editor.saved
+   ja.json: "保存済み"
+281. modules.notesProduct1.editor.moreActions
+   ja.json: "その他のアクション"
+282. modules.notesProduct1.editor.duplicate
+   ja.json: "複製"
+283. modules.notesProduct1.editor.share
+   ja.json: "共有"
+284. modules.notesProduct1.editor.archive
+   ja.json: "アーカイブ"
+285. modules.notesProduct1.editor.delete
+   ja.json: "削除"
+286. modules.notesProduct1.editor.restore
+   ja.json: "復元"
+287. modules.notesProduct1.editor.permanentlyDelete
+   ja.json: "完全に削除"
+288. modules.notesProduct1.editor.charsSelected
+   ja.json: "{count}文字を選択中"
+289. modules.notesProduct1.editor.charactersCount
+   ja.json: "{count}文字"
+290. modules.notesProduct1.editor.loadingEditor
+   ja.json: "エディターを読み込み中..."
+291. modules.notesProduct1.editor.generatingSummary
+   ja.json: "要約を生成中"
+292. modules.notesProduct1.editor.analyzingContent
+   ja.json: "AIがコンテンツを分析しています..."
+293. modules.notesProduct1.editor.processingText
+   ja.json: "テキストを処理中"
+294. modules.notesProduct1.editor.improvingContent
+   ja.json: "AIがコンテンツを改善しています..."
+295. modules.notesProduct1.editor.startWriting
+   ja.json: "書き始めてください..."
+296. modules.notesProduct1.editor.aiGeneratedSummary
+   ja.json: "AI生成要約"
+297. modules.notesProduct1.editor.replaceWithSummary
+   ja.json: "コンテンツを要約に置き換える"
+298. modules.notesProduct1.editor.dismiss
+   ja.json: "閉じる"
+299. modules.notesProduct1.editor.aiImprovedWriting
+   ja.json: "AI改善済みライティング"
+300. modules.notesProduct1.editor.aiGrammarCorrection
+   ja.json: "AI文法修正"
+301. modules.notesProduct1.editor.aiExpandedContent
+   ja.json: "AI拡張コンテンツ"
+302. modules.notesProduct1.editor.aiCondensedContent
+   ja.json: "AI簡略化コンテンツ"
+303. modules.notesProduct1.editor.replaceWithImproved
+   ja.json: "改善されたテキストに置き換える"
+304. modules.notesProduct1.editor.replaceWithCorrected
+   ja.json: "修正されたテキストに置き換える"
+305. modules.notesProduct1.editor.replaceWithExpanded
+   ja.json: "拡張されたテキストに置き換える"
+306. modules.notesProduct1.editor.replaceWithCondensed
+   ja.json: "簡略化されたテキストに置き換える"
+307. modules.notesProduct1.editor.attachments
+   ja.json: "添付ファイル"
+308. modules.notesProduct1.editor.noContent
+   ja.json: "コンテンツがありません"
+309. modules.notesProduct1.editor.noTextToTranslate
+   ja.json: "翻訳するテキストがありません。"
+310. modules.notesProduct1.editor.contentTranslated
+   ja.json: "コンテンツが翻訳されました"
+311. modules.notesProduct1.editor.translatedAndSaved
+   ja.json: "ノートコンテンツが{language}に翻訳され、保存されました。"
+312. modules.notesProduct1.editor.translationSavedLocally
+   ja.json: "翻訳がローカルに保存されました"
+313. modules.notesProduct1.editor.translatedNotSaved
+   ja.json: "コンテンツは翻訳されましたが、サーバーに保存できませんでした。手動で保存してください。"
+314. modules.notesProduct1.editor.translationResult
+   ja.json: "翻訳結果"
+315. modules.notesProduct1.editor.translationFailed
+   ja.json: "翻訳に失敗しました"
+316. modules.notesProduct1.editor.noTextToSummarize
+   ja.json: "要約するテキストがありません。"
+317. modules.notesProduct1.editor.summarizationFailed
+   ja.json: "要約に失敗しました"
+318. modules.notesProduct1.editor.contentReplaced
+   ja.json: "コンテンツが置き換えられました"
+319. modules.notesProduct1.editor.replacedWithSummary
+   ja.json: "ノートコンテンツが要約に置き換えられ、保存されました。"
+320. modules.notesProduct1.editor.failedToSave
+   ja.json: "保存に失敗しました"
+321. modules.notesProduct1.editor.replacedNotSaved
+   ja.json: "コンテンツは置き換えられましたが、保存できませんでした。もう一度お試しください。"
+322. modules.notesProduct1.editor.noTextToImprove
+   ja.json: "改善するテキストがありません。"
+323. modules.notesProduct1.editor.improveFailed
+   ja.json: "{action}に失敗しました"
+324. modules.notesProduct1.editor.replacedAndSaved
+   ja.json: "ノートコンテンツが{action}され、保存されました。"
+325. modules.notesProduct1.editor.improved
+   ja.json: "改善"
+326. modules.notesProduct1.editor.corrected
+   ja.json: "修正"
+327. modules.notesProduct1.editor.expanded
+   ja.json: "拡張"
+328. modules.notesProduct1.editor.condensed
+   ja.json: "簡略化"
+329. modules.notesProduct1.editor.attachmentAdded
+   ja.json: "添付ファイルが追加されました"
+330. modules.notesProduct1.editor.attachedToNote
+   ja.json: "{title}がこのノートに添付されました。"
+331. modules.notesProduct1.editor.attachmentRemoved
+   ja.json: "添付ファイルが削除されました"
+332. modules.notesProduct1.editor.removedFromNote
+   ja.json: "添付ファイルがこのノートから削除されました。"
+333. modules.notesProduct1.creator
+   ja.json: {...} (5 keys)
+334. modules.notesProduct1.creator.untitled
+   ja.json: "無題"
+335. modules.notesProduct1.creator.creatingNote
+   ja.json: "ノートを作成中..."
+336. modules.notesProduct1.creator.noteCreatedAutoSaving
+   ja.json: "ノートが作成されました。入力に応じて自動保存されます..."
+337. modules.notesProduct1.creator.startWriting
+   ja.json: "書き始めてください..."
+338. modules.notesProduct1.creator.loadingEditor
+   ja.json: "エディターを読み込み中..."
+339. modules.notesProduct1.createModal
+   ja.json: {...} (22 keys)
+340. modules.notesProduct1.createModal.createNewNote
+   ja.json: "新しいノートを作成"
+341. modules.notesProduct1.createModal.icon
+   ja.json: "アイコン"
+342. modules.notesProduct1.createModal.category
+   ja.json: "カテゴリ"
+343. modules.notesProduct1.createModal.selectCategory
+   ja.json: "カテゴリを選択"
+344. modules.notesProduct1.createModal.work
+   ja.json: "仕事"
+345. modules.notesProduct1.createModal.personal
+   ja.json: "個人"
+346. modules.notesProduct1.createModal.study
+   ja.json: "学習"
+347. modules.notesProduct1.createModal.project
+   ja.json: "プロジェクト"
+348. modules.notesProduct1.createModal.meeting
+   ja.json: "会議"
+349. modules.notesProduct1.createModal.subcategory
+   ja.json: "サブカテゴリ"
+350. modules.notesProduct1.createModal.subcategoryPlaceholder
+   ja.json: "例: JavaScript、React、Node.js"
+351. modules.notesProduct1.createModal.keywords
+   ja.json: "キーワード"
+352. modules.notesProduct1.createModal.keywordsPlaceholder
+   ja.json: "タグをカンマで区切る"
+353. modules.notesProduct1.createModal.keywordsHelper
+   ja.json: "例: フロントエンド、チュートリアル、重要"
+354. modules.notesProduct1.createModal.title
+   ja.json: "タイトル"
+355. modules.notesProduct1.createModal.titleRequired
+   ja.json: "タイトル *"
+356. modules.notesProduct1.createModal.titlePlaceholder
+   ja.json: "ノートのタイトルを入力..."
+357. modules.notesProduct1.createModal.description
+   ja.json: "説明"
+358. modules.notesProduct1.createModal.descriptionPlaceholder
+   ja.json: "ノートの内容をここに書いてください..."
+359. modules.notesProduct1.createModal.clear
+   ja.json: "クリア"
+360. modules.notesProduct1.createModal.creating
+   ja.json: "作成中..."
+361. modules.notesProduct1.createModal.createNote
+   ja.json: "ノートを作成"
+362. modules.notesProduct1.aiFeatures
+   ja.json: {...} (21 keys)
+363. modules.notesProduct1.aiFeatures.aiTranslation
+   ja.json: "AI翻訳"
+364. modules.notesProduct1.aiFeatures.translateTo
+   ja.json: "翻訳先:"
+365. modules.notesProduct1.aiFeatures.textToTranslate
+   ja.json: "翻訳するテキスト"
+366. modules.notesProduct1.aiFeatures.textPlaceholder
+   ja.json: "翻訳したいテキストを入力または貼り付けてください..."
+367. modules.notesProduct1.aiFeatures.translating
+   ja.json: "翻訳中..."
+368. modules.notesProduct1.aiFeatures.translate
+   ja.json: "翻訳"
+369. modules.notesProduct1.aiFeatures.translationResult
+   ja.json: "翻訳結果"
+370. modules.notesProduct1.aiFeatures.copy
+   ja.json: "コピー"
+371. modules.notesProduct1.aiFeatures.aiWritingAssistant
+   ja.json: "AIライティングアシスタント"
+372. modules.notesProduct1.aiFeatures.quickActions
+   ja.json: "クイックアクション"
+373. modules.notesProduct1.aiFeatures.summarizeContent
+   ja.json: "コンテンツを要約"
+374. modules.notesProduct1.aiFeatures.createBulletPoints
+   ja.json: "箇条書きを作成"
+375. modules.notesProduct1.aiFeatures.improveWriting
+   ja.json: "ライティングを改善"
+376. modules.notesProduct1.aiFeatures.addMoreDetails
+   ja.json: "詳細を追加"
+377. modules.notesProduct1.aiFeatures.generateIdeas
+   ja.json: "アイデアを生成"
+378. modules.notesProduct1.aiFeatures.createOutline
+   ja.json: "アウトラインを作成"
+379. modules.notesProduct1.aiFeatures.customPrompt
+   ja.json: "カスタムプロンプト"
+380. modules.notesProduct1.aiFeatures.promptPlaceholder
+   ja.json: "AIにコンテンツのサポートを依頼してください..."
+381. modules.notesProduct1.aiFeatures.processing
+   ja.json: "処理中..."
+382. modules.notesProduct1.aiFeatures.askAI
+   ja.json: "AIに質問"
+383. modules.notesProduct1.aiFeatures.aiResponse
+   ja.json: "AI応答"
+384. modules.notesProduct1.aiToolsMenu
+   ja.json: {...} (11 keys)
+385. modules.notesProduct1.aiToolsMenu.aiTools
+   ja.json: "AIツール"
+386. modules.notesProduct1.aiToolsMenu.translateText
+   ja.json: "テキストを翻訳"
+387. modules.notesProduct1.aiToolsMenu.translate
+   ja.json: "翻訳"
+388. modules.notesProduct1.aiToolsMenu.selectLanguage
+   ja.json: "言語を選択"
+389. modules.notesProduct1.aiToolsMenu.aiActions
+   ja.json: "AIアクション"
+390. modules.notesProduct1.aiToolsMenu.summarizeText
+   ja.json: "テキストを要約"
+391. modules.notesProduct1.aiToolsMenu.improveWriting
+   ja.json: "ライティングを改善"
+392. modules.notesProduct1.aiToolsMenu.fixGrammar
+   ja.json: "文法とスペルを修正"
+393. modules.notesProduct1.aiToolsMenu.makeLonger
+   ja.json: "長くする"
+394. modules.notesProduct1.aiToolsMenu.makeShorter
+   ja.json: "短くする"
+395. modules.notesProduct1.aiToolsMenu.charactersSelected
+   ja.json: "{count}文字を選択中"
+396. modules.notesProduct1.shareModal
+   ja.json: {...} (15 keys)
+397. modules.notesProduct1.shareModal.shareNote
+   ja.json: "「{title}」を共有"
+398. modules.notesProduct1.shareModal.shareWithMembers
+   ja.json: "このノートをワークスペースメンバーと共有"
+399. modules.notesProduct1.shareModal.searchMembers
+   ja.json: "メンバーを検索..."
+400. modules.notesProduct1.shareModal.loadingMembers
+   ja.json: "メンバーを読み込み中..."
+401. modules.notesProduct1.shareModal.noMembersFound
+   ja.json: "メンバーが見つかりません"
+402. modules.notesProduct1.shareModal.membersSelected
+   ja.json: "{count}人のメンバーを選択中"
+403. modules.notesProduct1.shareModal.membersSelectedPlural
+   ja.json: "{count}人のメンバーを選択中"
+404. modules.notesProduct1.shareModal.cancel
+   ja.json: "キャンセル"
+405. modules.notesProduct1.shareModal.sharing
+   ja.json: "共有中..."
+406. modules.notesProduct1.shareModal.share
+   ja.json: "共有"
+407. modules.notesProduct1.shareModal.noMemberSelected
+   ja.json: "共有する少なくとも1人のメンバーを選択してください"
+408. modules.notesProduct1.shareModal.workspaceNotFound
+   ja.json: "ワークスペースが見つかりません"
+409. modules.notesProduct1.shareModal.sharedSuccess
+   ja.json: "「{title}」を{count}人のメンバーと正常に共有しました"
+410. modules.notesProduct1.shareModal.sharedSuccessPlural
+   ja.json: "「{title}」を{count}人のメンバーと正常に共有しました"
+411. modules.notesProduct1.shareModal.shareFailed
+   ja.json: "ノートの共有に失敗しました。もう一度お試しください。"
+412. modules.notesProduct1.mergeDialog
+   ja.json: {...} (18 keys)
+413. modules.notesProduct1.mergeDialog.mergeNotes
+   ja.json: "ノートを結合"
+414. modules.notesProduct1.mergeDialog.description
+   ja.json: "選択した{count}個のノートを1つのノートに結合します。結合方法を選択してください。"
+415. modules.notesProduct1.mergeDialog.notesToMerge
+   ja.json: "結合するノート"
+416. modules.notesProduct1.mergeDialog.blocks
+   ja.json: "ブロック"
+417. modules.notesProduct1.mergeDialog.mergeOptions
+   ja.json: "結合オプション"
+418. modules.notesProduct1.mergeDialog.includeHeaders
+   ja.json: "ノートヘッダーとメタデータを含める"
+419. modules.notesProduct1.mergeDialog.addDividers
+   ja.json: "ノート間に区切り線を追加"
+420. modules.notesProduct1.mergeDialog.sortByDate
+   ja.json: "作成日順に並べ替え（古い順）"
+421. modules.notesProduct1.mergeDialog.customTitle
+   ja.json: "カスタムタイトル（オプション）"
+422. modules.notesProduct1.mergeDialog.titlePlaceholder
+   ja.json: "結合されたノート（{count}個のノート）"
+423. modules.notesProduct1.mergeDialog.mergeSummary
+   ja.json: "結合サマリー"
+424. modules.notesProduct1.mergeDialog.totalBlocks
+   ja.json: "総コンテンツブロック数:"
+425. modules.notesProduct1.mergeDialog.uniqueTags
+   ja.json: "固有タグ数:"
+426. modules.notesProduct1.mergeDialog.tagsToInclude
+   ja.json: "含めるタグ:"
+427. modules.notesProduct1.mergeDialog.moreCount
+   ja.json: "他{count}個"
+428. modules.notesProduct1.mergeDialog.cancel
+   ja.json: "キャンセル"
+429. modules.notesProduct1.mergeDialog.merge
+   ja.json: "ノートを結合"
+430. modules.notesProduct1.mergeDialog.invalidDate
+   ja.json: "無効な日付"
+431. modules.notesProduct1.fileImport
+   ja.json: {...} (42 keys)
+432. modules.notesProduct1.fileImport.importContent
+   ja.json: "コンテンツをインポート"
+433. modules.notesProduct1.fileImport.chooseImportMethod
+   ja.json: "新しいノートにコンテンツをインポートする方法を選択してください。"
+434. modules.notesProduct1.fileImport.importFile
+   ja.json: "ファイルをインポート"
+435. modules.notesProduct1.fileImport.importURL
+   ja.json: "URLをインポート"
+436. modules.notesProduct1.fileImport.googleDrive
+   ja.json: "Google Drive"
+437. modules.notesProduct1.fileImport.back
+   ja.json: "← 戻る"
+438. modules.notesProduct1.fileImport.noteTitle
+   ja.json: "ノートタイトル"
+439. modules.notesProduct1.fileImport.noteTitlePlaceholder
+   ja.json: "ノートのタイトルを入力..."
+440. modules.notesProduct1.fileImport.selectFile
+   ja.json: "ファイルを選択"
+441. modules.notesProduct1.fileImport.supportedFiles
+   ja.json: "サポート: TXT、Markdown、Word文書"
+442. modules.notesProduct1.fileImport.supportedFilesPDF
+   ja.json: "サポート: TXT、Markdown、Word文書、PDF（表と画像を含む）"
+443. modules.notesProduct1.fileImport.url
+   ja.json: "URL"
+444. modules.notesProduct1.fileImport.urlPlaceholder
+   ja.json: "https://example.com/article"
+445. modules.notesProduct1.fileImport.urlHelper
+   ja.json: "インポート元のURLを入力"
+446. modules.notesProduct1.fileImport.supportedURLsTitle
+   ja.json: "サポートされているURL:"
+447. modules.notesProduct1.fileImport.supportedURLs
+   ja.json: {...} (4 keys)
+448. modules.notesProduct1.fileImport.supportedURLs.news
+   ja.json: "ニュース記事（BBC、CNNなど）"
+449. modules.notesProduct1.fileImport.supportedURLs.blogs
+   ja.json: "ブログ投稿（Medium、Dev.toなど）"
+450. modules.notesProduct1.fileImport.supportedURLs.wikipedia
+   ja.json: "Wikipedia記事"
+451. modules.notesProduct1.fileImport.supportedURLs.docs
+   ja.json: "ドキュメントページ"
+452. modules.notesProduct1.fileImport.urlLimitation
+   ja.json: "注：Google Docs、Notion、ログインが必要なページはサポートされていません。これらの場合は、.docxまたは.pdfとしてダウンロードし、ファイルインポートを使用してください。"
+453. modules.notesProduct1.fileImport.connectDrivePrompt
+   ja.json: "ドキュメントをインポートするには、Google Driveに接続してください。"
+454. modules.notesProduct1.fileImport.connectDriveButton
+   ja.json: "Google Driveに接続"
+455. modules.notesProduct1.fileImport.searchDocuments
+   ja.json: "ドキュメントを検索..."
+456. modules.notesProduct1.fileImport.noDocuments
+   ja.json: "ドキュメントが見つかりません"
+457. modules.notesProduct1.fileImport.selectedFile
+   ja.json: "選択: {fileName}"
+458. modules.notesProduct1.fileImport.cancel
+   ja.json: "キャンセル"
+459. modules.notesProduct1.fileImport.importing
+   ja.json: "インポート中..."
+460. modules.notesProduct1.fileImport.import
+   ja.json: "インポート"
+461. modules.notesProduct1.fileImport.titleRequired
+   ja.json: "タイトルが必要です"
+462. modules.notesProduct1.fileImport.titleRequiredMessage
+   ja.json: "ノートのタイトルを入力してください。"
+463. modules.notesProduct1.fileImport.error
+   ja.json: "エラー"
+464. modules.notesProduct1.fileImport.noWorkspace
+   ja.json: "ワークスペースが選択されていません。"
+465. modules.notesProduct1.fileImport.pdfImportSuccess
+   ja.json: "PDFのインポートに成功しました"
+466. modules.notesProduct1.fileImport.pdfImportDescription
+   ja.json: "{pageCount}ページをインポートしました{hasTable, select, true {（表を含む）} other {}}{imageCount, plural, =0 {} one {、画..."
+467. modules.notesProduct1.fileImport.importSuccessful
+   ja.json: "インポート成功"
+468. modules.notesProduct1.fileImport.importedAsNewNote
+   ja.json: "コンテンツが新しいノートとしてインポートされました。"
+469. modules.notesProduct1.fileImport.urlImportSuccess
+   ja.json: "URLのインポートに成功しました"
+470. modules.notesProduct1.fileImport.urlImportDescription
+   ja.json: "{siteName}からコンテンツをインポートしました"
+471. modules.notesProduct1.fileImport.website
+   ja.json: "ウェブサイト"
+472. modules.notesProduct1.fileImport.driveImportSuccess
+   ja.json: "Google Driveのインポートに成功しました"
+473. modules.notesProduct1.fileImport.driveImportDescription
+   ja.json: ""{fileName}"をノートとしてインポートしました"
+474. modules.notesProduct1.fileImport.importFailed
+   ja.json: "インポート失敗"
+475. modules.notesProduct1.fileImport.importFailedMessage
+   ja.json: "コンテンツのインポートに失敗しました。もう一度お試しください。"
+476. modules.notesProduct1.fileImport.failedLoadDrive
+   ja.json: "Google Driveからファイルの読み込みに失敗しました"
+477. modules.notesProduct1.fileImport.failedConnectDrive
+   ja.json: "Google Driveへの接続に失敗しました"
+478. modules.notesProduct1.bulkActions
+   ja.json: {...} (9 keys)
+479. modules.notesProduct1.bulkActions.selected
+   ja.json: "{count}個選択中"
+480. modules.notesProduct1.bulkActions.restore
+   ja.json: "復元（{count}個）"
+481. modules.notesProduct1.bulkActions.deletePermanently
+   ja.json: "完全に削除"
+482. modules.notesProduct1.bulkActions.favorite
+   ja.json: "お気に入り"
+483. modules.notesProduct1.bulkActions.unfavorite
+   ja.json: "お気に入り解除"
+484. modules.notesProduct1.bulkActions.archive
+   ja.json: "アーカイブ"
+485. modules.notesProduct1.bulkActions.unarchive
+   ja.json: "アーカイブ解除"
+486. modules.notesProduct1.bulkActions.merge
+   ja.json: "結合"
+487. modules.notesProduct1.bulkActions.moveToTrash
+   ja.json: "ゴミ箱に移動"
+488. modules.notesProduct1.notesView
+   ja.json: {...} (29 keys)
+489. modules.notesProduct1.notesView.loadingNote
+   ja.json: "ノートを読み込み中..."
+490. modules.notesProduct1.notesView.loadingNotes
+   ja.json: "ノートを読み込み中..."
+491. modules.notesProduct1.notesView.errorLoading
+   ja.json: "ノートの読み込みエラー"
+492. modules.notesProduct1.notesView.getStarted
+   ja.json: "ノートを始める"
+493. modules.notesProduct1.notesView.getStartedDescription
+   ja.json: "最初のノートを作成して、アイデアをキャプチャしたり、会議メモを取ったり、ドキュメントを書いたりしましょう。"
+494. modules.notesProduct1.notesView.newNote
+   ja.json: "新しいノート"
+495. modules.notesProduct1.notesView.import
+   ja.json: "インポート"
+496. modules.notesProduct1.notesView.noWorkspace
+   ja.json: "ワークスペースが選択されていません"
+497. modules.notesProduct1.notesView.noNoteSelected
+   ja.json: "ノートが選択されていません"
+498. modules.notesProduct1.notesView.success
+   ja.json: "成功"
+499. modules.notesProduct1.notesView.error
+   ja.json: "エラー"
+500. modules.notesProduct1.notesView.notesDeleted
+   ja.json: "{count}個のノートが完全に削除されました"
+501. modules.notesProduct1.notesView.notesMovedToTrash
+   ja.json: "{count}個のノートがゴミ箱に移動されました"
+502. modules.notesProduct1.notesView.notesArchived
+   ja.json: "{count}個のノートがアーカイブされました"
+503. modules.notesProduct1.notesView.failedArchive
+   ja.json: "ノートのアーカイブに失敗しました。もう一度お試しください。"
+504. modules.notesProduct1.notesView.notesUnarchived
+   ja.json: "{count}個のノートのアーカイブが解除されました"
+505. modules.notesProduct1.notesView.failedUnarchive
+   ja.json: "ノートのアーカイブ解除に失敗しました。もう一度お試しください。"
+506. modules.notesProduct1.notesView.addedToFavorites
+   ja.json: "{count}個のノートがお気に入りに追加されました"
+507. modules.notesProduct1.notesView.removedFromFavorites
+   ja.json: "{count}個のノートがお気に入りから削除されました"
+508. modules.notesProduct1.notesView.notesRestored
+   ja.json: "{count}個のノートが復元されました"
+509. modules.notesProduct1.notesView.failedAction
+   ja.json: "ノートの{action}に失敗しました。もう一度お試しください。"
+510. modules.notesProduct1.notesView.notesMerged
+   ja.json: "{count}個のノートが正常に結合されました"
+511. modules.notesProduct1.notesView.needTwoNotes
+   ja.json: "結合には少なくとも2つのノートが必要です"
+512. modules.notesProduct1.notesView.noteDuplicated
+   ja.json: "ノートが正常に複製されました"
+513. modules.notesProduct1.notesView.failedDuplicate
+   ja.json: "ノートの複製に失敗しました。もう一度お試しください。"
+514. modules.notesProduct1.notesView.noteCreatedSuccess
+   ja.json: "ノートが正常に作成されました"
+515. modules.notesProduct1.notesView.failedCreateNote
+   ja.json: "ノートの作成に失敗しました。もう一度お試しください。"
+516. modules.notesProduct1.notesView.errorLoadingNote
+   ja.json: "ノートの読み込みエラー"
+517. modules.notesProduct1.notesView.failedLoadNote
+   ja.json: "ノートの読み込みに失敗しました。もう一度お試しください。"
+518. modules.notesProduct1.sidebar
+   ja.json: {...} (23 keys)
+519. modules.notesProduct1.sidebar.notes
+   ja.json: "ノート"
+520. modules.notesProduct1.sidebar.searchNotes
+   ja.json: "ノートを検索..."
+521. modules.notesProduct1.sidebar.newNote
+   ja.json: "新しいノート"
+522. modules.notesProduct1.sidebar.notesSection
+   ja.json: "ノート"
+523. modules.notesProduct1.sidebar.archivedSection
+   ja.json: "アーカイブ済み"
+524. modules.notesProduct1.sidebar.trashSection
+   ja.json: "ゴミ箱"
+525. modules.notesProduct1.sidebar.noNotesYet
+   ja.json: "まだノートはありません"
+526. modules.notesProduct1.sidebar.createFirstNote
+   ja.json: "最初のノートを作成して始めましょう"
+527. modules.notesProduct1.sidebar.archived
+   ja.json: "アーカイブ済み"
+528. modules.notesProduct1.sidebar.trash
+   ja.json: "ゴミ箱"
+529. modules.notesProduct1.sidebar.treeView
+   ja.json: "ツリービュー"
+530. modules.notesProduct1.sidebar.listView
+   ja.json: "リストビュー"
+531. modules.notesProduct1.sidebar.gridView
+   ja.json: "グリッドビュー"
+532. modules.notesProduct1.sidebar.unfavorite
+   ja.json: "お気に入り解除"
+533. modules.notesProduct1.sidebar.favorite
+   ja.json: "お気に入り"
+534. modules.notesProduct1.sidebar.duplicate
+   ja.json: "複製"
+535. modules.notesProduct1.sidebar.share
+   ja.json: "共有"
+536. modules.notesProduct1.sidebar.archive
+   ja.json: "アーカイブ"
+537. modules.notesProduct1.sidebar.unarchive
+   ja.json: "アーカイブ解除"
+538. modules.notesProduct1.sidebar.restore
+   ja.json: "復元"
+539. modules.notesProduct1.sidebar.deletePermanently
+   ja.json: "完全に削除"
+540. modules.notesProduct1.sidebar.moveToTrash
+   ja.json: "ゴミ箱に移動"
+541. modules.notesProduct1.sidebar.untitled
+   ja.json: "無題"
+542. modules.videoCallsApp.modal.durations.1.5hours
+   ja.json: "undefined"
+543. productPages.forms
+   ja.json: {...} (9 keys)
+544. productPages.forms.title
+   ja.json: "フォーム"
+545. productPages.forms.subtitle
+   ja.json: "カスタムフォームを作成してデータを収集"
+546. productPages.forms.hero
+   ja.json: {...} (4 keys)
+547. productPages.forms.hero.badge
+   ja.json: "フォームビルダー"
+548. productPages.forms.hero.title
+   ja.json: "強力なカスタムフォームを作成"
+549. productPages.forms.hero.description
+   ja.json: "直感的なドラッグ＆ドロップビルダーでカスタムフォームをデザイン。データを収集、整理、自動的に処理。ロジック、検証、統合を備えています。"
+550. productPages.forms.hero.cta
+   ja.json: {...} (2 keys)
+551. productPages.forms.hero.cta.primary
+   ja.json: "フォームを作成"
+552. productPages.forms.hero.cta.secondary
+   ja.json: "例を見る"
+553. productPages.forms.features
+   ja.json: {...} (8 keys)
+554. productPages.forms.features.title
+   ja.json: "フォーム機能"
+555. productPages.forms.features.subtitle
+   ja.json: "データ収集のために必要なすべて"
+556. productPages.forms.features.dragAndDrop
+   ja.json: {...} (2 keys)
+557. productPages.forms.features.dragAndDrop.title
+   ja.json: "ドラッグ＆ドロップビルダー"
+558. productPages.forms.features.dragAndDrop.description
+   ja.json: "コードなしで美しいフォームをデザイン。フィールドを簡単に追加、配置、カスタマイズ。"
+559. productPages.forms.features.conditionalLogic
+   ja.json: {...} (2 keys)
+560. productPages.forms.features.conditionalLogic.title
+   ja.json: "条件付きロジック"
+561. productPages.forms.features.conditionalLogic.description
+   ja.json: "以前の回答に基づいてフィールドを表示または非表示。スマートでパーソナライズされたフォームエクスペリエンスを作成。"
+562. productPages.forms.features.validation
+   ja.json: {...} (2 keys)
+563. productPages.forms.features.validation.title
+   ja.json: "検証ルール"
+564. productPages.forms.features.validation.description
+   ja.json: "カスタム検証ルールで正確なデータを確保。必須フィールド、形式、範囲チェック。"
+565. productPages.forms.features.multiplePages
+   ja.json: {...} (2 keys)
+566. productPages.forms.features.multiplePages.title
+   ja.json: "複数ページ"
+567. productPages.forms.features.multiplePages.description
+   ja.json: "複雑なフォームを進捗バーで管理可能なステップに分割。"
+568. productPages.forms.features.fileUploads
+   ja.json: {...} (2 keys)
+569. productPages.forms.features.fileUploads.title
+   ja.json: "ファイルアップロード"
+570. productPages.forms.features.fileUploads.description
+   ja.json: "回答者がドキュメント、画像、その他のファイルをアップロードできるようにする。"
+571. productPages.forms.features.integrations
+   ja.json: {...} (2 keys)
+572. productPages.forms.features.integrations.title
+   ja.json: "統合"
+573. productPages.forms.features.integrations.description
+   ja.json: "フォームの送信をお気に入りのツールや自動ワークフローに接続。"
+574. productPages.forms.fieldTypes
+   ja.json: {...} (16 keys)
+575. productPages.forms.fieldTypes.title
+   ja.json: "フィールドタイプ"
+576. productPages.forms.fieldTypes.subtitle
+   ja.json: "あらゆる種類のデータを収集"
+577. productPages.forms.fieldTypes.shortText
+   ja.json: "短いテキスト"
+578. productPages.forms.fieldTypes.longText
+   ja.json: "長いテキスト"
+579. productPages.forms.fieldTypes.email
+   ja.json: "メール"
+580. productPages.forms.fieldTypes.phone
+   ja.json: "電話"
+581. productPages.forms.fieldTypes.number
+   ja.json: "数値"
+582. productPages.forms.fieldTypes.dropdown
+   ja.json: "ドロップダウン"
+583. productPages.forms.fieldTypes.multipleChoice
+   ja.json: "多肢選択"
+584. productPages.forms.fieldTypes.checkboxes
+   ja.json: "チェックボックス"
+585. productPages.forms.fieldTypes.date
+   ja.json: "日付"
+586. productPages.forms.fieldTypes.time
+   ja.json: "時刻"
+587. productPages.forms.fieldTypes.fileUpload
+   ja.json: "ファイルアップロード"
+588. productPages.forms.fieldTypes.rating
+   ja.json: "評価"
+589. productPages.forms.fieldTypes.matrix
+   ja.json: "マトリックス"
+590. productPages.forms.fieldTypes.signature
+   ja.json: "署名"
+591. productPages.forms.useCases
+   ja.json: {...} (8 keys)
+592. productPages.forms.useCases.title
+   ja.json: "フォームのユースケース"
+593. productPages.forms.useCases.subtitle
+   ja.json: "チームがフォームをどのように使用しているか"
+594. productPages.forms.useCases.surveys
+   ja.json: {...} (2 keys)
+595. productPages.forms.useCases.surveys.title
+   ja.json: "アンケートとフィードバック"
+596. productPages.forms.useCases.surveys.description
+   ja.json: "顧客、従業員、利害関係者からフィードバックを収集。"
+597. productPages.forms.useCases.registration
+   ja.json: {...} (2 keys)
+598. productPages.forms.useCases.registration.title
+   ja.json: "登録フォーム"
+599. productPages.forms.useCases.registration.description
+   ja.json: "イベント、ウェビナー、プログラムの登録フォームを作成。"
+600. productPages.forms.useCases.applications
+   ja.json: {...} (2 keys)
+601. productPages.forms.useCases.applications.title
+   ja.json: "申請フォーム"
+602. productPages.forms.useCases.applications.description
+   ja.json: "仕事、プログラム、助成金の申請を収集。"
+603. productPages.forms.useCases.orders
+   ja.json: {...} (2 keys)
+604. productPages.forms.useCases.orders.title
+   ja.json: "注文フォーム"
+605. productPages.forms.useCases.orders.description
+   ja.json: "支払い処理で製品やサービスの注文を受け付け。"
+606. productPages.forms.useCases.contactForms
+   ja.json: {...} (2 keys)
+607. productPages.forms.useCases.contactForms.title
+   ja.json: "お問い合わせフォーム"
+608. productPages.forms.useCases.contactForms.description
+   ja.json: "ウェブサイトにお問い合わせフォームを埋め込んでリードを捕捉。"
+609. productPages.forms.useCases.assessments
+   ja.json: {...} (2 keys)
+610. productPages.forms.useCases.assessments.title
+   ja.json: "評価とクイズ"
+611. productPages.forms.useCases.assessments.description
+   ja.json: "自動採点とフィードバック付きの評価を作成。"
+612. productPages.forms.templates
+   ja.json: {...} (8 keys)
+613. productPages.forms.templates.title
+   ja.json: "フォームテンプレート"
+614. productPages.forms.templates.subtitle
+   ja.json: "人気のテンプレートから始める"
+615. productPages.forms.templates.customerFeedback
+   ja.json: "顧客フィードバック"
+616. productPages.forms.templates.eventRegistration
+   ja.json: "イベント登録"
+617. productPages.forms.templates.jobApplication
+   ja.json: "求人応募"
+618. productPages.forms.templates.contactForm
+   ja.json: "お問い合わせフォーム"
+619. productPages.forms.templates.orderForm
+   ja.json: "注文フォーム"
+620. productPages.forms.templates.surveyForm
+   ja.json: "アンケートフォーム"
+621. productPages.forms.stats
+   ja.json: {...} (4 keys)
+622. productPages.forms.stats.forms
+   ja.json: "作成されたフォーム"
+623. productPages.forms.stats.submissions
+   ja.json: "送信数"
+624. productPages.forms.stats.completionRate
+   ja.json: "完了率"
+625. productPages.forms.stats.avgTime
+   ja.json: "平均回答時間"
+626. productPages.forms.cta
+   ja.json: {...} (3 keys)
+627. productPages.forms.cta.title
+   ja.json: "フォームの作成を始める準備はできましたか？"
+628. productPages.forms.cta.description
+   ja.json: "データの収集と整理がこれまで以上に簡単になりました。"
+629. productPages.forms.cta.button
+   ja.json: "フォームを作成"
+630. productPages.integrationsStandalone
+   ja.json: {...} (26 keys)
+631. productPages.integrationsStandalone.page
+   ja.json: {...} (7 keys)
+632. productPages.integrationsStandalone.page.title
+   ja.json: "統合"
+633. productPages.integrationsStandalone.page.subtitle
+   ja.json: "外部アプリを接続してDeskiveの機能を拡張"
+634. productPages.integrationsStandalone.page.loading
+   ja.json: "統合を読み込み中..."
+635. productPages.integrationsStandalone.page.searchPlaceholder
+   ja.json: "統合を検索..."
+636. productPages.integrationsStandalone.page.filterBy
+   ja.json: "フィルター条件:"
+637. productPages.integrationsStandalone.page.noResults
+   ja.json: "統合が見つかりません"
+638. productPages.integrationsStandalone.page.noResultsDesc
+   ja.json: "検索やフィルターを調整してみてください。"
+639. productPages.integrationsStandalone.tabs
+   ja.json: {...} (2 keys)
+640. productPages.integrationsStandalone.tabs.marketplace
+   ja.json: "マーケットプレイス"
+641. productPages.integrationsStandalone.tabs.connected
+   ja.json: "接続済み"
+642. productPages.integrationsStandalone.sections
+   ja.json: {...} (2 keys)
+643. productPages.integrationsStandalone.sections.popular
+   ja.json: "人気"
+644. productPages.integrationsStandalone.sections.all
+   ja.json: "すべての統合"
+645. productPages.integrationsStandalone.categories
+   ja.json: {...} (23 keys)
+646. productPages.integrationsStandalone.categories.communication
+   ja.json: "コミュニケーション"
+647. productPages.integrationsStandalone.categories.fileStorage
+   ja.json: "ファイルストレージ"
+648. productPages.integrationsStandalone.categories.calendar
+   ja.json: "カレンダー"
+649. productPages.integrationsStandalone.categories.email
+   ja.json: "メール"
+650. productPages.integrationsStandalone.categories.projectManagement
+   ja.json: "プロジェクト管理"
+651. productPages.integrationsStandalone.categories.crm
+   ja.json: "CRM"
+652. productPages.integrationsStandalone.categories.development
+   ja.json: "開発"
+653. productPages.integrationsStandalone.categories.analytics
+   ja.json: "分析"
+654. productPages.integrationsStandalone.categories.marketing
+   ja.json: "マーケティング"
+655. productPages.integrationsStandalone.categories.documentation
+   ja.json: "ドキュメント"
+656. productPages.integrationsStandalone.categories.design
+   ja.json: "デザイン"
+657. productPages.integrationsStandalone.categories.timeTracking
+   ja.json: "時間追跡"
+658. productPages.integrationsStandalone.categories.videoConferencing
+   ja.json: "ビデオ会議"
+659. productPages.integrationsStandalone.categories.automation
+   ja.json: "自動化"
+660. productPages.integrationsStandalone.categories.productivity
+   ja.json: "生産性"
+661. productPages.integrationsStandalone.categories.hr
+   ja.json: "人事"
+662. productPages.integrationsStandalone.categories.finance
+   ja.json: "財務"
+663. productPages.integrationsStandalone.categories.support
+   ja.json: "サポート"
+664. productPages.integrationsStandalone.categories.security
+   ja.json: "セキュリティ"
+665. productPages.integrationsStandalone.categories.ecommerce
+   ja.json: "Eコマース"
+666. productPages.integrationsStandalone.categories.socialMedia
+   ja.json: "ソーシャルメディア"
+667. productPages.integrationsStandalone.categories.ai
+   ja.json: "AI＆機械学習"
+668. productPages.integrationsStandalone.categories.other
+   ja.json: "その他"
+669. productPages.integrationsStandalone.status
+   ja.json: {...} (4 keys)
+670. productPages.integrationsStandalone.status.connected
+   ja.json: "接続済み"
+671. productPages.integrationsStandalone.status.verified
+   ja.json: "検証済み"
+672. productPages.integrationsStandalone.status.installed
+   ja.json: "インストール済み"
+673. productPages.integrationsStandalone.status.comingSoon
+   ja.json: "近日公開"
+674. productPages.integrationsStandalone.pricing
+   ja.json: {...} (3 keys)
+675. productPages.integrationsStandalone.pricing.free
+   ja.json: "無料"
+676. productPages.integrationsStandalone.pricing.freemium
+   ja.json: "フリーミアム"
+677. productPages.integrationsStandalone.pricing.paid
+   ja.json: "有料"
+678. productPages.integrationsStandalone.actions
+   ja.json: {...} (8 keys)
+679. productPages.integrationsStandalone.actions.connect
+   ja.json: "接続"
+680. productPages.integrationsStandalone.actions.disconnect
+   ja.json: "切断"
+681. productPages.integrationsStandalone.actions.open
+   ja.json: "開く"
+682. productPages.integrationsStandalone.actions.install
+   ja.json: "統合をインストール"
+683. productPages.integrationsStandalone.actions.uninstall
+   ja.json: "アンインストール"
+684. productPages.integrationsStandalone.actions.visitWebsite
+   ja.json: "ウェブサイトを表示"
+685. productPages.integrationsStandalone.actions.back
+   ja.json: "戻る"
+686. productPages.integrationsStandalone.actions.backToIntegrations
+   ja.json: "統合に戻る"
+687. productPages.integrationsStandalone.connect
+   ja.json: "接続"
+688. productPages.integrationsStandalone.disconnect
+   ja.json: "切断"
+689. productPages.integrationsStandalone.connected
+   ja.json: "接続しました"
+690. productPages.integrationsStandalone.disconnected
+   ja.json: "切断しました"
+691. productPages.integrationsStandalone.connectedDescription
+   ja.json: "{name}に正常に接続しました"
+692. productPages.integrationsStandalone.disconnectedDescription
+   ja.json: "{name}から正常に切断しました"
+693. productPages.integrationsStandalone.connectError
+   ja.json: "接続エラー"
+694. productPages.integrationsStandalone.disconnectError
+   ja.json: "切断エラー"
+695. productPages.integrationsStandalone.connectionError
+   ja.json: "接続エラー"
+696. productPages.integrationsStandalone.tokenExpired
+   ja.json: "トークンの有効期限が切れました。再接続してください。"
+697. productPages.integrationsStandalone.connectWithApiKey
+   ja.json: "{name}を接続"
+698. productPages.integrationsStandalone.apiKeyDescription
+   ja.json: "{name}のAPIキーを入力して接続します。"
+699. productPages.integrationsStandalone.apiKey
+   ja.json: "APIキー"
+700. productPages.integrationsStandalone.findApiKey
+   ja.json: "APIキーの見つけ方"
+701. productPages.integrationsStandalone.disconnectTitle
+   ja.json: "{name}を切断しますか？"
+702. productPages.integrationsStandalone.disconnectWarning
+   ja.json: "{name}への接続を削除します。いつでも再接続できます。"
+703. productPages.integrationsStandalone.connectedAs
+   ja.json: "接続中のアカウント:"
+704. productPages.integrationsStandalone.empty
+   ja.json: {...} (3 keys)
+705. productPages.integrationsStandalone.empty.noConnected
+   ja.json: "接続された統合がありません"
+706. productPages.integrationsStandalone.empty.noConnectedDesc
+   ja.json: "マーケットプレイスから最初の統合を接続して開始しましょう。"
+707. productPages.integrationsStandalone.empty.browse
+   ja.json: "マーケットプレイスを閲覧"
+708. productPages.integrationsStandalone.detail
+   ja.json: {...} (27 keys)
+709. productPages.integrationsStandalone.detail.loading
+   ja.json: "統合を読み込み中..."
+710. productPages.integrationsStandalone.detail.features
+   ja.json: "機能"
+711. productPages.integrationsStandalone.detail.screenshots
+   ja.json: "スクリーンショット"
+712. productPages.integrationsStandalone.detail.details
+   ja.json: "統合の詳細"
+713. productPages.integrationsStandalone.detail.category
+   ja.json: "カテゴリー"
+714. productPages.integrationsStandalone.detail.authentication
+   ja.json: "認証"
+715. productPages.integrationsStandalone.detail.webhookSupport
+   ja.json: "Webhookサポート"
+716. productPages.integrationsStandalone.detail.supported
+   ja.json: "サポート済み"
+717. productPages.integrationsStandalone.detail.notSupported
+   ja.json: "サポートなし"
+718. productPages.integrationsStandalone.detail.lastUpdated
+   ja.json: "最終更新"
+719. productPages.integrationsStandalone.detail.support
+   ja.json: "サポートとドキュメント"
+720. productPages.integrationsStandalone.detail.apiDocumentation
+   ja.json: "APIドキュメント"
+721. productPages.integrationsStandalone.detail.contactSupport
+   ja.json: "サポートに連絡"
+722. productPages.integrationsStandalone.detail.usageStats
+   ja.json: "使用統計"
+723. productPages.integrationsStandalone.detail.successRate
+   ja.json: "成功率"
+724. productPages.integrationsStandalone.detail.totalRequests
+   ja.json: "リクエスト総数"
+725. productPages.integrationsStandalone.detail.avgResponseTime
+   ja.json: "平均応答時間"
+726. productPages.integrationsStandalone.detail.overview
+   ja.json: "概要"
+727. productPages.integrationsStandalone.detail.configuration
+   ja.json: "設定"
+728. productPages.integrationsStandalone.detail.webhooks
+   ja.json: "Webhook"
+729. productPages.integrationsStandalone.detail.logs
+   ja.json: "ログ"
+730. productPages.integrationsStandalone.detail.installing
+   ja.json: "インストール中..."
+731. productPages.integrationsStandalone.detail.installationFailed
+   ja.json: "インストールに失敗しました"
+732. productPages.integrationsStandalone.detail.integrationInstalled
+   ja.json: "統合がインストールされました"
+733. productPages.integrationsStandalone.detail.integrationUninstalled
+   ja.json: "統合がアンインストールされました"
+734. productPages.integrationsStandalone.detail.reviews
+   ja.json: "件のレビュー"
+735. productPages.integrationsStandalone.detail.installs
+   ja.json: "件のインストール"
+736. productPages.apps
+   ja.json: {...} (5 keys)
+737. productPages.apps.page
+   ja.json: {...} (8 keys)
+738. productPages.apps.page.title
+   ja.json: "コネクタ"
+739. productPages.apps.page.subtitle
+   ja.json: "外部アプリを接続してDeskiveの機能を拡張"
+740. productPages.apps.page.searchPlaceholder
+   ja.json: "コネクタを検索..."
+741. productPages.apps.page.connectorsAvailable
+   ja.json: "{count}個のコネクタが利用可能"
+742. productPages.apps.page.noConnectorsFound
+   ja.json: "コネクタが見つかりません"
+743. productPages.apps.page.noConnectorsMatch
+   ja.json: ""{query}"に一致するコネクタはありません"
+744. productPages.apps.page.noConnectorsInCategory
+   ja.json: "{category}カテゴリーにコネクタはありません"
+745. productPages.apps.page.clearFilters
+   ja.json: "フィルターをクリア"
+746. productPages.apps.categories
+   ja.json: {...} (9 keys)
+747. productPages.apps.categories.all
+   ja.json: "すべて"
+748. productPages.apps.categories.communication
+   ja.json: "コミュニケーション"
+749. productPages.apps.categories.productivity
+   ja.json: "生産性"
+750. productPages.apps.categories.development
+   ja.json: "開発"
+751. productPages.apps.categories.business
+   ja.json: "ビジネス"
+752. productPages.apps.categories.marketing
+   ja.json: "マーケティング"
+753. productPages.apps.categories.design
+   ja.json: "デザイン"
+754. productPages.apps.categories.aiAutomation
+   ja.json: "AI＆自動化"
+755. productPages.apps.categories.security
+   ja.json: "セキュリティ"
+756. productPages.apps.actions
+   ja.json: {...} (5 keys)
+757. productPages.apps.actions.connect
+   ja.json: "接続"
+758. productPages.apps.actions.open
+   ja.json: "開く"
+759. productPages.apps.actions.disconnect
+   ja.json: "切断"
+760. productPages.apps.actions.connecting
+   ja.json: "接続中..."
+761. productPages.apps.actions.notAvailable
+   ja.json: "利用不可"
+762. productPages.apps.descriptions
+   ja.json: {...} (6 keys)
+763. productPages.apps.descriptions.gmail
+   ja.json: "Deskive内でメールを直接送受信"
+764. productPages.apps.descriptions.googleCalendar
+   ja.json: "Googleカレンダーのイベントを同期・管理"
+765. productPages.apps.descriptions.googleDrive
+   ja.json: "Googleドライブのファイルにアクセス・管理"
+766. productPages.apps.descriptions.github
+   ja.json: "GitHubアカウントを接続してリポジトリを表示"
+767. productPages.apps.descriptions.googleSheets
+   ja.json: "Googleスプレッドシートを表示・編集・同期"
+768. productPages.apps.descriptions.dropbox
+   ja.json: "Dropboxのファイルにアクセス・管理"
+769. productPages.apps.categoryLabels
+   ja.json: {...} (4 keys)
+770. productPages.apps.categoryLabels.email
+   ja.json: "メール"
+771. productPages.apps.categoryLabels.calendar
+   ja.json: "カレンダー"
+772. productPages.apps.categoryLabels.fileStorage
+   ja.json: "ファイルストレージ"
+773. productPages.apps.categoryLabels.development
+   ja.json: "開発"
+774. productPages.templates
+   ja.json: {...} (35 keys)
+775. productPages.templates.pageTitle
+   ja.json: "プロジェクトテンプレート"
+776. productPages.templates.pageDescription
+   ja.json: "テンプレートを選択して、事前定義されたタスクと構造で新しいプロジェクトを素早く作成できます。"
+777. productPages.templates.refreshButton
+   ja.json: "テンプレートを更新"
+778. productPages.templates.seedSuccess
+   ja.json: {...} (2 keys)
+779. productPages.templates.seedSuccess.title
+   ja.json: "テンプレートを追加しました"
+780. productPages.templates.seedSuccess.description
+   ja.json: "システムテンプレートが正常に追加されました。"
+781. productPages.templates.seedError
+   ja.json: {...} (2 keys)
+782. productPages.templates.seedError.title
+   ja.json: "エラー"
+783. productPages.templates.seedError.description
+   ja.json: "テンプレートの追加に失敗しました。"
+784. productPages.templates.workspaceNotFound
+   ja.json: "ワークスペースが見つかりません"
+785. productPages.templates.searchPlaceholder
+   ja.json: "テンプレートを検索..."
+786. productPages.templates.noTemplatesFound
+   ja.json: "テンプレートが見つかりません。"
+787. productPages.templates.featured
+   ja.json: "おすすめ"
+788. productPages.templates.system
+   ja.json: "システム"
+789. productPages.templates.tasks
+   ja.json: "タスク"
+790. productPages.templates.usedTimes
+   ja.json: "{count}回使用"
+791. productPages.templates.showingTemplates
+   ja.json: "{total}個中{start} - {end}個のテンプレートを表示"
+792. productPages.templates.previous
+   ja.json: "前へ"
+793. productPages.templates.next
+   ja.json: "次へ"
+794. productPages.templates.cancel
+   ja.json: "キャンセル"
+795. productPages.templates.useThisTemplate
+   ja.json: "このテンプレートを使用"
+796. productPages.templates.createFromTemplate
+   ja.json: "テンプレートからプロジェクトを作成"
+797. productPages.templates.customizeProject
+   ja.json: "新しいプロジェクトを作成する前にカスタマイズします。"
+798. productPages.templates.projectName
+   ja.json: "プロジェクト名"
+799. productPages.templates.enterProjectName
+   ja.json: "プロジェクト名を入力"
+800. productPages.templates.description
+   ja.json: "説明（任意）"
+801. productPages.templates.enterProjectDescription
+   ja.json: "プロジェクトの説明を入力"
+802. productPages.templates.createProject
+   ja.json: "プロジェクトを作成"
+803. productPages.templates.templateStructure
+   ja.json: "テンプレート構造"
+804. productPages.templates.customFields
+   ja.json: "カスタムフィールド"
+805. productPages.templates.boardStages
+   ja.json: "ボードステージ"
+806. productPages.templates.blankProject
+   ja.json: "空のプロジェクト"
+807. productPages.templates.startFromScratch
+   ja.json: "最初から始める"
+808. productPages.templates.projectCreated
+   ja.json: "プロジェクトを作成しました"
+809. productPages.templates.projectCreatedDescription
+   ja.json: "「{projectName}」が「{templateName}」テンプレートから作成されました。"
+810. productPages.templates.createProjectError
+   ja.json: "テンプレートからプロジェクトの作成に失敗しました。"
+811. productPages.templates.complexity
+   ja.json: "複雑さ"
+812. productPages.templates.moreTasks
+   ja.json: "さらに{count}個のタスク..."
+813. productPages.templates.categories
+   ja.json: {...} (21 keys)
+814. productPages.templates.categories.all
+   ja.json: "すべて"
+815. productPages.templates.categories.softwareDevelopment
+   ja.json: "ソフトウェア開発"
+816. productPages.templates.categories.marketing
+   ja.json: "マーケティング"
+817. productPages.templates.categories.hr
+   ja.json: "人事"
+818. productPages.templates.categories.design
+   ja.json: "デザイン＆クリエイティブ"
+819. productPages.templates.categories.business
+   ja.json: "ビジネス＆運営"
+820. productPages.templates.categories.events
+   ja.json: "イベント＆ウェビナー"
+821. productPages.templates.categories.research
+   ja.json: "リサーチ＆分析"
+822. productPages.templates.categories.personal
+   ja.json: "個人＆生産性"
+823. productPages.templates.categories.sales
+   ja.json: "営業"
+824. productPages.templates.categories.finance
+   ja.json: "財務"
+825. productPages.templates.categories.itSupport
+   ja.json: "ITサポート"
+826. productPages.templates.categories.education
+   ja.json: "教育"
+827. productPages.templates.categories.freelance
+   ja.json: "フリーランス"
+828. productPages.templates.categories.operations
+   ja.json: "運営"
+829. productPages.templates.categories.healthcare
+   ja.json: "医療"
+830. productPages.templates.categories.legal
+   ja.json: "法務"
+831. productPages.templates.categories.realEstate
+   ja.json: "不動産"
+832. productPages.templates.categories.manufacturing
+   ja.json: "製造"
+833. productPages.templates.categories.nonprofit
+   ja.json: "非営利"
+834. productPages.templates.categories.media
+   ja.json: "メディア＆エンターテインメント"
+835. pricing.title
+   ja.json: "シンプルな価格設定"
+836. pricing.heading
+   ja.json: "プランを選択"
+837. pricing.subtitle
+   ja.json: "無料で始めて、成長に合わせて拡張。隠れた費用なし、驚きなし。"
+838. pricing.monthly
+   ja.json: "月額"
+839. pricing.annual
+   ja.json: "年額"
+840. pricing.savePercent
+   ja.json: "{percent}%割引"
+841. pricing.twoMonthsFree
+   ja.json: "2ヶ月無料"
+842. pricing.free
+   ja.json: {...} (5 keys)
+843. pricing.free.name
+   ja.json: "無料"
+844. pricing.free.description
+   ja.json: "個人や小規模チームの開始に最適"
+845. pricing.free.price
+   ja.json: "¥0"
+846. pricing.free.cta
+   ja.json: "無料で始める"
+847. pricing.free.features
+   ja.json: {...} (7 keys)
+848. pricing.starter
+   ja.json: {...} (6 keys)
+849. pricing.starter.name
+   ja.json: "スターター"
+850. pricing.starter.description
+   ja.json: "より多くの力が必要な成長中のチームに最適"
+851. pricing.starter.price
+   ja.json: "¥800"
+852. pricing.starter.period
+   ja.json: "ユーザー/月"
+853. pricing.starter.cta
+   ja.json: "14日間無料トライアルを開始"
+854. pricing.starter.features
+   ja.json: {...} (8 keys)
+855. pricing.professional
+   ja.json: {...} (7 keys)
+856. pricing.professional.name
+   ja.json: "プロフェッショナル"
+857. pricing.professional.description
+   ja.json: "プロフェッショナルチーム向けの完全なソリューション"
+858. pricing.professional.price
+   ja.json: "¥1,600"
+859. pricing.professional.period
+   ja.json: "ユーザー/月"
+860. pricing.professional.cta
+   ja.json: "14日間無料トライアルを開始"
+861. pricing.professional.badge
+   ja.json: "最も人気"
+862. pricing.professional.features
+   ja.json: {...} (10 keys)
+863. pricing.enterprise
+   ja.json: {...} (5 keys)
+864. pricing.enterprise.name
+   ja.json: "エンタープライズ"
+865. pricing.enterprise.description
+   ja.json: "大規模組織向けのカスタマイズされたソリューション"
+866. pricing.enterprise.price
+   ja.json: "お問い合わせ"
+867. pricing.enterprise.cta
+   ja.json: "営業に問い合わせ"
+868. pricing.enterprise.features
+   ja.json: {...} (10 keys)
+869. pricing.banner
+   ja.json: {...} (2 keys)
+870. pricing.banner.title
+   ja.json: "期間限定オファー"
+871. pricing.banner.subtitle
+   ja.json: "年間プランで2ヶ月無料"
+872. pricing.trust
+   ja.json: {...} (2 keys)
+873. pricing.trust.title
+   ja.json: "世界中のチームに信頼されています"
+874. pricing.trust.features
+   ja.json: {...} (3 keys)
+875. featurePages.calendarProduct2
+   ja.json: {...} (13 keys)
+876. featurePages.calendarProduct2.title
+   ja.json: "カレンダーとスケジューリング"
+877. featurePages.calendarProduct2.description
+   ja.json: "AI搭載カレンダーでスケジュールを管理します。スマートスケジューリング、会議調整、すべてのデバイスでカレンダー同期。"
+878. featurePages.calendarProduct2.badge
+   ja.json: "スマートカレンダー"
+879. featurePages.calendarProduct2.heroTitle
+   ja.json: "あなたのために機能するインテリジェントなスケジューリング"
+880. featurePages.calendarProduct2.heroSubtitle
+   ja.json: "AIを搭載したカレンダー管理、スマートスケジューリング、自動競合解決、すべてのデバイスとプラットフォーム全体でのシームレスな統合。"
+881. featurePages.calendarProduct2.calendarIntelligence
+   ja.json: "カレンダー知能が最高"
+882. featurePages.calendarProduct2.calendarIntelligenceSubtitle
+   ja.json: "AIに複雑さを処理させて、最も重要なことに焦点を当てる"
+883. featurePages.calendarProduct2.features
+   ja.json: {...} (12 keys)
+884. featurePages.calendarProduct2.features.smartScheduling
+   ja.json: "スマートスケジューリング"
+885. featurePages.calendarProduct2.features.smartSchedulingDesc
+   ja.json: "AIは環境設定と可用性に基づいて最適な会議時間を自動的に見つける"
+886. featurePages.calendarProduct2.features.intelligentReminders
+   ja.json: "インテリジェントリマインダー"
+887. featurePages.calendarProduct2.features.intelligentRemindersDesc
+   ja.json: "スケジュールと優先度に適応するコンテキスト対応通知"
+888. featurePages.calendarProduct2.features.teamCoordination
+   ja.json: "チーム調整"
+889. featurePages.calendarProduct2.features.teamCoordinationDesc
+   ja.json: "チームメンバーと無効に調整し、相互可用性を見つける"
+890. featurePages.calendarProduct2.features.multipleViews
+   ja.json: "複数のビュー"
+891. featurePages.calendarProduct2.features.multipleViewsDesc
+   ja.json: "日、週、月、およびカスタムビューと強力なフィルタリングと検索"
+892. featurePages.calendarProduct2.features.locationIntelligence
+   ja.json: "位置情報知能"
+893. featurePages.calendarProduct2.features.locationIntelligenceDesc
+   ja.json: "自動移動時間計算と位置ベースのスケジューリング"
+894. featurePages.calendarProduct2.features.recurringEvents
+   ja.json: "定期的なイベント"
+895. featurePages.calendarProduct2.features.recurringEventsDesc
+   ja.json: "スマートな競合検出と解決を備えた柔軟な定期パターン"
+896. featurePages.calendarProduct2.useCases
+   ja.json: {...} (6 keys)
+897. featurePages.calendarProduct2.useCases.perfectForEverySchedule
+   ja.json: "すべてのスケジュールに完璧"
+898. featurePages.calendarProduct2.useCases.perfectForEveryScheduleDesc
+   ja.json: "忙しいエグゼクティブから創造的なチームまで、あなたの時間を効果的に整理"
+899. featurePages.calendarProduct2.useCases.forProfessionals
+   ja.json: "プロフェッショナル向け"
+900. featurePages.calendarProduct2.useCases.forProfessionalsDesc
+   ja.json: "タイムゾーン全体で会議を簡単にスケジュール、ディープワーク用に自動的にフォーカス時間をブロック、1つの統合ビューで複数のカレンダーを管理、時間配分と生産性に関する洞察を取得"
+901. featurePages.calendarProduct2.useCases.forTeams
+   ja.json: "チーム向け"
+902. featurePages.calendarProduct2.useCases.forTeamsDesc
+   ja.json: "柔軟な権限管理でカレンダーを共有、共有リソースと会議室をブック、プロジェクトの期限とマイルストーンを調整、プロジェクト管理ツールとシームレスに同期"
+903. featurePages.calendarProduct2.worksWithEverything
+   ja.json: "すべてと連携"
+904. featurePages.calendarProduct2.worksWithEverythingSubtitle
+   ja.json: "既存のカレンダーと生産性ツールとシームレスに統合"
+905. featurePages.calendarProduct2.cta
+   ja.json: "今日はあなたの時間をコントロールする"
+906. featurePages.calendarProduct2.ctaSubtitle
+   ja.json: "スマートスケジューリングで生産性を変革した何百万ものユーザーに参加してください"
+907. featurePages.notesProduct3
+   ja.json: {...} (7 keys)
+908. featurePages.notesProduct3.meta
+   ja.json: {...} (2 keys)
+909. featurePages.notesProduct3.meta.title
+   ja.json: "ノート＆ドキュメンテーション - 協調的ノートテイキング"
+910. featurePages.notesProduct3.meta.description
+   ja.json: "強力な知識管理ツールでノートを作成、整理、共有。ブロックベースエディタ、AI執筆アシスタント、リアルタイムコラボレーション。"
+911. featurePages.notesProduct3.hero
+   ja.json: {...} (6 keys)
+912. featurePages.notesProduct3.hero.badge
+   ja.json: "協調的ノート"
+913. featurePages.notesProduct3.hero.title
+   ja.json: "書く、整理する、協力する。"
+914. featurePages.notesProduct3.hero.titleHighlight
+   ja.json: "すべて一つのノートで。"
+915. featurePages.notesProduct3.hero.description
+   ja.json: "最も強力なノートテイキングプラットフォーム。ブロックベースエディタ、AI執筆アシスタント、リアルタイムコラボレーション、テンプレート、無制限の整理機能 — 知識を記録するために必要なすべてが揃っていま..."
+916. featurePages.notesProduct3.hero.button
+   ja.json: "無料でノート作成を開始"
+917. featurePages.notesProduct3.hero.trustLine
+   ja.json: "永久無料 • クレジットカード不要"
+918. featurePages.notesProduct3.blocks
+   ja.json: {...} (9 keys)
+919. featurePages.notesProduct3.blocks.badge
+   ja.json: "ブロックタイプ"
+920. featurePages.notesProduct3.blocks.title
+   ja.json: "強力なブロックで構築"
+921. featurePages.notesProduct3.blocks.subtitle
+   ja.json: "ドラッグ&ドロップブロックでリッチで動的なドキュメントを作成。コンテンツタイプを組み合わせて必要なものを正確に構築できます。"
+922. featurePages.notesProduct3.blocks.textBlocks
+   ja.json: {...} (2 keys)
+923. featurePages.notesProduct3.blocks.textBlocks.title
+   ja.json: "テキストブロック"
+924. featurePages.notesProduct3.blocks.textBlocks.description
+   ja.json: "インライン書式、カラー、ハイライトを備えたリッチテキスト段落。"
+925. featurePages.notesProduct3.blocks.headings
+   ja.json: {...} (2 keys)
+926. featurePages.notesProduct3.blocks.headings.title
+   ja.json: "見出し＆タイトル"
+927. featurePages.notesProduct3.blocks.headings.description
+   ja.json: "構造化されたドキュメント整理のための複数の見出しレベル。"
+928. featurePages.notesProduct3.blocks.lists
+   ja.json: {...} (2 keys)
+929. featurePages.notesProduct3.blocks.lists.title
+   ja.json: "リスト＆チェックリスト"
+930. featurePages.notesProduct3.blocks.lists.description
+   ja.json: "箇条書きリスト、番号付きリスト、インタラクティブなToDoリスト。"
+931. featurePages.notesProduct3.blocks.code
+   ja.json: {...} (2 keys)
+932. featurePages.notesProduct3.blocks.code.title
+   ja.json: "コードブロック"
+933. featurePages.notesProduct3.blocks.code.description
+   ja.json: "100以上のプログラミング言語対応のシンタックスハイライト。"
+934. featurePages.notesProduct3.blocks.tables
+   ja.json: {...} (2 keys)
+935. featurePages.notesProduct3.blocks.tables.title
+   ja.json: "テーブル＆データベース"
+936. featurePages.notesProduct3.blocks.tables.description
+   ja.json: "並び替え、フィルタリング、数式機能を備えた強力なテーブル。"
+937. featurePages.notesProduct3.blocks.media
+   ja.json: {...} (2 keys)
+938. featurePages.notesProduct3.blocks.media.title
+   ja.json: "メディア埋め込み"
+939. featurePages.notesProduct3.blocks.media.description
+   ja.json: "画像、動画、ファイル、40以上の外部サービス埋め込み。"
+940. featurePages.notesProduct3.ai
+   ja.json: {...} (9 keys)
+941. featurePages.notesProduct3.ai.badge
+   ja.json: "AI搭載"
+942. featurePages.notesProduct3.ai.title
+   ja.json: "AIで高速執筆"
+943. featurePages.notesProduct3.ai.subtitle
+   ja.json: "ノートの作成、編集、改善を即座に支援するAI搭載執筆ツール。"
+944. featurePages.notesProduct3.ai.writing
+   ja.json: {...} (2 keys)
+945. featurePages.notesProduct3.ai.writing.title
+   ja.json: "AI執筆アシスタント"
+946. featurePages.notesProduct3.ai.writing.description
+   ja.json: "AIがスマート提案でコンテンツの執筆、編集、改善をサポート。"
+947. featurePages.notesProduct3.ai.summarization
+   ja.json: {...} (2 keys)
+948. featurePages.notesProduct3.ai.summarization.title
+   ja.json: "自動要約"
+949. featurePages.notesProduct3.ai.summarization.description
+   ja.json: "AIが長文ドキュメントから要約、要点、TL;DRを生成。"
+950. featurePages.notesProduct3.ai.formatting
+   ja.json: {...} (2 keys)
+951. featurePages.notesProduct3.ai.formatting.title
+   ja.json: "スマート書式設定"
+952. featurePages.notesProduct3.ai.formatting.description
+   ja.json: "AIがテキストを自動フォーマット、文法修正、可読性向上。"
+953. featurePages.notesProduct3.ai.translation
+   ja.json: {...} (2 keys)
+954. featurePages.notesProduct3.ai.translation.title
+   ja.json: "翻訳"
+955. featurePages.notesProduct3.ai.translation.description
+   ja.json: "AI搭載翻訳で100以上の言語にノートを翻訳。"
+956. featurePages.notesProduct3.ai.generation
+   ja.json: {...} (2 keys)
+957. featurePages.notesProduct3.ai.generation.title
+   ja.json: "コンテンツ生成"
+958. featurePages.notesProduct3.ai.generation.description
+   ja.json: "シンプルなプロンプトからアウトライン、テンプレート、コンテンツを生成。"
+959. featurePages.notesProduct3.ai.codeExplanation
+   ja.json: {...} (2 keys)
+960. featurePages.notesProduct3.ai.codeExplanation.title
+   ja.json: "コード説明"
+961. featurePages.notesProduct3.ai.codeExplanation.description
+   ja.json: "AIがコードブロックを説明し、自動的に改善案を提案。"
+962. featurePages.notesProduct3.features
+   ja.json: {...} (15 keys)
+963. featurePages.notesProduct3.features.badge
+   ja.json: "高度な機能"
+964. featurePages.notesProduct3.features.title
+   ja.json: "エンタープライズグレードのパワー"
+965. featurePages.notesProduct3.features.subtitle
+   ja.json: "プロフェッショナルなノートテイキングと大規模な知識管理に必要なすべて。"
+966. featurePages.notesProduct3.features.blockEditor
+   ja.json: {...} (2 keys)
+967. featurePages.notesProduct3.features.blockEditor.title
+   ja.json: "ブロックベースエディタ"
+968. featurePages.notesProduct3.features.blockEditor.description
+   ja.json: "Notionスタイルのドラッグ&ドロップブロックで柔軟なコンテンツ作成。"
+969. featurePages.notesProduct3.features.collaboration
+   ja.json: {...} (2 keys)
+970. featurePages.notesProduct3.features.collaboration.title
+   ja.json: "リアルタイムコラボレーション"
+971. featurePages.notesProduct3.features.collaboration.description
+   ja.json: "ライブカーソルと変更で複数ユーザーが同時編集。"
+972. featurePages.notesProduct3.features.templates
+   ja.json: {...} (2 keys)
+973. featurePages.notesProduct3.features.templates.title
+   ja.json: "テンプレートライブラリ"
+974. featurePages.notesProduct3.features.templates.description
+   ja.json: "会議、ドキュメント、Wiki、カスタムテンプレートの構築済みテンプレート。"
+975. featurePages.notesProduct3.features.nestedPages
+   ja.json: {...} (2 keys)
+976. featurePages.notesProduct3.features.nestedPages.title
+   ja.json: "ネストページ"
+977. featurePages.notesProduct3.features.nestedPages.description
+   ja.json: "無制限のネストページとフォルダでノートを整理。"
+978. featurePages.notesProduct3.features.links
+   ja.json: {...} (2 keys)
+979. featurePages.notesProduct3.features.links.title
+   ja.json: "双方向リンク"
+980. featurePages.notesProduct3.features.links.description
+   ja.json: "ノートをリンクし、バックリンクを自動表示。"
+981. featurePages.notesProduct3.features.versionHistory
+   ja.json: {...} (2 keys)
+982. featurePages.notesProduct3.features.versionHistory.title
+   ja.json: "バージョン履歴"
+983. featurePages.notesProduct3.features.versionHistory.description
+   ja.json: "無制限のバージョン履歴ですべての変更を追跡し復元。"
+984. featurePages.notesProduct3.features.search
+   ja.json: {...} (2 keys)
+985. featurePages.notesProduct3.features.search.title
+   ja.json: "全文検索"
+986. featurePages.notesProduct3.features.search.description
+   ja.json: "すべてのノートとページで瞬時に何でも検索。"
+987. featurePages.notesProduct3.features.tags
+   ja.json: {...} (2 keys)
+988. featurePages.notesProduct3.features.tags.title
+   ja.json: "タグ＆ラベル"
+989. featurePages.notesProduct3.features.tags.description
+   ja.json: "カスタムタグ、ラベル、カラーコーディングで整理。"
+990. featurePages.notesProduct3.features.bookmarks
+   ja.json: {...} (2 keys)
+991. featurePages.notesProduct3.features.bookmarks.title
+   ja.json: "ブックマーク"
+992. featurePages.notesProduct3.features.bookmarks.description
+   ja.json: "重要なセクションとページを保存して素早くアクセス。"
+993. featurePages.notesProduct3.features.export
+   ja.json: {...} (2 keys)
+994. featurePages.notesProduct3.features.export.title
+   ja.json: "エクスポートオプション"
+995. featurePages.notesProduct3.features.export.description
+   ja.json: "Markdown、PDF、HTML、Wordドキュメントにエクスポート。"
+996. featurePages.notesProduct3.features.styling
+   ja.json: {...} (2 keys)
+997. featurePages.notesProduct3.features.styling.title
+   ja.json: "カスタムスタイリング"
+998. featurePages.notesProduct3.features.styling.description
+   ja.json: "ページのカラー、フォント、レイアウトをカスタマイズ。"
+999. featurePages.notesProduct3.features.multiColumn
+   ja.json: {...} (2 keys)
+1000. featurePages.notesProduct3.features.multiColumn.title
+   ja.json: "マルチカラムレイアウト"
+1001. featurePages.notesProduct3.features.multiColumn.description
+   ja.json: "高度なページデザインのためのマルチカラムレイアウトを作成。"
+1002. featurePages.notesProduct3.essentials
+   ja.json: {...} (14 keys)
+1003. featurePages.notesProduct3.essentials.title
+   ja.json: "すべての必須機能を標準装備"
+1004. featurePages.notesProduct3.essentials.subtitle
+   ja.json: "強力なノートテイキングと知識管理に必要なすべて。"
+1005. featurePages.notesProduct3.essentials.blockEditor
+   ja.json: "ブロックエディタ"
+1006. featurePages.notesProduct3.essentials.richText
+   ja.json: "リッチテキスト"
+1007. featurePages.notesProduct3.essentials.collaboration
+   ja.json: "コラボレーション"
+1008. featurePages.notesProduct3.essentials.templates
+   ja.json: "テンプレート"
+1009. featurePages.notesProduct3.essentials.organization
+   ja.json: "整理機能"
+1010. featurePages.notesProduct3.essentials.fullSearch
+   ja.json: "全文検索"
+1011. featurePages.notesProduct3.essentials.media
+   ja.json: "メディア"
+1012. featurePages.notesProduct3.essentials.codeBlocks
+   ja.json: "コードブロック"
+1013. featurePages.notesProduct3.essentials.tables
+   ja.json: "テーブル"
+1014. featurePages.notesProduct3.essentials.linking
+   ja.json: "リンク"
+1015. featurePages.notesProduct3.essentials.todos
+   ja.json: "ToDo"
+1016. featurePages.notesProduct3.essentials.aiWriting
+   ja.json: "AI執筆"
+1017. featurePages.notesProduct3.mobile
+   ja.json: {...} (4 keys)
+1018. featurePages.notesProduct3.mobile.badge
+   ja.json: "モバイルアプリ"
+1019. featurePages.notesProduct3.mobile.title
+   ja.json: "外出先でノート作成"
+1020. featurePages.notesProduct3.mobile.description
+   ja.json: "フル機能を備えたネイティブiOS・Androidアプリ。いつでもどこでもノートを作成、編集、整理できます。"
+1021. featurePages.notesProduct3.mobile.features
+   ja.json: {...} (3 keys)
+1022. featurePages.notesProduct3.mobile.features.0
+   ja.json: {...} (2 keys)
+1023. featurePages.notesProduct3.mobile.features.0.title
+   ja.json: "どこでも編集"
+1024. featurePages.notesProduct3.mobile.features.0.description
+   ja.json: "オフラインサポート付きのモバイル用フル機能エディタ"
+1025. featurePages.notesProduct3.mobile.features.1
+   ja.json: {...} (2 keys)
+1026. featurePages.notesProduct3.mobile.features.1.title
+   ja.json: "クイックキャプチャ"
+1027. featurePages.notesProduct3.mobile.features.1.description
+   ja.json: "クイックノート作成と音声入力でアイデアを即座に記録"
+1028. featurePages.notesProduct3.mobile.features.2
+   ja.json: {...} (2 keys)
+1029. featurePages.notesProduct3.mobile.features.2.title
+   ja.json: "リッチメディア"
+1030. featurePages.notesProduct3.mobile.features.2.description
+   ja.json: "スマホから写真、動画、ファイルを直接追加"
+1031. analytics.filesProduct2
+   ja.json: {...} (12 keys)
+1032. analytics.filesProduct2.totalFiles
+   ja.json: "総ファイル数"
+1033. analytics.filesProduct2.storageUsed
+   ja.json: "使用中のストレージ"
+1034. analytics.filesProduct2.storageUtilization
+   ja.json: "ストレージ使用率"
+1035. analytics.filesProduct2.duplicateFiles
+   ja.json: "重複ファイル"
+1036. analytics.filesProduct2.fileActivity
+   ja.json: "ファイルアクティビティ"
+1037. analytics.filesProduct2.uploads
+   ja.json: "アップロード"
+1038. analytics.filesProduct2.downloads
+   ja.json: "ダウンロード"
+1039. analytics.filesProduct2.shares
+   ja.json: "共有"
+1040. analytics.filesProduct2.fileTypeDistribution
+   ja.json: "ファイルタイプの分布"
+1041. analytics.filesProduct2.storageBreakdown
+   ja.json: "ストレージの内訳"
+1042. analytics.filesProduct2.files
+   ja.json: "ファイル"
+1043. analytics.filesProduct2.ofTotal
+   ja.json: "全体の"
+1044. analytics.calendarProduct3
+   ja.json: {...} (18 keys)
+1045. analytics.calendarProduct3.totalEvents
+   ja.json: "総イベント数"
+1046. analytics.calendarProduct3.meetingsHeld
+   ja.json: "開催されたミーティング"
+1047. analytics.calendarProduct3.avgDuration
+   ja.json: "平均時間"
+1048. analytics.calendarProduct3.onTimeRate
+   ja.json: "時間厳守率"
+1049. analytics.calendarProduct3.peakMeetingHours
+   ja.json: "ミーティングのピーク時間"
+1050. analytics.calendarProduct3.meetingDistribution
+   ja.json: "曜日別のミーティング分布"
+1051. analytics.calendarProduct3.meetingInsights
+   ja.json: "ミーティングインサイト"
+1052. analytics.calendarProduct3.attendance
+   ja.json: "出席"
+1053. analytics.calendarProduct3.averageAttendees
+   ja.json: "平均参加者数"
+1054. analytics.calendarProduct3.completionRate
+   ja.json: "完了率"
+1055. analytics.calendarProduct3.efficiency
+   ja.json: "効率性"
+1056. analytics.calendarProduct3.productivityScore
+   ja.json: "生産性スコア"
+1057. analytics.calendarProduct3.noShowRate
+   ja.json: "不参加率"
+1058. analytics.calendarProduct3.cancelledEvents
+   ja.json: "キャンセルされたイベント"
+1059. analytics.calendarProduct3.timeUsage
+   ja.json: "時間の使用"
+1060. analytics.calendarProduct3.totalMeetingTime
+   ja.json: "総ミーティング時間"
+1061. analytics.calendarProduct3.recurringEvents
+   ja.json: "定期的なイベント"
+1062. analytics.calendarProduct3.peakDayLabel
+   ja.json: "ピーク日"
+1063. chat
+   ja.json: {...} (27 keys)
+1064. chat.title
+   ja.json: "チャット"
+1065. chat.searchMessages
+   ja.json: "メッセージを検索..."
+1066. chat.previousResult
+   ja.json: "前の結果"
+1067. chat.nextResult
+   ja.json: "次の結果"
+1068. chat.voiceCall
+   ja.json: "音声通話"
+1069. chat.videoCall
+   ja.json: "ビデオ通話"
+1070. chat.bookmarkedMessages
+   ja.json: "ブックマークしたメッセージ"
+1071. chat.toggleAISummaries
+   ja.json: "AI要約を切り替え"
+1072. chat.pinnedMessages
+   ja.json: {...} (3 keys)
+1073. chat.pinnedMessages.singular
+   ja.json: "ピン留めされたメッセージ"
+1074. chat.pinnedMessages.plural
+   ja.json: "ピン留めされたメッセージ"
+1075. chat.pinnedMessages.count
+   ja.json: "{count}件の{text}"
+1076. chat.selectedMessages
+   ja.json: "{count}件選択中"
+1077. chat.deleteButton
+   ja.json: "削除"
+1078. chat.loadingMessages
+   ja.json: "メッセージを読み込んでいます..."
+1079. chat.loadingOlderMessages
+   ja.json: "古いメッセージを読み込んでいます..."
+1080. chat.noMoreMessages
+   ja.json: "これ以上メッセージはありません"
+1081. chat.noMessagesYet
+   ja.json: "まだメッセージがありません。会話を始めましょう!"
+1082. chat.replyingTo
+   ja.json: "{name}に返信"
+1083. chat.directMessage
+   ja.json: "ダイレクトメッセージ"
+1084. chat.typingIndicator
+   ja.json: {...} (3 keys)
+1085. chat.typingIndicator.singular
+   ja.json: "{name}"
+1086. chat.typingIndicator.two
+   ja.json: "{name1}と{name2}"
+1087. chat.typingIndicator.plural
+   ja.json: "{count}人"
+1088. chat.inputPlaceholder
+   ja.json: "メッセージを入力..."
+1089. chat.sendMessage
+   ja.json: "メッセージを送信"
+1090. chat.uploadFile
+   ja.json: "ファイルをアップロード"
+1091. chat.addEmoji
+   ja.json: "絵文字を追加"
+1092. chat.scheduleMessage
+   ja.json: "メッセージをスケジュール"
+1093. chat.aiAssistant
+   ja.json: "AIアシスタント"
+1094. chat.error
+   ja.json: "メッセージの読み込みエラー"
+1095. chat.createChannel
+   ja.json: {...} (17 keys)
+1096. chat.createChannel.title
+   ja.json: "チャンネルを作成"
+1097. chat.createChannel.editTitle
+   ja.json: "チャンネルを編集"
+1098. chat.createChannel.channelName
+   ja.json: "チャンネル名"
+1099. chat.createChannel.channelNamePlaceholder
+   ja.json: "例: マーケティング"
+1100. chat.createChannel.description
+   ja.json: "説明（任意）"
+1101. chat.createChannel.makePrivate
+   ja.json: "プライベートにする"
+1102. chat.createChannel.allWorkspaceMembers
+   ja.json: "すべてのワークスペースメンバーがこのチャンネルにアクセスできます"
+1103. chat.createChannel.onlySelectedMembers
+   ja.json: "選択されたメンバーのみがこのチャンネルにアクセスできます"
+1104. chat.createChannel.addMembers
+   ja.json: "メンバーを追加（任意）"
+1105. chat.createChannel.channelMembers
+   ja.json: "チャンネルメンバー"
+1106. chat.createChannel.searchMembers
+   ja.json: "メンバーを検索..."
+1107. chat.createChannel.loadingMembers
+   ja.json: "メンバーを読み込み中..."
+1108. chat.createChannel.noMembersFound
+   ja.json: "メンバーが見つかりません"
+1109. chat.createChannel.noMembers
+   ja.json: "利用可能なメンバーがいません"
+1110. chat.createChannel.cancel
+   ja.json: "キャンセル"
+1111. chat.createChannel.create
+   ja.json: "作成"
+1112. chat.createChannel.update
+   ja.json: "更新"
+1113. chat.startConversation
+   ja.json: {...} (7 keys)
+1114. chat.startConversation.title
+   ja.json: "会話を開始"
+1115. chat.startConversation.searchPlaceholder
+   ja.json: "メンバーを検索..."
+1116. chat.startConversation.noMembers
+   ja.json: "メンバーが見つかりません"
+1117. chat.startConversation.selectOneMember
+   ja.json: "会話を開始するには1人のメンバーを選択してください"
+1118. chat.startConversation.selectedCount
+   ja.json: "{count}人のメンバーを選択"
+1119. chat.startConversation.cancel
+   ja.json: "キャンセル"
+1120. chat.startConversation.start
+   ja.json: "会話を開始"
+1121. files
+   ja.json: {...} (15 keys)
+1122. files.title
+   ja.json: "ファイル"
+1123. files.searchPlaceholder
+   ja.json: "ファイル、コンテンツ、タグを検索..."
+1124. files.allFiles
+   ja.json: "すべてのファイル"
+1125. files.dashboard
+   ja.json: "ダッシュボード"
+1126. files.messages
+   ja.json: {...} (13 keys)
+1127. files.messages.workspaceRequired
+   ja.json: "ワークスペースIDが必要です"
+1128. files.messages.itemNotFound
+   ja.json: "アイテムが見つかりません"
+1129. files.messages.folderDeleted
+   ja.json: "フォルダを削除しました"
+1130. files.messages.fileDeleted
+   ja.json: "ファイルを削除しました"
+1131. files.messages.restoreSuccess
+   ja.json: "{folders}個のフォルダと{files}個のファイルを復元しました"
+1132. files.messages.fileRestored
+   ja.json: "ファイル「{name}」を復元しました"
+1133. files.messages.downloading
+   ja.json: "ファイルをダウンロードしています..."
+1134. files.messages.downloadSuccess
+   ja.json: "ファイルのダウンロードが完了しました"
+1135. files.messages.folderCreated
+   ja.json: "フォルダ「{name}」を作成しました"
+1136. files.messages.folderRenamed
+   ja.json: "フォルダ名を「{name}」に変更しました"
+1137. files.messages.fileRenamed
+   ja.json: "ファイル名を「{name}」に変更しました"
+1138. files.messages.fileStarred
+   ja.json: "ファイルにスターを付けました"
+1139. files.messages.fileUnstarred
+   ja.json: "ファイルからスターを外しました"
+1140. files.projects
+   ja.json: "プロジェクト"
+1141. files.calendar
+   ja.json: "カレンダー"
+1142. files.notes
+   ja.json: "ノート"
+1143. files.loading
+   ja.json: "ファイルを読み込んでいます..."
+1144. files.categories
+   ja.json: {...} (11 keys)
+1145. files.categories.allFiles
+   ja.json: "すべてのファイル"
+1146. files.categories.recent
+   ja.json: "最近"
+1147. files.categories.starred
+   ja.json: "スター付き"
+1148. files.categories.sharedWithMe
+   ja.json: "共有されたファイル"
+1149. files.categories.trash
+   ja.json: "ゴミ箱"
+1150. files.categories.documents
+   ja.json: "ドキュメント"
+1151. files.categories.pdfs
+   ja.json: "PDF"
+1152. files.categories.images
+   ja.json: "画像"
+1153. files.categories.spreadsheets
+   ja.json: "スプレッドシート"
+1154. files.categories.videos
+   ja.json: "動画"
+1155. files.categories.audio
+   ja.json: "音声"
+1156. files.actions
+   ja.json: {...} (10 keys)
+1157. files.actions.upload
+   ja.json: "アップロード"
+1158. files.actions.createFolder
+   ja.json: "フォルダを作成"
+1159. files.actions.delete
+   ja.json: "削除"
+1160. files.actions.restore
+   ja.json: "復元"
+1161. files.actions.download
+   ja.json: "ダウンロード"
+1162. files.actions.rename
+   ja.json: "名前を変更"
+1163. files.actions.copy
+   ja.json: "コピー"
+1164. files.actions.move
+   ja.json: "移動"
+1165. files.actions.star
+   ja.json: "スターを付ける"
+1166. files.actions.unstar
+   ja.json: "スターを外す"
+1167. files.buttons
+   ja.json: {...} (3 keys)
+1168. files.buttons.newFolder
+   ja.json: "新規フォルダ"
+1169. files.buttons.importFromDrive
+   ja.json: "Driveからインポート"
+1170. files.buttons.importFromDropbox
+   ja.json: "Dropboxからインポート"
+1171. files.filters
+   ja.json: {...} (2 keys)
+1172. files.filters.type
+   ja.json: "タイプ"
+1173. files.filters.dateModifiedButton
+   ja.json: "更新日時"
+1174. files.storage
+   ja.json: {...} (1 keys)
+1175. files.storage.planFree
+   ja.json: "無料"
+1176. files.tabs
+   ja.json: {...} (5 keys)
+1177. files.tabs.messageAttachments
+   ja.json: "メッセージの添付ファイル"
+1178. files.tabs.projectAssets
+   ja.json: "プロジェクトアセット"
+1179. files.tabs.calendarDocuments
+   ja.json: "カレンダードキュメント"
+1180. files.tabs.noteAttachments
+   ja.json: "ノートの添付ファイル"
+1181. files.tabs.comingSoon
+   ja.json: "近日公開..."
+1182. calendarTopLevel
+   ja.json: {...} (7 keys)
+1183. calendarTopLevel.title
+   ja.json: "カレンダー"
+1184. calendarTopLevel.googleCalendar
+   ja.json: {...} (33 keys)
+1185. calendarTopLevel.googleCalendar.title
+   ja.json: "Googleカレンダー"
+1186. calendarTopLevel.googleCalendar.loading
+   ja.json: "読み込み中..."
+1187. calendarTopLevel.googleCalendar.connected
+   ja.json: "接続されました"
+1188. calendarTopLevel.googleCalendar.notConnected
+   ja.json: "Googleカレンダーに接続されていません"
+1189. calendarTopLevel.googleCalendar.connect
+   ja.json: "Googleカレンダーを接続"
+1190. calendarTopLevel.googleCalendar.disconnect
+   ja.json: "接続解除"
+1191. calendarTopLevel.googleCalendar.sync
+   ja.json: "同期"
+1192. calendarTopLevel.googleCalendar.syncing
+   ja.json: "同期中..."
+1193. calendarTopLevel.googleCalendar.refreshing
+   ja.json: "更新中..."
+1194. calendarTopLevel.googleCalendar.saving
+   ja.json: "保存中..."
+1195. calendarTopLevel.googleCalendar.connectDescription
+   ja.json: "Googleカレンダーを接続してイベントとスケジュールを同期します。"
+1196. calendarTopLevel.googleCalendar.connectError
+   ja.json: "Googleカレンダーへの接続に失敗しました:"
+1197. calendarTopLevel.googleCalendar.connectedSuccess
+   ja.json: "Googleカレンダーが正常に接続されました"
+1198. calendarTopLevel.googleCalendar.connectedError
+   ja.json: "Googleカレンダーの接続に失敗しました"
+1199. calendarTopLevel.googleCalendar.syncError
+   ja.json: "カレンダーの更新に失敗しました"
+1200. calendarTopLevel.googleCalendar.syncTooltip
+   ja.json: "カレンダーを更新してGoogleから最新のイベントを取得"
+1201. calendarTopLevel.googleCalendar.disconnectSuccess
+   ja.json: "Googleカレンダーが正常に切断されました"
+1202. calendarTopLevel.googleCalendar.disconnectError
+   ja.json: "Googleカレンダーの切断に失敗しました"
+1203. calendarTopLevel.googleCalendar.disconnectTitle
+   ja.json: "Googleカレンダーの接続解除"
+1204. calendarTopLevel.googleCalendar.disconnectDescription
+   ja.json: "Googleカレンダーの接続を削除し、イベントの同期を停止します。いつでも再接続できます。"
+1205. calendarTopLevel.googleCalendar.selectCalendars
+   ja.json: "同期するカレンダーを選択 ({selected}/{total})"
+1206. calendarTopLevel.googleCalendar.selectAtLeastOne
+   ja.json: "少なくとも1つのカレンダーを選択してください"
+1207. calendarTopLevel.googleCalendar.pleaseSelectCalendar
+   ja.json: "少なくとも1つのカレンダーを選択してください"
+1208. calendarTopLevel.googleCalendar.selectionUpdated
+   ja.json: "カレンダーの選択が更新されました。イベントを同期中..."
+1209. calendarTopLevel.googleCalendar.selectionUpdateFailed
+   ja.json: "カレンダーの選択の更新に失敗しました"
+1210. calendarTopLevel.googleCalendar.calendarsRefreshed
+   ja.json: "利用可能なカレンダーが更新されました"
+1211. calendarTopLevel.googleCalendar.calendarsRefreshFailed
+   ja.json: "カレンダーの更新に失敗しました"
+1212. calendarTopLevel.googleCalendar.calendarRefreshed
+   ja.json: "カレンダーが更新されました！イベントはGoogleから直接取得されます。"
+1213. calendarTopLevel.googleCalendar.refreshAvailableCalendars
+   ja.json: "利用可能なカレンダーを更新"
+1214. calendarTopLevel.googleCalendar.saveAndSync
+   ja.json: "保存して同期"
+1215. calendarTopLevel.googleCalendar.primary
+   ja.json: "プライマリ"
+1216. calendarTopLevel.googleCalendar.neverSynced
+   ja.json: "同期されたことがありません"
+1217. calendarTopLevel.googleCalendar.autoSync
+   ja.json: "自動同期: 10分"
+1218. calendarTopLevel.views
+   ja.json: {...} (6 keys)
+1219. calendarTopLevel.views.month
+   ja.json: "月"
+1220. calendarTopLevel.views.week
+   ja.json: "週"
+1221. calendarTopLevel.views.day
+   ja.json: "日"
+1222. calendarTopLevel.views.agenda
+   ja.json: "予定表"
+1223. calendarTopLevel.views.timeline
+   ja.json: "タイムライン"
+1224. calendarTopLevel.views.year
+   ja.json: "年"
+1225. calendarTopLevel.actions
+   ja.json: {...} (9 keys)
+1226. calendarTopLevel.actions.today
+   ja.json: "今日"
+1227. calendarTopLevel.actions.previous
+   ja.json: "前へ"
+1228. calendarTopLevel.actions.next
+   ja.json: "次へ"
+1229. calendarTopLevel.actions.createEvent
+   ja.json: "イベントを作成"
+1230. calendarTopLevel.actions.quickMeeting
+   ja.json: "クイックミーティング"
+1231. calendarTopLevel.actions.scheduleAssistant
+   ja.json: "スケジュールアシスタント"
+1232. calendarTopLevel.actions.filters
+   ja.json: "フィルター"
+1233. calendarTopLevel.actions.settings
+   ja.json: "設定"
+1234. calendarTopLevel.actions.analytics
+   ja.json: "分析"
+1235. calendarTopLevel.event
+   ja.json: {...} (13 keys)
+1236. calendarTopLevel.event.title
+   ja.json: "イベントタイトル"
+1237. calendarTopLevel.event.description
+   ja.json: "説明"
+1238. calendarTopLevel.event.startTime
+   ja.json: "開始時刻"
+1239. calendarTopLevel.event.endTime
+   ja.json: "終了時刻"
+1240. calendarTopLevel.event.location
+   ja.json: "場所"
+1241. calendarTopLevel.event.attendees
+   ja.json: "参加者"
+1242. calendarTopLevel.event.category
+   ja.json: "カテゴリー"
+1243. calendarTopLevel.event.recurring
+   ja.json: "繰り返し"
+1244. calendarTopLevel.event.reminders
+   ja.json: "リマインダー"
+1245. calendarTopLevel.event.allDay
+   ja.json: "終日イベント"
+1246. calendarTopLevel.event.save
+   ja.json: "イベントを保存"
+1247. calendarTopLevel.event.cancel
+   ja.json: "キャンセル"
+1248. calendarTopLevel.event.delete
+   ja.json: "イベントを削除"
+1249. calendarTopLevel.categories
+   ja.json: {...} (5 keys)
+1250. calendarTopLevel.categories.work
+   ja.json: "仕事"
+1251. calendarTopLevel.categories.personal
+   ja.json: "個人"
+1252. calendarTopLevel.categories.meeting
+   ja.json: "ミーティング"
+1253. calendarTopLevel.categories.deadline
+   ja.json: "締切"
+1254. calendarTopLevel.categories.other
+   ja.json: "その他"
+1255. calendarTopLevel.recurring
+   ja.json: {...} (6 keys)
+1256. calendarTopLevel.recurring.none
+   ja.json: "繰り返さない"
+1257. calendarTopLevel.recurring.daily
+   ja.json: "毎日"
+1258. calendarTopLevel.recurring.weekly
+   ja.json: "毎週"
+1259. calendarTopLevel.recurring.monthly
+   ja.json: "毎月"
+1260. calendarTopLevel.recurring.yearly
+   ja.json: "毎年"
+1261. calendarTopLevel.recurring.custom
+   ja.json: "カスタム"
+1262. notes
+   ja.json: {...} (9 keys)
+1263. notes.title
+   ja.json: "ノート"
+1264. notes.searchPlaceholder
+   ja.json: "ノートを検索..."
+1265. notes.newNote
+   ja.json: "新しいノート"
+1266. notes.newFolder
+   ja.json: "新しいフォルダ"
+1267. notes.actions
+   ja.json: {...} (8 keys)
+1268. notes.actions.save
+   ja.json: "保存"
+1269. notes.actions.delete
+   ja.json: "削除"
+1270. notes.actions.share
+   ja.json: "共有"
+1271. notes.actions.export
+   ja.json: "エクスポート"
+1272. notes.actions.duplicate
+   ja.json: "複製"
+1273. notes.actions.moveTo
+   ja.json: "移動先"
+1274. notes.actions.addTag
+   ja.json: "タグを追加"
+1275. notes.actions.archive
+   ja.json: "アーカイブ"
+1276. notes.editor
+   ja.json: {...} (19 keys)
+1277. notes.editor.heading1
+   ja.json: "見出し1"
+1278. notes.editor.heading2
+   ja.json: "見出し2"
+1279. notes.editor.heading3
+   ja.json: "見出し3"
+1280. notes.editor.paragraph
+   ja.json: "段落"
+1281. notes.editor.bold
+   ja.json: "太字"
+1282. notes.editor.italic
+   ja.json: "斜体"
+1283. notes.editor.underline
+   ja.json: "下線"
+1284. notes.editor.strikethrough
+   ja.json: "取り消し線"
+1285. notes.editor.code
+   ja.json: "コード"
+1286. notes.editor.codeBlock
+   ja.json: "コードブロック"
+1287. notes.editor.bulletList
+   ja.json: "箇条書きリスト"
+1288. notes.editor.numberedList
+   ja.json: "番号付きリスト"
+1289. notes.editor.checkbox
+   ja.json: "チェックボックス"
+1290. notes.editor.quote
+   ja.json: "引用"
+1291. notes.editor.divider
+   ja.json: "区切り線"
+1292. notes.editor.link
+   ja.json: "リンク"
+1293. notes.editor.image
+   ja.json: "画像"
+1294. notes.editor.table
+   ja.json: "表"
+1295. notes.editor.emoji
+   ja.json: "絵文字"
+1296. notes.sidebar
+   ja.json: {...} (7 keys)
+1297. notes.sidebar.allNotes
+   ja.json: "すべてのノート"
+1298. notes.sidebar.recent
+   ja.json: "最近"
+1299. notes.sidebar.favorites
+   ja.json: "お気に入り"
+1300. notes.sidebar.shared
+   ja.json: "共有"
+1301. notes.sidebar.archived
+   ja.json: "アーカイブ済み"
+1302. notes.sidebar.tags
+   ja.json: "タグ"
+1303. notes.sidebar.folders
+   ja.json: "フォルダ"
+1304. notes.templates
+   ja.json: {...} (6 keys)
+1305. notes.templates.title
+   ja.json: "テンプレート"
+1306. notes.templates.blank
+   ja.json: "空白のノート"
+1307. notes.templates.meeting
+   ja.json: "ミーティングノート"
+1308. notes.templates.project
+   ja.json: "プロジェクト計画"
+1309. notes.templates.todo
+   ja.json: "ToDoリスト"
+1310. notes.templates.brainstorm
+   ja.json: "ブレインストーミング"
+1311. notes.messages
+   ja.json: {...} (5 keys)
+1312. notes.messages.saved
+   ja.json: "ノートを保存しました"
+1313. notes.messages.deleted
+   ja.json: "ノートを削除しました"
+1314. notes.messages.restored
+   ja.json: "ノートを復元しました"
+1315. notes.messages.shared
+   ja.json: "ノートを共有しました"
+1316. notes.messages.exported
+   ja.json: "ノートをエクスポートしました"
+1317. ai.assistant.conversations
+   ja.json: "会話"
+1318. ai.assistant.messages
+   ja.json: "メッセージ"
+1319. ai.assistant.history
+   ja.json: "履歴"
+1320. ai.assistant.viewHistory
+   ja.json: "履歴を表示"
+1321. ai.assistant.clearChat
+   ja.json: "チャットをクリア"
+1322. ai.assistant.noHistory
+   ja.json: "会話はまだありません"
+1323. ai.assistant.startNew
+   ja.json: "会話を始める"
+1324. ai.assistant.attachFile
+   ja.json: "ファイルを添付"
+1325. ai.assistant.addReference
+   ja.json: "ワークスペースから参照を追加"
+1326. ai.reference
+   ja.json: {...} (3 keys)
+1327. ai.reference.selectType
+   ja.json: "アイテムタイプを選択"
+1328. ai.reference.search
+   ja.json: "検索..."
+1329. ai.reference.noResults
+   ja.json: "アイテムが見つかりません"
+1330. ai.comingSoon
+   ja.json: {...} (2 keys)
+1331. ai.comingSoon.title
+   ja.json: "AI機能は近日公開"
+1332. ai.comingSoon.description
+   ja.json: "この機能は現在開発中です。しばらくお待ちください！"
+1333. ai.modules.projects.welcome
+   ja.json: "こんにちは！オートパイロットです。プロジェクトの作成、タスクの追加、ステータスの更新、作業の管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1334. ai.modules.calendar.welcome
+   ja.json: "こんにちは！オートパイロットです。会議のスケジュール、イベントの作成、カレンダーの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1335. ai.modules.notes.welcome
+   ja.json: "こんにちは！オートパイロットです。ノートの作成、ドキュメントの執筆、アイデアの整理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1336. ai.modules.chat.welcome
+   ja.json: "こんにちは！オートパイロットです。メッセージの送信、更新の投稿、チームとのコミュニケーションをお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1337. ai.modules.files.welcome
+   ja.json: "こんにちは！オートパイロットです。フォルダの作成、ファイルの整理、ストレージの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1338. ai.modules.video.welcome
+   ja.json: "こんにちは！オートパイロットです。インスタント会議の開始、ビデオ通話のスケジュール、チームへの招待をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1339. ai.modules.search.welcome
+   ja.json: "こんにちは！オートパイロットです。何をお探しですか？**help**と入力してすべての機能を確認してください！"
+1340. ai.modules.settings.welcome
+   ja.json: "こんにちは！オートパイロットです。設定についてどのようにお手伝いできますか？**help**と入力してすべての機能を確認してください！"
+1341. ai.modules.dashboard.welcome
+   ja.json: "こんにちは！ワークスペースアシスタントのオートパイロットです。タスク、カレンダー、ノート、ファイル、チャット、メールなど、様々な機能をお手伝いできます。以下の提案を試すか、**help**と入力してす..."
+1342. ai.modules.email
+   ja.json: {...} (4 keys)
+1343. ai.modules.email.title
+   ja.json: "メールアシスタント"
+1344. ai.modules.email.description
+   ja.json: "AIでメールを作成・管理"
+1345. ai.modules.email.placeholder
+   ja.json: "例：メールを作成する"
+1346. ai.modules.email.welcome
+   ja.json: "こんにちは！オートパイロットです。メールの作成、受信トレイの要約、コミュニケーションの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+1347. ai.modules.analytics
+   ja.json: {...} (4 keys)
+1348. ai.modules.analytics.title
+   ja.json: "分析アシスタント"
+1349. ai.modules.analytics.description
+   ja.json: "AIでデータを分析・可視化"
+1350. ai.modules.analytics.placeholder
+   ja.json: "例：分析を要約する"
+1351. ai.modules.analytics.welcome
+   ja.json: "こんにちは！オートパイロットです。データの分析、インサイトの提供、トレンドの表示をお手伝いします。何を知りたいですか？"
+1352. ai.modules.monitoring
+   ja.json: {...} (4 keys)
+1353. ai.modules.monitoring.title
+   ja.json: "モニタリングアシスタント"
+1354. ai.modules.monitoring.description
+   ja.json: "システムのヘルスチェックとアラート管理"
+1355. ai.modules.monitoring.placeholder
+   ja.json: "例：システムステータスを確認"
+1356. ai.modules.monitoring.welcome
+   ja.json: "こんにちは！オートパイロットです。システムヘルスの監視、アラートの確認、パフォーマンスの分析をお手伝いします。何が必要ですか？"
+1357. ai.modules.integrations
+   ja.json: {...} (4 keys)
+1358. ai.modules.integrations.title
+   ja.json: "インテグレーションアシスタント"
+1359. ai.modules.integrations.description
+   ja.json: "連携機能の設定と管理"
+1360. ai.modules.integrations.placeholder
+   ja.json: "例：連携機能のセットアップを手伝って"
+1361. ai.modules.integrations.welcome
+   ja.json: "こんにちは！オートパイロットです。連携機能の設定、構成、トラブルシューティングをお手伝いします。何をしたいですか？"
+1362. ai.modules.templates
+   ja.json: {...} (4 keys)
+1363. ai.modules.templates.title
+   ja.json: "テンプレートアシスタント"
+1364. ai.modules.templates.description
+   ja.json: "テンプレートの作成と管理"
+1365. ai.modules.templates.placeholder
+   ja.json: "例：テンプレートを作成"
+1366. ai.modules.templates.welcome
+   ja.json: "こんにちは！オートパイロットです。テンプレートの作成、カスタマイズ、管理をお手伝いします。何が必要ですか？"
+1367. ai.modules.whiteboard
+   ja.json: {...} (4 keys)
+1368. ai.modules.whiteboard.title
+   ja.json: "ホワイトボードアシスタント"
+1369. ai.modules.whiteboard.description
+   ja.json: "アイデアの整理と図の作成"
+1370. ai.modules.whiteboard.placeholder
+   ja.json: "例：アイデアをブレインストーミング"
+1371. ai.modules.whiteboard.welcome
+   ja.json: "こんにちは！オートパイロットです。ブレインストーミング、アイデアの整理、図の作成をお手伝いします。何に取り組んでいますか？"
+1372. ai.modules.budget
+   ja.json: {...} (4 keys)
+1373. ai.modules.budget.title
+   ja.json: "予算アシスタント"
+1374. ai.modules.budget.description
+   ja.json: "予算の分析と最適化"
+1375. ai.modules.budget.placeholder
+   ja.json: "例：予算を分析"
+1376. ai.modules.budget.welcome
+   ja.json: "こんにちは！オートパイロットです。予算の分析、経費の予測、支出の最適化をお手伝いします。何が必要ですか？"
+1377. ai.modules.forms
+   ja.json: {...} (4 keys)
+1378. ai.modules.forms.title
+   ja.json: "フォームアシスタント"
+1379. ai.modules.forms.description
+   ja.json: "フォームの作成と回答分析"
+1380. ai.modules.forms.placeholder
+   ja.json: "例：新しいフォームを作成"
+1381. ai.modules.forms.welcome
+   ja.json: "こんにちは！オートパイロットです。フォームの作成、回答の分析、改善の提案をお手伝いします。何をしたいですか？"
+1382. ai.modules.members
+   ja.json: {...} (4 keys)
+1383. ai.modules.members.title
+   ja.json: "メンバー管理アシスタント"
+1384. ai.modules.members.description
+   ja.json: "チームメンバーの管理"
+1385. ai.modules.members.placeholder
+   ja.json: "例：チームメンバーを招待"
+1386. ai.modules.members.welcome
+   ja.json: "こんにちは！オートパイロットです。チームメンバーの管理、役割の設定、アクティビティの確認をお手伝いします。何が必要ですか？"
+1387. ai.modules.notifications
+   ja.json: {...} (4 keys)
+1388. ai.modules.notifications.title
+   ja.json: "通知アシスタント"
+1389. ai.modules.notifications.description
+   ja.json: "通知の管理と設定"
+1390. ai.modules.notifications.placeholder
+   ja.json: "例：通知を要約"
+1391. ai.modules.notifications.welcome
+   ja.json: "こんにちは！オートパイロットです。通知の管理、優先順位付け、フィルタリングをお手伝いします。何が必要ですか？"
+1392. ai.modules.more
+   ja.json: {...} (4 keys)
+1393. ai.modules.more.title
+   ja.json: "AIアシスタント"
+1394. ai.modules.more.description
+   ja.json: "何でもお手伝いします"
+1395. ai.modules.more.placeholder
+   ja.json: "例：何かを作成"
+1396. ai.modules.more.welcome
+   ja.json: "こんにちは！オートパイロットです。今日はどのようにお手伝いできますか？**help**と入力してすべての機能を確認してください！"
+1397. ai.modules.apps
+   ja.json: {...} (4 keys)
+1398. ai.modules.apps.title
+   ja.json: "アプリアシスタント"
+1399. ai.modules.apps.description
+   ja.json: "アプリの検索と設定"
+1400. ai.modules.apps.placeholder
+   ja.json: "例：アプリを検索"
+1401. ai.modules.apps.welcome
+   ja.json: "こんにちは！オートパイロットです。アプリの検索と設定をお手伝いします。何をお探しですか？"
+1402. ai.modules.profile
+   ja.json: {...} (4 keys)
+1403. ai.modules.profile.title
+   ja.json: "プロフィールアシスタント"
+1404. ai.modules.profile.description
+   ja.json: "プロフィールと設定の管理"
+1405. ai.modules.profile.placeholder
+   ja.json: "例：プロフィールを更新"
+1406. ai.modules.profile.welcome
+   ja.json: "こんにちは！オートパイロットです。プロフィールと設定の管理をお手伝いします。何をしたいですか？"
+1407. ai.suggestions.projects.createProjectWebsite
+   ja.json: "ウェブサイトリニューアルプロジェクトを作成"
+1408. ai.suggestions.projects.createSprint
+   ja.json: "開発スプリントプロジェクトを作成"
+1409. ai.suggestions.dashboard.dailySummary
+   ja.json: "今日のサマリーを表示"
+1410. ai.suggestions.dashboard.focusToday
+   ja.json: "今日は何に集中すべき？"
+1411. ai.suggestions.dashboard.overdueTasks
+   ja.json: "期限切れのタスクを表示"
+1412. ai.suggestions.dashboard.upcomingEvents
+   ja.json: "今後の予定は？"
+1413. ai.status
+   ja.json: {...} (5 keys)
+1414. ai.status.processing
+   ja.json: "リクエストを処理中..."
+1415. ai.status.thinking
+   ja.json: "考え中..."
+1416. ai.status.executing
+   ja.json: "実行中..."
+1417. ai.status.completed
+   ja.json: "完了しました"
+1418. ai.status.failed
+   ja.json: "失敗しました"
+1419. ai.actions
+   ja.json: {...} (22 keys)
+1420. ai.actions.creatingTask
+   ja.json: "タスクを作成中"
+1421. ai.actions.creatingNote
+   ja.json: "ノートを作成中"
+1422. ai.actions.creatingEvent
+   ja.json: "イベントを作成中"
+1423. ai.actions.creatingProject
+   ja.json: "プロジェクトを作成中"
+1424. ai.actions.updatingTask
+   ja.json: "タスクを更新中"
+1425. ai.actions.updatingNote
+   ja.json: "ノートを更新中"
+1426. ai.actions.sendingMessage
+   ja.json: "メッセージを送信中"
+1427. ai.actions.fetchingTasks
+   ja.json: "タスクを取得中"
+1428. ai.actions.fetchingEvents
+   ja.json: "イベントを取得中"
+1429. ai.actions.fetchingProjects
+   ja.json: "プロジェクトを取得中"
+1430. ai.actions.fetchingMembers
+   ja.json: "メンバーを取得中"
+1431. ai.actions.fetchingChannels
+   ja.json: "チャンネルを取得中"
+1432. ai.actions.searchingNotes
+   ja.json: "ノートを検索中"
+1433. ai.actions.gettingCurrentTime
+   ja.json: "現在時刻を取得中"
+1434. ai.actions.taskCompleted
+   ja.json: "タスク作成完了"
+1435. ai.actions.noteCompleted
+   ja.json: "ノート作成完了"
+1436. ai.actions.eventCompleted
+   ja.json: "イベント作成完了"
+1437. ai.actions.projectCompleted
+   ja.json: "プロジェクト作成完了"
+1438. ai.actions.messageCompleted
+   ja.json: "メッセージ送信完了"
+1439. ai.actions.updateCompleted
+   ja.json: "更新完了"
+1440. ai.actions.fetchCompleted
+   ja.json: "取得完了"
+1441. ai.actions.searchCompleted
+   ja.json: "検索完了"
+1442. home
+   ja.json: {...} (2 keys)
+1443. home.seo
+   ja.json: {...} (2 keys)
+1444. home.seo.title
+   ja.json: "オールインワンワークスペースプラットフォーム"
+1445. home.seo.description
+   ja.json: "統合されたチャット、プロジェクト、ファイル、カレンダー、ノート、ビデオ通話でチームを統合。AI搭載のコラボレーションツールで生産性を向上。無料トライアルを開始。"
+1446. home.loading
+   ja.json: "読み込み中..."
+1447. blog
+   ja.json: {...} (5 keys)
+1448. blog.title
+   ja.json: "ブログ - Deskiveのインサイトと更新情報"
+1449. blog.description
+   ja.json: "Deskiveチームからの最新のインサイト、ヒント、更新情報を読む"
+1450. blog.section
+   ja.json: {...} (8 keys)
+1451. blog.section.title
+   ja.json: "私たちのブログ"
+1452. blog.section.latest
+   ja.json: "最新"
+1453. blog.section.insights
+   ja.json: "インサイト"
+1454. blog.section.subtitle
+   ja.json: "チームからの生産性のヒント、コラボレーションガイド、職場のインサイトを発見"
+1455. blog.section.viewAll
+   ja.json: "すべての投稿を見る"
+1456. blog.section.noPosts
+   ja.json: "ブログ投稿はまだありません"
+1457. blog.section.noPostsDesc
+   ja.json: "チームからのインサイトと更新情報をお楽しみに"
+1458. blog.section.readTime
+   ja.json: "{time}分で読む"
+1459. blog.post
+   ja.json: {...} (6 keys)
+1460. blog.post.backToBlog
+   ja.json: "ブログに戻る"
+1461. blog.post.notFound
+   ja.json: "投稿が見つかりません"
+1462. blog.post.tags
+   ja.json: "タグ"
+1463. blog.post.ratings
+   ja.json: {...} (18 keys)
+1464. blog.post.ratings.title
+   ja.json: "評価とレビュー"
+1465. blog.post.ratings.average
+   ja.json: "平均評価"
+1466. blog.post.ratings.rating
+   ja.json: "評価"
+1467. blog.post.ratings.ratings
+   ja.json: "評価"
+1468. blog.post.ratings.distribution
+   ja.json: "評価分布"
+1469. blog.post.ratings.yourRating
+   ja.json: "あなたの評価"
+1470. blog.post.ratings.submitRating
+   ja.json: "評価を送信"
+1471. blog.post.ratings.reviewOptional
+   ja.json: "レビュー（任意）"
+1472. blog.post.ratings.reviewPlaceholder
+   ja.json: "この投稿についてのご意見をお聞かせください..."
+1473. blog.post.ratings.nameOptional
+   ja.json: "名前（任意）"
+1474. blog.post.ratings.namePlaceholder
+   ja.json: "あなたの名前"
+1475. blog.post.ratings.emailOptional
+   ja.json: "メール（任意）"
+1476. blog.post.ratings.emailPlaceholder
+   ja.json: "your@email.com"
+1477. blog.post.ratings.recentReviews
+   ja.json: "最近のレビュー"
+1478. blog.post.ratings.selectRating
+   ja.json: "評価を選択してください"
+1479. blog.post.ratings.submitting
+   ja.json: "送信中..."
+1480. blog.post.ratings.submitSuccess
+   ja.json: "評価を送信しました！"
+1481. blog.post.ratings.submitError
+   ja.json: "評価の送信に失敗しました"
+1482. blog.post.comments
+   ja.json: {...} (23 keys)
+1483. blog.post.comments.title
+   ja.json: "コメント"
+1484. blog.post.comments.count
+   ja.json: "{count}件のコメント"
+1485. blog.post.comments.noComments
+   ja.json: "まだコメントがありません。最初にコメントしましょう！"
+1486. blog.post.comments.addPlaceholder
+   ja.json: "コメントを追加..."
+1487. blog.post.comments.submit
+   ja.json: "コメント"
+1488. blog.post.comments.submitting
+   ja.json: "送信中..."
+1489. blog.post.comments.loginRequired
+   ja.json: "コメントするにはログインしてください"
+1490. blog.post.comments.loginButton
+   ja.json: "ログインしてコメント"
+1491. blog.post.comments.writeComment
+   ja.json: "コメントを書いてください"
+1492. blog.post.comments.loginToComment
+   ja.json: "コメントするにはログインしてください"
+1493. blog.post.comments.postSuccess
+   ja.json: "コメントを投稿しました！"
+1494. blog.post.comments.postError
+   ja.json: "コメントの投稿に失敗しました"
+1495. blog.post.comments.reply
+   ja.json: "返信"
+1496. blog.post.comments.replyPlaceholder
+   ja.json: "返信を書く..."
+1497. blog.post.comments.postReply
+   ja.json: "返信を投稿"
+1498. blog.post.comments.posting
+   ja.json: "投稿中..."
+1499. blog.post.comments.cancel
+   ja.json: "キャンセル"
+1500. blog.post.comments.writeReply
+   ja.json: "返信を書いてください"
+1501. blog.post.comments.loginToReply
+   ja.json: "返信するにはログインしてください"
+1502. blog.post.comments.replySuccess
+   ja.json: "返信を投稿しました！"
+1503. blog.post.comments.replyError
+   ja.json: "返信の投稿に失敗しました"
+1504. blog.post.comments.collapse
+   ja.json: "折りたたむ"
+1505. blog.post.comments.expand
+   ja.json: "展開"
+1506. blog.post.related
+   ja.json: {...} (1 keys)
+1507. blog.post.related.title
+   ja.json: "関連投稿"
+1508. blog.search
+   ja.json: {...} (22 keys)
+1509. blog.search.title
+   ja.json: "ブログを検索"
+1510. blog.search.titleWithTerm
+   ja.json: "検索: "{term}" - ブログ | Deskive"
+1511. blog.search.description
+   ja.json: "Deskiveブログで記事を検索 - "{term}"の結果"
+1512. blog.search.placeholder
+   ja.json: "記事、トピックなどを検索..."
+1513. blog.search.filters
+   ja.json: "フィルター"
+1514. blog.search.heading
+   ja.json: "検索フィルター"
+1515. blog.search.clearAll
+   ja.json: "すべてクリア"
+1516. blog.search.category
+   ja.json: "カテゴリ"
+1517. blog.search.allCategories
+   ja.json: "すべてのカテゴリ"
+1518. blog.search.tag
+   ja.json: "タグ"
+1519. blog.search.allTags
+   ja.json: "すべてのタグ"
+1520. blog.search.resultsFor
+   ja.json: "「{term}」の検索結果"
+1521. blog.search.results
+   ja.json: "検索結果"
+1522. blog.search.sortBy
+   ja.json: "並び替え"
+1523. blog.search.latest
+   ja.json: "最新"
+1524. blog.search.alphabetical
+   ja.json: "アルファベット順"
+1525. blog.search.asc
+   ja.json: "昇順"
+1526. blog.search.desc
+   ja.json: "降順"
+1527. blog.search.noResults
+   ja.json: "結果が見つかりません"
+1528. blog.search.noResultsDesc
+   ja.json: "検索条件を変更するか、フィルターをクリアしてください"
+1529. blog.search.clearFilters
+   ja.json: "フィルターをクリア"
+1530. blog.search.browseAll
+   ja.json: "すべての投稿を見る"
+1531. features
+   ja.json: {...} (1 keys)
+1532. features.grid
+   ja.json: {...} (27 keys)
+1533. features.grid.tasks
+   ja.json: "タスク"
+1534. features.grid.kanban
+   ja.json: "カンバンボード"
+1535. features.grid.docs
+   ja.json: "ドキュメント"
+1536. features.grid.aiAssistant
+   ja.json: "AIアシスタント"
+1537. features.grid.calendar
+   ja.json: "カレンダー"
+1538. features.grid.chat
+   ja.json: "チャット"
+1539. features.grid.videoCalls
+   ja.json: "ビデオ通話"
+1540. features.grid.files
+   ja.json: "ファイル"
+1541. features.grid.projects
+   ja.json: "プロジェクト"
+1542. features.grid.reporting
+   ja.json: "レポート"
+1543. features.grid.goals
+   ja.json: "目標"
+1544. features.grid.automations
+   ja.json: "自動化"
+1545. features.grid.customFields
+   ja.json: "カスタムフィールド"
+1546. features.grid.timeTracking
+   ja.json: "時間管理"
+1547. features.grid.dashboards
+   ja.json: "ダッシュボード"
+1548. features.grid.forms
+   ja.json: "フォーム"
+1549. features.grid.reminders
+   ja.json: "リマインダー"
+1550. features.grid.collaboration
+   ja.json: "コラボレーション"
+1551. features.grid.integrations
+   ja.json: "統合"
+1552. features.grid.smartSearch
+   ja.json: "スマート検索"
+1553. features.grid.ganttCharts
+   ja.json: "ガントチャート"
+1554. features.grid.tags
+   ja.json: "タグ"
+1555. features.grid.emails
+   ja.json: "メール"
+1556. features.grid.proofing
+   ja.json: "校正"
+1557. features.grid.templates
+   ja.json: "テンプレート"
+1558. features.grid.guests
+   ja.json: "ゲスト"
+1559. features.grid.support247
+   ja.json: "24時間サポート"
+1560. tools
+   ja.json: {...} (10 keys)
+1561. tools.title
+   ja.json: "ツール"
+1562. tools.subtitle
+   ja.json: "生産性とコラボレーションを向上させるための強力なツール"
+1563. tools.featuresSection
+   ja.json: {...} (2 keys)
+1564. tools.featuresSection.title
+   ja.json: "すべてのツール機能"
+1565. tools.featuresSection.subtitle
+   ja.json: "ワークフローを効率化する包括的なツールスイート"
+1566. tools.documentBuilder
+   ja.json: {...} (2 keys)
+1567. tools.documentBuilder.name
+   ja.json: "ドキュメントビルダー"
+1568. tools.documentBuilder.description
+   ja.json: "リアルタイムコラボレーションを備えたプロフェッショナルなドキュメントを作成"
+1569. tools.bots
+   ja.json: {...} (2 keys)
+1570. tools.bots.name
+   ja.json: "ボット"
+1571. tools.bots.description
+   ja.json: "ワークフローを自動化し、チームの生産性を向上"
+1572. tools.budgetManagement
+   ja.json: {...} (2 keys)
+1573. tools.budgetManagement.name
+   ja.json: "予算管理"
+1574. tools.budgetManagement.description
+   ja.json: "プロジェクト予算と支出を効率的に追跡・管理"
+1575. tools.projectTemplates
+   ja.json: {...} (2 keys)
+1576. tools.projectTemplates.name
+   ja.json: "プロジェクトテンプレート"
+1577. tools.projectTemplates.description
+   ja.json: "事前構築されたテンプレートでプロジェクトをすぐに開始"
+1578. tools.whiteboard
+   ja.json: {...} (2 keys)
+1579. tools.whiteboard.name
+   ja.json: "ホワイトボード"
+1580. tools.whiteboard.description
+   ja.json: "リアルタイムでアイデアをブレインストーミングし視覚化"
+1581. tools.requestApproval
+   ja.json: {...} (2 keys)
+1582. tools.requestApproval.name
+   ja.json: "承認リクエスト"
+1583. tools.requestApproval.description
+   ja.json: "承認ワークフローを効率化し、進捗を追跡"
+1584. tools.forms
+   ja.json: {...} (2 keys)
+1585. tools.forms.name
+   ja.json: "フォーム"
+1586. tools.forms.description
+   ja.json: "カスタムフォームを作成してデータを収集"
+1587. documents
+   ja.json: {...} (13 keys)
+1588. documents.title
+   ja.json: "ドキュメントビルダー"
+1589. documents.subtitle
+   ja.json: "リアルタイムコラボレーションを備えたプロフェッショナルなドキュメントを作成"
+1590. documents.hero
+   ja.json: {...} (4 keys)
+1591. documents.hero.badge
+   ja.json: "強力なドキュメント作成"
+1592. documents.hero.title
+   ja.json: "リアルタイムコラボレーションでドキュメントを作成"
+1593. documents.hero.description
+   ja.json: "チームと一緒にプロフェッショナルなドキュメントを作成、編集、コラボレーション。直感的なエディタと強力な機能でドキュメント作成がこれまで以上に簡単に。"
+1594. documents.hero.cta
+   ja.json: {...} (2 keys)
+1595. documents.hero.cta.primary
+   ja.json: "無料で始める"
+1596. documents.hero.cta.secondary
+   ja.json: "デモを見る"
+1597. documents.features
+   ja.json: {...} (8 keys)
+1598. documents.features.title
+   ja.json: "強力なドキュメント機能"
+1599. documents.features.subtitle
+   ja.json: "生産性を向上させるために必要なすべて"
+1600. documents.features.realTimeCollaboration
+   ja.json: {...} (2 keys)
+1601. documents.features.realTimeCollaboration.title
+   ja.json: "リアルタイムコラボレーション"
+1602. documents.features.realTimeCollaboration.description
+   ja.json: "チームメイトと同時に作業。変更は即座に同期され、全員が同じページを見ています。"
+1603. documents.features.richTextEditor
+   ja.json: {...} (2 keys)
+1604. documents.features.richTextEditor.title
+   ja.json: "リッチテキストエディタ"
+1605. documents.features.richTextEditor.description
+   ja.json: "書式設定、画像、表などを備えた強力なエディタで美しいドキュメントを作成。"
+1606. documents.features.versionHistory
+   ja.json: {...} (2 keys)
+1607. documents.features.versionHistory.title
+   ja.json: "バージョン履歴"
+1608. documents.features.versionHistory.description
+   ja.json: "すべての変更を追跡し、必要に応じて以前のバージョンに戻すことができます。"
+1609. documents.features.templates
+   ja.json: {...} (2 keys)
+1610. documents.features.templates.title
+   ja.json: "ドキュメントテンプレート"
+1611. documents.features.templates.description
+   ja.json: "事前構築されたテンプレートから始めるか、独自のテンプレートを作成して時間を節約。"
+1612. documents.features.aiAssistance
+   ja.json: {...} (2 keys)
+1613. documents.features.aiAssistance.title
+   ja.json: "AI執筆支援"
+1614. documents.features.aiAssistance.description
+   ja.json: "AIを活用したサジェスチョンでコンテンツを改善し、より速く書く。"
+1615. documents.features.exportOptions
+   ja.json: {...} (2 keys)
+1616. documents.features.exportOptions.title
+   ja.json: "エクスポートオプション"
+1617. documents.features.exportOptions.description
+   ja.json: "ドキュメントをPDF、Word、Markdown、その他の形式にエクスポート。"
+1618. documents.useCases
+   ja.json: {...} (6 keys)
+1619. documents.useCases.title
+   ja.json: "ドキュメントのユースケース"
+1620. documents.useCases.subtitle
+   ja.json: "チームによる使用方法"
+1621. documents.useCases.projectDocumentation
+   ja.json: {...} (2 keys)
+1622. documents.useCases.projectDocumentation.title
+   ja.json: "プロジェクトドキュメント"
+1623. documents.useCases.projectDocumentation.description
+   ja.json: "プロジェクト計画、要件、技術仕様を作成・管理。"
+1624. documents.useCases.meetingNotes
+   ja.json: {...} (2 keys)
+1625. documents.useCases.meetingNotes.title
+   ja.json: "会議メモ"
+1626. documents.useCases.meetingNotes.description
+   ja.json: "会議の議事録を取り、アクションアイテムを追跡し、意思決定を文書化。"
+1627. documents.useCases.knowledgeBase
+   ja.json: {...} (2 keys)
+1628. documents.useCases.knowledgeBase.title
+   ja.json: "ナレッジベース"
+1629. documents.useCases.knowledgeBase.description
+   ja.json: "チームの知識とベストプラクティスを一元化された場所に構築。"
+1630. documents.useCases.proposals
+   ja.json: {...} (2 keys)
+1631. documents.useCases.proposals.title
+   ja.json: "提案書とレポート"
+1632. documents.useCases.proposals.description
+   ja.json: "クライアントや利害関係者向けのプロフェッショナルな提案書とレポートを作成。"
+1633. documents.stats
+   ja.json: {...} (4 keys)
+1634. documents.stats.totalDocuments
+   ja.json: "総ドキュメント数"
+1635. documents.stats.drafts
+   ja.json: "下書き"
+1636. documents.stats.proposals
+   ja.json: "提案書"
+1637. documents.stats.archived
+   ja.json: "アーカイブ済み"
+1638. documents.types
+   ja.json: {...} (5 keys)
+1639. documents.types.allDocuments
+   ja.json: "すべてのドキュメント"
+1640. documents.types.proposals
+   ja.json: "提案書"
+1641. documents.types.contracts
+   ja.json: "契約書"
+1642. documents.types.invoices
+   ja.json: "請求書"
+1643. documents.types.sows
+   ja.json: "業務委託契約書"
+1644. documents.status
+   ja.json: {...} (3 keys)
+1645. documents.status.allStatus
+   ja.json: "すべてのステータス"
+1646. documents.status.draft
+   ja.json: "下書き"
+1647. documents.status.archived
+   ja.json: "アーカイブ済み"
+1648. documents.search
+   ja.json: {...} (1 keys)
+1649. documents.search.placeholder
+   ja.json: "ドキュメントを検索..."
+1650. documents.filters
+   ja.json: {...} (1 keys)
+1651. documents.filters.status
+   ja.json: "ステータス"
+1652. documents.actions
+   ja.json: {...} (1 keys)
+1653. documents.actions.newDocument
+   ja.json: "新規ドキュメント"
+1654. documents.noDescription
+   ja.json: "説明なし"
+1655. documents.cta
+   ja.json: {...} (3 keys)
+1656. documents.cta.title
+   ja.json: "ドキュメント作成を始める準備はできましたか？"
+1657. documents.cta.description
+   ja.json: "何千ものチームに参加して、ドキュメントのコラボレーション方法を変革しましょう。"
+1658. documents.cta.button
+   ja.json: "無料で始める"
+1659. bots
+   ja.json: {...} (24 keys)
+1660. bots.title
+   ja.json: "ボットビルダー"
+1661. bots.subtitle
+   ja.json: "ワークフローを自動化し、チームの生産性を向上"
+1662. bots.description
+   ja.json: "カスタムボットを作成するか、ワークスペース用に事前構築されたボットを有効化します"
+1663. bots.loading
+   ja.json: "ボットを読み込み中..."
+1664. bots.button
+   ja.json: {...} (2 keys)
+1665. bots.button.create
+   ja.json: "ボットを作成"
+1666. bots.button.createFirst
+   ja.json: "最初のボットを作成"
+1667. bots.tabs
+   ja.json: {...} (6 keys)
+1668. bots.tabs.custom
+   ja.json: "カスタムボット"
+1669. bots.tabs.prebuilt
+   ja.json: "事前構築ボット"
+1670. bots.tabs.general
+   ja.json: "一般"
+1671. bots.tabs.triggers
+   ja.json: "トリガー"
+1672. bots.tabs.actions
+   ja.json: "アクション"
+1673. bots.tabs.settings
+   ja.json: "設定"
+1674. bots.empty
+   ja.json: {...} (2 keys)
+1675. bots.empty.title
+   ja.json: "カスタムボットはまだありません"
+1676. bots.empty.description
+   ja.json: "チャネルや会話で応答、タスク、ワークフローを自動化するための最初のボットを作成します。"
+1677. bots.type
+   ja.json: {...} (6 keys)
+1678. bots.type.aiAssistant
+   ja.json: "AIアシスタント"
+1679. bots.type.webhook
+   ja.json: "Webhook"
+1680. bots.type.prebuilt
+   ja.json: "事前構築"
+1681. bots.type.custom
+   ja.json: "カスタム"
+1682. bots.type.customBot
+   ja.json: "カスタムボット"
+1683. bots.type.webhookBot
+   ja.json: "Webhookボット"
+1684. bots.action
+   ja.json: {...} (5 keys)
+1685. bots.action.viewLogs
+   ja.json: "ログを表示"
+1686. bots.action.activate
+   ja.json: "有効化"
+1687. bots.action.deactivate
+   ja.json: "無効化"
+1688. bots.action.edit
+   ja.json: "編集"
+1689. bots.action.delete
+   ja.json: "削除"
+1690. bots.noDescription
+   ja.json: "説明がありません"
+1691. bots.triggers
+   ja.json: {...} (6 keys)
+1692. bots.triggers.keyword
+   ja.json: "キーワード"
+1693. bots.triggers.regexPattern
+   ja.json: "正規表現パターン"
+1694. bots.triggers.schedule
+   ja.json: "スケジュール"
+1695. bots.triggers.webhook
+   ja.json: "Webhook"
+1696. bots.triggers.mention
+   ja.json: "メンション"
+1697. bots.triggers.anyMessage
+   ja.json: "すべてのメッセージ"
+1698. bots.actions
+   ja.json: {...} (7 keys)
+1699. bots.actions.sendMessage
+   ja.json: "メッセージを送信"
+1700. bots.actions.aiResponse
+   ja.json: "AI応答"
+1701. bots.actions.aiAutopilot
+   ja.json: "AI自動操縦"
+1702. bots.actions.createTask
+   ja.json: "タスクを作成"
+1703. bots.actions.createEvent
+   ja.json: "イベントを作成"
+1704. bots.actions.callWebhook
+   ja.json: "Webhookを呼び出し"
+1705. bots.actions.sendEmail
+   ja.json: "メールを送信"
+1706. bots.prebuilt
+   ja.json: {...} (5 keys)
+1707. bots.prebuilt.loading
+   ja.json: "事前構築ボットを読み込み中..."
+1708. bots.prebuilt.empty
+   ja.json: {...} (2 keys)
+1709. bots.prebuilt.empty.title
+   ja.json: "事前構築ボットは利用できません"
+1710. bots.prebuilt.empty.description
+   ja.json: "すぐに有効化できるすぐに使えるボットについては、後でもう一度確認してください。"
+1711. bots.prebuilt.activated
+   ja.json: "有効化済み"
+1712. bots.prebuilt.features
+   ja.json: "機能:"
+1713. bots.prebuilt.more
+   ja.json: "その他"
+1714. bots.toast
+   ja.json: {...} (12 keys)
+1715. bots.toast.activated
+   ja.json: "ボットが有効化されました"
+1716. bots.toast.deactivated
+   ja.json: "ボットが無効化されました"
+1717. bots.toast.isNowActive
+   ja.json: "が有効になりました"
+1718. bots.toast.isNowInactive
+   ja.json: "が無効になりました"
+1719. bots.toast.isNowActiveAndReady
+   ja.json: "が有効化され、使用可能になりました"
+1720. bots.toast.hasBeenDeactivated
+   ja.json: "が無効化されました"
+1721. bots.toast.deleted
+   ja.json: "ボットが削除されました"
+1722. bots.toast.hasBeenDeleted
+   ja.json: "が削除されました"
+1723. bots.toast.failedUpdateStatus
+   ja.json: "ボットのステータスの更新に失敗しました"
+1724. bots.toast.failedDelete
+   ja.json: "ボットの削除に失敗しました"
+1725. bots.toast.failedActivate
+   ja.json: "ボットの有効化に失敗しました"
+1726. bots.toast.failedDeactivate
+   ja.json: "ボットの無効化に失敗しました"
+1727. bots.error
+   ja.json: {...} (2 keys)
+1728. bots.error.loading
+   ja.json: "ボットの読み込みエラー"
+1729. bots.error.tryAgain
+   ja.json: "後でもう一度お試しください"
+1730. bots.delete
+   ja.json: {...} (2 keys)
+1731. bots.delete.title
+   ja.json: "ボットを削除"
+1732. bots.delete.description
+   ja.json: "「{name}」を削除してもよろしいですか？この操作は元に戻せません。すべてのトリガー、アクション、実行ログが完全に削除されます。"
+1733. bots.hero
+   ja.json: {...} (4 keys)
+1734. bots.hero.badge
+   ja.json: "インテリジェントオートメーション"
+1735. bots.hero.title
+   ja.json: "AIボットでワークフローを自動化"
+1736. bots.hero.description
+   ja.json: "インテリジェントボットで反復的なタスクを自動化。タスクの割り当て、通知の送信、承認の管理など、すべて自動的に。"
+1737. bots.hero.cta
+   ja.json: {...} (2 keys)
+1738. bots.hero.cta.primary
+   ja.json: "ボットを作成"
+1739. bots.hero.cta.secondary
+   ja.json: "動作を見る"
+1740. bots.features
+   ja.json: {...} (8 keys)
+1741. bots.features.title
+   ja.json: "ボット機能"
+1742. bots.features.subtitle
+   ja.json: "チームをより効率的にする自動化"
+1743. bots.features.taskAutomation
+   ja.json: {...} (2 keys)
+1744. bots.features.taskAutomation.title
+   ja.json: "タスク自動化"
+1745. bots.features.taskAutomation.description
+   ja.json: "プロジェクトステータス、期日、その他の条件に基づいてタスクを自動的に作成、割り当て、更新。"
+1746. bots.features.smartNotifications
+   ja.json: {...} (2 keys)
+1747. bots.features.smartNotifications.title
+   ja.json: "スマート通知"
+1748. bots.features.smartNotifications.description
+   ja.json: "適切な人に適切なタイミングで関連する更新を送信。"
+1749. bots.features.approvalWorkflows
+   ja.json: {...} (2 keys)
+1750. bots.features.approvalWorkflows.title
+   ja.json: "承認ワークフロー"
+1751. bots.features.approvalWorkflows.description
+   ja.json: "承認プロセスを自動化し、承認が必要なときにリマインダーを送信。"
+1752. bots.features.dataSync
+   ja.json: {...} (2 keys)
+1753. bots.features.dataSync.title
+   ja.json: "データ同期"
+1754. bots.features.dataSync.description
+   ja.json: "異なるツールや統合間でデータを同期。"
+1755. bots.features.customTriggers
+   ja.json: {...} (2 keys)
+1756. bots.features.customTriggers.title
+   ja.json: "カスタムトリガー"
+1757. bots.features.customTriggers.description
+   ja.json: "タスクステータス、期日、カスタムフィールドなど、あらゆるイベントに基づいてボットをトリガー。"
+1758. bots.features.aiPowered
+   ja.json: {...} (2 keys)
+1759. bots.features.aiPowered.title
+   ja.json: "AI搭載"
+1760. bots.features.aiPowered.description
+   ja.json: "AI機能を使用してスマートな意思決定を行い、パターンから学習。"
+1761. bots.templates
+   ja.json: {...} (6 keys)
+1762. bots.templates.title
+   ja.json: "人気のボットテンプレート"
+1763. bots.templates.subtitle
+   ja.json: "これらのテンプレートから始めるか、独自のボットを作成"
+1764. bots.templates.dailyStandup
+   ja.json: {...} (2 keys)
+1765. bots.templates.dailyStandup.title
+   ja.json: "デイリースタンドアップリマインダー"
+1766. bots.templates.dailyStandup.description
+   ja.json: "毎朝スタンドアップの更新をチームに自動的にリマインド。"
+1767. bots.templates.taskAssignment
+   ja.json: {...} (2 keys)
+1768. bots.templates.taskAssignment.title
+   ja.json: "タスク自動割り当て"
+1769. bots.templates.taskAssignment.description
+   ja.json: "ワークロード、スキル、可用性に基づいてタスクをチームメンバーに自動的に割り当て。"
+1770. bots.templates.statusUpdates
+   ja.json: {...} (2 keys)
+1771. bots.templates.statusUpdates.title
+   ja.json: "ステータス更新"
+1772. bots.templates.statusUpdates.description
+   ja.json: "関係者にプロジェクトのステータス更新を定期的に送信。"
+1773. bots.templates.deadlineReminders
+   ja.json: {...} (2 keys)
+1774. bots.templates.deadlineReminders.title
+   ja.json: "期日リマインダー"
+1775. bots.templates.deadlineReminders.description
+   ja.json: "タスクの期日が近づいたときにチームに通知。"
+1776. bots.useCases
+   ja.json: {...} (6 keys)
+1777. bots.useCases.title
+   ja.json: "ボットのユースケース"
+1778. bots.useCases.subtitle
+   ja.json: "チームがボットをどのように使用しているか"
+1779. bots.useCases.onboarding
+   ja.json: {...} (2 keys)
+1780. bots.useCases.onboarding.title
+   ja.json: "従業員オンボーディング"
+1781. bots.useCases.onboarding.description
+   ja.json: "新しいチームメンバーのオンボーディングプロセスを自動化。"
+1782. bots.useCases.projectManagement
+   ja.json: {...} (2 keys)
+1783. bots.useCases.projectManagement.title
+   ja.json: "プロジェクト管理"
+1784. bots.useCases.projectManagement.description
+   ja.json: "プロジェクトのステータス更新とタスク割り当てを自動化。"
+1785. bots.useCases.clientCommunication
+   ja.json: {...} (2 keys)
+1786. bots.useCases.clientCommunication.title
+   ja.json: "クライアントコミュニケーション"
+1787. bots.useCases.clientCommunication.description
+   ja.json: "クライアントへの更新と通知を自動化。"
+1788. bots.useCases.reporting
+   ja.json: {...} (2 keys)
+1789. bots.useCases.reporting.title
+   ja.json: "レポート"
+1790. bots.useCases.reporting.description
+   ja.json: "定期的なレポートを生成し、関係者に送信。"
+1791. bots.cta
+   ja.json: {...} (3 keys)
+1792. bots.cta.title
+   ja.json: "ワークフローの自動化を始める準備はできましたか？"
+1793. bots.cta.description
+   ja.json: "インテリジェントボットで時間を節約し、生産性を向上させましょう。"
+1794. bots.cta.button
+   ja.json: "最初のボットを作成"
+1795. bots.builder
+   ja.json: {...} (36 keys)
+1796. bots.builder.loadingBot
+   ja.json: "ボットを読み込み中..."
+1797. bots.builder.createNewBot
+   ja.json: "新しいボットを作成"
+1798. bots.builder.editBot
+   ja.json: "編集: {name}"
+1799. bots.builder.install
+   ja.json: "インストール"
+1800. bots.builder.save
+   ja.json: "保存"
+1801. bots.builder.saving
+   ja.json: "保存中..."
+1802. bots.builder.botInformation
+   ja.json: "ボット情報"
+1803. bots.builder.botInformationDesc
+   ja.json: "ボットの名前、説明、種類を設定します"
+1804. bots.builder.botSettings
+   ja.json: "ボット設定"
+1805. bots.builder.botSettingsDesc
+   ja.json: "レート制限と実行設定を構成"
+1806. bots.builder.triggersDesc
+   ja.json: "ボットがいつ応答するかを定義"
+1807. bots.builder.actionsDesc
+   ja.json: "トリガーされたときにボットが実行する動作を定義"
+1808. bots.builder.addTrigger
+   ja.json: "トリガーを追加"
+1809. bots.builder.addAction
+   ja.json: "アクションを追加"
+1810. bots.builder.loadingTriggers
+   ja.json: "トリガーを読み込み中..."
+1811. bots.builder.loadingActions
+   ja.json: "アクションを読み込み中..."
+1812. bots.builder.noTriggers
+   ja.json: "トリガーがまだ設定されていません"
+1813. bots.builder.noTriggersDesc
+   ja.json: "トリガーを追加して、ボットがいつ応答するかを定義してください"
+1814. bots.builder.noActions
+   ja.json: "アクションがまだ設定されていません"
+1815. bots.builder.noActionsDesc
+   ja.json: "アクションを追加して、ボットが実行する動作を定義してください"
+1816. bots.builder.deleteTrigger
+   ja.json: "トリガーを削除"
+1817. bots.builder.deleteTriggerConfirm
+   ja.json: "「{name}」を削除してもよろしいですか？この操作は元に戻せません。"
+1818. bots.builder.deleteAction
+   ja.json: "アクションを削除"
+1819. bots.builder.deleteActionConfirm
+   ja.json: "「{name}」を削除してもよろしいですか？この操作は元に戻せません。"
+1820. bots.builder.botCreated
+   ja.json: "ボットが作成されました"
+1821. bots.builder.botCreatedDesc
+   ja.json: "ボットが正常に作成されました"
+1822. bots.builder.botUpdated
+   ja.json: "ボットが更新されました"
+1823. bots.builder.botUpdatedDesc
+   ja.json: "ボットが正常に更新されました"
+1824. bots.builder.createFailed
+   ja.json: "ボットの作成に失敗しました"
+1825. bots.builder.updateFailed
+   ja.json: "ボットの更新に失敗しました"
+1826. bots.builder.triggerDeleted
+   ja.json: "トリガーが削除されました"
+1827. bots.builder.triggerDeletedDesc
+   ja.json: "トリガーが削除されました"
+1828. bots.builder.triggerDeleteFailed
+   ja.json: "トリガーの削除に失敗しました"
+1829. bots.builder.actionDeleted
+   ja.json: "アクションが削除されました"
+1830. bots.builder.actionDeletedDesc
+   ja.json: "アクションが削除されました"
+1831. bots.builder.actionDeleteFailed
+   ja.json: "アクションの削除に失敗しました"
+1832. bots.form
+   ja.json: {...} (23 keys)
+1833. bots.form.botName
+   ja.json: "ボット名"
+1834. bots.form.botNamePlaceholder
+   ja.json: "my-bot"
+1835. bots.form.botNameDesc
+   ja.json: "ボットの一意の識別子（スペースなし）"
+1836. bots.form.displayName
+   ja.json: "表示名"
+1837. bots.form.displayNamePlaceholder
+   ja.json: "私の素晴らしいボット"
+1838. bots.form.displayNameDesc
+   ja.json: "ユーザーに表示されるフレンドリーな名前"
+1839. bots.form.description
+   ja.json: "説明"
+1840. bots.form.descriptionPlaceholder
+   ja.json: "ボットが何をするかを説明してください..."
+1841. bots.form.botType
+   ja.json: "ボットタイプ"
+1842. bots.form.selectBotType
+   ja.json: "ボットタイプを選択"
+1843. bots.form.botTypeDesc
+   ja.json: "作成するボットのタイプを選択"
+1844. bots.form.status
+   ja.json: "ステータス"
+1845. bots.form.selectStatus
+   ja.json: "ステータスを選択"
+1846. bots.form.statusDesc
+   ja.json: "アクティブなボットのみがトリガーに応答します"
+1847. bots.form.statusDraft
+   ja.json: "下書き"
+1848. bots.form.statusActive
+   ja.json: "アクティブ"
+1849. bots.form.statusInactive
+   ja.json: "非アクティブ"
+1850. bots.form.rateLimit
+   ja.json: "レート制限（1分あたりの実行回数）"
+1851. bots.form.rateLimitDesc
+   ja.json: "このボットが1分間に実行できる最大回数"
+1852. bots.form.responseDelay
+   ja.json: "応答遅延（ミリ秒）"
+1853. bots.form.responseDelayDesc
+   ja.json: "ボットが応答するまでの遅延（0〜10000ミリ秒）"
+1854. bots.form.maxRecursionDepth
+   ja.json: "最大再帰深度"
+1855. bots.form.maxRecursionDepthDesc
+   ja.json: "ボットチェーン実行の最大深度（無限ループを防止）"
+1856. bots.validation
+   ja.json: {...} (4 keys)
+1857. bots.validation.nameRequired
+   ja.json: "名前は必須です"
+1858. bots.validation.nameMaxLength
+   ja.json: "名前は50文字以下にする必要があります"
+1859. bots.validation.displayNameMaxLength
+   ja.json: "表示名は100文字以下にする必要があります"
+1860. bots.validation.descriptionMaxLength
+   ja.json: "説明は500文字以下にする必要があります"
+1861. templates
+   ja.json: {...} (7 keys)
+1862. templates.title
+   ja.json: "プロジェクトテンプレート"
+1863. templates.subtitle
+   ja.json: "事前構築されたテンプレートでプロジェクトをすぐに開始"
+1864. templates.hero
+   ja.json: {...} (4 keys)
+1865. templates.hero.badge
+   ja.json: "プロジェクトテンプレート"
+1866. templates.hero.title
+   ja.json: "テンプレートでプロジェクトを迅速に開始"
+1867. templates.hero.description
+   ja.json: "プロジェクトテンプレートの広範なライブラリから選択するか、独自のテンプレートを作成。ベストプラクティスとプロジェクト構造で時間を節約。"
+1868. templates.hero.cta
+   ja.json: {...} (2 keys)
+1869. templates.hero.cta.primary
+   ja.json: "テンプレートを閲覧"
+1870. templates.hero.cta.secondary
+   ja.json: "カスタムを作成"
+1871. templates.categories
+   ja.json: {...} (8 keys)
+1872. templates.categories.title
+   ja.json: "テンプレートカテゴリ"
+1873. templates.categories.subtitle
+   ja.json: "チームに最適なテンプレートを見つける"
+1874. templates.categories.projectManagement
+   ja.json: {...} (2 keys)
+1875. templates.categories.projectManagement.title
+   ja.json: "プロジェクト管理"
+1876. templates.categories.projectManagement.description
+   ja.json: "あらゆる規模と複雑さのプロジェクト管理テンプレート。"
+1877. templates.categories.softwareDevelopment
+   ja.json: {...} (2 keys)
+1878. templates.categories.softwareDevelopment.title
+   ja.json: "ソフトウェア開発"
+1879. templates.categories.softwareDevelopment.description
+   ja.json: "スプリント、バックログ、リリース計画のテンプレート。"
+1880. templates.categories.marketing
+   ja.json: {...} (2 keys)
+1881. templates.categories.marketing.title
+   ja.json: "マーケティング"
+1882. templates.categories.marketing.description
+   ja.json: "キャンペーン、コンテンツカレンダー、製品発売のテンプレート。"
+1883. templates.categories.sales
+   ja.json: {...} (2 keys)
+1884. templates.categories.sales.title
+   ja.json: "営業"
+1885. templates.categories.sales.description
+   ja.json: "CRM、パイプライン管理、営業追跡のテンプレート。"
+1886. templates.categories.hr
+   ja.json: {...} (2 keys)
+1887. templates.categories.hr.title
+   ja.json: "人事"
+1888. templates.categories.hr.description
+   ja.json: "採用、オンボーディング、パフォーマンスレビューのテンプレート。"
+1889. templates.categories.creative
+   ja.json: {...} (2 keys)
+1890. templates.categories.creative.title
+   ja.json: "クリエイティブ"
+1891. templates.categories.creative.description
+   ja.json: "デザインプロジェクト、コンテンツ制作、クリエイティブワークフローのテンプレート。"
+1892. templates.features
+   ja.json: {...} (6 keys)
+1893. templates.features.title
+   ja.json: "テンプレート機能"
+1894. templates.features.subtitle
+   ja.json: "テンプレートが時間を節約する方法"
+1895. templates.features.quickSetup
+   ja.json: {...} (2 keys)
+1896. templates.features.quickSetup.title
+   ja.json: "クイックセットアップ"
+1897. templates.features.quickSetup.description
+   ja.json: "事前構成されたワークフローとタスクでプロジェクトを数分で開始。"
+1898. templates.features.customizable
+   ja.json: {...} (2 keys)
+1899. templates.features.customizable.title
+   ja.json: "完全カスタマイズ可能"
+1900. templates.features.customizable.description
+   ja.json: "特定のニーズに合わせてテンプレートを変更。"
+1901. templates.features.bestPractices
+   ja.json: {...} (2 keys)
+1902. templates.features.bestPractices.title
+   ja.json: "ベストプラクティス"
+1903. templates.features.bestPractices.description
+   ja.json: "業界のベストプラクティスとプロジェクト管理の方法論に基づいて構築。"
+1904. templates.features.shareTemplates
+   ja.json: {...} (2 keys)
+1905. templates.features.shareTemplates.title
+   ja.json: "テンプレートを共有"
+1906. templates.features.shareTemplates.description
+   ja.json: "チームや組織全体でテンプレートを共有。"
+1907. templates.popular
+   ja.json: {...} (6 keys)
+1908. templates.popular.title
+   ja.json: "人気のテンプレート"
+1909. templates.popular.subtitle
+   ja.json: "最も使用されているテンプレート"
+1910. templates.popular.websiteRedesign
+   ja.json: {...} (2 keys)
+1911. templates.popular.websiteRedesign.title
+   ja.json: "ウェブサイトリデザイン"
+1912. templates.popular.websiteRedesign.description
+   ja.json: "ウェブサイトリデザインプロジェクトのための完全なテンプレート。"
+1913. templates.popular.productLaunch
+   ja.json: {...} (2 keys)
+1914. templates.popular.productLaunch.title
+   ja.json: "製品発売"
+1915. templates.popular.productLaunch.description
+   ja.json: "製品発売を計画・実行するためのテンプレート。"
+1916. templates.popular.sprintPlanning
+   ja.json: {...} (2 keys)
+1917. templates.popular.sprintPlanning.title
+   ja.json: "スプリント計画"
+1918. templates.popular.sprintPlanning.description
+   ja.json: "アジャイルスプリントを計画・管理するためのテンプレート。"
+1919. templates.popular.eventPlanning
+   ja.json: {...} (2 keys)
+1920. templates.popular.eventPlanning.title
+   ja.json: "イベント計画"
+1921. templates.popular.eventPlanning.description
+   ja.json: "あらゆる規模のイベントを計画・管理。"
+1922. templates.cta
+   ja.json: {...} (3 keys)
+1923. templates.cta.title
+   ja.json: "テンプレートでプロジェクトを開始する準備はできましたか？"
+1924. templates.cta.description
+   ja.json: "広範なテンプレートライブラリから選択して、すぐに開始しましょう。"
+1925. templates.cta.button
+   ja.json: "テンプレートを閲覧"
+1926. approvals
+   ja.json: {...} (8 keys)
+1927. approvals.title
+   ja.json: "承認リクエスト"
+1928. approvals.subtitle
+   ja.json: "承認ワークフローを効率化し、進捗を追跡"
+1929. approvals.hero
+   ja.json: {...} (4 keys)
+1930. approvals.hero.badge
+   ja.json: "承認管理"
+1931. approvals.hero.title
+   ja.json: "承認プロセスを効率化"
+1932. approvals.hero.description
+   ja.json: "承認ワークフローを簡素化。承認を迅速に作成、送信、追跡。自動リマインダーとリアルタイム通知で全員が同じページにいるようにします。"
+1933. approvals.hero.cta
+   ja.json: {...} (2 keys)
+1934. approvals.hero.cta.primary
+   ja.json: "承認を作成"
+1935. approvals.hero.cta.secondary
+   ja.json: "動作を見る"
+1936. approvals.features
+   ja.json: {...} (8 keys)
+1937. approvals.features.title
+   ja.json: "承認機能"
+1938. approvals.features.subtitle
+   ja.json: "承認を簡単に管理"
+1939. approvals.features.customWorkflows
+   ja.json: {...} (2 keys)
+1940. approvals.features.customWorkflows.title
+   ja.json: "カスタムワークフロー"
+1941. approvals.features.customWorkflows.description
+   ja.json: "組織のニーズに合わせたカスタム承認ワークフローを作成。"
+1942. approvals.features.multiLevelApprovals
+   ja.json: {...} (2 keys)
+1943. approvals.features.multiLevelApprovals.title
+   ja.json: "複数レベルの承認"
+1944. approvals.features.multiLevelApprovals.description
+   ja.json: "複数の承認者とシーケンシャルまたはパラレルの承認を設定。"
+1945. approvals.features.autoReminders
+   ja.json: {...} (2 keys)
+1946. approvals.features.autoReminders.title
+   ja.json: "自動リマインダー"
+1947. approvals.features.autoReminders.description
+   ja.json: "保留中の承認について承認者に自動的にリマインド。"
+1948. approvals.features.approvalTracking
+   ja.json: {...} (2 keys)
+1949. approvals.features.approvalTracking.title
+   ja.json: "承認追跡"
+1950. approvals.features.approvalTracking.description
+   ja.json: "承認ステータスを追跡し、進捗をリアルタイムで監視。"
+1951. approvals.features.mobileApprovals
+   ja.json: {...} (2 keys)
+1952. approvals.features.mobileApprovals.title
+   ja.json: "モバイル承認"
+1953. approvals.features.mobileApprovals.description
+   ja.json: "モバイルデバイスから外出先でリクエストを承認。"
+1954. approvals.features.auditTrail
+   ja.json: {...} (2 keys)
+1955. approvals.features.auditTrail.title
+   ja.json: "監査証跡"
+1956. approvals.features.auditTrail.description
+   ja.json: "コンプライアンスと説明責任のためにすべての承認決定を記録。"
+1957. approvals.types
+   ja.json: {...} (8 keys)
+1958. approvals.types.title
+   ja.json: "承認タイプ"
+1959. approvals.types.subtitle
+   ja.json: "承認できるもの"
+1960. approvals.types.documents
+   ja.json: {...} (2 keys)
+1961. approvals.types.documents.title
+   ja.json: "ドキュメント"
+1962. approvals.types.documents.description
+   ja.json: "提案書、契約書、レポート、その他のドキュメントの承認を得る。"
+1963. approvals.types.expenses
+   ja.json: {...} (2 keys)
+1964. approvals.types.expenses.title
+   ja.json: "経費"
+1965. approvals.types.expenses.description
+   ja.json: "経費レポートと購入リクエストを承認。"
+1966. approvals.types.timeOff
+   ja.json: {...} (2 keys)
+1967. approvals.types.timeOff.title
+   ja.json: "休暇"
+1968. approvals.types.timeOff.description
+   ja.json: "休暇申請と休暇リクエストを管理。"
+1969. approvals.types.projects
+   ja.json: {...} (2 keys)
+1970. approvals.types.projects.title
+   ja.json: "プロジェクト"
+1971. approvals.types.projects.description
+   ja.json: "プロジェクトの提案、フェーズ、成果物の承認を得る。"
+1972. approvals.types.designs
+   ja.json: {...} (2 keys)
+1973. approvals.types.designs.title
+   ja.json: "デザイン"
+1974. approvals.types.designs.description
+   ja.json: "デザインのモックアップとクリエイティブ資産をレビュー・承認。"
+1975. approvals.types.budgets
+   ja.json: {...} (2 keys)
+1976. approvals.types.budgets.title
+   ja.json: "予算"
+1977. approvals.types.budgets.description
+   ja.json: "予算の提案と財務計画を承認。"
+1978. approvals.workflow
+   ja.json: {...} (6 keys)
+1979. approvals.workflow.title
+   ja.json: "承認ワークフロー"
+1980. approvals.workflow.subtitle
+   ja.json: "シンプルでパワフル"
+1981. approvals.workflow.create
+   ja.json: {...} (2 keys)
+1982. approvals.workflow.create.title
+   ja.json: "作成"
+1983. approvals.workflow.create.description
+   ja.json: "承認リクエストを作成し、承認者を割り当てる。"
+1984. approvals.workflow.review
+   ja.json: {...} (2 keys)
+1985. approvals.workflow.review.title
+   ja.json: "レビュー"
+1986. approvals.workflow.review.description
+   ja.json: "承認者がリクエストをレビューし、決定を下す。"
+1987. approvals.workflow.track
+   ja.json: {...} (2 keys)
+1988. approvals.workflow.track.title
+   ja.json: "追跡"
+1989. approvals.workflow.track.description
+   ja.json: "進捗を監視し、自動更新を受け取る。"
+1990. approvals.workflow.complete
+   ja.json: {...} (2 keys)
+1991. approvals.workflow.complete.title
+   ja.json: "完了"
+1992. approvals.workflow.complete.description
+   ja.json: "承認されたら、次のステップに進む。"
+1993. approvals.stats
+   ja.json: {...} (4 keys)
+1994. approvals.stats.approvals
+   ja.json: "処理された承認"
+1995. approvals.stats.timeReduction
+   ja.json: "承認時間の短縮"
+1996. approvals.stats.completion
+   ja.json: "完了率"
+1997. approvals.stats.satisfaction
+   ja.json: "ユーザー満足度"
+1998. approvals.cta
+   ja.json: {...} (3 keys)
+1999. approvals.cta.title
+   ja.json: "承認の効率化を始める準備はできましたか？"
+2000. approvals.cta.description
+   ja.json: "時間を節約し、より速く承認を得る。"
+2001. approvals.cta.button
+   ja.json: "承認を作成"
+2002. whiteboard
+   ja.json: {...} (7 keys)
+2003. whiteboard.title
+   ja.json: "ホワイトボード"
+2004. whiteboard.subtitle
+   ja.json: "リアルタイムでアイデアをブレインストーミングし視覚化"
+2005. whiteboard.hero
+   ja.json: {...} (4 keys)
+2006. whiteboard.hero.badge
+   ja.json: "ビジュアルコラボレーション"
+2007. whiteboard.hero.title
+   ja.json: "リアルタイムでアイデアをブレインストーミング"
+2008. whiteboard.hero.description
+   ja.json: "無限のキャンバスでビジュアルコラボレーション。ブレインストーミング、計画、複雑なアイデアをインタラクティブなホワイトボードで視覚化。"
+2009. whiteboard.hero.cta
+   ja.json: {...} (2 keys)
+2010. whiteboard.hero.cta.primary
+   ja.json: "ホワイトボードを作成"
+2011. whiteboard.hero.cta.secondary
+   ja.json: "例を見る"
+2012. whiteboard.features
+   ja.json: {...} (8 keys)
+2013. whiteboard.features.title
+   ja.json: "ホワイトボード機能"
+2014. whiteboard.features.subtitle
+   ja.json: "創造性を解き放つために必要なすべて"
+2015. whiteboard.features.infiniteCanvas
+   ja.json: {...} (2 keys)
+2016. whiteboard.features.infiniteCanvas.title
+   ja.json: "無限キャンバス"
+2017. whiteboard.features.infiniteCanvas.description
+   ja.json: "制限のない無限のキャンバスで作業。アイデアに合わせてズームイン・アウト。"
+2018. whiteboard.features.realTimeCollab
+   ja.json: {...} (2 keys)
+2019. whiteboard.features.realTimeCollab.title
+   ja.json: "リアルタイムコラボレーション"
+2020. whiteboard.features.realTimeCollab.description
+   ja.json: "チームメンバーと同時に作業。変更は即座に同期。"
+2021. whiteboard.features.drawingTools
+   ja.json: {...} (2 keys)
+2022. whiteboard.features.drawingTools.title
+   ja.json: "描画ツール"
+2023. whiteboard.features.drawingTools.description
+   ja.json: "ペン、図形、矢印、付箋など、豊富な描画ツール。"
+2024. whiteboard.features.templates
+   ja.json: {...} (2 keys)
+2025. whiteboard.features.templates.title
+   ja.json: "テンプレート"
+2026. whiteboard.features.templates.description
+   ja.json: "フローチャート、マインドマップ、プロジェクト計画などのテンプレートから始める。"
+2027. whiteboard.features.imageUpload
+   ja.json: {...} (2 keys)
+2028. whiteboard.features.imageUpload.title
+   ja.json: "画像アップロード"
+2029. whiteboard.features.imageUpload.description
+   ja.json: "画像やファイルを直接ホワイトボードにアップロード。"
+2030. whiteboard.features.exportOptions
+   ja.json: {...} (2 keys)
+2031. whiteboard.features.exportOptions.title
+   ja.json: "エクスポートオプション"
+2032. whiteboard.features.exportOptions.description
+   ja.json: "ホワイトボードを画像、PDF、またはプレゼンテーションとしてエクスポート。"
+2033. whiteboard.useCases
+   ja.json: {...} (8 keys)
+2034. whiteboard.useCases.title
+   ja.json: "ホワイトボードのユースケース"
+2035. whiteboard.useCases.subtitle
+   ja.json: "チームがホワイトボードをどのように使用しているか"
+2036. whiteboard.useCases.brainstorming
+   ja.json: {...} (2 keys)
+2037. whiteboard.useCases.brainstorming.title
+   ja.json: "ブレインストーミング"
+2038. whiteboard.useCases.brainstorming.description
+   ja.json: "チームでアイデアをブレインストーミングし、共同で創造。"
+2039. whiteboard.useCases.projectPlanning
+   ja.json: {...} (2 keys)
+2040. whiteboard.useCases.projectPlanning.title
+   ja.json: "プロジェクト計画"
+2041. whiteboard.useCases.projectPlanning.description
+   ja.json: "プロジェクトのタイムライン、マイルストーン、依存関係を視覚化。"
+2042. whiteboard.useCases.workshopsAndMeetings
+   ja.json: {...} (2 keys)
+2043. whiteboard.useCases.workshopsAndMeetings.title
+   ja.json: "ワークショップと会議"
+2044. whiteboard.useCases.workshopsAndMeetings.description
+   ja.json: "インタラクティブなワークショップと会議を実施。"
+2045. whiteboard.useCases.userFlows
+   ja.json: {...} (2 keys)
+2046. whiteboard.useCases.userFlows.title
+   ja.json: "ユーザーフロー"
+2047. whiteboard.useCases.userFlows.description
+   ja.json: "ユーザージャーニーとプロダクトフローを設計。"
+2048. whiteboard.useCases.mindMaps
+   ja.json: {...} (2 keys)
+2049. whiteboard.useCases.mindMaps.title
+   ja.json: "マインドマップ"
+2050. whiteboard.useCases.mindMaps.description
+   ja.json: "アイデアと概念のマインドマップを作成。"
+2051. whiteboard.useCases.retrospectives
+   ja.json: {...} (2 keys)
+2052. whiteboard.useCases.retrospectives.title
+   ja.json: "レトロスペクティブ"
+2053. whiteboard.useCases.retrospectives.description
+   ja.json: "インタラクティブなホワイトボードでチームのレトロを実施。"
+2054. whiteboard.tools
+   ja.json: {...} (8 keys)
+2055. whiteboard.tools.title
+   ja.json: "描画ツール"
+2056. whiteboard.tools.subtitle
+   ja.json: "表現するために必要なすべて"
+2057. whiteboard.tools.pen
+   ja.json: "フリーハンド描画のためのペン"
+2058. whiteboard.tools.shapes
+   ja.json: "長方形、円、その他の図形"
+2059. whiteboard.tools.arrows
+   ja.json: "接続のための矢印"
+2060. whiteboard.tools.text
+   ja.json: "テキストボックスと注釈"
+2061. whiteboard.tools.stickynotes
+   ja.json: "カラフルな付箋"
+2062. whiteboard.tools.images
+   ja.json: "画像とファイルのアップロード"
+2063. whiteboard.cta
+   ja.json: {...} (3 keys)
+2064. whiteboard.cta.title
+   ja.json: "ビジュアルコラボレーションを始める準備はできましたか？"
+2065. whiteboard.cta.description
+   ja.json: "チームに参加して、ホワイトボードでブレインストーミングと計画を開始しましょう。"
+2066. whiteboard.cta.button
+   ja.json: "ホワイトボードを作成"
+
+================================================================================

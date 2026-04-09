@@ -1,0 +1,317 @@
+import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Pool, QueryResult } from 'pg';
+import { QueryBuilder } from './query-builder';
+
+@Injectable()
+export class DatabaseService implements OnModuleInit, OnModuleDestroy {
+  private readonly logger = new Logger(DatabaseService.name);
+  private pool: Pool;
+
+  constructor(private configService: ConfigService) {}
+
+  async onModuleInit() {
+    this.pool = new Pool({
+      host: this.configService.get('DATABASE_HOST', 'localhost'),
+      port: this.configService.get<number>('DATABASE_PORT', 5432),
+      database: this.configService.get('DATABASE_NAME', 'deskive_dev'),
+      user: this.configService.get('DATABASE_USER', 'postgres'),
+      password: this.configService.get('DATABASE_PASSWORD', 'postgres'),
+      min: this.configService.get<number>('DATABASE_POOL_MIN', 2),
+      max: this.configService.get<number>('DATABASE_POOL_MAX', 10),
+    });
+
+    // Test connection
+    try {
+      const client = await this.pool.connect();
+      client.release();
+      this.logger.log('PostgreSQL connected successfully');
+    } catch (error) {
+      this.logger.error('Failed to connect to PostgreSQL', error.message);
+      throw error;
+    }
+  }
+
+  async onModuleDestroy() {
+    await this.pool?.end();
+  }
+
+  // ============================================
+  // Core Query Method
+  // ============================================
+
+  async query(sql: string, params?: any[]): Promise<QueryResult> {
+    return this.pool.query(sql, params);
+  }
+
+  // ============================================
+  // Query Builder (replaces databaseService.table())
+  // ============================================
+
+  table(tableName: string): QueryBuilder {
+    return new QueryBuilder(this.pool, tableName);
+  }
+
+  // Alias for backward compatibility with database.raw() / database.execute()
+  async raw(sql: string, params?: any[]): Promise<QueryResult> {
+    return this.query(sql, params);
+  }
+
+  async execute(sql: string, params?: any[]): Promise<QueryResult> {
+    return this.query(sql, params);
+  }
+
+  // ============================================
+  // CRUD Helper Methods
+  // (Drop-in replacements for DatabaseService methods)
+  // ============================================
+
+  async findOne(tableName: string, conditions: Record<string, any>): Promise<any | null> {
+    const { whereClause, values } = this.buildWhereClause(conditions);
+    const sql = `SELECT * FROM ${this.escapeIdentifier(tableName)} ${whereClause} LIMIT 1`;
+    const { rows } = await this.query(sql, values);
+    return rows[0] || null;
+  }
+
+  async findMany(
+    tableName: string,
+    conditions: Record<string, any> = {},
+    options: { orderBy?: string; order?: 'asc' | 'desc'; limit?: number; offset?: number } = {},
+  ): Promise<{ data: any[] }> {
+    const { whereClause, values } = this.buildWhereClause(conditions);
+    let sql = `SELECT * FROM ${this.escapeIdentifier(tableName)} ${whereClause}`;
+    const params = [...values];
+
+    if (options.orderBy) {
+      sql += ` ORDER BY ${this.escapeIdentifier(options.orderBy)} ${options.order === 'desc' ? 'DESC' : 'ASC'}`;
+    }
+    if (options.limit) {
+      params.push(options.limit);
+      sql += ` LIMIT $${params.length}`;
+    }
+    if (options.offset) {
+      params.push(options.offset);
+      sql += ` OFFSET $${params.length}`;
+    }
+
+    const { rows } = await this.query(sql, params);
+    return { data: rows };
+  }
+
+  // Alias matching DatabaseService.find() which also returns count
+  async find(
+    tableName: string,
+    conditions: Record<string, any> = {},
+    options: { orderBy?: string; order?: 'asc' | 'desc'; limit?: number; offset?: number } = {},
+  ): Promise<{ data: any[]; count: number }> {
+    const result = await this.findMany(tableName, conditions, options);
+
+    // Get total count
+    const { whereClause, values } = this.buildWhereClause(conditions);
+    const countSql = `SELECT COUNT(*) as count FROM ${this.escapeIdentifier(tableName)} ${whereClause}`;
+    const { rows: countRows } = await this.query(countSql, values);
+
+    return { data: result.data, count: parseInt(countRows[0]?.count || '0', 10) };
+  }
+
+  async select(tableName: string, options: any = {}): Promise<{ data: any[] }> {
+    return this.findMany(tableName, options.where || {}, {
+      orderBy: options.orderBy,
+      order: options.order,
+      limit: options.limit,
+      offset: options.offset,
+    });
+  }
+
+  async insert(tableName: string, data: Record<string, any>): Promise<any> {
+    const keys = Object.keys(data).filter((k) => data[k] !== undefined);
+    const values = keys.map((k) => data[k]);
+    const placeholders = keys.map((_, i) => `$${i + 1}`);
+    const columns = keys.map((k) => this.escapeIdentifier(k));
+
+    const sql = `INSERT INTO ${this.escapeIdentifier(tableName)} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) RETURNING *`;
+    const { rows } = await this.query(sql, values);
+    return rows[0];
+  }
+
+  async insertMany(tableName: string, dataArray: Record<string, any>[]): Promise<any[]> {
+    if (dataArray.length === 0) return [];
+
+    const keys = Object.keys(dataArray[0]).filter((k) => dataArray[0][k] !== undefined);
+    const columns = keys.map((k) => this.escapeIdentifier(k));
+    const allValues: any[] = [];
+    const rowPlaceholders: string[] = [];
+
+    dataArray.forEach((data, rowIdx) => {
+      const placeholders = keys.map((k, colIdx) => {
+        allValues.push(data[k]);
+        return `$${rowIdx * keys.length + colIdx + 1}`;
+      });
+      rowPlaceholders.push(`(${placeholders.join(', ')})`);
+    });
+
+    const sql = `INSERT INTO ${this.escapeIdentifier(tableName)} (${columns.join(', ')}) VALUES ${rowPlaceholders.join(', ')} RETURNING *`;
+    const { rows } = await this.query(sql, allValues);
+    return rows;
+  }
+
+  async update(tableName: string, conditions: string | Record<string, any>, data: Record<string, any>): Promise<any> {
+    const updateKeys = Object.keys(data).filter((k) => data[k] !== undefined);
+    const updateValues = updateKeys.map((k) => data[k]);
+    const setClauses = updateKeys.map((k, i) => `${this.escapeIdentifier(k)} = $${i + 1}`);
+
+    let whereStr: string;
+    let whereValues: any[];
+
+    if (typeof conditions === 'string') {
+      // conditions is an ID string
+      whereStr = `WHERE id = $${updateValues.length + 1}`;
+      whereValues = [conditions];
+    } else {
+      const built = this.buildWhereClause(conditions, updateValues.length);
+      whereStr = built.whereClause;
+      whereValues = built.values;
+    }
+
+    const sql = `UPDATE ${this.escapeIdentifier(tableName)} SET ${setClauses.join(', ')} ${whereStr} RETURNING *`;
+    const { rows } = await this.query(sql, [...updateValues, ...whereValues]);
+    return rows[0] || null;
+  }
+
+  async updateMany(tableName: string, conditions: Record<string, any>, data: Record<string, any>): Promise<any[]> {
+    const updateKeys = Object.keys(data).filter((k) => data[k] !== undefined);
+    const updateValues = updateKeys.map((k) => data[k]);
+    const setClauses = updateKeys.map((k, i) => `${this.escapeIdentifier(k)} = $${i + 1}`);
+
+    const { whereClause, values: whereValues } = this.buildWhereClause(conditions, updateValues.length);
+
+    const sql = `UPDATE ${this.escapeIdentifier(tableName)} SET ${setClauses.join(', ')} ${whereClause} RETURNING *`;
+    const { rows } = await this.query(sql, [...updateValues, ...whereValues]);
+    return rows;
+  }
+
+  async delete(tableName: string, id: string): Promise<void> {
+    await this.query(`DELETE FROM ${this.escapeIdentifier(tableName)} WHERE id = $1`, [id]);
+  }
+
+  async deleteMany(tableName: string, conditions: Record<string, any>): Promise<void> {
+    const { whereClause, values } = this.buildWhereClause(conditions);
+    await this.query(`DELETE FROM ${this.escapeIdentifier(tableName)} ${whereClause}`, values);
+  }
+
+  // ============================================
+  // User Helper Methods (replaces auth service SDK)
+  // ============================================
+
+  async getUserById(userId: string): Promise<any | null> {
+    const { rows } = await this.query('SELECT * FROM "users" WHERE "id" = $1 LIMIT 1', [userId]);
+    return rows[0] || null;
+  }
+
+  async listUsers(options?: { limit?: number; offset?: number }): Promise<{ data: any[] }> {
+    let sql = 'SELECT * FROM "users"';
+    const params: any[] = [];
+    if (options?.limit) {
+      params.push(options.limit);
+      sql += ` LIMIT $${params.length}`;
+    }
+    if (options?.offset) {
+      params.push(options.offset);
+      sql += ` OFFSET $${params.length}`;
+    }
+    const { rows } = await this.query(sql, params);
+    return { data: rows };
+  }
+
+  async searchUsers(queryStr: string, options?: { limit?: number }): Promise<{ data: any[] }> {
+    const limit = options?.limit || 20;
+    const { rows } = await this.query(
+      `SELECT * FROM "users" WHERE "email" ILIKE $1 OR "name" ILIKE $1 LIMIT $2`,
+      [`%${queryStr}%`, limit],
+    );
+    return { data: rows };
+  }
+
+  // ============================================
+  // Storage Compatibility (delegates to StorageService when injected)
+  // These are no-op stubs so services that call /* TODO: use StorageService */ this.db.uploadFile() etc.
+  // can be migrated incrementally to use StorageService directly.
+  // ============================================
+
+  async uploadFile(bucket: string, fileBuffer: Buffer, path: string, options?: any): Promise<any> {
+    throw new Error('Use StorageService.uploadFile() instead of DatabaseService.uploadFile()');
+  }
+
+  async downloadFile(bucket: string, path: string): Promise<Buffer> {
+    throw new Error('Use StorageService.downloadFile() instead of DatabaseService.downloadFile()');
+  }
+
+  async deleteFileFromStorage(bucket: string, path: string): Promise<void> {
+    throw new Error('Use StorageService.deleteFile() instead of DatabaseService.deleteFileFromStorage()');
+  }
+
+  getPublicUrl(bucket: string, path: string): string {
+    throw new Error('Use StorageService.getPublicUrl() instead of DatabaseService.getPublicUrl()');
+  }
+
+  async createSignedUrl(bucket: string, path: string, expiresIn?: number): Promise<string> {
+    throw new Error('Use StorageService.createSignedUrl() instead of DatabaseService.createSignedUrl()');
+  }
+
+  // ============================================
+  // Transaction Support
+  // ============================================
+
+  async transaction<T>(fn: (client: any) => Promise<T>): Promise<T> {
+    const client = await this.pool.connect();
+    try {
+      await client.query('BEGIN');
+      const result = await fn(client);
+      await client.query('COMMIT');
+      return result;
+    } catch (error) {
+      await client.query('ROLLBACK');
+      throw error;
+    } finally {
+      client.release();
+    }
+  }
+
+  // ============================================
+  // Internal Helpers
+  // ============================================
+
+  private buildWhereClause(
+    conditions: Record<string, any>,
+    paramOffset: number = 0,
+  ): { whereClause: string; values: any[] } {
+    const entries = Object.entries(conditions).filter(([, v]) => v !== undefined);
+    if (entries.length === 0) return { whereClause: '', values: [] };
+
+    const clauses: string[] = [];
+    const values: any[] = [];
+
+    entries.forEach(([key, value]) => {
+      if (value === null) {
+        clauses.push(`${this.escapeIdentifier(key)} IS NULL`);
+      } else if (Array.isArray(value)) {
+        const placeholders = value.map((_, i) => `$${paramOffset + values.length + i + 1}`);
+        clauses.push(`${this.escapeIdentifier(key)} IN (${placeholders.join(', ')})`);
+        values.push(...value);
+      } else {
+        values.push(value);
+        clauses.push(`${this.escapeIdentifier(key)} = $${paramOffset + values.length}`);
+      }
+    });
+
+    return { whereClause: `WHERE ${clauses.join(' AND ')}`, values };
+  }
+
+  private escapeIdentifier(identifier: string): string {
+    // Simple identifier escaping - only allow alphanumeric and underscores
+    if (/^[a-zA-Z_][a-zA-Z0-9_]*$/.test(identifier)) {
+      return `"${identifier}"`;
+    }
+    throw new Error(`Invalid SQL identifier: ${identifier}`);
+  }
+}
