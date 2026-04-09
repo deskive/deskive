@@ -1,0 +1,48 @@
+{
+  "action": "create_task",
+  "baseUrl": "https://api.clickup.com/api/v2",
+  "testCases": [
+    {
+      "name": "creates task successfully",
+      "input": {
+        "name": "New Task",
+        "description": "Task description"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/list/list-123/task",
+        "status": 200,
+        "response": {
+          "id": "task-123",
+          "name": "New Task",
+          "description": "Task description"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "id": "task-123",
+          "name": "New Task"
+        }
+      }
+    },
+    {
+      "name": "handles API error",
+      "input": {
+        "name": ""
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/list/list-123/task",
+        "status": 400,
+        "response": {
+          "err": "Name is required",
+          "ECODE": "VALIDATION_ERROR"
+        }
+      },
+      "expected": {
+        "success": false
+      }
+    }
+  ]
+}

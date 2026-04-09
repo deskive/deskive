@@ -1,0 +1,30 @@
+{
+  "action": "create_issue",
+  "baseUrl": "https://api.atlassian.com/ex/jira",
+  "testCases": [
+    {
+      "name": "creates issue successfully",
+      "input": {
+        "summary": "New Issue",
+        "project": { "key": "TEST" },
+        "issuetype": { "name": "Task" }
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/cloud-123/rest/api/3/issue",
+        "status": 201,
+        "response": {
+          "id": "10001",
+          "key": "TEST-1",
+          "self": "https://your-domain.atlassian.net/rest/api/3/issue/10001"
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "key": "TEST-1"
+        }
+      }
+    }
+  ]
+}

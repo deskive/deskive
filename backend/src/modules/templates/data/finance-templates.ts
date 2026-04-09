@@ -1,0 +1,2467 @@
+/**
+ * Finance & Accounting Project Templates
+ * Pre-built templates for budgeting, invoicing, financial planning, and accounting processes
+ */
+
+export const FINANCE_TEMPLATES = [
+  // ==================== 1. INVOICE MANAGEMENT ====================
+  {
+    name: 'Invoice Management',
+    slug: 'invoice-management',
+    description:
+      'Track and manage invoices from creation to payment. Monitor outstanding payments and maintain cash flow visibility.',
+    category: 'finance',
+    icon: 'Receipt',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'draft', name: 'Draft', order: 0, color: '#6B7280' },
+      { id: 'sent', name: 'Sent', order: 1, color: '#3B82F6' },
+      { id: 'viewed', name: 'Viewed', order: 2, color: '#F59E0B' },
+      { id: 'partial', name: 'Partial Payment', order: 3, color: '#8B5CF6' },
+      { id: 'paid', name: 'Paid', order: 4, color: '#10B981' },
+      { id: 'overdue', name: 'Overdue', order: 5, color: '#EF4444' },
+    ],
+    customFields: [
+      {
+        name: 'Invoice Number',
+        type: 'text',
+        description: 'Unique invoice number',
+        isRequired: true,
+      },
+      {
+        name: 'Client',
+        type: 'text',
+        description: 'Client/company name',
+        isRequired: true,
+      },
+      {
+        name: 'Amount',
+        type: 'number',
+        description: 'Invoice amount',
+        isRequired: true,
+      },
+      {
+        name: 'Due Date',
+        type: 'date',
+        description: 'Payment due date',
+        isRequired: true,
+      },
+      {
+        name: 'Payment Terms',
+        type: 'select',
+        description: 'Payment terms',
+        options: ['Net 15', 'Net 30', 'Net 45', 'Net 60', 'Due on Receipt'],
+        isRequired: false,
+      },
+      {
+        name: 'Currency',
+        type: 'select',
+        description: 'Invoice currency',
+        options: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Invoice Setup',
+          description: 'Set up your invoicing system',
+          tasks: [
+            {
+              title: 'Create invoice template',
+              description: 'Design your standard invoice template.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup'],
+              subtasks: [
+                { title: 'Add company branding' },
+                { title: 'Include payment terms' },
+                { title: 'Add bank details' },
+                { title: 'Create line item format' },
+              ],
+            },
+            {
+              title: 'Set up numbering system',
+              description: 'Create a consistent invoice numbering scheme.',
+              assigneeRole: 'lead',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['setup'],
+            },
+            {
+              title: 'Configure payment methods',
+              description: 'Set up accepted payment methods.',
+              assigneeRole: 'member',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['setup', 'payments'],
+            },
+          ],
+        },
+        {
+          name: 'Monthly Invoicing',
+          description: 'Regular invoicing tasks',
+          tasks: [
+            {
+              title: 'Review billable items',
+              description: 'Compile all billable items for the period.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['monthly', 'recurring'],
+            },
+            {
+              title: 'Generate invoices',
+              description: 'Create invoices for all clients.',
+              assigneeRole: 'member',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['monthly', 'recurring'],
+            },
+            {
+              title: 'Send invoices',
+              description: 'Distribute invoices to clients.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['communication'],
+            },
+            {
+              title: 'Follow up on overdue invoices',
+              description: 'Send reminders for unpaid invoices.',
+              assigneeRole: 'owner',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['collections', 'recurring'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'table',
+      enableTimeTracking: false,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 2. EXPENSE TRACKING ====================
+  {
+    name: 'Expense Tracking',
+    slug: 'expense-tracking',
+    description:
+      'Track business expenses, manage receipts, and monitor spending against budgets. Essential for financial visibility.',
+    category: 'finance',
+    icon: 'CreditCard',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'pending', name: 'Pending', order: 0, color: '#6B7280' },
+      { id: 'submitted', name: 'Submitted', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Under Review', order: 2, color: '#F59E0B' },
+      { id: 'approved', name: 'Approved', order: 3, color: '#10B981' },
+      { id: 'reimbursed', name: 'Reimbursed', order: 4, color: '#8B5CF6' },
+      { id: 'rejected', name: 'Rejected', order: 5, color: '#EF4444' },
+    ],
+    customFields: [
+      {
+        name: 'Amount',
+        type: 'number',
+        description: 'Expense amount',
+        isRequired: true,
+      },
+      {
+        name: 'Category',
+        type: 'select',
+        description: 'Expense category',
+        options: ['Travel', 'Meals', 'Software', 'Equipment', 'Office Supplies', 'Marketing', 'Other'],
+        isRequired: true,
+      },
+      {
+        name: 'Vendor',
+        type: 'text',
+        description: 'Vendor/merchant name',
+        isRequired: false,
+      },
+      {
+        name: 'Date',
+        type: 'date',
+        description: 'Expense date',
+        isRequired: true,
+      },
+      {
+        name: 'Receipt',
+        type: 'checkbox',
+        description: 'Receipt attached',
+        isRequired: false,
+      },
+      {
+        name: 'Project',
+        type: 'text',
+        description: 'Related project (if applicable)',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Expense Policy Setup',
+          description: 'Configure expense tracking rules',
+          tasks: [
+            {
+              title: 'Define expense categories',
+              description: 'Set up expense categories for tracking.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup'],
+            },
+            {
+              title: 'Set approval thresholds',
+              description: 'Define approval requirements by amount.',
+              assigneeRole: 'lead',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['policy'],
+              subtasks: [
+                { title: 'Set auto-approve limit' },
+                { title: 'Define manager approval threshold' },
+                { title: 'Set executive approval requirement' },
+              ],
+            },
+            {
+              title: 'Create expense policy document',
+              description: 'Document expense policies and guidelines.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'medium',
+              labels: ['documentation', 'policy'],
+            },
+          ],
+        },
+        {
+          name: 'Monthly Expense Process',
+          description: 'Regular expense management tasks',
+          tasks: [
+            {
+              title: 'Collect expense receipts',
+              description: 'Gather all receipts for the period.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'medium',
+              labels: ['monthly', 'recurring'],
+            },
+            {
+              title: 'Submit expense reports',
+              description: 'Compile and submit expense reports.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['submission'],
+            },
+            {
+              title: 'Review and approve expenses',
+              description: 'Review submitted expenses for approval.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['approval'],
+            },
+            {
+              title: 'Process reimbursements',
+              description: 'Process approved expense reimbursements.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['payment'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'table',
+      enableTimeTracking: false,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 3. FINANCIAL AUDIT ====================
+  {
+    name: 'Financial Audit',
+    slug: 'financial-audit',
+    description:
+      'Comprehensive audit planning template for internal or external audits. Track audit phases from planning to reporting.',
+    category: 'finance',
+    icon: 'Search',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'fieldwork', name: 'Fieldwork', order: 1, color: '#3B82F6' },
+      { id: 'testing', name: 'Testing', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'reporting', name: 'Reporting', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Audit Type',
+        type: 'select',
+        description: 'Type of audit',
+        options: ['Internal', 'External', 'Compliance', 'SOX', 'Tax'],
+        isRequired: true,
+      },
+      {
+        name: 'Audit Period',
+        type: 'text',
+        description: 'Period under audit',
+        isRequired: true,
+      },
+      {
+        name: 'Lead Auditor',
+        type: 'text',
+        description: 'Lead auditor name',
+        isRequired: false,
+      },
+      {
+        name: 'Target Completion',
+        type: 'date',
+        description: 'Target completion date',
+        isRequired: true,
+      },
+      {
+        name: 'Risk Level',
+        type: 'select',
+        description: 'Audit risk level',
+        options: ['Low', 'Medium', 'High', 'Critical'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Audit Planning',
+          description: 'Prepare for the audit',
+          tasks: [
+            {
+              title: 'Define audit scope',
+              description: 'Determine areas and processes to be audited.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Identify key risks',
+              description: 'Assess risks and prioritize audit areas.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['risk', 'planning'],
+            },
+            {
+              title: 'Create audit program',
+              description: 'Develop detailed audit procedures.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Request document list',
+              description: 'Send PBC (Prepared By Client) list.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['documentation'],
+            },
+          ],
+        },
+        {
+          name: 'Fieldwork',
+          description: 'Conduct audit procedures',
+          tasks: [
+            {
+              title: 'Gather and review documents',
+              description: 'Collect and analyze requested documents.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['fieldwork'],
+            },
+            {
+              title: 'Perform walkthroughs',
+              description: 'Walk through key processes with staff.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['fieldwork', 'testing'],
+            },
+            {
+              title: 'Test internal controls',
+              description: 'Test effectiveness of internal controls.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['testing'],
+              subtasks: [
+                { title: 'Design test procedures' },
+                { title: 'Execute control tests' },
+                { title: 'Document results' },
+              ],
+            },
+            {
+              title: 'Substantive testing',
+              description: 'Perform substantive audit procedures.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['testing'],
+            },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Document and report findings',
+          tasks: [
+            {
+              title: 'Document findings',
+              description: 'Compile all audit findings and observations.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['documentation'],
+            },
+            {
+              title: 'Draft audit report',
+              description: 'Prepare draft audit report.',
+              assigneeRole: 'lead',
+              dueOffset: 49,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Management review',
+              description: 'Review findings with management.',
+              assigneeRole: 'lead',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Finalize audit report',
+              description: 'Issue final audit report.',
+              assigneeRole: 'lead',
+              dueOffset: 56,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 4. BUDGET PLANNING ====================
+  {
+    name: 'Budget Planning',
+    slug: 'budget-planning',
+    description:
+      'Create and manage annual or project budgets. Track budget allocation, spending, and variance analysis.',
+    category: 'finance',
+    icon: 'Calculator',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'gathering', name: 'Gathering', order: 0, color: '#6B7280' },
+      { id: 'draft', name: 'Draft', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'approved', name: 'Approved', order: 3, color: '#10B981' },
+      { id: 'active', name: 'Active', order: 4, color: '#8B5CF6' },
+    ],
+    customFields: [
+      {
+        name: 'Budget Year',
+        type: 'text',
+        description: 'Budget period/year',
+        isRequired: true,
+      },
+      {
+        name: 'Department',
+        type: 'text',
+        description: 'Department or cost center',
+        isRequired: false,
+      },
+      {
+        name: 'Total Budget',
+        type: 'number',
+        description: 'Total budget amount',
+        isRequired: true,
+      },
+      {
+        name: 'Budget Type',
+        type: 'select',
+        description: 'Type of budget',
+        options: ['Operating', 'Capital', 'Project', 'Marketing', 'Departmental'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Budget Preparation',
+          description: 'Gather information and create budget',
+          tasks: [
+            {
+              title: 'Review prior year actuals',
+              description: 'Analyze previous year spending patterns.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Collect department inputs',
+              description: 'Gather budget requests from departments.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['gathering'],
+              subtasks: [
+                { title: 'Send budget request forms' },
+                { title: 'Schedule budget meetings' },
+                { title: 'Compile submissions' },
+              ],
+            },
+            {
+              title: 'Forecast revenue',
+              description: 'Project expected revenue for the period.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['forecasting'],
+            },
+            {
+              title: 'Draft initial budget',
+              description: 'Create first draft of the budget.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['drafting'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Approval',
+          description: 'Review and finalize the budget',
+          tasks: [
+            {
+              title: 'Department budget reviews',
+              description: 'Review budgets with department heads.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Executive review',
+              description: 'Present budget to executive team.',
+              assigneeRole: 'owner',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['review', 'presentation'],
+            },
+            {
+              title: 'Make revisions',
+              description: 'Incorporate feedback and adjust budget.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'medium',
+              labels: ['revision'],
+            },
+            {
+              title: 'Final approval',
+              description: 'Obtain final budget approval.',
+              assigneeRole: 'owner',
+              dueOffset: 49,
+              priority: 'high',
+              labels: ['approval'],
+            },
+          ],
+        },
+        {
+          name: 'Budget Monitoring',
+          description: 'Track budget performance',
+          tasks: [
+            {
+              title: 'Set up budget tracking',
+              description: 'Configure budget monitoring reports.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'medium',
+              labels: ['setup'],
+            },
+            {
+              title: 'Monthly variance analysis',
+              description: 'Compare actuals to budget monthly.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'medium',
+              labels: ['analysis', 'recurring'],
+            },
+            {
+              title: 'Quarterly budget review',
+              description: 'Comprehensive quarterly budget review.',
+              assigneeRole: 'lead',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['review', 'recurring'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: false,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 5. TAX PREPARATION ====================
+  {
+    name: 'Tax Preparation',
+    slug: 'tax-preparation',
+    description:
+      'Organize tax filing process from document collection to submission. Ensure compliance and timely filing.',
+    category: 'finance',
+    icon: 'FileText',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'gathering', name: 'Gathering Docs', order: 1, color: '#3B82F6' },
+      { id: 'preparation', name: 'Preparation', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'filed', name: 'Filed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Tax Year',
+        type: 'text',
+        description: 'Tax year being filed',
+        isRequired: true,
+      },
+      {
+        name: 'Filing Type',
+        type: 'select',
+        description: 'Type of tax filing',
+        options: ['Corporate', 'Individual', 'Partnership', 'Trust', 'Non-Profit'],
+        isRequired: true,
+      },
+      {
+        name: 'Due Date',
+        type: 'date',
+        description: 'Filing deadline',
+        isRequired: true,
+      },
+      {
+        name: 'Extension Filed',
+        type: 'checkbox',
+        description: 'Extension filed',
+        isRequired: false,
+      },
+      {
+        name: 'Tax Preparer',
+        type: 'text',
+        description: 'CPA or tax preparer',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Document Collection',
+          description: 'Gather required documents',
+          tasks: [
+            {
+              title: 'Create document checklist',
+              description: 'List all required tax documents.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Gather income documents',
+              description: 'Collect all income-related documents.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['gathering'],
+              subtasks: [
+                { title: 'W-2s and 1099s' },
+                { title: 'Investment income statements' },
+                { title: 'Business income records' },
+              ],
+            },
+            {
+              title: 'Gather deduction documents',
+              description: 'Collect documents for deductions.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['gathering'],
+              subtasks: [
+                { title: 'Charitable contribution receipts' },
+                { title: 'Business expense records' },
+                { title: 'Healthcare expenses' },
+              ],
+            },
+            {
+              title: 'Prior year return',
+              description: 'Obtain copy of prior year tax return.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['gathering'],
+            },
+          ],
+        },
+        {
+          name: 'Tax Preparation',
+          description: 'Prepare the tax return',
+          tasks: [
+            {
+              title: 'Enter income data',
+              description: 'Input all income information.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['preparation'],
+            },
+            {
+              title: 'Calculate deductions',
+              description: 'Compute all applicable deductions.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['preparation'],
+            },
+            {
+              title: 'Review tax credits',
+              description: 'Identify and claim eligible tax credits.',
+              assigneeRole: 'lead',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['preparation'],
+            },
+            {
+              title: 'Complete state returns',
+              description: 'Prepare any required state tax returns.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['preparation'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Filing',
+          description: 'Review and submit returns',
+          tasks: [
+            {
+              title: 'Internal review',
+              description: 'Review return for accuracy.',
+              assigneeRole: 'lead',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Client/management review',
+              description: 'Review with taxpayer or management.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'File tax returns',
+              description: 'Submit returns electronically or by mail.',
+              assigneeRole: 'lead',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['filing'],
+            },
+            {
+              title: 'Confirm filing receipt',
+              description: 'Verify returns were received.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'medium',
+              labels: ['verification'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 6. FINANCIAL REPORTING ====================
+  {
+    name: 'Financial Reporting',
+    slug: 'financial-reporting',
+    description:
+      'Monthly, quarterly, or annual financial reporting process. Ensure timely and accurate financial statements.',
+    category: 'finance',
+    icon: 'BarChart',
+    color: '#06B6D4',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'data_collection', name: 'Data Collection', order: 0, color: '#6B7280' },
+      { id: 'preparation', name: 'Preparation', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'approved', name: 'Approved', order: 3, color: '#10B981' },
+      { id: 'distributed', name: 'Distributed', order: 4, color: '#8B5CF6' },
+    ],
+    customFields: [
+      {
+        name: 'Report Period',
+        type: 'text',
+        description: 'Reporting period',
+        isRequired: true,
+      },
+      {
+        name: 'Report Type',
+        type: 'select',
+        description: 'Type of report',
+        options: ['Monthly', 'Quarterly', 'Annual', 'Board Report', 'Investor Report'],
+        isRequired: true,
+      },
+      {
+        name: 'Due Date',
+        type: 'date',
+        description: 'Report due date',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Close Process',
+          description: 'Complete period-end close',
+          tasks: [
+            {
+              title: 'Reconcile accounts',
+              description: 'Complete all account reconciliations.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['close'],
+              subtasks: [
+                { title: 'Bank reconciliation' },
+                { title: 'AR reconciliation' },
+                { title: 'AP reconciliation' },
+                { title: 'Inventory reconciliation' },
+              ],
+            },
+            {
+              title: 'Post adjusting entries',
+              description: 'Record all necessary adjustments.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['close'],
+            },
+            {
+              title: 'Review accruals',
+              description: 'Verify and update accrual entries.',
+              assigneeRole: 'lead',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['close'],
+            },
+            {
+              title: 'Close subledgers',
+              description: 'Close all subledger modules.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['close'],
+            },
+          ],
+        },
+        {
+          name: 'Report Preparation',
+          description: 'Prepare financial statements',
+          tasks: [
+            {
+              title: 'Generate trial balance',
+              description: 'Run trial balance report.',
+              assigneeRole: 'member',
+              dueOffset: 6,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Prepare income statement',
+              description: 'Create P&L statement.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Prepare balance sheet',
+              description: 'Create balance sheet.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Prepare cash flow statement',
+              description: 'Create statement of cash flows.',
+              assigneeRole: 'member',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Write management commentary',
+              description: 'Draft narrative analysis.',
+              assigneeRole: 'lead',
+              dueOffset: 9,
+              priority: 'medium',
+              labels: ['reporting', 'analysis'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Distribution',
+          description: 'Review and distribute reports',
+          tasks: [
+            {
+              title: 'Controller review',
+              description: 'Review by accounting leadership.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'CFO review',
+              description: 'Final review by CFO.',
+              assigneeRole: 'owner',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Distribute reports',
+              description: 'Send reports to stakeholders.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['distribution'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 7. FINANCIAL FORECASTING ====================
+  {
+    name: 'Financial Forecasting',
+    slug: 'financial-forecasting',
+    description:
+      'Develop financial projections and forecasts to guide strategic decision-making and resource allocation.',
+    category: 'finance',
+    icon: 'TrendingUp',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'data_gathering', name: 'Data Gathering', order: 0, color: '#6B7280' },
+      { id: 'modeling', name: 'Modeling', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'finalized', name: 'Finalized', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Forecast Period', type: 'text', description: 'Time period for forecast', isRequired: true },
+      { name: 'Forecast Type', type: 'select', description: 'Type of forecast', options: ['Revenue', 'Expense', 'Cash Flow', 'Full P&L', 'Balance Sheet'], isRequired: true },
+      { name: 'Confidence Level', type: 'select', description: 'Forecast confidence', options: ['High', 'Medium', 'Low'], isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Data Collection',
+          description: 'Gather historical data and assumptions',
+          tasks: [
+            { title: 'Collect historical financial data', description: 'Gather 3-5 years of historical data.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data'] },
+            { title: 'Identify key drivers', description: 'Determine primary business drivers.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['analysis'] },
+            { title: 'Document assumptions', description: 'Record all forecast assumptions.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['documentation'] },
+            { title: 'Gather market data', description: 'Collect relevant market and industry data.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['research'] },
+          ],
+        },
+        {
+          name: 'Model Development',
+          description: 'Build forecast models',
+          tasks: [
+            { title: 'Build revenue model', description: 'Create revenue projection model.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['modeling'] },
+            { title: 'Build expense model', description: 'Create expense projection model.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['modeling'] },
+            { title: 'Create scenario analysis', description: 'Develop best/base/worst case scenarios.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['analysis'] },
+            { title: 'Validate model logic', description: 'Test model calculations and formulas.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['validation'] },
+          ],
+        },
+        {
+          name: 'Review & Finalization',
+          description: 'Review and finalize forecasts',
+          tasks: [
+            { title: 'Management review', description: 'Present forecast to management.', assigneeRole: 'lead', dueOffset: 18, priority: 'high', labels: ['review'] },
+            { title: 'Incorporate feedback', description: 'Update forecast based on feedback.', assigneeRole: 'member', dueOffset: 20, priority: 'medium', labels: ['revision'] },
+            { title: 'Finalize forecast', description: 'Lock down final forecast version.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['completion'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 8. CASH FLOW MANAGEMENT ====================
+  {
+    name: 'Cash Flow Management',
+    slug: 'cash-flow-management',
+    description:
+      'Monitor and optimize cash flow to ensure adequate liquidity and working capital management.',
+    category: 'finance',
+    icon: 'Droplet',
+    color: '#06B6D4',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'monitoring', name: 'Monitoring', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'action', name: 'Action Required', order: 2, color: '#F59E0B' },
+      { id: 'resolved', name: 'Resolved', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Cash Position', type: 'number', description: 'Current cash balance', isRequired: true },
+      { name: 'Forecast Period', type: 'select', description: 'Forecast timeframe', options: ['Weekly', 'Monthly', 'Quarterly'], isRequired: true },
+      { name: 'Alert Level', type: 'select', description: 'Cash alert status', options: ['Normal', 'Watch', 'Critical'], isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Cash Monitoring Setup',
+          description: 'Establish cash monitoring processes',
+          tasks: [
+            { title: 'Set up cash tracking system', description: 'Configure cash position tracking.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['setup'] },
+            { title: 'Define minimum cash thresholds', description: 'Establish minimum balance requirements.', assigneeRole: 'lead', dueOffset: 2, priority: 'high', labels: ['policy'] },
+            { title: 'Create cash flow forecast template', description: 'Build rolling cash forecast model.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['setup'] },
+            { title: 'Identify major cash drivers', description: 'Document key cash inflows and outflows.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['analysis'] },
+          ],
+        },
+        {
+          name: 'Weekly Cash Management',
+          description: 'Regular cash management activities',
+          tasks: [
+            { title: 'Update cash position', description: 'Record current bank balances.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['recurring'] },
+            { title: 'Review upcoming payments', description: 'Identify scheduled outflows.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['recurring'] },
+            { title: 'Review expected receipts', description: 'Track expected cash inflows.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['recurring'] },
+            { title: 'Update 13-week forecast', description: 'Refresh rolling cash forecast.', assigneeRole: 'lead', dueOffset: 2, priority: 'high', labels: ['forecasting'] },
+          ],
+        },
+        {
+          name: 'Cash Optimization',
+          description: 'Improve cash management efficiency',
+          tasks: [
+            { title: 'Review payment terms', description: 'Analyze vendor payment terms.', assigneeRole: 'lead', dueOffset: 14, priority: 'medium', labels: ['optimization'] },
+            { title: 'Accelerate collections', description: 'Implement faster collection strategies.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['collections'] },
+            { title: 'Optimize cash reserves', description: 'Review cash allocation strategy.', assigneeRole: 'lead', dueOffset: 28, priority: 'medium', labels: ['strategy'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'table', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 9. ACCOUNTS RECEIVABLE ====================
+  {
+    name: 'Accounts Receivable',
+    slug: 'accounts-receivable',
+    description:
+      'Manage customer invoices, track payments, and optimize collections to improve cash flow.',
+    category: 'finance',
+    icon: 'ArrowDownCircle',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'current', name: 'Current', order: 0, color: '#10B981' },
+      { id: 'due_soon', name: '1-30 Days', order: 1, color: '#F59E0B' },
+      { id: 'overdue_60', name: '31-60 Days', order: 2, color: '#F97316' },
+      { id: 'overdue_90', name: '61-90 Days', order: 3, color: '#EF4444' },
+      { id: 'collections', name: 'Collections', order: 4, color: '#7C3AED' },
+      { id: 'paid', name: 'Paid', order: 5, color: '#6B7280' },
+    ],
+    customFields: [
+      { name: 'Customer', type: 'text', description: 'Customer name', isRequired: true },
+      { name: 'Invoice Amount', type: 'number', description: 'Total invoice amount', isRequired: true },
+      { name: 'Balance Due', type: 'number', description: 'Outstanding balance', isRequired: true },
+      { name: 'Due Date', type: 'date', description: 'Payment due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'AR Setup',
+          description: 'Configure accounts receivable processes',
+          tasks: [
+            { title: 'Define credit policies', description: 'Establish customer credit terms.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['policy'] },
+            { title: 'Set up aging buckets', description: 'Configure AR aging categories.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['setup'] },
+            { title: 'Create collection templates', description: 'Draft collection letter templates.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['templates'] },
+            { title: 'Define escalation procedures', description: 'Document collection escalation process.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['policy'] },
+          ],
+        },
+        {
+          name: 'Weekly AR Review',
+          description: 'Regular AR management tasks',
+          tasks: [
+            { title: 'Run AR aging report', description: 'Generate current aging analysis.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['reporting', 'recurring'] },
+            { title: 'Review past due accounts', description: 'Analyze overdue receivables.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['review'] },
+            { title: 'Send payment reminders', description: 'Issue reminder notices.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['collections'] },
+            { title: 'Follow up on promises', description: 'Track payment commitments.', assigneeRole: 'member', dueOffset: 3, priority: 'medium', labels: ['follow-up'] },
+          ],
+        },
+        {
+          name: 'Month-End AR',
+          description: 'Monthly AR closing activities',
+          tasks: [
+            { title: 'Reconcile AR subledger', description: 'Match subledger to GL.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['reconciliation'] },
+            { title: 'Review bad debt reserve', description: 'Assess allowance adequacy.', assigneeRole: 'lead', dueOffset: 32, priority: 'high', labels: ['analysis'] },
+            { title: 'Prepare AR metrics report', description: 'Calculate DSO and other KPIs.', assigneeRole: 'member', dueOffset: 33, priority: 'medium', labels: ['reporting'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'table', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 10. ACCOUNTS PAYABLE ====================
+  {
+    name: 'Accounts Payable',
+    slug: 'accounts-payable',
+    description:
+      'Manage vendor invoices, payment processing, and optimize payables to maintain supplier relationships.',
+    category: 'finance',
+    icon: 'ArrowUpCircle',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'received', name: 'Received', order: 0, color: '#6B7280' },
+      { id: 'processing', name: 'Processing', order: 1, color: '#3B82F6' },
+      { id: 'approval', name: 'Pending Approval', order: 2, color: '#F59E0B' },
+      { id: 'scheduled', name: 'Scheduled', order: 3, color: '#8B5CF6' },
+      { id: 'paid', name: 'Paid', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Vendor', type: 'text', description: 'Vendor name', isRequired: true },
+      { name: 'Invoice Number', type: 'text', description: 'Vendor invoice number', isRequired: true },
+      { name: 'Amount', type: 'number', description: 'Invoice amount', isRequired: true },
+      { name: 'Due Date', type: 'date', description: 'Payment due date', isRequired: true },
+      { name: 'Payment Terms', type: 'select', description: 'Payment terms', options: ['Net 10', 'Net 15', 'Net 30', 'Net 45', 'Net 60'], isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'AP Process Setup',
+          description: 'Configure accounts payable workflows',
+          tasks: [
+            { title: 'Define approval matrix', description: 'Set approval thresholds by amount.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['policy'] },
+            { title: 'Set up vendor master', description: 'Configure vendor database.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['setup'] },
+            { title: 'Configure payment methods', description: 'Set up ACH, check, wire options.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['setup'] },
+            { title: 'Create 3-way match process', description: 'Establish PO-receipt-invoice matching.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['process'] },
+          ],
+        },
+        {
+          name: 'Weekly AP Processing',
+          description: 'Regular AP activities',
+          tasks: [
+            { title: 'Process incoming invoices', description: 'Enter and code new invoices.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['processing', 'recurring'] },
+            { title: 'Resolve invoice exceptions', description: 'Address matching discrepancies.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['exceptions'] },
+            { title: 'Prepare payment batch', description: 'Create weekly payment run.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['payments'] },
+            { title: 'Obtain payment approvals', description: 'Get required payment authorizations.', assigneeRole: 'lead', dueOffset: 4, priority: 'high', labels: ['approval'] },
+            { title: 'Execute payments', description: 'Process approved payments.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['payments'] },
+          ],
+        },
+        {
+          name: 'Month-End AP',
+          description: 'Monthly AP closing activities',
+          tasks: [
+            { title: 'Reconcile AP subledger', description: 'Match subledger to GL.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['reconciliation'] },
+            { title: 'Accrue uninvoiced receipts', description: 'Record received not invoiced.', assigneeRole: 'member', dueOffset: 31, priority: 'high', labels: ['accruals'] },
+            { title: 'Review AP aging', description: 'Analyze payables aging report.', assigneeRole: 'lead', dueOffset: 32, priority: 'medium', labels: ['reporting'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'table', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 11. PAYROLL PROCESSING ====================
+  {
+    name: 'Payroll Processing',
+    slug: 'payroll-processing',
+    description:
+      'Manage payroll cycles from timesheet collection to payment processing and tax filing.',
+    category: 'finance',
+    icon: 'Users',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'collecting', name: 'Collecting Data', order: 0, color: '#6B7280' },
+      { id: 'processing', name: 'Processing', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'approved', name: 'Approved', order: 3, color: '#8B5CF6' },
+      { id: 'paid', name: 'Paid', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Pay Period', type: 'text', description: 'Payroll period', isRequired: true },
+      { name: 'Pay Date', type: 'date', description: 'Payment date', isRequired: true },
+      { name: 'Total Gross', type: 'number', description: 'Total gross payroll', isRequired: false },
+      { name: 'Employee Count', type: 'number', description: 'Number of employees', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Payroll Setup',
+          description: 'Configure payroll system',
+          tasks: [
+            { title: 'Set up payroll calendar', description: 'Define pay periods and dates.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['setup'] },
+            { title: 'Configure tax withholdings', description: 'Set up federal and state taxes.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['taxes'] },
+            { title: 'Set up benefit deductions', description: 'Configure benefit withholdings.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['benefits'] },
+            { title: 'Configure direct deposit', description: 'Set up employee bank accounts.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['setup'] },
+          ],
+        },
+        {
+          name: 'Pay Period Processing',
+          description: 'Process each payroll cycle',
+          tasks: [
+            { title: 'Collect timesheets', description: 'Gather all employee time records.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data collection'] },
+            { title: 'Review time entries', description: 'Verify hours and approve time.', assigneeRole: 'lead', dueOffset: 1, priority: 'high', labels: ['review'] },
+            { title: 'Process payroll changes', description: 'Apply rate changes and adjustments.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['processing'] },
+            { title: 'Calculate payroll', description: 'Run payroll calculations.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['processing'] },
+            { title: 'Review payroll register', description: 'Verify payroll accuracy.', assigneeRole: 'lead', dueOffset: 4, priority: 'high', labels: ['review'] },
+            { title: 'Submit payroll', description: 'Transmit payroll for processing.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['submission'] },
+          ],
+        },
+        {
+          name: 'Post-Payroll Activities',
+          description: 'Complete payroll cycle',
+          tasks: [
+            { title: 'Distribute pay stubs', description: 'Make pay stubs available.', assigneeRole: 'member', dueOffset: 6, priority: 'medium', labels: ['distribution'] },
+            { title: 'Record payroll journal entry', description: 'Post payroll to GL.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['accounting'] },
+            { title: 'Reconcile payroll accounts', description: 'Verify payroll bank account.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['reconciliation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 12. TAX FILING ====================
+  {
+    name: 'Tax Filing',
+    slug: 'tax-filing',
+    description:
+      'Coordinate tax return filing process including federal, state, and local tax submissions.',
+    category: 'finance',
+    icon: 'Send',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'pending', name: 'Pending', order: 0, color: '#6B7280' },
+      { id: 'preparation', name: 'In Preparation', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Under Review', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready to File', order: 3, color: '#8B5CF6' },
+      { id: 'filed', name: 'Filed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Tax Type', type: 'select', description: 'Type of tax', options: ['Income Tax', 'Sales Tax', 'Payroll Tax', 'Property Tax', 'Franchise Tax'], isRequired: true },
+      { name: 'Jurisdiction', type: 'text', description: 'Tax jurisdiction', isRequired: true },
+      { name: 'Filing Deadline', type: 'date', description: 'Due date', isRequired: true },
+      { name: 'Amount Due', type: 'number', description: 'Tax payment amount', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Filing Preparation',
+          description: 'Prepare for tax filing',
+          tasks: [
+            { title: 'Identify filing requirements', description: 'Determine all required filings.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Gather supporting schedules', description: 'Compile required schedules.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['data'] },
+            { title: 'Calculate tax liability', description: 'Compute taxes owed.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['calculation'] },
+            { title: 'Prepare tax forms', description: 'Complete required tax forms.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['preparation'] },
+          ],
+        },
+        {
+          name: 'Review Process',
+          description: 'Review and approve filings',
+          tasks: [
+            { title: 'Internal review', description: 'Review forms for accuracy.', assigneeRole: 'lead', dueOffset: 18, priority: 'high', labels: ['review'] },
+            { title: 'Management sign-off', description: 'Obtain required approvals.', assigneeRole: 'owner', dueOffset: 20, priority: 'high', labels: ['approval'] },
+            { title: 'Address review comments', description: 'Make necessary corrections.', assigneeRole: 'member', dueOffset: 22, priority: 'medium', labels: ['revision'] },
+          ],
+        },
+        {
+          name: 'Filing & Payment',
+          description: 'Submit filings and payments',
+          tasks: [
+            { title: 'Submit tax filing', description: 'File returns electronically or by mail.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['filing'] },
+            { title: 'Process tax payment', description: 'Remit taxes due.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['payment'] },
+            { title: 'Confirm receipt', description: 'Verify filing acceptance.', assigneeRole: 'member', dueOffset: 27, priority: 'medium', labels: ['verification'] },
+            { title: 'Archive documentation', description: 'Store filing records.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['documentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 13. QUARTERLY TAX REVIEW ====================
+  {
+    name: 'Quarterly Tax Review',
+    slug: 'quarterly-tax-review',
+    description:
+      'Conduct quarterly review of tax positions, estimated payments, and compliance status.',
+    category: 'finance',
+    icon: 'Calendar',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Quarter', type: 'select', description: 'Fiscal quarter', options: ['Q1', 'Q2', 'Q3', 'Q4'], isRequired: true },
+      { name: 'Fiscal Year', type: 'text', description: 'Fiscal year', isRequired: true },
+      { name: 'Estimated Tax', type: 'number', description: 'Estimated tax payment', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Quarter-End Tax Analysis',
+          description: 'Analyze tax position',
+          tasks: [
+            { title: 'Review YTD income', description: 'Analyze year-to-date taxable income.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['analysis'] },
+            { title: 'Calculate estimated tax', description: 'Compute quarterly estimated payment.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['calculation'] },
+            { title: 'Review tax credits', description: 'Assess available tax credits.', assigneeRole: 'lead', dueOffset: 5, priority: 'medium', labels: ['analysis'] },
+            { title: 'Analyze state apportionment', description: 'Review state tax allocation.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['analysis'] },
+          ],
+        },
+        {
+          name: 'Compliance Review',
+          description: 'Ensure tax compliance',
+          tasks: [
+            { title: 'Review filing calendar', description: 'Confirm upcoming deadlines.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['compliance'] },
+            { title: 'Check nexus status', description: 'Review state nexus positions.', assigneeRole: 'lead', dueOffset: 10, priority: 'medium', labels: ['compliance'] },
+            { title: 'Document tax positions', description: 'Update tax position memos.', assigneeRole: 'member', dueOffset: 12, priority: 'medium', labels: ['documentation'] },
+          ],
+        },
+        {
+          name: 'Estimated Payments',
+          description: 'Process quarterly payments',
+          tasks: [
+            { title: 'Prepare payment vouchers', description: 'Complete estimated tax forms.', assigneeRole: 'member', dueOffset: 13, priority: 'high', labels: ['preparation'] },
+            { title: 'Obtain payment approval', description: 'Get management approval.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['approval'] },
+            { title: 'Submit estimated payments', description: 'Remit quarterly tax payments.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['payment'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 14. YEAR-END CLOSE ====================
+  {
+    name: 'Year-End Close',
+    slug: 'year-end-close',
+    description:
+      'Comprehensive year-end financial close process including adjustments, reconciliations, and reporting.',
+    category: 'finance',
+    icon: 'CheckCircle',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'preparation', name: 'Preparation', order: 0, color: '#6B7280' },
+      { id: 'close_entries', name: 'Close Entries', order: 1, color: '#3B82F6' },
+      { id: 'reconciliation', name: 'Reconciliation', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'finalized', name: 'Finalized', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Fiscal Year', type: 'text', description: 'Fiscal year ending', isRequired: true },
+      { name: 'Close Deadline', type: 'date', description: 'Target close date', isRequired: true },
+      { name: 'Audit Required', type: 'checkbox', description: 'External audit required', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Pre-Close Activities',
+          description: 'Prepare for year-end close',
+          tasks: [
+            { title: 'Distribute close calendar', description: 'Share close schedule with team.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Complete physical inventory', description: 'Conduct year-end inventory count.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['inventory'] },
+            { title: 'Cutoff procedures', description: 'Ensure proper period cutoff.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['cutoff'] },
+            { title: 'Collect intercompany data', description: 'Gather intercompany balances.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['intercompany'] },
+          ],
+        },
+        {
+          name: 'Close Entries',
+          description: 'Record year-end adjustments',
+          tasks: [
+            { title: 'Record accruals', description: 'Post all accrual entries.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['accruals'] },
+            { title: 'Record depreciation', description: 'Post annual depreciation.', assigneeRole: 'member', dueOffset: 11, priority: 'high', labels: ['fixed assets'] },
+            { title: 'Adjust prepaid expenses', description: 'Amortize prepaid balances.', assigneeRole: 'member', dueOffset: 12, priority: 'medium', labels: ['adjustments'] },
+            { title: 'Record tax provision', description: 'Book income tax expense.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['taxes'] },
+            { title: 'Eliminate intercompany', description: 'Process IC eliminations.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['intercompany'] },
+          ],
+        },
+        {
+          name: 'Reconciliations',
+          description: 'Complete all reconciliations',
+          tasks: [
+            { title: 'Reconcile all balance sheet accounts', description: 'Complete BS reconciliations.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['reconciliation'] },
+            { title: 'Review flux analysis', description: 'Explain significant variances.', assigneeRole: 'lead', dueOffset: 19, priority: 'high', labels: ['analysis'] },
+            { title: 'Finalize trial balance', description: 'Lock year-end TB.', assigneeRole: 'lead', dueOffset: 20, priority: 'high', labels: ['close'] },
+          ],
+        },
+        {
+          name: 'Reporting & Finalization',
+          description: 'Complete year-end reporting',
+          tasks: [
+            { title: 'Prepare financial statements', description: 'Generate annual statements.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['reporting'] },
+            { title: 'Draft footnotes', description: 'Prepare financial statement notes.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['reporting'] },
+            { title: 'Management review', description: 'Review with executive team.', assigneeRole: 'owner', dueOffset: 28, priority: 'high', labels: ['review'] },
+            { title: 'Close the books', description: 'Lock fiscal year.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['close'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 15. MONTH-END CLOSE ====================
+  {
+    name: 'Month-End Close',
+    slug: 'month-end-close',
+    description:
+      'Standard monthly close process to ensure timely and accurate financial reporting.',
+    category: 'finance',
+    icon: 'Clock',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'pending', name: 'Pending', order: 0, color: '#6B7280' },
+      { id: 'in_progress', name: 'In Progress', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Period', type: 'text', description: 'Accounting period', isRequired: true },
+      { name: 'Close Date', type: 'date', description: 'Target close date', isRequired: true },
+      { name: 'Days to Close', type: 'number', description: 'Business days to close', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Subledger Close',
+          description: 'Close subledger modules',
+          tasks: [
+            { title: 'Close accounts payable', description: 'Complete AP period close.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['subledger'] },
+            { title: 'Close accounts receivable', description: 'Complete AR period close.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['subledger'] },
+            { title: 'Close fixed assets', description: 'Run depreciation and close FA.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['subledger'] },
+            { title: 'Close inventory', description: 'Complete inventory valuation.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['subledger'] },
+          ],
+        },
+        {
+          name: 'Journal Entries',
+          description: 'Record month-end entries',
+          tasks: [
+            { title: 'Post recurring entries', description: 'Process standard recurring JEs.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['entries'] },
+            { title: 'Record accruals', description: 'Post month-end accruals.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['accruals'] },
+            { title: 'Record adjusting entries', description: 'Post necessary adjustments.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['adjustments'] },
+            { title: 'Post intercompany entries', description: 'Record IC transactions.', assigneeRole: 'member', dueOffset: 3, priority: 'medium', labels: ['intercompany'] },
+          ],
+        },
+        {
+          name: 'Reconciliation',
+          description: 'Complete account reconciliations',
+          tasks: [
+            { title: 'Bank reconciliation', description: 'Reconcile all bank accounts.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['reconciliation'] },
+            { title: 'Balance sheet reconciliations', description: 'Reconcile BS accounts.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['reconciliation'] },
+            { title: 'Intercompany reconciliation', description: 'Reconcile IC balances.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['intercompany'] },
+          ],
+        },
+        {
+          name: 'Review & Reporting',
+          description: 'Final review and reporting',
+          tasks: [
+            { title: 'Review trial balance', description: 'Verify TB accuracy.', assigneeRole: 'lead', dueOffset: 6, priority: 'high', labels: ['review'] },
+            { title: 'Variance analysis', description: 'Analyze budget vs actual.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['analysis'] },
+            { title: 'Prepare close package', description: 'Compile close documentation.', assigneeRole: 'lead', dueOffset: 8, priority: 'high', labels: ['reporting'] },
+            { title: 'Close the period', description: 'Lock accounting period.', assigneeRole: 'lead', dueOffset: 8, priority: 'high', labels: ['close'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 16. FINANCIAL AUDIT PREP ====================
+  {
+    name: 'Financial Audit Prep',
+    slug: 'financial-audit-prep',
+    description:
+      'Prepare for external financial audit including document gathering and audit support activities.',
+    category: 'finance',
+    icon: 'FolderOpen',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'gathering', name: 'Document Gathering', order: 1, color: '#3B82F6' },
+      { id: 'organizing', name: 'Organizing', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready for Audit', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Audit Firm', type: 'text', description: 'External audit firm', isRequired: true },
+      { name: 'Audit Start Date', type: 'date', description: 'Fieldwork start date', isRequired: true },
+      { name: 'PBC Due Date', type: 'date', description: 'PBC list due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Pre-Audit Planning',
+          description: 'Coordinate with auditors',
+          tasks: [
+            { title: 'Schedule audit kick-off', description: 'Arrange planning meeting.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Review PBC list', description: 'Analyze auditor requests.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['planning'] },
+            { title: 'Assign PBC items', description: 'Distribute requests to team.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['coordination'] },
+            { title: 'Set up audit workspace', description: 'Prepare shared folder/room.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['setup'] },
+          ],
+        },
+        {
+          name: 'Document Preparation',
+          description: 'Gather audit documentation',
+          tasks: [
+            { title: 'Prepare trial balance', description: 'Generate audited TB.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['documentation'] },
+            { title: 'Compile account reconciliations', description: 'Gather all reconciliations.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['documentation'] },
+            { title: 'Prepare supporting schedules', description: 'Create required schedules.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['documentation'] },
+            { title: 'Gather contracts and agreements', description: 'Compile key contracts.', assigneeRole: 'member', dueOffset: 14, priority: 'medium', labels: ['documentation'] },
+            { title: 'Prepare management representations', description: 'Draft rep letter items.', assigneeRole: 'lead', dueOffset: 16, priority: 'high', labels: ['documentation'] },
+          ],
+        },
+        {
+          name: 'Final Preparation',
+          description: 'Complete audit readiness',
+          tasks: [
+            { title: 'Review all PBC items', description: 'Quality check documents.', assigneeRole: 'lead', dueOffset: 18, priority: 'high', labels: ['review'] },
+            { title: 'Upload to audit portal', description: 'Submit documents to auditors.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['submission'] },
+            { title: 'Confirm team availability', description: 'Schedule support coverage.', assigneeRole: 'lead', dueOffset: 21, priority: 'medium', labels: ['coordination'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 17. INTERNAL AUDIT ====================
+  {
+    name: 'Internal Audit',
+    slug: 'internal-audit',
+    description:
+      'Plan and execute internal audit engagements to evaluate controls and operational efficiency.',
+    category: 'finance',
+    icon: 'Shield',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'fieldwork', name: 'Fieldwork', order: 1, color: '#3B82F6' },
+      { id: 'testing', name: 'Testing', order: 2, color: '#F59E0B' },
+      { id: 'reporting', name: 'Reporting', order: 3, color: '#8B5CF6' },
+      { id: 'follow_up', name: 'Follow-up', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Audit Area', type: 'text', description: 'Area being audited', isRequired: true },
+      { name: 'Risk Rating', type: 'select', description: 'Inherent risk level', options: ['Low', 'Medium', 'High', 'Critical'], isRequired: true },
+      { name: 'Audit Period', type: 'text', description: 'Period under review', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Audit Planning',
+          description: 'Plan the audit engagement',
+          tasks: [
+            { title: 'Risk assessment', description: 'Evaluate area risk profile.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Develop audit program', description: 'Create audit procedures.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning'] },
+            { title: 'Schedule audit activities', description: 'Plan fieldwork timeline.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['planning'] },
+            { title: 'Send engagement letter', description: 'Notify auditee of audit.', assigneeRole: 'lead', dueOffset: 8, priority: 'high', labels: ['communication'] },
+          ],
+        },
+        {
+          name: 'Audit Execution',
+          description: 'Perform audit procedures',
+          tasks: [
+            { title: 'Conduct opening meeting', description: 'Meet with process owners.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['fieldwork'] },
+            { title: 'Document process narratives', description: 'Map key processes.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['documentation'] },
+            { title: 'Identify key controls', description: 'Document control points.', assigneeRole: 'member', dueOffset: 19, priority: 'high', labels: ['controls'] },
+            { title: 'Test control effectiveness', description: 'Execute control tests.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['testing'] },
+            { title: 'Document exceptions', description: 'Record control deficiencies.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['findings'] },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Report audit findings',
+          tasks: [
+            { title: 'Draft audit findings', description: 'Write finding descriptions.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['reporting'] },
+            { title: 'Review with management', description: 'Validate findings accuracy.', assigneeRole: 'lead', dueOffset: 33, priority: 'high', labels: ['review'] },
+            { title: 'Obtain management responses', description: 'Get remediation plans.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['responses'] },
+            { title: 'Issue final report', description: 'Distribute audit report.', assigneeRole: 'lead', dueOffset: 38, priority: 'high', labels: ['reporting'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 18. EXTERNAL AUDIT SUPPORT ====================
+  {
+    name: 'External Audit Support',
+    slug: 'external-audit-support',
+    description:
+      'Coordinate and support external audit fieldwork to ensure efficient audit completion.',
+    category: 'finance',
+    icon: 'Users',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'requested', name: 'Requested', order: 0, color: '#6B7280' },
+      { id: 'in_progress', name: 'In Progress', order: 1, color: '#3B82F6' },
+      { id: 'under_review', name: 'Under Review', order: 2, color: '#F59E0B' },
+      { id: 'provided', name: 'Provided', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Auditor', type: 'text', description: 'Requesting auditor', isRequired: false },
+      { name: 'Request Type', type: 'select', description: 'Type of request', options: ['Document', 'Walkthrough', 'Sample', 'Inquiry', 'Confirmation'], isRequired: true },
+      { name: 'Due Date', type: 'date', description: 'Response due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Audit Coordination',
+          description: 'Manage audit logistics',
+          tasks: [
+            { title: 'Set up daily status calls', description: 'Schedule check-in meetings.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['coordination'] },
+            { title: 'Assign audit liaisons', description: 'Designate support contacts.', assigneeRole: 'lead', dueOffset: 1, priority: 'high', labels: ['staffing'] },
+            { title: 'Track open requests', description: 'Maintain request log.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['tracking'] },
+          ],
+        },
+        {
+          name: 'Request Response',
+          description: 'Respond to auditor requests',
+          tasks: [
+            { title: 'Process document requests', description: 'Gather requested documents.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['documents'] },
+            { title: 'Schedule walkthroughs', description: 'Coordinate process walkthroughs.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['walkthroughs'] },
+            { title: 'Pull audit samples', description: 'Extract requested samples.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['sampling'] },
+            { title: 'Respond to inquiries', description: 'Answer auditor questions.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['inquiries'] },
+          ],
+        },
+        {
+          name: 'Issue Resolution',
+          description: 'Address audit issues',
+          tasks: [
+            { title: 'Review proposed adjustments', description: 'Analyze audit adjustments.', assigneeRole: 'lead', dueOffset: 20, priority: 'high', labels: ['adjustments'] },
+            { title: 'Respond to management letter', description: 'Address control findings.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['responses'] },
+            { title: 'Close audit fieldwork', description: 'Complete audit support.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['completion'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'table', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 19. SOX COMPLIANCE ====================
+  {
+    name: 'SOX Compliance',
+    slug: 'sox-compliance',
+    description:
+      'Manage Sarbanes-Oxley compliance activities including control testing and documentation.',
+    category: 'finance',
+    icon: 'Lock',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'scoping', name: 'Scoping', order: 0, color: '#6B7280' },
+      { id: 'documentation', name: 'Documentation', order: 1, color: '#3B82F6' },
+      { id: 'testing', name: 'Testing', order: 2, color: '#F59E0B' },
+      { id: 'remediation', name: 'Remediation', order: 3, color: '#EF4444' },
+      { id: 'certified', name: 'Certified', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Control ID', type: 'text', description: 'Control identifier', isRequired: true },
+      { name: 'Control Owner', type: 'text', description: 'Control owner name', isRequired: true },
+      { name: 'Test Result', type: 'select', description: 'Testing result', options: ['Effective', 'Ineffective', 'Not Tested', 'N/A'], isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'SOX Scoping',
+          description: 'Define scope of SOX testing',
+          tasks: [
+            { title: 'Identify significant accounts', description: 'Determine material accounts.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['scoping'] },
+            { title: 'Map processes to accounts', description: 'Link processes to financials.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['scoping'] },
+            { title: 'Identify key controls', description: 'Select controls for testing.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['controls'] },
+            { title: 'Finalize scope matrix', description: 'Complete SOX scope document.', assigneeRole: 'lead', dueOffset: 12, priority: 'high', labels: ['documentation'] },
+          ],
+        },
+        {
+          name: 'Control Documentation',
+          description: 'Document control activities',
+          tasks: [
+            { title: 'Update process narratives', description: 'Refresh process documentation.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['documentation'] },
+            { title: 'Update RCMs', description: 'Refresh risk control matrices.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['documentation'] },
+            { title: 'Review with control owners', description: 'Validate documentation.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Control Testing',
+          description: 'Execute control tests',
+          tasks: [
+            { title: 'Select test samples', description: 'Determine sample sizes.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['sampling'] },
+            { title: 'Execute control tests', description: 'Perform testing procedures.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['testing'] },
+            { title: 'Document test results', description: 'Record testing outcomes.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['documentation'] },
+            { title: 'Identify deficiencies', description: 'Document control gaps.', assigneeRole: 'lead', dueOffset: 52, priority: 'high', labels: ['findings'] },
+          ],
+        },
+        {
+          name: 'Certification',
+          description: 'Complete SOX certification',
+          tasks: [
+            { title: 'Track remediation', description: 'Monitor deficiency remediation.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['remediation'] },
+            { title: 'Obtain sub-certifications', description: 'Collect management certs.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['certification'] },
+            { title: 'Prepare SOX summary', description: 'Compile testing results.', assigneeRole: 'lead', dueOffset: 75, priority: 'high', labels: ['reporting'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'table', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 20. MANAGEMENT REPORTING ====================
+  {
+    name: 'Management Reporting',
+    slug: 'management-reporting',
+    description:
+      'Prepare management reports including KPIs, dashboards, and operational metrics.',
+    category: 'finance',
+    icon: 'PieChart',
+    color: '#14B8A6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'data_collection', name: 'Data Collection', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'preparation', name: 'Preparation', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'distributed', name: 'Distributed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Report Type', type: 'select', description: 'Type of report', options: ['Weekly', 'Monthly', 'Quarterly', 'Ad-hoc'], isRequired: true },
+      { name: 'Audience', type: 'text', description: 'Target audience', isRequired: true },
+      { name: 'Distribution Date', type: 'date', description: 'Report due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Data Gathering',
+          description: 'Collect reporting data',
+          tasks: [
+            { title: 'Extract financial data', description: 'Pull data from systems.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data'] },
+            { title: 'Collect operational metrics', description: 'Gather KPI data.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['data'] },
+            { title: 'Validate data accuracy', description: 'Verify data integrity.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['validation'] },
+          ],
+        },
+        {
+          name: 'Report Preparation',
+          description: 'Create management reports',
+          tasks: [
+            { title: 'Update dashboard metrics', description: 'Refresh KPI dashboards.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['reporting'] },
+            { title: 'Prepare variance analysis', description: 'Analyze actual vs budget.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['analysis'] },
+            { title: 'Write executive summary', description: 'Draft key highlights.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['reporting'] },
+            { title: 'Create visualizations', description: 'Build charts and graphs.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['visualization'] },
+          ],
+        },
+        {
+          name: 'Review & Distribution',
+          description: 'Finalize and distribute reports',
+          tasks: [
+            { title: 'Quality review', description: 'Check report accuracy.', assigneeRole: 'lead', dueOffset: 6, priority: 'high', labels: ['review'] },
+            { title: 'Management review', description: 'Pre-distribution review.', assigneeRole: 'owner', dueOffset: 7, priority: 'high', labels: ['review'] },
+            { title: 'Distribute reports', description: 'Send to stakeholders.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['distribution'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 21. BOARD FINANCIAL REVIEW ====================
+  {
+    name: 'Board Financial Review',
+    slug: 'board-financial-review',
+    description:
+      'Prepare financial materials for board of directors meetings and presentations.',
+    category: 'finance',
+    icon: 'Briefcase',
+    color: '#4F46E5',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'preparation', name: 'Preparation', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready', order: 3, color: '#10B981' },
+      { id: 'presented', name: 'Presented', order: 4, color: '#8B5CF6' },
+    ],
+    customFields: [
+      { name: 'Meeting Date', type: 'date', description: 'Board meeting date', isRequired: true },
+      { name: 'Quarter', type: 'select', description: 'Reporting quarter', options: ['Q1', 'Q2', 'Q3', 'Q4'], isRequired: true },
+      { name: 'Materials Due', type: 'date', description: 'Materials submission deadline', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Content Planning',
+          description: 'Plan board materials',
+          tasks: [
+            { title: 'Review agenda items', description: 'Identify financial topics.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Gather presentation input', description: 'Collect content from teams.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['coordination'] },
+            { title: 'Outline key messages', description: 'Define presentation themes.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Materials Preparation',
+          description: 'Develop board materials',
+          tasks: [
+            { title: 'Prepare financial summary', description: 'Create financial highlights.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['reporting'] },
+            { title: 'Develop budget comparison', description: 'Prepare budget vs actual.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['analysis'] },
+            { title: 'Create forecast update', description: 'Update financial projections.', assigneeRole: 'lead', dueOffset: 9, priority: 'high', labels: ['forecasting'] },
+            { title: 'Prepare KPI dashboard', description: 'Update key metrics.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['reporting'] },
+            { title: 'Draft talking points', description: 'Write presentation notes.', assigneeRole: 'lead', dueOffset: 11, priority: 'medium', labels: ['preparation'] },
+          ],
+        },
+        {
+          name: 'Review & Finalization',
+          description: 'Finalize board materials',
+          tasks: [
+            { title: 'CFO review', description: 'CFO reviews all materials.', assigneeRole: 'owner', dueOffset: 12, priority: 'high', labels: ['review'] },
+            { title: 'Incorporate feedback', description: 'Make requested changes.', assigneeRole: 'member', dueOffset: 13, priority: 'high', labels: ['revision'] },
+            { title: 'Submit to board portal', description: 'Upload final materials.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['submission'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 22. INVESTOR REPORTING ====================
+  {
+    name: 'Investor Reporting',
+    slug: 'investor-reporting',
+    description:
+      'Prepare financial reports and communications for investors and stakeholders.',
+    category: 'finance',
+    icon: 'Users',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'drafting', name: 'Drafting', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Review', order: 1, color: '#3B82F6' },
+      { id: 'legal_review', name: 'Legal Review', order: 2, color: '#F59E0B' },
+      { id: 'approved', name: 'Approved', order: 3, color: '#8B5CF6' },
+      { id: 'distributed', name: 'Distributed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Report Period', type: 'text', description: 'Reporting period', isRequired: true },
+      { name: 'Report Type', type: 'select', description: 'Type of report', options: ['Quarterly Update', 'Annual Report', 'Investor Letter', 'Capital Call'], isRequired: true },
+      { name: 'Distribution Date', type: 'date', description: 'Target distribution', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Report Development',
+          description: 'Create investor reports',
+          tasks: [
+            { title: 'Compile financial results', description: 'Gather performance data.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data'] },
+            { title: 'Draft narrative sections', description: 'Write report commentary.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['writing'] },
+            { title: 'Prepare financial exhibits', description: 'Create financial tables.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['reporting'] },
+            { title: 'Update portfolio summary', description: 'Refresh investment summary.', assigneeRole: 'member', dueOffset: 8, priority: 'medium', labels: ['reporting'] },
+          ],
+        },
+        {
+          name: 'Review Process',
+          description: 'Review and approve reports',
+          tasks: [
+            { title: 'Management review', description: 'Internal management review.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['review'] },
+            { title: 'Legal compliance review', description: 'Legal reviews content.', assigneeRole: 'owner', dueOffset: 12, priority: 'high', labels: ['legal'] },
+            { title: 'Final approval', description: 'Obtain final sign-off.', assigneeRole: 'owner', dueOffset: 14, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Distribution',
+          description: 'Distribute to investors',
+          tasks: [
+            { title: 'Format final report', description: 'Finalize report formatting.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['formatting'] },
+            { title: 'Distribute to investors', description: 'Send to investor list.', assigneeRole: 'member', dueOffset: 16, priority: 'high', labels: ['distribution'] },
+            { title: 'Post to investor portal', description: 'Upload to portal.', assigneeRole: 'member', dueOffset: 16, priority: 'medium', labels: ['distribution'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 23. SEC FILING PREP ====================
+  {
+    name: 'SEC Filing Prep',
+    slug: 'sec-filing-prep',
+    description:
+      'Prepare and coordinate SEC filings including 10-K, 10-Q, and 8-K submissions.',
+    category: 'finance',
+    icon: 'FileCheck',
+    color: '#B91C1C',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'drafting', name: 'Drafting', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Internal Review', order: 1, color: '#3B82F6' },
+      { id: 'legal', name: 'Legal Review', order: 2, color: '#F59E0B' },
+      { id: 'audit', name: 'Auditor Review', order: 3, color: '#8B5CF6' },
+      { id: 'filed', name: 'Filed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Filing Type', type: 'select', description: 'SEC filing type', options: ['10-K', '10-Q', '8-K', 'S-1', 'Proxy'], isRequired: true },
+      { name: 'Period End', type: 'date', description: 'Period ending date', isRequired: true },
+      { name: 'Filing Deadline', type: 'date', description: 'SEC due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Document Preparation',
+          description: 'Prepare filing documents',
+          tasks: [
+            { title: 'Update prior period filing', description: 'Roll forward last filing.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['drafting'] },
+            { title: 'Draft MD&A section', description: 'Prepare management discussion.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['writing'] },
+            { title: 'Update financial statements', description: 'Insert current financials.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['financials'] },
+            { title: 'Draft footnotes', description: 'Update note disclosures.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['disclosures'] },
+            { title: 'Update exhibits', description: 'Refresh filing exhibits.', assigneeRole: 'member', dueOffset: 12, priority: 'medium', labels: ['exhibits'] },
+          ],
+        },
+        {
+          name: 'Review Cycle',
+          description: 'Complete review process',
+          tasks: [
+            { title: 'Internal review', description: 'Review by finance team.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['review'] },
+            { title: 'Legal review', description: 'Review by legal counsel.', assigneeRole: 'owner', dueOffset: 18, priority: 'high', labels: ['legal'] },
+            { title: 'Auditor review', description: 'External auditor review.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['audit'] },
+            { title: 'Disclosure committee', description: 'DC reviews and approves.', assigneeRole: 'owner', dueOffset: 23, priority: 'high', labels: ['approval'] },
+          ],
+        },
+        {
+          name: 'Filing',
+          description: 'Submit SEC filing',
+          tasks: [
+            { title: 'XBRL tagging', description: 'Complete XBRL tagging.', assigneeRole: 'member', dueOffset: 24, priority: 'high', labels: ['xbrl'] },
+            { title: 'Edgar validation', description: 'Validate filing in Edgar.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['validation'] },
+            { title: 'Submit to SEC', description: 'File with SEC.', assigneeRole: 'lead', dueOffset: 26, priority: 'high', labels: ['filing'] },
+            { title: 'Confirm acceptance', description: 'Verify SEC acceptance.', assigneeRole: 'member', dueOffset: 26, priority: 'high', labels: ['verification'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 24. ANNUAL REPORT PREP ====================
+  {
+    name: 'Annual Report Prep',
+    slug: 'annual-report-prep',
+    description:
+      'Coordinate annual report production including financial and narrative sections.',
+    category: 'finance',
+    icon: 'Book',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'content', name: 'Content Development', order: 1, color: '#3B82F6' },
+      { id: 'design', name: 'Design', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Fiscal Year', type: 'text', description: 'Report fiscal year', isRequired: true },
+      { name: 'Publication Date', type: 'date', description: 'Target publication', isRequired: true },
+      { name: 'Page Count', type: 'number', description: 'Estimated pages', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Planning & Outline',
+          description: 'Plan annual report',
+          tasks: [
+            { title: 'Define report structure', description: 'Outline report sections.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Assign content owners', description: 'Designate section authors.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['coordination'] },
+            { title: 'Select design partner', description: 'Engage design firm.', assigneeRole: 'owner', dueOffset: 5, priority: 'medium', labels: ['vendor'] },
+            { title: 'Create timeline', description: 'Build production schedule.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Content Development',
+          description: 'Create report content',
+          tasks: [
+            { title: 'Draft CEO letter', description: 'Prepare CEO message.', assigneeRole: 'owner', dueOffset: 14, priority: 'high', labels: ['content'] },
+            { title: 'Draft business overview', description: 'Write company overview.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['content'] },
+            { title: 'Prepare financial highlights', description: 'Create financial summary.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['financials'] },
+            { title: 'Gather photos and graphics', description: 'Collect visual assets.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['design'] },
+          ],
+        },
+        {
+          name: 'Review & Production',
+          description: 'Finalize and publish',
+          tasks: [
+            { title: 'Review all content', description: 'Edit all sections.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['review'] },
+            { title: 'Legal review', description: 'Legal reviews content.', assigneeRole: 'owner', dueOffset: 32, priority: 'high', labels: ['legal'] },
+            { title: 'Final proof', description: 'Complete final proofread.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['review'] },
+            { title: 'Approve for print', description: 'Sign off on final.', assigneeRole: 'owner', dueOffset: 37, priority: 'high', labels: ['approval'] },
+            { title: 'Publish and distribute', description: 'Release annual report.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['distribution'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 25. FINANCIAL ANALYSIS ====================
+  {
+    name: 'Financial Analysis',
+    slug: 'financial-analysis',
+    description:
+      'Conduct financial analysis projects including performance analysis and strategic assessments.',
+    category: 'finance',
+    icon: 'Activity',
+    color: '#0891B2',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'scoping', name: 'Scoping', order: 0, color: '#6B7280' },
+      { id: 'data_gathering', name: 'Data Gathering', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Analysis Type', type: 'select', description: 'Type of analysis', options: ['Performance', 'Strategic', 'Operational', 'Investment', 'Cost'], isRequired: true },
+      { name: 'Requestor', type: 'text', description: 'Analysis requestor', isRequired: true },
+      { name: 'Due Date', type: 'date', description: 'Delivery due date', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Analysis Planning',
+          description: 'Define analysis scope',
+          tasks: [
+            { title: 'Define analysis objectives', description: 'Clarify analysis goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Identify data requirements', description: 'List required data sources.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['planning'] },
+            { title: 'Develop analysis framework', description: 'Create analysis structure.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['methodology'] },
+          ],
+        },
+        {
+          name: 'Data Collection',
+          description: 'Gather analysis data',
+          tasks: [
+            { title: 'Extract financial data', description: 'Pull required financial data.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['data'] },
+            { title: 'Gather operational data', description: 'Collect non-financial data.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['data'] },
+            { title: 'Validate data quality', description: 'Check data accuracy.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['validation'] },
+          ],
+        },
+        {
+          name: 'Analysis Execution',
+          description: 'Perform analysis',
+          tasks: [
+            { title: 'Conduct quantitative analysis', description: 'Perform calculations.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['analysis'] },
+            { title: 'Identify trends and patterns', description: 'Analyze data patterns.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['analysis'] },
+            { title: 'Develop insights', description: 'Draw analytical conclusions.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['insights'] },
+            { title: 'Prepare recommendations', description: 'Formulate action items.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['recommendations'] },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Document and present',
+          tasks: [
+            { title: 'Draft analysis report', description: 'Write findings report.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['reporting'] },
+            { title: 'Create presentation', description: 'Build presentation deck.', assigneeRole: 'member', dueOffset: 18, priority: 'medium', labels: ['presentation'] },
+            { title: 'Management review', description: 'Present to stakeholders.', assigneeRole: 'lead', dueOffset: 20, priority: 'high', labels: ['review'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 26. VARIANCE ANALYSIS ====================
+  {
+    name: 'Variance Analysis',
+    slug: 'variance-analysis',
+    description:
+      'Analyze budget vs actual variances and provide explanations for significant differences.',
+    category: 'finance',
+    icon: 'GitCompare',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'data_prep', name: 'Data Prep', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'documentation', name: 'Documentation', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Period', type: 'text', description: 'Analysis period', isRequired: true },
+      { name: 'Variance Type', type: 'select', description: 'Type of variance', options: ['Budget vs Actual', 'Prior Period', 'Forecast vs Actual', 'Plan vs Forecast'], isRequired: true },
+      { name: 'Threshold', type: 'number', description: 'Variance threshold %', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Data Preparation',
+          description: 'Prepare variance data',
+          tasks: [
+            { title: 'Extract actual results', description: 'Pull period actuals.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data'] },
+            { title: 'Extract budget data', description: 'Pull budget figures.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['data'] },
+            { title: 'Calculate variances', description: 'Compute variance amounts.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['calculation'] },
+            { title: 'Identify significant variances', description: 'Flag material differences.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['analysis'] },
+          ],
+        },
+        {
+          name: 'Variance Analysis',
+          description: 'Analyze variances',
+          tasks: [
+            { title: 'Analyze revenue variances', description: 'Explain revenue differences.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['analysis'] },
+            { title: 'Analyze expense variances', description: 'Explain cost differences.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['analysis'] },
+            { title: 'Gather department input', description: 'Get explanations from teams.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['coordination'] },
+            { title: 'Identify root causes', description: 'Determine variance drivers.', assigneeRole: 'lead', dueOffset: 6, priority: 'high', labels: ['analysis'] },
+          ],
+        },
+        {
+          name: 'Reporting',
+          description: 'Document variance analysis',
+          tasks: [
+            { title: 'Prepare variance report', description: 'Create analysis report.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['reporting'] },
+            { title: 'Document action items', description: 'List corrective actions.', assigneeRole: 'lead', dueOffset: 8, priority: 'medium', labels: ['actions'] },
+            { title: 'Present to management', description: 'Review with leadership.', assigneeRole: 'lead', dueOffset: 9, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 27. COST ANALYSIS ====================
+  {
+    name: 'Cost Analysis',
+    slug: 'cost-analysis',
+    description:
+      'Analyze cost structures, identify cost drivers, and recommend optimization opportunities.',
+    category: 'finance',
+    icon: 'DollarSign',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'scoping', name: 'Scoping', order: 0, color: '#6B7280' },
+      { id: 'data_collection', name: 'Data Collection', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#F59E0B' },
+      { id: 'recommendations', name: 'Recommendations', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Cost Category', type: 'select', description: 'Category being analyzed', options: ['Direct Costs', 'Indirect Costs', 'Fixed Costs', 'Variable Costs', 'All Costs'], isRequired: true },
+      { name: 'Business Unit', type: 'text', description: 'Business unit scope', isRequired: false },
+      { name: 'Target Savings', type: 'number', description: 'Savings target', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Analysis Setup',
+          description: 'Define analysis scope',
+          tasks: [
+            { title: 'Define cost categories', description: 'Identify costs to analyze.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Identify data sources', description: 'Map data requirements.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['planning'] },
+            { title: 'Set analysis parameters', description: 'Define time period and scope.', assigneeRole: 'lead', dueOffset: 3, priority: 'medium', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Data Analysis',
+          description: 'Analyze cost data',
+          tasks: [
+            { title: 'Extract cost data', description: 'Pull cost information.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['data'] },
+            { title: 'Categorize costs', description: 'Classify cost elements.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['classification'] },
+            { title: 'Analyze cost trends', description: 'Review historical patterns.', assigneeRole: 'member', dueOffset: 9, priority: 'high', labels: ['analysis'] },
+            { title: 'Identify cost drivers', description: 'Determine key cost factors.', assigneeRole: 'lead', dueOffset: 11, priority: 'high', labels: ['analysis'] },
+            { title: 'Benchmark against industry', description: 'Compare to benchmarks.', assigneeRole: 'member', dueOffset: 13, priority: 'medium', labels: ['benchmarking'] },
+          ],
+        },
+        {
+          name: 'Recommendations',
+          description: 'Develop cost reduction plan',
+          tasks: [
+            { title: 'Identify savings opportunities', description: 'Find cost reduction areas.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['opportunities'] },
+            { title: 'Quantify savings potential', description: 'Calculate potential savings.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['quantification'] },
+            { title: 'Develop action plan', description: 'Create implementation plan.', assigneeRole: 'lead', dueOffset: 19, priority: 'high', labels: ['planning'] },
+            { title: 'Present recommendations', description: 'Review with stakeholders.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 28. PROFITABILITY ANALYSIS ====================
+  {
+    name: 'Profitability Analysis',
+    slug: 'profitability-analysis',
+    description:
+      'Analyze profitability by product, customer, channel, or segment to drive strategic decisions.',
+    category: 'finance',
+    icon: 'TrendingUp',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'data_gathering', name: 'Data Gathering', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#F59E0B' },
+      { id: 'insights', name: 'Insights', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Analysis Dimension', type: 'select', description: 'Profitability dimension', options: ['Product', 'Customer', 'Channel', 'Segment', 'Region'], isRequired: true },
+      { name: 'Time Period', type: 'text', description: 'Analysis period', isRequired: true },
+      { name: 'Margin Threshold', type: 'number', description: 'Minimum margin %', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Analysis Setup',
+          description: 'Plan profitability analysis',
+          tasks: [
+            { title: 'Define analysis dimensions', description: 'Select analysis cuts.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Map cost allocation', description: 'Define cost assignment rules.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['methodology'] },
+            { title: 'Identify data requirements', description: 'List data needs.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Data Collection',
+          description: 'Gather profitability data',
+          tasks: [
+            { title: 'Extract revenue data', description: 'Pull revenue by dimension.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['data'] },
+            { title: 'Extract cost data', description: 'Pull cost information.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['data'] },
+            { title: 'Allocate indirect costs', description: 'Apply allocation rules.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['allocation'] },
+          ],
+        },
+        {
+          name: 'Analysis & Insights',
+          description: 'Analyze and develop insights',
+          tasks: [
+            { title: 'Calculate margins', description: 'Compute profitability metrics.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['analysis'] },
+            { title: 'Rank by profitability', description: 'Identify top/bottom performers.', assigneeRole: 'member', dueOffset: 13, priority: 'high', labels: ['ranking'] },
+            { title: 'Analyze profit drivers', description: 'Identify key profit factors.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['analysis'] },
+            { title: 'Develop strategic insights', description: 'Draw business conclusions.', assigneeRole: 'lead', dueOffset: 17, priority: 'high', labels: ['insights'] },
+            { title: 'Present findings', description: 'Share with stakeholders.', assigneeRole: 'lead', dueOffset: 19, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 29. BREAK-EVEN ANALYSIS ====================
+  {
+    name: 'Break-even Analysis',
+    slug: 'break-even-analysis',
+    description:
+      'Calculate break-even points for products, projects, or business units to support pricing and volume decisions.',
+    category: 'finance',
+    icon: 'Target',
+    color: '#D97706',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'setup', name: 'Setup', order: 0, color: '#6B7280' },
+      { id: 'calculation', name: 'Calculation', order: 1, color: '#3B82F6' },
+      { id: 'sensitivity', name: 'Sensitivity', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Analysis Subject', type: 'text', description: 'Product/project analyzed', isRequired: true },
+      { name: 'Fixed Costs', type: 'number', description: 'Total fixed costs', isRequired: true },
+      { name: 'Target Margin', type: 'number', description: 'Target profit margin %', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Cost Classification',
+          description: 'Classify costs for analysis',
+          tasks: [
+            { title: 'Identify fixed costs', description: 'List all fixed costs.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['classification'] },
+            { title: 'Identify variable costs', description: 'List all variable costs.', assigneeRole: 'member', dueOffset: 1, priority: 'high', labels: ['classification'] },
+            { title: 'Calculate unit economics', description: 'Determine per-unit costs.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['calculation'] },
+            { title: 'Determine selling price', description: 'Set unit price assumption.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['pricing'] },
+          ],
+        },
+        {
+          name: 'Break-even Calculation',
+          description: 'Calculate break-even point',
+          tasks: [
+            { title: 'Calculate contribution margin', description: 'Compute CM per unit.', assigneeRole: 'member', dueOffset: 4, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate break-even units', description: 'Determine unit BE point.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate break-even revenue', description: 'Determine revenue BE point.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate margin of safety', description: 'Determine safety margin.', assigneeRole: 'member', dueOffset: 6, priority: 'medium', labels: ['calculation'] },
+          ],
+        },
+        {
+          name: 'Sensitivity Analysis',
+          description: 'Test assumptions',
+          tasks: [
+            { title: 'Price sensitivity', description: 'Test different price points.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['sensitivity'] },
+            { title: 'Cost sensitivity', description: 'Test cost variations.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['sensitivity'] },
+            { title: 'Create visualization', description: 'Build break-even chart.', assigneeRole: 'member', dueOffset: 9, priority: 'medium', labels: ['visualization'] },
+            { title: 'Document findings', description: 'Summarize analysis results.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['documentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: false, enableStoryPoints: false },
+  },
+
+  // ==================== 30. ROI ANALYSIS ====================
+  {
+    name: 'ROI Analysis',
+    slug: 'roi-analysis',
+    description:
+      'Calculate return on investment for projects, initiatives, or capital expenditures.',
+    category: 'finance',
+    icon: 'Percent',
+    color: '#16A34A',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'scoping', name: 'Scoping', order: 0, color: '#6B7280' },
+      { id: 'estimation', name: 'Estimation', order: 1, color: '#3B82F6' },
+      { id: 'calculation', name: 'Calculation', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Project Name', type: 'text', description: 'Project being analyzed', isRequired: true },
+      { name: 'Investment Amount', type: 'number', description: 'Total investment', isRequired: true },
+      { name: 'Time Horizon', type: 'select', description: 'Analysis period', options: ['1 Year', '3 Years', '5 Years', '10 Years'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Investment Scoping',
+          description: 'Define investment parameters',
+          tasks: [
+            { title: 'Define investment scope', description: 'Identify all investment costs.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['scoping'] },
+            { title: 'Identify cost components', description: 'List all cost elements.', assigneeRole: 'member', dueOffset: 2, priority: 'high', labels: ['costs'] },
+            { title: 'Define benefit categories', description: 'List expected benefits.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['benefits'] },
+          ],
+        },
+        {
+          name: 'Benefit Estimation',
+          description: 'Quantify expected benefits',
+          tasks: [
+            { title: 'Estimate revenue benefits', description: 'Project revenue gains.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['estimation'] },
+            { title: 'Estimate cost savings', description: 'Project cost reductions.', assigneeRole: 'member', dueOffset: 6, priority: 'high', labels: ['estimation'] },
+            { title: 'Estimate intangible benefits', description: 'Quantify soft benefits.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['estimation'] },
+            { title: 'Validate assumptions', description: 'Confirm estimation basis.', assigneeRole: 'lead', dueOffset: 8, priority: 'high', labels: ['validation'] },
+          ],
+        },
+        {
+          name: 'ROI Calculation',
+          description: 'Calculate ROI metrics',
+          tasks: [
+            { title: 'Build cash flow model', description: 'Create cash flow projection.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['modeling'] },
+            { title: 'Calculate simple ROI', description: 'Compute basic ROI.', assigneeRole: 'member', dueOffset: 11, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate NPV', description: 'Compute net present value.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate IRR', description: 'Compute internal rate of return.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['calculation'] },
+            { title: 'Calculate payback period', description: 'Determine payback time.', assigneeRole: 'member', dueOffset: 13, priority: 'medium', labels: ['calculation'] },
+          ],
+        },
+        {
+          name: 'Presentation',
+          description: 'Present ROI findings',
+          tasks: [
+            { title: 'Prepare ROI summary', description: 'Create analysis summary.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['reporting'] },
+            { title: 'Develop recommendation', description: 'Form investment recommendation.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['recommendation'] },
+            { title: 'Present to stakeholders', description: 'Share findings.', assigneeRole: 'lead', dueOffset: 17, priority: 'high', labels: ['presentation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },];

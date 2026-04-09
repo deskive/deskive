@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global box-sizing reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 160.1 84.1% 39.4%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 166 76% 97%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 166 30% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 166 76% 97%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 166 20% 91%;
+    --input: 166 20% 91%;
+    --ring: 160.1 84.1% 39.4%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 160.1 84.1% 45.5%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 166 30% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 166 30% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 166 30% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 166 30% 17.5%;
+    --input: 166 30% 17.5%;
+    --ring: 160.1 84.1% 45.5%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    overflow: overlay; /* Makes scrollbar overlay content on supported browsers */
+  }
+
+  /* Custom Scrollbar Styles */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+    transition: background-color 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/30;
+  }
+
+  /* Firefox Scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  /* Thin scrollbar variant */
+  .thin-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .thin-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-border/50;
+  }
+
+  /* Dark mode scrollbar adjustments */
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20;
+  }
+
+  .dark ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+
+  /* Dark mode date/time input picker icons - make the icon white */
+  .dark input[type="date"]::-webkit-calendar-picker-indicator,
+  .dark input[type="time"]::-webkit-calendar-picker-indicator,
+  .dark input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  /* ============================================
+   * Primary Gradient System
+   * Centralized gradient styles for the entire app
+   * Change colors here to update the whole app
+   * ============================================ */
+
+  /* Base gradient (non-button elements like progress bars, indicators) */
+  .gradient-primary {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-600;
+  }
+
+  /* Gradient button with hover states */
+  .btn-gradient-primary {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-sm;
+  }
+
+  .btn-gradient-primary:hover:not(:disabled) {
+    @apply from-emerald-600 to-teal-700;
+  }
+
+  .btn-gradient-primary:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* Active/selected state gradient (for navigation, tabs, etc.) */
+  .gradient-primary-active {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg;
+  }
+
+  .gradient-primary-active:hover {
+    @apply from-emerald-600 to-teal-700;
+  }
+
+  /* AI Button Gradient - Uses the primary gradient */
+  .btn-ai-gradient {
+    @apply bg-gradient-to-r from-emerald-500 to-teal-600 text-white;
+  }
+
+  .btn-ai-gradient:hover:not(:disabled) {
+    @apply from-emerald-600 to-teal-700;
+  }
+
+  .btn-ai-gradient:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+}
+
+@layer utilities {
+  /* Message HTML Content Styles (from Quill editor) */
+  .message-html-content {
+    word-break: break-word;
+  }
+
+  .message-html-content p {
+    margin: 0;
+    min-height: 1.5em;
+  }
+
+  .message-html-content p + p {
+    margin-top: 0.25em;
+  }
+
+  .message-html-content strong,
+  .message-html-content b {
+    font-weight: 700;
+  }
+
+  .message-html-content em,
+  .message-html-content i {
+    font-style: italic;
+  }
+
+  .message-html-content u {
+    text-decoration: underline;
+  }
+
+  .message-html-content s,
+  .message-html-content strike,
+  .message-html-content del {
+    text-decoration: line-through;
+  }
+
+  .message-html-content a {
+    @apply text-emerald-600 dark:text-emerald-400 underline hover:text-emerald-700 dark:hover:text-emerald-300;
+  }
+
+  .message-html-content code {
+    @apply bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono;
+  }
+
+  .message-html-content pre {
+    @apply bg-gray-100 dark:bg-gray-800 p-3 rounded-md text-sm font-mono overflow-x-auto my-2 border border-gray-200 dark:border-gray-700;
+  }
+
+  .message-html-content pre code {
+    @apply bg-transparent p-0;
+  }
+
+  .message-html-content blockquote {
+    @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic text-gray-600 dark:text-gray-400 my-2;
+  }
+
+  .message-html-content ul,
+  .message-html-content ol {
+    @apply pl-6 my-1;
+  }
+
+  .message-html-content ul {
+    list-style-type: disc;
+  }
+
+  .message-html-content ol {
+    list-style-type: decimal;
+  }
+
+  .message-html-content li {
+    @apply my-0.5;
+  }
+
+  .message-html-content h1,
+  .message-html-content h2,
+  .message-html-content h3,
+  .message-html-content h4,
+  .message-html-content h5,
+  .message-html-content h6 {
+    @apply font-semibold my-2;
+  }
+
+  .message-html-content h1 { @apply text-2xl; }
+  .message-html-content h2 { @apply text-xl; }
+  .message-html-content h3 { @apply text-lg; }
+
+  /* Mention highlights in messages */
+  .message-html-content .mention-highlight {
+    @apply bg-emerald-100 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 px-1 py-0.5 rounded font-medium;
+  }
+
+  /* Inline GIF styles in messages */
+  .message-html-content .chat-gif,
+  .chat-gif {
+    max-width: 300px;
+    max-height: 200px;
+    border-radius: 8px;
+    margin: 4px 0;
+    display: block;
+    object-fit: contain;
+  }
+
+  /* Calendar-specific scrollbar styles */
+  .calendar-scroll::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  .calendar-scroll::-webkit-scrollbar-track {
+    @apply bg-muted/20 rounded-full;
+    margin: 4px;
+  }
+
+  .calendar-scroll::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/20 rounded-full;
+  }
+
+  .calendar-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+
+  /* Sidebar scrollbar */
+  .sidebar-scroll {
+    scrollbar-gutter: stable;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb {
+    @apply bg-border/60 rounded-full;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/40;
+  }
+}

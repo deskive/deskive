@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="https://cdn.fluxez.com/deskive/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#6366f1" />
+
+    <!-- RSS/Atom Feeds -->
+    <link rel="alternate" type="application/rss+xml" title="Deskive Blog RSS Feed" href="/feed.xml" />
+    <link rel="alternate" type="application/atom+xml" title="Deskive Blog Atom Feed" href="/feed.atom" />
+    <link rel="alternate" type="application/rss+xml" title="Deskive Changelog RSS Feed" href="/changelog/feed.xml" />
+
+    <!-- Default Meta Tags (will be overridden by Helmet) -->
+    <title>Deskive - All-in-One Workspace Platform</title>
+    <meta name="description" content="Unite your team with chat, projects, files, calendar, notes, and video calls in one powerful workspace. Free 14-day trial." />
+    <meta name="keywords" content="workspace, collaboration, team chat, project management, file sharing, calendar, notes, video calls, productivity, remote work" />
+    <meta name="author" content="Deskive" />
+    <link rel="canonical" href="https://deskive.com/" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://deskive.com/" />
+    <meta property="og:title" content="Deskive - All-in-One Workspace Platform" />
+    <meta property="og:description" content="Unite your team with chat, projects, files, calendar, notes, and video calls in one powerful workspace. Free 14-day trial." />
+    <meta property="og:image" content="https://deskive.com/og_image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Deskive" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://deskive.com/" />
+    <meta name="twitter:title" content="Deskive - All-in-One Workspace Platform" />
+    <meta name="twitter:description" content="Unite your team with chat, projects, files, calendar, notes, and video calls in one powerful workspace. Free 14-day trial." />
+    <meta name="twitter:image" content="https://deskive.com/og_image.png" />
+    <meta name="twitter:creator" content="@deskive" />
+    <meta name="twitter:site" content="@deskive" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="language" content="English" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="rating" content="general" />
+
+    <!-- Structured Data / Schema.org -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Deskive",
+      "description": "All-in-One Workspace Platform for teams. Chat, projects, files, calendar, notes, and video calls in one unified workspace.",
+      "url": "https://deskive.com",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web, iOS, Android",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free 14-day trial"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "250"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Deskive",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cdn.fluxez.com/deskive/logo.png"
+        }
+      }
+    }
+    </script>
+
+    <!-- Preconnect to improve performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preconnect to CDN and API endpoints -->
+    <link rel="dns-prefetch" href="https://cdn.deskive.com" />
+    <link rel="dns-prefetch" href="https://api.deskive.com" />
+
+    <!-- Google Analytics 4 -->
+    <script>
+      // Only load GA4 if measurement ID is configured
+      const GA_ID = 'G-FQ0YJBBQF6'; // Deskive GA4 Measurement ID
+      if (GA_ID && GA_ID !== 'G-XXXXXXXXXX') {
+        // Google tag (gtag.js)
+        const gaScript = document.createElement('script');
+        gaScript.async = true;
+        gaScript.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+        document.head.appendChild(gaScript);
+
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', GA_ID, {
+          send_page_view: false // We'll manually track page views for SPA
+        });
+      }
+    </script>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+    j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+     })
+     (window,document,'script','dataLayer','GTM-MZMLD5DZ');
+     </script>
+    <!-- End Google Tag Manager -->
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+      <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MZMLD5DZ"
+      height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

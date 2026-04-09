@@ -1,0 +1,39 @@
+{
+  "action": "create_issue",
+  "baseUrl": "https://api.linear.app",
+  "testCases": [
+    {
+      "name": "creates issue successfully",
+      "input": {
+        "title": "New Issue",
+        "teamId": "team-123"
+      },
+      "mock": {
+        "method": "POST",
+        "path": "/graphql",
+        "status": 200,
+        "response": {
+          "data": {
+            "issueCreate": {
+              "success": true,
+              "issue": {
+                "id": "issue-123",
+                "title": "New Issue"
+              }
+            }
+          }
+        }
+      },
+      "expected": {
+        "success": true,
+        "data": {
+          "issueCreate": {
+            "issue": {
+              "id": "issue-123"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

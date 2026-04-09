@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day View Height Test</title>
+    <style>
+        .hour-slot {
+            height: 60px;
+            border-bottom: 1px solid #e2e8f0;
+            position: relative;
+        }
+        .event-15min {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 0;
+            height: 15px; /* 15 minutes = 15px */
+            background: #3b82f6;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            overflow: hidden;
+        }
+        .event-30min {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 0;
+            height: 30px; /* 30 minutes = 30px */
+            background: #10b981;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .event-1hour {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 0;
+            height: 60px; /* 1 hour = 60px */
+            background: #f59e0b;
+            color: white;
+            padding: 8px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .event-2hour {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            top: 0;
+            height: 120px; /* 2 hours = 120px */
+            background: #ef4444;
+            color: white;
+            padding: 8px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .time-slot {
+            width: 200px;
+            border: 1px solid #d1d5db;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <h3>15-minute event (should be 15px tall)</h3>
+            <div class="time-slot">
+                <div class="hour-slot">
+                    <div class="event-15min">Quick standup</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>30-minute event (should be 30px tall)</h3>
+            <div class="time-slot">
+                <div class="hour-slot">
+                    <div class="event-30min">Team sync</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>1-hour event (should be 60px tall)</h3>
+            <div class="time-slot">
+                <div class="hour-slot">
+                    <div class="event-1hour">Project meeting<br>With full details</div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h3>2-hour event (should be 120px tall)</h3>
+            <div class="time-slot">
+                <div class="hour-slot" style="height: 120px;">
+                    <div class="event-2hour">
+                        Workshop<br>
+                        Long description with<br>
+                        multiple lines and<br>
+                        details about location
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <p style="padding: 20px; background: #f3f4f6; margin: 20px;">
+        <strong>Test Results:</strong><br>
+        ✅ Events should scale proportionally with duration<br>
+        ✅ Short events (15-30 min) should show minimal content<br>
+        ✅ Long events (1+ hours) can show full details<br>
+        ✅ Each hour = 60px height
+    </p>
+</body>
+</html>

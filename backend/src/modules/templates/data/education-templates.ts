@@ -1,0 +1,2558 @@
+/**
+ * Education Project Templates
+ * Pre-built templates for course planning, academic projects, training programs, and educational administration
+ */
+
+export const EDUCATION_TEMPLATES = [
+  // ==================== 1. COURSE PLANNING ====================
+  {
+    name: 'Course Planning',
+    slug: 'course-planning',
+    description:
+      'Plan and organize course curriculum, lessons, and assessments. Perfect for educators developing new courses or programs.',
+    category: 'education',
+    icon: 'BookOpen',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready', order: 3, color: '#10B981' },
+      { id: 'delivered', name: 'Delivered', order: 4, color: '#8B5CF6' },
+    ],
+    customFields: [
+      {
+        name: 'Course Name',
+        type: 'text',
+        description: 'Name of the course',
+        isRequired: true,
+      },
+      {
+        name: 'Duration',
+        type: 'text',
+        description: 'Course duration (e.g., 12 weeks)',
+        isRequired: true,
+      },
+      {
+        name: 'Level',
+        type: 'select',
+        description: 'Course difficulty level',
+        options: ['Beginner', 'Intermediate', 'Advanced', 'All Levels'],
+        isRequired: true,
+      },
+      {
+        name: 'Format',
+        type: 'select',
+        description: 'Delivery format',
+        options: ['In-Person', 'Online', 'Hybrid', 'Self-Paced'],
+        isRequired: false,
+      },
+      {
+        name: 'Start Date',
+        type: 'date',
+        description: 'Course start date',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Course Design',
+          description: 'Design the course structure',
+          tasks: [
+            {
+              title: 'Define learning objectives',
+              description: 'Establish clear, measurable learning outcomes.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning'],
+              subtasks: [
+                { title: 'Identify target skills' },
+                { title: 'Write SMART objectives' },
+                { title: 'Map to assessments' },
+              ],
+            },
+            {
+              title: 'Create course outline',
+              description: 'Develop high-level course structure.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Plan module structure',
+              description: 'Break course into logical modules.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Define assessment strategy',
+              description: 'Plan quizzes, assignments, and exams.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['assessment'],
+            },
+          ],
+        },
+        {
+          name: 'Content Development',
+          description: 'Create course content',
+          tasks: [
+            {
+              title: 'Develop Module 1 content',
+              description: 'Create lessons and materials for first module.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content'],
+              subtasks: [
+                { title: 'Write lesson content' },
+                { title: 'Create slides/presentations' },
+                { title: 'Develop exercises' },
+              ],
+            },
+            {
+              title: 'Develop Module 2 content',
+              description: 'Create lessons and materials for second module.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Create supplementary materials',
+              description: 'Develop additional resources and readings.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['content'],
+            },
+            {
+              title: 'Design assessments',
+              description: 'Create quizzes, assignments, and exams.',
+              assigneeRole: 'lead',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['assessment'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Launch',
+          description: 'Review and launch the course',
+          tasks: [
+            {
+              title: 'Peer review content',
+              description: 'Have content reviewed by colleagues.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Test course platform',
+              description: 'Verify all materials work in LMS.',
+              assigneeRole: 'member',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['testing'],
+            },
+            {
+              title: 'Finalize course materials',
+              description: 'Make final revisions and publish.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['finalization'],
+            },
+            {
+              title: 'Launch course',
+              description: 'Open course for enrollment.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 2. TRAINING PROGRAM ====================
+  {
+    name: 'Training Program',
+    slug: 'training-program',
+    description:
+      'Design and deliver employee or professional training programs. Track participants, content, and completion.',
+    category: 'education',
+    icon: 'GraduationCap',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'design', name: 'Design', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'scheduling', name: 'Scheduling', order: 2, color: '#F59E0B' },
+      { id: 'delivery', name: 'Delivery', order: 3, color: '#8B5CF6' },
+      { id: 'evaluation', name: 'Evaluation', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Program Name',
+        type: 'text',
+        description: 'Training program name',
+        isRequired: true,
+      },
+      {
+        name: 'Target Audience',
+        type: 'text',
+        description: 'Who will be trained',
+        isRequired: true,
+      },
+      {
+        name: 'Training Type',
+        type: 'select',
+        description: 'Type of training',
+        options: ['Onboarding', 'Skills Development', 'Compliance', 'Leadership', 'Technical', 'Soft Skills'],
+        isRequired: true,
+      },
+      {
+        name: 'Participants',
+        type: 'number',
+        description: 'Expected number of participants',
+        isRequired: false,
+      },
+      {
+        name: 'Budget',
+        type: 'number',
+        description: 'Training budget',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Needs Assessment',
+          description: 'Identify training needs',
+          tasks: [
+            {
+              title: 'Conduct needs analysis',
+              description: 'Identify skill gaps and training requirements.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['analysis'],
+              subtasks: [
+                { title: 'Survey stakeholders' },
+                { title: 'Review performance data' },
+                { title: 'Identify priorities' },
+              ],
+            },
+            {
+              title: 'Define training goals',
+              description: 'Establish clear training objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Identify participants',
+              description: 'Determine who needs the training.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['planning'],
+            },
+          ],
+        },
+        {
+          name: 'Program Design',
+          description: 'Design the training program',
+          tasks: [
+            {
+              title: 'Create training plan',
+              description: 'Develop comprehensive training plan.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Develop training materials',
+              description: 'Create presentations and handouts.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Design activities and exercises',
+              description: 'Create interactive learning activities.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['content'],
+            },
+            {
+              title: 'Create assessment tools',
+              description: 'Develop pre/post tests and evaluations.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'medium',
+              labels: ['assessment'],
+            },
+          ],
+        },
+        {
+          name: 'Delivery',
+          description: 'Deliver the training',
+          tasks: [
+            {
+              title: 'Schedule training sessions',
+              description: 'Book rooms and send invitations.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['logistics'],
+            },
+            {
+              title: 'Prepare training environment',
+              description: 'Set up room and materials.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'medium',
+              labels: ['logistics'],
+            },
+            {
+              title: 'Conduct training sessions',
+              description: 'Deliver the training program.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['delivery'],
+            },
+            {
+              title: 'Collect feedback',
+              description: 'Gather participant feedback.',
+              assigneeRole: 'member',
+              dueOffset: 36,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+          ],
+        },
+        {
+          name: 'Evaluation',
+          description: 'Evaluate training effectiveness',
+          tasks: [
+            {
+              title: 'Analyze feedback',
+              description: 'Review participant evaluations.',
+              assigneeRole: 'lead',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+            {
+              title: 'Measure learning outcomes',
+              description: 'Assess knowledge/skill acquisition.',
+              assigneeRole: 'lead',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['assessment'],
+            },
+            {
+              title: 'Document lessons learned',
+              description: 'Record improvements for future.',
+              assigneeRole: 'lead',
+              dueOffset: 50,
+              priority: 'medium',
+              labels: ['documentation'],
+            },
+            {
+              title: 'Report results',
+              description: 'Share outcomes with stakeholders.',
+              assigneeRole: 'owner',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 3. STUDENT PROJECT ====================
+  {
+    name: 'Student Project',
+    slug: 'student-project',
+    description:
+      'Manage academic projects from research to presentation. Track milestones, research, and deliverables.',
+    category: 'education',
+    icon: 'FileText',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'writing', name: 'Writing', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'revision', name: 'Revision', order: 3, color: '#8B5CF6' },
+      { id: 'submitted', name: 'Submitted', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Project Title',
+        type: 'text',
+        description: 'Title of the project',
+        isRequired: true,
+      },
+      {
+        name: 'Course',
+        type: 'text',
+        description: 'Related course name',
+        isRequired: false,
+      },
+      {
+        name: 'Project Type',
+        type: 'select',
+        description: 'Type of academic project',
+        options: ['Research Paper', 'Thesis', 'Capstone', 'Group Project', 'Lab Report', 'Presentation'],
+        isRequired: true,
+      },
+      {
+        name: 'Due Date',
+        type: 'date',
+        description: 'Submission deadline',
+        isRequired: true,
+      },
+      {
+        name: 'Word Count',
+        type: 'number',
+        description: 'Required word count',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Planning & Research',
+          description: 'Plan and conduct research',
+          tasks: [
+            {
+              title: 'Select topic',
+              description: 'Choose and refine project topic.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Create project plan',
+              description: 'Outline timeline and milestones.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Literature review',
+              description: 'Research and review existing literature.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research'],
+              subtasks: [
+                { title: 'Search databases' },
+                { title: 'Read key papers' },
+                { title: 'Take notes' },
+                { title: 'Organize sources' },
+              ],
+            },
+            {
+              title: 'Gather data/evidence',
+              description: 'Collect data or evidence for project.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['research'],
+            },
+          ],
+        },
+        {
+          name: 'Writing',
+          description: 'Write the project',
+          tasks: [
+            {
+              title: 'Create outline',
+              description: 'Develop detailed outline.',
+              assigneeRole: 'owner',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['writing'],
+            },
+            {
+              title: 'Write first draft',
+              description: 'Complete first draft of project.',
+              assigneeRole: 'owner',
+              dueOffset: 24,
+              priority: 'high',
+              labels: ['writing'],
+              subtasks: [
+                { title: 'Write introduction' },
+                { title: 'Write body sections' },
+                { title: 'Write conclusion' },
+              ],
+            },
+            {
+              title: 'Add citations',
+              description: 'Insert and format citations.',
+              assigneeRole: 'owner',
+              dueOffset: 26,
+              priority: 'high',
+              labels: ['writing'],
+            },
+            {
+              title: 'Create bibliography',
+              description: 'Compile reference list.',
+              assigneeRole: 'owner',
+              dueOffset: 27,
+              priority: 'medium',
+              labels: ['writing'],
+            },
+          ],
+        },
+        {
+          name: 'Review & Submission',
+          description: 'Review and submit project',
+          tasks: [
+            {
+              title: 'Self-review',
+              description: 'Review and edit your work.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Peer review',
+              description: 'Get feedback from peers.',
+              assigneeRole: 'owner',
+              dueOffset: 33,
+              priority: 'medium',
+              labels: ['review'],
+            },
+            {
+              title: 'Final revisions',
+              description: 'Make final edits based on feedback.',
+              assigneeRole: 'owner',
+              dueOffset: 36,
+              priority: 'high',
+              labels: ['revision'],
+            },
+            {
+              title: 'Format and proofread',
+              description: 'Final formatting and proofreading.',
+              assigneeRole: 'owner',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['finalization'],
+            },
+            {
+              title: 'Submit project',
+              description: 'Submit final project.',
+              assigneeRole: 'owner',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['submission'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 4. CURRICULUM DEVELOPMENT ====================
+  {
+    name: 'Curriculum Development',
+    slug: 'curriculum-development',
+    description:
+      'Develop or revise educational curriculum. Plan learning outcomes, content, and assessment strategies.',
+    category: 'education',
+    icon: 'Layout',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'analysis', name: 'Analysis', order: 0, color: '#6B7280' },
+      { id: 'design', name: 'Design', order: 1, color: '#3B82F6' },
+      { id: 'development', name: 'Development', order: 2, color: '#F59E0B' },
+      { id: 'implementation', name: 'Implementation', order: 3, color: '#8B5CF6' },
+      { id: 'evaluation', name: 'Evaluation', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Program',
+        type: 'text',
+        description: 'Program or subject area',
+        isRequired: true,
+      },
+      {
+        name: 'Grade Level',
+        type: 'text',
+        description: 'Target grade level',
+        isRequired: false,
+      },
+      {
+        name: 'Curriculum Type',
+        type: 'select',
+        description: 'Type of curriculum work',
+        options: ['New Development', 'Revision', 'Alignment', 'Integration'],
+        isRequired: true,
+      },
+      {
+        name: 'Standards',
+        type: 'text',
+        description: 'Aligned standards (e.g., Common Core)',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Analysis',
+          description: 'Analyze curriculum needs',
+          tasks: [
+            {
+              title: 'Review current curriculum',
+              description: 'Assess existing curriculum and gaps.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Analyze standards',
+              description: 'Review relevant educational standards.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Gather stakeholder input',
+              description: 'Collect input from teachers and administrators.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Identify learning needs',
+              description: 'Determine student learning requirements.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+          ],
+        },
+        {
+          name: 'Design',
+          description: 'Design curriculum framework',
+          tasks: [
+            {
+              title: 'Define learning outcomes',
+              description: 'Establish clear learning objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Create scope and sequence',
+              description: 'Plan curriculum scope and order.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Design assessment framework',
+              description: 'Plan formative and summative assessments.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['assessment'],
+            },
+            {
+              title: 'Map to standards',
+              description: 'Align curriculum to standards.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['alignment'],
+            },
+          ],
+        },
+        {
+          name: 'Development',
+          description: 'Develop curriculum materials',
+          tasks: [
+            {
+              title: 'Develop unit plans',
+              description: 'Create detailed unit plans.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['development'],
+            },
+            {
+              title: 'Create lesson plans',
+              description: 'Develop individual lesson plans.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['development'],
+            },
+            {
+              title: 'Develop resources',
+              description: 'Create supporting materials.',
+              assigneeRole: 'member',
+              dueOffset: 65,
+              priority: 'medium',
+              labels: ['resources'],
+            },
+            {
+              title: 'Create assessments',
+              description: 'Develop assessment instruments.',
+              assigneeRole: 'member',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['assessment'],
+            },
+          ],
+        },
+        {
+          name: 'Implementation & Evaluation',
+          description: 'Implement and evaluate curriculum',
+          tasks: [
+            {
+              title: 'Pilot curriculum',
+              description: 'Test curriculum in pilot classrooms.',
+              assigneeRole: 'lead',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['implementation'],
+            },
+            {
+              title: 'Train teachers',
+              description: 'Provide professional development.',
+              assigneeRole: 'lead',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['training'],
+            },
+            {
+              title: 'Gather feedback',
+              description: 'Collect implementation feedback.',
+              assigneeRole: 'member',
+              dueOffset: 100,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+            {
+              title: 'Revise and finalize',
+              description: 'Make revisions based on feedback.',
+              assigneeRole: 'lead',
+              dueOffset: 110,
+              priority: 'high',
+              labels: ['revision'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 5. ACADEMIC SEMESTER PLANNER ====================
+  {
+    name: 'Academic Semester Planner',
+    slug: 'academic-semester-planner',
+    description:
+      'Plan and organize an entire academic semester. Track assignments, exams, and important deadlines.',
+    category: 'education',
+    icon: 'Calendar',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'upcoming', name: 'Upcoming', order: 0, color: '#6B7280' },
+      { id: 'this_week', name: 'This Week', order: 1, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 2, color: '#F59E0B' },
+      { id: 'submitted', name: 'Submitted', order: 3, color: '#8B5CF6' },
+      { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Course',
+        type: 'text',
+        description: 'Course name',
+        isRequired: true,
+      },
+      {
+        name: 'Type',
+        type: 'select',
+        description: 'Assignment type',
+        options: ['Assignment', 'Quiz', 'Exam', 'Project', 'Reading', 'Lab', 'Presentation'],
+        isRequired: true,
+      },
+      {
+        name: 'Weight',
+        type: 'text',
+        description: 'Percentage of grade',
+        isRequired: false,
+      },
+      {
+        name: 'Due Date',
+        type: 'date',
+        description: 'Due date',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Semester Setup',
+          description: 'Set up your semester',
+          tasks: [
+            {
+              title: 'Add all courses',
+              description: 'List all courses for the semester.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup'],
+            },
+            {
+              title: 'Import syllabi deadlines',
+              description: 'Add all assignment deadlines from syllabi.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['setup'],
+            },
+            {
+              title: 'Mark exam dates',
+              description: 'Add midterm and final exam dates.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['exams'],
+            },
+            {
+              title: 'Set study schedule',
+              description: 'Plan regular study time blocks.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['planning'],
+            },
+          ],
+        },
+        {
+          name: 'Weekly Tasks',
+          description: 'Regular weekly activities',
+          tasks: [
+            {
+              title: 'Weekly review',
+              description: 'Review upcoming deadlines and plan week.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['recurring', 'planning'],
+            },
+            {
+              title: 'Complete readings',
+              description: 'Stay current with course readings.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['recurring', 'reading'],
+            },
+            {
+              title: 'Review lecture notes',
+              description: 'Review and organize class notes.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['recurring', 'review'],
+            },
+          ],
+        },
+        {
+          name: 'Sample Assignments',
+          description: 'Example academic tasks',
+          tasks: [
+            {
+              title: '[Course] - Essay Assignment',
+              description: 'Write essay on assigned topic.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['assignment'],
+              subtasks: [
+                { title: 'Research topic' },
+                { title: 'Create outline' },
+                { title: 'Write first draft' },
+                { title: 'Revise and edit' },
+                { title: 'Submit' },
+              ],
+            },
+            {
+              title: '[Course] - Midterm Exam',
+              description: 'Prepare for and take midterm exam.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['exam'],
+              subtasks: [
+                { title: 'Create study guide' },
+                { title: 'Review all notes' },
+                { title: 'Practice problems' },
+                { title: 'Take exam' },
+              ],
+            },
+            {
+              title: '[Course] - Group Project',
+              description: 'Complete group project with team.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['project', 'group'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 6. WORKSHOP FACILITATION ====================
+  {
+    name: 'Workshop Facilitation',
+    slug: 'workshop-facilitation',
+    description:
+      'Plan and facilitate educational workshops. Organize content, activities, and logistics for engaging sessions.',
+    category: 'education',
+    icon: 'Users',
+    color: '#06B6D4',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'preparation', name: 'Preparation', order: 1, color: '#3B82F6' },
+      { id: 'ready', name: 'Ready', order: 2, color: '#F59E0B' },
+      { id: 'delivered', name: 'Delivered', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Workshop Title',
+        type: 'text',
+        description: 'Name of the workshop',
+        isRequired: true,
+      },
+      {
+        name: 'Duration',
+        type: 'text',
+        description: 'Workshop duration',
+        isRequired: true,
+      },
+      {
+        name: 'Max Participants',
+        type: 'number',
+        description: 'Maximum number of participants',
+        isRequired: false,
+      },
+      {
+        name: 'Workshop Date',
+        type: 'date',
+        description: 'Date of workshop',
+        isRequired: true,
+      },
+      {
+        name: 'Location',
+        type: 'text',
+        description: 'Venue or online platform',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Workshop Design',
+          description: 'Design the workshop',
+          tasks: [
+            {
+              title: 'Define workshop objectives',
+              description: 'Set clear learning objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Design workshop flow',
+              description: 'Create agenda and session flow.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Plan activities',
+              description: 'Design interactive exercises.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['activities'],
+            },
+            {
+              title: 'Create materials',
+              description: 'Develop slides and handouts.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['materials'],
+            },
+          ],
+        },
+        {
+          name: 'Logistics',
+          description: 'Handle workshop logistics',
+          tasks: [
+            {
+              title: 'Book venue/platform',
+              description: 'Reserve room or set up online platform.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['logistics'],
+            },
+            {
+              title: 'Send invitations',
+              description: 'Invite participants and manage RSVPs.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['communication'],
+            },
+            {
+              title: 'Prepare materials',
+              description: 'Print handouts and prepare supplies.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'medium',
+              labels: ['preparation'],
+            },
+            {
+              title: 'Test equipment',
+              description: 'Test AV equipment or online tools.',
+              assigneeRole: 'member',
+              dueOffset: 13,
+              priority: 'high',
+              labels: ['preparation'],
+            },
+          ],
+        },
+        {
+          name: 'Delivery & Follow-up',
+          description: 'Deliver workshop and follow up',
+          tasks: [
+            {
+              title: 'Facilitate workshop',
+              description: 'Deliver the workshop session.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['delivery'],
+            },
+            {
+              title: 'Collect feedback',
+              description: 'Gather participant feedback.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+            {
+              title: 'Send follow-up materials',
+              description: 'Share resources and recording.',
+              assigneeRole: 'member',
+              dueOffset: 16,
+              priority: 'medium',
+              labels: ['follow-up'],
+            },
+            {
+              title: 'Review and improve',
+              description: 'Analyze feedback and improve.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['evaluation'],
+            },
+          ],
+        },
+      ],
+    },
+    settings: {
+      defaultView: 'kanban',
+      enableTimeTracking: true,
+      enableStoryPoints: false,
+    },
+  },
+
+  // ==================== 7. COURSE DEVELOPMENT ====================
+  {
+    name: 'Course Development',
+    slug: 'course-development',
+    description:
+      'Develop comprehensive course content from scratch. Create modules, lessons, and learning materials.',
+    category: 'education',
+    icon: 'BookOpen',
+    color: '#4F46E5',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'ideation', name: 'Ideation', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'published', name: 'Published', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Course Title', type: 'text', description: 'Title of the course', isRequired: true },
+      { name: 'Target Audience', type: 'text', description: 'Who is this course for', isRequired: true },
+      { name: 'Duration', type: 'text', description: 'Estimated course duration', isRequired: false },
+      { name: 'Format', type: 'select', description: 'Delivery format', options: ['Video', 'Text', 'Interactive', 'Mixed'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Course Foundation',
+          description: 'Establish course fundamentals',
+          tasks: [
+            { title: 'Define course objectives', description: 'Set clear learning outcomes.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Research target audience', description: 'Understand learner needs and backgrounds.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['research'] },
+            { title: 'Create course outline', description: 'Develop high-level structure.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning'] },
+            { title: 'Define prerequisites', description: 'List required knowledge or skills.', assigneeRole: 'lead', dueOffset: 10, priority: 'medium', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Content Creation',
+          description: 'Develop course materials',
+          tasks: [
+            { title: 'Write lesson scripts', description: 'Create detailed lesson content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content'] },
+            { title: 'Create visual assets', description: 'Design slides and graphics.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['design'] },
+            { title: 'Develop practice exercises', description: 'Create hands-on activities.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['content'] },
+            { title: 'Build assessments', description: 'Create quizzes and tests.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Review & Launch',
+          description: 'Finalize and publish course',
+          tasks: [
+            { title: 'Internal content review', description: 'Review all materials for accuracy.', assigneeRole: 'lead', dueOffset: 40, priority: 'high', labels: ['review'] },
+            { title: 'Beta test with learners', description: 'Get feedback from test users.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['testing'] },
+            { title: 'Make final revisions', description: 'Incorporate feedback.', assigneeRole: 'lead', dueOffset: 50, priority: 'high', labels: ['revision'] },
+            { title: 'Publish course', description: 'Launch the course.', assigneeRole: 'owner', dueOffset: 55, priority: 'high', labels: ['launch'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 8. LESSON PLANNING ====================
+  {
+    name: 'Lesson Planning',
+    slug: 'lesson-planning',
+    description:
+      'Plan individual lessons with clear objectives, activities, and assessments for effective teaching.',
+    category: 'education',
+    icon: 'FileText',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'draft', name: 'Draft', order: 0, color: '#6B7280' },
+      { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' },
+      { id: 'ready', name: 'Ready', order: 2, color: '#10B981' },
+      { id: 'delivered', name: 'Delivered', order: 3, color: '#8B5CF6' },
+    ],
+    customFields: [
+      { name: 'Subject', type: 'text', description: 'Subject area', isRequired: true },
+      { name: 'Grade Level', type: 'text', description: 'Target grade level', isRequired: true },
+      { name: 'Duration', type: 'text', description: 'Lesson duration', isRequired: true },
+      { name: 'Standards', type: 'text', description: 'Aligned standards', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Lesson Design',
+          description: 'Design the lesson structure',
+          tasks: [
+            { title: 'Define learning objectives', description: 'Set clear, measurable goals.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Plan lesson activities', description: 'Design engaging activities.', assigneeRole: 'owner', dueOffset: 1, priority: 'high', labels: ['activities'] },
+            { title: 'Prepare materials', description: 'Gather or create resources.', assigneeRole: 'owner', dueOffset: 2, priority: 'high', labels: ['materials'] },
+            { title: 'Design assessment', description: 'Create formative assessment.', assigneeRole: 'owner', dueOffset: 2, priority: 'medium', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Lesson Preparation',
+          description: 'Prepare for delivery',
+          tasks: [
+            { title: 'Review lesson plan', description: 'Check timing and flow.', assigneeRole: 'owner', dueOffset: 3, priority: 'high', labels: ['review'] },
+            { title: 'Prepare classroom setup', description: 'Arrange space and materials.', assigneeRole: 'owner', dueOffset: 3, priority: 'medium', labels: ['logistics'] },
+            { title: 'Create backup activities', description: 'Plan alternatives if needed.', assigneeRole: 'owner', dueOffset: 3, priority: 'low', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Delivery & Reflection',
+          description: 'Teach and reflect',
+          tasks: [
+            { title: 'Deliver lesson', description: 'Teach the planned lesson.', assigneeRole: 'owner', dueOffset: 4, priority: 'high', labels: ['delivery'] },
+            { title: 'Collect student feedback', description: 'Gather learner input.', assigneeRole: 'owner', dueOffset: 4, priority: 'medium', labels: ['feedback'] },
+            { title: 'Reflect on lesson', description: 'Note what worked and improvements.', assigneeRole: 'owner', dueOffset: 5, priority: 'medium', labels: ['reflection'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 9. MODULE CREATION ====================
+  {
+    name: 'Module Creation',
+    slug: 'module-creation',
+    description:
+      'Create educational modules with multiple lessons, assessments, and learning resources.',
+    category: 'education',
+    icon: 'Layers',
+    color: '#14B8A6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Module Title', type: 'text', description: 'Name of the module', isRequired: true },
+      { name: 'Course', type: 'text', description: 'Parent course name', isRequired: true },
+      { name: 'Number of Lessons', type: 'number', description: 'Lessons in module', isRequired: false },
+      { name: 'Estimated Hours', type: 'number', description: 'Time to complete', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Module Planning',
+          description: 'Plan module structure',
+          tasks: [
+            { title: 'Define module objectives', description: 'Set learning outcomes for module.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Outline lesson sequence', description: 'Plan order of lessons.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['planning'] },
+            { title: 'Identify resources needed', description: 'List required materials.', assigneeRole: 'member', dueOffset: 5, priority: 'medium', labels: ['resources'] },
+          ],
+        },
+        {
+          name: 'Lesson Development',
+          description: 'Create individual lessons',
+          tasks: [
+            { title: 'Develop Lesson 1', description: 'Create first lesson content.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content'] },
+            { title: 'Develop Lesson 2', description: 'Create second lesson content.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['content'] },
+            { title: 'Develop Lesson 3', description: 'Create third lesson content.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['content'] },
+            { title: 'Create module assessment', description: 'Build end-of-module test.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Review & Finalize',
+          description: 'Review and complete module',
+          tasks: [
+            { title: 'Review all content', description: 'Check accuracy and flow.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['review'] },
+            { title: 'Test assessments', description: 'Verify quiz functionality.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['testing'] },
+            { title: 'Finalize module', description: 'Make final edits and publish.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['finalization'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 10. ONLINE COURSE LAUNCH ====================
+  {
+    name: 'Online Course Launch',
+    slug: 'online-course-launch',
+    description:
+      'Launch an online course with marketing, platform setup, and student enrollment strategies.',
+    category: 'education',
+    icon: 'Rocket',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'preparation', name: 'Preparation', order: 0, color: '#6B7280' },
+      { id: 'pre_launch', name: 'Pre-Launch', order: 1, color: '#3B82F6' },
+      { id: 'launch', name: 'Launch', order: 2, color: '#F59E0B' },
+      { id: 'post_launch', name: 'Post-Launch', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Course Title', type: 'text', description: 'Name of course', isRequired: true },
+      { name: 'Launch Date', type: 'date', description: 'Planned launch date', isRequired: true },
+      { name: 'Price', type: 'number', description: 'Course price', isRequired: false },
+      { name: 'Platform', type: 'select', description: 'Hosting platform', options: ['Teachable', 'Udemy', 'Thinkific', 'Custom LMS', 'Other'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Pre-Launch Preparation',
+          description: 'Prepare for launch',
+          tasks: [
+            { title: 'Finalize course content', description: 'Complete all modules and lessons.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['content'] },
+            { title: 'Set up course platform', description: 'Configure LMS settings.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['technical'] },
+            { title: 'Create sales page', description: 'Design compelling landing page.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['marketing'] },
+            { title: 'Set pricing strategy', description: 'Determine pricing and discounts.', assigneeRole: 'lead', dueOffset: 12, priority: 'high', labels: ['strategy'] },
+          ],
+        },
+        {
+          name: 'Marketing Campaign',
+          description: 'Build launch campaign',
+          tasks: [
+            { title: 'Build email list', description: 'Grow subscriber base.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['marketing'] },
+            { title: 'Create promotional content', description: 'Develop ads and posts.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['content'] },
+            { title: 'Schedule social media', description: 'Plan social media campaign.', assigneeRole: 'member', dueOffset: 25, priority: 'medium', labels: ['marketing'] },
+            { title: 'Prepare launch emails', description: 'Write email sequence.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['marketing'] },
+          ],
+        },
+        {
+          name: 'Launch Execution',
+          description: 'Execute the launch',
+          tasks: [
+            { title: 'Open enrollment', description: 'Start accepting students.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['launch'] },
+            { title: 'Send launch emails', description: 'Execute email campaign.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['marketing'] },
+            { title: 'Monitor enrollment', description: 'Track signups and issues.', assigneeRole: 'lead', dueOffset: 32, priority: 'high', labels: ['monitoring'] },
+            { title: 'Engage with students', description: 'Welcome new enrollees.', assigneeRole: 'member', dueOffset: 33, priority: 'high', labels: ['engagement'] },
+          ],
+        },
+        {
+          name: 'Post-Launch',
+          description: 'Post-launch activities',
+          tasks: [
+            { title: 'Collect student feedback', description: 'Gather initial reviews.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['feedback'] },
+            { title: 'Analyze launch metrics', description: 'Review enrollment data.', assigneeRole: 'lead', dueOffset: 45, priority: 'high', labels: ['analytics'] },
+            { title: 'Plan ongoing marketing', description: 'Develop evergreen strategy.', assigneeRole: 'lead', dueOffset: 50, priority: 'medium', labels: ['marketing'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 11. MOOC DEVELOPMENT ====================
+  {
+    name: 'MOOC Development',
+    slug: 'mooc-development',
+    description:
+      'Develop a Massive Open Online Course for large-scale online learning platforms.',
+    category: 'education',
+    icon: 'Globe',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'production', name: 'Production', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'live', name: 'Live', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Course Title', type: 'text', description: 'MOOC title', isRequired: true },
+      { name: 'Platform', type: 'select', description: 'Host platform', options: ['Coursera', 'edX', 'FutureLearn', 'Udacity', 'Custom'], isRequired: true },
+      { name: 'Duration (weeks)', type: 'number', description: 'Course length', isRequired: true },
+      { name: 'Target Enrollment', type: 'number', description: 'Expected students', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Course Design',
+          description: 'Design MOOC structure',
+          tasks: [
+            { title: 'Define learning outcomes', description: 'Set measurable objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['design'] },
+            { title: 'Create course roadmap', description: 'Plan weekly content flow.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning'] },
+            { title: 'Design assessment strategy', description: 'Plan quizzes and assignments.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['assessment'] },
+            { title: 'Plan video production', description: 'Schedule filming sessions.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['production'] },
+          ],
+        },
+        {
+          name: 'Content Production',
+          description: 'Create MOOC content',
+          tasks: [
+            { title: 'Write video scripts', description: 'Create scripts for all videos.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['content'] },
+            { title: 'Record video lectures', description: 'Film all lecture content.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['production'] },
+            { title: 'Edit videos', description: 'Post-production editing.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['production'] },
+            { title: 'Create supplementary materials', description: 'Develop readings and resources.', assigneeRole: 'member', dueOffset: 63, priority: 'medium', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Platform Setup',
+          description: 'Configure course on platform',
+          tasks: [
+            { title: 'Set up course structure', description: 'Configure modules on platform.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['technical'] },
+            { title: 'Upload all content', description: 'Add videos and materials.', assigneeRole: 'member', dueOffset: 77, priority: 'high', labels: ['technical'] },
+            { title: 'Configure assessments', description: 'Set up quizzes and grading.', assigneeRole: 'member', dueOffset: 84, priority: 'high', labels: ['assessment'] },
+            { title: 'Test course flow', description: 'Review as a student.', assigneeRole: 'lead', dueOffset: 90, priority: 'high', labels: ['testing'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 12. CERTIFICATION PROGRAM ====================
+  {
+    name: 'Certification Program',
+    slug: 'certification-program',
+    description:
+      'Design and implement a professional certification program with exams and credentials.',
+    category: 'education',
+    icon: 'Award',
+    color: '#EAB308',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'design', name: 'Design', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'validation', name: 'Validation', order: 2, color: '#F59E0B' },
+      { id: 'active', name: 'Active', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Certification Name', type: 'text', description: 'Name of certification', isRequired: true },
+      { name: 'Industry', type: 'text', description: 'Target industry', isRequired: true },
+      { name: 'Validity Period', type: 'text', description: 'How long certification is valid', isRequired: false },
+      { name: 'Exam Format', type: 'select', description: 'Type of exam', options: ['Multiple Choice', 'Practical', 'Portfolio', 'Mixed'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Program Design',
+          description: 'Design certification requirements',
+          tasks: [
+            { title: 'Define competency standards', description: 'Establish required skills.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['standards'] },
+            { title: 'Design certification levels', description: 'Create tiered structure if needed.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['design'] },
+            { title: 'Develop exam blueprint', description: 'Plan exam content areas.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['assessment'] },
+            { title: 'Create study materials', description: 'Develop preparation resources.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Exam Development',
+          description: 'Create certification exam',
+          tasks: [
+            { title: 'Write exam questions', description: 'Create question bank.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['assessment'] },
+            { title: 'Review and validate items', description: 'Expert review of questions.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['review'] },
+            { title: 'Set passing criteria', description: 'Establish cut scores.', assigneeRole: 'lead', dueOffset: 49, priority: 'high', labels: ['standards'] },
+            { title: 'Build exam platform', description: 'Set up testing system.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['technical'] },
+          ],
+        },
+        {
+          name: 'Launch & Administration',
+          description: 'Launch certification program',
+          tasks: [
+            { title: 'Pilot test exam', description: 'Run beta testing.', assigneeRole: 'lead', dueOffset: 63, priority: 'high', labels: ['testing'] },
+            { title: 'Create credential system', description: 'Set up digital badges.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['technical'] },
+            { title: 'Launch program', description: 'Open for candidates.', assigneeRole: 'owner', dueOffset: 77, priority: 'high', labels: ['launch'] },
+            { title: 'Establish renewal process', description: 'Create recertification pathway.', assigneeRole: 'lead', dueOffset: 84, priority: 'medium', labels: ['process'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 13. BOOTCAMP PLANNING ====================
+  {
+    name: 'Bootcamp Planning',
+    slug: 'bootcamp-planning',
+    description: 'Plan and execute intensive bootcamp programs with accelerated learning paths.',
+    category: 'education',
+    icon: 'Zap',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'preparation', name: 'Preparation', order: 1, color: '#3B82F6' },
+      { id: 'active', name: 'Active', order: 2, color: '#F59E0B' },
+      { id: 'completed', name: 'Completed', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Bootcamp Name', type: 'text', description: 'Name of bootcamp', isRequired: true },
+      { name: 'Duration', type: 'text', description: 'Program length', isRequired: true },
+      { name: 'Cohort Size', type: 'number', description: 'Number of participants', isRequired: true },
+      { name: 'Format', type: 'select', description: 'Delivery format', options: ['Full-time', 'Part-time', 'Online', 'Hybrid'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Bootcamp Design',
+          description: 'Design the bootcamp program',
+          tasks: [
+            { title: 'Define learning outcomes', description: 'Set program objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Create curriculum timeline', description: 'Map daily/weekly schedule.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['curriculum'] },
+            { title: 'Design projects', description: 'Create hands-on projects.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['projects'] },
+            { title: 'Plan assessments', description: 'Define evaluation criteria.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Preparation',
+          description: 'Prepare for bootcamp launch',
+          tasks: [
+            { title: 'Recruit instructors', description: 'Hire teaching staff.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['staffing'] },
+            { title: 'Set up learning environment', description: 'Prepare physical/virtual space.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['logistics'] },
+            { title: 'Create pre-work materials', description: 'Develop prep assignments.', assigneeRole: 'member', dueOffset: 40, priority: 'medium', labels: ['content'] },
+            { title: 'Onboard participants', description: 'Welcome and orient students.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['onboarding'] },
+          ],
+        },
+        {
+          name: 'Execution & Completion',
+          description: 'Run and conclude bootcamp',
+          tasks: [
+            { title: 'Deliver bootcamp sessions', description: 'Conduct daily instruction.', assigneeRole: 'lead', dueOffset: 50, priority: 'high', labels: ['delivery'] },
+            { title: 'Provide student support', description: 'Offer mentoring and help.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['support'] },
+            { title: 'Conduct final presentations', description: 'Host demo day.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['presentations'] },
+            { title: 'Issue certificates', description: 'Award completion certificates.', assigneeRole: 'owner', dueOffset: 85, priority: 'high', labels: ['completion'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 14. SEMINAR SERIES ====================
+  {
+    name: 'Seminar Series',
+    slug: 'seminar-series',
+    description: 'Organize and manage a series of educational seminars on related topics.',
+    category: 'education',
+    icon: 'Mic',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'scheduled', name: 'Scheduled', order: 1, color: '#3B82F6' },
+      { id: 'delivered', name: 'Delivered', order: 2, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Series Title', type: 'text', description: 'Name of seminar series', isRequired: true },
+      { name: 'Number of Sessions', type: 'number', description: 'Total seminars planned', isRequired: true },
+      { name: 'Frequency', type: 'select', description: 'How often', options: ['Weekly', 'Bi-weekly', 'Monthly'], isRequired: true },
+      { name: 'Format', type: 'select', description: 'Delivery format', options: ['In-Person', 'Virtual', 'Hybrid'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Series Planning',
+          description: 'Plan the seminar series',
+          tasks: [
+            { title: 'Define series theme', description: 'Establish overarching topic.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Identify speakers', description: 'Recruit presenters.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['speakers'] },
+            { title: 'Create series schedule', description: 'Set dates and times.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['scheduling'] },
+            { title: 'Book venues', description: 'Reserve locations or platforms.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['logistics'] },
+          ],
+        },
+        {
+          name: 'Session Preparation',
+          description: 'Prepare individual sessions',
+          tasks: [
+            { title: 'Confirm speakers', description: 'Finalize speaker commitments.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['speakers'] },
+            { title: 'Promote series', description: 'Market to target audience.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['marketing'] },
+            { title: 'Prepare session materials', description: 'Create handouts and slides.', assigneeRole: 'member', dueOffset: 35, priority: 'medium', labels: ['materials'] },
+            { title: 'Manage registrations', description: 'Handle attendee signups.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['registration'] },
+          ],
+        },
+        {
+          name: 'Delivery & Follow-up',
+          description: 'Execute and wrap up series',
+          tasks: [
+            { title: 'Host seminars', description: 'Facilitate each session.', assigneeRole: 'lead', dueOffset: 45, priority: 'high', labels: ['delivery'] },
+            { title: 'Record sessions', description: 'Capture for future use.', assigneeRole: 'member', dueOffset: 45, priority: 'medium', labels: ['recording'] },
+            { title: 'Share recordings', description: 'Distribute to attendees.', assigneeRole: 'member', dueOffset: 50, priority: 'medium', labels: ['distribution'] },
+            { title: 'Evaluate series', description: 'Assess overall success.', assigneeRole: 'lead', dueOffset: 55, priority: 'high', labels: ['evaluation'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 15. LECTURE SERIES ====================
+  {
+    name: 'Lecture Series',
+    slug: 'lecture-series',
+    description: 'Plan and deliver a structured series of academic lectures on a specific subject.',
+    category: 'education',
+    icon: 'Presentation',
+    color: '#0891B2',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'scheduled', name: 'Scheduled', order: 2, color: '#F59E0B' },
+      { id: 'delivered', name: 'Delivered', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Series Title', type: 'text', description: 'Lecture series name', isRequired: true },
+      { name: 'Subject Area', type: 'text', description: 'Academic subject', isRequired: true },
+      { name: 'Number of Lectures', type: 'number', description: 'Total lectures', isRequired: true },
+      { name: 'Target Audience', type: 'text', description: 'Intended audience', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Series Design',
+          description: 'Design lecture series',
+          tasks: [
+            { title: 'Define series objectives', description: 'Set learning goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Outline lecture topics', description: 'Plan content progression.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['content'] },
+            { title: 'Create lecture schedule', description: 'Set dates and venues.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['scheduling'] },
+          ],
+        },
+        {
+          name: 'Lecture Development',
+          description: 'Develop lecture content',
+          tasks: [
+            { title: 'Prepare lecture materials', description: 'Create slides and notes.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['content'] },
+            { title: 'Design discussion questions', description: 'Prepare engagement activities.', assigneeRole: 'lead', dueOffset: 20, priority: 'medium', labels: ['engagement'] },
+            { title: 'Create supplementary readings', description: 'Compile reading list.', assigneeRole: 'member', dueOffset: 25, priority: 'medium', labels: ['resources'] },
+            { title: 'Prepare assessments', description: 'Create quizzes or assignments.', assigneeRole: 'member', dueOffset: 30, priority: 'medium', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Delivery',
+          description: 'Deliver lecture series',
+          tasks: [
+            { title: 'Deliver lectures', description: 'Present scheduled lectures.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['delivery'] },
+            { title: 'Facilitate discussions', description: 'Lead Q&A sessions.', assigneeRole: 'lead', dueOffset: 40, priority: 'high', labels: ['engagement'] },
+            { title: 'Collect feedback', description: 'Gather attendee input.', assigneeRole: 'member', dueOffset: 50, priority: 'medium', labels: ['feedback'] },
+            { title: 'Compile series resources', description: 'Package materials for distribution.', assigneeRole: 'member', dueOffset: 55, priority: 'medium', labels: ['resources'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 16. ACADEMIC CONFERENCE ====================
+  {
+    name: 'Academic Conference',
+    slug: 'academic-conference',
+    description: 'Plan and organize an academic conference with speakers, sessions, and networking.',
+    category: 'education',
+    icon: 'Building',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'organization', name: 'Organization', order: 1, color: '#3B82F6' },
+      { id: 'promotion', name: 'Promotion', order: 2, color: '#F59E0B' },
+      { id: 'execution', name: 'Execution', order: 3, color: '#8B5CF6' },
+      { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Conference Name', type: 'text', description: 'Conference title', isRequired: true },
+      { name: 'Date', type: 'date', description: 'Conference date', isRequired: true },
+      { name: 'Location', type: 'text', description: 'Venue or platform', isRequired: true },
+      { name: 'Expected Attendees', type: 'number', description: 'Anticipated attendance', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Conference Planning',
+          description: 'Initial planning phase',
+          tasks: [
+            { title: 'Define conference theme', description: 'Establish focus and scope.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Secure venue', description: 'Book conference location.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['logistics'] },
+            { title: 'Form organizing committee', description: 'Recruit volunteers.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['team'] },
+            { title: 'Set budget', description: 'Plan financial resources.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['budget'] },
+          ],
+        },
+        {
+          name: 'Program Development',
+          description: 'Develop conference program',
+          tasks: [
+            { title: 'Issue call for papers', description: 'Invite submissions.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['submissions'] },
+            { title: 'Invite keynote speakers', description: 'Secure featured speakers.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['speakers'] },
+            { title: 'Review submissions', description: 'Peer review process.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['review'] },
+            { title: 'Create program schedule', description: 'Organize sessions.', assigneeRole: 'member', dueOffset: 84, priority: 'high', labels: ['scheduling'] },
+          ],
+        },
+        {
+          name: 'Logistics & Execution',
+          description: 'Handle logistics and run event',
+          tasks: [
+            { title: 'Manage registrations', description: 'Process attendee signups.', assigneeRole: 'member', dueOffset: 90, priority: 'high', labels: ['registration'] },
+            { title: 'Coordinate catering', description: 'Arrange food and beverages.', assigneeRole: 'member', dueOffset: 100, priority: 'medium', labels: ['logistics'] },
+            { title: 'Set up AV equipment', description: 'Prepare technical setup.', assigneeRole: 'member', dueOffset: 110, priority: 'high', labels: ['technical'] },
+            { title: 'Execute conference', description: 'Run the event.', assigneeRole: 'lead', dueOffset: 120, priority: 'high', labels: ['execution'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 17. RESEARCH PROJECT ====================
+  {
+    name: 'Research Project',
+    slug: 'research-project',
+    description: 'Manage academic research from hypothesis to publication.',
+    category: 'education',
+    icon: 'Search',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'data_collection', name: 'Data Collection', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#F59E0B' },
+      { id: 'writing', name: 'Writing', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Research Title', type: 'text', description: 'Project title', isRequired: true },
+      { name: 'Field', type: 'text', description: 'Research field', isRequired: true },
+      { name: 'Methodology', type: 'select', description: 'Research method', options: ['Quantitative', 'Qualitative', 'Mixed Methods', 'Experimental'], isRequired: true },
+      { name: 'Funding Source', type: 'text', description: 'Grant or funding', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research Design',
+          description: 'Design the research study',
+          tasks: [
+            { title: 'Develop research question', description: 'Define problem statement.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Conduct literature review', description: 'Review existing research.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['research'] },
+            { title: 'Design methodology', description: 'Plan research approach.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['methodology'] },
+            { title: 'Obtain ethics approval', description: 'Submit IRB application.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['compliance'] },
+          ],
+        },
+        {
+          name: 'Data Collection',
+          description: 'Gather research data',
+          tasks: [
+            { title: 'Develop instruments', description: 'Create surveys or tools.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['instruments'] },
+            { title: 'Recruit participants', description: 'Find study participants.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['recruitment'] },
+            { title: 'Collect data', description: 'Execute data collection.', assigneeRole: 'member', dueOffset: 90, priority: 'high', labels: ['data'] },
+            { title: 'Clean and organize data', description: 'Prepare for analysis.', assigneeRole: 'member', dueOffset: 100, priority: 'high', labels: ['data'] },
+          ],
+        },
+        {
+          name: 'Analysis & Publication',
+          description: 'Analyze and publish findings',
+          tasks: [
+            { title: 'Analyze data', description: 'Perform statistical analysis.', assigneeRole: 'lead', dueOffset: 110, priority: 'high', labels: ['analysis'] },
+            { title: 'Interpret results', description: 'Draw conclusions.', assigneeRole: 'lead', dueOffset: 120, priority: 'high', labels: ['analysis'] },
+            { title: 'Write manuscript', description: 'Draft research paper.', assigneeRole: 'lead', dueOffset: 140, priority: 'high', labels: ['writing'] },
+            { title: 'Submit for publication', description: 'Send to journal.', assigneeRole: 'lead', dueOffset: 160, priority: 'high', labels: ['publication'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 18. THESIS/DISSERTATION ====================
+  {
+    name: 'Thesis/Dissertation',
+    slug: 'thesis-dissertation',
+    description: 'Manage the complete thesis or dissertation process from proposal to defense.',
+    category: 'education',
+    icon: 'BookOpen',
+    color: '#BE185D',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'proposal', name: 'Proposal', order: 0, color: '#6B7280' },
+      { id: 'research', name: 'Research', order: 1, color: '#3B82F6' },
+      { id: 'writing', name: 'Writing', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'defense', name: 'Defense', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Title', type: 'text', description: 'Thesis/dissertation title', isRequired: true },
+      { name: 'Degree', type: 'select', description: 'Degree type', options: ['Masters', 'PhD', 'EdD', 'Other'], isRequired: true },
+      { name: 'Advisor', type: 'text', description: 'Primary advisor', isRequired: true },
+      { name: 'Defense Date', type: 'date', description: 'Target defense date', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Proposal Phase',
+          description: 'Develop and defend proposal',
+          tasks: [
+            { title: 'Select topic', description: 'Choose research focus.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Form committee', description: 'Recruit committee members.', assigneeRole: 'owner', dueOffset: 14, priority: 'high', labels: ['committee'] },
+            { title: 'Write proposal', description: 'Draft research proposal.', assigneeRole: 'owner', dueOffset: 45, priority: 'high', labels: ['writing'] },
+            { title: 'Defend proposal', description: 'Present to committee.', assigneeRole: 'owner', dueOffset: 60, priority: 'high', labels: ['defense'] },
+          ],
+        },
+        {
+          name: 'Research Phase',
+          description: 'Conduct research',
+          tasks: [
+            { title: 'Conduct literature review', description: 'Comprehensive review.', assigneeRole: 'owner', dueOffset: 75, priority: 'high', labels: ['research'] },
+            { title: 'Collect data', description: 'Gather research data.', assigneeRole: 'owner', dueOffset: 120, priority: 'high', labels: ['data'] },
+            { title: 'Analyze data', description: 'Perform analysis.', assigneeRole: 'owner', dueOffset: 150, priority: 'high', labels: ['analysis'] },
+          ],
+        },
+        {
+          name: 'Writing & Defense',
+          description: 'Write and defend thesis',
+          tasks: [
+            { title: 'Write chapters', description: 'Draft all chapters.', assigneeRole: 'owner', dueOffset: 200, priority: 'high', labels: ['writing'] },
+            { title: 'Revise with advisor', description: 'Incorporate feedback.', assigneeRole: 'owner', dueOffset: 230, priority: 'high', labels: ['revision'] },
+            { title: 'Submit to committee', description: 'Send for review.', assigneeRole: 'owner', dueOffset: 250, priority: 'high', labels: ['review'] },
+            { title: 'Defend thesis', description: 'Final defense.', assigneeRole: 'owner', dueOffset: 270, priority: 'high', labels: ['defense'] },
+            { title: 'Submit final version', description: 'Submit to graduate school.', assigneeRole: 'owner', dueOffset: 285, priority: 'high', labels: ['submission'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 19. GRANT WRITING ====================
+  {
+    name: 'Grant Writing',
+    slug: 'grant-writing',
+    description: 'Plan and write grant proposals for research funding.',
+    category: 'education',
+    icon: 'DollarSign',
+    color: '#16A34A',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'writing', name: 'Writing', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'submitted', name: 'Submitted', order: 3, color: '#8B5CF6' },
+      { id: 'awarded', name: 'Awarded', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Grant Title', type: 'text', description: 'Proposal title', isRequired: true },
+      { name: 'Funding Agency', type: 'text', description: 'Target funder', isRequired: true },
+      { name: 'Amount Requested', type: 'number', description: 'Funding amount', isRequired: true },
+      { name: 'Deadline', type: 'date', description: 'Submission deadline', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Preparation',
+          description: 'Prepare grant application',
+          tasks: [
+            { title: 'Identify funding opportunity', description: 'Find suitable grants.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['research'] },
+            { title: 'Review requirements', description: 'Understand guidelines.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['planning'] },
+            { title: 'Develop project concept', description: 'Outline research plan.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning'] },
+            { title: 'Create budget', description: 'Develop cost estimates.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['budget'] },
+          ],
+        },
+        {
+          name: 'Writing',
+          description: 'Write the proposal',
+          tasks: [
+            { title: 'Write specific aims', description: 'Draft objectives.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['writing'] },
+            { title: 'Write research plan', description: 'Detail methodology.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['writing'] },
+            { title: 'Prepare supporting docs', description: 'Gather letters, bios.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['documentation'] },
+            { title: 'Write budget justification', description: 'Explain costs.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['budget'] },
+          ],
+        },
+        {
+          name: 'Review & Submission',
+          description: 'Review and submit proposal',
+          tasks: [
+            { title: 'Internal review', description: 'Get colleague feedback.', assigneeRole: 'lead', dueOffset: 50, priority: 'high', labels: ['review'] },
+            { title: 'Revise proposal', description: 'Incorporate feedback.', assigneeRole: 'lead', dueOffset: 55, priority: 'high', labels: ['revision'] },
+            { title: 'Final formatting', description: 'Ensure compliance.', assigneeRole: 'member', dueOffset: 58, priority: 'high', labels: ['formatting'] },
+            { title: 'Submit proposal', description: 'Complete submission.', assigneeRole: 'lead', dueOffset: 60, priority: 'high', labels: ['submission'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 20. RESEARCH PAPER ====================
+  {
+    name: 'Research Paper',
+    slug: 'research-paper',
+    description: 'Write and publish an academic research paper.',
+    category: 'education',
+    icon: 'FileText',
+    color: '#4F46E5',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'drafting', name: 'Drafting', order: 1, color: '#3B82F6' },
+      { id: 'revision', name: 'Revision', order: 2, color: '#F59E0B' },
+      { id: 'submission', name: 'Submission', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Paper Title', type: 'text', description: 'Working title', isRequired: true },
+      { name: 'Target Journal', type: 'text', description: 'Publication target', isRequired: false },
+      { name: 'Co-Authors', type: 'text', description: 'Collaborating authors', isRequired: false },
+      { name: 'Deadline', type: 'date', description: 'Submission deadline', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Research & Planning',
+          description: 'Conduct research and plan paper',
+          tasks: [
+            { title: 'Define research question', description: 'Clarify focus.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Literature review', description: 'Review existing work.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['research'] },
+            { title: 'Collect/analyze data', description: 'Gather evidence.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['research'] },
+          ],
+        },
+        {
+          name: 'Writing',
+          description: 'Draft the paper',
+          tasks: [
+            { title: 'Write introduction', description: 'Set context and objectives.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['writing'] },
+            { title: 'Write methodology', description: 'Describe methods.', assigneeRole: 'lead', dueOffset: 40, priority: 'high', labels: ['writing'] },
+            { title: 'Write results', description: 'Present findings.', assigneeRole: 'lead', dueOffset: 45, priority: 'high', labels: ['writing'] },
+            { title: 'Write discussion', description: 'Interpret results.', assigneeRole: 'lead', dueOffset: 50, priority: 'high', labels: ['writing'] },
+            { title: 'Write conclusion', description: 'Summarize findings.', assigneeRole: 'lead', dueOffset: 52, priority: 'high', labels: ['writing'] },
+          ],
+        },
+        {
+          name: 'Review & Publish',
+          description: 'Review and submit for publication',
+          tasks: [
+            { title: 'Co-author review', description: 'Get feedback from co-authors.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['review'] },
+            { title: 'Revise manuscript', description: 'Make improvements.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['revision'] },
+            { title: 'Format for journal', description: 'Apply journal style.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['formatting'] },
+            { title: 'Submit to journal', description: 'Complete submission.', assigneeRole: 'lead', dueOffset: 75, priority: 'high', labels: ['submission'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 21. PUBLICATION PROCESS ====================
+  {
+    name: 'Publication Process',
+    slug: 'publication-process',
+    description: 'Manage the academic publication process from submission to final publication.',
+    category: 'education',
+    icon: 'Send',
+    color: '#0D9488',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'submission', name: 'Submission', order: 0, color: '#6B7280' },
+      { id: 'under_review', name: 'Under Review', order: 1, color: '#3B82F6' },
+      { id: 'revision', name: 'Revision', order: 2, color: '#F59E0B' },
+      { id: 'accepted', name: 'Accepted', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Manuscript Title', type: 'text', description: 'Paper title', isRequired: true },
+      { name: 'Journal', type: 'text', description: 'Target journal', isRequired: true },
+      { name: 'Submission Date', type: 'date', description: 'Date submitted', isRequired: false },
+      { name: 'Status', type: 'select', description: 'Current status', options: ['Draft', 'Submitted', 'Under Review', 'Revise & Resubmit', 'Accepted', 'Published'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Submission Preparation',
+          description: 'Prepare manuscript for submission',
+          tasks: [
+            { title: 'Select target journal', description: 'Choose appropriate publication.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Format manuscript', description: 'Apply journal guidelines.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['formatting'] },
+            { title: 'Write cover letter', description: 'Draft submission letter.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['writing'] },
+            { title: 'Submit manuscript', description: 'Complete online submission.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['submission'] },
+          ],
+        },
+        {
+          name: 'Review Process',
+          description: 'Respond to peer review',
+          tasks: [
+            { title: 'Track submission status', description: 'Monitor review progress.', assigneeRole: 'lead', dueOffset: 30, priority: 'medium', labels: ['tracking'] },
+            { title: 'Address reviewer comments', description: 'Respond to feedback.', assigneeRole: 'lead', dueOffset: 60, priority: 'high', labels: ['revision'] },
+            { title: 'Revise manuscript', description: 'Make required changes.', assigneeRole: 'lead', dueOffset: 75, priority: 'high', labels: ['revision'] },
+            { title: 'Resubmit revised version', description: 'Send revised manuscript.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['submission'] },
+          ],
+        },
+        {
+          name: 'Publication',
+          description: 'Final publication steps',
+          tasks: [
+            { title: 'Review proofs', description: 'Check galley proofs.', assigneeRole: 'lead', dueOffset: 100, priority: 'high', labels: ['review'] },
+            { title: 'Submit corrections', description: 'Send proof corrections.', assigneeRole: 'lead', dueOffset: 105, priority: 'high', labels: ['correction'] },
+            { title: 'Share publication', description: 'Promote published work.', assigneeRole: 'member', dueOffset: 120, priority: 'medium', labels: ['promotion'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 22. PEER REVIEW PROCESS ====================
+  {
+    name: 'Peer Review Process',
+    slug: 'peer-review-process',
+    description: 'Manage peer review responsibilities for academic journals or conferences.',
+    category: 'education',
+    icon: 'Users',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'assigned', name: 'Assigned', order: 0, color: '#6B7280' },
+      { id: 'in_review', name: 'In Review', order: 1, color: '#3B82F6' },
+      { id: 'drafting', name: 'Drafting Report', order: 2, color: '#F59E0B' },
+      { id: 'submitted', name: 'Submitted', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Manuscript ID', type: 'text', description: 'Submission identifier', isRequired: true },
+      { name: 'Journal/Conference', type: 'text', description: 'Publication venue', isRequired: true },
+      { name: 'Deadline', type: 'date', description: 'Review deadline', isRequired: true },
+      { name: 'Recommendation', type: 'select', description: 'Final recommendation', options: ['Accept', 'Minor Revisions', 'Major Revisions', 'Reject'], isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Initial Assessment',
+          description: 'First review of manuscript',
+          tasks: [
+            { title: 'Accept review invitation', description: 'Confirm availability.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['admin'] },
+            { title: 'Initial read-through', description: 'First complete reading.', assigneeRole: 'owner', dueOffset: 3, priority: 'high', labels: ['reading'] },
+            { title: 'Check scope fit', description: 'Assess relevance to venue.', assigneeRole: 'owner', dueOffset: 4, priority: 'high', labels: ['assessment'] },
+          ],
+        },
+        {
+          name: 'Detailed Review',
+          description: 'Thorough manuscript evaluation',
+          tasks: [
+            { title: 'Evaluate methodology', description: 'Assess research methods.', assigneeRole: 'owner', dueOffset: 7, priority: 'high', labels: ['evaluation'] },
+            { title: 'Check results and analysis', description: 'Verify findings.', assigneeRole: 'owner', dueOffset: 10, priority: 'high', labels: ['evaluation'] },
+            { title: 'Review references', description: 'Check citations.', assigneeRole: 'owner', dueOffset: 12, priority: 'medium', labels: ['evaluation'] },
+            { title: 'Note strengths and weaknesses', description: 'Document feedback.', assigneeRole: 'owner', dueOffset: 14, priority: 'high', labels: ['notes'] },
+          ],
+        },
+        {
+          name: 'Report Writing',
+          description: 'Prepare review report',
+          tasks: [
+            { title: 'Write summary', description: 'Summarize manuscript.', assigneeRole: 'owner', dueOffset: 17, priority: 'high', labels: ['writing'] },
+            { title: 'Draft detailed comments', description: 'Write specific feedback.', assigneeRole: 'owner', dueOffset: 19, priority: 'high', labels: ['writing'] },
+            { title: 'Make recommendation', description: 'Decide on verdict.', assigneeRole: 'owner', dueOffset: 20, priority: 'high', labels: ['decision'] },
+            { title: 'Submit review', description: 'Complete submission.', assigneeRole: 'owner', dueOffset: 21, priority: 'high', labels: ['submission'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 23. ACADEMIC JOURNAL ====================
+  {
+    name: 'Academic Journal',
+    slug: 'academic-journal',
+    description: 'Manage the production of an academic journal issue.',
+    category: 'education',
+    icon: 'Book',
+    color: '#1D4ED8',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'submissions', name: 'Submissions', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Review', order: 1, color: '#3B82F6' },
+      { id: 'editing', name: 'Editing', order: 2, color: '#F59E0B' },
+      { id: 'production', name: 'Production', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Issue Number', type: 'text', description: 'Volume and issue', isRequired: true },
+      { name: 'Publication Date', type: 'date', description: 'Target publish date', isRequired: true },
+      { name: 'Number of Articles', type: 'number', description: 'Articles in issue', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Submission Management',
+          description: 'Handle manuscript submissions',
+          tasks: [
+            { title: 'Open call for papers', description: 'Announce submission period.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['submissions'] },
+            { title: 'Screen submissions', description: 'Initial quality check.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['screening'] },
+            { title: 'Assign reviewers', description: 'Send to peer reviewers.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['review'] },
+            { title: 'Collect reviews', description: 'Gather reviewer feedback.', assigneeRole: 'member', dueOffset: 75, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Editorial Process',
+          description: 'Editorial decisions and revisions',
+          tasks: [
+            { title: 'Make editorial decisions', description: 'Accept/reject papers.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['decisions'] },
+            { title: 'Coordinate revisions', description: 'Manage author revisions.', assigneeRole: 'member', dueOffset: 100, priority: 'high', labels: ['revision'] },
+            { title: 'Copyedit accepted papers', description: 'Edit for style and grammar.', assigneeRole: 'member', dueOffset: 120, priority: 'high', labels: ['editing'] },
+          ],
+        },
+        {
+          name: 'Production',
+          description: 'Prepare issue for publication',
+          tasks: [
+            { title: 'Layout articles', description: 'Format for publication.', assigneeRole: 'member', dueOffset: 140, priority: 'high', labels: ['production'] },
+            { title: 'Create table of contents', description: 'Compile issue structure.', assigneeRole: 'member', dueOffset: 150, priority: 'high', labels: ['production'] },
+            { title: 'Final proofing', description: 'Last quality check.', assigneeRole: 'lead', dueOffset: 155, priority: 'high', labels: ['proofing'] },
+            { title: 'Publish issue', description: 'Release online/print.', assigneeRole: 'lead', dueOffset: 160, priority: 'high', labels: ['publication'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 24. TEXTBOOK DEVELOPMENT ====================
+  {
+    name: 'Textbook Development',
+    slug: 'textbook-development',
+    description: 'Create an educational textbook from planning to publication.',
+    category: 'education',
+    icon: 'BookOpen',
+    color: '#9333EA',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'writing', name: 'Writing', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'production', name: 'Production', order: 3, color: '#8B5CF6' },
+      { id: 'published', name: 'Published', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Book Title', type: 'text', description: 'Textbook title', isRequired: true },
+      { name: 'Subject', type: 'text', description: 'Subject area', isRequired: true },
+      { name: 'Grade Level', type: 'text', description: 'Target audience', isRequired: true },
+      { name: 'Publisher', type: 'text', description: 'Publishing house', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Planning',
+          description: 'Plan the textbook',
+          tasks: [
+            { title: 'Define scope and objectives', description: 'Set book goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Create chapter outline', description: 'Plan content structure.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['planning'] },
+            { title: 'Research competitors', description: 'Review existing textbooks.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['research'] },
+            { title: 'Secure publisher contract', description: 'Finalize publishing deal.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['business'] },
+          ],
+        },
+        {
+          name: 'Content Development',
+          description: 'Write textbook content',
+          tasks: [
+            { title: 'Write chapters', description: 'Draft all chapter content.', assigneeRole: 'lead', dueOffset: 120, priority: 'high', labels: ['writing'] },
+            { title: 'Create exercises', description: 'Develop practice problems.', assigneeRole: 'member', dueOffset: 150, priority: 'high', labels: ['content'] },
+            { title: 'Design illustrations', description: 'Create figures and diagrams.', assigneeRole: 'member', dueOffset: 180, priority: 'high', labels: ['design'] },
+            { title: 'Develop supplementary materials', description: 'Create instructor resources.', assigneeRole: 'member', dueOffset: 200, priority: 'medium', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Review & Production',
+          description: 'Review and produce textbook',
+          tasks: [
+            { title: 'Expert review', description: 'Subject matter review.', assigneeRole: 'lead', dueOffset: 220, priority: 'high', labels: ['review'] },
+            { title: 'Student pilot testing', description: 'Test with students.', assigneeRole: 'member', dueOffset: 250, priority: 'high', labels: ['testing'] },
+            { title: 'Final revisions', description: 'Incorporate feedback.', assigneeRole: 'lead', dueOffset: 280, priority: 'high', labels: ['revision'] },
+            { title: 'Production and printing', description: 'Publish the textbook.', assigneeRole: 'owner', dueOffset: 320, priority: 'high', labels: ['publication'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 25. STUDY GUIDE CREATION ====================
+  {
+    name: 'Study Guide Creation',
+    slug: 'study-guide-creation',
+    description: 'Create comprehensive study guides for courses or exams.',
+    category: 'education',
+    icon: 'FileText',
+    color: '#0891B2',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'drafting', name: 'Drafting', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Guide Title', type: 'text', description: 'Study guide name', isRequired: true },
+      { name: 'Course/Exam', type: 'text', description: 'Related course or exam', isRequired: true },
+      { name: 'Target Audience', type: 'text', description: 'Who will use it', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Planning',
+          description: 'Plan the study guide',
+          tasks: [
+            { title: 'Identify key topics', description: 'List essential content.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Gather source materials', description: 'Collect reference content.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['research'] },
+            { title: 'Create outline', description: 'Structure the guide.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Content Creation',
+          description: 'Write the study guide',
+          tasks: [
+            { title: 'Write topic summaries', description: 'Summarize key concepts.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['writing'] },
+            { title: 'Create study questions', description: 'Develop practice questions.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['content'] },
+            { title: 'Add diagrams and visuals', description: 'Include helpful graphics.', assigneeRole: 'member', dueOffset: 18, priority: 'medium', labels: ['design'] },
+            { title: 'Write answer key', description: 'Provide solutions.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Finalization',
+          description: 'Review and finalize',
+          tasks: [
+            { title: 'Peer review', description: 'Get feedback on content.', assigneeRole: 'lead', dueOffset: 23, priority: 'high', labels: ['review'] },
+            { title: 'Make revisions', description: 'Improve based on feedback.', assigneeRole: 'member', dueOffset: 26, priority: 'high', labels: ['revision'] },
+            { title: 'Format and design', description: 'Create final layout.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['design'] },
+            { title: 'Distribute guide', description: 'Share with students.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['distribution'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 26. ASSESSMENT DESIGN ====================
+  {
+    name: 'Assessment Design',
+    slug: 'assessment-design',
+    description: 'Design comprehensive educational assessments aligned with learning objectives.',
+    category: 'education',
+    icon: 'ClipboardCheck',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'validation', name: 'Validation', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Assessment Name', type: 'text', description: 'Name of assessment', isRequired: true },
+      { name: 'Type', type: 'select', description: 'Assessment type', options: ['Formative', 'Summative', 'Diagnostic', 'Performance'], isRequired: true },
+      { name: 'Course', type: 'text', description: 'Related course', isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Assessment Planning',
+          description: 'Plan assessment framework',
+          tasks: [
+            { title: 'Identify learning objectives', description: 'Map to course goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Choose assessment format', description: 'Select question types.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['design'] },
+            { title: 'Create assessment blueprint', description: 'Plan content distribution.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning'] },
+          ],
+        },
+        {
+          name: 'Item Development',
+          description: 'Create assessment items',
+          tasks: [
+            { title: 'Write assessment items', description: 'Create questions/tasks.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content'] },
+            { title: 'Develop rubrics', description: 'Create scoring criteria.', assigneeRole: 'lead', dueOffset: 15, priority: 'high', labels: ['rubric'] },
+            { title: 'Create answer key', description: 'Prepare correct responses.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Validation',
+          description: 'Validate and finalize',
+          tasks: [
+            { title: 'Expert review', description: 'Review for accuracy.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['review'] },
+            { title: 'Pilot test', description: 'Test with sample group.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['testing'] },
+            { title: 'Analyze pilot results', description: 'Review item performance.', assigneeRole: 'lead', dueOffset: 32, priority: 'high', labels: ['analysis'] },
+            { title: 'Finalize assessment', description: 'Make final revisions.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['finalization'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 27. EXAM DEVELOPMENT ====================
+  {
+    name: 'Exam Development',
+    slug: 'exam-development',
+    description: 'Develop secure and valid examinations for academic or professional purposes.',
+    category: 'education',
+    icon: 'FileQuestion',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'item_writing', name: 'Item Writing', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'finalized', name: 'Finalized', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Exam Title', type: 'text', description: 'Name of exam', isRequired: true },
+      { name: 'Exam Date', type: 'date', description: 'Administration date', isRequired: true },
+      { name: 'Duration', type: 'text', description: 'Exam length', isRequired: true },
+      { name: 'Format', type: 'select', description: 'Exam format', options: ['Multiple Choice', 'Essay', 'Mixed', 'Practical'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Exam Planning',
+          description: 'Plan the examination',
+          tasks: [
+            { title: 'Define exam objectives', description: 'Set what exam measures.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Create exam blueprint', description: 'Plan content coverage.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning'] },
+            { title: 'Set security protocols', description: 'Plan exam security.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['security'] },
+          ],
+        },
+        {
+          name: 'Question Development',
+          description: 'Create exam questions',
+          tasks: [
+            { title: 'Write exam questions', description: 'Create all items.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['content'] },
+            { title: 'Create answer key', description: 'Prepare solutions.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['content'] },
+            { title: 'Develop grading rubric', description: 'Create scoring guide.', assigneeRole: 'lead', dueOffset: 22, priority: 'high', labels: ['rubric'] },
+            { title: 'Review for bias', description: 'Check for fairness.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['review'] },
+          ],
+        },
+        {
+          name: 'Finalization',
+          description: 'Finalize and prepare exam',
+          tasks: [
+            { title: 'Expert review', description: 'Content validation.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['review'] },
+            { title: 'Format exam document', description: 'Create final format.', assigneeRole: 'member', dueOffset: 32, priority: 'high', labels: ['formatting'] },
+            { title: 'Prepare exam materials', description: 'Print/prepare delivery.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['preparation'] },
+            { title: 'Brief proctors', description: 'Train exam administrators.', assigneeRole: 'lead', dueOffset: 38, priority: 'high', labels: ['training'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 28. QUIZ CREATION ====================
+  {
+    name: 'Quiz Creation',
+    slug: 'quiz-creation',
+    description: 'Create quizzes for formative assessment and learning reinforcement.',
+    category: 'education',
+    icon: 'HelpCircle',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'draft', name: 'Draft', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Review', order: 1, color: '#3B82F6' },
+      { id: 'ready', name: 'Ready', order: 2, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Quiz Title', type: 'text', description: 'Name of quiz', isRequired: true },
+      { name: 'Topic', type: 'text', description: 'Quiz topic', isRequired: true },
+      { name: 'Number of Questions', type: 'number', description: 'Total questions', isRequired: true },
+      { name: 'Time Limit', type: 'text', description: 'Quiz duration', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Quiz Design',
+          description: 'Design the quiz',
+          tasks: [
+            { title: 'Identify learning objectives', description: 'Map to learning goals.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Select question types', description: 'Choose formats.', assigneeRole: 'owner', dueOffset: 1, priority: 'medium', labels: ['design'] },
+            { title: 'Write quiz questions', description: 'Create all items.', assigneeRole: 'owner', dueOffset: 3, priority: 'high', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Quiz Preparation',
+          description: 'Prepare quiz materials',
+          tasks: [
+            { title: 'Create answer key', description: 'Prepare correct answers.', assigneeRole: 'owner', dueOffset: 4, priority: 'high', labels: ['content'] },
+            { title: 'Set up in LMS', description: 'Enter in platform.', assigneeRole: 'owner', dueOffset: 5, priority: 'high', labels: ['technical'] },
+            { title: 'Test quiz functionality', description: 'Verify works correctly.', assigneeRole: 'owner', dueOffset: 6, priority: 'high', labels: ['testing'] },
+          ],
+        },
+        {
+          name: 'Deployment',
+          description: 'Deploy and analyze',
+          tasks: [
+            { title: 'Release quiz', description: 'Make available to students.', assigneeRole: 'owner', dueOffset: 7, priority: 'high', labels: ['deployment'] },
+            { title: 'Monitor submissions', description: 'Track completion.', assigneeRole: 'owner', dueOffset: 8, priority: 'medium', labels: ['monitoring'] },
+            { title: 'Review results', description: 'Analyze performance.', assigneeRole: 'owner', dueOffset: 10, priority: 'high', labels: ['analysis'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 29. ASSIGNMENT DESIGN ====================
+  {
+    name: 'Assignment Design',
+    slug: 'assignment-design',
+    description: 'Design meaningful assignments that promote learning and skill development.',
+    category: 'education',
+    icon: 'Edit',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'design', name: 'Design', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'ready', name: 'Ready', order: 2, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Assignment Title', type: 'text', description: 'Name of assignment', isRequired: true },
+      { name: 'Course', type: 'text', description: 'Related course', isRequired: true },
+      { name: 'Due Date', type: 'date', description: 'Submission deadline', isRequired: true },
+      { name: 'Weight', type: 'text', description: 'Grade percentage', isRequired: false },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Assignment Planning',
+          description: 'Plan the assignment',
+          tasks: [
+            { title: 'Define learning objectives', description: 'Set assignment goals.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Design assignment task', description: 'Create the activity.', assigneeRole: 'owner', dueOffset: 2, priority: 'high', labels: ['design'] },
+            { title: 'Determine requirements', description: 'Set expectations.', assigneeRole: 'owner', dueOffset: 3, priority: 'high', labels: ['requirements'] },
+          ],
+        },
+        {
+          name: 'Materials Development',
+          description: 'Create assignment materials',
+          tasks: [
+            { title: 'Write instructions', description: 'Create clear directions.', assigneeRole: 'owner', dueOffset: 5, priority: 'high', labels: ['content'] },
+            { title: 'Create rubric', description: 'Develop grading criteria.', assigneeRole: 'owner', dueOffset: 7, priority: 'high', labels: ['rubric'] },
+            { title: 'Prepare resources', description: 'Gather supporting materials.', assigneeRole: 'owner', dueOffset: 8, priority: 'medium', labels: ['resources'] },
+          ],
+        },
+        {
+          name: 'Deployment',
+          description: 'Release and manage',
+          tasks: [
+            { title: 'Post assignment', description: 'Release to students.', assigneeRole: 'owner', dueOffset: 10, priority: 'high', labels: ['deployment'] },
+            { title: 'Answer questions', description: 'Clarify as needed.', assigneeRole: 'owner', dueOffset: 12, priority: 'medium', labels: ['support'] },
+            { title: 'Collect submissions', description: 'Receive student work.', assigneeRole: 'owner', dueOffset: 20, priority: 'high', labels: ['collection'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+
+  // ==================== 30. RUBRIC DEVELOPMENT ====================
+  {
+    name: 'Rubric Development',
+    slug: 'rubric-development',
+    description: 'Develop detailed rubrics for consistent and fair assessment.',
+    category: 'education',
+    icon: 'Grid',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'draft', name: 'Draft', order: 0, color: '#6B7280' },
+      { id: 'review', name: 'Review', order: 1, color: '#3B82F6' },
+      { id: 'approved', name: 'Approved', order: 2, color: '#10B981' },
+    ],
+    customFields: [
+      { name: 'Rubric Title', type: 'text', description: 'Name of rubric', isRequired: true },
+      { name: 'Assignment', type: 'text', description: 'Related assignment', isRequired: true },
+      { name: 'Type', type: 'select', description: 'Rubric type', options: ['Analytic', 'Holistic', 'Single-Point'], isRequired: true },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Rubric Design',
+          description: 'Design the rubric structure',
+          tasks: [
+            { title: 'Identify criteria', description: 'List assessment dimensions.', assigneeRole: 'owner', dueOffset: 0, priority: 'high', labels: ['planning'] },
+            { title: 'Define performance levels', description: 'Create rating scale.', assigneeRole: 'owner', dueOffset: 2, priority: 'high', labels: ['design'] },
+            { title: 'Write descriptors', description: 'Describe each level.', assigneeRole: 'owner', dueOffset: 4, priority: 'high', labels: ['content'] },
+          ],
+        },
+        {
+          name: 'Rubric Development',
+          description: 'Develop detailed rubric',
+          tasks: [
+            { title: 'Create rubric grid', description: 'Build the matrix.', assigneeRole: 'owner', dueOffset: 6, priority: 'high', labels: ['development'] },
+            { title: 'Assign point values', description: 'Set scoring weights.', assigneeRole: 'owner', dueOffset: 7, priority: 'high', labels: ['scoring'] },
+            { title: 'Add examples', description: 'Include sample work.', assigneeRole: 'owner', dueOffset: 8, priority: 'medium', labels: ['examples'] },
+          ],
+        },
+        {
+          name: 'Validation',
+          description: 'Validate and finalize',
+          tasks: [
+            { title: 'Peer review', description: 'Get colleague feedback.', assigneeRole: 'owner', dueOffset: 10, priority: 'high', labels: ['review'] },
+            { title: 'Pilot test rubric', description: 'Test on sample work.', assigneeRole: 'owner', dueOffset: 12, priority: 'high', labels: ['testing'] },
+            { title: 'Finalize rubric', description: 'Make final adjustments.', assigneeRole: 'owner', dueOffset: 14, priority: 'high', labels: ['finalization'] },
+          ],
+        },
+      ],
+    },
+    settings: { defaultView: 'kanban', enableTimeTracking: true, enableStoryPoints: false },
+  },
+];

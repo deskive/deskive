@@ -1,0 +1,82 @@
+{
+  "features": [
+    {
+      "id": "ai-chat",
+      "title": "AI-Powered Chat",
+      "description": "Transform your team communication with intelligent AI assistance. Get smart suggestions, automated translations, and context-aware responses that help your team collaborate seamlessly.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/3715719c-18fd-41d0-9170-ed30f87f33f7-1768813895118-1768813890335-deskive_ai_bot_in_chat.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "projects",
+      "title": "Smart Project Management",
+      "description": "Manage projects with Kanban boards, Gantt charts, and sprint planning. Track progress, assign tasks, and meet deadlines with complete visibility into your team's work.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/567da4db-5cb4-4bd7-8c76-848a39136ef0-1768813994968-1768813986300-deskive_project_template.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "automation",
+      "title": "Workflow Automation",
+      "description": "Create custom bots and automated workflows to handle repetitive tasks. From notifications to complex multi-step processes, let automation do the heavy lifting.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/75a64999-bc61-4bd7-9d5b-ff3db2d68036-1768813927980-1768813922627-deskive_automation_ai.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "video-calls",
+      "title": "HD Video Conferencing",
+      "description": "Connect with your team through crystal-clear video calls. Host meetings, share screens, and collaborate in real-time with features designed for productive remote work.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/389d91cc-2be2-4c6c-9bcb-a020d12f26ee-1768815405567-1768815401849-deskive_videocall_new.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "tools",
+      "title": "Collaborative Tools",
+      "description": "Unlock creativity with powerful collaborative tools. Use interactive whiteboards for brainstorming, visual planning, and real-time collaboration. Perfect for design sprints and creative workshops.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/8176683b-15f8-431f-a56d-cde57cf9301b-1768813961001-1768813954980-deskive_whiteboard.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "notes",
+      "title": "Collaborative Notes",
+      "description": "Create, share, and collaborate on documents in real-time. Build your team's knowledge base with powerful editing tools, templates, and AI-assisted writing.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/85ef23ae-fe4e-4f20-9306-b7e3c0a84b03-1768813833299-1768813831429-deskive_notes.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    },
+    {
+      "id": "integrations",
+      "title": "180+ Integrations",
+      "description": "Connect Deskive with your favorite tools. Our extensive integration library ensures your workflow stays seamless across all the apps your team uses.",
+      "videoSrc": "https://cdn-dev.deskive.com/projects/4493aede-e31a-4da4-8645-ca3c3a3d99a4/582a0e04-0ff2-4857-b06c-a6831d195bd8-1768813780815-1768813778259-deskive_gmail_oauth.mp4",
+      "isNew": true,
+      "isFeatured": true,
+      "isPopular": true,
+      "addedDate": "2024-01-08",
+      "version": "1.0"
+    }
+  ],
+  "modalVersion": "v1"
+}

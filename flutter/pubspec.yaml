@@ -1,0 +1,242 @@
+name: deskive
+description: "Deskive - Your Ultimate Workspace Platform"
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.16+16
+
+environment:
+  sdk: ^3.7.2
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  dio: ^5.4.0
+
+  # End-to-End Encryption
+  cryptography: ^2.9.0
+  flutter_secure_storage: ^10.0.0
+  convert: ^3.1.2
+  
+  # Charts and Analytics
+  fl_chart: ^1.1.1
+  syncfusion_flutter_charts: ^31.2.2
+
+  # Rich Text Editor
+  flutter_quill: ^11.0.0
+  flutter_html: ^3.0.0-beta.2
+  vsc_quill_delta_to_html: ^1.0.5
+  flutter_quill_delta_from_html: ^1.4.1
+
+  # Markdown Editor and Renderer
+  markdown_editor_plus: ^0.2.15
+  flutter_markdown: ^0.7.4+1
+  markdown: ^7.2.2
+
+  # Video Calling - LiveKit
+  livekit_client: ^2.5.3
+  permission_handler: ^12.0.1
+  speech_to_text: ^7.3.0
+  wakelock_plus: ^1.2.8
+  vibration: ^2.0.0
+  flutter_foreground_task: ^8.10.0  # Required for Android 14+ screen sharing
+
+  # File Management
+  file_picker: ^10.3.6
+  image_picker: ^1.1.2
+  path_provider: ^2.1.4
+  mime: ^2.0.0
+  gal: ^2.3.0
+  share_plus: ^12.0.1
+  archive: ^3.6.1  # For .docx file parsing (ZIP archive)
+  xml: ^6.5.0  # For parsing .docx XML content
+  csv: ^6.0.0  # For CSV file parsing
+
+  # Real-time Communication
+  socket_io_client: ^3.1.2
+  web_socket_channel: ^3.0.1
+
+  # State Management
+  provider: ^6.1.2
+  get_it: ^9.0.5
+
+  # Authentication
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^7.0.1
+  flutter_appauth: ^11.0.0
+  crypto: ^3.0.6
+
+  # Notifications
+  flutter_local_notifications: ^19.5.0
+  flutter_callkit_incoming: ^2.0.0+2
+  
+  # Storage
+  shared_preferences: ^2.3.2
+  sqflite: ^2.3.3
+  connectivity_plus: ^6.0.3
+
+  # UI Enhancements
+  shimmer: ^3.0.0
+  lottie: ^3.1.2
+  cached_network_image: ^3.4.1
+  
+  # Utilities
+  intl: ^0.20.2
+  easy_localization: ^3.0.7
+  uuid: ^4.5.2
+  url_launcher: ^6.3.1
+  timeago: ^3.7.0
+  app_links: ^6.3.2
+  webview_flutter: ^4.10.0
+  package_info_plus: ^9.0.0
+  device_info_plus: ^11.5.0  # Cannot upgrade to 12.x due to livekit_client dependency
+  flutter_dotenv: ^6.0.0
+  table_calendar: ^3.0.9
+
+  # Audio Recording and Playback
+  flutter_sound: ^9.2.13
+  audioplayers: ^6.5.1
+  flutter_ringtone_player: ^4.0.0+3
+  
+  # Video Playback
+  video_player: ^2.8.6
+  
+  # Camera
+  camera: ^0.11.3
+  
+  # Screen Sharing
+  # flutter_screen_recording: ^2.0.16  # Removed due to namespace compatibility issues
+
+  # Whiteboard Drawing
+  perfect_freehand: ^2.0.0
+
+  # Emoji Picker
+  emoji_picker_flutter: ^4.3.0
+
+  # GIF Picker
+  giphy_get: ^3.5.4
+  
+  # PDF Generation and Viewing
+  pdf: ^3.11.1
+  printing: ^5.13.2
+  open_filex: ^4.5.0
+  firebase_core: ^4.2.1
+  firebase_messaging: ^16.0.4
+  firebase_analytics: ^12.0.0
+
+  # In-App Purchases
+  in_app_purchase: ^3.2.0
+  in_app_purchase_storekit: ^0.3.17
+
+  # Data Grid for Google Sheets editing
+  pluto_grid: ^8.1.0
+  pinenacl: ^0.6.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.1
+  # flutter_native_splash: ^2.4.3  # Commented out - splash screens already generated, no runtime dependency needed
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+
+  # The following line ensures that the Material Icons font is
+  # included with your application, so that you can use the icons in
+  # the material Icons class.
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - .env
+    - .env.development
+    - .env.production
+    - assets/images/logo.png
+    - assets/sounds/
+    - assets/translations/
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/to/resolution-aware-images
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/to/asset-from-package
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/to/font-from-package
+
+# Flutter launcher icons configuration
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/images/logo.png"
+  min_sdk_android: 21
+  remove_alpha_ios: false
+
+# Native splash screen configuration
+flutter_native_splash:
+  color: "#FFFFFF"
+  color_dark: "#FFFFFF"
+  image: assets/images/logo.png
+  image_dark: assets/images/logo.png
+  android_12:
+    image: assets/images/logo.png
+    icon_background_color: "#FFFFFF"
+    image_dark: assets/images/logo.png
+    icon_background_color_dark: "#FFFFFF"
+  android: true
+  ios: true
+  web: false
+  android_gravity: center
+  ios_content_mode: center
+  fullscreen: true

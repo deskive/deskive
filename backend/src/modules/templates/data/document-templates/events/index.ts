@@ -1,0 +1,15 @@
+import { EVENTS_CORPORATE_TEMPLATES } from './events-corporate';
+import { EVENTS_SOCIAL_TEMPLATES } from './events-social';
+import { EVENTS_WEDDING_TEMPLATES } from './events-wedding';
+
+export const ALL_EVENTS_TEMPLATES = [
+  ...EVENTS_CORPORATE_TEMPLATES,
+  ...EVENTS_SOCIAL_TEMPLATES,
+  ...EVENTS_WEDDING_TEMPLATES,
+];
+
+export {
+  EVENTS_CORPORATE_TEMPLATES,
+  EVENTS_SOCIAL_TEMPLATES,
+  EVENTS_WEDDING_TEMPLATES,
+};

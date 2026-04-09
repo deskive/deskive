@@ -1,0 +1,10 @@
+class AppConfig {
+  // App at Once API Configuration
+  // Get your API key from: https://app-at-once.com/dashboard
+  static const String appAtOnceApiKey = 'YOUR_API_KEY_HERE';
+  
+  // Other configuration constants can be added here
+  static const bool isProduction = false;
+  static const String appName = 'Workspace Suite';
+  static const String appVersion = '1.0.0';
+}

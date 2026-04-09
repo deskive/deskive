@@ -1,0 +1,397 @@
+DESKIVE - CHATBOT TRAINING DOCUMENT
+====================================
+
+ABOUT DESKIVE
+-------------
+Deskive is an all-in-one workspace platform that brings together everything your team needs to collaborate, communicate, and get work done. It combines six core modules - Chat, Video Calls, Projects, Files, Calendar, and Notes - plus advanced AI-powered features, email integration, collaborative whiteboard, analytics, and much more into a single unified platform.
+
+Deskive replaces fragmented tools like Slack, Notion, Trello, Google Drive, Zoom, and others with one integrated solution designed for modern teams. Key highlights include:
+
+- Real-time team messaging with channels, threads, and direct messages
+- HD video conferencing with screen sharing, recording, and real-time AI transcription
+- Project management with Kanban boards, task tracking, and time management
+- Secure cloud storage with file versioning and Google Drive integration
+- Smart calendar with scheduling, meeting rooms, and availability checking
+- Rich text notes with real-time collaboration and templates
+- Full email integration with Gmail OAuth and SMTP/IMAP support
+- Advanced AI features including AutoPilot AI Agent, Meeting Intelligence, and smart summaries
+- Collaborative whiteboard for visual brainstorming
+- Powerful analytics and reporting dashboard
+- Cross-platform sync across web, desktop, and mobile
+
+Website: https://deskive.com
+Support Email: support@deskive.com
+Support Contact Form: https://deskive.com/#contact
+Available Platforms: Web (all browsers), Desktop (macOS, Windows), Android (Google Play), iOS (App Store)
+
+
+SUBSCRIPTION PLANS AND PRICING
+------------------------------
+
+1. Free Plan ($0 Forever):
+   - 5 team members
+   - 512 MB storage
+   - Basic chat and messaging
+   - Basic file sharing
+   - Mobile app access
+   - Community support
+   - Basic integrations
+   - 2FA authentication
+
+2. Starter Plan ($9.99/month or $99.99/year - Save 17%):
+   - 25 team members
+   - 25 GB storage
+   - Advanced chat with threads
+   - Video calls (up to 10 participants)
+   - Project management tools
+   - Calendar integration
+   - Basic analytics
+   - Data export (CSV)
+   - Guest access
+
+3. Professional Plan ($19.99/month or $199.99/year - Save 17%) - MOST POPULAR:
+   - 100 team members
+   - 100 GB storage
+   - Video calls (up to 50 participants)
+   - AI-powered features
+   - Advanced analytics and reporting
+   - Priority support
+   - 99.9% uptime SLA
+   - Advanced security features
+   - Resource management
+
+4. Enterprise Plan ($49.99/month or $499.99/year - Save 17%):
+   - Unlimited team members
+   - 1 TB+ storage
+   - Unlimited video calls
+   - Enterprise SSO (SAML, OAuth)
+   - Advanced security and compliance
+   - Dedicated account manager
+   - 24/7 phone support
+   - Custom contracts and SLA
+
+Payment Methods:
+- Web: Stripe (Visa, MasterCard, American Express)
+- iOS: Apple App Store (In-App Purchase)
+- Android: Google Play (In-App Purchase)
+
+
+THE 6 CORE MODULES
+------------------
+
+1. Chat - Real-Time Team Messaging:
+   - Channels for organizing conversations by team, project, or topic
+   - Direct messages for private one-on-one conversations
+   - Threaded conversations to keep discussions organized
+   - File sharing directly in conversations
+   - @Mentions to get attention when needed
+   - Emoji reactions and emoji picker
+   - GIF support for fun communication
+   - Message search across all conversations
+   - Pin important messages
+   - AI-powered smart chat summaries
+   - Auto-categorization of conversations
+   - Chat-to-Note and Chat-to-Task conversion
+   - Smart reply suggestions
+
+2. Video Calls - HD Video Conferencing:
+   - High-definition video quality
+   - Screen sharing (entire screen or specific windows)
+   - Meeting recording for later reference
+   - Background blur for professional appearance
+   - Virtual backgrounds with custom options
+   - Public meeting links for external participants
+   - Real-time transcription powered by AI
+   - Meeting intelligence with automatic summaries
+   - Action items extraction from meetings
+   - Participant management and controls
+   - Noise cancellation
+   - Picture-in-picture mode
+   - Mobile video calling support
+   - Participant limits: Starter (10), Professional (50), Enterprise (unlimited)
+
+3. Projects - Kanban Boards and Task Management:
+   - Kanban boards with visual workflow management
+   - Drag-and-drop task organization
+   - Task creation with due dates and priorities
+   - Task assignment to team members
+   - Custom workflow stages
+   - Task dependencies and relationships
+   - Time tracking on tasks (Professional+)
+   - Resource management and allocation
+   - Project templates
+   - Milestones and deadlines
+   - Progress tracking and charts
+   - AI-powered project planning
+   - Automatic task prioritization
+   - Smart deadline suggestions
+   - Task comments and discussions
+
+4. Files - Cloud Storage and File Management:
+   - Secure cloud storage
+   - File versioning with restore capability
+   - File sharing with teammates or external users
+   - Drag-and-drop file upload
+   - File preview for documents, images, and videos
+   - Folder organization
+   - Google Drive integration
+   - Document collaboration
+   - File search across workspace
+   - Download and export files
+   - Save to device (mobile)
+   - Smart file organization with AI
+   - Storage by plan: Free (512MB), Starter (25GB), Professional (100GB), Enterprise (1TB+)
+
+5. Calendar - Smart Scheduling:
+   - Event creation and management
+   - Meeting room booking
+   - Team member availability checking
+   - Recurring events support
+   - Event reminders and notifications
+   - Time zone support for global teams
+   - Calendar sync with external calendars
+   - Meeting scheduling from chat
+   - Video call integration
+   - AI-powered smart scheduling suggestions
+   - Monthly, weekly, and daily views
+   - Event categories and colors
+
+6. Notes - Rich Text Documentation:
+   - Rich text editor with full formatting
+   - Knowledge base management
+   - Note templates for common documents
+   - Real-time collaboration with multiple editors
+   - Note sharing with team members or external users
+   - Note folders and organization
+   - Sync notes across all devices
+   - Export notes to PDF and other formats
+   - AI content generation
+   - Smart summarization
+   - Search across all notes
+   - Pin important notes
+   - Note versioning
+
+
+ADDITIONAL FEATURES AND MODULES
+-------------------------------
+
+Email Integration:
+Deskive includes a full email module with Gmail integration.
+- Gmail OAuth authentication
+- SMTP/IMAP support for sending and receiving
+- Unified inbox within Deskive
+- AI-powered email features
+- Email-to-task conversion
+- Email-to-note conversion
+- Email search
+- Compose and reply to emails
+
+AI-Powered Features:
+Deskive includes powerful AI features across all modules.
+- AutoPilot AI Agent: Autonomous AI assistant that can perform tasks
+- Meeting Intelligence: Automatic meeting summaries and action items
+- Real-time Transcription: Live transcription during video calls
+- Document Analysis: AI analysis of documents and files
+- Smart Summaries: AI-generated summaries for chats, meetings, and notes
+- Translation: Translate content between languages
+- Content Generation: AI writing assistance for notes and emails
+- Smart Search: AI-enhanced search across all workspace content
+
+Analytics and Reporting:
+- Workspace insights dashboard
+- Productivity metrics
+- Team activity reports
+- Custom report generation
+- Usage statistics
+- Project progress tracking
+- Data export capabilities
+
+Integrations:
+- Google Drive integration
+- Slack integration
+- Third-party app connections
+- Webhook support
+- API access (Starter+)
+- Custom integrations (Professional+)
+
+Whiteboard:
+- Collaborative whiteboard for visual brainstorming
+- Drawing tools and shapes
+- Sticky notes on whiteboard
+- Real-time collaboration
+- Export whiteboard as image
+
+Global Search:
+- Search across all workspace content
+- Search messages, files, notes, tasks
+- Filter search results by type
+- Advanced search operators
+
+Monitoring (Professional+):
+- Real-time system metrics
+- API monitoring
+- Performance charts
+- Log aggregation
+- Alert management
+
+
+MOBILE APP FEATURES
+-------------------
+
+The Deskive mobile app (iOS and Android) includes:
+- Full chat functionality with push notifications
+- Video calls with camera switching
+- File browsing and sharing
+- Calendar access and event creation
+- Notes viewing and editing
+- Project and task management
+- Offline support for core features
+- Push notifications for messages, calls, and reminders
+- Voice messages
+- Camera integration for photos and videos
+- Save files to device
+- Share content to other apps
+
+
+SECURITY AND PRIVACY
+--------------------
+
+Deskive uses enterprise-grade security:
+- AES-256 encryption for data at rest and in transit
+- Secure HTTPS connections
+- Two-factor authentication (2FA) on all plans
+- Enterprise SSO (SAML, OAuth) for Enterprise plans
+- GDPR compliant
+- CCPA compliant
+- Audit logs for Enterprise plans
+- Advanced user permissions
+- Session management
+- IP allowlisting (Enterprise)
+
+Data Ownership:
+Users own their data and can export it anytime. All paid plans support data export. Accounts and data are never deleted unless explicitly requested by the user.
+
+
+GETTING STARTED
+---------------
+
+Step 1: Sign Up
+Visit https://deskive.com and click Get Started Free to create your account. No credit card required.
+
+Step 2: Create Your Workspace
+Set up your team workspace with a name and invite your team members by email or invite link.
+
+Step 3: Explore Modules
+Start using Chat, Projects, Files, Calendar, Notes, and Video Calls based on your team needs.
+
+Step 4: Customize
+Configure your workspace settings, integrations, and preferences in the Settings area.
+
+Step 5: Collaborate
+Start collaborating with your team in real-time!
+
+
+FREQUENTLY ASKED QUESTIONS
+--------------------------
+
+Q: What is Deskive?
+A: Deskive is an all-in-one workspace platform that brings together everything your team needs to collaborate and get work done. It combines six core modules (Chat, Video Calls, Projects, Files, Calendar, Notes) plus advanced AI features (AutoPilot Agent, Meeting Intelligence, Real-time Transcription), email integration with Gmail, collaborative whiteboard, analytics, and more. It replaces tools like Slack, Notion, Trello, Google Drive, and Zoom with one unified platform.
+
+Q: Is there a free plan?
+A: Yes! Our Free plan is completely free forever. It includes 5 team members, 512 MB storage, basic chat and messaging, file sharing, mobile app access, and 2FA authentication. No credit card required.
+
+Q: What platforms is Deskive available on?
+A: Deskive is available on Web (all modern browsers), Desktop (macOS and Windows), Android (Google Play Store), and iOS (App Store).
+
+Q: How much does Deskive cost?
+A: Free: $0 forever. Starter: $9.99/month or $99.99/year. Professional: $19.99/month or $199.99/year. Enterprise: $49.99/month or $499.99/year. Annual plans save approximately 17%.
+
+Q: What are the AI features in Deskive?
+A: Deskive includes AutoPilot AI Agent, Meeting Intelligence with automatic summaries, Real-time Transcription during video calls, Document Analysis, Smart Summaries, Translation, Content Generation for notes and emails, and Smart Search across all content.
+
+Q: How many team members can I have?
+A: Free: 5 members. Starter: 25 members. Professional: 100 members. Enterprise: Unlimited members.
+
+Q: How much storage do I get?
+A: Free: 512 MB. Starter: 25 GB. Professional: 100 GB. Enterprise: 1 TB or more.
+
+Q: What video call features are available?
+A: HD video conferencing, screen sharing, meeting recording, background blur, virtual backgrounds, public meeting links, real-time transcription, meeting intelligence with summaries, and action items extraction.
+
+Q: Can I use Deskive on multiple devices?
+A: Yes! Deskive syncs in real-time across web, desktop, and mobile devices. Use it on your computer, phone, and tablet simultaneously.
+
+Q: Does Deskive work with Gmail?
+A: Yes! Deskive includes Gmail OAuth integration with SMTP/IMAP support. You can send and receive emails directly within Deskive, with AI-powered email features.
+
+Q: Can I export my data?
+A: Yes! All paid plans support data export. Starter plans support CSV export, while Professional and Enterprise plans support multiple formats including PDF.
+
+Q: Is my data secure?
+A: Yes! We use AES-256 encryption, secure HTTPS connections, 2FA authentication, and comply with GDPR and CCPA regulations. Enterprise plans include additional security features like SSO and audit logs.
+
+Q: Can I integrate with other tools?
+A: Yes! Deskive supports Google Drive integration, Slack integration, webhooks, and API access. Professional and Enterprise plans include unlimited custom integrations.
+
+Q: What are the video call participant limits?
+A: Starter: up to 10 participants. Professional: up to 50 participants. Enterprise: unlimited participants.
+
+Q: Can I cancel anytime?
+A: Yes! Cancel your subscription at any time. Your subscription remains active until the end of your billing period. No future charges after cancellation.
+
+Q: How do I get support?
+A: Contact us at support@deskive.com or use the contact form at https://deskive.com/#contact. Free users get community support and documentation. Starter users have email support. Professional users get priority email support. Enterprise users receive 24/7 phone support with a dedicated account manager.
+
+Q: What is the AutoPilot AI Agent?
+A: AutoPilot is an autonomous AI assistant that can perform tasks on your behalf within Deskive. It can help with task creation, scheduling, note taking, and more based on natural language commands.
+
+Q: Does Deskive support real-time transcription?
+A: Yes! Video calls include real-time AI transcription that converts speech to text during meetings. This feature is available on Professional and Enterprise plans.
+
+Q: Can I share files with people outside my workspace?
+A: Yes! You can generate public sharing links for files and notes to share with external users who do not have a Deskive account.
+
+Q: What is Meeting Intelligence?
+A: Meeting Intelligence automatically generates summaries of your video calls, extracts action items, and identifies key discussion points using AI.
+
+
+USE CASES
+---------
+
+For Startups:
+- Consolidate all tools into one affordable platform
+- Start free and scale as you grow
+- AI assistance to boost small team productivity
+
+For Growing Teams:
+- Structured project management with Kanban boards
+- Clear communication channels
+- Centralized file storage and documentation
+
+For Enterprises:
+- Enterprise-grade security and compliance
+- SSO integration and advanced admin controls
+- Dedicated support and custom solutions
+
+For Remote Teams:
+- HD video conferencing from anywhere
+- Real-time collaboration across time zones
+- Asynchronous communication with chat threads
+
+
+CONTACT INFORMATION
+-------------------
+
+Website: https://deskive.com
+Support Email: support@deskive.com
+Support Contact Form: https://deskive.com/#contact
+Privacy Policy: https://deskive.com/privacy
+Terms of Service: https://deskive.com/terms
+Cookie Policy: https://deskive.com/cookies
+Data Deletion: https://deskive.com/data-deletion
+
+Company: Info Inlet
+Copyright 2025 Info Inlet. All rights reserved.
+
+
+END OF DOCUMENT

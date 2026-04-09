@@ -1,0 +1,1 @@
+export { MorePage } from './MorePage';

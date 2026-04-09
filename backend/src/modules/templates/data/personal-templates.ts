@@ -1,0 +1,3786 @@
+/**
+ * Personal & Productivity Project Templates
+ * Pre-built templates for personal goals, habit tracking, learning, and productivity
+ */
+
+export const PERSONAL_TEMPLATES = [
+  // ==================== 1. GOAL SETTING ====================
+  {
+    name: 'Personal Goal Setting',
+    slug: 'personal-goal-setting',
+    description:
+      'Set and track personal goals using a structured approach. Break down big goals into actionable milestones.',
+    category: 'personal',
+    icon: 'Target',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'in_progress', name: 'In Progress', order: 1, color: '#3B82F6' },
+      { id: 'milestone', name: 'Milestone', order: 2, color: '#F59E0B' },
+      { id: 'review', name: 'Review', order: 3, color: '#8B5CF6' },
+      { id: 'achieved', name: 'Achieved', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Goal Category',
+        type: 'select',
+        description: 'Area of life',
+        options: ['Career', 'Health', 'Finance', 'Learning', 'Relationships', 'Personal Growth'],
+        isRequired: false,
+      },
+      {
+        name: 'Timeline',
+        type: 'select',
+        description: 'Goal timeframe',
+        options: ['30 Days', '90 Days', '6 Months', '1 Year', 'Long-term'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Goal Definition',
+          description: 'Define your goals',
+          tasks: [
+            {
+              title: 'Define your main goal',
+              description:
+                'Write a clear, specific goal statement using SMART criteria.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'goal'],
+              subtasks: [
+                { title: 'Make it Specific' },
+                { title: 'Make it Measurable' },
+                { title: 'Make it Achievable' },
+                { title: 'Make it Relevant' },
+                { title: 'Make it Time-bound' },
+              ],
+            },
+            {
+              title: 'Identify your why',
+              description:
+                'Write down why this goal matters to you.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'motivation'],
+            },
+            {
+              title: 'Identify potential obstacles',
+              description:
+                'List challenges you might face and how to overcome them.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['planning', 'preparation'],
+            },
+            {
+              title: 'Define success metrics',
+              description:
+                'How will you know when you have achieved the goal?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['planning', 'metrics'],
+            },
+          ],
+        },
+        {
+          name: 'Action Planning',
+          description: 'Break down into actions',
+          tasks: [
+            {
+              title: 'Break goal into milestones',
+              description:
+                'Divide your goal into 3-5 major milestones.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'milestones'],
+            },
+            {
+              title: 'Create action items for first milestone',
+              description:
+                'List specific tasks to reach first milestone.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'actions'],
+            },
+            {
+              title: 'Schedule regular check-ins',
+              description:
+                'Set up weekly or bi-weekly review times.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'medium',
+              labels: ['planning', 'review'],
+            },
+            {
+              title: 'Identify resources needed',
+              description:
+                'List tools, support, or resources you need.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'medium',
+              labels: ['planning', 'resources'],
+            },
+          ],
+        },
+        {
+          name: 'Milestone 1',
+          description: 'First major milestone',
+          tasks: [
+            {
+              title: 'Complete Milestone 1 tasks',
+              description:
+                'Work through action items for first milestone.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['execution', 'milestone-1'],
+            },
+            {
+              title: 'Milestone 1 review',
+              description:
+                'Assess progress and adjust if needed.',
+              assigneeRole: 'owner',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['review', 'milestone-1'],
+            },
+          ],
+        },
+        {
+          name: 'Milestone 2',
+          description: 'Second major milestone',
+          tasks: [
+            {
+              title: 'Complete Milestone 2 tasks',
+              description:
+                'Work through action items for second milestone.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['execution', 'milestone-2'],
+            },
+            {
+              title: 'Milestone 2 review',
+              description:
+                'Assess progress and adjust if needed.',
+              assigneeRole: 'owner',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['review', 'milestone-2'],
+            },
+          ],
+        },
+        {
+          name: 'Final Push & Completion',
+          description: 'Finish strong',
+          tasks: [
+            {
+              title: 'Final milestone tasks',
+              description:
+                'Complete remaining actions to achieve goal.',
+              assigneeRole: 'owner',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['execution', 'final'],
+            },
+            {
+              title: 'Final review',
+              description:
+                'Reflect on journey and achievements.',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['review', 'completion'],
+              subtasks: [
+                { title: 'Document what you learned' },
+                { title: 'Celebrate your achievement' },
+                { title: 'Set next goal' },
+              ],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'in_progress', 'milestone', 'review', 'achieved'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      reminderEnabled: true,
+    },
+  },
+
+  // ==================== 2. LEARNING PROJECT ====================
+  {
+    name: 'Learning Project',
+    slug: 'learning-project',
+    description:
+      'Structure your self-learning journey for any skill or topic. Track progress through courses, books, and practice.',
+    category: 'personal',
+    icon: 'BookOpen',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'to_learn', name: 'To Learn', order: 0, color: '#6B7280' },
+      { id: 'learning', name: 'Learning', order: 1, color: '#3B82F6' },
+      { id: 'practicing', name: 'Practicing', order: 2, color: '#F59E0B' },
+      { id: 'reviewing', name: 'Reviewing', order: 3, color: '#8B5CF6' },
+      { id: 'mastered', name: 'Mastered', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Learning Type',
+        type: 'select',
+        description: 'Type of learning',
+        options: ['Online Course', 'Book', 'Tutorial', 'Practice Project', 'Certification'],
+        isRequired: false,
+      },
+      {
+        name: 'Difficulty',
+        type: 'select',
+        description: 'Difficulty level',
+        options: ['Beginner', 'Intermediate', 'Advanced'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Learning Setup',
+          description: 'Plan your learning',
+          tasks: [
+            {
+              title: 'Define learning goal',
+              description:
+                'What specifically do you want to learn and why?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'goal'],
+            },
+            {
+              title: 'Research learning resources',
+              description:
+                'Find courses, books, tutorials, and mentors.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'resources'],
+            },
+            {
+              title: 'Create learning schedule',
+              description:
+                'Block time in calendar for learning.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'schedule'],
+            },
+            {
+              title: 'Setup learning environment',
+              description:
+                'Prepare tools, accounts, and workspace.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'medium',
+              labels: ['planning', 'setup'],
+            },
+          ],
+        },
+        {
+          name: 'Foundation',
+          description: 'Learn the fundamentals',
+          tasks: [
+            {
+              title: 'Complete intro materials',
+              description:
+                'Go through introductory content.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['learning', 'fundamentals'],
+            },
+            {
+              title: 'Take notes on key concepts',
+              description:
+                'Document important concepts and insights.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'medium',
+              labels: ['learning', 'notes'],
+            },
+            {
+              title: 'Complete first practice exercise',
+              description:
+                'Apply basic concepts in practice.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['practice', 'exercise'],
+            },
+          ],
+        },
+        {
+          name: 'Deep Learning',
+          description: 'Dive deeper',
+          tasks: [
+            {
+              title: 'Complete main course/book',
+              description:
+                'Work through primary learning material.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['learning', 'main-content'],
+            },
+            {
+              title: 'Build practice project',
+              description:
+                'Create something to apply your learning.',
+              assigneeRole: 'owner',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['practice', 'project'],
+            },
+            {
+              title: 'Review and fill gaps',
+              description:
+                'Identify and address weak areas.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'medium',
+              labels: ['review', 'gaps'],
+            },
+          ],
+        },
+        {
+          name: 'Application',
+          description: 'Apply and consolidate',
+          tasks: [
+            {
+              title: 'Real-world application',
+              description:
+                'Use skills in real context.',
+              assigneeRole: 'owner',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['application', 'real-world'],
+            },
+            {
+              title: 'Teach someone else',
+              description:
+                'Solidify learning by teaching.',
+              assigneeRole: 'owner',
+              dueOffset: 80,
+              priority: 'medium',
+              labels: ['application', 'teaching'],
+            },
+            {
+              title: 'Final assessment',
+              description:
+                'Test your knowledge and skills.',
+              assigneeRole: 'owner',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['review', 'assessment'],
+            },
+            {
+              title: 'Plan continued learning',
+              description:
+                'Identify next steps in learning journey.',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'medium',
+              labels: ['planning', 'next-steps'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['to_learn', 'learning', 'practicing', 'reviewing', 'mastered'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      spaceRepetition: true,
+    },
+  },
+
+  // ==================== 3. HABIT TRACKER ====================
+  {
+    name: 'Habit Building',
+    slug: 'habit-building',
+    description:
+      'Build new habits using proven habit formation techniques. Track daily progress and build streaks.',
+    category: 'personal',
+    icon: 'CheckSquare',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'week_1', name: 'Week 1', order: 1, color: '#3B82F6' },
+      { id: 'building', name: 'Building', order: 2, color: '#F59E0B' },
+      { id: 'established', name: 'Established', order: 3, color: '#8B5CF6' },
+      { id: 'automatic', name: 'Automatic', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Habit Type',
+        type: 'select',
+        description: 'Type of habit',
+        options: ['Health', 'Productivity', 'Learning', 'Mindfulness', 'Social', 'Creative'],
+        isRequired: false,
+      },
+      {
+        name: 'Frequency',
+        type: 'select',
+        description: 'How often',
+        options: ['Daily', 'Weekdays', 'Weekly', '3x per Week'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Habit Design',
+          description: 'Design your habit',
+          tasks: [
+            {
+              title: 'Choose one habit to build',
+              description:
+                'Select a single habit to focus on.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'selection'],
+            },
+            {
+              title: 'Define habit clearly',
+              description:
+                'Specify exactly what, when, and where.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'definition'],
+            },
+            {
+              title: 'Set up habit stack',
+              description:
+                'Attach new habit to existing routine.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['planning', 'stack'],
+            },
+            {
+              title: 'Design your environment',
+              description:
+                'Set up cues and remove friction.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['planning', 'environment'],
+            },
+            {
+              title: 'Choose reward',
+              description:
+                'Pick an immediate reward for completing habit.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['planning', 'reward'],
+            },
+          ],
+        },
+        {
+          name: 'Week 1: Start Small',
+          description: 'Begin with tiny version',
+          tasks: [
+            {
+              title: 'Start with 2-minute version',
+              description:
+                'Do smallest possible version of habit.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['execution', 'week-1'],
+            },
+            {
+              title: 'Track daily completion',
+              description:
+                'Record whether you did habit each day.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['tracking', 'week-1'],
+            },
+            {
+              title: 'Week 1 review',
+              description:
+                'Reflect on first week and adjust.',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['review', 'week-1'],
+            },
+          ],
+        },
+        {
+          name: 'Weeks 2-4: Build Consistency',
+          description: 'Focus on not missing',
+          tasks: [
+            {
+              title: 'Maintain streak',
+              description:
+                'Focus on not breaking the chain.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['execution', 'streak'],
+            },
+            {
+              title: 'Gradually increase',
+              description:
+                'Slowly expand habit duration/intensity.',
+              assigneeRole: 'owner',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['execution', 'growth'],
+            },
+            {
+              title: 'Handle missed days',
+              description:
+                'If you miss, get back immediately.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['execution', 'recovery'],
+            },
+            {
+              title: 'Month 1 review',
+              description:
+                'Assess progress after first month.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['review', 'month-1'],
+            },
+          ],
+        },
+        {
+          name: 'Month 2+: Solidify',
+          description: 'Make it stick',
+          tasks: [
+            {
+              title: 'Continue daily practice',
+              description:
+                'Keep up consistency through month 2.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['execution', 'month-2'],
+            },
+            {
+              title: 'Add variety if needed',
+              description:
+                'Introduce variations to maintain interest.',
+              assigneeRole: 'owner',
+              dueOffset: 50,
+              priority: 'low',
+              labels: ['execution', 'variety'],
+            },
+            {
+              title: '66-day check-in',
+              description:
+                'Assess automaticity at habit formation milestone.',
+              assigneeRole: 'owner',
+              dueOffset: 66,
+              priority: 'high',
+              labels: ['review', 'milestone'],
+            },
+            {
+              title: 'Plan next habit',
+              description:
+                'Once established, consider adding new habit.',
+              assigneeRole: 'owner',
+              dueOffset: 70,
+              priority: 'medium',
+              labels: ['planning', 'next'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'week_1', 'building', 'established', 'automatic'],
+      },
+    },
+    settings: {
+      streakTracking: true,
+      dailyReminders: true,
+    },
+  },
+
+  // ==================== 4. WEEKLY PLANNING ====================
+  {
+    name: 'Weekly Planning',
+    slug: 'weekly-planning',
+    description:
+      'Weekly planning template for productivity. Review past week, set priorities, and plan ahead.',
+    category: 'personal',
+    icon: 'Calendar',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'review', name: 'Review', order: 0, color: '#6B7280' },
+      { id: 'priority', name: 'Priority', order: 1, color: '#EF4444' },
+      { id: 'scheduled', name: 'Scheduled', order: 2, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 3, color: '#F59E0B' },
+      { id: 'done', name: 'Done', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Week',
+        type: 'text',
+        description: 'Week of the year',
+        isRequired: true,
+      },
+      {
+        name: 'Energy Level',
+        type: 'select',
+        description: 'Expected energy this week',
+        options: ['High', 'Medium', 'Low'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Weekly Review',
+          description: 'Review the past week',
+          tasks: [
+            {
+              title: 'Review last week accomplishments',
+              description:
+                'What did you achieve last week?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['review', 'wins'],
+            },
+            {
+              title: 'Review what didnt get done',
+              description:
+                'What got missed and why?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'medium',
+              labels: ['review', 'incomplete'],
+            },
+            {
+              title: 'Capture lessons learned',
+              description:
+                'What would you do differently?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'medium',
+              labels: ['review', 'lessons'],
+            },
+          ],
+        },
+        {
+          name: 'Week Priorities',
+          description: 'Set this weeks priorities',
+          tasks: [
+            {
+              title: 'Define top 3 priorities',
+              description:
+                'What are the 3 most important outcomes this week?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'priorities'],
+            },
+            {
+              title: 'Identify must-do tasks',
+              description:
+                'List tasks that absolutely must happen.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'tasks'],
+            },
+            {
+              title: 'Review calendar',
+              description:
+                'Check meetings and commitments.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'calendar'],
+            },
+          ],
+        },
+        {
+          name: 'Daily Planning',
+          description: 'Plan each day',
+          tasks: [
+            {
+              title: 'Monday tasks',
+              description:
+                'Plan Monday priorities.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['daily', 'monday'],
+            },
+            {
+              title: 'Tuesday tasks',
+              description:
+                'Plan Tuesday priorities.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['daily', 'tuesday'],
+            },
+            {
+              title: 'Wednesday tasks',
+              description:
+                'Plan Wednesday priorities.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['daily', 'wednesday'],
+            },
+            {
+              title: 'Thursday tasks',
+              description:
+                'Plan Thursday priorities.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['daily', 'thursday'],
+            },
+            {
+              title: 'Friday tasks',
+              description:
+                'Plan Friday priorities.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['daily', 'friday'],
+            },
+          ],
+        },
+        {
+          name: 'End of Week',
+          description: 'Close out the week',
+          tasks: [
+            {
+              title: 'Friday wrap-up',
+              description:
+                'Review week and tie up loose ends.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['review', 'wrap-up'],
+            },
+            {
+              title: 'Celebrate wins',
+              description:
+                'Acknowledge what you accomplished.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['review', 'celebration'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['review', 'priority', 'scheduled', 'in_progress', 'done'],
+      },
+    },
+    settings: {
+      recurring: true,
+      weeklyReset: true,
+    },
+  },
+
+  // ==================== 5. SIDE PROJECT ====================
+  {
+    name: 'Side Project',
+    slug: 'side-project',
+    description:
+      'Manage personal side projects alongside your main work. Track progress on passion projects.',
+    category: 'personal',
+    icon: 'Lightbulb',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'idea', name: 'Idea', order: 0, color: '#6B7280' },
+      { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' },
+      { id: 'building', name: 'Building', order: 2, color: '#F59E0B' },
+      { id: 'polishing', name: 'Polishing', order: 3, color: '#8B5CF6' },
+      { id: 'launched', name: 'Launched', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Project Type',
+        type: 'select',
+        description: 'Type of side project',
+        options: ['App', 'Website', 'Content', 'Art', 'Business', 'Other'],
+        isRequired: false,
+      },
+      {
+        name: 'Time Commitment',
+        type: 'select',
+        description: 'Hours per week',
+        options: ['< 5 hours', '5-10 hours', '10-20 hours', '20+ hours'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Idea & Vision',
+          description: 'Define the project',
+          tasks: [
+            {
+              title: 'Define project vision',
+              description:
+                'What is this project and what problem does it solve?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['idea', 'vision'],
+            },
+            {
+              title: 'Identify target audience',
+              description:
+                'Who is this for?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['idea', 'audience'],
+            },
+            {
+              title: 'Define MVP scope',
+              description:
+                'What is the minimum viable version?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'scope'],
+            },
+            {
+              title: 'Research similar projects',
+              description:
+                'What already exists? How will yours be different?',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['research', 'competitive'],
+            },
+          ],
+        },
+        {
+          name: 'Planning',
+          description: 'Plan the work',
+          tasks: [
+            {
+              title: 'Create project plan',
+              description:
+                'Break down into phases and milestones.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'roadmap'],
+            },
+            {
+              title: 'Set up project tools',
+              description:
+                'Create repos, domains, or other infrastructure.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'setup'],
+            },
+            {
+              title: 'Schedule work time',
+              description:
+                'Block time in calendar for project work.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'schedule'],
+            },
+          ],
+        },
+        {
+          name: 'Building',
+          description: 'Build the project',
+          tasks: [
+            {
+              title: 'Build core functionality',
+              description:
+                'Create the main features.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['building', 'core'],
+            },
+            {
+              title: 'Get early feedback',
+              description:
+                'Show to friends or target users.',
+              assigneeRole: 'owner',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['building', 'feedback'],
+            },
+            {
+              title: 'Iterate based on feedback',
+              description:
+                'Improve based on user input.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['building', 'iteration'],
+            },
+          ],
+        },
+        {
+          name: 'Launch Prep',
+          description: 'Prepare for launch',
+          tasks: [
+            {
+              title: 'Polish and bug fixes',
+              description:
+                'Clean up rough edges.',
+              assigneeRole: 'owner',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['polishing', 'quality'],
+            },
+            {
+              title: 'Create launch content',
+              description:
+                'Write description, screenshots, etc.',
+              assigneeRole: 'owner',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['polishing', 'content'],
+            },
+            {
+              title: 'Plan launch strategy',
+              description:
+                'Where and how will you share it?',
+              assigneeRole: 'owner',
+              dueOffset: 82,
+              priority: 'high',
+              labels: ['polishing', 'strategy'],
+            },
+            {
+              title: 'Launch!',
+              description:
+                'Ship it and share with the world.',
+              assigneeRole: 'owner',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['launch', 'ship'],
+            },
+          ],
+        },
+        {
+          name: 'Post-Launch',
+          description: 'After launch',
+          tasks: [
+            {
+              title: 'Monitor and respond',
+              description:
+                'Watch for feedback and issues.',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['post-launch', 'support'],
+            },
+            {
+              title: 'Celebrate launch',
+              description:
+                'Acknowledge your accomplishment!',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'medium',
+              labels: ['post-launch', 'celebration'],
+            },
+            {
+              title: 'Plan next iteration',
+              description:
+                'What will you add next?',
+              assigneeRole: 'owner',
+              dueOffset: 95,
+              priority: 'medium',
+              labels: ['post-launch', 'planning'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['idea', 'planning', 'building', 'polishing', 'launched'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      milestones: true,
+    },
+  },
+
+  // ==================== 6. NEW YEAR RESOLUTIONS ====================
+  {
+    name: 'New Year Resolutions',
+    slug: 'new-year-resolutions',
+    description:
+      'Plan and track your New Year resolutions. Set meaningful goals for the year ahead and monitor progress.',
+    category: 'personal',
+    icon: 'Sparkles',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'active', name: 'Active', order: 1, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 2, color: '#F59E0B' },
+      { id: 'achieved', name: 'Achieved', order: 3, color: '#10B981' },
+      { id: 'carried_over', name: 'Carried Over', order: 4, color: '#8B5CF6' },
+    ],
+    customFields: [
+      {
+        name: 'Resolution Category',
+        type: 'select',
+        description: 'Area of life',
+        options: ['Health', 'Career', 'Finance', 'Relationships', 'Personal Growth', 'Learning'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Reflection',
+          description: 'Reflect on the past year',
+          tasks: [
+            {
+              title: 'Review last year achievements',
+              description: 'What did you accomplish last year?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['reflection', 'review'],
+            },
+            {
+              title: 'Identify areas for improvement',
+              description: 'Where do you want to grow?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['reflection', 'growth'],
+            },
+            {
+              title: 'Acknowledge lessons learned',
+              description: 'What did last year teach you?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['reflection', 'lessons'],
+            },
+          ],
+        },
+        {
+          name: 'Resolution Setting',
+          description: 'Define your resolutions',
+          tasks: [
+            {
+              title: 'List potential resolutions',
+              description: 'Brainstorm all possible resolutions.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'brainstorm'],
+            },
+            {
+              title: 'Prioritize top 3-5 resolutions',
+              description: 'Focus on most important goals.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'priorities'],
+            },
+            {
+              title: 'Make resolutions SMART',
+              description: 'Ensure each resolution is specific and measurable.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['planning', 'smart'],
+            },
+            {
+              title: 'Set quarterly milestones',
+              description: 'Break annual goals into quarterly checkpoints.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['planning', 'milestones'],
+            },
+          ],
+        },
+        {
+          name: 'Q1 Progress',
+          description: 'First quarter check-in',
+          tasks: [
+            {
+              title: 'Q1 resolution review',
+              description: 'Assess progress on all resolutions.',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['review', 'q1'],
+            },
+            {
+              title: 'Adjust goals if needed',
+              description: 'Modify resolutions based on Q1 learnings.',
+              assigneeRole: 'owner',
+              dueOffset: 92,
+              priority: 'medium',
+              labels: ['review', 'adjustment'],
+            },
+          ],
+        },
+        {
+          name: 'Mid-Year Review',
+          description: 'Six month check-in',
+          tasks: [
+            {
+              title: 'Mid-year resolution assessment',
+              description: 'Comprehensive review at 6 months.',
+              assigneeRole: 'owner',
+              dueOffset: 180,
+              priority: 'high',
+              labels: ['review', 'mid-year'],
+            },
+            {
+              title: 'Celebrate progress',
+              description: 'Acknowledge achievements so far.',
+              assigneeRole: 'owner',
+              dueOffset: 180,
+              priority: 'medium',
+              labels: ['celebration', 'progress'],
+            },
+            {
+              title: 'Recommit to goals',
+              description: 'Renew commitment for second half.',
+              assigneeRole: 'owner',
+              dueOffset: 182,
+              priority: 'high',
+              labels: ['planning', 'recommit'],
+            },
+          ],
+        },
+        {
+          name: 'Year End',
+          description: 'Final review',
+          tasks: [
+            {
+              title: 'Annual resolution review',
+              description: 'Final assessment of all resolutions.',
+              assigneeRole: 'owner',
+              dueOffset: 360,
+              priority: 'high',
+              labels: ['review', 'final'],
+            },
+            {
+              title: 'Document achievements',
+              description: 'Record what you accomplished.',
+              assigneeRole: 'owner',
+              dueOffset: 362,
+              priority: 'high',
+              labels: ['documentation', 'achievements'],
+            },
+            {
+              title: 'Plan next year',
+              description: 'Start thinking about next years resolutions.',
+              assigneeRole: 'owner',
+              dueOffset: 365,
+              priority: 'medium',
+              labels: ['planning', 'next-year'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'active', 'in_progress', 'achieved', 'carried_over'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      yearlyTemplate: true,
+    },
+  },
+
+  // ==================== 7. DAILY ROUTINE ====================
+  {
+    name: 'Daily Routine',
+    slug: 'daily-routine',
+    description:
+      'Design and optimize your daily routine for maximum productivity and well-being.',
+    category: 'personal',
+    icon: 'Clock',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'design', name: 'Design', order: 0, color: '#6B7280' },
+      { id: 'testing', name: 'Testing', order: 1, color: '#3B82F6' },
+      { id: 'refining', name: 'Refining', order: 2, color: '#F59E0B' },
+      { id: 'established', name: 'Established', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Time Block',
+        type: 'select',
+        description: 'Part of day',
+        options: ['Morning', 'Midday', 'Afternoon', 'Evening', 'Night'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Routine Assessment',
+          description: 'Evaluate current routine',
+          tasks: [
+            {
+              title: 'Track current daily activities',
+              description: 'Log how you spend your day for one week.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['assessment', 'tracking'],
+            },
+            {
+              title: 'Identify energy patterns',
+              description: 'Note when you have high and low energy.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['assessment', 'energy'],
+            },
+            {
+              title: 'Find time wasters',
+              description: 'Identify activities that drain time without value.',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'medium',
+              labels: ['assessment', 'optimization'],
+            },
+          ],
+        },
+        {
+          name: 'Routine Design',
+          description: 'Create your ideal routine',
+          tasks: [
+            {
+              title: 'Define non-negotiables',
+              description: 'List activities that must happen daily.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['design', 'priorities'],
+            },
+            {
+              title: 'Schedule deep work blocks',
+              description: 'Allocate time for focused work.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['design', 'focus'],
+            },
+            {
+              title: 'Plan breaks and recovery',
+              description: 'Include rest periods in your schedule.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'medium',
+              labels: ['design', 'rest'],
+            },
+            {
+              title: 'Create time blocks',
+              description: 'Organize day into themed blocks.',
+              assigneeRole: 'owner',
+              dueOffset: 11,
+              priority: 'high',
+              labels: ['design', 'blocks'],
+            },
+          ],
+        },
+        {
+          name: 'Implementation',
+          description: 'Put routine into practice',
+          tasks: [
+            {
+              title: 'Test routine for one week',
+              description: 'Follow the new routine strictly.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['testing', 'week-1'],
+            },
+            {
+              title: 'Track adherence and energy',
+              description: 'Note what works and what doesnt.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['testing', 'tracking'],
+            },
+            {
+              title: 'Make adjustments',
+              description: 'Refine based on first week.',
+              assigneeRole: 'owner',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['refining', 'adjustment'],
+            },
+          ],
+        },
+        {
+          name: 'Optimization',
+          description: 'Fine-tune your routine',
+          tasks: [
+            {
+              title: 'Second week refinement',
+              description: 'Continue testing with adjustments.',
+              assigneeRole: 'owner',
+              dueOffset: 27,
+              priority: 'high',
+              labels: ['refining', 'week-2'],
+            },
+            {
+              title: 'Establish routine triggers',
+              description: 'Create cues that start each routine block.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['refining', 'triggers'],
+            },
+            {
+              title: 'Document final routine',
+              description: 'Write down your optimized daily schedule.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['documentation', 'final'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['design', 'testing', 'refining', 'established'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      dailyChecklist: true,
+    },
+  },
+
+  // ==================== 8. MORNING ROUTINE ====================
+  {
+    name: 'Morning Routine',
+    slug: 'morning-routine',
+    description:
+      'Create a powerful morning routine to start each day with energy and intention.',
+    category: 'personal',
+    icon: 'Sunrise',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'testing', name: 'Testing', order: 1, color: '#3B82F6' },
+      { id: 'building', name: 'Building', order: 2, color: '#F59E0B' },
+      { id: 'mastered', name: 'Mastered', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Wake Time',
+        type: 'text',
+        description: 'Target wake up time',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Morning Assessment',
+          description: 'Evaluate current mornings',
+          tasks: [
+            {
+              title: 'Track current morning habits',
+              description: 'Log what you do each morning for a week.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['assessment', 'tracking'],
+            },
+            {
+              title: 'Identify morning goals',
+              description: 'What do you want to accomplish each morning?',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['planning', 'goals'],
+            },
+            {
+              title: 'Determine ideal wake time',
+              description: 'When do you need to wake up to fit everything?',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['planning', 'schedule'],
+            },
+          ],
+        },
+        {
+          name: 'Routine Components',
+          description: 'Choose your morning activities',
+          tasks: [
+            {
+              title: 'Select physical activity',
+              description: 'Choose exercise, stretching, or movement.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['design', 'physical'],
+            },
+            {
+              title: 'Plan mindfulness practice',
+              description: 'Meditation, journaling, or gratitude.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'medium',
+              labels: ['design', 'mindfulness'],
+            },
+            {
+              title: 'Design nutrition routine',
+              description: 'Plan healthy breakfast and hydration.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'medium',
+              labels: ['design', 'nutrition'],
+            },
+            {
+              title: 'Add learning or growth activity',
+              description: 'Reading, podcast, or skill practice.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'low',
+              labels: ['design', 'growth'],
+            },
+          ],
+        },
+        {
+          name: 'Building the Habit',
+          description: 'Implement your routine',
+          tasks: [
+            {
+              title: 'Prepare evening before',
+              description: 'Set up everything needed for morning success.',
+              assigneeRole: 'owner',
+              dueOffset: 11,
+              priority: 'high',
+              labels: ['preparation', 'evening'],
+            },
+            {
+              title: 'Start with 2 activities',
+              description: 'Begin with just two morning habits.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['building', 'start'],
+            },
+            {
+              title: 'Add activities gradually',
+              description: 'Expand routine over 2-3 weeks.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['building', 'expansion'],
+            },
+          ],
+        },
+        {
+          name: 'Optimization',
+          description: 'Perfect your morning',
+          tasks: [
+            {
+              title: 'Review and adjust timing',
+              description: 'Fine-tune duration of each activity.',
+              assigneeRole: 'owner',
+              dueOffset: 35,
+              priority: 'medium',
+              labels: ['optimization', 'timing'],
+            },
+            {
+              title: 'Handle weekend variation',
+              description: 'Decide on weekend morning routine.',
+              assigneeRole: 'owner',
+              dueOffset: 40,
+              priority: 'low',
+              labels: ['optimization', 'weekend'],
+            },
+            {
+              title: 'Document final routine',
+              description: 'Write down your perfected morning routine.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['documentation', 'final'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'testing', 'building', 'mastered'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      dailyChecklist: true,
+    },
+  },
+
+  // ==================== 9. EVENING ROUTINE ====================
+  {
+    name: 'Evening Routine',
+    slug: 'evening-routine',
+    description:
+      'Design a calming evening routine for better sleep and next-day preparation.',
+    category: 'personal',
+    icon: 'Moon',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'testing', name: 'Testing', order: 1, color: '#3B82F6' },
+      { id: 'building', name: 'Building', order: 2, color: '#F59E0B' },
+      { id: 'mastered', name: 'Mastered', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Bedtime',
+        type: 'text',
+        description: 'Target bedtime',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Evening Assessment',
+          description: 'Evaluate current evenings',
+          tasks: [
+            {
+              title: 'Track current evening habits',
+              description: 'Log evening activities for a week.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['assessment', 'tracking'],
+            },
+            {
+              title: 'Identify sleep disruptors',
+              description: 'What affects your sleep quality?',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['assessment', 'sleep'],
+            },
+            {
+              title: 'Set target bedtime',
+              description: 'Determine ideal time to be asleep.',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['planning', 'schedule'],
+            },
+          ],
+        },
+        {
+          name: 'Routine Components',
+          description: 'Choose evening activities',
+          tasks: [
+            {
+              title: 'Plan wind-down activities',
+              description: 'Reading, gentle stretching, or relaxation.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['design', 'relaxation'],
+            },
+            {
+              title: 'Set screen cutoff time',
+              description: 'When to stop using devices.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['design', 'screens'],
+            },
+            {
+              title: 'Design reflection practice',
+              description: 'Journaling or gratitude review.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'medium',
+              labels: ['design', 'reflection'],
+            },
+            {
+              title: 'Plan next-day preparation',
+              description: 'Clothes, bag, schedule review.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'medium',
+              labels: ['design', 'preparation'],
+            },
+          ],
+        },
+        {
+          name: 'Implementation',
+          description: 'Build the routine',
+          tasks: [
+            {
+              title: 'Create sleep environment',
+              description: 'Optimize bedroom for sleep.',
+              assigneeRole: 'owner',
+              dueOffset: 11,
+              priority: 'high',
+              labels: ['setup', 'environment'],
+            },
+            {
+              title: 'Start routine 1 hour before bed',
+              description: 'Begin wind-down process early.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['building', 'timing'],
+            },
+            {
+              title: 'Track sleep quality',
+              description: 'Monitor how routine affects sleep.',
+              assigneeRole: 'owner',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['tracking', 'quality'],
+            },
+          ],
+        },
+        {
+          name: 'Refinement',
+          description: 'Perfect your evening',
+          tasks: [
+            {
+              title: 'Adjust based on sleep data',
+              description: 'Modify routine based on results.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['refinement', 'adjustment'],
+            },
+            {
+              title: 'Finalize evening checklist',
+              description: 'Create consistent nightly checklist.',
+              assigneeRole: 'owner',
+              dueOffset: 35,
+              priority: 'medium',
+              labels: ['documentation', 'checklist'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'testing', 'building', 'mastered'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      dailyChecklist: true,
+    },
+  },
+
+  // ==================== 10. MONTHLY REVIEW ====================
+  {
+    name: 'Monthly Review',
+    slug: 'monthly-review',
+    description:
+      'Conduct a thorough monthly review to reflect on progress and plan ahead.',
+    category: 'personal',
+    icon: 'CalendarDays',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'review', name: 'Review', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'planning', name: 'Planning', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Month',
+        type: 'text',
+        description: 'Review month',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Accomplishments',
+          description: 'Review what you achieved',
+          tasks: [
+            {
+              title: 'List major accomplishments',
+              description: 'What did you achieve this month?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['review', 'wins'],
+            },
+            {
+              title: 'Review goal progress',
+              description: 'How did you progress on your goals?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['review', 'goals'],
+            },
+            {
+              title: 'Celebrate wins',
+              description: 'Acknowledge your successes.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'medium',
+              labels: ['celebration', 'wins'],
+            },
+          ],
+        },
+        {
+          name: 'Challenges',
+          description: 'Review difficulties',
+          tasks: [
+            {
+              title: 'Identify challenges faced',
+              description: 'What obstacles did you encounter?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['review', 'challenges'],
+            },
+            {
+              title: 'Analyze what didnt work',
+              description: 'What strategies failed?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'medium',
+              labels: ['analysis', 'failures'],
+            },
+            {
+              title: 'Extract lessons learned',
+              description: 'What can you learn from difficulties?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['analysis', 'lessons'],
+            },
+          ],
+        },
+        {
+          name: 'Life Areas Review',
+          description: 'Check all life areas',
+          tasks: [
+            {
+              title: 'Review health and fitness',
+              description: 'How is your physical well-being?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['review', 'health'],
+            },
+            {
+              title: 'Review relationships',
+              description: 'How are your key relationships?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['review', 'relationships'],
+            },
+            {
+              title: 'Review finances',
+              description: 'How is your financial health?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['review', 'finances'],
+            },
+            {
+              title: 'Review career/work',
+              description: 'How is your professional life?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['review', 'career'],
+            },
+          ],
+        },
+        {
+          name: 'Next Month Planning',
+          description: 'Plan the month ahead',
+          tasks: [
+            {
+              title: 'Set next month priorities',
+              description: 'What are your top 3 priorities?',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'priorities'],
+            },
+            {
+              title: 'Identify key actions',
+              description: 'What actions will you take?',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'actions'],
+            },
+            {
+              title: 'Review upcoming events',
+              description: 'What important dates are coming?',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['planning', 'calendar'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['review', 'analysis', 'planning', 'complete'],
+      },
+    },
+    settings: {
+      recurring: true,
+      monthlyReset: true,
+    },
+  },
+
+  // ==================== 11. QUARTERLY LIFE REVIEW ====================
+  {
+    name: 'Quarterly Life Review',
+    slug: 'quarterly-life-review',
+    description:
+      'Comprehensive quarterly review to assess all areas of life and realign priorities.',
+    category: 'personal',
+    icon: 'BarChart3',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'reflection', name: 'Reflection', order: 0, color: '#6B7280' },
+      { id: 'assessment', name: 'Assessment', order: 1, color: '#3B82F6' },
+      { id: 'planning', name: 'Planning', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Quarter',
+        type: 'select',
+        description: 'Review quarter',
+        options: ['Q1', 'Q2', 'Q3', 'Q4'],
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Quarter Reflection',
+          description: 'Look back on the quarter',
+          tasks: [
+            {
+              title: 'Review quarterly goals',
+              description: 'Did you achieve what you set out to do?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['reflection', 'goals'],
+            },
+            {
+              title: 'List top accomplishments',
+              description: 'What were your biggest wins?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['reflection', 'wins'],
+            },
+            {
+              title: 'Identify disappointments',
+              description: 'What didnt go as planned?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['reflection', 'challenges'],
+            },
+            {
+              title: 'Note unexpected events',
+              description: 'What surprises happened?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'low',
+              labels: ['reflection', 'surprises'],
+            },
+          ],
+        },
+        {
+          name: 'Life Area Assessment',
+          description: 'Score each life area',
+          tasks: [
+            {
+              title: 'Rate health and wellness (1-10)',
+              description: 'Physical health, fitness, energy levels.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['assessment', 'health'],
+            },
+            {
+              title: 'Rate relationships (1-10)',
+              description: 'Family, friends, romantic, professional.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['assessment', 'relationships'],
+            },
+            {
+              title: 'Rate career/purpose (1-10)',
+              description: 'Work satisfaction, progress, meaning.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['assessment', 'career'],
+            },
+            {
+              title: 'Rate finances (1-10)',
+              description: 'Income, savings, financial security.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['assessment', 'finances'],
+            },
+            {
+              title: 'Rate personal growth (1-10)',
+              description: 'Learning, development, fulfillment.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['assessment', 'growth'],
+            },
+          ],
+        },
+        {
+          name: 'Analysis',
+          description: 'Analyze patterns',
+          tasks: [
+            {
+              title: 'Identify patterns and themes',
+              description: 'What recurring themes do you notice?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['analysis', 'patterns'],
+            },
+            {
+              title: 'Determine root causes',
+              description: 'Why did things go well or poorly?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['analysis', 'causes'],
+            },
+            {
+              title: 'Extract key lessons',
+              description: 'What did this quarter teach you?',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['analysis', 'lessons'],
+            },
+          ],
+        },
+        {
+          name: 'Next Quarter Planning',
+          description: 'Plan the next 90 days',
+          tasks: [
+            {
+              title: 'Set 3-5 quarterly goals',
+              description: 'What do you want to achieve next quarter?',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'goals'],
+            },
+            {
+              title: 'Identify focus areas',
+              description: 'Which life areas need most attention?',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'focus'],
+            },
+            {
+              title: 'Define key habits to build',
+              description: 'What habits will support your goals?',
+              assigneeRole: 'owner',
+              dueOffset: 6,
+              priority: 'medium',
+              labels: ['planning', 'habits'],
+            },
+            {
+              title: 'Create action plan',
+              description: 'What specific actions will you take?',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'actions'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['reflection', 'assessment', 'planning', 'complete'],
+      },
+    },
+    settings: {
+      recurring: true,
+      quarterlyReset: true,
+    },
+  },
+
+  // ==================== 12. ANNUAL LIFE REVIEW ====================
+  {
+    name: 'Annual Life Review',
+    slug: 'annual-life-review',
+    description:
+      'Deep annual reflection and planning session to review the year and set direction for the next.',
+    category: 'personal',
+    icon: 'CalendarCheck',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: true,
+    kanbanStages: [
+      { id: 'reflection', name: 'Reflection', order: 0, color: '#6B7280' },
+      { id: 'assessment', name: 'Assessment', order: 1, color: '#3B82F6' },
+      { id: 'visioning', name: 'Visioning', order: 2, color: '#8B5CF6' },
+      { id: 'planning', name: 'Planning', order: 3, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Year',
+        type: 'text',
+        description: 'Review year',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Year in Review',
+          description: 'Reflect on the past year',
+          tasks: [
+            {
+              title: 'Create year timeline',
+              description: 'Map major events month by month.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['reflection', 'timeline'],
+            },
+            {
+              title: 'List top 10 moments',
+              description: 'Best experiences of the year.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['reflection', 'highlights'],
+            },
+            {
+              title: 'Acknowledge challenges overcome',
+              description: 'Difficult times you navigated.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['reflection', 'challenges'],
+            },
+            {
+              title: 'Review major decisions made',
+              description: 'Key choices and their outcomes.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['reflection', 'decisions'],
+            },
+          ],
+        },
+        {
+          name: 'Comprehensive Assessment',
+          description: 'Assess all life areas',
+          tasks: [
+            {
+              title: 'Deep health review',
+              description: 'Physical, mental, emotional health.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['assessment', 'health'],
+            },
+            {
+              title: 'Relationship inventory',
+              description: 'Quality of key relationships.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['assessment', 'relationships'],
+            },
+            {
+              title: 'Career and purpose review',
+              description: 'Professional growth and fulfillment.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['assessment', 'career'],
+            },
+            {
+              title: 'Financial year review',
+              description: 'Income, expenses, savings, investments.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['assessment', 'finances'],
+            },
+            {
+              title: 'Personal growth assessment',
+              description: 'Skills learned, books read, growth achieved.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['assessment', 'growth'],
+            },
+          ],
+        },
+        {
+          name: 'Visioning',
+          description: 'Envision the next year',
+          tasks: [
+            {
+              title: 'Define your theme for the year',
+              description: 'One word or phrase to guide the year.',
+              assigneeRole: 'owner',
+              dueOffset: 6,
+              priority: 'high',
+              labels: ['visioning', 'theme'],
+            },
+            {
+              title: 'Write your ideal year narrative',
+              description: 'Describe your best possible year.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['visioning', 'narrative'],
+            },
+            {
+              title: 'Identify who you want to become',
+              description: 'Character traits to develop.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['visioning', 'identity'],
+            },
+          ],
+        },
+        {
+          name: 'Goal Setting',
+          description: 'Set annual goals',
+          tasks: [
+            {
+              title: 'Set 3-5 major annual goals',
+              description: 'Big goals for the year.',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['planning', 'goals'],
+            },
+            {
+              title: 'Break into quarterly milestones',
+              description: 'Q1-Q4 checkpoints for each goal.',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['planning', 'milestones'],
+            },
+            {
+              title: 'Define success metrics',
+              description: 'How will you measure achievement?',
+              assigneeRole: 'owner',
+              dueOffset: 9,
+              priority: 'high',
+              labels: ['planning', 'metrics'],
+            },
+            {
+              title: 'Create Q1 action plan',
+              description: 'Specific actions for first quarter.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'actions'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['reflection', 'assessment', 'visioning', 'planning', 'complete'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      yearlyTemplate: true,
+    },
+  },
+
+  // ==================== 13. BUCKET LIST ====================
+  {
+    name: 'Bucket List',
+    slug: 'bucket-list',
+    description:
+      'Create and track your life bucket list. Document dreams and experiences you want to have.',
+    category: 'personal',
+    icon: 'Star',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'dream', name: 'Dream', order: 0, color: '#6B7280' },
+      { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 2, color: '#F59E0B' },
+      { id: 'completed', name: 'Completed', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Category',
+        type: 'select',
+        description: 'Type of experience',
+        options: ['Travel', 'Adventure', 'Learning', 'Career', 'Relationships', 'Creative', 'Health', 'Other'],
+        isRequired: false,
+      },
+      {
+        name: 'Priority',
+        type: 'select',
+        description: 'How important',
+        options: ['Must Do', 'Really Want', 'Would Be Nice'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Dream Collection',
+          description: 'Gather your dreams',
+          tasks: [
+            {
+              title: 'Brainstorm travel destinations',
+              description: 'Places you want to visit in your lifetime.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['brainstorm', 'travel'],
+            },
+            {
+              title: 'List adventure experiences',
+              description: 'Thrilling activities you want to try.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['brainstorm', 'adventure'],
+            },
+            {
+              title: 'Note learning goals',
+              description: 'Skills and knowledge you want to acquire.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['brainstorm', 'learning'],
+            },
+            {
+              title: 'Add relationship experiences',
+              description: 'People to meet or experiences to share.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'medium',
+              labels: ['brainstorm', 'relationships'],
+            },
+            {
+              title: 'Include creative aspirations',
+              description: 'Creative works you want to produce.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['brainstorm', 'creative'],
+            },
+          ],
+        },
+        {
+          name: 'Prioritization',
+          description: 'Prioritize your list',
+          tasks: [
+            {
+              title: 'Rate each item by importance',
+              description: 'How much does each dream matter to you?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['prioritization', 'rating'],
+            },
+            {
+              title: 'Consider time sensitivity',
+              description: 'Which items have time constraints?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'medium',
+              labels: ['prioritization', 'timing'],
+            },
+            {
+              title: 'Select top 10 priorities',
+              description: 'Choose your most important items.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'high',
+              labels: ['prioritization', 'top-10'],
+            },
+          ],
+        },
+        {
+          name: 'Planning First Item',
+          description: 'Plan your first bucket list item',
+          tasks: [
+            {
+              title: 'Choose first item to pursue',
+              description: 'Select one to start working on.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'selection'],
+            },
+            {
+              title: 'Research requirements',
+              description: 'What do you need to make it happen?',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'research'],
+            },
+            {
+              title: 'Create action plan',
+              description: 'Steps to achieve this item.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'actions'],
+            },
+            {
+              title: 'Set target date',
+              description: 'When will you do this?',
+              assigneeRole: 'owner',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['planning', 'timeline'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['dream', 'planning', 'in_progress', 'completed'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      lifetimeList: true,
+    },
+  },
+
+  // ==================== 14. TRAVEL PLANNING ====================
+  {
+    name: 'Travel Planning',
+    slug: 'travel-planning',
+    description:
+      'Plan your perfect trip from destination research to packing lists and itinerary.',
+    category: 'personal',
+    icon: 'Plane',
+    color: '#3B82F6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'booking', name: 'Booking', order: 1, color: '#3B82F6' },
+      { id: 'preparation', name: 'Preparation', order: 2, color: '#F59E0B' },
+      { id: 'ready', name: 'Ready', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Destination',
+        type: 'text',
+        description: 'Where are you going?',
+        isRequired: true,
+      },
+      {
+        name: 'Trip Type',
+        type: 'select',
+        description: 'Type of trip',
+        options: ['Vacation', 'Business', 'Adventure', 'Family', 'Solo', 'Romantic'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Destination Research',
+          description: 'Research your destination',
+          tasks: [
+            {
+              title: 'Research destination overview',
+              description: 'Learn about culture, climate, and attractions.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'destination'],
+            },
+            {
+              title: 'Check travel requirements',
+              description: 'Visa, vaccinations, travel advisories.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['research', 'requirements'],
+            },
+            {
+              title: 'Determine best time to visit',
+              description: 'Weather, crowds, events.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['research', 'timing'],
+            },
+            {
+              title: 'Create must-see list',
+              description: 'Top attractions and experiences.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['research', 'attractions'],
+            },
+          ],
+        },
+        {
+          name: 'Budget and Booking',
+          description: 'Plan budget and make bookings',
+          tasks: [
+            {
+              title: 'Set trip budget',
+              description: 'Total budget and category breakdown.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'budget'],
+            },
+            {
+              title: 'Book flights',
+              description: 'Research and book transportation.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['booking', 'flights'],
+            },
+            {
+              title: 'Book accommodation',
+              description: 'Hotels, Airbnb, or other lodging.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['booking', 'accommodation'],
+            },
+            {
+              title: 'Book activities and tours',
+              description: 'Reserve must-do experiences.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'medium',
+              labels: ['booking', 'activities'],
+            },
+          ],
+        },
+        {
+          name: 'Itinerary Creation',
+          description: 'Plan your daily schedule',
+          tasks: [
+            {
+              title: 'Create day-by-day itinerary',
+              description: 'Plan activities for each day.',
+              assigneeRole: 'owner',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['itinerary', 'planning'],
+            },
+            {
+              title: 'Research restaurants',
+              description: 'Find places to eat.',
+              assigneeRole: 'owner',
+              dueOffset: 22,
+              priority: 'medium',
+              labels: ['itinerary', 'food'],
+            },
+            {
+              title: 'Plan transportation',
+              description: 'How to get around at destination.',
+              assigneeRole: 'owner',
+              dueOffset: 24,
+              priority: 'medium',
+              labels: ['itinerary', 'transport'],
+            },
+          ],
+        },
+        {
+          name: 'Pre-Trip Preparation',
+          description: 'Get ready to go',
+          tasks: [
+            {
+              title: 'Create packing list',
+              description: 'What to bring on your trip.',
+              assigneeRole: 'owner',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['preparation', 'packing'],
+            },
+            {
+              title: 'Arrange travel insurance',
+              description: 'Protect your trip investment.',
+              assigneeRole: 'owner',
+              dueOffset: 26,
+              priority: 'high',
+              labels: ['preparation', 'insurance'],
+            },
+            {
+              title: 'Notify bank of travel',
+              description: 'Avoid card blocks while abroad.',
+              assigneeRole: 'owner',
+              dueOffset: 27,
+              priority: 'medium',
+              labels: ['preparation', 'finance'],
+            },
+            {
+              title: 'Download offline maps',
+              description: 'Prepare navigation for destination.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['preparation', 'tech'],
+            },
+            {
+              title: 'Pack bags',
+              description: 'Pack everything on your list.',
+              assigneeRole: 'owner',
+              dueOffset: 29,
+              priority: 'high',
+              labels: ['preparation', 'packing'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'booking', 'preparation', 'ready'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      travelTemplate: true,
+    },
+  },
+
+  // ==================== 15. VACATION PLANNING ====================
+  {
+    name: 'Vacation Planning',
+    slug: 'vacation-planning',
+    description:
+      'Plan a relaxing vacation with focus on rest, enjoyment, and creating memories.',
+    category: 'personal',
+    icon: 'Umbrella',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'dreaming', name: 'Dreaming', order: 0, color: '#6B7280' },
+      { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' },
+      { id: 'booking', name: 'Booking', order: 2, color: '#F59E0B' },
+      { id: 'countdown', name: 'Countdown', order: 3, color: '#8B5CF6' },
+      { id: 'enjoying', name: 'Enjoying', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Vacation Type',
+        type: 'select',
+        description: 'Style of vacation',
+        options: ['Beach', 'Mountain', 'City', 'Cruise', 'Road Trip', 'Staycation', 'Resort'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Vacation Vision',
+          description: 'Define your ideal vacation',
+          tasks: [
+            {
+              title: 'Define vacation goals',
+              description: 'Relaxation, adventure, culture, or connection?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['vision', 'goals'],
+            },
+            {
+              title: 'Choose destination type',
+              description: 'Beach, mountain, city, or other?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['vision', 'destination'],
+            },
+            {
+              title: 'Set vacation dates',
+              description: 'When can you take time off?',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning', 'dates'],
+            },
+            {
+              title: 'Determine budget',
+              description: 'How much can you spend?',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'budget'],
+            },
+          ],
+        },
+        {
+          name: 'Destination Selection',
+          description: 'Choose where to go',
+          tasks: [
+            {
+              title: 'Research destination options',
+              description: 'Compare 3-5 potential destinations.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'options'],
+            },
+            {
+              title: 'Check weather forecasts',
+              description: 'Expected conditions during your dates.',
+              assigneeRole: 'owner',
+              dueOffset: 6,
+              priority: 'medium',
+              labels: ['research', 'weather'],
+            },
+            {
+              title: 'Select final destination',
+              description: 'Make your choice.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['decision', 'destination'],
+            },
+          ],
+        },
+        {
+          name: 'Bookings',
+          description: 'Make reservations',
+          tasks: [
+            {
+              title: 'Book transportation',
+              description: 'Flights, car rental, or other transport.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['booking', 'transport'],
+            },
+            {
+              title: 'Book accommodation',
+              description: 'Hotel, resort, or vacation rental.',
+              assigneeRole: 'owner',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['booking', 'accommodation'],
+            },
+            {
+              title: 'Reserve special experiences',
+              description: 'Spa, dining, tours, or activities.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'medium',
+              labels: ['booking', 'experiences'],
+            },
+          ],
+        },
+        {
+          name: 'Pre-Vacation',
+          description: 'Prepare for departure',
+          tasks: [
+            {
+              title: 'Request time off work',
+              description: 'Secure your vacation days.',
+              assigneeRole: 'owner',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['preparation', 'work'],
+            },
+            {
+              title: 'Arrange pet/home care',
+              description: 'Coverage while youre away.',
+              assigneeRole: 'owner',
+              dueOffset: 20,
+              priority: 'medium',
+              labels: ['preparation', 'home'],
+            },
+            {
+              title: 'Create packing list',
+              description: 'What to bring for relaxation.',
+              assigneeRole: 'owner',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['preparation', 'packing'],
+            },
+            {
+              title: 'Set out-of-office',
+              description: 'Email auto-reply and notifications.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['preparation', 'work'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['dreaming', 'planning', 'booking', 'countdown', 'enjoying'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      vacationTemplate: true,
+    },
+  },
+
+  // ==================== 16. TRIP ITINERARY ====================
+  {
+    name: 'Trip Itinerary',
+    slug: 'trip-itinerary',
+    description:
+      'Create a detailed day-by-day itinerary for your upcoming trip.',
+    category: 'personal',
+    icon: 'Map',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'confirmed', name: 'Confirmed', order: 1, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 2, color: '#F59E0B' },
+      { id: 'completed', name: 'Completed', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Day',
+        type: 'text',
+        description: 'Which day of the trip',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Pre-Trip Setup',
+          description: 'Prepare your itinerary',
+          tasks: [
+            {
+              title: 'List trip dates',
+              description: 'Define start and end dates.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup', 'dates'],
+            },
+            {
+              title: 'Gather all bookings',
+              description: 'Collect flight, hotel, and activity confirmations.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['setup', 'bookings'],
+            },
+            {
+              title: 'Research opening hours',
+              description: 'Check when attractions are open.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['research', 'timing'],
+            },
+          ],
+        },
+        {
+          name: 'Day 1 Planning',
+          description: 'First day of trip',
+          tasks: [
+            {
+              title: 'Plan arrival logistics',
+              description: 'Airport transfer, check-in, etc.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day-1', 'arrival'],
+            },
+            {
+              title: 'Schedule Day 1 activities',
+              description: 'What to do after arriving.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['day-1', 'activities'],
+            },
+            {
+              title: 'Book Day 1 dinner',
+              description: 'Restaurant reservation for first night.',
+              assigneeRole: 'owner',
+              dueOffset: 4,
+              priority: 'medium',
+              labels: ['day-1', 'dining'],
+            },
+          ],
+        },
+        {
+          name: 'Middle Days',
+          description: 'Main trip days',
+          tasks: [
+            {
+              title: 'Plan main attraction days',
+              description: 'Schedule must-see sights.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['middle', 'attractions'],
+            },
+            {
+              title: 'Add flexible time',
+              description: 'Leave room for spontaneity.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'medium',
+              labels: ['middle', 'flexibility'],
+            },
+            {
+              title: 'Plan rest days if needed',
+              description: 'Schedule downtime for longer trips.',
+              assigneeRole: 'owner',
+              dueOffset: 6,
+              priority: 'low',
+              labels: ['middle', 'rest'],
+            },
+          ],
+        },
+        {
+          name: 'Final Day',
+          description: 'Last day of trip',
+          tasks: [
+            {
+              title: 'Plan check-out timing',
+              description: 'When and how to leave accommodation.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['final', 'checkout'],
+            },
+            {
+              title: 'Schedule departure logistics',
+              description: 'Getting to airport/station.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['final', 'departure'],
+            },
+            {
+              title: 'Plan last activities',
+              description: 'What to do before leaving.',
+              assigneeRole: 'owner',
+              dueOffset: 8,
+              priority: 'medium',
+              labels: ['final', 'activities'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'confirmed', 'in_progress', 'completed'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      itineraryTemplate: true,
+    },
+  },
+
+  // ==================== 17. MOVING/RELOCATION ====================
+  {
+    name: 'Moving Relocation',
+    slug: 'moving-relocation',
+    description:
+      'Complete guide for moving to a new home. Track everything from packing to settling in.',
+    category: 'personal',
+    icon: 'Truck',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'packing', name: 'Packing', order: 1, color: '#3B82F6' },
+      { id: 'moving', name: 'Moving', order: 2, color: '#F59E0B' },
+      { id: 'settling', name: 'Settling', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Move Date',
+        type: 'date',
+        description: 'When are you moving?',
+        isRequired: true,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Pre-Move Planning',
+          description: '8-4 weeks before',
+          tasks: [
+            {
+              title: 'Set moving date',
+              description: 'Finalize when you will move.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'date'],
+            },
+            {
+              title: 'Get moving quotes',
+              description: 'Compare at least 3 moving companies.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'quotes'],
+            },
+            {
+              title: 'Create moving budget',
+              description: 'Estimate all moving costs.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'budget'],
+            },
+            {
+              title: 'Start decluttering',
+              description: 'Sort items to keep, donate, sell, or discard.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'declutter'],
+            },
+          ],
+        },
+        {
+          name: 'Administrative Tasks',
+          description: 'Update addresses and services',
+          tasks: [
+            {
+              title: 'Change address with post office',
+              description: 'Set up mail forwarding.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['admin', 'address'],
+            },
+            {
+              title: 'Update utilities',
+              description: 'Transfer or set up electric, gas, water, internet.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['admin', 'utilities'],
+            },
+            {
+              title: 'Notify important contacts',
+              description: 'Bank, insurance, employer, subscriptions.',
+              assigneeRole: 'owner',
+              dueOffset: 18,
+              priority: 'medium',
+              labels: ['admin', 'notifications'],
+            },
+            {
+              title: 'Transfer medical records',
+              description: 'Find new doctors if needed.',
+              assigneeRole: 'owner',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['admin', 'medical'],
+            },
+          ],
+        },
+        {
+          name: 'Packing',
+          description: 'Pack your belongings',
+          tasks: [
+            {
+              title: 'Gather packing supplies',
+              description: 'Boxes, tape, markers, bubble wrap.',
+              assigneeRole: 'owner',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['packing', 'supplies'],
+            },
+            {
+              title: 'Pack non-essentials first',
+              description: 'Items you wont need until after move.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['packing', 'non-essentials'],
+            },
+            {
+              title: 'Label all boxes clearly',
+              description: 'Room and contents on each box.',
+              assigneeRole: 'owner',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['packing', 'labeling'],
+            },
+            {
+              title: 'Pack essentials box',
+              description: 'First night items: toiletries, clothes, chargers.',
+              assigneeRole: 'owner',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['packing', 'essentials'],
+            },
+          ],
+        },
+        {
+          name: 'Moving Day',
+          description: 'The big day',
+          tasks: [
+            {
+              title: 'Final walkthrough of old place',
+              description: 'Check all rooms, closets, cabinets.',
+              assigneeRole: 'owner',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['moving-day', 'walkthrough'],
+            },
+            {
+              title: 'Supervise loading',
+              description: 'Ensure items are handled properly.',
+              assigneeRole: 'owner',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['moving-day', 'loading'],
+            },
+            {
+              title: 'Clean old place',
+              description: 'Leave in good condition.',
+              assigneeRole: 'owner',
+              dueOffset: 42,
+              priority: 'medium',
+              labels: ['moving-day', 'cleaning'],
+            },
+          ],
+        },
+        {
+          name: 'Settling In',
+          description: 'Make new place home',
+          tasks: [
+            {
+              title: 'Unpack essentials first',
+              description: 'Kitchen, bathroom, bedroom basics.',
+              assigneeRole: 'owner',
+              dueOffset: 44,
+              priority: 'high',
+              labels: ['settling', 'unpacking'],
+            },
+            {
+              title: 'Set up internet and utilities',
+              description: 'Get services working.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['settling', 'utilities'],
+            },
+            {
+              title: 'Explore new neighborhood',
+              description: 'Find grocery stores, restaurants, services.',
+              assigneeRole: 'owner',
+              dueOffset: 50,
+              priority: 'medium',
+              labels: ['settling', 'exploration'],
+            },
+            {
+              title: 'Complete all unpacking',
+              description: 'Finish setting up new home.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'medium',
+              labels: ['settling', 'complete'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'packing', 'moving', 'settling', 'complete'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      movingTemplate: true,
+    },
+  },
+
+  // ==================== 18. HOME ORGANIZATION ====================
+  {
+    name: 'Home Organization',
+    slug: 'home-organization',
+    description:
+      'Organize your home room by room. Create systems for a clutter-free, functional space.',
+    category: 'personal',
+    icon: 'Home',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'in_progress', name: 'In Progress', order: 1, color: '#3B82F6' },
+      { id: 'organizing', name: 'Organizing', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Room',
+        type: 'select',
+        description: 'Which room',
+        options: ['Kitchen', 'Bedroom', 'Bathroom', 'Living Room', 'Office', 'Garage', 'Closet'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Assessment',
+          description: 'Evaluate current state',
+          tasks: [
+            {
+              title: 'Walk through entire home',
+              description: 'Note problem areas and clutter zones.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['assessment', 'walkthrough'],
+            },
+            {
+              title: 'Identify priority rooms',
+              description: 'Which spaces need most attention?',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['assessment', 'priorities'],
+            },
+            {
+              title: 'Set organization goals',
+              description: 'What does an organized home look like to you?',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['assessment', 'goals'],
+            },
+          ],
+        },
+        {
+          name: 'Decluttering',
+          description: 'Remove unnecessary items',
+          tasks: [
+            {
+              title: 'Declutter first room',
+              description: 'Sort everything: keep, donate, trash.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['declutter', 'room-1'],
+            },
+            {
+              title: 'Declutter second room',
+              description: 'Continue sorting process.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['declutter', 'room-2'],
+            },
+            {
+              title: 'Remove donated items',
+              description: 'Take donations to charity.',
+              assigneeRole: 'owner',
+              dueOffset: 16,
+              priority: 'medium',
+              labels: ['declutter', 'donate'],
+            },
+            {
+              title: 'Continue room by room',
+              description: 'Work through remaining spaces.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['declutter', 'ongoing'],
+            },
+          ],
+        },
+        {
+          name: 'Storage Solutions',
+          description: 'Create organized storage',
+          tasks: [
+            {
+              title: 'Measure storage spaces',
+              description: 'Know dimensions for purchasing containers.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['storage', 'measurement'],
+            },
+            {
+              title: 'Purchase organizing supplies',
+              description: 'Bins, baskets, dividers, labels.',
+              assigneeRole: 'owner',
+              dueOffset: 32,
+              priority: 'high',
+              labels: ['storage', 'supplies'],
+            },
+            {
+              title: 'Implement storage systems',
+              description: 'Set up new organization in each room.',
+              assigneeRole: 'owner',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['storage', 'implementation'],
+            },
+          ],
+        },
+        {
+          name: 'Maintenance Systems',
+          description: 'Create lasting habits',
+          tasks: [
+            {
+              title: 'Create daily tidying routine',
+              description: '10-minute daily reset habit.',
+              assigneeRole: 'owner',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['maintenance', 'daily'],
+            },
+            {
+              title: 'Set up weekly cleaning schedule',
+              description: 'Assign tasks to specific days.',
+              assigneeRole: 'owner',
+              dueOffset: 46,
+              priority: 'high',
+              labels: ['maintenance', 'weekly'],
+            },
+            {
+              title: 'Establish one in one out rule',
+              description: 'Prevent future clutter accumulation.',
+              assigneeRole: 'owner',
+              dueOffset: 48,
+              priority: 'medium',
+              labels: ['maintenance', 'habits'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'in_progress', 'organizing', 'complete'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      homeTemplate: true,
+    },
+  },
+
+  // ==================== 19. DECLUTTERING PROJECT ====================
+  {
+    name: 'Decluttering Project',
+    slug: 'decluttering-project',
+    description:
+      'Systematic approach to decluttering your space using proven methods.',
+    category: 'personal',
+    icon: 'Trash2',
+    color: '#EF4444',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'to_sort', name: 'To Sort', order: 0, color: '#6B7280' },
+      { id: 'sorting', name: 'Sorting', order: 1, color: '#3B82F6' },
+      { id: 'processing', name: 'Processing', order: 2, color: '#F59E0B' },
+      { id: 'done', name: 'Done', order: 3, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Category',
+        type: 'select',
+        description: 'Item category',
+        options: ['Clothes', 'Books', 'Papers', 'Kitchen', 'Sentimental', 'Misc'],
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Preparation',
+          description: 'Get ready to declutter',
+          tasks: [
+            {
+              title: 'Choose decluttering method',
+              description: 'KonMari, minimalism, or room-by-room.',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['prep', 'method'],
+            },
+            {
+              title: 'Gather sorting supplies',
+              description: 'Bags, boxes for keep/donate/trash.',
+              assigneeRole: 'owner',
+              dueOffset: 1,
+              priority: 'high',
+              labels: ['prep', 'supplies'],
+            },
+            {
+              title: 'Schedule decluttering time',
+              description: 'Block time for focused sessions.',
+              assigneeRole: 'owner',
+              dueOffset: 2,
+              priority: 'medium',
+              labels: ['prep', 'schedule'],
+            },
+          ],
+        },
+        {
+          name: 'Clothing',
+          description: 'Declutter clothes first',
+          tasks: [
+            {
+              title: 'Gather all clothing in one place',
+              description: 'From all closets, drawers, storage.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['clothing', 'gather'],
+            },
+            {
+              title: 'Sort each item',
+              description: 'Keep, donate, or discard each piece.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['clothing', 'sort'],
+            },
+            {
+              title: 'Organize kept items',
+              description: 'Return keepers to organized space.',
+              assigneeRole: 'owner',
+              dueOffset: 6,
+              priority: 'high',
+              labels: ['clothing', 'organize'],
+            },
+          ],
+        },
+        {
+          name: 'Books and Papers',
+          description: 'Handle reading materials',
+          tasks: [
+            {
+              title: 'Sort all books',
+              description: 'Keep only ones you love or will read.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['books', 'sort'],
+            },
+            {
+              title: 'Process papers and documents',
+              description: 'File important, shred or recycle rest.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['papers', 'process'],
+            },
+            {
+              title: 'Digitize if possible',
+              description: 'Scan important documents.',
+              assigneeRole: 'owner',
+              dueOffset: 16,
+              priority: 'medium',
+              labels: ['papers', 'digital'],
+            },
+          ],
+        },
+        {
+          name: 'Miscellaneous',
+          description: 'Everything else',
+          tasks: [
+            {
+              title: 'Declutter kitchen items',
+              description: 'Gadgets, dishes, expired food.',
+              assigneeRole: 'owner',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['misc', 'kitchen'],
+            },
+            {
+              title: 'Sort sentimental items',
+              description: 'Be selective with keepsakes.',
+              assigneeRole: 'owner',
+              dueOffset: 24,
+              priority: 'medium',
+              labels: ['misc', 'sentimental'],
+            },
+            {
+              title: 'Handle remaining categories',
+              description: 'Electronics, tools, decorations.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['misc', 'remaining'],
+            },
+          ],
+        },
+        {
+          name: 'Completion',
+          description: 'Finish up',
+          tasks: [
+            {
+              title: 'Remove all donations',
+              description: 'Take to donation centers.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['completion', 'donate'],
+            },
+            {
+              title: 'Dispose of trash properly',
+              description: 'Recycle, hazardous waste, landfill.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['completion', 'trash'],
+            },
+            {
+              title: 'Celebrate clutter-free space',
+              description: 'Enjoy your organized environment!',
+              assigneeRole: 'owner',
+              dueOffset: 32,
+              priority: 'low',
+              labels: ['completion', 'celebrate'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['to_sort', 'sorting', 'processing', 'done'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      declutterTemplate: true,
+    },
+  },
+
+  // ==================== 20. HOME RENOVATION ====================
+  {
+    name: 'Home Renovation',
+    slug: 'home-renovation',
+    description:
+      'Plan and execute a home renovation project from design to completion.',
+    category: 'personal',
+    icon: 'Hammer',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'design', name: 'Design', order: 1, color: '#3B82F6' },
+      { id: 'in_progress', name: 'In Progress', order: 2, color: '#F59E0B' },
+      { id: 'finishing', name: 'Finishing', order: 3, color: '#8B5CF6' },
+      { id: 'complete', name: 'Complete', order: 4, color: '#10B981' },
+    ],
+    customFields: [
+      {
+        name: 'Room',
+        type: 'text',
+        description: 'Space being renovated',
+        isRequired: true,
+      },
+      {
+        name: 'Budget',
+        type: 'number',
+        description: 'Project budget',
+        isRequired: false,
+      },
+    ],
+    structure: {
+      sections: [
+        {
+          name: 'Project Planning',
+          description: 'Define the renovation',
+          tasks: [
+            {
+              title: 'Define renovation scope',
+              description: 'What exactly needs to be done?',
+              assigneeRole: 'owner',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'scope'],
+            },
+            {
+              title: 'Set realistic budget',
+              description: 'Include 15-20% contingency.',
+              assigneeRole: 'owner',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'budget'],
+            },
+            {
+              title: 'Research permits needed',
+              description: 'Check local building requirements.',
+              assigneeRole: 'owner',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'permits'],
+            },
+            {
+              title: 'Create project timeline',
+              description: 'Realistic schedule for all phases.',
+              assigneeRole: 'owner',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'timeline'],
+            },
+          ],
+        },
+        {
+          name: 'Design and Contractors',
+          description: 'Design and hire help',
+          tasks: [
+            {
+              title: 'Gather design inspiration',
+              description: 'Pinterest, magazines, showrooms.',
+              assigneeRole: 'owner',
+              dueOffset: 10,
+              priority: 'medium',
+              labels: ['design', 'inspiration'],
+            },
+            {
+              title: 'Get contractor quotes',
+              description: 'At least 3 estimates.',
+              assigneeRole: 'owner',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['contractors', 'quotes'],
+            },
+            {
+              title: 'Select and hire contractors',
+              description: 'Check references and licenses.',
+              assigneeRole: 'owner',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['contractors', 'hiring'],
+            },
+            {
+              title: 'Finalize design choices',
+              description: 'Materials, colors, fixtures.',
+              assigneeRole: 'owner',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['design', 'final'],
+            },
+          ],
+        },
+        {
+          name: 'Pre-Construction',
+          description: 'Prepare for work',
+          tasks: [
+            {
+              title: 'Order materials',
+              description: 'Lead times can be long.',
+              assigneeRole: 'owner',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['prep', 'materials'],
+            },
+            {
+              title: 'Prepare living arrangements',
+              description: 'Plan for disruption during work.',
+              assigneeRole: 'owner',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['prep', 'living'],
+            },
+            {
+              title: 'Clear and protect work area',
+              description: 'Move furniture, cover surfaces.',
+              assigneeRole: 'owner',
+              dueOffset: 34,
+              priority: 'high',
+              labels: ['prep', 'protection'],
+            },
+          ],
+        },
+        {
+          name: 'Construction Phase',
+          description: 'During the renovation',
+          tasks: [
+            {
+              title: 'Monitor progress daily',
+              description: 'Stay involved in the project.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['construction', 'monitoring'],
+            },
+            {
+              title: 'Address issues promptly',
+              description: 'Handle problems as they arise.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['construction', 'issues'],
+            },
+            {
+              title: 'Track expenses',
+              description: 'Keep detailed cost records.',
+              assigneeRole: 'owner',
+              dueOffset: 60,
+              priority: 'medium',
+              labels: ['construction', 'budget'],
+            },
+          ],
+        },
+        {
+          name: 'Completion',
+          description: 'Finish the project',
+          tasks: [
+            {
+              title: 'Final walkthrough',
+              description: 'Create punch list of items to fix.',
+              assigneeRole: 'owner',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['completion', 'walkthrough'],
+            },
+            {
+              title: 'Complete punch list items',
+              description: 'Ensure all issues are resolved.',
+              assigneeRole: 'owner',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['completion', 'punch-list'],
+            },
+            {
+              title: 'Final payment and paperwork',
+              description: 'Close out contracts properly.',
+              assigneeRole: 'owner',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['completion', 'payment'],
+            },
+            {
+              title: 'Enjoy your new space!',
+              description: 'Celebrate the completed renovation.',
+              assigneeRole: 'owner',
+              dueOffset: 90,
+              priority: 'low',
+              labels: ['completion', 'celebrate'],
+            },
+          ],
+        },
+      ],
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'design', 'in_progress', 'finishing', 'complete'],
+      },
+    },
+    settings: {
+      progressTracking: true,
+      renovationTemplate: true,
+    },
+  },
+];
