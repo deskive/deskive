@@ -1,417 +1,417 @@
 {
   "common": {
-    "loading": "Loading...",
-    "error": "Error",
-    "save": "Save",
-    "saving": "Saving...",
-    "saveChanges": "Save Changes",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "delete": "Delete",
-    "edit": "Edit",
-    "and": "and",
-    "explore": "Explore {feature}",
-    "goBack": "Go Back",
-    "back": "Back",
-    "redirecting": "Redirecting...",
-    "search": "Search...",
-    "signOut": "Sign out",
-    "logOut": "Log out",
-    "profile": "Profile",
-    "settings": "Settings",
-    "new": "New",
-    "filters": "Filters",
-    "retry": "Retry",
-    "tryAgain": "Try Again",
-    "exploreFeatures": "Explore Features",
-    "active": "Active",
-    "inactive": "Inactive"
+    "loading": "로딩 중...",
+    "error": "오류",
+    "save": "저장",
+    "saving": "저장 중...",
+    "saveChanges": "변경사항 저장",
+    "cancel": "취소",
+    "confirm": "확인",
+    "delete": "삭제",
+    "edit": "편집",
+    "and": "및",
+    "explore": "{feature} 탐색",
+    "goBack": "뒤로 가기",
+    "back": "뒤로",
+    "redirecting": "리디렉션 중...",
+    "search": "검색...",
+    "signOut": "로그아웃",
+    "logOut": "로그아웃",
+    "profile": "프로필",
+    "settings": "설정",
+    "new": "새로 만들기",
+    "filters": "필터",
+    "retry": "재시도",
+    "tryAgain": "다시 시도",
+    "exploreFeatures": "기능 탐색",
+    "active": "활성",
+    "inactive": "비활성"
   },
   "support": {
-    "title": "Help & Support",
-    "description": "Get help with Deskive, find answers to common questions, or contact our support team.",
-    "searchPlaceholder": "Search for help articles, FAQs, or topics...",
+    "title": "도움말 및 지원",
+    "description": "Deskive 도움말을 확인하고 자주 묻는 질문에 대한 답변을 찾거나 지원팀에 문의하세요.",
+    "searchPlaceholder": "도움말 문서, FAQ 또는 주제를 검색하세요...",
     "liveChat": {
-      "title": "Live Chat",
-      "description": "Chat with our support team in real-time for immediate assistance.",
-      "action": "Start Chat"
+      "title": "실시간 채팅",
+      "description": "즉각적인 도움을 위해 지원팀과 실시간으로 채팅하세요.",
+      "action": "채팅 시작"
     },
     "email": {
-      "title": "Email Support",
-      "description": "Send us an email and we'll get back to you within 24 hours.",
-      "action": "Send Email"
+      "title": "이메일 지원",
+      "description": "이메일을 보내주시면 24시간 이내에 답변드리겠습니다.",
+      "action": "이메일 보내기"
     },
     "documentation": {
-      "title": "Documentation",
-      "description": "Browse our comprehensive guides and documentation.",
-      "action": "View Docs"
+      "title": "문서",
+      "description": "종합 가이드와 문서를 찾아보세요.",
+      "action": "문서 보기"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
-      "description": "Find quick answers to common questions about Deskive.",
-      "noResults": "No FAQs match your search. Try a different query.",
+      "title": "자주 묻는 질문",
+      "description": "Deskive에 대한 일반적인 질문에 대한 빠른 답변을 찾아보세요.",
+      "noResults": "검색과 일치하는 FAQ가 없습니다.",
       "gettingStarted": {
-        "question": "How do I get started with Deskive?",
-        "answer": "Getting started is easy! After signing up, create a workspace for your team. Then invite your team members via email. You can start using Chat for communication, Projects for task management, Files for document storage, Calendar for scheduling, Notes for documentation, and Video Calls for meetings."
+        "question": "Deskive를 어떻게 시작하나요?",
+        "answer": "시작하기 쉽습니다! 가입 후 팀을 위한 워크스페이스를 만드세요. 그런 다음 이메일로 팀원을 초대하세요."
       },
       "inviteMembers": {
-        "question": "How do I invite team members to my workspace?",
-        "answer": "Go to Settings > Team Management in your workspace. Click 'Invite Members' and enter the email addresses of the people you want to invite. They'll receive an invitation email with a link to join your workspace."
+        "question": "워크스페이스에 팀원을 어떻게 초대하나요?",
+        "answer": "워크스페이스에서 설정 > 팀 관리로 이동하세요. '멤버 초대'를 클릭하고 초대하려는 사람의 이메일 주소를 입력하세요."
       },
       "fileStorage": {
-        "question": "How much file storage do I get?",
-        "answer": "Storage limits depend on your plan. Free plans include 5GB of storage per workspace. Pro plans offer 100GB, and Enterprise plans provide unlimited storage. You can view your current usage in Settings > Workspace."
+        "question": "파일 저장 공간은 얼마나 되나요?",
+        "answer": "저장 용량은 요금제에 따라 다릅니다. 무료 요금제는 워크스페이스당 5GB를 포함합니다."
       },
       "videoCall": {
-        "question": "How do I start a video call?",
-        "answer": "Navigate to Video Calls in the left sidebar. Click 'New Meeting' to start an instant call, or schedule a meeting for later. You can invite participants by sharing the meeting link or by selecting team members directly."
+        "question": "화상통화를 어떻게 시작하나요?",
+        "answer": "왼쪽 사이드바에서 화상통화로 이동하세요. '새 미팅'을 클릭하여 즉시 통화를 시작하세요."
       },
       "security": {
-        "question": "How secure is my data on Deskive?",
-        "answer": "Your data security is our top priority. We use end-to-end encryption for video calls, AES-256 encryption for stored files, and TLS 1.3 for all data in transit. We're SOC 2 Type II certified and GDPR compliant."
+        "question": "Deskive에서 내 데이터는 얼마나 안전한가요?",
+        "answer": "데이터 보안은 우리의 최우선 과제입니다. 종단 간 암호화, AES-256 암호화, TLS 1.3을 사용합니다."
       },
       "billing": {
-        "question": "How does billing work?",
-        "answer": "Deskive offers monthly and annual billing options. Annual plans save you 20%. You can upgrade, downgrade, or cancel your plan at any time from Settings > Billing. Changes take effect at the start of your next billing cycle."
+        "question": "결제는 어떻게 진행되나요?",
+        "answer": "Deskive는 월간 및 연간 결제 옵션을 제공합니다. 연간 요금제는 20% 할인됩니다."
       }
     },
     "resources": {
-      "title": "Help Resources",
+      "title": "도움말 리소스",
       "tutorials": {
-        "title": "Video Tutorials",
-        "description": "Watch step-by-step video guides for all features"
+        "title": "비디오 튜토리얼",
+        "description": "모든 기능에 대한 단계별 비디오 가이드를 시청하세요"
       },
       "quickStart": {
-        "title": "Quick Start Guide",
-        "description": "Get up and running in minutes"
+        "title": "빠른 시작 가이드",
+        "description": "몇 분 안에 시작하세요"
       },
       "apiDocs": {
-        "title": "API Documentation",
-        "description": "Integrate Deskive with your applications"
+        "title": "API 문서",
+        "description": "Deskive를 애플리케이션과 통합하세요"
       }
     },
     "community": {
-      "title": "Community & Feedback",
+      "title": "커뮤니티 및 피드백",
       "forum": {
-        "title": "Community Forum",
-        "description": "Connect with other Deskive users"
+        "title": "커뮤니티 포럼",
+        "description": "다른 Deskive 사용자와 교류하세요"
       },
       "bugReport": {
-        "title": "Report a Bug",
-        "description": "Help us improve by reporting issues"
+        "title": "버그 보고",
+        "description": "문제를 보고하여 개선에 도움을 주세요"
       },
       "featureRequest": {
-        "title": "Feature Requests",
-        "description": "Suggest new features and vote on ideas"
+        "title": "기능 요청",
+        "description": "새로운 기능을 제안하고 아이디어에 투표하세요"
       }
     },
     "status": {
-      "title": "All Systems Operational",
-      "description": "Deskive services are running normally",
-      "viewStatus": "View Status Page"
+      "title": "모든 시스템 정상 운영 중",
+      "description": "Deskive 서비스가 정상 운영 중입니다",
+      "viewStatus": "상태 페이지 보기"
     },
     "security": {
-      "title": "Security",
-      "description": "Report security vulnerabilities responsibly",
-      "contact": "Contact Security Team"
+      "title": "보안",
+      "description": "보안 취약점을 책임감 있게 보고하세요",
+      "contact": "보안 팀 문의"
     },
     "contact": {
-      "title": "Contact Information",
-      "description": "Our support team is available Monday to Friday, 9am to 6pm EST.",
-      "emailLabel": "Email",
-      "liveChatLabel": "Live Chat",
-      "liveChatDescription": "Available 24/7 for immediate assistance",
-      "phoneLabel": "Phone Support",
-      "phoneDescription": "Available for Enterprise customers"
+      "title": "연락처 정보",
+      "description": "지원팀은 월요일~금요일, 동부시간 오전 9시~오후 6시에 이용 가능합니다.",
+      "emailLabel": "이메일",
+      "liveChatLabel": "실시간 채팅",
+      "liveChatDescription": "연중무휴 이용 가능",
+      "phoneLabel": "전화 지원",
+      "phoneDescription": "Enterprise 고객에게 제공"
     },
     "seo": {
-      "title": "Help & Support - Deskive",
-      "description": "Get help with Deskive, find answers to common questions, or contact our support team."
+      "title": "도움말 및 지원 - Deskive",
+      "description": "Deskive 도움말을 확인하세요."
     },
     "form": {
-      "title": "Submit a Support Request",
-      "name": "Your Name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email Address",
-      "emailPlaceholder": "Enter your email address",
-      "company": "Company (Optional)",
-      "companyPlaceholder": "Enter your company name",
-      "supportType": "What do you need help with?",
-      "supportTypePlaceholder": "Select support type",
+      "title": "지원 요청 제출",
+      "name": "이름",
+      "namePlaceholder": "전체 이름을 입력하세요",
+      "email": "이메일 주소",
+      "emailPlaceholder": "이메일 주소를 입력하세요",
+      "company": "회사 (선택사항)",
+      "companyPlaceholder": "회사명을 입력하세요",
+      "supportType": "어떤 도움이 필요하신가요?",
+      "supportTypePlaceholder": "지원 유형 선택",
       "supportTypes": {
-        "technical_issue": "Technical Issue",
-        "billing": "Billing Question",
-        "account": "Account Related",
-        "feature_request": "Feature Request",
-        "bug_report": "Bug Report",
-        "general": "General Question"
+        "technical_issue": "기술 문제",
+        "billing": "결제 문의",
+        "account": "계정 관련",
+        "feature_request": "기능 요청",
+        "bug_report": "버그 보고",
+        "general": "일반 문의"
       },
-      "subject": "Subject",
-      "subjectPlaceholder": "Brief description of your issue",
-      "message": "Describe Your Issue",
-      "messagePlaceholder": "Please provide as much detail as possible about your issue or question. Include any error messages, steps to reproduce, or screenshots if applicable.",
-      "submit": "Submit Request",
-      "sending": "Sending...",
-      "successMessage": "Your support request has been submitted successfully. We'll get back to you soon!"
+      "subject": "제목",
+      "subjectPlaceholder": "문제에 대한 간략한 설명",
+      "message": "문제를 설명해 주세요",
+      "messagePlaceholder": "문제나 질문에 대해 가능한 한 자세히 설명해 주세요.",
+      "submit": "요청 제출",
+      "sending": "전송 중...",
+      "successMessage": "지원 요청이 성공적으로 제출되었습니다!"
     },
     "responseTime": {
-      "title": "Expected Response Times",
-      "general": "General Questions",
-      "technical": "Technical Issues",
-      "critical": "Critical Issues"
+      "title": "예상 응답 시간",
+      "general": "일반 질문",
+      "technical": "기술 문제",
+      "critical": "긴급 문제"
     }
   },
   "tutorial": {
     "seo": {
-      "title": "Video Tutorials - Learn Deskive",
-      "description": "Watch video tutorials to master all Deskive features including chat, projects, files, calendar, notes, and video calls."
+      "title": "비디오 튜토리얼 - Deskive 배우기",
+      "description": "비디오 튜토리얼로 모든 Deskive 기능을 마스터하세요."
     },
     "header": {
-      "title": "Video",
-      "titleHighlight": "Tutorials",
-      "subtitle": "Learn how to use Deskive effectively with our comprehensive video guides"
+      "title": "비디오",
+      "titleHighlight": "튜토리얼",
+      "subtitle": "종합 비디오 가이드로 Deskive를 효과적으로 사용하는 방법을 알아보세요"
     },
     "category": {
-      "all": "All Tutorials",
-      "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "video": "Video"
+      "all": "전체 튜토리얼",
+      "chat": "채팅",
+      "projects": "프로젝트",
+      "files": "파일",
+      "calendar": "캘린더",
+      "notes": "노트",
+      "video": "영상"
     },
     "chat": {
-      "title": "Getting Started with Chat",
-      "description": "Learn how to use team chat, channels, and direct messages"
+      "title": "채팅 시작하기",
+      "description": "팀 채팅, 채널, 다이렉트 메시지 사용법 알아보기"
     },
     "projects": {
-      "title": "Project Management Basics",
-      "description": "Master Kanban boards, tasks, and project workflows"
+      "title": "프로젝트 관리 기초",
+      "description": "칸반 보드, 작업 및 프로젝트 워크플로 마스터하기"
     },
     "files": {
-      "title": "File Management Guide",
-      "description": "Organize, share, and collaborate on files"
+      "title": "파일 관리 가이드",
+      "description": "파일 정리, 공유 및 협업"
     },
     "calendar": {
-      "title": "Calendar & Scheduling",
-      "description": "Schedule meetings and manage your time effectively"
+      "title": "캘린더 및 일정 관리",
+      "description": "미팅을 예약하고 시간을 효과적으로 관리하기"
     },
     "notes": {
-      "title": "Notes & Documentation",
-      "description": "Create rich notes and collaborate on documentation"
+      "title": "노트 및 문서화",
+      "description": "풍부한 노트를 만들고 문서 협업하기"
     },
     "video": {
-      "title": "Video Calls & Meetings",
-      "description": "Host HD video calls with screen sharing and recording"
+      "title": "화상통화 및 미팅",
+      "description": "화면 공유 및 녹화가 있는 HD 화상통화 호스팅"
     },
     "empty": {
-      "title": "No Tutorials Found",
-      "description": "Try selecting a different category"
+      "title": "튜토리얼을 찾을 수 없음",
+      "description": "다른 카테고리를 선택해 보세요"
     }
   },
   "profile": {
     "settings": {
       "timezone": {
-        "label": "Timezone",
-        "placeholder": "Select your timezone",
-        "description": "Used for displaying times in your local timezone"
+        "label": "시간대",
+        "placeholder": "시간대를 선택하세요",
+        "description": "로컬 시간대로 시간을 표시"
       },
       "language": {
-        "label": "Language",
-        "placeholder": "Select your language",
-        "description": "Choose your preferred language for the interface"
+        "label": "언어",
+        "placeholder": "언어를 선택하세요",
+        "description": "인터페이스의 선호 언어를 선택하세요"
       }
     }
   },
   "navigation": {
-    "home": "Home",
-    "products": "Products",
-    "features": "Features",
-    "pricing": "Pricing",
-    "download": "Download",
-    "signIn": "Sign In",
-    "getStarted": "Get Started",
-    "dashboard": "Dashboard",
-    "messages": "Messages",
-    "email": "Email",
-    "projects": "Projects",
-    "notes": "Notes",
-    "calendar": "Calendar",
-    "videoCall": "Video Call",
-    "files": "Files",
-    "whiteboard": "Whiteboard",
-    "search": "Search",
-    "settings": "Settings",
-    "integrations": "Integrations",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "support": "Support",
-    "blog": "Blog",
-    "tutorial": "Tutorial",
-    "apps": "Apps",
-    "more": "More",
-    "bots": "Bots",
-    "connectors": "Connectors",
-    "tools": "Tools"
+    "home": "홈",
+    "products": "제품",
+    "features": "기능",
+    "pricing": "가격",
+    "download": "다운로드",
+    "signIn": "로그인",
+    "getStarted": "시작하기",
+    "dashboard": "대시보드",
+    "messages": "메시지",
+    "email": "이메일",
+    "projects": "프로젝트",
+    "notes": "노트",
+    "calendar": "캘린더",
+    "videoCall": "화상통화",
+    "files": "파일",
+    "whiteboard": "화이트보드",
+    "search": "검색",
+    "settings": "설정",
+    "integrations": "통합",
+    "analytics": "분석",
+    "monitoring": "모니터링",
+    "support": "지원",
+    "blog": "블로그",
+    "tutorial": "튜토리얼",
+    "apps": "앱",
+    "more": "더보기",
+    "bots": "봇",
+    "connectors": "커넥터",
+    "tools": "도구"
   },
   "layout": {
     "rightSidebar": {
-      "aiSummaries": "AI Summaries",
-      "info": "{view} Info",
-      "selectItem": "Select an item to view details"
+      "aiSummaries": "AI 요약",
+      "info": "{view} 정보",
+      "selectItem": "세부정보를 보려면 항목을 선택하세요"
     }
   },
   "workspace": {
-    "yourWorkspaces": "Your Workspaces ({count})",
-    "newWorkspace": "New Workspace",
-    "quickActions": "QUICK ACTIONS",
-    "settings": "Settings",
-    "members": "Members",
-    "createNewWorkspace": "Create New Workspace",
-    "createTitle": "Create Your Workspace",
-    "createDescription": "Set up your team's workspace to start collaborating. You can customize everything later.",
-    "back": "Back",
-    "stepInfo": "Step 1 of 1",
-    "needHelp": "Need help?",
-    "checkGuide": "Check our guide",
-    "or": "or",
-    "contactSupport": "contact support"
+    "yourWorkspaces": "내 워크스페이스 ({count})",
+    "newWorkspace": "새 워크스페이스",
+    "quickActions": "빠른 작업",
+    "settings": "설정",
+    "members": "멤버",
+    "createNewWorkspace": "새 워크스페이스 만들기",
+    "createTitle": "워크스페이스 만들기",
+    "createDescription": "협업을 시작하기 위해 팀의 워크스페이스를 설정하세요.",
+    "back": "뒤로",
+    "stepInfo": "1단계 중 1단계",
+    "needHelp": "도움이 필요하신가요?",
+    "checkGuide": "가이드를 확인하세요",
+    "or": "또는",
+    "contactSupport": "지원팀 문의"
   },
   "userMenu": {
-    "homePage": "Home Page",
-    "profileSettings": "Profile Settings",
-    "accountSecurity": "Account & Security",
-    "signOut": "Sign Out"
+    "homePage": "홈페이지",
+    "profileSettings": "프로필 설정",
+    "accountSecurity": "계정 및 보안",
+    "signOut": "로그아웃"
   },
   "header": {
     "products": {
       "chat": {
-        "name": "Chat",
-        "description": "Real-time messaging and collaboration"
+        "name": "채팅",
+        "description": "실시간 메시징 및 협업"
       },
       "projects": {
-        "name": "Projects",
-        "description": "Kanban boards and task management"
+        "name": "프로젝트",
+        "description": "칸반 보드 및 작업 관리"
       },
       "files": {
-        "name": "Files",
-        "description": "Cloud storage and file management"
+        "name": "파일",
+        "description": "클라우드 스토리지 및 파일 관리"
       },
       "calendar": {
-        "name": "Calendar",
-        "description": "Schedule meetings and events"
+        "name": "캘린더",
+        "description": "미팅 및 이벤트 예약"
       },
       "notes": {
-        "name": "Notes",
-        "description": "Rich text editor and documentation"
+        "name": "노트",
+        "description": "리치 텍스트 편집기 및 문서화"
       },
       "videoCalls": {
-        "name": "Video Calls",
-        "description": "HD video conferencing"
+        "name": "화상통화",
+        "description": "HD 화상 회의"
       }
     }
   },
   "hero": {
-    "badge": "All-in-One Workspace Platform",
-    "title": "Chat, Video, Projects, Files & Notes",
-    "titleHighlight": "All in One Place",
-    "subtitle": "The complete workspace platform with",
-    "subtitleHighlight1": "real-time collaboration",
-    "subtitleHighlight2": "HD video conferencing",
-    "subtitleHighlight3": "powerful project management",
-    "subtitleBold": "fully-featured free plan",
-    "subtitleEnd": "No credit card required. Upgrade when you're ready.",
-    "valueProposition": "Start with our {bold}. {end}",
+    "badge": "올인원 워크스페이스 플랫폼",
+    "title": "채팅, 영상, 프로젝트, 파일 및 노트",
+    "titleHighlight": "하나의 공간에서",
+    "subtitle": "완전한 워크스페이스 플랫폼 -",
+    "subtitleHighlight1": "실시간 협업",
+    "subtitleHighlight2": "HD 화상 회의",
+    "subtitleHighlight3": "강력한 프로젝트 관리",
+    "subtitleBold": "풀기능 무료 요금제",
+    "subtitleEnd": "신용카드 불필요. 준비되면 업그레이드하세요.",
+    "valueProposition": "우리의 {bold}로 시작하세요. {end}",
     "stats": {
-      "teams": "Active Teams",
+      "teams": "활성 팀",
       "teamsCount": "10K+",
-      "freePlan": "Forever Plan",
-      "freePlanLabel": "Free",
-      "toolsInOne": "In One Platform",
-      "toolsCount": "6 Tools"
+      "freePlan": "영구 요금제",
+      "freePlanLabel": "무료",
+      "toolsInOne": "하나의 플랫폼에서",
+      "toolsCount": "6가지 도구"
     },
     "cta": {
-      "primary": "Get Started Free",
-      "secondary": "Watch Demo",
-      "tryFree": "Try it free"
+      "primary": "무료로 시작하기",
+      "secondary": "데모 보기",
+      "tryFree": "무료로 체험"
     },
     "trustIndicators": {
-      "noCreditCard": "No credit card required",
-      "freeTrial": "14-day free trial",
-      "cancelAnytime": "Cancel anytime"
+      "noCreditCard": "신용카드 불필요",
+      "freeTrial": "14일 무료 체험",
+      "cancelAnytime": "언제든 취소 가능"
     },
-    "exploreFeatures": "Explore Features",
-    "clickModule": "Click any module to see it in action",
+    "exploreFeatures": "기능 탐색",
+    "clickModule": "모듈을 클릭하여 실제 동작을 확인하세요",
     "browserUrl": "https://deskive.com/workspace/dashboard",
     "slides": {
       "welcome": {
-        "badge": "All-in-One",
-        "title": "Welcome to Deskive",
-        "description": "Your all-in-one AI-powered workspace. Replace Slack, Notion, Trello, Google Drive, and Zoom with one intelligent platform.",
+        "badge": "올인원",
+        "title": "Deskive에 오신 것을 환영합니다",
+        "description": "AI 기반 올인원 워크스페이스. Slack, Notion, Trello, Google Drive, Zoom을 하나의 지능형 플랫폼으로 대체하세요.",
         "features": {
-          "aiPowered": "AI-Powered Features",
-          "realTime": "Real-time Collaboration",
-          "smartProject": "Smart Project Management"
+          "aiPowered": "AI 기반 기능",
+          "realTime": "실시간 협업",
+          "smartProject": "스마트 프로젝트 관리"
         }
       },
       "chat": {
-        "badge": "Team Chat",
-        "title": "Real-Time Messaging",
-        "description": "Stay connected with your team through instant messaging, organized channels, and seamless file sharing. All conversations in one place.",
+        "badge": "팀 채팅",
+        "title": "실시간 메시징",
+        "description": "인스턴트 메시징, 체계적인 채널, 원활한 파일 공유로 팀과 연결을 유지하세요.",
         "features": {
-          "channelsDms": "Channels & DMs",
-          "teamCollaboration": "Team Collaboration",
-          "instantNotifications": "Instant Notifications"
+          "channelsDms": "채널 및 DM",
+          "teamCollaboration": "팀 협업",
+          "instantNotifications": "즉시 알림"
         }
       },
       "smartNotes": {
-        "badge": "Smart Notes",
-        "title": "Smart Notes",
-        "description": "Create beautiful, organized notes with our block-based editor. AI writing assistant helps you draft, edit, and organize your thoughts effortlessly.",
+        "badge": "스마트 노트",
+        "title": "스마트 노트",
+        "description": "블록 기반 편집기로 아름답고 체계적인 노트를 만드세요.",
         "features": {
-          "blockEditor": "Block-based Editor",
-          "aiWriting": "AI Writing Assistant",
-          "smartOrganization": "Smart Organization"
+          "blockEditor": "블록 기반 편집기",
+          "aiWriting": "AI 작성 도우미",
+          "smartOrganization": "스마트 정리"
         }
       },
       "smartCalendar": {
-        "badge": "Voice Enabled",
-        "title": "Smart Event Creator",
-        "description": "Just describe your meeting in natural language or use voice input. AI understands and finds the perfect time slot automatically.",
+        "badge": "음성 지원",
+        "title": "스마트 이벤트 생성기",
+        "description": "자연어로 미팅을 설명하거나 음성 입력을 사용하세요.",
         "features": {
-          "voiceToEvent": "Voice-to-Event",
-          "naturalLanguage": "Natural Language",
-          "smartScheduling": "Smart Scheduling"
+          "voiceToEvent": "음성-이벤트 변환",
+          "naturalLanguage": "자연어",
+          "smartScheduling": "스마트 일정 관리"
         }
       },
       "collaboration": {
-        "badge": "Instant",
-        "title": "Real-Time Collaboration",
-        "description": "Stay connected with instant messaging, HD video calls, screen sharing, and team channels. Work together seamlessly.",
+        "badge": "즉시",
+        "title": "실시간 협업",
+        "description": "인스턴트 메시징, HD 화상통화, 화면 공유, 팀 채널로 연결을 유지하세요.",
         "features": {
-          "teamChat": "Team Chat",
-          "videoCalls": "Video Calls",
-          "smartNotifications": "Smart Notifications"
+          "teamChat": "팀 채팅",
+          "videoCalls": "화상통화",
+          "smartNotifications": "스마트 알림"
         }
       },
       "analytics": {
-        "badge": "Smart",
-        "title": "AI-Powered Analytics",
-        "description": "Get intelligent insights into your productivity, meeting patterns, and team performance. Data-driven decisions made easy.",
+        "badge": "스마트",
+        "title": "AI 기반 분석",
+        "description": "생산성, 미팅 패턴, 팀 성과에 대한 지능형 인사이트를 얻으세요.",
         "features": {
-          "smartAnalytics": "Smart Analytics",
-          "aiInsights": "AI Insights",
-          "timeAnalysis": "Time Analysis"
+          "smartAnalytics": "스마트 분석",
+          "aiInsights": "AI 인사이트",
+          "timeAnalysis": "시간 분석"
         }
       },
       "projectManagement": {
-        "badge": "Projects",
-        "title": "Project Management",
-        "description": "Kanban boards, task tracking, time management, and AI-powered insights. Keep your team aligned and productive.",
+        "badge": "프로젝트",
+        "title": "프로젝트 관리",
+        "description": "칸반 보드, 작업 추적, 시간 관리, AI 기반 인사이트.",
         "features": {
-          "kanbanBoards": "Kanban Boards",
-          "timeTracking": "Time Tracking",
-          "aiInsights": "AI Insights"
+          "kanbanBoards": "칸반 보드",
+          "timeTracking": "시간 추적",
+          "aiInsights": "AI 인사이트"
         }
       }
     }
@@ -589,10 +589,10 @@
     }
   },
   "moduleExplorer": {
-    "badge": "EXPLORE OUR MODULES",
-    "title": "One platform,",
-    "titleHighlight": "endless possibilities",
-    "subtitle": "Discover how each module works together to streamline your workflow and boost team productivity"
+    "badge": "모듈 탐색",
+    "title": "하나의 플랫폼,",
+    "titleHighlight": "무한한 가능성",
+    "subtitle": "각 모듈이 어떻게 함께 작동하여 워크플로를 간소화하고 팀 생산성을 높이는지 알아보세요"
   },
   "modules": {
     "dashboard": {
@@ -3665,36 +3665,36 @@
     }
   },
   "featuresGrid": {
-    "tasks": "Tasks",
-    "kanbanBoards": "Kanban Boards",
-    "docs": "Docs",
-    "aiAssistant": "AI Assistant",
-    "calendar": "Calendar",
-    "chat": "Chat",
-    "videoCalls": "Video Calls",
-    "files": "Files",
-    "projects": "Projects",
-    "reporting": "Reporting",
-    "goals": "Goals",
-    "automations": "Automations",
-    "customFields": "Custom Fields",
-    "timeTracking": "Time Tracking",
-    "dashboards": "Dashboards",
-    "forms": "Forms",
-    "reminders": "Reminders",
-    "collaboration": "Collaboration",
-    "integrations": "Integrations",
-    "smartSearch": "Smart Search",
-    "ganttCharts": "Gantt Charts",
-    "tags": "Tags",
-    "emails": "Emails",
-    "proofing": "Proofing",
-    "templates": "Templates",
-    "guests": "Guests",
-    "support24_7": "24/7 Support",
-    "teams": "Teams",
-    "roadmaps": "Roadmaps",
-    "spreadsheets": "Spreadsheets"
+    "tasks": "작업",
+    "kanbanBoards": "칸반 보드",
+    "docs": "문서",
+    "aiAssistant": "AI 어시스턴트",
+    "calendar": "캘린더",
+    "chat": "채팅",
+    "videoCalls": "화상통화",
+    "files": "파일",
+    "projects": "프로젝트",
+    "reporting": "보고",
+    "goals": "목표",
+    "automations": "자동화",
+    "customFields": "커스텀 필드",
+    "timeTracking": "시간 추적",
+    "dashboards": "대시보드",
+    "forms": "양식",
+    "reminders": "알림",
+    "collaboration": "협업",
+    "integrations": "통합",
+    "smartSearch": "스마트 검색",
+    "ganttCharts": "간트 차트",
+    "tags": "태그",
+    "emails": "이메일",
+    "proofing": "교정",
+    "templates": "템플릿",
+    "guests": "게스트",
+    "support24_7": "24/7 지원",
+    "teams": "팀",
+    "roadmaps": "로드맵",
+    "spreadsheets": "스프레드시트"
   },
   "workBroken": {
     "badge": "Replace 10+ SaaS tools with one platform",
@@ -3724,40 +3724,40 @@
     }
   },
   "footer": {
-    "tagline": "The all-in-one workspace platform that brings your team's projects, docs, and conversations together.",
-    "beta": "BETA",
+    "tagline": "팀의 프로젝트, 문서 및 대화를 하나로 모아주는 올인원 워크스페이스 플랫폼.",
+    "beta": "베타",
     "sections": {
-      "products": "Products",
-      "company": "Company",
-      "legal": "Legal"
+      "products": "제품",
+      "company": "회사",
+      "legal": "법률"
     },
     "products": {
-      "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "videoCalls": "Video Calls"
+      "chat": "채팅",
+      "projects": "프로젝트",
+      "files": "파일",
+      "calendar": "캘린더",
+      "notes": "노트",
+      "videoCalls": "화상통화"
     },
     "company": {
-      "pricing": "Pricing",
-      "contact": "Contact"
+      "pricing": "가격",
+      "contact": "문의"
     },
     "legal": {
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "cookies": "Cookies",
-      "sitemap": "Sitemap",
-      "dataDeletion": "Data Deletion"
+      "privacy": "개인정보",
+      "terms": "약관",
+      "cookies": "쿠키",
+      "sitemap": "사이트맵",
+      "dataDeletion": "데이터 삭제"
     },
     "newsletter": {
-      "title": "Stay in the loop",
-      "description": "Get the latest updates, news, and exclusive offers delivered to your inbox.",
-      "placeholder": "Enter your email",
-      "button": "Subscribe"
+      "title": "최신 소식 받기",
+      "description": "최신 업데이트, 뉴스 및 독점 혜택을 받으세요.",
+      "placeholder": "이메일을 입력하세요",
+      "button": "구독"
     },
     "copyright": "© {year} Deskive. All rights reserved.",
-    "madeWith": "Made with ❤️ for teams everywhere"
+    "madeWith": "전 세계 팀을 위해 ❤️로 제작"
   },
   "downloads": {
     "badge": "Available Now",
@@ -5141,199 +5141,199 @@
   },
   "cta": {
     "readyToStart": {
-      "title": "Ready to get started?",
-      "subtitle": "Join thousands of teams already using Deskive to collaborate better and get more done.",
-      "button": "Get started for free",
+      "title": "시작할 준비가 되셨나요?",
+      "subtitle": "이미 Deskive를 사용하는 수천 팀에 합류하세요.",
+      "button": "무료로 시작하기",
       "features": [
-        "Free 14-day trial",
-        "No credit card required",
-        "Cancel anytime",
-        "Setup in 5 minutes"
+        "14일 무료 체험",
+        "신용카드 불필요",
+        "언제든 취소 가능",
+        "5분 만에 설정"
       ]
     },
-    "setupMinutes": "Setup in 5 minutes"
+    "setupMinutes": "5분 만에 설정"
   },
   "pricing": {
     "meta": {
-      "title": "Pricing Plans - Simple, Transparent, Affordable",
-      "description": "Choose the perfect Deskive plan for your team. Free tier available. Paid plans start at $29/month. All features included. No hidden fees. 14-day free trial.",
-      "keywords": "pricing, plans, cost, free trial, workspace pricing, team collaboration pricing"
+      "title": "요금제 - 간단하고 투명하며 합리적",
+      "description": "팀에 완벽한 Deskive 요금제를 선택하세요.",
+      "keywords": "가격, 요금제, 비용, 무료 체험"
     },
     "header": {
-      "badge": "Simple Pricing",
-      "title": "Choose Your",
-      "titleHighlight": "Plan",
-      "subtitle": "Start free and scale as you grow. No hidden fees, no surprises.",
-      "subtitleBold": "14-day free trial on all paid plans."
+      "badge": "간편한 가격",
+      "title": "선택하세요",
+      "titleHighlight": "요금제",
+      "subtitle": "무료로 시작하고 성장에 따라 확장하세요.",
+      "subtitleBold": "모든 유료 요금제 14일 무료 체험."
     },
     "promo": {
-      "limitedTime": "Limited Time Offer",
-      "twoMonthsFree": "Get 2 Months Free with Annual Plans",
-      "bestValue": "🎉 Best Value",
-      "joinThousands": "Join thousands of teams already using Deskive. Start free, upgrade anytime."
+      "limitedTime": "한정 특가",
+      "twoMonthsFree": "연간 요금제로 2개월 무료",
+      "bestValue": "🎉 최고의 가치",
+      "joinThousands": "이미 Deskive를 사용하는 수천 팀에 합류하세요."
     },
     "billing": {
-      "monthly": "Monthly",
-      "annual": "Annual",
-      "twoMonthsFree": "2 months free",
-      "save": "Save 17%",
-      "perMo": "/mo",
-      "perMonth": "per month",
-      "perYear": "/year",
-      "forever": "forever",
-      "contactSales": "contact sales"
+      "monthly": "월간",
+      "annual": "연간",
+      "twoMonthsFree": "2개월 무료",
+      "save": "17% 절약",
+      "perMo": "/월",
+      "perMonth": "월간",
+      "perYear": "/년",
+      "forever": "영구",
+      "contactSales": "영업팀 문의"
     },
-    "trustedBy": "Trusted by teams worldwide",
+    "trustedBy": "전 세계 팀들이 신뢰",
     "features": {
-      "freeTrial": "14-day free trial",
-      "noCreditCard": "No credit card required",
-      "cancelAnytime": "Cancel anytime"
+      "freeTrial": "14일 무료 체험",
+      "noCreditCard": "신용카드 불필요",
+      "cancelAnytime": "언제든 취소 가능"
     },
     "loading": {
-      "text": "Loading pricing plans..."
+      "text": "요금제 로딩 중..."
     },
     "error": {
-      "text": "Showing default pricing plans."
+      "text": "기본 요금제를 표시합니다."
     },
     "plans": {
       "free": {
-        "name": "Free",
+        "name": "무료",
         "price": "$0",
-        "period": "forever",
-        "description": "Perfect for individuals and small teams getting started",
-        "buttonText": "Get Started",
+        "period": "영구",
+        "description": "시작하는 개인 및 소규모 팀에 적합",
+        "buttonText": "시작하기",
         "features": [
-          "5 team members",
-          "1 GB storage",
-          "Basic chat & messaging",
-          "Basic file sharing",
-          "Mobile app access",
-          "Community support",
-          "Basic integrations",
-          "2FA authentication"
+          "5명의 팀원",
+          "1 GB 스토리지",
+          "기본 채팅 및 메시징",
+          "기본 파일 공유",
+          "모바일 앱 접근",
+          "커뮤니티 지원",
+          "기본 통합",
+          "2FA 인증"
         ],
         "notIncluded": [
-          "Advanced integrations",
-          "Priority support",
-          "Custom branding",
-          "Advanced analytics",
-          "API access",
-          "Data export"
+          "고급 통합",
+          "우선 지원",
+          "커스텀 브랜딩",
+          "고급 분석",
+          "API 접근",
+          "데이터 내보내기"
         ]
       },
       "starter": {
-        "name": "Starter",
+        "name": "스타터",
         "price": "$9.99",
         "yearlyPrice": "$99.99",
-        "period": "per month",
-        "description": "Ideal for growing teams that need more power",
-        "buttonText": "Get Started",
+        "period": "월간",
+        "description": "더 많은 기능이 필요한 성장하는 팀에 이상적",
+        "buttonText": "시작하기",
         "features": [
-          "25 team members",
-          "25 GB storage",
-          "Advanced chat with threads",
-          "Video calls (up to 10 participants)",
-          "Project management tools",
-          "Calendar integration",
-          "Email support",
-          "API access",
-          "Custom integrations (5)",
-          "Basic analytics",
-          "Data export (CSV)",
-          "Guest access"
+          "25명의 팀원",
+          "25 GB 스토리지",
+          "스레드가 있는 고급 채팅",
+          "화상통화 (최대 10명)",
+          "프로젝트 관리 도구",
+          "캘린더 통합",
+          "이메일 지원",
+          "API 접근",
+          "커스텀 통합 (5개)",
+          "기본 분석",
+          "데이터 내보내기 (CSV)",
+          "게스트 접근"
         ],
         "notIncluded": [
-          "SSO authentication",
-          "Advanced security features",
-          "Unlimited integrations",
-          "24/7 phone support"
+          "SSO 인증",
+          "고급 보안 기능",
+          "무제한 통합",
+          "24/7 전화 지원"
         ]
       },
       "professional": {
-        "name": "Professional",
+        "name": "프로페셔널",
         "price": "$19.99",
         "yearlyPrice": "$199.99",
-        "period": "per month",
-        "description": "Complete solution for professional teams",
-        "buttonText": "Get Started",
-        "badge": "Most Popular",
+        "period": "월간",
+        "description": "전문 팀을 위한 완전한 솔루션",
+        "buttonText": "시작하기",
+        "badge": "가장 인기",
         "features": [
-          "100 team members",
-          "100 GB storage",
-          "Unlimited video calls",
-          "Advanced project management",
-          "AI-powered features",
-          "Custom integrations (unlimited)",
-          "Advanced analytics & reporting",
-          "Priority support",
-          "Data export (all formats)",
-          "99.9% uptime SLA",
-          "Advanced security features",
-          "Custom workflows",
-          "Time tracking & billing",
-          "Resource management"
+          "100명의 팀원",
+          "100 GB 스토리지",
+          "무제한 화상통화",
+          "고급 프로젝트 관리",
+          "AI 기반 기능",
+          "커스텀 통합 (무제한)",
+          "고급 분석 및 보고",
+          "우선 지원",
+          "데이터 내보내기 (모든 형식)",
+          "99.9% 가동시간 SLA",
+          "고급 보안 기능",
+          "커스텀 워크플로",
+          "시간 추적 및 청구",
+          "리소스 관리"
         ]
       },
       "enterprise": {
-        "name": "Enterprise",
+        "name": "엔터프라이즈",
         "price": "$49.99",
         "yearlyPrice": "$499.99",
-        "period": "per month",
-        "description": "Tailored solutions for large organizations",
-        "buttonText": "Get Started",
+        "period": "월간",
+        "description": "대규모 조직을 위한 맞춤형 솔루션",
+        "buttonText": "시작하기",
         "features": [
-          "Unlimited team members",
-          "1 TB+ storage",
-          "Enterprise SSO (SAML, OAuth)",
-          "Advanced security & compliance",
-          "Custom AI training",
-          "Dedicated account manager",
-          "Custom integrations & API",
-          "24/7 phone support",
-          "On-premise deployment option",
-          "Custom contracts & SLA",
-          "Audit logs & compliance",
-          "Advanced user permissions",
-          "White-label options",
-          "Priority feature requests",
-          "Training & onboarding"
+          "무제한 팀원",
+          "1 TB+ 스토리지",
+          "엔터프라이즈 SSO (SAML, OAuth)",
+          "고급 보안 및 규정 준수",
+          "커스텀 AI 훈련",
+          "전담 계정 관리자",
+          "커스텀 통합 및 API",
+          "24/7 전화 지원",
+          "온프레미스 배포 옵션",
+          "커스텀 계약 및 SLA",
+          "감사 로그 및 규정 준수",
+          "고급 사용자 권한",
+          "화이트라벨 옵션",
+          "우선 기능 요청",
+          "교육 및 온보딩"
         ]
       }
     },
     "faq": {
-      "badge": "Got questions?",
-      "title": "Frequently Asked",
-      "titleHighlight": "Questions",
-      "subtitle": "Have questions? We have answers. If you can't find what you're looking for, our support team is here to help.",
+      "badge": "질문이 있으신가요?",
+      "title": "자주 묻는",
+      "titleHighlight": "질문",
+      "subtitle": "질문이 있으신가요? 답변이 준비되어 있습니다.",
       "questions": [
         {
-          "question": "Can I change my plan later?",
-          "answer": "Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll be charged the prorated difference. When downgrading, you'll receive credit for the unused portion."
+          "question": "나중에 요금제를 변경할 수 있나요?",
+          "answer": "네, 언제든지 요금제를 업그레이드하거나 다운그레이드할 수 있습니다."
         },
         {
-          "question": "What payment methods do you accept?",
-          "answer": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and wire transfers for Enterprise plans. All payments are processed securely through Stripe."
+          "question": "어떤 결제 수단을 지원하나요?",
+          "answer": "모든 주요 신용카드, PayPal 및 계좌이체를 지원합니다."
         },
         {
-          "question": "Is there a free trial?",
-          "answer": "Yes! All paid plans come with a 14-day free trial. No credit card required to start. You can explore all features and cancel anytime during the trial period."
+          "question": "무료 체험이 있나요?",
+          "answer": "네! 모든 유료 요금제에 14일 무료 체험이 포함됩니다."
         },
         {
-          "question": "What happens to my data if I cancel?",
-          "answer": "Your data remains accessible for 30 days after cancellation. You can export all your data at any time. After 30 days, data is permanently deleted in accordance with our privacy policy."
+          "question": "취소하면 내 데이터는 어떻게 되나요?",
+          "answer": "취소 후 30일 동안 데이터에 접근할 수 있습니다."
         },
         {
-          "question": "Do you offer discounts for non-profits or education?",
-          "answer": "Yes, we offer 50% discount for registered non-profits and educational institutions. Contact our sales team with proof of status to apply for the discount."
+          "question": "비영리 단체에 할인을 제공하나요?",
+          "answer": "네, 50% 할인을 제공합니다."
         },
         {
-          "question": "Can I get a refund?",
-          "answer": "We offer a 30-day money-back guarantee for all new subscriptions. If you're not satisfied within the first 30 days, we'll provide a full refund, no questions asked."
+          "question": "환불 받을 수 있나요?",
+          "answer": "30일 환불 보장을 제공합니다."
         }
       ],
       "contact": {
-        "text": "Still have questions?",
-        "buttonText": "Contact Sales Team"
+        "text": "아직 질문이 있으신가요?",
+        "buttonText": "영업팀 문의"
       }
     }
   },
@@ -5557,134 +5557,134 @@
     }
   },
   "contact": {
-    "badge": "Get in touch",
-    "title": "We'd love to hear from you",
-    "subtitle": "Have questions or feedback? Our team is here to help. Send us a message and we'll respond within 24 hours.",
+    "badge": "문의하기",
+    "title": "여러분의 의견을 듣고 싶습니다",
+    "subtitle": "질문이나 피드백이 있으신가요? 우리 팀이 도와드리겠습니다.",
     "form": {
-      "name": "Name",
-      "namePlaceholder": "Your full name",
-      "nameRequired": "Name is required",
-      "email": "Email",
+      "name": "이름",
+      "namePlaceholder": "전체 이름",
+      "nameRequired": "이름은 필수입니다",
+      "email": "이메일",
       "emailPlaceholder": "your@email.com",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Invalid email address",
-      "company": "Company",
-      "companyPlaceholder": "Your company name",
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project or question...",
-      "messageRequired": "Message is required",
-      "submit": "Send Message",
-      "submitting": "Sending...",
-      "success": "Message sent successfully!",
-      "error": "Failed to send message. Please try again.",
-      "subject": "Subject",
-      "selectTopic": "Select a topic",
-      "subjectGeneral": "General Inquiry",
-      "subjectSales": "Sales",
-      "subjectSupport": "Support",
-      "subjectPartnership": "Partnership",
-      "subjectOther": "Other"
+      "emailRequired": "이메일은 필수입니다",
+      "emailInvalid": "유효하지 않은 이메일 주소",
+      "company": "회사",
+      "companyPlaceholder": "회사명",
+      "message": "메시지",
+      "messagePlaceholder": "프로젝트나 질문에 대해 알려주세요...",
+      "messageRequired": "메시지는 필수입니다",
+      "submit": "메시지 보내기",
+      "submitting": "전송 중...",
+      "success": "메시지가 성공적으로 전송되었습니다!",
+      "error": "메시지 전송에 실패했습니다.",
+      "subject": "제목",
+      "selectTopic": "주제를 선택하세요",
+      "subjectGeneral": "일반 문의",
+      "subjectSales": "영업",
+      "subjectSupport": "지원",
+      "subjectPartnership": "파트너십",
+      "subjectOther": "기타"
     }
   },
   "featureHighlights": {
-    "badge": "FEATURES",
-    "title": "Every feature your team needs",
-    "titleHighlight": "to complete work faster",
-    "subtitle": "Essential features to take productivity to the next level.",
+    "badge": "기능",
+    "title": "팀에 필요한 모든 기능",
+    "titleHighlight": "더 빠르게 작업 완료",
+    "subtitle": "생산성을 한 단계 높이는 필수 기능.",
     "features": {
-      "tasks": "Tasks",
-      "kanbanBoards": "Kanban Boards",
-      "docs": "Docs",
-      "aiAssistant": "AI Assistant",
-      "calendar": "Calendar",
-      "chat": "Chat",
-      "videoCalls": "Video Calls",
-      "files": "Files",
-      "projects": "Projects",
-      "reporting": "Reporting",
-      "goals": "Goals",
-      "automations": "Automations",
-      "customFields": "Custom Fields",
-      "timeTracking": "Time Tracking",
-      "dashboards": "Dashboards",
-      "forms": "Forms",
-      "reminders": "Reminders",
-      "collaboration": "Collaboration"
+      "tasks": "작업",
+      "kanbanBoards": "칸반 보드",
+      "docs": "문서",
+      "aiAssistant": "AI 어시스턴트",
+      "calendar": "캘린더",
+      "chat": "채팅",
+      "videoCalls": "화상통화",
+      "files": "파일",
+      "projects": "프로젝트",
+      "reporting": "보고",
+      "goals": "목표",
+      "automations": "자동화",
+      "customFields": "커스텀 필드",
+      "timeTracking": "시간 추적",
+      "dashboards": "대시보드",
+      "forms": "양식",
+      "reminders": "알림",
+      "collaboration": "협업"
     }
   },
   "auth": {
     "login": {
-      "title": "Welcome back",
-      "subtitle": "Sign in to your Deskive account",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
-      "signIn": "Sign In",
-      "signingIn": "Signing in...",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "orSignInWith": "Or sign in with email",
-      "twoFactorCode": "Two-Factor Authentication Code",
-      "twoFactorPlaceholder": "Enter your 2FA code"
+      "title": "다시 오신 것을 환영합니다",
+      "subtitle": "Deskive 계정에 로그인",
+      "email": "이메일 주소",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "password": "비밀번호",
+      "passwordPlaceholder": "비밀번호를 입력하세요",
+      "rememberMe": "로그인 유지",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "signIn": "로그인",
+      "signingIn": "로그인 중...",
+      "noAccount": "계정이 없으신가요?",
+      "signUp": "무료로 가입하기",
+      "orSignInWith": "또는 이메일로 로그인",
+      "twoFactorCode": "2단계 인증 코드",
+      "twoFactorPlaceholder": "2FA 코드를 입력하세요"
     },
     "register": {
-      "title": "Create Account",
-      "subtitle": "Join and start collaborating",
-      "name": "Full name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Create a strong password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "orSignUpWith": "Or sign up with email",
-      "agree": "I agree to the",
-      "terms": "Terms of Service",
-      "and": "and",
-      "privacy": "Privacy Policy",
-      "createAccount": "Create Account",
-      "creatingAccount": "Creating account...",
-      "haveAccount": "Already have an account?",
-      "signIn": "Sign in here"
+      "title": "계정 만들기",
+      "subtitle": "가입하고 협업을 시작하세요",
+      "name": "전체 이름",
+      "namePlaceholder": "전체 이름을 입력하세요",
+      "email": "이메일 주소",
+      "emailPlaceholder": "이메일을 입력하세요",
+      "password": "비밀번호",
+      "passwordPlaceholder": "강력한 비밀번호를 만드세요",
+      "passwordHint": "비밀번호는 8자 이상이어야 합니다",
+      "orSignUpWith": "또는 이메일로 가입",
+      "agree": "다음에 동의합니다",
+      "terms": "서비스 약관",
+      "and": "및",
+      "privacy": "개인정보 처리방침",
+      "createAccount": "계정 만들기",
+      "creatingAccount": "계정 생성 중...",
+      "haveAccount": "이미 계정이 있으신가요?",
+      "signIn": "여기서 로그인"
     },
     "forgotPassword": {
-      "title": "Forgot Password?",
-      "subtitle": "Enter your email address and we'll send you a link to reset your password",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email address",
-      "sendLink": "Send Reset Email",
-      "sendingLink": "Sending Reset Email...",
-      "backToLogin": "Back to Sign In",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "success": "Check Your Email",
-      "successMessage": "We've sent a password reset link to your email address",
-      "checkInbox": "Please check your inbox and click the link to reset your password.",
-      "noEmail": "Didn't receive the email? Check your spam folder or try again.",
-      "sendAnother": "Send Another Email"
+      "title": "비밀번호를 잊으셨나요?",
+      "subtitle": "이메일 주소를 입력하시면 비밀번호 재설정 링크를 보내드립니다",
+      "email": "이메일 주소",
+      "emailPlaceholder": "이메일 주소를 입력하세요",
+      "sendLink": "재설정 이메일 보내기",
+      "sendingLink": "재설정 이메일 전송 중...",
+      "backToLogin": "로그인으로 돌아가기",
+      "noAccount": "계정이 없으신가요?",
+      "signUp": "무료로 가입하기",
+      "success": "이메일을 확인하세요",
+      "successMessage": "비밀번호 재설정 링크를 이메일 주소로 보냈습니다",
+      "checkInbox": "받은 편지함을 확인하고 링크를 클릭하여 비밀번호를 재설정하세요.",
+      "noEmail": "이메일을 받지 못하셨나요? 스팸 폴더를 확인하거나 다시 시도해 주세요.",
+      "sendAnother": "다른 이메일 보내기"
     },
     "resetPassword": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter your new password below",
-      "password": "New Password",
-      "passwordPlaceholder": "Enter your new password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "confirmPassword": "Confirm New Password",
-      "confirmPasswordPlaceholder": "Confirm your new password",
-      "reset": "Reset Password",
-      "resetting": "Resetting Password...",
-      "backToLogin": "Back to Sign In",
-      "rememberPassword": "Remember your password?",
-      "signIn": "Sign in here",
-      "success": "Password Reset Complete",
-      "successMessage": "Your password has been successfully reset",
-      "redirectMessage": "You will be redirected to the sign-in page shortly.",
-      "continueSignIn": "Continue to Sign In",
-      "invalidToken": "Invalid or missing reset token. Please request a new password reset.",
-      "passwordMismatch": "Passwords do not match"
+      "title": "비밀번호 재설정",
+      "subtitle": "아래에 새 비밀번호를 입력하세요",
+      "password": "새 비밀번호",
+      "passwordPlaceholder": "새 비밀번호를 입력하세요",
+      "passwordHint": "비밀번호는 8자 이상이어야 합니다",
+      "confirmPassword": "새 비밀번호 확인",
+      "confirmPasswordPlaceholder": "새 비밀번호를 확인하세요",
+      "reset": "비밀번호 재설정",
+      "resetting": "비밀번호 재설정 중...",
+      "backToLogin": "로그인으로 돌아가기",
+      "rememberPassword": "비밀번호를 기억하시나요?",
+      "signIn": "여기서 로그인",
+      "success": "비밀번호 재설정 완료",
+      "successMessage": "비밀번호가 성공적으로 재설정되었습니다",
+      "redirectMessage": "곧 로그인 페이지로 리디렉션됩니다.",
+      "continueSignIn": "로그인으로 계속",
+      "invalidToken": "유효하지 않거나 누락된 재설정 토큰입니다.",
+      "passwordMismatch": "비밀번호가 일치하지 않습니다"
     }
   },
   "company": {
@@ -7287,34 +7287,34 @@
     }
   },
   "tasks": {
-    "total": "Total",
-    "done": "Done",
-    "pending": "Pending",
-    "boardView": "Board View",
-    "listView": "List View",
-    "timelineView": "Timeline View",
-    "ganttChart": "Gantt Chart",
-    "teamView": "Team View",
-    "addTask": "Add Task",
-    "viewOptions": "View Options",
-    "changeView": "Change View",
-    "searchTasks": "Search tasks...",
-    "priority": "Priority",
-    "all": "All",
-    "low": "Low",
-    "medium": "Medium",
-    "high": "High",
-    "loadingTasks": "Loading tasks...",
-    "columnSettings": "Column Settings",
-    "noTasks": "No tasks",
-    "editTask": "Edit Task",
-    "deleteTask": "Delete Task",
-    "deleteTaskTitle": "Delete Task",
-    "deleteTaskConfirm": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
-    "taskDeleted": "Task Deleted",
-    "taskDeletedSuccess": "\"{title}\" has been deleted successfully.",
-    "deleting": "Deleting...",
-    "tasksCount": "{count} tasks"
+    "total": "전체",
+    "done": "완료",
+    "pending": "대기 중",
+    "boardView": "보드 뷰",
+    "listView": "리스트 뷰",
+    "timelineView": "타임라인 뷰",
+    "ganttChart": "간트 차트",
+    "teamView": "팀 뷰",
+    "addTask": "작업 추가",
+    "viewOptions": "뷰 옵션",
+    "changeView": "뷰 변경",
+    "searchTasks": "작업 검색...",
+    "priority": "우선순위",
+    "all": "전체",
+    "low": "낮음",
+    "medium": "보통",
+    "high": "높음",
+    "loadingTasks": "작업 로딩 중...",
+    "columnSettings": "컬럼 설정",
+    "noTasks": "작업 없음",
+    "editTask": "작업 편집",
+    "deleteTask": "작업 삭제",
+    "deleteTaskTitle": "작업 삭제",
+    "deleteTaskConfirm": "\"{title}\"을(를) 삭제하시겠습니까?",
+    "taskDeleted": "작업 삭제됨",
+    "taskDeletedSuccess": "\"{title}\"이(가) 삭제되었습니다.",
+    "deleting": "삭제 중...",
+    "tasksCount": "{count}개 작업"
   },
   "settings": {
     "profile": {
@@ -7705,27 +7705,27 @@
     }
   },
   "sidebar": {
-    "dashboard": "Dashboard",
-    "chat": "Chat",
-    "projects": "Projects",
-    "files": "Files",
-    "calendar": "Calendar",
-    "videoCalls": "Video Calls",
-    "notes": "Notes",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "integrations": "Integrations",
+    "dashboard": "대시보드",
+    "chat": "채팅",
+    "projects": "프로젝트",
+    "files": "파일",
+    "calendar": "캘린더",
+    "videoCalls": "화상통화",
+    "notes": "노트",
+    "analytics": "분석",
+    "monitoring": "모니터링",
+    "integrations": "통합",
     "settings": {
-      "title": "Settings",
-      "profile": "Profile",
-      "security": "Security",
-      "notifications": "Notifications",
-      "team": "Team",
-      "billing": "Billing",
-      "billingBadge": "Important",
-      "workspaceSection": "WORKSPACE",
-      "workspace": "Workspace Settings",
-      "feedback": "Feedback"
+      "title": "설정",
+      "profile": "프로필",
+      "security": "보안",
+      "notifications": "알림",
+      "team": "팀",
+      "billing": "결제",
+      "billingBadge": "중요",
+      "workspaceSection": "워크스페이스",
+      "workspace": "워크스페이스 설정",
+      "feedback": "피드백"
     }
   },
   "admin": {
@@ -7816,53 +7816,53 @@
     }
   },
   "notifications": {
-    "title": "Notifications",
-    "markAllRead": "Mark all as read",
-    "clearRead": "Clear read",
+    "title": "알림",
+    "markAllRead": "모두 읽음으로 표시",
+    "clearRead": "읽음 삭제",
     "tabs": {
-      "all": "All",
-      "unread": "Unread",
-      "read": "Read"
+      "all": "전체",
+      "unread": "읽지 않음",
+      "read": "읽음"
     },
     "empty": {
-      "title": "No notifications",
-      "message": "You're all caught up!"
+      "title": "알림 없음",
+      "message": "모두 확인했습니다!"
     },
-    "loading": "Loading...",
-    "loadMore": "Load more",
-    "noNotifications": "No notifications",
-    "viewAll": "View all notifications",
-    "markAllAsRead": "Mark all as read",
-    "justNow": "Just now"
+    "loading": "로딩 중...",
+    "loadMore": "더 보기",
+    "noNotifications": "알림 없음",
+    "viewAll": "모든 알림 보기",
+    "markAllAsRead": "모두 읽음으로 표시",
+    "justNow": "방금"
   },
   "modals": {
     "deleteConfirmation": {
-      "title": "Delete Item",
-      "description": "Are you sure you want to delete this item? This action cannot be undone.",
-      "descriptionWithName": "Are you sure you want to delete \"{itemName}\"? This action cannot be undone.",
-      "deleting": "Deleting..."
+      "title": "항목 삭제",
+      "description": "이 항목을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+      "descriptionWithName": "\"{itemName}\"을(를) 삭제하시겠습니까?",
+      "deleting": "삭제 중..."
     }
   },
   "members": {
-    "workload": "Workload",
-    "utilization": "Utilization",
-    "projects": "Projects",
-    "currentProjects": "Current Projects",
-    "you": "You",
-    "online": "Online",
-    "skills": "Skills"
+    "workload": "업무량",
+    "utilization": "활용도",
+    "projects": "프로젝트",
+    "currentProjects": "현재 프로젝트",
+    "you": "나",
+    "online": "온라인",
+    "skills": "스킬"
   },
   "roles": {
-    "label": "Role",
-    "allRoles": "All Roles",
-    "owner": "Owner",
-    "admin": "Admin",
-    "member": "Member",
-    "viewer": "Viewer",
-    "developer": "Developer",
-    "designer": "Designer",
-    "qaEngineer": "QA Engineer",
-    "cannotChangeOwner": "Cannot change owner role"
+    "label": "역할",
+    "allRoles": "모든 역할",
+    "owner": "소유자",
+    "admin": "관리자",
+    "member": "멤버",
+    "viewer": "뷰어",
+    "developer": "개발자",
+    "designer": "디자이너",
+    "qaEngineer": "QA 엔지니어",
+    "cannotChangeOwner": "소유자 역할을 변경할 수 없습니다"
   },
   "invites": {
     "loading": "Loading invitations...",

@@ -1,417 +1,417 @@
 {
   "common": {
-    "loading": "Loading...",
+    "loading": "Cargando...",
     "error": "Error",
-    "save": "Save",
-    "saving": "Saving...",
-    "saveChanges": "Save Changes",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "delete": "Delete",
-    "edit": "Edit",
-    "and": "and",
-    "explore": "Explore {feature}",
-    "goBack": "Go Back",
-    "back": "Back",
-    "redirecting": "Redirecting...",
-    "search": "Search...",
-    "signOut": "Sign out",
-    "logOut": "Log out",
-    "profile": "Profile",
-    "settings": "Settings",
-    "new": "New",
-    "filters": "Filters",
-    "retry": "Retry",
-    "tryAgain": "Try Again",
-    "exploreFeatures": "Explore Features",
-    "active": "Active",
-    "inactive": "Inactive"
+    "save": "Guardar",
+    "saving": "Guardando...",
+    "saveChanges": "Guardar cambios",
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "and": "y",
+    "explore": "Explorar {feature}",
+    "goBack": "Volver",
+    "back": "Atrás",
+    "redirecting": "Redirigiendo...",
+    "search": "Buscar...",
+    "signOut": "Cerrar sesión",
+    "logOut": "Cerrar sesión",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "new": "Nuevo",
+    "filters": "Filtros",
+    "retry": "Reintentar",
+    "tryAgain": "Intentar de nuevo",
+    "exploreFeatures": "Explorar funciones",
+    "active": "Activo",
+    "inactive": "Inactivo"
   },
   "support": {
-    "title": "Help & Support",
-    "description": "Get help with Deskive, find answers to common questions, or contact our support team.",
-    "searchPlaceholder": "Search for help articles, FAQs, or topics...",
+    "title": "Ayuda y soporte",
+    "description": "Obtenga ayuda con Deskive, encuentre respuestas a preguntas frecuentes o contacte a nuestro equipo de soporte.",
+    "searchPlaceholder": "Buscar artículos de ayuda, preguntas frecuentes o temas...",
     "liveChat": {
-      "title": "Live Chat",
-      "description": "Chat with our support team in real-time for immediate assistance.",
-      "action": "Start Chat"
+      "title": "Chat en vivo",
+      "description": "Chatee con nuestro equipo de soporte en tiempo real para asistencia inmediata.",
+      "action": "Iniciar chat"
     },
     "email": {
-      "title": "Email Support",
-      "description": "Send us an email and we'll get back to you within 24 hours.",
-      "action": "Send Email"
+      "title": "Soporte por correo",
+      "description": "Envíenos un correo electrónico y le responderemos en 24 horas.",
+      "action": "Enviar correo"
     },
     "documentation": {
-      "title": "Documentation",
-      "description": "Browse our comprehensive guides and documentation.",
-      "action": "View Docs"
+      "title": "Documentación",
+      "description": "Explore nuestras guías completas y documentación.",
+      "action": "Ver documentos"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
-      "description": "Find quick answers to common questions about Deskive.",
-      "noResults": "No FAQs match your search. Try a different query.",
+      "title": "Preguntas frecuentes",
+      "description": "Encuentre respuestas rápidas a preguntas comunes sobre Deskive.",
+      "noResults": "Ninguna pregunta frecuente coincide con su búsqueda.",
       "gettingStarted": {
-        "question": "How do I get started with Deskive?",
-        "answer": "Getting started is easy! After signing up, create a workspace for your team. Then invite your team members via email. You can start using Chat for communication, Projects for task management, Files for document storage, Calendar for scheduling, Notes for documentation, and Video Calls for meetings."
+        "question": "¿Cómo empiezo con Deskive?",
+        "answer": "¡Comenzar es fácil! Después de registrarse, cree un espacio de trabajo para su equipo. Luego invite a los miembros de su equipo por correo electrónico."
       },
       "inviteMembers": {
-        "question": "How do I invite team members to my workspace?",
-        "answer": "Go to Settings > Team Management in your workspace. Click 'Invite Members' and enter the email addresses of the people you want to invite. They'll receive an invitation email with a link to join your workspace."
+        "question": "¿Cómo invito a miembros del equipo?",
+        "answer": "Vaya a Configuración > Gestión de equipo. Haga clic en 'Invitar miembros' e ingrese las direcciones de correo."
       },
       "fileStorage": {
-        "question": "How much file storage do I get?",
-        "answer": "Storage limits depend on your plan. Free plans include 5GB of storage per workspace. Pro plans offer 100GB, and Enterprise plans provide unlimited storage. You can view your current usage in Settings > Workspace."
+        "question": "¿Cuánto almacenamiento de archivos tengo?",
+        "answer": "Los límites de almacenamiento dependen de su plan. Los planes gratuitos incluyen 5GB por espacio de trabajo."
       },
       "videoCall": {
-        "question": "How do I start a video call?",
-        "answer": "Navigate to Video Calls in the left sidebar. Click 'New Meeting' to start an instant call, or schedule a meeting for later. You can invite participants by sharing the meeting link or by selecting team members directly."
+        "question": "¿Cómo inicio una videollamada?",
+        "answer": "Navegue a Videollamadas en la barra lateral izquierda. Haga clic en 'Nueva reunión' para iniciar una llamada instantánea."
       },
       "security": {
-        "question": "How secure is my data on Deskive?",
-        "answer": "Your data security is our top priority. We use end-to-end encryption for video calls, AES-256 encryption for stored files, and TLS 1.3 for all data in transit. We're SOC 2 Type II certified and GDPR compliant."
+        "question": "¿Qué tan seguros están mis datos?",
+        "answer": "La seguridad de sus datos es nuestra máxima prioridad. Utilizamos cifrado de extremo a extremo, AES-256 y TLS 1.3."
       },
       "billing": {
-        "question": "How does billing work?",
-        "answer": "Deskive offers monthly and annual billing options. Annual plans save you 20%. You can upgrade, downgrade, or cancel your plan at any time from Settings > Billing. Changes take effect at the start of your next billing cycle."
+        "question": "¿Cómo funciona la facturación?",
+        "answer": "Deskive ofrece opciones de facturación mensual y anual. Los planes anuales le ahorran un 20%."
       }
     },
     "resources": {
-      "title": "Help Resources",
+      "title": "Recursos de ayuda",
       "tutorials": {
-        "title": "Video Tutorials",
-        "description": "Watch step-by-step video guides for all features"
+        "title": "Tutoriales en video",
+        "description": "Vea guías en video paso a paso"
       },
       "quickStart": {
-        "title": "Quick Start Guide",
-        "description": "Get up and running in minutes"
+        "title": "Guía de inicio rápido",
+        "description": "Comience a funcionar en minutos"
       },
       "apiDocs": {
-        "title": "API Documentation",
-        "description": "Integrate Deskive with your applications"
+        "title": "Documentación de API",
+        "description": "Integre Deskive con sus aplicaciones"
       }
     },
     "community": {
-      "title": "Community & Feedback",
+      "title": "Comunidad y comentarios",
       "forum": {
-        "title": "Community Forum",
-        "description": "Connect with other Deskive users"
+        "title": "Foro de la comunidad",
+        "description": "Conéctese con otros usuarios de Deskive"
       },
       "bugReport": {
-        "title": "Report a Bug",
-        "description": "Help us improve by reporting issues"
+        "title": "Reportar un error",
+        "description": "Ayúdenos a mejorar reportando problemas"
       },
       "featureRequest": {
-        "title": "Feature Requests",
-        "description": "Suggest new features and vote on ideas"
+        "title": "Solicitudes de funciones",
+        "description": "Sugiera nuevas funciones y vote por ideas"
       }
     },
     "status": {
-      "title": "All Systems Operational",
-      "description": "Deskive services are running normally",
-      "viewStatus": "View Status Page"
+      "title": "Todos los sistemas operativos",
+      "description": "Los servicios de Deskive funcionan con normalidad",
+      "viewStatus": "Ver página de estado"
     },
     "security": {
-      "title": "Security",
-      "description": "Report security vulnerabilities responsibly",
-      "contact": "Contact Security Team"
+      "title": "Seguridad",
+      "description": "Reporte vulnerabilidades de seguridad de manera responsable",
+      "contact": "Contactar al equipo de seguridad"
     },
     "contact": {
-      "title": "Contact Information",
-      "description": "Our support team is available Monday to Friday, 9am to 6pm EST.",
-      "emailLabel": "Email",
-      "liveChatLabel": "Live Chat",
-      "liveChatDescription": "Available 24/7 for immediate assistance",
-      "phoneLabel": "Phone Support",
-      "phoneDescription": "Available for Enterprise customers"
+      "title": "Información de contacto",
+      "description": "Nuestro equipo de soporte está disponible de lunes a viernes, de 9am a 6pm EST.",
+      "emailLabel": "Correo electrónico",
+      "liveChatLabel": "Chat en vivo",
+      "liveChatDescription": "Disponible 24/7 para asistencia inmediata",
+      "phoneLabel": "Soporte telefónico",
+      "phoneDescription": "Disponible para clientes Enterprise"
     },
     "seo": {
-      "title": "Help & Support - Deskive",
-      "description": "Get help with Deskive, find answers to common questions, or contact our support team."
+      "title": "Ayuda y soporte - Deskive",
+      "description": "Obtenga ayuda con Deskive."
     },
     "form": {
-      "title": "Submit a Support Request",
-      "name": "Your Name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email Address",
-      "emailPlaceholder": "Enter your email address",
-      "company": "Company (Optional)",
-      "companyPlaceholder": "Enter your company name",
-      "supportType": "What do you need help with?",
-      "supportTypePlaceholder": "Select support type",
+      "title": "Enviar solicitud de soporte",
+      "name": "Su nombre",
+      "namePlaceholder": "Ingrese su nombre completo",
+      "email": "Dirección de correo",
+      "emailPlaceholder": "Ingrese su dirección de correo",
+      "company": "Empresa (Opcional)",
+      "companyPlaceholder": "Ingrese el nombre de su empresa",
+      "supportType": "¿Con qué necesita ayuda?",
+      "supportTypePlaceholder": "Seleccione tipo de soporte",
       "supportTypes": {
-        "technical_issue": "Technical Issue",
-        "billing": "Billing Question",
-        "account": "Account Related",
-        "feature_request": "Feature Request",
-        "bug_report": "Bug Report",
-        "general": "General Question"
+        "technical_issue": "Problema técnico",
+        "billing": "Pregunta de facturación",
+        "account": "Relacionado con la cuenta",
+        "feature_request": "Solicitud de función",
+        "bug_report": "Reporte de error",
+        "general": "Pregunta general"
       },
-      "subject": "Subject",
-      "subjectPlaceholder": "Brief description of your issue",
-      "message": "Describe Your Issue",
-      "messagePlaceholder": "Please provide as much detail as possible about your issue or question. Include any error messages, steps to reproduce, or screenshots if applicable.",
-      "submit": "Submit Request",
-      "sending": "Sending...",
-      "successMessage": "Your support request has been submitted successfully. We'll get back to you soon!"
+      "subject": "Asunto",
+      "subjectPlaceholder": "Descripción breve de su problema",
+      "message": "Describa su problema",
+      "messagePlaceholder": "Proporcione la mayor cantidad de detalles posible sobre su problema o pregunta.",
+      "submit": "Enviar solicitud",
+      "sending": "Enviando...",
+      "successMessage": "¡Su solicitud de soporte ha sido enviada exitosamente!"
     },
     "responseTime": {
-      "title": "Expected Response Times",
-      "general": "General Questions",
-      "technical": "Technical Issues",
-      "critical": "Critical Issues"
+      "title": "Tiempos de respuesta esperados",
+      "general": "Preguntas generales",
+      "technical": "Problemas técnicos",
+      "critical": "Problemas críticos"
     }
   },
   "tutorial": {
     "seo": {
-      "title": "Video Tutorials - Learn Deskive",
-      "description": "Watch video tutorials to master all Deskive features including chat, projects, files, calendar, notes, and video calls."
+      "title": "Tutoriales en video - Aprenda Deskive",
+      "description": "Vea tutoriales en video para dominar todas las funciones de Deskive."
     },
     "header": {
-      "title": "Video",
-      "titleHighlight": "Tutorials",
-      "subtitle": "Learn how to use Deskive effectively with our comprehensive video guides"
+      "title": "Tutoriales",
+      "titleHighlight": "en video",
+      "subtitle": "Aprenda a usar Deskive eficazmente con nuestras guías completas en video"
     },
     "category": {
-      "all": "All Tutorials",
+      "all": "Todos los tutoriales",
       "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
+      "projects": "Proyectos",
+      "files": "Archivos",
+      "calendar": "Calendario",
+      "notes": "Notas",
       "video": "Video"
     },
     "chat": {
-      "title": "Getting Started with Chat",
-      "description": "Learn how to use team chat, channels, and direct messages"
+      "title": "Comenzar con el Chat",
+      "description": "Aprenda a usar el chat de equipo, canales y mensajes directos"
     },
     "projects": {
-      "title": "Project Management Basics",
-      "description": "Master Kanban boards, tasks, and project workflows"
+      "title": "Fundamentos de gestión de proyectos",
+      "description": "Domine tableros Kanban, tareas y flujos de trabajo"
     },
     "files": {
-      "title": "File Management Guide",
-      "description": "Organize, share, and collaborate on files"
+      "title": "Guía de gestión de archivos",
+      "description": "Organice, comparta y colabore en archivos"
     },
     "calendar": {
-      "title": "Calendar & Scheduling",
-      "description": "Schedule meetings and manage your time effectively"
+      "title": "Calendario y programación",
+      "description": "Programe reuniones y gestione su tiempo eficazmente"
     },
     "notes": {
-      "title": "Notes & Documentation",
-      "description": "Create rich notes and collaborate on documentation"
+      "title": "Notas y documentación",
+      "description": "Cree notas enriquecidas y colabore en documentación"
     },
     "video": {
-      "title": "Video Calls & Meetings",
-      "description": "Host HD video calls with screen sharing and recording"
+      "title": "Videollamadas y reuniones",
+      "description": "Realice videollamadas HD con pantalla compartida y grabación"
     },
     "empty": {
-      "title": "No Tutorials Found",
-      "description": "Try selecting a different category"
+      "title": "No se encontraron tutoriales",
+      "description": "Intente seleccionar una categoría diferente"
     }
   },
   "profile": {
     "settings": {
       "timezone": {
-        "label": "Timezone",
-        "placeholder": "Select your timezone",
-        "description": "Used for displaying times in your local timezone"
+        "label": "Zona horaria",
+        "placeholder": "Seleccione su zona horaria",
+        "description": "Usado para mostrar horas en su zona horaria local"
       },
       "language": {
-        "label": "Language",
-        "placeholder": "Select your language",
-        "description": "Choose your preferred language for the interface"
+        "label": "Idioma",
+        "placeholder": "Seleccione su idioma",
+        "description": "Elija su idioma preferido para la interfaz"
       }
     }
   },
   "navigation": {
-    "home": "Home",
-    "products": "Products",
-    "features": "Features",
-    "pricing": "Pricing",
-    "download": "Download",
-    "signIn": "Sign In",
-    "getStarted": "Get Started",
-    "dashboard": "Dashboard",
-    "messages": "Messages",
-    "email": "Email",
-    "projects": "Projects",
-    "notes": "Notes",
-    "calendar": "Calendar",
-    "videoCall": "Video Call",
-    "files": "Files",
-    "whiteboard": "Whiteboard",
-    "search": "Search",
-    "settings": "Settings",
-    "integrations": "Integrations",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "support": "Support",
+    "home": "Inicio",
+    "products": "Productos",
+    "features": "Funciones",
+    "pricing": "Precios",
+    "download": "Descargar",
+    "signIn": "Iniciar sesión",
+    "getStarted": "Comenzar",
+    "dashboard": "Panel",
+    "messages": "Mensajes",
+    "email": "Correo",
+    "projects": "Proyectos",
+    "notes": "Notas",
+    "calendar": "Calendario",
+    "videoCall": "Videollamada",
+    "files": "Archivos",
+    "whiteboard": "Pizarra",
+    "search": "Buscar",
+    "settings": "Configuración",
+    "integrations": "Integraciones",
+    "analytics": "Análisis",
+    "monitoring": "Monitoreo",
+    "support": "Soporte",
     "blog": "Blog",
     "tutorial": "Tutorial",
-    "apps": "Apps",
-    "more": "More",
+    "apps": "Aplicaciones",
+    "more": "Más",
     "bots": "Bots",
-    "connectors": "Connectors",
-    "tools": "Tools"
+    "connectors": "Conectores",
+    "tools": "Herramientas"
   },
   "layout": {
     "rightSidebar": {
-      "aiSummaries": "AI Summaries",
-      "info": "{view} Info",
-      "selectItem": "Select an item to view details"
+      "aiSummaries": "Resúmenes de IA",
+      "info": "Info de {view}",
+      "selectItem": "Seleccione un elemento para ver detalles"
     }
   },
   "workspace": {
-    "yourWorkspaces": "Your Workspaces ({count})",
-    "newWorkspace": "New Workspace",
-    "quickActions": "QUICK ACTIONS",
-    "settings": "Settings",
-    "members": "Members",
-    "createNewWorkspace": "Create New Workspace",
-    "createTitle": "Create Your Workspace",
-    "createDescription": "Set up your team's workspace to start collaborating. You can customize everything later.",
-    "back": "Back",
-    "stepInfo": "Step 1 of 1",
-    "needHelp": "Need help?",
-    "checkGuide": "Check our guide",
-    "or": "or",
-    "contactSupport": "contact support"
+    "yourWorkspaces": "Sus espacios de trabajo ({count})",
+    "newWorkspace": "Nuevo espacio de trabajo",
+    "quickActions": "ACCIONES RÁPIDAS",
+    "settings": "Configuración",
+    "members": "Miembros",
+    "createNewWorkspace": "Crear nuevo espacio de trabajo",
+    "createTitle": "Cree su espacio de trabajo",
+    "createDescription": "Configure el espacio de trabajo de su equipo para comenzar a colaborar.",
+    "back": "Atrás",
+    "stepInfo": "Paso 1 de 1",
+    "needHelp": "¿Necesita ayuda?",
+    "checkGuide": "Consulte nuestra guía",
+    "or": "o",
+    "contactSupport": "contactar soporte"
   },
   "userMenu": {
-    "homePage": "Home Page",
-    "profileSettings": "Profile Settings",
-    "accountSecurity": "Account & Security",
-    "signOut": "Sign Out"
+    "homePage": "Página de inicio",
+    "profileSettings": "Configuración de perfil",
+    "accountSecurity": "Cuenta y seguridad",
+    "signOut": "Cerrar sesión"
   },
   "header": {
     "products": {
       "chat": {
         "name": "Chat",
-        "description": "Real-time messaging and collaboration"
+        "description": "Mensajería en tiempo real y colaboración"
       },
       "projects": {
-        "name": "Projects",
-        "description": "Kanban boards and task management"
+        "name": "Proyectos",
+        "description": "Tableros Kanban y gestión de tareas"
       },
       "files": {
-        "name": "Files",
-        "description": "Cloud storage and file management"
+        "name": "Archivos",
+        "description": "Almacenamiento en la nube y gestión de archivos"
       },
       "calendar": {
-        "name": "Calendar",
-        "description": "Schedule meetings and events"
+        "name": "Calendario",
+        "description": "Programar reuniones y eventos"
       },
       "notes": {
-        "name": "Notes",
-        "description": "Rich text editor and documentation"
+        "name": "Notas",
+        "description": "Editor de texto enriquecido y documentación"
       },
       "videoCalls": {
-        "name": "Video Calls",
-        "description": "HD video conferencing"
+        "name": "Videollamadas",
+        "description": "Videoconferencia HD"
       }
     }
   },
   "hero": {
-    "badge": "All-in-One Workspace Platform",
-    "title": "Chat, Video, Projects, Files & Notes",
-    "titleHighlight": "All in One Place",
-    "subtitle": "The complete workspace platform with",
-    "subtitleHighlight1": "real-time collaboration",
-    "subtitleHighlight2": "HD video conferencing",
-    "subtitleHighlight3": "powerful project management",
-    "subtitleBold": "fully-featured free plan",
-    "subtitleEnd": "No credit card required. Upgrade when you're ready.",
-    "valueProposition": "Start with our {bold}. {end}",
+    "badge": "Plataforma de espacio de trabajo todo en uno",
+    "title": "Chat, Video, Proyectos, Archivos y Notas",
+    "titleHighlight": "Todo en un solo lugar",
+    "subtitle": "La plataforma de espacio de trabajo completa con",
+    "subtitleHighlight1": "colaboración en tiempo real",
+    "subtitleHighlight2": "videoconferencia HD",
+    "subtitleHighlight3": "gestión de proyectos potente",
+    "subtitleBold": "plan gratuito con todas las funciones",
+    "subtitleEnd": "No se requiere tarjeta de crédito. Actualice cuando esté listo.",
+    "valueProposition": "Comience con nuestro {bold}. {end}",
     "stats": {
-      "teams": "Active Teams",
+      "teams": "Equipos activos",
       "teamsCount": "10K+",
-      "freePlan": "Forever Plan",
-      "freePlanLabel": "Free",
-      "toolsInOne": "In One Platform",
-      "toolsCount": "6 Tools"
+      "freePlan": "Plan permanente",
+      "freePlanLabel": "Gratis",
+      "toolsInOne": "En una plataforma",
+      "toolsCount": "6 herramientas"
     },
     "cta": {
-      "primary": "Get Started Free",
-      "secondary": "Watch Demo",
-      "tryFree": "Try it free"
+      "primary": "Comience gratis",
+      "secondary": "Ver demo",
+      "tryFree": "Pruébelo gratis"
     },
     "trustIndicators": {
-      "noCreditCard": "No credit card required",
-      "freeTrial": "14-day free trial",
-      "cancelAnytime": "Cancel anytime"
+      "noCreditCard": "No se requiere tarjeta de crédito",
+      "freeTrial": "Prueba gratuita de 14 días",
+      "cancelAnytime": "Cancele cuando quiera"
     },
-    "exploreFeatures": "Explore Features",
-    "clickModule": "Click any module to see it in action",
+    "exploreFeatures": "Explorar funciones",
+    "clickModule": "Haga clic en cualquier módulo para verlo en acción",
     "browserUrl": "https://deskive.com/workspace/dashboard",
     "slides": {
       "welcome": {
-        "badge": "All-in-One",
-        "title": "Welcome to Deskive",
-        "description": "Your all-in-one AI-powered workspace. Replace Slack, Notion, Trello, Google Drive, and Zoom with one intelligent platform.",
+        "badge": "Todo en uno",
+        "title": "Bienvenido a Deskive",
+        "description": "Su espacio de trabajo todo en uno impulsado por IA. Reemplace Slack, Notion, Trello, Google Drive y Zoom con una plataforma inteligente.",
         "features": {
-          "aiPowered": "AI-Powered Features",
-          "realTime": "Real-time Collaboration",
-          "smartProject": "Smart Project Management"
+          "aiPowered": "Funciones impulsadas por IA",
+          "realTime": "Colaboración en tiempo real",
+          "smartProject": "Gestión inteligente de proyectos"
         }
       },
       "chat": {
-        "badge": "Team Chat",
-        "title": "Real-Time Messaging",
-        "description": "Stay connected with your team through instant messaging, organized channels, and seamless file sharing. All conversations in one place.",
+        "badge": "Chat de equipo",
+        "title": "Mensajería en tiempo real",
+        "description": "Manténgase conectado con su equipo a través de mensajería instantánea, canales organizados y compartición de archivos fluida.",
         "features": {
-          "channelsDms": "Channels & DMs",
-          "teamCollaboration": "Team Collaboration",
-          "instantNotifications": "Instant Notifications"
+          "channelsDms": "Canales y mensajes directos",
+          "teamCollaboration": "Colaboración en equipo",
+          "instantNotifications": "Notificaciones instantáneas"
         }
       },
       "smartNotes": {
-        "badge": "Smart Notes",
-        "title": "Smart Notes",
-        "description": "Create beautiful, organized notes with our block-based editor. AI writing assistant helps you draft, edit, and organize your thoughts effortlessly.",
+        "badge": "Notas inteligentes",
+        "title": "Notas inteligentes",
+        "description": "Cree notas hermosas y organizadas con nuestro editor basado en bloques.",
         "features": {
-          "blockEditor": "Block-based Editor",
-          "aiWriting": "AI Writing Assistant",
-          "smartOrganization": "Smart Organization"
+          "blockEditor": "Editor basado en bloques",
+          "aiWriting": "Asistente de escritura IA",
+          "smartOrganization": "Organización inteligente"
         }
       },
       "smartCalendar": {
-        "badge": "Voice Enabled",
-        "title": "Smart Event Creator",
-        "description": "Just describe your meeting in natural language or use voice input. AI understands and finds the perfect time slot automatically.",
+        "badge": "Habilitado por voz",
+        "title": "Creador inteligente de eventos",
+        "description": "Simplemente describa su reunión en lenguaje natural o use entrada de voz.",
         "features": {
-          "voiceToEvent": "Voice-to-Event",
-          "naturalLanguage": "Natural Language",
-          "smartScheduling": "Smart Scheduling"
+          "voiceToEvent": "Voz a evento",
+          "naturalLanguage": "Lenguaje natural",
+          "smartScheduling": "Programación inteligente"
         }
       },
       "collaboration": {
-        "badge": "Instant",
-        "title": "Real-Time Collaboration",
-        "description": "Stay connected with instant messaging, HD video calls, screen sharing, and team channels. Work together seamlessly.",
+        "badge": "Instantáneo",
+        "title": "Colaboración en tiempo real",
+        "description": "Manténgase conectado con mensajería instantánea, videollamadas HD, pantalla compartida y canales de equipo.",
         "features": {
-          "teamChat": "Team Chat",
-          "videoCalls": "Video Calls",
-          "smartNotifications": "Smart Notifications"
+          "teamChat": "Chat de equipo",
+          "videoCalls": "Videollamadas",
+          "smartNotifications": "Notificaciones inteligentes"
         }
       },
       "analytics": {
-        "badge": "Smart",
-        "title": "AI-Powered Analytics",
-        "description": "Get intelligent insights into your productivity, meeting patterns, and team performance. Data-driven decisions made easy.",
+        "badge": "Inteligente",
+        "title": "Análisis impulsado por IA",
+        "description": "Obtenga información inteligente sobre su productividad, patrones de reuniones y rendimiento del equipo.",
         "features": {
-          "smartAnalytics": "Smart Analytics",
-          "aiInsights": "AI Insights",
-          "timeAnalysis": "Time Analysis"
+          "smartAnalytics": "Análisis inteligente",
+          "aiInsights": "Información de IA",
+          "timeAnalysis": "Análisis de tiempo"
         }
       },
       "projectManagement": {
-        "badge": "Projects",
-        "title": "Project Management",
-        "description": "Kanban boards, task tracking, time management, and AI-powered insights. Keep your team aligned and productive.",
+        "badge": "Proyectos",
+        "title": "Gestión de proyectos",
+        "description": "Tableros Kanban, seguimiento de tareas, gestión del tiempo e información impulsada por IA.",
         "features": {
-          "kanbanBoards": "Kanban Boards",
-          "timeTracking": "Time Tracking",
-          "aiInsights": "AI Insights"
+          "kanbanBoards": "Tableros Kanban",
+          "timeTracking": "Seguimiento de tiempo",
+          "aiInsights": "Información de IA"
         }
       }
     }
@@ -589,10 +589,10 @@
     }
   },
   "moduleExplorer": {
-    "badge": "EXPLORE OUR MODULES",
-    "title": "One platform,",
-    "titleHighlight": "endless possibilities",
-    "subtitle": "Discover how each module works together to streamline your workflow and boost team productivity"
+    "badge": "EXPLORE NUESTROS MÓDULOS",
+    "title": "Una plataforma,",
+    "titleHighlight": "posibilidades infinitas",
+    "subtitle": "Descubra cómo cada módulo trabaja en conjunto para optimizar su flujo de trabajo"
   },
   "modules": {
     "dashboard": {
@@ -3665,36 +3665,36 @@
     }
   },
   "featuresGrid": {
-    "tasks": "Tasks",
-    "kanbanBoards": "Kanban Boards",
-    "docs": "Docs",
-    "aiAssistant": "AI Assistant",
-    "calendar": "Calendar",
+    "tasks": "Tareas",
+    "kanbanBoards": "Tableros Kanban",
+    "docs": "Documentos",
+    "aiAssistant": "Asistente de IA",
+    "calendar": "Calendario",
     "chat": "Chat",
-    "videoCalls": "Video Calls",
-    "files": "Files",
-    "projects": "Projects",
-    "reporting": "Reporting",
-    "goals": "Goals",
-    "automations": "Automations",
-    "customFields": "Custom Fields",
-    "timeTracking": "Time Tracking",
-    "dashboards": "Dashboards",
-    "forms": "Forms",
-    "reminders": "Reminders",
-    "collaboration": "Collaboration",
-    "integrations": "Integrations",
-    "smartSearch": "Smart Search",
-    "ganttCharts": "Gantt Charts",
-    "tags": "Tags",
-    "emails": "Emails",
-    "proofing": "Proofing",
-    "templates": "Templates",
-    "guests": "Guests",
-    "support24_7": "24/7 Support",
-    "teams": "Teams",
-    "roadmaps": "Roadmaps",
-    "spreadsheets": "Spreadsheets"
+    "videoCalls": "Videollamadas",
+    "files": "Archivos",
+    "projects": "Proyectos",
+    "reporting": "Reportes",
+    "goals": "Objetivos",
+    "automations": "Automatizaciones",
+    "customFields": "Campos personalizados",
+    "timeTracking": "Seguimiento de tiempo",
+    "dashboards": "Paneles",
+    "forms": "Formularios",
+    "reminders": "Recordatorios",
+    "collaboration": "Colaboración",
+    "integrations": "Integraciones",
+    "smartSearch": "Búsqueda inteligente",
+    "ganttCharts": "Diagramas de Gantt",
+    "tags": "Etiquetas",
+    "emails": "Correos",
+    "proofing": "Revisión",
+    "templates": "Plantillas",
+    "guests": "Invitados",
+    "support24_7": "Soporte 24/7",
+    "teams": "Equipos",
+    "roadmaps": "Hojas de ruta",
+    "spreadsheets": "Hojas de cálculo"
   },
   "workBroken": {
     "badge": "Replace 10+ SaaS tools with one platform",
@@ -3724,40 +3724,40 @@
     }
   },
   "footer": {
-    "tagline": "The all-in-one workspace platform that brings your team's projects, docs, and conversations together.",
+    "tagline": "La plataforma de espacio de trabajo todo en uno que reúne los proyectos, documentos y conversaciones de su equipo.",
     "beta": "BETA",
     "sections": {
-      "products": "Products",
-      "company": "Company",
+      "products": "Productos",
+      "company": "Empresa",
       "legal": "Legal"
     },
     "products": {
       "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "videoCalls": "Video Calls"
+      "projects": "Proyectos",
+      "files": "Archivos",
+      "calendar": "Calendario",
+      "notes": "Notas",
+      "videoCalls": "Videollamadas"
     },
     "company": {
-      "pricing": "Pricing",
-      "contact": "Contact"
+      "pricing": "Precios",
+      "contact": "Contacto"
     },
     "legal": {
-      "privacy": "Privacy",
-      "terms": "Terms",
+      "privacy": "Privacidad",
+      "terms": "Términos",
       "cookies": "Cookies",
-      "sitemap": "Sitemap",
-      "dataDeletion": "Data Deletion"
+      "sitemap": "Mapa del sitio",
+      "dataDeletion": "Eliminación de datos"
     },
     "newsletter": {
-      "title": "Stay in the loop",
-      "description": "Get the latest updates, news, and exclusive offers delivered to your inbox.",
-      "placeholder": "Enter your email",
-      "button": "Subscribe"
+      "title": "Manténgase informado",
+      "description": "Reciba las últimas actualizaciones, noticias y ofertas exclusivas.",
+      "placeholder": "Ingrese su correo",
+      "button": "Suscribirse"
     },
-    "copyright": "© {year} Deskive. All rights reserved.",
-    "madeWith": "Made with ❤️ for teams everywhere"
+    "copyright": "© {year} Deskive. Todos los derechos reservados.",
+    "madeWith": "Hecho con ❤️ para equipos en todo el mundo"
   },
   "downloads": {
     "badge": "Available Now",
@@ -5141,199 +5141,199 @@
   },
   "cta": {
     "readyToStart": {
-      "title": "Ready to get started?",
-      "subtitle": "Join thousands of teams already using Deskive to collaborate better and get more done.",
-      "button": "Get started for free",
+      "title": "¿Listo para comenzar?",
+      "subtitle": "Únase a miles de equipos que ya usan Deskive.",
+      "button": "Comience gratis",
       "features": [
-        "Free 14-day trial",
-        "No credit card required",
-        "Cancel anytime",
-        "Setup in 5 minutes"
+        "Prueba gratuita de 14 días",
+        "No se requiere tarjeta de crédito",
+        "Cancele cuando quiera",
+        "Configuración en 5 minutos"
       ]
     },
-    "setupMinutes": "Setup in 5 minutes"
+    "setupMinutes": "Configuración en 5 minutos"
   },
   "pricing": {
     "meta": {
-      "title": "Pricing Plans - Simple, Transparent, Affordable",
-      "description": "Choose the perfect Deskive plan for your team. Free tier available. Paid plans start at $29/month. All features included. No hidden fees. 14-day free trial.",
-      "keywords": "pricing, plans, cost, free trial, workspace pricing, team collaboration pricing"
+      "title": "Planes de precios - Simples, transparentes y accesibles",
+      "description": "Elija el plan Deskive perfecto para su equipo.",
+      "keywords": "precios, planes, costo, prueba gratuita"
     },
     "header": {
-      "badge": "Simple Pricing",
-      "title": "Choose Your",
+      "badge": "Precios simples",
+      "title": "Elija su",
       "titleHighlight": "Plan",
-      "subtitle": "Start free and scale as you grow. No hidden fees, no surprises.",
-      "subtitleBold": "14-day free trial on all paid plans."
+      "subtitle": "Comience gratis y escale a medida que crezca.",
+      "subtitleBold": "Prueba gratuita de 14 días en todos los planes de pago."
     },
     "promo": {
-      "limitedTime": "Limited Time Offer",
-      "twoMonthsFree": "Get 2 Months Free with Annual Plans",
-      "bestValue": "🎉 Best Value",
-      "joinThousands": "Join thousands of teams already using Deskive. Start free, upgrade anytime."
+      "limitedTime": "Oferta por tiempo limitado",
+      "twoMonthsFree": "Obtenga 2 meses gratis con planes anuales",
+      "bestValue": "🎉 Mejor valor",
+      "joinThousands": "Únase a miles de equipos que ya usan Deskive."
     },
     "billing": {
-      "monthly": "Monthly",
-      "annual": "Annual",
-      "twoMonthsFree": "2 months free",
-      "save": "Save 17%",
-      "perMo": "/mo",
-      "perMonth": "per month",
-      "perYear": "/year",
-      "forever": "forever",
-      "contactSales": "contact sales"
+      "monthly": "Mensual",
+      "annual": "Anual",
+      "twoMonthsFree": "2 meses gratis",
+      "save": "Ahorre 17%",
+      "perMo": "/mes",
+      "perMonth": "por mes",
+      "perYear": "/año",
+      "forever": "para siempre",
+      "contactSales": "contactar ventas"
     },
-    "trustedBy": "Trusted by teams worldwide",
+    "trustedBy": "De confianza para equipos en todo el mundo",
     "features": {
-      "freeTrial": "14-day free trial",
-      "noCreditCard": "No credit card required",
-      "cancelAnytime": "Cancel anytime"
+      "freeTrial": "Prueba gratuita de 14 días",
+      "noCreditCard": "No se requiere tarjeta de crédito",
+      "cancelAnytime": "Cancele cuando quiera"
     },
     "loading": {
-      "text": "Loading pricing plans..."
+      "text": "Cargando planes de precios..."
     },
     "error": {
-      "text": "Showing default pricing plans."
+      "text": "Mostrando planes de precios predeterminados."
     },
     "plans": {
       "free": {
-        "name": "Free",
+        "name": "Gratis",
         "price": "$0",
-        "period": "forever",
-        "description": "Perfect for individuals and small teams getting started",
-        "buttonText": "Get Started",
+        "period": "para siempre",
+        "description": "Perfecto para personas y equipos pequeños",
+        "buttonText": "Comenzar",
         "features": [
-          "5 team members",
-          "1 GB storage",
-          "Basic chat & messaging",
-          "Basic file sharing",
-          "Mobile app access",
-          "Community support",
-          "Basic integrations",
-          "2FA authentication"
+          "5 miembros del equipo",
+          "1 GB de almacenamiento",
+          "Chat y mensajería básica",
+          "Compartición de archivos básica",
+          "Acceso a la app móvil",
+          "Soporte comunitario",
+          "Integraciones básicas",
+          "Autenticación 2FA"
         ],
         "notIncluded": [
-          "Advanced integrations",
-          "Priority support",
-          "Custom branding",
-          "Advanced analytics",
-          "API access",
-          "Data export"
+          "Integraciones avanzadas",
+          "Soporte prioritario",
+          "Marca personalizada",
+          "Análisis avanzados",
+          "Acceso a API",
+          "Exportación de datos"
         ]
       },
       "starter": {
-        "name": "Starter",
+        "name": "Inicial",
         "price": "$9.99",
         "yearlyPrice": "$99.99",
-        "period": "per month",
-        "description": "Ideal for growing teams that need more power",
-        "buttonText": "Get Started",
+        "period": "por mes",
+        "description": "Ideal para equipos en crecimiento",
+        "buttonText": "Comenzar",
         "features": [
-          "25 team members",
-          "25 GB storage",
-          "Advanced chat with threads",
-          "Video calls (up to 10 participants)",
-          "Project management tools",
-          "Calendar integration",
-          "Email support",
-          "API access",
-          "Custom integrations (5)",
-          "Basic analytics",
-          "Data export (CSV)",
-          "Guest access"
+          "25 miembros del equipo",
+          "25 GB de almacenamiento",
+          "Chat avanzado con hilos",
+          "Videollamadas (hasta 10 participantes)",
+          "Herramientas de gestión de proyectos",
+          "Integración de calendario",
+          "Soporte por correo",
+          "Acceso a API",
+          "Integraciones personalizadas (5)",
+          "Análisis básicos",
+          "Exportación de datos (CSV)",
+          "Acceso de invitados"
         ],
         "notIncluded": [
-          "SSO authentication",
-          "Advanced security features",
-          "Unlimited integrations",
-          "24/7 phone support"
+          "Autenticación SSO",
+          "Funciones de seguridad avanzadas",
+          "Integraciones ilimitadas",
+          "Soporte telefónico 24/7"
         ]
       },
       "professional": {
-        "name": "Professional",
+        "name": "Profesional",
         "price": "$19.99",
         "yearlyPrice": "$199.99",
-        "period": "per month",
-        "description": "Complete solution for professional teams",
-        "buttonText": "Get Started",
-        "badge": "Most Popular",
+        "period": "por mes",
+        "description": "Solución completa para equipos profesionales",
+        "buttonText": "Comenzar",
+        "badge": "Más popular",
         "features": [
-          "100 team members",
-          "100 GB storage",
-          "Unlimited video calls",
-          "Advanced project management",
-          "AI-powered features",
-          "Custom integrations (unlimited)",
-          "Advanced analytics & reporting",
-          "Priority support",
-          "Data export (all formats)",
-          "99.9% uptime SLA",
-          "Advanced security features",
-          "Custom workflows",
-          "Time tracking & billing",
-          "Resource management"
+          "100 miembros del equipo",
+          "100 GB de almacenamiento",
+          "Videollamadas ilimitadas",
+          "Gestión de proyectos avanzada",
+          "Funciones impulsadas por IA",
+          "Integraciones personalizadas (ilimitadas)",
+          "Análisis y reportes avanzados",
+          "Soporte prioritario",
+          "Exportación de datos (todos los formatos)",
+          "SLA de 99.9% de tiempo activo",
+          "Funciones de seguridad avanzadas",
+          "Flujos de trabajo personalizados",
+          "Seguimiento de tiempo y facturación",
+          "Gestión de recursos"
         ]
       },
       "enterprise": {
-        "name": "Enterprise",
+        "name": "Empresarial",
         "price": "$49.99",
         "yearlyPrice": "$499.99",
-        "period": "per month",
-        "description": "Tailored solutions for large organizations",
-        "buttonText": "Get Started",
+        "period": "por mes",
+        "description": "Soluciones a medida para grandes organizaciones",
+        "buttonText": "Comenzar",
         "features": [
-          "Unlimited team members",
-          "1 TB+ storage",
-          "Enterprise SSO (SAML, OAuth)",
-          "Advanced security & compliance",
-          "Custom AI training",
-          "Dedicated account manager",
-          "Custom integrations & API",
-          "24/7 phone support",
-          "On-premise deployment option",
-          "Custom contracts & SLA",
-          "Audit logs & compliance",
-          "Advanced user permissions",
-          "White-label options",
-          "Priority feature requests",
-          "Training & onboarding"
+          "Miembros del equipo ilimitados",
+          "1 TB+ de almacenamiento",
+          "SSO empresarial (SAML, OAuth)",
+          "Seguridad avanzada y cumplimiento",
+          "Entrenamiento de IA personalizado",
+          "Gerente de cuenta dedicado",
+          "Integraciones personalizadas y API",
+          "Soporte telefónico 24/7",
+          "Opción de implementación local",
+          "Contratos y SLA personalizados",
+          "Registros de auditoría y cumplimiento",
+          "Permisos de usuario avanzados",
+          "Opciones de marca blanca",
+          "Solicitudes de funciones prioritarias",
+          "Capacitación e incorporación"
         ]
       }
     },
     "faq": {
-      "badge": "Got questions?",
-      "title": "Frequently Asked",
-      "titleHighlight": "Questions",
-      "subtitle": "Have questions? We have answers. If you can't find what you're looking for, our support team is here to help.",
+      "badge": "¿Tiene preguntas?",
+      "title": "Preguntas",
+      "titleHighlight": "frecuentes",
+      "subtitle": "¿Tiene preguntas? Tenemos respuestas.",
       "questions": [
         {
-          "question": "Can I change my plan later?",
-          "answer": "Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll be charged the prorated difference. When downgrading, you'll receive credit for the unused portion."
+          "question": "¿Puedo cambiar mi plan después?",
+          "answer": "Sí, puede actualizar o degradar su plan en cualquier momento."
         },
         {
-          "question": "What payment methods do you accept?",
-          "answer": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and wire transfers for Enterprise plans. All payments are processed securely through Stripe."
+          "question": "¿Qué métodos de pago aceptan?",
+          "answer": "Aceptamos todas las principales tarjetas de crédito, PayPal y transferencias bancarias."
         },
         {
-          "question": "Is there a free trial?",
-          "answer": "Yes! All paid plans come with a 14-day free trial. No credit card required to start. You can explore all features and cancel anytime during the trial period."
+          "question": "¿Hay una prueba gratuita?",
+          "answer": "¡Sí! Todos los planes de pago incluyen una prueba gratuita de 14 días."
         },
         {
-          "question": "What happens to my data if I cancel?",
-          "answer": "Your data remains accessible for 30 days after cancellation. You can export all your data at any time. After 30 days, data is permanently deleted in accordance with our privacy policy."
+          "question": "¿Qué pasa con mis datos si cancelo?",
+          "answer": "Sus datos permanecen accesibles durante 30 días después de la cancelación."
         },
         {
-          "question": "Do you offer discounts for non-profits or education?",
-          "answer": "Yes, we offer 50% discount for registered non-profits and educational institutions. Contact our sales team with proof of status to apply for the discount."
+          "question": "¿Ofrecen descuentos para organizaciones sin fines de lucro?",
+          "answer": "Sí, ofrecemos un 50% de descuento."
         },
         {
-          "question": "Can I get a refund?",
-          "answer": "We offer a 30-day money-back guarantee for all new subscriptions. If you're not satisfied within the first 30 days, we'll provide a full refund, no questions asked."
+          "question": "¿Puedo obtener un reembolso?",
+          "answer": "Ofrecemos una garantía de devolución de dinero de 30 días."
         }
       ],
       "contact": {
-        "text": "Still have questions?",
-        "buttonText": "Contact Sales Team"
+        "text": "¿Aún tiene preguntas?",
+        "buttonText": "Contactar equipo de ventas"
       }
     }
   },
@@ -5557,134 +5557,134 @@
     }
   },
   "contact": {
-    "badge": "Get in touch",
-    "title": "We'd love to hear from you",
-    "subtitle": "Have questions or feedback? Our team is here to help. Send us a message and we'll respond within 24 hours.",
+    "badge": "Póngase en contacto",
+    "title": "Nos encantaría saber de usted",
+    "subtitle": "¿Tiene preguntas o comentarios? Nuestro equipo está aquí para ayudar.",
     "form": {
-      "name": "Name",
-      "namePlaceholder": "Your full name",
-      "nameRequired": "Name is required",
-      "email": "Email",
-      "emailPlaceholder": "your@email.com",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Invalid email address",
-      "company": "Company",
-      "companyPlaceholder": "Your company name",
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project or question...",
-      "messageRequired": "Message is required",
-      "submit": "Send Message",
-      "submitting": "Sending...",
-      "success": "Message sent successfully!",
-      "error": "Failed to send message. Please try again.",
-      "subject": "Subject",
-      "selectTopic": "Select a topic",
-      "subjectGeneral": "General Inquiry",
-      "subjectSales": "Sales",
-      "subjectSupport": "Support",
-      "subjectPartnership": "Partnership",
-      "subjectOther": "Other"
+      "name": "Nombre",
+      "namePlaceholder": "Su nombre completo",
+      "nameRequired": "El nombre es obligatorio",
+      "email": "Correo electrónico",
+      "emailPlaceholder": "su@correo.com",
+      "emailRequired": "El correo es obligatorio",
+      "emailInvalid": "Dirección de correo inválida",
+      "company": "Empresa",
+      "companyPlaceholder": "Nombre de su empresa",
+      "message": "Mensaje",
+      "messagePlaceholder": "Cuéntenos sobre su proyecto o pregunta...",
+      "messageRequired": "El mensaje es obligatorio",
+      "submit": "Enviar mensaje",
+      "submitting": "Enviando...",
+      "success": "¡Mensaje enviado exitosamente!",
+      "error": "Error al enviar el mensaje. Por favor inténtelo de nuevo.",
+      "subject": "Asunto",
+      "selectTopic": "Seleccione un tema",
+      "subjectGeneral": "Consulta general",
+      "subjectSales": "Ventas",
+      "subjectSupport": "Soporte",
+      "subjectPartnership": "Asociación",
+      "subjectOther": "Otro"
     }
   },
   "featureHighlights": {
-    "badge": "FEATURES",
-    "title": "Every feature your team needs",
-    "titleHighlight": "to complete work faster",
-    "subtitle": "Essential features to take productivity to the next level.",
+    "badge": "FUNCIONES",
+    "title": "Cada función que su equipo necesita",
+    "titleHighlight": "para completar el trabajo más rápido",
+    "subtitle": "Funciones esenciales para llevar la productividad al siguiente nivel.",
     "features": {
-      "tasks": "Tasks",
-      "kanbanBoards": "Kanban Boards",
-      "docs": "Docs",
-      "aiAssistant": "AI Assistant",
-      "calendar": "Calendar",
+      "tasks": "Tareas",
+      "kanbanBoards": "Tableros Kanban",
+      "docs": "Documentos",
+      "aiAssistant": "Asistente de IA",
+      "calendar": "Calendario",
       "chat": "Chat",
-      "videoCalls": "Video Calls",
-      "files": "Files",
-      "projects": "Projects",
-      "reporting": "Reporting",
-      "goals": "Goals",
-      "automations": "Automations",
-      "customFields": "Custom Fields",
-      "timeTracking": "Time Tracking",
-      "dashboards": "Dashboards",
-      "forms": "Forms",
-      "reminders": "Reminders",
-      "collaboration": "Collaboration"
+      "videoCalls": "Videollamadas",
+      "files": "Archivos",
+      "projects": "Proyectos",
+      "reporting": "Reportes",
+      "goals": "Objetivos",
+      "automations": "Automatizaciones",
+      "customFields": "Campos personalizados",
+      "timeTracking": "Seguimiento de tiempo",
+      "dashboards": "Paneles",
+      "forms": "Formularios",
+      "reminders": "Recordatorios",
+      "collaboration": "Colaboración"
     }
   },
   "auth": {
     "login": {
-      "title": "Welcome back",
-      "subtitle": "Sign in to your Deskive account",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
-      "signIn": "Sign In",
-      "signingIn": "Signing in...",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "orSignInWith": "Or sign in with email",
-      "twoFactorCode": "Two-Factor Authentication Code",
-      "twoFactorPlaceholder": "Enter your 2FA code"
+      "title": "Bienvenido de vuelta",
+      "subtitle": "Inicie sesión en su cuenta de Deskive",
+      "email": "Dirección de correo",
+      "emailPlaceholder": "Ingrese su correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Ingrese su contraseña",
+      "rememberMe": "Recordarme",
+      "forgotPassword": "¿Olvidó su contraseña?",
+      "signIn": "Iniciar sesión",
+      "signingIn": "Iniciando sesión...",
+      "noAccount": "¿No tiene una cuenta?",
+      "signUp": "Regístrese gratis",
+      "orSignInWith": "O inicie sesión con correo electrónico",
+      "twoFactorCode": "Código de autenticación de dos factores",
+      "twoFactorPlaceholder": "Ingrese su código 2FA"
     },
     "register": {
-      "title": "Create Account",
-      "subtitle": "Join and start collaborating",
-      "name": "Full name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Create a strong password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "orSignUpWith": "Or sign up with email",
-      "agree": "I agree to the",
-      "terms": "Terms of Service",
-      "and": "and",
-      "privacy": "Privacy Policy",
-      "createAccount": "Create Account",
-      "creatingAccount": "Creating account...",
-      "haveAccount": "Already have an account?",
-      "signIn": "Sign in here"
+      "title": "Crear cuenta",
+      "subtitle": "Únase y comience a colaborar",
+      "name": "Nombre completo",
+      "namePlaceholder": "Ingrese su nombre completo",
+      "email": "Dirección de correo",
+      "emailPlaceholder": "Ingrese su correo electrónico",
+      "password": "Contraseña",
+      "passwordPlaceholder": "Cree una contraseña segura",
+      "passwordHint": "La contraseña debe tener al menos 8 caracteres",
+      "orSignUpWith": "O regístrese con correo electrónico",
+      "agree": "Acepto los",
+      "terms": "Términos de servicio",
+      "and": "y",
+      "privacy": "Política de privacidad",
+      "createAccount": "Crear cuenta",
+      "creatingAccount": "Creando cuenta...",
+      "haveAccount": "¿Ya tiene una cuenta?",
+      "signIn": "Inicie sesión aquí"
     },
     "forgotPassword": {
-      "title": "Forgot Password?",
-      "subtitle": "Enter your email address and we'll send you a link to reset your password",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email address",
-      "sendLink": "Send Reset Email",
-      "sendingLink": "Sending Reset Email...",
-      "backToLogin": "Back to Sign In",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "success": "Check Your Email",
-      "successMessage": "We've sent a password reset link to your email address",
-      "checkInbox": "Please check your inbox and click the link to reset your password.",
-      "noEmail": "Didn't receive the email? Check your spam folder or try again.",
-      "sendAnother": "Send Another Email"
+      "title": "¿Olvidó su contraseña?",
+      "subtitle": "Ingrese su dirección de correo y le enviaremos un enlace para restablecer su contraseña",
+      "email": "Dirección de correo",
+      "emailPlaceholder": "Ingrese su dirección de correo",
+      "sendLink": "Enviar correo de restablecimiento",
+      "sendingLink": "Enviando correo de restablecimiento...",
+      "backToLogin": "Volver a iniciar sesión",
+      "noAccount": "¿No tiene una cuenta?",
+      "signUp": "Regístrese gratis",
+      "success": "Revise su correo",
+      "successMessage": "Hemos enviado un enlace de restablecimiento a su correo",
+      "checkInbox": "Por favor revise su bandeja de entrada y haga clic en el enlace para restablecer su contraseña.",
+      "noEmail": "¿No recibió el correo? Revise su carpeta de spam.",
+      "sendAnother": "Enviar otro correo"
     },
     "resetPassword": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter your new password below",
-      "password": "New Password",
-      "passwordPlaceholder": "Enter your new password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "confirmPassword": "Confirm New Password",
-      "confirmPasswordPlaceholder": "Confirm your new password",
-      "reset": "Reset Password",
-      "resetting": "Resetting Password...",
-      "backToLogin": "Back to Sign In",
-      "rememberPassword": "Remember your password?",
-      "signIn": "Sign in here",
-      "success": "Password Reset Complete",
-      "successMessage": "Your password has been successfully reset",
-      "redirectMessage": "You will be redirected to the sign-in page shortly.",
-      "continueSignIn": "Continue to Sign In",
-      "invalidToken": "Invalid or missing reset token. Please request a new password reset.",
-      "passwordMismatch": "Passwords do not match"
+      "title": "Restablecer su contraseña",
+      "subtitle": "Ingrese su nueva contraseña a continuación",
+      "password": "Nueva contraseña",
+      "passwordPlaceholder": "Ingrese su nueva contraseña",
+      "passwordHint": "La contraseña debe tener al menos 8 caracteres",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "confirmPasswordPlaceholder": "Confirme su nueva contraseña",
+      "reset": "Restablecer contraseña",
+      "resetting": "Restableciendo contraseña...",
+      "backToLogin": "Volver a iniciar sesión",
+      "rememberPassword": "¿Recuerda su contraseña?",
+      "signIn": "Inicie sesión aquí",
+      "success": "Restablecimiento completado",
+      "successMessage": "Su contraseña ha sido restablecida exitosamente",
+      "redirectMessage": "Será redirigido a la página de inicio de sesión en breve.",
+      "continueSignIn": "Continuar a iniciar sesión",
+      "invalidToken": "Token de restablecimiento inválido o faltante.",
+      "passwordMismatch": "Las contraseñas no coinciden"
     }
   },
   "company": {
@@ -7288,33 +7288,33 @@
   },
   "tasks": {
     "total": "Total",
-    "done": "Done",
-    "pending": "Pending",
-    "boardView": "Board View",
-    "listView": "List View",
-    "timelineView": "Timeline View",
-    "ganttChart": "Gantt Chart",
-    "teamView": "Team View",
-    "addTask": "Add Task",
-    "viewOptions": "View Options",
-    "changeView": "Change View",
-    "searchTasks": "Search tasks...",
-    "priority": "Priority",
-    "all": "All",
-    "low": "Low",
-    "medium": "Medium",
-    "high": "High",
-    "loadingTasks": "Loading tasks...",
-    "columnSettings": "Column Settings",
-    "noTasks": "No tasks",
-    "editTask": "Edit Task",
-    "deleteTask": "Delete Task",
-    "deleteTaskTitle": "Delete Task",
-    "deleteTaskConfirm": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
-    "taskDeleted": "Task Deleted",
-    "taskDeletedSuccess": "\"{title}\" has been deleted successfully.",
-    "deleting": "Deleting...",
-    "tasksCount": "{count} tasks"
+    "done": "Hecho",
+    "pending": "Pendiente",
+    "boardView": "Vista de tablero",
+    "listView": "Vista de lista",
+    "timelineView": "Vista de cronología",
+    "ganttChart": "Diagrama de Gantt",
+    "teamView": "Vista de equipo",
+    "addTask": "Agregar tarea",
+    "viewOptions": "Opciones de vista",
+    "changeView": "Cambiar vista",
+    "searchTasks": "Buscar tareas...",
+    "priority": "Prioridad",
+    "all": "Todos",
+    "low": "Baja",
+    "medium": "Media",
+    "high": "Alta",
+    "loadingTasks": "Cargando tareas...",
+    "columnSettings": "Configuración de columnas",
+    "noTasks": "Sin tareas",
+    "editTask": "Editar tarea",
+    "deleteTask": "Eliminar tarea",
+    "deleteTaskTitle": "Eliminar tarea",
+    "deleteTaskConfirm": "¿Está seguro de que desea eliminar \"{title}\"?",
+    "taskDeleted": "Tarea eliminada",
+    "taskDeletedSuccess": "\"{title}\" ha sido eliminada exitosamente.",
+    "deleting": "Eliminando...",
+    "tasksCount": "{count} tareas"
   },
   "settings": {
     "profile": {
@@ -7705,27 +7705,27 @@
     }
   },
   "sidebar": {
-    "dashboard": "Dashboard",
+    "dashboard": "Panel",
     "chat": "Chat",
-    "projects": "Projects",
-    "files": "Files",
-    "calendar": "Calendar",
-    "videoCalls": "Video Calls",
-    "notes": "Notes",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "integrations": "Integrations",
+    "projects": "Proyectos",
+    "files": "Archivos",
+    "calendar": "Calendario",
+    "videoCalls": "Videollamadas",
+    "notes": "Notas",
+    "analytics": "Análisis",
+    "monitoring": "Monitoreo",
+    "integrations": "Integraciones",
     "settings": {
-      "title": "Settings",
-      "profile": "Profile",
-      "security": "Security",
-      "notifications": "Notifications",
-      "team": "Team",
-      "billing": "Billing",
-      "billingBadge": "Important",
-      "workspaceSection": "WORKSPACE",
-      "workspace": "Workspace Settings",
-      "feedback": "Feedback"
+      "title": "Configuración",
+      "profile": "Perfil",
+      "security": "Seguridad",
+      "notifications": "Notificaciones",
+      "team": "Equipo",
+      "billing": "Facturación",
+      "billingBadge": "Importante",
+      "workspaceSection": "ESPACIO DE TRABAJO",
+      "workspace": "Configuración del espacio de trabajo",
+      "feedback": "Comentarios"
     }
   },
   "admin": {
@@ -7816,53 +7816,53 @@
     }
   },
   "notifications": {
-    "title": "Notifications",
-    "markAllRead": "Mark all as read",
-    "clearRead": "Clear read",
+    "title": "Notificaciones",
+    "markAllRead": "Marcar todo como leído",
+    "clearRead": "Limpiar leídos",
     "tabs": {
-      "all": "All",
-      "unread": "Unread",
-      "read": "Read"
+      "all": "Todos",
+      "unread": "No leídos",
+      "read": "Leídos"
     },
     "empty": {
-      "title": "No notifications",
-      "message": "You're all caught up!"
+      "title": "Sin notificaciones",
+      "message": "¡Está al día!"
     },
-    "loading": "Loading...",
-    "loadMore": "Load more",
-    "noNotifications": "No notifications",
-    "viewAll": "View all notifications",
-    "markAllAsRead": "Mark all as read",
-    "justNow": "Just now"
+    "loading": "Cargando...",
+    "loadMore": "Cargar más",
+    "noNotifications": "Sin notificaciones",
+    "viewAll": "Ver todas las notificaciones",
+    "markAllAsRead": "Marcar todo como leído",
+    "justNow": "Ahora mismo"
   },
   "modals": {
     "deleteConfirmation": {
-      "title": "Delete Item",
-      "description": "Are you sure you want to delete this item? This action cannot be undone.",
-      "descriptionWithName": "Are you sure you want to delete \"{itemName}\"? This action cannot be undone.",
-      "deleting": "Deleting..."
+      "title": "Eliminar elemento",
+      "description": "¿Está seguro de que desea eliminar este elemento? Esta acción no se puede deshacer.",
+      "descriptionWithName": "¿Está seguro de que desea eliminar \"{itemName}\"?",
+      "deleting": "Eliminando..."
     }
   },
   "members": {
-    "workload": "Workload",
-    "utilization": "Utilization",
-    "projects": "Projects",
-    "currentProjects": "Current Projects",
-    "you": "You",
-    "online": "Online",
-    "skills": "Skills"
+    "workload": "Carga de trabajo",
+    "utilization": "Utilización",
+    "projects": "Proyectos",
+    "currentProjects": "Proyectos actuales",
+    "you": "Usted",
+    "online": "En línea",
+    "skills": "Habilidades"
   },
   "roles": {
-    "label": "Role",
-    "allRoles": "All Roles",
-    "owner": "Owner",
-    "admin": "Admin",
-    "member": "Member",
-    "viewer": "Viewer",
-    "developer": "Developer",
-    "designer": "Designer",
-    "qaEngineer": "QA Engineer",
-    "cannotChangeOwner": "Cannot change owner role"
+    "label": "Rol",
+    "allRoles": "Todos los roles",
+    "owner": "Propietario",
+    "admin": "Administrador",
+    "member": "Miembro",
+    "viewer": "Espectador",
+    "developer": "Desarrollador",
+    "designer": "Diseñador",
+    "qaEngineer": "Ingeniero QA",
+    "cannotChangeOwner": "No se puede cambiar el rol de propietario"
   },
   "invites": {
     "loading": "Loading invitations...",

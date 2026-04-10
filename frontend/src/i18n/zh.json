@@ -1,417 +1,417 @@
 {
   "common": {
-    "loading": "Loading...",
-    "error": "Error",
-    "save": "Save",
-    "saving": "Saving...",
-    "saveChanges": "Save Changes",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "delete": "Delete",
-    "edit": "Edit",
-    "and": "and",
-    "explore": "Explore {feature}",
-    "goBack": "Go Back",
-    "back": "Back",
-    "redirecting": "Redirecting...",
-    "search": "Search...",
-    "signOut": "Sign out",
-    "logOut": "Log out",
-    "profile": "Profile",
-    "settings": "Settings",
-    "new": "New",
-    "filters": "Filters",
-    "retry": "Retry",
-    "tryAgain": "Try Again",
-    "exploreFeatures": "Explore Features",
-    "active": "Active",
-    "inactive": "Inactive"
+    "loading": "加载中...",
+    "error": "错误",
+    "save": "保存",
+    "saving": "保存中...",
+    "saveChanges": "保存更改",
+    "cancel": "取消",
+    "confirm": "确认",
+    "delete": "删除",
+    "edit": "编辑",
+    "and": "和",
+    "explore": "探索 {feature}",
+    "goBack": "返回",
+    "back": "返回",
+    "redirecting": "重定向中...",
+    "search": "搜索...",
+    "signOut": "退出登录",
+    "logOut": "退出",
+    "profile": "个人资料",
+    "settings": "设置",
+    "new": "新建",
+    "filters": "筛选",
+    "retry": "重试",
+    "tryAgain": "重试",
+    "exploreFeatures": "探索功能",
+    "active": "活跃",
+    "inactive": "不活跃"
   },
   "support": {
-    "title": "Help & Support",
-    "description": "Get help with Deskive, find answers to common questions, or contact our support team.",
-    "searchPlaceholder": "Search for help articles, FAQs, or topics...",
+    "title": "帮助与支持",
+    "description": "获取Deskive帮助，查找常见问题的答案，或联系我们的支持团队。",
+    "searchPlaceholder": "搜索帮助文章、常见问题或主题...",
     "liveChat": {
-      "title": "Live Chat",
-      "description": "Chat with our support team in real-time for immediate assistance.",
-      "action": "Start Chat"
+      "title": "在线聊天",
+      "description": "与我们的支持团队实时聊天，获取即时帮助。",
+      "action": "开始聊天"
     },
     "email": {
-      "title": "Email Support",
-      "description": "Send us an email and we'll get back to you within 24 hours.",
-      "action": "Send Email"
+      "title": "邮件支持",
+      "description": "给我们发送电子邮件，我们将在24小时内回复您。",
+      "action": "发送邮件"
     },
     "documentation": {
-      "title": "Documentation",
-      "description": "Browse our comprehensive guides and documentation.",
-      "action": "View Docs"
+      "title": "文档",
+      "description": "浏览我们的综合指南和文档。",
+      "action": "查看文档"
     },
     "faq": {
-      "title": "Frequently Asked Questions",
-      "description": "Find quick answers to common questions about Deskive.",
-      "noResults": "No FAQs match your search. Try a different query.",
+      "title": "常见问题",
+      "description": "查找关于Deskive常见问题的快速答案。",
+      "noResults": "没有匹配的常见问题。请尝试其他搜索词。",
       "gettingStarted": {
-        "question": "How do I get started with Deskive?",
-        "answer": "Getting started is easy! After signing up, create a workspace for your team. Then invite your team members via email. You can start using Chat for communication, Projects for task management, Files for document storage, Calendar for scheduling, Notes for documentation, and Video Calls for meetings."
+        "question": "如何开始使用Deskive？",
+        "answer": "开始使用非常简单！注册后，为您的团队创建一个工作区。然后通过电子邮件邀请您的团队成员。您可以开始使用聊天进行沟通、项目进行任务管理、文件进行文档存储、日历进行日程安排、笔记进行文档记录以及视频通话进行会议。"
       },
       "inviteMembers": {
-        "question": "How do I invite team members to my workspace?",
-        "answer": "Go to Settings > Team Management in your workspace. Click 'Invite Members' and enter the email addresses of the people you want to invite. They'll receive an invitation email with a link to join your workspace."
+        "question": "如何邀请团队成员加入我的工作区？",
+        "answer": "在工作区中转到设置 > 团队管理。点击「邀请成员」并输入您要邀请的人的电子邮件地址。他们将收到一封包含加入工作区链接的邀请邮件。"
       },
       "fileStorage": {
-        "question": "How much file storage do I get?",
-        "answer": "Storage limits depend on your plan. Free plans include 5GB of storage per workspace. Pro plans offer 100GB, and Enterprise plans provide unlimited storage. You can view your current usage in Settings > Workspace."
+        "question": "我能获得多少文件存储空间？",
+        "answer": "存储限制取决于您的计划。免费计划包括每个工作区5GB的存储空间。专业计划提供100GB，企业计划提供无限存储空间。您可以在设置 > 工作区中查看当前使用情况。"
       },
       "videoCall": {
-        "question": "How do I start a video call?",
-        "answer": "Navigate to Video Calls in the left sidebar. Click 'New Meeting' to start an instant call, or schedule a meeting for later. You can invite participants by sharing the meeting link or by selecting team members directly."
+        "question": "如何开始视频通话？",
+        "answer": "在左侧边栏导航到视频通话。点击「新建会议」开始即时通话，或安排稍后的会议。您可以通过分享会议链接或直接选择团队成员来邀请参与者。"
       },
       "security": {
-        "question": "How secure is my data on Deskive?",
-        "answer": "Your data security is our top priority. We use end-to-end encryption for video calls, AES-256 encryption for stored files, and TLS 1.3 for all data in transit. We're SOC 2 Type II certified and GDPR compliant."
+        "question": "我的数据在Deskive上有多安全？",
+        "answer": "您的数据安全是我们的首要任务。我们对视频通话使用端到端加密，对存储文件使用AES-256加密，对所有传输中的数据使用TLS 1.3。我们已获得SOC 2 Type II认证并符合GDPR标准。"
       },
       "billing": {
-        "question": "How does billing work?",
-        "answer": "Deskive offers monthly and annual billing options. Annual plans save you 20%. You can upgrade, downgrade, or cancel your plan at any time from Settings > Billing. Changes take effect at the start of your next billing cycle."
+        "question": "计费如何运作？",
+        "answer": "Deskive提供月度和年度计费选项。年度计划可节省20%。您可以随时从设置 > 计费中升级、降级或取消您的计划。更改将在下一个计费周期开始时生效。"
       }
     },
     "resources": {
-      "title": "Help Resources",
+      "title": "帮助资源",
       "tutorials": {
-        "title": "Video Tutorials",
-        "description": "Watch step-by-step video guides for all features"
+        "title": "视频教程",
+        "description": "观看所有功能的分步视频指南"
       },
       "quickStart": {
-        "title": "Quick Start Guide",
-        "description": "Get up and running in minutes"
+        "title": "快速入门指南",
+        "description": "几分钟内快速上手"
       },
       "apiDocs": {
-        "title": "API Documentation",
-        "description": "Integrate Deskive with your applications"
+        "title": "API文档",
+        "description": "将Deskive与您的应用程序集成"
       }
     },
     "community": {
-      "title": "Community & Feedback",
+      "title": "社区与反馈",
       "forum": {
-        "title": "Community Forum",
-        "description": "Connect with other Deskive users"
+        "title": "社区论坛",
+        "description": "与其他Deskive用户交流"
       },
       "bugReport": {
-        "title": "Report a Bug",
-        "description": "Help us improve by reporting issues"
+        "title": "报告错误",
+        "description": "通过报告问题帮助我们改进"
       },
       "featureRequest": {
-        "title": "Feature Requests",
-        "description": "Suggest new features and vote on ideas"
+        "title": "功能请求",
+        "description": "建议新功能并为创意投票"
       }
     },
     "status": {
-      "title": "All Systems Operational",
-      "description": "Deskive services are running normally",
-      "viewStatus": "View Status Page"
+      "title": "所有系统运行正常",
+      "description": "Deskive服务运行正常",
+      "viewStatus": "查看状态页面"
     },
     "security": {
-      "title": "Security",
-      "description": "Report security vulnerabilities responsibly",
-      "contact": "Contact Security Team"
+      "title": "安全",
+      "description": "负责任地报告安全漏洞",
+      "contact": "联系安全团队"
     },
     "contact": {
-      "title": "Contact Information",
-      "description": "Our support team is available Monday to Friday, 9am to 6pm EST.",
-      "emailLabel": "Email",
-      "liveChatLabel": "Live Chat",
-      "liveChatDescription": "Available 24/7 for immediate assistance",
-      "phoneLabel": "Phone Support",
-      "phoneDescription": "Available for Enterprise customers"
+      "title": "联系信息",
+      "description": "我们的支持团队在周一至周五，东部时间上午9点至下午6点提供服务。",
+      "emailLabel": "电子邮件",
+      "liveChatLabel": "在线聊天",
+      "liveChatDescription": "全天候提供即时帮助",
+      "phoneLabel": "电话支持",
+      "phoneDescription": "仅面向企业客户"
     },
     "seo": {
-      "title": "Help & Support - Deskive",
-      "description": "Get help with Deskive, find answers to common questions, or contact our support team."
+      "title": "帮助与支持 - Deskive",
+      "description": "获取Deskive帮助，查找常见问题的答案，或联系我们的支持团队。"
     },
     "form": {
-      "title": "Submit a Support Request",
-      "name": "Your Name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email Address",
-      "emailPlaceholder": "Enter your email address",
-      "company": "Company (Optional)",
-      "companyPlaceholder": "Enter your company name",
-      "supportType": "What do you need help with?",
-      "supportTypePlaceholder": "Select support type",
+      "title": "提交支持请求",
+      "name": "您的姓名",
+      "namePlaceholder": "输入您的全名",
+      "email": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件地址",
+      "company": "公司（可选）",
+      "companyPlaceholder": "输入您的公司名称",
+      "supportType": "您需要什么帮助？",
+      "supportTypePlaceholder": "选择支持类型",
       "supportTypes": {
-        "technical_issue": "Technical Issue",
-        "billing": "Billing Question",
-        "account": "Account Related",
-        "feature_request": "Feature Request",
-        "bug_report": "Bug Report",
-        "general": "General Question"
+        "technical_issue": "技术问题",
+        "billing": "计费问题",
+        "account": "账户相关",
+        "feature_request": "功能请求",
+        "bug_report": "错误报告",
+        "general": "一般问题"
       },
-      "subject": "Subject",
-      "subjectPlaceholder": "Brief description of your issue",
-      "message": "Describe Your Issue",
-      "messagePlaceholder": "Please provide as much detail as possible about your issue or question. Include any error messages, steps to reproduce, or screenshots if applicable.",
-      "submit": "Submit Request",
-      "sending": "Sending...",
-      "successMessage": "Your support request has been submitted successfully. We'll get back to you soon!"
+      "subject": "主题",
+      "subjectPlaceholder": "简要描述您的问题",
+      "message": "描述您的问题",
+      "messagePlaceholder": "请尽可能详细地描述您的问题。包括任何错误消息、重现步骤或截图（如适用）。",
+      "submit": "提交请求",
+      "sending": "发送中...",
+      "successMessage": "您的支持请求已成功提交。我们会尽快回复您！"
     },
     "responseTime": {
-      "title": "Expected Response Times",
-      "general": "General Questions",
-      "technical": "Technical Issues",
-      "critical": "Critical Issues"
+      "title": "预计响应时间",
+      "general": "一般问题",
+      "technical": "技术问题",
+      "critical": "关键问题"
     }
   },
   "tutorial": {
     "seo": {
-      "title": "Video Tutorials - Learn Deskive",
-      "description": "Watch video tutorials to master all Deskive features including chat, projects, files, calendar, notes, and video calls."
+      "title": "视频教程 - 学习Deskive",
+      "description": "观看视频教程，掌握所有Deskive功能。"
     },
     "header": {
-      "title": "Video",
-      "titleHighlight": "Tutorials",
-      "subtitle": "Learn how to use Deskive effectively with our comprehensive video guides"
+      "title": "视频",
+      "titleHighlight": "教程",
+      "subtitle": "通过我们全面的视频指南，了解如何有效使用Deskive"
     },
     "category": {
-      "all": "All Tutorials",
-      "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "video": "Video"
+      "all": "所有教程",
+      "chat": "聊天",
+      "projects": "项目",
+      "files": "文件",
+      "calendar": "日历",
+      "notes": "笔记",
+      "video": "视频"
     },
     "chat": {
-      "title": "Getting Started with Chat",
-      "description": "Learn how to use team chat, channels, and direct messages"
+      "title": "聊天入门",
+      "description": "了解如何使用团队聊天、频道和直接消息"
     },
     "projects": {
-      "title": "Project Management Basics",
-      "description": "Master Kanban boards, tasks, and project workflows"
+      "title": "项目管理基础",
+      "description": "掌握看板、任务和项目工作流"
     },
     "files": {
-      "title": "File Management Guide",
-      "description": "Organize, share, and collaborate on files"
+      "title": "文件管理指南",
+      "description": "组织、共享和协作处理文件"
     },
     "calendar": {
-      "title": "Calendar & Scheduling",
-      "description": "Schedule meetings and manage your time effectively"
+      "title": "日历与排程",
+      "description": "安排会议并有效管理您的时间"
     },
     "notes": {
-      "title": "Notes & Documentation",
-      "description": "Create rich notes and collaborate on documentation"
+      "title": "笔记与文档",
+      "description": "创建丰富的笔记并协作处理文档"
     },
     "video": {
-      "title": "Video Calls & Meetings",
-      "description": "Host HD video calls with screen sharing and recording"
+      "title": "视频通话与会议",
+      "description": "主持带屏幕共享和录制的高清视频通话"
     },
     "empty": {
-      "title": "No Tutorials Found",
-      "description": "Try selecting a different category"
+      "title": "未找到教程",
+      "description": "尝试选择其他类别"
     }
   },
   "profile": {
     "settings": {
       "timezone": {
-        "label": "Timezone",
-        "placeholder": "Select your timezone",
-        "description": "Used for displaying times in your local timezone"
+        "label": "时区",
+        "placeholder": "选择您的时区",
+        "description": "用于在您的本地时区显示时间"
       },
       "language": {
-        "label": "Language",
-        "placeholder": "Select your language",
-        "description": "Choose your preferred language for the interface"
+        "label": "语言",
+        "placeholder": "选择您的语言",
+        "description": "选择您偏好的界面语言"
       }
     }
   },
   "navigation": {
-    "home": "Home",
-    "products": "Products",
-    "features": "Features",
-    "pricing": "Pricing",
-    "download": "Download",
-    "signIn": "Sign In",
-    "getStarted": "Get Started",
-    "dashboard": "Dashboard",
-    "messages": "Messages",
-    "email": "Email",
-    "projects": "Projects",
-    "notes": "Notes",
-    "calendar": "Calendar",
-    "videoCall": "Video Call",
-    "files": "Files",
-    "whiteboard": "Whiteboard",
-    "search": "Search",
-    "settings": "Settings",
-    "integrations": "Integrations",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "support": "Support",
-    "blog": "Blog",
-    "tutorial": "Tutorial",
-    "apps": "Apps",
-    "more": "More",
-    "bots": "Bots",
-    "connectors": "Connectors",
-    "tools": "Tools"
+    "home": "首页",
+    "products": "产品",
+    "features": "功能",
+    "pricing": "定价",
+    "download": "下载",
+    "signIn": "登录",
+    "getStarted": "开始使用",
+    "dashboard": "仪表盘",
+    "messages": "消息",
+    "email": "电子邮件",
+    "projects": "项目",
+    "notes": "笔记",
+    "calendar": "日历",
+    "videoCall": "视频通话",
+    "files": "文件",
+    "whiteboard": "白板",
+    "search": "搜索",
+    "settings": "设置",
+    "integrations": "集成",
+    "analytics": "分析",
+    "monitoring": "监控",
+    "support": "支持",
+    "blog": "博客",
+    "tutorial": "教程",
+    "apps": "应用",
+    "more": "更多",
+    "bots": "机器人",
+    "connectors": "连接器",
+    "tools": "工具"
   },
   "layout": {
     "rightSidebar": {
-      "aiSummaries": "AI Summaries",
-      "info": "{view} Info",
-      "selectItem": "Select an item to view details"
+      "aiSummaries": "AI摘要",
+      "info": "{view} 信息",
+      "selectItem": "选择一个项目查看详情"
     }
   },
   "workspace": {
-    "yourWorkspaces": "Your Workspaces ({count})",
-    "newWorkspace": "New Workspace",
-    "quickActions": "QUICK ACTIONS",
-    "settings": "Settings",
-    "members": "Members",
-    "createNewWorkspace": "Create New Workspace",
-    "createTitle": "Create Your Workspace",
-    "createDescription": "Set up your team's workspace to start collaborating. You can customize everything later.",
-    "back": "Back",
-    "stepInfo": "Step 1 of 1",
-    "needHelp": "Need help?",
-    "checkGuide": "Check our guide",
-    "or": "or",
-    "contactSupport": "contact support"
+    "yourWorkspaces": "您的工作区 ({count})",
+    "newWorkspace": "新建工作区",
+    "quickActions": "快速操作",
+    "settings": "设置",
+    "members": "成员",
+    "createNewWorkspace": "创建新工作区",
+    "createTitle": "创建您的工作区",
+    "createDescription": "设置您团队的工作区以开始协作。您可以稍后自定义所有内容。",
+    "back": "返回",
+    "stepInfo": "第1步/共1步",
+    "needHelp": "需要帮助？",
+    "checkGuide": "查看我们的指南",
+    "or": "或",
+    "contactSupport": "联系支持"
   },
   "userMenu": {
-    "homePage": "Home Page",
-    "profileSettings": "Profile Settings",
-    "accountSecurity": "Account & Security",
-    "signOut": "Sign Out"
+    "homePage": "首页",
+    "profileSettings": "个人资料设置",
+    "accountSecurity": "账户与安全",
+    "signOut": "退出登录"
   },
   "header": {
     "products": {
       "chat": {
-        "name": "Chat",
-        "description": "Real-time messaging and collaboration"
+        "name": "聊天",
+        "description": "实时消息和协作"
       },
       "projects": {
-        "name": "Projects",
-        "description": "Kanban boards and task management"
+        "name": "项目",
+        "description": "看板和任务管理"
       },
       "files": {
-        "name": "Files",
-        "description": "Cloud storage and file management"
+        "name": "文件",
+        "description": "云存储和文件管理"
       },
       "calendar": {
-        "name": "Calendar",
-        "description": "Schedule meetings and events"
+        "name": "日历",
+        "description": "安排会议和活动"
       },
       "notes": {
-        "name": "Notes",
-        "description": "Rich text editor and documentation"
+        "name": "笔记",
+        "description": "富文本编辑器和文档"
       },
       "videoCalls": {
-        "name": "Video Calls",
-        "description": "HD video conferencing"
+        "name": "视频通话",
+        "description": "高清视频会议"
       }
     }
   },
   "hero": {
-    "badge": "All-in-One Workspace Platform",
-    "title": "Chat, Video, Projects, Files & Notes",
-    "titleHighlight": "All in One Place",
-    "subtitle": "The complete workspace platform with",
-    "subtitleHighlight1": "real-time collaboration",
-    "subtitleHighlight2": "HD video conferencing",
-    "subtitleHighlight3": "powerful project management",
-    "subtitleBold": "fully-featured free plan",
-    "subtitleEnd": "No credit card required. Upgrade when you're ready.",
-    "valueProposition": "Start with our {bold}. {end}",
+    "badge": "一站式工作平台",
+    "title": "聊天、视频、项目、文件和笔记",
+    "titleHighlight": "尽在一处",
+    "subtitle": "完整的工作平台，具有",
+    "subtitleHighlight1": "实时协作",
+    "subtitleHighlight2": "高清视频会议",
+    "subtitleHighlight3": "强大的项目管理",
+    "subtitleBold": "功能齐全的免费计划",
+    "subtitleEnd": "无需信用卡。准备好时随时升级。",
+    "valueProposition": "从我们的 {bold} 开始。{end}",
     "stats": {
-      "teams": "Active Teams",
+      "teams": "活跃团队",
       "teamsCount": "10K+",
-      "freePlan": "Forever Plan",
-      "freePlanLabel": "Free",
-      "toolsInOne": "In One Platform",
-      "toolsCount": "6 Tools"
+      "freePlan": "永久计划",
+      "freePlanLabel": "免费",
+      "toolsInOne": "统一平台",
+      "toolsCount": "6个工具"
     },
     "cta": {
-      "primary": "Get Started Free",
-      "secondary": "Watch Demo",
-      "tryFree": "Try it free"
+      "primary": "免费开始",
+      "secondary": "观看演示",
+      "tryFree": "免费试用"
     },
     "trustIndicators": {
-      "noCreditCard": "No credit card required",
-      "freeTrial": "14-day free trial",
-      "cancelAnytime": "Cancel anytime"
+      "noCreditCard": "无需信用卡",
+      "freeTrial": "14天免费试用",
+      "cancelAnytime": "随时取消"
     },
-    "exploreFeatures": "Explore Features",
-    "clickModule": "Click any module to see it in action",
+    "exploreFeatures": "探索功能",
+    "clickModule": "点击任何模块查看实际效果",
     "browserUrl": "https://deskive.com/workspace/dashboard",
     "slides": {
       "welcome": {
-        "badge": "All-in-One",
-        "title": "Welcome to Deskive",
-        "description": "Your all-in-one AI-powered workspace. Replace Slack, Notion, Trello, Google Drive, and Zoom with one intelligent platform.",
+        "badge": "一站式",
+        "title": "欢迎来到Deskive",
+        "description": "您的一站式AI驱动工作平台。用一个智能平台取代Slack、Notion、Trello、Google Drive和Zoom。",
         "features": {
-          "aiPowered": "AI-Powered Features",
-          "realTime": "Real-time Collaboration",
-          "smartProject": "Smart Project Management"
+          "aiPowered": "AI驱动功能",
+          "realTime": "实时协作",
+          "smartProject": "智能项目管理"
         }
       },
       "chat": {
-        "badge": "Team Chat",
-        "title": "Real-Time Messaging",
-        "description": "Stay connected with your team through instant messaging, organized channels, and seamless file sharing. All conversations in one place.",
+        "badge": "团队聊天",
+        "title": "实时消息",
+        "description": "通过即时消息、组织化的频道和无缝文件共享与团队保持联系。所有对话集中在一处。",
         "features": {
-          "channelsDms": "Channels & DMs",
-          "teamCollaboration": "Team Collaboration",
-          "instantNotifications": "Instant Notifications"
+          "channelsDms": "频道和私信",
+          "teamCollaboration": "团队协作",
+          "instantNotifications": "即时通知"
         }
       },
       "smartNotes": {
-        "badge": "Smart Notes",
-        "title": "Smart Notes",
-        "description": "Create beautiful, organized notes with our block-based editor. AI writing assistant helps you draft, edit, and organize your thoughts effortlessly.",
+        "badge": "智能笔记",
+        "title": "智能笔记",
+        "description": "使用我们的块编辑器创建精美、有序的笔记。AI写作助手帮助您轻松起草、编辑和组织想法。",
         "features": {
-          "blockEditor": "Block-based Editor",
-          "aiWriting": "AI Writing Assistant",
-          "smartOrganization": "Smart Organization"
+          "blockEditor": "块编辑器",
+          "aiWriting": "AI写作助手",
+          "smartOrganization": "智能组织"
         }
       },
       "smartCalendar": {
-        "badge": "Voice Enabled",
-        "title": "Smart Event Creator",
-        "description": "Just describe your meeting in natural language or use voice input. AI understands and finds the perfect time slot automatically.",
+        "badge": "语音启用",
+        "title": "智能事件创建器",
+        "description": "只需用自然语言描述您的会议或使用语音输入。AI会自动理解并找到完美的时间段。",
         "features": {
-          "voiceToEvent": "Voice-to-Event",
-          "naturalLanguage": "Natural Language",
-          "smartScheduling": "Smart Scheduling"
+          "voiceToEvent": "语音转事件",
+          "naturalLanguage": "自然语言",
+          "smartScheduling": "智能排程"
         }
       },
       "collaboration": {
-        "badge": "Instant",
-        "title": "Real-Time Collaboration",
-        "description": "Stay connected with instant messaging, HD video calls, screen sharing, and team channels. Work together seamlessly.",
+        "badge": "即时",
+        "title": "实时协作",
+        "description": "通过即时消息、高清视频通话、屏幕共享和团队频道保持联系。无缝协作。",
         "features": {
-          "teamChat": "Team Chat",
-          "videoCalls": "Video Calls",
-          "smartNotifications": "Smart Notifications"
+          "teamChat": "团队聊天",
+          "videoCalls": "视频通话",
+          "smartNotifications": "智能通知"
         }
       },
       "analytics": {
-        "badge": "Smart",
-        "title": "AI-Powered Analytics",
-        "description": "Get intelligent insights into your productivity, meeting patterns, and team performance. Data-driven decisions made easy.",
+        "badge": "智能",
+        "title": "AI驱动分析",
+        "description": "获取关于生产力、会议模式和团队表现的智能洞察。轻松做出数据驱动的决策。",
         "features": {
-          "smartAnalytics": "Smart Analytics",
-          "aiInsights": "AI Insights",
-          "timeAnalysis": "Time Analysis"
+          "smartAnalytics": "智能分析",
+          "aiInsights": "AI洞察",
+          "timeAnalysis": "时间分析"
         }
       },
       "projectManagement": {
-        "badge": "Projects",
-        "title": "Project Management",
-        "description": "Kanban boards, task tracking, time management, and AI-powered insights. Keep your team aligned and productive.",
+        "badge": "项目",
+        "title": "项目管理",
+        "description": "看板、任务跟踪、时间管理和AI驱动的洞察。让您的团队保持一致和高效。",
         "features": {
-          "kanbanBoards": "Kanban Boards",
-          "timeTracking": "Time Tracking",
-          "aiInsights": "AI Insights"
+          "kanbanBoards": "看板",
+          "timeTracking": "时间跟踪",
+          "aiInsights": "AI洞察"
         }
       }
     }
@@ -589,10 +589,10 @@
     }
   },
   "moduleExplorer": {
-    "badge": "EXPLORE OUR MODULES",
-    "title": "One platform,",
-    "titleHighlight": "endless possibilities",
-    "subtitle": "Discover how each module works together to streamline your workflow and boost team productivity"
+    "badge": "探索我们的模块",
+    "title": "一个平台，",
+    "titleHighlight": "无限可能",
+    "subtitle": "了解每个模块如何协同工作，简化您的工作流程并提高团队生产力"
   },
   "modules": {
     "dashboard": {
@@ -3665,36 +3665,36 @@
     }
   },
   "featuresGrid": {
-    "tasks": "Tasks",
-    "kanbanBoards": "Kanban Boards",
-    "docs": "Docs",
-    "aiAssistant": "AI Assistant",
-    "calendar": "Calendar",
-    "chat": "Chat",
-    "videoCalls": "Video Calls",
-    "files": "Files",
-    "projects": "Projects",
-    "reporting": "Reporting",
-    "goals": "Goals",
-    "automations": "Automations",
-    "customFields": "Custom Fields",
-    "timeTracking": "Time Tracking",
-    "dashboards": "Dashboards",
-    "forms": "Forms",
-    "reminders": "Reminders",
-    "collaboration": "Collaboration",
-    "integrations": "Integrations",
-    "smartSearch": "Smart Search",
-    "ganttCharts": "Gantt Charts",
-    "tags": "Tags",
-    "emails": "Emails",
-    "proofing": "Proofing",
-    "templates": "Templates",
-    "guests": "Guests",
-    "support24_7": "24/7 Support",
-    "teams": "Teams",
-    "roadmaps": "Roadmaps",
-    "spreadsheets": "Spreadsheets"
+    "tasks": "任务",
+    "kanbanBoards": "看板",
+    "docs": "文档",
+    "aiAssistant": "AI助手",
+    "calendar": "日历",
+    "chat": "聊天",
+    "videoCalls": "视频通话",
+    "files": "文件",
+    "projects": "项目",
+    "reporting": "报告",
+    "goals": "目标",
+    "automations": "自动化",
+    "customFields": "自定义字段",
+    "timeTracking": "时间跟踪",
+    "dashboards": "仪表盘",
+    "forms": "表单",
+    "reminders": "提醒",
+    "collaboration": "协作",
+    "integrations": "集成",
+    "smartSearch": "智能搜索",
+    "ganttCharts": "甘特图",
+    "tags": "标签",
+    "emails": "电子邮件",
+    "proofing": "校对",
+    "templates": "模板",
+    "guests": "访客",
+    "support24_7": "7x24支持",
+    "teams": "团队",
+    "roadmaps": "路线图",
+    "spreadsheets": "电子表格"
   },
   "workBroken": {
     "badge": "Replace 10+ SaaS tools with one platform",
@@ -3724,40 +3724,40 @@
     }
   },
   "footer": {
-    "tagline": "The all-in-one workspace platform that brings your team's projects, docs, and conversations together.",
-    "beta": "BETA",
+    "tagline": "一站式工作平台，将您团队的项目、文档和对话集中在一起。",
+    "beta": "测试版",
     "sections": {
-      "products": "Products",
-      "company": "Company",
-      "legal": "Legal"
+      "products": "产品",
+      "company": "公司",
+      "legal": "法律"
     },
     "products": {
-      "chat": "Chat",
-      "projects": "Projects",
-      "files": "Files",
-      "calendar": "Calendar",
-      "notes": "Notes",
-      "videoCalls": "Video Calls"
+      "chat": "聊天",
+      "projects": "项目",
+      "files": "文件",
+      "calendar": "日历",
+      "notes": "笔记",
+      "videoCalls": "视频通话"
     },
     "company": {
-      "pricing": "Pricing",
-      "contact": "Contact"
+      "pricing": "定价",
+      "contact": "联系"
     },
     "legal": {
-      "privacy": "Privacy",
-      "terms": "Terms",
-      "cookies": "Cookies",
-      "sitemap": "Sitemap",
-      "dataDeletion": "Data Deletion"
+      "privacy": "隐私",
+      "terms": "条款",
+      "cookies": "Cookie",
+      "sitemap": "网站地图",
+      "dataDeletion": "数据删除"
     },
     "newsletter": {
-      "title": "Stay in the loop",
-      "description": "Get the latest updates, news, and exclusive offers delivered to your inbox.",
-      "placeholder": "Enter your email",
-      "button": "Subscribe"
+      "title": "保持联系",
+      "description": "获取最新更新、新闻和独家优惠。",
+      "placeholder": "输入您的电子邮件",
+      "button": "订阅"
     },
-    "copyright": "© {year} Deskive. All rights reserved.",
-    "madeWith": "Made with ❤️ for teams everywhere"
+    "copyright": "© {year} Deskive。保留所有权利。",
+    "madeWith": "用 ❤️ 为全球团队打造"
   },
   "downloads": {
     "badge": "Available Now",
@@ -5141,199 +5141,199 @@
   },
   "cta": {
     "readyToStart": {
-      "title": "Ready to get started?",
-      "subtitle": "Join thousands of teams already using Deskive to collaborate better and get more done.",
-      "button": "Get started for free",
+      "title": "准备好开始了吗？",
+      "subtitle": "加入数千个已经使用Deskive的团队。",
+      "button": "免费开始",
       "features": [
-        "Free 14-day trial",
-        "No credit card required",
-        "Cancel anytime",
-        "Setup in 5 minutes"
+        "14天免费试用",
+        "无需信用卡",
+        "随时取消",
+        "5分钟完成设置"
       ]
     },
-    "setupMinutes": "Setup in 5 minutes"
+    "setupMinutes": "5分钟完成设置"
   },
   "pricing": {
     "meta": {
-      "title": "Pricing Plans - Simple, Transparent, Affordable",
-      "description": "Choose the perfect Deskive plan for your team. Free tier available. Paid plans start at $29/month. All features included. No hidden fees. 14-day free trial.",
-      "keywords": "pricing, plans, cost, free trial, workspace pricing, team collaboration pricing"
+      "title": "定价方案 - 简单、透明、实惠",
+      "description": "为您的团队选择完美的Deskive方案。",
+      "keywords": "定价、方案、费用、免费试用"
     },
     "header": {
-      "badge": "Simple Pricing",
-      "title": "Choose Your",
-      "titleHighlight": "Plan",
-      "subtitle": "Start free and scale as you grow. No hidden fees, no surprises.",
-      "subtitleBold": "14-day free trial on all paid plans."
+      "badge": "简单定价",
+      "title": "选择您的",
+      "titleHighlight": "方案",
+      "subtitle": "免费开始，随增长扩展。无隐藏费用，无意外。",
+      "subtitleBold": "所有付费方案均享14天免费试用。"
     },
     "promo": {
-      "limitedTime": "Limited Time Offer",
-      "twoMonthsFree": "Get 2 Months Free with Annual Plans",
-      "bestValue": "🎉 Best Value",
-      "joinThousands": "Join thousands of teams already using Deskive. Start free, upgrade anytime."
+      "limitedTime": "限时优惠",
+      "twoMonthsFree": "年度方案免费赠送2个月",
+      "bestValue": "🎉 最佳价值",
+      "joinThousands": "加入数千个已经使用Deskive的团队。免费开始，随时升级。"
     },
     "billing": {
-      "monthly": "Monthly",
-      "annual": "Annual",
-      "twoMonthsFree": "2 months free",
-      "save": "Save 17%",
-      "perMo": "/mo",
-      "perMonth": "per month",
-      "perYear": "/year",
-      "forever": "forever",
-      "contactSales": "contact sales"
+      "monthly": "月付",
+      "annual": "年付",
+      "twoMonthsFree": "免费2个月",
+      "save": "节省17%",
+      "perMo": "/月",
+      "perMonth": "每月",
+      "perYear": "/年",
+      "forever": "永久",
+      "contactSales": "联系销售"
     },
-    "trustedBy": "Trusted by teams worldwide",
+    "trustedBy": "受全球团队信赖",
     "features": {
-      "freeTrial": "14-day free trial",
-      "noCreditCard": "No credit card required",
-      "cancelAnytime": "Cancel anytime"
+      "freeTrial": "14天免费试用",
+      "noCreditCard": "无需信用卡",
+      "cancelAnytime": "随时取消"
     },
     "loading": {
-      "text": "Loading pricing plans..."
+      "text": "加载定价方案中..."
     },
     "error": {
-      "text": "Showing default pricing plans."
+      "text": "显示默认定价方案。"
     },
     "plans": {
       "free": {
-        "name": "Free",
+        "name": "免费",
         "price": "$0",
-        "period": "forever",
-        "description": "Perfect for individuals and small teams getting started",
-        "buttonText": "Get Started",
+        "period": "永久",
+        "description": "非常适合个人和入门小团队",
+        "buttonText": "开始使用",
         "features": [
-          "5 team members",
-          "1 GB storage",
-          "Basic chat & messaging",
-          "Basic file sharing",
-          "Mobile app access",
-          "Community support",
-          "Basic integrations",
-          "2FA authentication"
+          "5名团队成员",
+          "1 GB存储",
+          "基本聊天和消息",
+          "基本文件共享",
+          "移动应用访问",
+          "社区支持",
+          "基本集成",
+          "2FA认证"
         ],
         "notIncluded": [
-          "Advanced integrations",
-          "Priority support",
-          "Custom branding",
-          "Advanced analytics",
-          "API access",
-          "Data export"
+          "高级集成",
+          "优先支持",
+          "自定义品牌",
+          "高级分析",
+          "API访问",
+          "数据导出"
         ]
       },
       "starter": {
-        "name": "Starter",
+        "name": "入门版",
         "price": "$9.99",
         "yearlyPrice": "$99.99",
-        "period": "per month",
-        "description": "Ideal for growing teams that need more power",
-        "buttonText": "Get Started",
+        "period": "每月",
+        "description": "适合需要更多功能的成长团队",
+        "buttonText": "开始使用",
         "features": [
-          "25 team members",
-          "25 GB storage",
-          "Advanced chat with threads",
-          "Video calls (up to 10 participants)",
-          "Project management tools",
-          "Calendar integration",
-          "Email support",
-          "API access",
-          "Custom integrations (5)",
-          "Basic analytics",
-          "Data export (CSV)",
-          "Guest access"
+          "25名团队成员",
+          "25 GB存储",
+          "高级聊天与线程",
+          "视频通话（最多10人参与）",
+          "项目管理工具",
+          "日历集成",
+          "邮件支持",
+          "API访问",
+          "自定义集成（5个）",
+          "基础分析",
+          "数据导出（CSV）",
+          "访客访问"
         ],
         "notIncluded": [
-          "SSO authentication",
-          "Advanced security features",
-          "Unlimited integrations",
-          "24/7 phone support"
+          "SSO认证",
+          "高级安全功能",
+          "无限集成",
+          "7x24小时电话支持"
         ]
       },
       "professional": {
-        "name": "Professional",
+        "name": "专业版",
         "price": "$19.99",
         "yearlyPrice": "$199.99",
-        "period": "per month",
-        "description": "Complete solution for professional teams",
-        "buttonText": "Get Started",
-        "badge": "Most Popular",
+        "period": "每月",
+        "description": "专业团队的完整解决方案",
+        "buttonText": "开始使用",
+        "badge": "最受欢迎",
         "features": [
-          "100 team members",
-          "100 GB storage",
-          "Unlimited video calls",
-          "Advanced project management",
-          "AI-powered features",
-          "Custom integrations (unlimited)",
-          "Advanced analytics & reporting",
-          "Priority support",
-          "Data export (all formats)",
-          "99.9% uptime SLA",
-          "Advanced security features",
-          "Custom workflows",
-          "Time tracking & billing",
-          "Resource management"
+          "100名团队成员",
+          "100 GB存储",
+          "无限视频通话",
+          "高级项目管理",
+          "AI驱动功能",
+          "自定义集成（无限）",
+          "高级分析和报告",
+          "优先支持",
+          "数据导出（所有格式）",
+          "99.9%正常运行时间SLA",
+          "高级安全功能",
+          "自定义工作流",
+          "时间跟踪和计费",
+          "资源管理"
         ]
       },
       "enterprise": {
-        "name": "Enterprise",
+        "name": "企业版",
         "price": "$49.99",
         "yearlyPrice": "$499.99",
-        "period": "per month",
-        "description": "Tailored solutions for large organizations",
-        "buttonText": "Get Started",
+        "period": "每月",
+        "description": "为大型组织量身定制的解决方案",
+        "buttonText": "开始使用",
         "features": [
-          "Unlimited team members",
-          "1 TB+ storage",
-          "Enterprise SSO (SAML, OAuth)",
-          "Advanced security & compliance",
-          "Custom AI training",
-          "Dedicated account manager",
-          "Custom integrations & API",
-          "24/7 phone support",
-          "On-premise deployment option",
-          "Custom contracts & SLA",
-          "Audit logs & compliance",
-          "Advanced user permissions",
-          "White-label options",
-          "Priority feature requests",
-          "Training & onboarding"
+          "无限团队成员",
+          "1 TB+存储",
+          "企业SSO（SAML、OAuth）",
+          "高级安全与合规",
+          "自定义AI训练",
+          "专属客户经理",
+          "自定义集成和API",
+          "7x24小时电话支持",
+          "本地部署选项",
+          "自定义合同和SLA",
+          "审计日志和合规",
+          "高级用户权限",
+          "白标选项",
+          "优先功能请求",
+          "培训和入职"
         ]
       }
     },
     "faq": {
-      "badge": "Got questions?",
-      "title": "Frequently Asked",
-      "titleHighlight": "Questions",
-      "subtitle": "Have questions? We have answers. If you can't find what you're looking for, our support team is here to help.",
+      "badge": "有问题？",
+      "title": "常见",
+      "titleHighlight": "问题",
+      "subtitle": "有问题？我们有答案。",
       "questions": [
         {
-          "question": "Can I change my plan later?",
-          "answer": "Yes, you can upgrade or downgrade your plan at any time. When upgrading, you'll be charged the prorated difference. When downgrading, you'll receive credit for the unused portion."
+          "question": "我以后可以更改计划吗？",
+          "answer": "是的，您可以随时升级或降级您的方案。"
         },
         {
-          "question": "What payment methods do you accept?",
-          "answer": "We accept all major credit cards (Visa, MasterCard, American Express), PayPal, and wire transfers for Enterprise plans. All payments are processed securely through Stripe."
+          "question": "您接受哪些付款方式？",
+          "answer": "我们接受所有主要信用卡、PayPal以及企业方案的电汇。"
         },
         {
-          "question": "Is there a free trial?",
-          "answer": "Yes! All paid plans come with a 14-day free trial. No credit card required to start. You can explore all features and cancel anytime during the trial period."
+          "question": "有免费试用吗？",
+          "answer": "是的！所有付费方案均提供14天免费试用。"
         },
         {
-          "question": "What happens to my data if I cancel?",
-          "answer": "Your data remains accessible for 30 days after cancellation. You can export all your data at any time. After 30 days, data is permanently deleted in accordance with our privacy policy."
+          "question": "如果我取消，我的数据会怎样？",
+          "answer": "取消后您的数据将保留30天可访问。"
         },
         {
-          "question": "Do you offer discounts for non-profits or education?",
-          "answer": "Yes, we offer 50% discount for registered non-profits and educational institutions. Contact our sales team with proof of status to apply for the discount."
+          "question": "你们为非营利组织提供折扣吗？",
+          "answer": "是的，我们为非营利组织和教育机构提供50%的折扣。"
         },
         {
-          "question": "Can I get a refund?",
-          "answer": "We offer a 30-day money-back guarantee for all new subscriptions. If you're not satisfied within the first 30 days, we'll provide a full refund, no questions asked."
+          "question": "我可以获得退款吗？",
+          "answer": "我们为所有新订阅提供30天退款保证。"
         }
       ],
       "contact": {
-        "text": "Still have questions?",
-        "buttonText": "Contact Sales Team"
+        "text": "还有问题？",
+        "buttonText": "联系销售团队"
       }
     }
   },
@@ -5557,134 +5557,134 @@
     }
   },
   "contact": {
-    "badge": "Get in touch",
-    "title": "We'd love to hear from you",
-    "subtitle": "Have questions or feedback? Our team is here to help. Send us a message and we'll respond within 24 hours.",
+    "badge": "联系我们",
+    "title": "我们很乐意听取您的意见",
+    "subtitle": "有问题或反馈？我们的团队随时为您服务。",
     "form": {
-      "name": "Name",
-      "namePlaceholder": "Your full name",
-      "nameRequired": "Name is required",
-      "email": "Email",
+      "name": "姓名",
+      "namePlaceholder": "您的全名",
+      "nameRequired": "姓名为必填项",
+      "email": "电子邮件",
       "emailPlaceholder": "your@email.com",
-      "emailRequired": "Email is required",
-      "emailInvalid": "Invalid email address",
-      "company": "Company",
-      "companyPlaceholder": "Your company name",
-      "message": "Message",
-      "messagePlaceholder": "Tell us about your project or question...",
-      "messageRequired": "Message is required",
-      "submit": "Send Message",
-      "submitting": "Sending...",
-      "success": "Message sent successfully!",
-      "error": "Failed to send message. Please try again.",
-      "subject": "Subject",
-      "selectTopic": "Select a topic",
-      "subjectGeneral": "General Inquiry",
-      "subjectSales": "Sales",
-      "subjectSupport": "Support",
-      "subjectPartnership": "Partnership",
-      "subjectOther": "Other"
+      "emailRequired": "电子邮件为必填项",
+      "emailInvalid": "无效的电子邮件地址",
+      "company": "公司",
+      "companyPlaceholder": "您的公司名称",
+      "message": "消息",
+      "messagePlaceholder": "告诉我们您的项目或问题...",
+      "messageRequired": "消息为必填项",
+      "submit": "发送消息",
+      "submitting": "发送中...",
+      "success": "消息发送成功！",
+      "error": "消息发送失败。请重试。",
+      "subject": "主题",
+      "selectTopic": "选择一个主题",
+      "subjectGeneral": "一般咨询",
+      "subjectSales": "销售",
+      "subjectSupport": "支持",
+      "subjectPartnership": "合作",
+      "subjectOther": "其他"
     }
   },
   "featureHighlights": {
-    "badge": "FEATURES",
-    "title": "Every feature your team needs",
-    "titleHighlight": "to complete work faster",
-    "subtitle": "Essential features to take productivity to the next level.",
+    "badge": "功能",
+    "title": "您团队需要的每个功能",
+    "titleHighlight": "更快完成工作",
+    "subtitle": "将生产力提升到新水平的必备功能。",
     "features": {
-      "tasks": "Tasks",
-      "kanbanBoards": "Kanban Boards",
-      "docs": "Docs",
-      "aiAssistant": "AI Assistant",
-      "calendar": "Calendar",
-      "chat": "Chat",
-      "videoCalls": "Video Calls",
-      "files": "Files",
-      "projects": "Projects",
-      "reporting": "Reporting",
-      "goals": "Goals",
-      "automations": "Automations",
-      "customFields": "Custom Fields",
-      "timeTracking": "Time Tracking",
-      "dashboards": "Dashboards",
-      "forms": "Forms",
-      "reminders": "Reminders",
-      "collaboration": "Collaboration"
+      "tasks": "任务",
+      "kanbanBoards": "看板",
+      "docs": "文档",
+      "aiAssistant": "AI助手",
+      "calendar": "日历",
+      "chat": "聊天",
+      "videoCalls": "视频通话",
+      "files": "文件",
+      "projects": "项目",
+      "reporting": "报告",
+      "goals": "目标",
+      "automations": "自动化",
+      "customFields": "自定义字段",
+      "timeTracking": "时间跟踪",
+      "dashboards": "仪表盘",
+      "forms": "表单",
+      "reminders": "提醒",
+      "collaboration": "协作"
     }
   },
   "auth": {
     "login": {
-      "title": "Welcome back",
-      "subtitle": "Sign in to your Deskive account",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Enter your password",
-      "rememberMe": "Remember me",
-      "forgotPassword": "Forgot password?",
-      "signIn": "Sign In",
-      "signingIn": "Signing in...",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "orSignInWith": "Or sign in with email",
-      "twoFactorCode": "Two-Factor Authentication Code",
-      "twoFactorPlaceholder": "Enter your 2FA code"
+      "title": "欢迎回来",
+      "subtitle": "登录您的Deskive账户",
+      "email": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件",
+      "password": "密码",
+      "passwordPlaceholder": "输入您的密码",
+      "rememberMe": "记住我",
+      "forgotPassword": "忘记密码？",
+      "signIn": "登录",
+      "signingIn": "登录中...",
+      "noAccount": "没有账户？",
+      "signUp": "免费注册",
+      "orSignInWith": "或使用电子邮件登录",
+      "twoFactorCode": "双重认证代码",
+      "twoFactorPlaceholder": "输入您的2FA代码"
     },
     "register": {
-      "title": "Create Account",
-      "subtitle": "Join and start collaborating",
-      "name": "Full name",
-      "namePlaceholder": "Enter your full name",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email",
-      "password": "Password",
-      "passwordPlaceholder": "Create a strong password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "orSignUpWith": "Or sign up with email",
-      "agree": "I agree to the",
-      "terms": "Terms of Service",
-      "and": "and",
-      "privacy": "Privacy Policy",
-      "createAccount": "Create Account",
-      "creatingAccount": "Creating account...",
-      "haveAccount": "Already have an account?",
-      "signIn": "Sign in here"
+      "title": "创建账户",
+      "subtitle": "加入并开始协作",
+      "name": "全名",
+      "namePlaceholder": "输入您的全名",
+      "email": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件",
+      "password": "密码",
+      "passwordPlaceholder": "创建一个强密码",
+      "passwordHint": "密码长度至少为8个字符",
+      "orSignUpWith": "或使用电子邮件注册",
+      "agree": "我同意",
+      "terms": "服务条款",
+      "and": "和",
+      "privacy": "隐私政策",
+      "createAccount": "创建账户",
+      "creatingAccount": "创建账户中...",
+      "haveAccount": "已有账户？",
+      "signIn": "在此登录"
     },
     "forgotPassword": {
-      "title": "Forgot Password?",
-      "subtitle": "Enter your email address and we'll send you a link to reset your password",
-      "email": "Email address",
-      "emailPlaceholder": "Enter your email address",
-      "sendLink": "Send Reset Email",
-      "sendingLink": "Sending Reset Email...",
-      "backToLogin": "Back to Sign In",
-      "noAccount": "Don't have an account?",
-      "signUp": "Sign up for free",
-      "success": "Check Your Email",
-      "successMessage": "We've sent a password reset link to your email address",
-      "checkInbox": "Please check your inbox and click the link to reset your password.",
-      "noEmail": "Didn't receive the email? Check your spam folder or try again.",
-      "sendAnother": "Send Another Email"
+      "title": "忘记密码？",
+      "subtitle": "输入您的电子邮件地址，我们将向您发送重置密码的链接",
+      "email": "电子邮件地址",
+      "emailPlaceholder": "输入您的电子邮件地址",
+      "sendLink": "发送重置邮件",
+      "sendingLink": "发送重置邮件中...",
+      "backToLogin": "返回登录",
+      "noAccount": "没有账户？",
+      "signUp": "免费注册",
+      "success": "查看您的邮件",
+      "successMessage": "我们已向您的电子邮件地址发送了密码重置链接",
+      "checkInbox": "请检查您的收件箱并点击链接重置密码。",
+      "noEmail": "没有收到邮件？请检查垃圾邮件文件夹或重试。",
+      "sendAnother": "重新发送邮件"
     },
     "resetPassword": {
-      "title": "Reset Your Password",
-      "subtitle": "Enter your new password below",
-      "password": "New Password",
-      "passwordPlaceholder": "Enter your new password",
-      "passwordHint": "Password must be at least 8 characters long",
-      "confirmPassword": "Confirm New Password",
-      "confirmPasswordPlaceholder": "Confirm your new password",
-      "reset": "Reset Password",
-      "resetting": "Resetting Password...",
-      "backToLogin": "Back to Sign In",
-      "rememberPassword": "Remember your password?",
-      "signIn": "Sign in here",
-      "success": "Password Reset Complete",
-      "successMessage": "Your password has been successfully reset",
-      "redirectMessage": "You will be redirected to the sign-in page shortly.",
-      "continueSignIn": "Continue to Sign In",
-      "invalidToken": "Invalid or missing reset token. Please request a new password reset.",
-      "passwordMismatch": "Passwords do not match"
+      "title": "重置您的密码",
+      "subtitle": "在下方输入您的新密码",
+      "password": "新密码",
+      "passwordPlaceholder": "输入您的新密码",
+      "passwordHint": "密码长度至少为8个字符",
+      "confirmPassword": "确认新密码",
+      "confirmPasswordPlaceholder": "确认您的新密码",
+      "reset": "重置密码",
+      "resetting": "重置密码中...",
+      "backToLogin": "返回登录",
+      "rememberPassword": "记得您的密码？",
+      "signIn": "在此登录",
+      "success": "密码重置完成",
+      "successMessage": "您的密码已成功重置",
+      "redirectMessage": "您将很快被重定向到登录页面。",
+      "continueSignIn": "继续登录",
+      "invalidToken": "无效或缺少重置令牌。请重新请求密码重置。",
+      "passwordMismatch": "密码不匹配"
     }
   },
   "company": {
@@ -7287,34 +7287,34 @@
     }
   },
   "tasks": {
-    "total": "Total",
-    "done": "Done",
-    "pending": "Pending",
-    "boardView": "Board View",
-    "listView": "List View",
-    "timelineView": "Timeline View",
-    "ganttChart": "Gantt Chart",
-    "teamView": "Team View",
-    "addTask": "Add Task",
-    "viewOptions": "View Options",
-    "changeView": "Change View",
-    "searchTasks": "Search tasks...",
-    "priority": "Priority",
-    "all": "All",
-    "low": "Low",
-    "medium": "Medium",
-    "high": "High",
-    "loadingTasks": "Loading tasks...",
-    "columnSettings": "Column Settings",
-    "noTasks": "No tasks",
-    "editTask": "Edit Task",
-    "deleteTask": "Delete Task",
-    "deleteTaskTitle": "Delete Task",
-    "deleteTaskConfirm": "Are you sure you want to delete \"{title}\"? This action cannot be undone.",
-    "taskDeleted": "Task Deleted",
-    "taskDeletedSuccess": "\"{title}\" has been deleted successfully.",
-    "deleting": "Deleting...",
-    "tasksCount": "{count} tasks"
+    "total": "总计",
+    "done": "完成",
+    "pending": "待处理",
+    "boardView": "看板视图",
+    "listView": "列表视图",
+    "timelineView": "时间线视图",
+    "ganttChart": "甘特图",
+    "teamView": "团队视图",
+    "addTask": "添加任务",
+    "viewOptions": "视图选项",
+    "changeView": "切换视图",
+    "searchTasks": "搜索任务...",
+    "priority": "优先级",
+    "all": "全部",
+    "low": "低",
+    "medium": "中等",
+    "high": "高",
+    "loadingTasks": "加载任务中...",
+    "columnSettings": "列设置",
+    "noTasks": "没有任务",
+    "editTask": "编辑任务",
+    "deleteTask": "删除任务",
+    "deleteTaskTitle": "删除任务",
+    "deleteTaskConfirm": "您确定要删除\"{title}\"吗？",
+    "taskDeleted": "任务已删除",
+    "taskDeletedSuccess": "\"{title}\"已成功删除。",
+    "deleting": "删除中...",
+    "tasksCount": "{count}个任务"
   },
   "settings": {
     "profile": {
@@ -7705,27 +7705,27 @@
     }
   },
   "sidebar": {
-    "dashboard": "Dashboard",
-    "chat": "Chat",
-    "projects": "Projects",
-    "files": "Files",
-    "calendar": "Calendar",
-    "videoCalls": "Video Calls",
-    "notes": "Notes",
-    "analytics": "Analytics",
-    "monitoring": "Monitoring",
-    "integrations": "Integrations",
+    "dashboard": "仪表盘",
+    "chat": "聊天",
+    "projects": "项目",
+    "files": "文件",
+    "calendar": "日历",
+    "videoCalls": "视频通话",
+    "notes": "笔记",
+    "analytics": "分析",
+    "monitoring": "监控",
+    "integrations": "集成",
     "settings": {
-      "title": "Settings",
-      "profile": "Profile",
-      "security": "Security",
-      "notifications": "Notifications",
-      "team": "Team",
-      "billing": "Billing",
-      "billingBadge": "Important",
-      "workspaceSection": "WORKSPACE",
-      "workspace": "Workspace Settings",
-      "feedback": "Feedback"
+      "title": "设置",
+      "profile": "个人资料",
+      "security": "安全",
+      "notifications": "通知",
+      "team": "团队",
+      "billing": "计费",
+      "billingBadge": "重要",
+      "workspaceSection": "工作区",
+      "workspace": "工作区设置",
+      "feedback": "反馈"
     }
   },
   "admin": {
@@ -7816,53 +7816,53 @@
     }
   },
   "notifications": {
-    "title": "Notifications",
-    "markAllRead": "Mark all as read",
-    "clearRead": "Clear read",
+    "title": "通知",
+    "markAllRead": "全部标为已读",
+    "clearRead": "清除已读",
     "tabs": {
-      "all": "All",
-      "unread": "Unread",
-      "read": "Read"
+      "all": "全部",
+      "unread": "未读",
+      "read": "已读"
     },
     "empty": {
-      "title": "No notifications",
-      "message": "You're all caught up!"
+      "title": "没有通知",
+      "message": "您已全部了解！"
     },
-    "loading": "Loading...",
-    "loadMore": "Load more",
-    "noNotifications": "No notifications",
-    "viewAll": "View all notifications",
-    "markAllAsRead": "Mark all as read",
-    "justNow": "Just now"
+    "loading": "加载中...",
+    "loadMore": "加载更多",
+    "noNotifications": "没有通知",
+    "viewAll": "查看所有通知",
+    "markAllAsRead": "全部标为已读",
+    "justNow": "刚刚"
   },
   "modals": {
     "deleteConfirmation": {
-      "title": "Delete Item",
-      "description": "Are you sure you want to delete this item? This action cannot be undone.",
-      "descriptionWithName": "Are you sure you want to delete \"{itemName}\"? This action cannot be undone.",
-      "deleting": "Deleting..."
+      "title": "删除项目",
+      "description": "您确定要删除此项目吗？此操作无法撤消。",
+      "descriptionWithName": "您确定要删除\"{itemName}\"吗？此操作无法撤消。",
+      "deleting": "删除中..."
     }
   },
   "members": {
-    "workload": "Workload",
-    "utilization": "Utilization",
-    "projects": "Projects",
-    "currentProjects": "Current Projects",
-    "you": "You",
-    "online": "Online",
-    "skills": "Skills"
+    "workload": "工作量",
+    "utilization": "利用率",
+    "projects": "项目",
+    "currentProjects": "当前项目",
+    "you": "您",
+    "online": "在线",
+    "skills": "技能"
   },
   "roles": {
-    "label": "Role",
-    "allRoles": "All Roles",
-    "owner": "Owner",
-    "admin": "Admin",
-    "member": "Member",
-    "viewer": "Viewer",
-    "developer": "Developer",
-    "designer": "Designer",
-    "qaEngineer": "QA Engineer",
-    "cannotChangeOwner": "Cannot change owner role"
+    "label": "角色",
+    "allRoles": "所有角色",
+    "owner": "所有者",
+    "admin": "管理员",
+    "member": "成员",
+    "viewer": "查看者",
+    "developer": "开发者",
+    "designer": "设计师",
+    "qaEngineer": "QA工程师",
+    "cannotChangeOwner": "无法更改所有者角色"
   },
   "invites": {
     "loading": "Loading invitations...",
