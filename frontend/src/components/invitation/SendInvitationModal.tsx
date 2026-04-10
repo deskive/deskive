@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, X, Send, AlertCircle, CheckCircle } from 'lucide-react';
 import { sendInvitation } from '@/services/invitationService';
-import UpgradePlanModal from '@/components/billing/UpgradePlanModal';
 import type { SendInvitationData, TeamRole } from '@/types/invitation';
 
 interface SendInvitationModalProps {
@@ -108,7 +107,6 @@ const SendInvitationModal: React.FC<SendInvitationModalProps> = ({
   return (
     <>
       {/* Upgrade Plan Modal */}
-      <UpgradePlanModal
         isOpen={showUpgradeModal}
         onClose={handleCloseUpgradeModal}
         workspaceId={workspaceId}

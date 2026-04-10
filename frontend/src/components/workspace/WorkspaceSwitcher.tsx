@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useWorkspace } from '@/contexts/WorkspaceContext';
 import { useIntl } from 'react-intl';
-import { useSubscription } from '@/lib/api/billing-api';
 import { Badge } from '@/components/ui/badge';
 import {
   ChevronDown,

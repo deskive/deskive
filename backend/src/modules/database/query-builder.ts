@@ -62,6 +62,15 @@ export class QueryBuilder {
     return this;
   }
 
+  // Alias used by callers
+  whereNull(column: string): this {
+    return this.isNull(column);
+  }
+
+  whereNotNull(column: string): this {
+    return this.isNotNull(column);
+  }
+
   isNotNull(column: string): this {
     this._whereClauses.push(`"${column}" IS NOT NULL`);
     return this;
@@ -71,6 +80,23 @@ export class QueryBuilder {
     this._whereValues.push(pattern);
     this._whereClauses.push(`"${column}" ILIKE $${this._whereValues.length}`);
     return this;
+  }
+
+  // Alias for case-insensitive like
+  ilike(column: string, pattern: string): this {
+    return this.like(column, pattern);
+  }
+
+  // Get all results (alias for execute)
+  async get(): Promise<{ data: any[]; count: number }> {
+    return this.execute();
+  }
+
+  // Get first result
+  async first(): Promise<any | null> {
+    this.limit(1);
+    const result = await this.execute();
+    return result.data[0] || null;
   }
 
   orderBy(column: string, direction: string = 'asc'): this {

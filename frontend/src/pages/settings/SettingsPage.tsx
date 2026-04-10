@@ -18,7 +18,6 @@ import ProfileSettings from './ProfileSettings';
 import SecuritySettings from './SecuritySettings';
 import NotificationSettings from './NotificationSettings';
 import TeamManagement from './TeamManagement';
-import BillingSettings from './BillingSettings';
 import WorkspaceSettings from './WorkspaceSettings';
 import FeedbackSettings from './FeedbackSettings';
 
@@ -106,7 +105,6 @@ const SettingsPage: React.FC = () => {
         {activeTab === 'feedback' && <FeedbackSettings />}
         {activeTab === 'team' && workspaceId && <TeamManagement workspaceId={workspaceId} />}
         {activeTab === 'workspace' && workspaceId && <WorkspaceSettings workspaceId={workspaceId} />}
-        {activeTab === 'billing' && workspaceId && <BillingSettings />}
       </ContentContainer>
     </div>
   );

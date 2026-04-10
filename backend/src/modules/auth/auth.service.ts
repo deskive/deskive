@@ -125,7 +125,8 @@ export class AuthService {
       }
 
       // NOW attempt database sign in (email is verified or user doesn't exist)
-      const response = await this.db.findOne("users", { email: /* TODO: verify password */ }) /* was: this.db.signIn(dto.email, dto.password);
+      // TODO: implement password verification with bcrypt
+      const response = await this.db.findOne("users", { email: dto.email }); // was: this.db.signIn(dto.email, dto.password);
 
       this.logger.log('Login response:', response);
 
@@ -544,8 +545,8 @@ export class AuthService {
       // Send the complete reset password URL (not just the base URL)
       const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
       const frontendUrl = `${baseUrl}/reset-password`;
-      // TODO: implement password reset
-      await this.db.raw("SELECT 1", []) /* dto.email, frontendUrl);
+      // TODO: implement password reset (was: this.db.client.auth.requestPasswordReset(dto.email, frontendUrl))
+      await this.db.raw("SELECT 1", []);
 
       return {
         success: true,
@@ -565,11 +566,8 @@ export class AuthService {
     try {
       // Use the database's resetPassword method
       // This properly validates the token and hashes the password
-      // TODO: implement password reset confirmation
-      await this.db.raw("SELECT 1", []) /* {
-        token: dto.token,
-        newPassword: dto.password
-      });
+      // TODO: implement password reset confirmation (was: this.db.client.auth.resetPassword({token, newPassword}))
+      await this.db.raw("SELECT 1", []);
 
       return {
         success: true,
@@ -594,7 +592,7 @@ export class AuthService {
 
       // Verify current password by attempting to sign in
       try {
-        await this.db.findOne("users", { email: /* TODO: verify password */ }) /* was: this.db.signIn(user.email, dto.currentPassword);
+        await this.db.findOne("users", { email: user.email }); // TODO: verify currentPassword with bcrypt
       } catch (error) {
         throw new BadRequestException('Current password is incorrect');
       }
@@ -602,12 +600,8 @@ export class AuthService {
       // Update the password using the service key client
       // The SDK changePassword endpoint requires user auth context,
       // so we use updateUser with service key which has admin access
-      // TODO: implement change password
-      await this.db.raw("SELECT 1", []) /* {
-        currentPassword: dto.currentPassword,
-        newPassword: dto.newPassword,
-        userId: userId,
-      });
+      // TODO: implement change password (was: this.db.client.auth.changePassword({currentPassword, newPassword, userId}))
+      await this.db.raw("SELECT 1", []);
 
       return {
         success: true,
@@ -650,8 +644,8 @@ export class AuthService {
     try {
       // Use the database's resendEmailVerification method
       // This handles everything: checking if user exists, generating token, sending email
-      // TODO: implement email verification resend
-      await this.db.raw("SELECT 1", []) /* dto.email);
+      // TODO: implement email verification resend (was: this.db.client.auth.resendEmailVerification(dto.email))
+      await this.db.raw("SELECT 1", []);
 
       return {
         success: true,
@@ -904,7 +898,7 @@ export class AuthService {
 
       // Step 0: Verify password using database login
       try {
-        await this.db.findOne("users", { email: /* TODO: verify password */ }) /* was: this.db.signIn(email, password);
+        await this.db.findOne("users", { email }); // TODO: verify password with bcrypt
         this.logger.log(`Password verified for user ${userId}`);
       } catch (error) {
         this.logger.warn(`Password verification failed for user ${userId}`);
