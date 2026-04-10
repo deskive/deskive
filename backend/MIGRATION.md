@@ -137,17 +137,105 @@ To wire up, pick one:
   with `QdrantClient` calls.
 - **Pinecone** — `npm install @pinecone-database/pinecone`.
 
-### Video conferencing
-- `db.client.videoConferencing.createRoom / getRoom / generateToken / startRecording / ...`
-- `db.getVideoJobStatus`, `db.downloadRecording`
+### Video conferencing — multi-provider, picks one with `VIDEO_PROVIDER`
 
-To wire up: install `livekit-server-sdk` and implement `livekit-video.service.ts`
-(currently has `type X = any` placeholders for the LiveKit types). Set:
+Deskive ships with a pluggable video provider system. Pick the one that
+fits your stack and infra appetite by setting `VIDEO_PROVIDER` in `.env`:
+
+| Provider | Setup time | Infra | Recording | Cost (small) |
+|---|---|---|---|---|
+| `jitsi` (default-recommended) | **0 minutes** | **none** (uses public meet.jit.si) | Optional (paid JaaS or self-host Jibri) | **Free** |
+| `livekit` | ~10 minutes (LiveKit Cloud signup) | Cloud or self-hosted | ✅ Full (egress → S3-compat storage) | Free tier: 50 mins/mo |
+| `daily` | ~5 minutes (Daily.co signup) | Daily-hosted | ✅ Cloud recording (paid plan) | Free tier: 10k participant minutes/mo |
+| `none` | n/a | n/a | n/a | n/a — video disabled |
+
+The active provider is selected by `VIDEO_PROVIDER` and queried at runtime
+via the `LivekitVideoService` façade (despite the legacy filename, it now
+supports all four providers). The frontend discovers which provider is
+active by calling `GET /api/v1/video-provider/info`.
+
+#### Option 1: Jitsi Meet (easiest — zero infra)
+
+```env
+VIDEO_PROVIDER=jitsi
 ```
-LIVEKIT_URL=wss://your-livekit-server.com
-LIVEKIT_API_KEY=<key>
-LIVEKIT_API_SECRET=<secret>
+
+That's it. With no other config, deskive uses the **free public**
+`meet.jit.si` instance — no signup, no API key, no infra. Rooms work,
+participants work, screen-share works, chat works. Recording is the only
+feature missing. Perfect for self-hosters, hobbyists, and small teams.
+
+For a private deployment, point at your own Jitsi server or Jitsi as a
+Service (JaaS):
+```env
+VIDEO_PROVIDER=jitsi
+JITSI_DOMAIN=meet.your-domain.com    # or 8x8.vc for JaaS
+JITSI_APP_ID=vpaas-magic-cookie-xxx  # JaaS app ID (optional)
+JITSI_PRIVATE_KEY=-----BEGIN ...     # RS256 PEM for JWT auth (optional)
+JITSI_KEY_ID=vpaas-magic-cookie-xxx/abc123  # JaaS key ID (optional)
 ```
+
+Frontend: load `https://<domain>/external_api.js` as a `<script>` tag,
+or `npm install @jitsi/react-sdk`.
+
+#### Option 2: LiveKit (full features, recommended for production)
+
+```env
+VIDEO_PROVIDER=livekit
+LIVEKIT_URL=wss://your-project.livekit.cloud
+LIVEKIT_API_KEY=APIxxxxxxxxxxxx
+LIVEKIT_API_SECRET=secretxxxxxxxxxx
+
+# Optional: enable recording uploads to S3-compatible storage
+# (uses the same STORAGE_* env vars as the rest of the app)
+LIVEKIT_RECORDING_BUCKET=deskive-recordings
+LIVEKIT_WEBHOOK_SECRET=xxxxxx        # for webhook signature validation
+```
+
+Sign up at https://livekit.io/cloud (free tier covers most small teams),
+or self-host: https://docs.livekit.io/realtime/self-hosting/local/.
+
+`livekit-server-sdk` is listed as an `optionalDependencies` so it
+auto-installs on `npm install`. If it fails (e.g. no network), the app
+still runs as long as you don't pick `VIDEO_PROVIDER=livekit`.
+
+Frontend: `npm install livekit-client`.
+
+#### Option 3: Daily.co (managed, REST API, no SDK on server)
+
+```env
+VIDEO_PROVIDER=daily
+DAILY_API_KEY=xxxxxxxxxxxxxxxxxxxxx
+DAILY_DOMAIN=mycompany               # your-company.daily.co subdomain
+DAILY_RECORDING_ENABLED=false        # set true if your Daily plan supports cloud recording
+```
+
+Sign up at https://dashboard.daily.co/. The provider uses Daily's REST
+API directly (via `fetch()`) — no server SDK needed. Free tier: 10,000
+monthly participant minutes.
+
+Frontend: `npm install @daily-co/daily-js` or use the Daily Prebuilt
+iframe (zero JS — just embed `<iframe src={joinUrl} />`).
+
+#### Option 4: Disabled
+
+```env
+VIDEO_PROVIDER=none
+```
+
+Video features are disabled. The frontend should call
+`/api/v1/video-provider/info` and hide call UI when `provider === "none"`.
+This is the default if `VIDEO_PROVIDER` is unset.
+
+#### Adding a new provider
+
+1. Create `src/modules/video-calls/providers/<name>.provider.ts`
+   implementing the `VideoProvider` interface from `video-provider.interface.ts`.
+2. Register it in the `createVideoProvider()` factory in `providers/index.ts`.
+3. Document required env vars in this file.
+
+The interface is intentionally narrow (room CRUD + tokens + participants
++ recording) so adding a new provider takes ~200 lines.
 
 ### Push notifications
 - `db.sendPushNotification(to, title, body, data?)`

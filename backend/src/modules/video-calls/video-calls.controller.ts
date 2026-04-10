@@ -18,6 +18,7 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { VideoCallsService } from './video-calls.service';
+import { LivekitVideoService } from './livekit-video.service';
 import {
   CreateVideoCallDto,
   JoinVideoCallDto,
@@ -35,7 +36,31 @@ import { CurrentUser } from '../../common/decorators/current-user.decorator';
 @Controller()
 @UseGuards(AuthGuard)
 export class VideoCallsController {
-  constructor(private readonly videoCallsService: VideoCallsService) {}
+  constructor(
+    private readonly videoCallsService: VideoCallsService,
+    private readonly videoProvider: LivekitVideoService,
+  ) {}
+
+  // ============================================
+  // Video Provider Discovery
+  // ============================================
+
+  /**
+   * Tells the frontend which video provider is active and how to bootstrap
+   * the right client SDK. The frontend calls this once before showing call
+   * UI and uses the response to decide whether to load livekit-client,
+   * @daily-co/daily-js, the Jitsi external_api.js script, or to hide all
+   * video UI entirely (when provider === "none").
+   */
+  @Get('video-provider/info')
+  @ApiOperation({ summary: 'Get the active video conferencing provider and client SDK info' })
+  @ApiResponse({
+    status: 200,
+    description: 'Provider info: { provider: "jitsi"|"livekit"|"daily"|"none", available, serverUrl?, publicConfig? }',
+  })
+  getVideoProviderInfo() {
+    return this.videoProvider.getProviderInfo();
+  }
 
   // ============================================
   // Video Call Management

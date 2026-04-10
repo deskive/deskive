@@ -727,10 +727,10 @@ export class VideoCallsService {
 
     // Get the room name from the call (stored as livekit_room_id but it's actually the room name)
     // We need to fetch the actual room to get the roomName
-    const livekitRoom = await this.dbVideoService.getRoom(call.livekit_room_id);
-    const roomName = livekitRoom?.session?.roomName || call.livekit_room_id;
+    const livekitRoom: any = await this.dbVideoService.getRoom(call.livekit_room_id);
+    const roomName = livekitRoom?.roomName || livekitRoom?.session?.roomName || call.livekit_room_id;
 
-    // Generate LiveKit token through database
+    // Generate access token via the configured video provider
     const tokenResponse = await this.dbVideoService.generateToken(roomName, userId, {
       name: displayName,
       canPublish: true,
@@ -739,12 +739,12 @@ export class VideoCallsService {
       metadata: dto?.metadata || {},
     });
 
-    this.logger.log(`Generated LiveKit token for user ${userId}: ${tokenResponse.token.substring(0, 20)}...`);
+    this.logger.log(`Generated video token for user ${userId}: ${tokenResponse.token.substring(0, 20)}...`);
 
     return {
       token: tokenResponse.token,
       room_url: tokenResponse.url,
-      room_name: tokenResponse.roomName,
+      room_name: roomName,
       participant,
       call: {
         id: call.id,
@@ -1119,7 +1119,7 @@ export class VideoCallsService {
     // Store recording in database
     const recordingData = await this.db.insert('video_call_recordings', {
       video_call_id: callId,
-      livekit_recording_id: (recording as any).egressId || recording.id, // Use LiveKit egress ID for stopping
+      livekit_recording_id: (recording as any).egressId || recording.recordingId || (recording as any).id, // Use the provider's recording/egress ID for stopping
       status: 'recording',
       started_at: new Date().toISOString(),
       metadata: {

@@ -1,368 +1,232 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
-// TODO: Replace with livekit-server-sdk types
-type CreateRoomOptions = any;
-type VideoRoom = any;
-type RoomFilters = any;
-type TokenOptions = any;
-type RoomToken = any;
-type Participant = any;
-type RecordingConfig = any;
-type Recording = any;
-type SessionStats = any;
-type UpdateRoomOptions = any;
-type EgressOptions = any;
-type Egress = any;
-
 /**
- * Video Conferencing Service - LiveKit wrapper (TODO: implement)
+ * Video conferencing service - delegates to a pluggable provider.
+ *
+ * Despite the historical filename `livekit-video.service.ts`, this is
+ * actually a multi-provider façade. The active provider is selected by
+ * the VIDEO_PROVIDER env var (jitsi / livekit / daily / none) - see
+ * src/modules/video-calls/providers/index.ts for the factory and
+ * MIGRATION.md for the env vars each provider needs.
+ *
+ * Existing call sites (VideoCallsService, RecordingProcessorService,
+ * etc.) keep using LivekitVideoService unchanged - they don't need to
+ * know which provider is active.
  */
+import { Injectable, Logger } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { DatabaseService } from '../database/database.service';
+import {
+  CreateRoomOptions,
+  Participant,
+  Recording,
+  RecordingConfig,
+  RoomToken,
+  TokenOptions,
+  VideoProvider,
+  VideoRoom,
+  createVideoProvider,
+} from './providers';
+
 @Injectable()
 export class LivekitVideoService {
   private readonly logger = new Logger(LivekitVideoService.name);
+  private readonly provider: VideoProvider;
 
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly config: ConfigService,
+  ) {
+    this.provider = createVideoProvider(this.config);
+    this.logger.log(`Video provider initialized: ${this.provider.name} (available=${this.provider.isAvailable()})`);
+  }
+
+  /**
+   * Returns true if the configured video provider can actually do work.
+   * Always true for `jitsi` (uses public meet.jit.si as fallback) and
+   * for `none` it's false. For `livekit` / `daily` it depends on whether
+   * the API credentials are set.
+   */
+  isAvailable(): boolean {
+    return this.provider.isAvailable();
+  }
+
+  /**
+   * Frontend bootstrap info: which provider is active and the public
+   * config the client SDK needs to connect. Returned over an API
+   * endpoint so the frontend knows which video SDK to load.
+   */
+  getProviderInfo() {
+    return {
+      provider: this.provider.name,
+      available: this.provider.isAvailable(),
+      ...this.provider.getClientSdkInfo(),
+    };
+  }
 
   // ============================================
   // Room Management
   // ============================================
 
   /**
-   * Create a new video conference room
+   * Create a new video conference room.
+   * Accepts both the new CreateRoomOptions shape AND the legacy shape
+   * (`{name, maxParticipants, recordingEnabled}` from older callers).
    */
   async createRoom(options: any): Promise<any> {
-    try {
-      this.logger.log(`Creating video room: ${options.roomName || options.name}`);
-      this.logger.log(`Room options:`, JSON.stringify(options, null, 2));
-
-      // Use the SDK's video conferencing module
-      const roomData = await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.createRoom(options);
-
-      this.logger.log(`Room created successfully:`, JSON.stringify(roomData, null, 2));
-
-      const extractedRoomId = roomData.roomId || roomData.id;
-      const roomName = roomData.roomName;
-
-      this.logger.log(`Room ID: ${extractedRoomId}, Room Name: ${roomName}`);
-
-      return roomData;
-    } catch (error) {
-      this.logger.error(`Failed to create room: ${error.message}`);
-      this.logger.error(`Error response:`, error.response?.data);
-
-      // If duplicate room error, the room was actually created, try to retrieve it
-      if (error.message && error.message.includes('duplicate key')) {
-        this.logger.warn('Duplicate room detected, room may have been created despite error');
-      }
-
-      throw error;
-    }
+    const normalized: CreateRoomOptions = {
+      roomName: options.roomName || options.name || `room-${Date.now()}`,
+      maxParticipants: options.maxParticipants ?? 50,
+      emptyTimeout: options.emptyTimeout,
+      metadata: options.metadata,
+      recordingEnabled: options.recordingEnabled ?? false,
+    };
+    this.logger.log(`Creating video room: ${normalized.roomName} (provider=${this.provider.name})`);
+    const room = await this.provider.createRoom(normalized);
+    // Legacy callers expect both `roomId` and `id` fields - synthesize.
+    return { ...room, id: room.roomId };
   }
 
-  /**
-   * Get room details by ID
-   */
-  async getRoom(roomId: string): Promise<VideoRoom> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.getRoom(roomId);
-    } catch (error) {
-      this.logger.error(`Failed to get room ${roomId}: ${error.message}`, error.stack);
-      throw error;
-    }
+  async getRoom(roomId: string): Promise<VideoRoom | null> {
+    return this.provider.getRoom(roomId);
   }
 
-  /**
-   * List all rooms with optional filters
-   */
-  async listRooms(filters?: RoomFilters): Promise<VideoRoom[]> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.listRooms(filters);
-    } catch (error) {
-      this.logger.error(`Failed to list rooms: ${error.message}`, error.stack);
-      throw error;
-    }
+  async listRooms(_filters?: any): Promise<VideoRoom[]> {
+    return this.provider.listRooms();
   }
 
-  /**
-   * Update room settings
-   */
-  async updateRoom(roomId: string, options: UpdateRoomOptions): Promise<VideoRoom> {
-    try {
-      this.logger.log(`Updating room: ${roomId}`);
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.updateRoom(roomId, options);
-    } catch (error) {
-      this.logger.error(`Failed to update room ${roomId}: ${error.message}`, error.stack);
-      throw error;
-    }
+  async updateRoom(_roomId: string, _options: any): Promise<VideoRoom | null> {
+    // Most providers don't support in-place room updates - the typical
+    // pattern is delete+recreate. Return the current room as a no-op.
+    return this.provider.getRoom(_roomId);
   }
 
-  /**
-   * Delete a room
-   */
   async deleteRoom(roomId: string): Promise<void> {
-    try {
-      this.logger.log(`Deleting room: ${roomId}`);
-      await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.deleteRoom(roomId);
-      this.logger.log(`Room deleted successfully: ${roomId}`);
-    } catch (error) {
-      this.logger.error(`Failed to delete room ${roomId}: ${error.message}`, error.stack);
-      throw error;
-    }
+    this.logger.log(`Deleting video room: ${roomId}`);
+    return this.provider.deleteRoom(roomId);
   }
 
   // ============================================
-  // Token Generation (Access Control)
+  // Token Generation
   // ============================================
 
   /**
-   * Generate access token for a participant to join a room
+   * Generate a room access token for a participant.
+   * Legacy signature: generateToken(roomId, identity, options?)
    */
-  async generateToken(
-    roomId: string,
-    identity: string,
-    options?: TokenOptions,
-  ): Promise<RoomToken> {
-    try {
-      this.logger.log(`Generating token for ${identity} to join room ${roomId}`);
-      const token = await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.generateToken(
-        roomId,
-        identity,
-        options,
-      );
-      this.logger.log(`Token generated successfully for ${identity}`);
-      return token;
-    } catch (error) {
-      this.logger.error(
-        `Failed to generate token for ${identity}: ${error.message}`,
-        error.stack,
-      );
-      throw error;
-    }
+  async generateToken(roomId: string, identityOrOptions: string | TokenOptions, options?: any): Promise<RoomToken> {
+    const tokenOptions: TokenOptions =
+      typeof identityOrOptions === 'string'
+        ? {
+            identity: identityOrOptions,
+            name: options?.name ?? options?.userName,
+            ttl: options?.ttl,
+            canPublish: options?.canPublish,
+            canSubscribe: options?.canSubscribe,
+            canPublishData: options?.canPublishData,
+            isAdmin: options?.isAdmin ?? options?.isOwner,
+          }
+        : identityOrOptions;
+    this.logger.log(`Generating ${this.provider.name} token for ${tokenOptions.identity} on room ${roomId}`);
+    return this.provider.generateToken(roomId, tokenOptions);
   }
 
   // ============================================
   // Participant Management
   // ============================================
 
-  /**
-   * Get participant details
-   */
-  async getParticipant(roomId: string, participantId: string): Promise<Participant> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.getParticipant(
-        roomId,
-        participantId,
-      );
-    } catch (error) {
-      this.logger.error(
-        `Failed to get participant ${participantId}: ${error.message}`,
-        error.stack,
-      );
-      throw error;
-    }
+  async getParticipant(roomId: string, participantId: string): Promise<Participant | null> {
+    const all = await this.provider.listParticipants(roomId);
+    return all.find((p) => p.identity === participantId) ?? null;
   }
 
-  /**
-   * List all participants in a room
-   */
   async listParticipants(roomId: string): Promise<Participant[]> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.listParticipants(roomId);
-    } catch (error) {
-      this.logger.error(`Failed to list participants: ${error.message}`, error.stack);
-      throw error;
-    }
+    return this.provider.listParticipants(roomId);
   }
 
-  /**
-   * Remove a participant from a room
-   */
   async removeParticipant(roomId: string, participantId: string): Promise<void> {
-    try {
-      this.logger.log(`Removing participant ${participantId} from room ${roomId}`);
-      await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.removeParticipant(
-        roomId,
-        participantId,
-      );
-      this.logger.log(`Participant removed successfully`);
-    } catch (error) {
-      this.logger.error(
-        `Failed to remove participant ${participantId}: ${error.message}`,
-        error.stack,
-      );
-      throw error;
-    }
+    this.logger.log(`Removing ${participantId} from ${roomId} (provider=${this.provider.name})`);
+    return this.provider.removeParticipant(roomId, participantId);
   }
 
   // ============================================
   // Recording Management
   // ============================================
 
-  /**
-   * Start recording a room session
-   */
   async startRecording(roomId: string, config?: RecordingConfig): Promise<Recording> {
-    try {
-      this.logger.log(`Starting recording for room ${roomId}`);
-      const recording = await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.startRecording(
-        roomId,
-        config,
-      );
-      this.logger.log(`Recording started: ${recording.id}`);
-      return recording;
-    } catch (error) {
-      this.logger.error(`Failed to start recording: ${error.message}`, error.stack);
-      throw error;
-    }
+    this.logger.log(`Starting recording for room ${roomId} (provider=${this.provider.name})`);
+    return this.provider.startRecording(roomId, config);
+  }
+
+  async stopRecording(roomIdOrRecordingId: string, recordingId?: string): Promise<void> {
+    // Legacy signature was stopRecording(roomId, recordingId). New providers
+    // only need the recording ID.
+    const id = recordingId ?? roomIdOrRecordingId;
+    this.logger.log(`Stopping recording: ${id}`);
+    return this.provider.stopRecording(id);
+  }
+
+  async getRecording(recordingId: string): Promise<Recording | null> {
+    return this.provider.getRecording(recordingId);
+  }
+
+  async listRecordings(_roomId: string): Promise<Recording[]> {
+    // Per-room recording listing is provider-specific. Return empty by
+    // default; concrete providers can override via their own methods.
+    return [];
   }
 
   /**
-   * Stop an active recording
+   * Look up a recording by its egress / job ID. This used to live in the
+   * legacy LivekitVideoService and is still called by the recording
+   * processor cron job.
    */
-  async stopRecording(roomId: string, recordingId: string): Promise<void> {
-    try {
-      this.logger.log(`Stopping recording: ${recordingId} in room: ${roomId}`);
-      await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.stopRecording(roomId, recordingId);
-      this.logger.log(`Recording stopped successfully`);
-    } catch (error) {
-      this.logger.error(`Failed to stop recording: ${error.message}`, error.stack);
-      throw error;
-    }
+  async getRecordingByEgressId(egressId: string): Promise<Recording | null> {
+    return this.provider.getRecording(egressId);
   }
 
   /**
-   * Get recording details
-   */
-  async getRecording(roomId: string): Promise<Recording> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.getRecording(roomId);
-    } catch (error) {
-      this.logger.error(`Failed to get recording: ${error.message}`, error.stack);
-      throw error;
-    }
-  }
-
-  /**
-   * List all recordings for a room
-   */
-  async listRecordings(roomId: string): Promise<Recording[]> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.listRecordings(roomId);
-    } catch (error) {
-      this.logger.error(`Failed to list recordings: ${error.message}`, error.stack);
-      throw error;
-    }
-  }
-
-  /**
-   * Get recording by egress ID (includes file URL when ready)
-   */
-  async getRecordingByEgressId(egressId: string): Promise<any> {
-    try {
-      this.logger.log(`Getting recording by egress ID: ${egressId}`);
-
-      // Use the SDK's videoConferencing client to call our custom endpoint
-      // The endpoint is: GET /api/v1/video-conferencing/recordings/egress/:egressId
-      // But since SDK doesn't have this method, we call via HTTP directly
-
-      // Get the API URL and key from the SDK client
-      const apiUrl = process.env.LIVEKIT_HOST || 'http://localhost:7880';
-      const apiKey = process.env.DATABASE_SERVICE_KEY;
-
-      const axios = require('axios');
-      const response = await axios.get(
-        `${apiUrl}/api/v1/video-conferencing/recordings/egress/${egressId}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${apiKey}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
-
-      this.logger.log(`Recording response:`, JSON.stringify(response.data, null, 2));
-      return response.data?.data || response.data;
-    } catch (error) {
-      this.logger.error(`Failed to get recording by egress ID: ${error.message}`, error.stack);
-      throw error;
-    }
-  }
-
-  /**
-   * Download a recording file
+   * Download a finished recording's bytes. Defers to DatabaseService's
+   * generic download path (which is wired to the configured S3-compat
+   * storage backend - same one used everywhere else in the app).
    */
   async downloadRecording(egressId: string): Promise<Buffer> {
-    try {
-      this.logger.log(`Downloading recording: ${egressId}`);
-
-      // Use DatabaseService's downloadRecording method which handles authentication via SDK
-      const recordingBuffer = await /* TODO: use LiveKit */ this.db.downloadRecording(egressId);
-
-      this.logger.log(`Recording downloaded successfully, size: ${recordingBuffer.length} bytes`);
-      return recordingBuffer;
-    } catch (error) {
-      this.logger.error(`Failed to download recording: ${error.message}`, error.stack);
-      throw error;
-    }
+    this.logger.log(`Downloading recording: ${egressId}`);
+    return this.db.downloadRecording(egressId);
   }
 
   // ============================================
   // Session Analytics
   // ============================================
 
-  /**
-   * Get session statistics (quality metrics, bandwidth, latency, etc.)
-   */
-  async getSessionStats(sessionId: string): Promise<SessionStats> {
-    try {
-      return await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.getSessionStats(sessionId);
-    } catch (error) {
-      this.logger.error(`Failed to get session stats: ${error.message}`, error.stack);
-      throw error;
-    }
+  async getSessionStats(_sessionId: string): Promise<any> {
+    return null;
   }
 
   // ============================================
-  // Streaming (RTMP/HLS)
+  // Streaming (legacy egress passthrough)
   // ============================================
 
-  /**
-   * Start egress (RTMP/HLS streaming to external platforms)
-   */
-  async startEgress(options: EgressOptions): Promise<Egress> {
-    try {
-      this.logger.log(`Starting egress for room ${options.roomId}`);
-      const egress = await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.startEgress(options);
-      this.logger.log(`Egress started: ${egress.id}`);
-      return egress;
-    } catch (error) {
-      this.logger.error(`Failed to start egress: ${error.message}`, error.stack);
-      throw error;
-    }
+  async startEgress(options: any): Promise<any> {
+    return this.provider.startRecording(options.roomId, options);
   }
 
-  /**
-   * Stop an active egress
-   */
   async stopEgress(egressId: string): Promise<void> {
-    try {
-      this.logger.log(`Stopping egress: ${egressId}`);
-      await /* TODO: use LiveKit SDK */ this.db.client.videoConferencing.stopEgress(egressId);
-      this.logger.log(`Egress stopped successfully`);
-    } catch (error) {
-      this.logger.error(`Failed to stop egress: ${error.message}`, error.stack);
-      throw error;
-    }
+    return this.provider.stopRecording(egressId);
   }
 
   // ============================================
-  // Utility Methods
+  // Direct provider access (escape hatch)
   // ============================================
 
   /**
-   * Get direct access to the video conferencing client (for advanced use cases)
+   * Get the underlying VideoProvider instance for advanced use cases.
+   * Avoid this if possible - prefer the methods above.
    */
-  getClient() {
-    return /* TODO: use LiveKit SDK */ this.db.client.videoConferencing;
+  getProvider(): VideoProvider {
+    return this.provider;
+  }
+
+  /** Legacy alias used by some call sites. */
+  getClient(): VideoProvider {
+    return this.provider;
   }
 }

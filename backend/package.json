@@ -99,7 +99,8 @@
     "zod": "^4.3.4"
   },
   "optionalDependencies": {
-    "firebase-admin": "^13.6.0"
+    "firebase-admin": "^13.6.0",
+    "livekit-server-sdk": "^2.10.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.10",
