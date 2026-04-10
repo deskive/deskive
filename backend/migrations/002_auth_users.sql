@@ -2,17 +2,30 @@
 -- Open-source self-hosted auth: users table
 -- Replaces the fluxez SDK's external user management.
 --
+-- Single-schema model:
+--   The original fluxez was multi-tenant with one Postgres database per
+--   tenant, each containing an `auth` schema with `auth.users`,
+--   `auth.password_resets`, `auth.social_providers`, `auth.oauth_*`,
+--   `auth.teams`, `auth.subscriptions`, etc. The open-source self-hosted
+--   build collapses that into a single `public` schema (one database, one
+--   tenant) — much simpler to operate. The `auth.users` view at the
+--   bottom of this file keeps legacy raw SQL queries against
+--   `auth.users` working unchanged.
+--
 -- Design notes:
 --   - id is VARCHAR(255), not UUID, for direct compatibility with the
 --     pre-existing schema (workspaces.owner_id, project_members.user_id,
 --     etc. were all declared VARCHAR(255) referencing string SDK IDs).
 --     Default value is a UUID rendered as text, so IDs are still globally
 --     unique without breaking any existing FK column.
---   - email_confirmed_at is a TIMESTAMPTZ that mirrors email_verified.
---     This is the column name the admin/audit code already reads
---     (carried over from the original Supabase-style schema). Always
---     keep them in sync: when email_verified flips true, set
---     email_confirmed_at to now().
+--   - Both `metadata`/`user_metadata` (new style) AND `raw_user_meta_data`/
+--     `raw_app_meta_data` (Supabase/fluxez style) columns exist. Helpers
+--     write to both pairs so legacy code that reads either name works.
+--   - Both `is_banned`/`banned_reason` (boolean style) AND `banned_until`
+--     (Supabase timestamp style) columns exist. banUser/unbanUser keep
+--     them in sync.
+--   - `email_confirmed_at` mirrors `email_verified` (timestamp vs bool).
+--     verifyEmailFn sets both. Some legacy code reads the timestamp.
 -- =====================================================
 
 CREATE EXTENSION IF NOT EXISTS "pgcrypto";
@@ -35,10 +48,21 @@ CREATE TABLE IF NOT EXISTS "users" (
   "is_active" BOOLEAN NOT NULL DEFAULT true,
   "is_banned" BOOLEAN NOT NULL DEFAULT false,
   "banned_reason" TEXT,
+  -- Supabase-compat: timestamp form of is_banned. NULL = not banned;
+  -- non-null = banned (timestamp marks when the ban was applied or
+  -- when it expires; legacy code only checks for null/non-null).
+  "banned_until" TIMESTAMPTZ,
   "last_login_at" TIMESTAMPTZ,
   "last_sign_in_at" TIMESTAMPTZ,
+  -- Custom user-controlled metadata. `metadata` and `raw_user_meta_data`
+  -- are kept in sync by the helper functions (auth-helpers.ts).
   "metadata" JSONB NOT NULL DEFAULT '{}',
   "user_metadata" JSONB NOT NULL DEFAULT '{}',
+  "raw_user_meta_data" JSONB NOT NULL DEFAULT '{}',
+  -- App-controlled metadata (e.g. role, approval_status). Mirrored to
+  -- `raw_app_meta_data` (fluxez/Supabase name) so both readers work.
+  "app_metadata" JSONB NOT NULL DEFAULT '{}',
+  "raw_app_meta_data" JSONB NOT NULL DEFAULT '{}',
   "oauth_provider" VARCHAR(64),
   "oauth_provider_id" VARCHAR(255),
   "created_at" TIMESTAMPTZ NOT NULL DEFAULT now(),

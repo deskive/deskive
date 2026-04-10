@@ -34,12 +34,22 @@ export interface AuthUser {
   phone: string | null;
   role: string;
   emailVerified: boolean;
+  email_verified: boolean;
   email_confirmed_at: string | null;
+  last_login_at: string | null;
+  last_sign_in_at: string | null;
+  is_banned: boolean;
+  banned_until: string | null;
+  banned_reason: string | null;
+  // Custom user metadata. Both names always populated to the same value.
   metadata: Record<string, any>;
   user_metadata: Record<string, any>;
+  raw_user_meta_data: Record<string, any>;
+  // App-controlled metadata (role, approval status, etc.). Both names
+  // populated to the same value.
+  app_metadata: Record<string, any>;
+  raw_app_meta_data: Record<string, any>;
   created_at: string;
-  // Legacy SDK shape that some callers expect
-  app_metadata?: Record<string, any>;
 }
 
 export interface AuthSession {
@@ -61,6 +71,15 @@ export function getAuthConfig(getConfig: (key: string, fallback?: any) => any): 
 }
 
 function rowToUser(row: any): AuthUser {
+  // Custom user metadata: prefer the new column, fall back to the
+  // legacy raw_user_meta_data, fall back to user_metadata.
+  const userMeta = row.metadata || row.raw_user_meta_data || row.user_metadata || {};
+  // App-controlled metadata: prefer app_metadata, fall back to legacy
+  // raw_app_meta_data. Always include role so legacy guards work.
+  const appMeta = {
+    role: row.role || 'user',
+    ...(row.app_metadata || row.raw_app_meta_data || {}),
+  };
   return {
     id: row.id,
     email: row.email,
@@ -71,10 +90,18 @@ function rowToUser(row: any): AuthUser {
     phone: row.phone,
     role: row.role || 'user',
     emailVerified: !!row.email_verified,
+    email_verified: !!row.email_verified,
     email_confirmed_at: row.email_confirmed_at,
-    metadata: row.metadata || {},
-    user_metadata: row.user_metadata || {},
-    app_metadata: { role: row.role || 'user' },
+    last_login_at: row.last_login_at,
+    last_sign_in_at: row.last_sign_in_at,
+    is_banned: !!row.is_banned,
+    banned_until: row.banned_until,
+    banned_reason: row.banned_reason,
+    metadata: userMeta,
+    user_metadata: userMeta,
+    raw_user_meta_data: userMeta,
+    app_metadata: appMeta,
+    raw_app_meta_data: appMeta,
     created_at: row.created_at,
   };
 }
@@ -132,16 +159,25 @@ export async function registerUser(
   const hash = await bcrypt.hash(data.password, cfg.bcryptRounds);
   const verificationToken = crypto.randomBytes(32).toString('hex');
 
-  // Pull role / username out of metadata so they get their own columns
+  // Pull role / username out of metadata so they get their own columns.
+  // Everything else goes into the user metadata blobs.
   const md = { ...(data.metadata || {}) };
   const role = md.role || 'user';
   const username = md.username || null;
   delete md.role;
 
+  // App metadata: keep just role (and whatever the caller passed in
+  // app_metadata). Custom user metadata goes in the user_meta columns.
+  const appMd = { role };
+
   const insert = await pool.query(
-    `INSERT INTO "users" ("email", "password_hash", "name", "full_name", "username", "role",
-                          "email_verified", "email_verification_token", "metadata", "user_metadata")
-     VALUES ($1, $2, $3, $4, $5, $6, false, $7, $8, $9)
+    `INSERT INTO "users" (
+       "email", "password_hash", "name", "full_name", "username", "role",
+       "email_verified", "email_verification_token",
+       "metadata", "user_metadata", "raw_user_meta_data",
+       "app_metadata", "raw_app_meta_data"
+     )
+     VALUES ($1, $2, $3, $4, $5, $6, false, $7, $8, $8, $8, $9, $9)
      RETURNING *`,
     [
       email,
@@ -152,7 +188,7 @@ export async function registerUser(
       role,
       verificationToken,
       md,
-      md,
+      appMd,
     ],
   );
 
@@ -330,7 +366,7 @@ export async function updateUserFn(
   userId: string,
   updates: Record<string, any>,
 ): Promise<AuthUser> {
-  // Allow only known columns. Metadata is jsonb-merged so callers can patch.
+  // Allow only known scalar columns.
   const allowed = ['name', 'full_name', 'username', 'avatar_url', 'phone', 'role', 'email'];
   const cols: string[] = [];
   const vals: any[] = [];
@@ -340,15 +376,28 @@ export async function updateUserFn(
       vals.push(updates[key]);
     }
   }
-  // Handle metadata patches: jsonb-merge instead of replace, so callers
-  // can add a key without nuking the rest of the object.
-  if (updates.metadata !== undefined) {
-    cols.push(`"metadata" = COALESCE("metadata", '{}'::jsonb) || $${vals.length + 1}::jsonb`);
-    vals.push(updates.metadata);
+  // User metadata patch: jsonb-merge into ALL three column aliases
+  // (metadata / user_metadata / raw_user_meta_data) so legacy readers
+  // see the same data regardless of which name they use.
+  const userMetaPatch = updates.metadata ?? updates.user_metadata ?? updates.raw_user_meta_data;
+  if (userMetaPatch !== undefined) {
+    const idx = vals.length + 1;
+    cols.push(
+      `"metadata" = COALESCE("metadata", '{}'::jsonb) || $${idx}::jsonb`,
+      `"user_metadata" = COALESCE("user_metadata", '{}'::jsonb) || $${idx}::jsonb`,
+      `"raw_user_meta_data" = COALESCE("raw_user_meta_data", '{}'::jsonb) || $${idx}::jsonb`,
+    );
+    vals.push(userMetaPatch);
   }
-  if (updates.user_metadata !== undefined) {
-    cols.push(`"user_metadata" = COALESCE("user_metadata", '{}'::jsonb) || $${vals.length + 1}::jsonb`);
-    vals.push(updates.user_metadata);
+  // App metadata patch: jsonb-merge into both app_metadata and raw_app_meta_data.
+  const appMetaPatch = updates.app_metadata ?? updates.raw_app_meta_data;
+  if (appMetaPatch !== undefined) {
+    const idx = vals.length + 1;
+    cols.push(
+      `"app_metadata" = COALESCE("app_metadata", '{}'::jsonb) || $${idx}::jsonb`,
+      `"raw_app_meta_data" = COALESCE("raw_app_meta_data", '{}'::jsonb) || $${idx}::jsonb`,
+    );
+    vals.push(appMetaPatch);
   }
   if (cols.length === 0) {
     const r = await pool.query('SELECT * FROM "users" WHERE "id" = $1 LIMIT 1', [userId]);
@@ -368,8 +417,15 @@ export async function deleteUserFn(pool: Pool, userId: string): Promise<{ succes
 }
 
 export async function banUserFn(pool: Pool, userId: string, reason?: string): Promise<{ success: boolean }> {
+  // Set both `is_banned` (boolean style) and `banned_until` (Supabase
+  // timestamp style) so legacy admin code that filters on either name
+  // sees the user as suspended.
   await pool.query(
-    'UPDATE "users" SET "is_banned" = true, "banned_reason" = $1 WHERE "id" = $2',
+    `UPDATE "users"
+     SET "is_banned" = true,
+         "banned_reason" = $1,
+         "banned_until" = now() + interval '100 years'
+     WHERE "id" = $2`,
     [reason || null, userId],
   );
   await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "user_id" = $1', [userId]);
@@ -377,6 +433,13 @@ export async function banUserFn(pool: Pool, userId: string, reason?: string): Pr
 }
 
 export async function unbanUserFn(pool: Pool, userId: string): Promise<{ success: boolean }> {
-  await pool.query('UPDATE "users" SET "is_banned" = false, "banned_reason" = NULL WHERE "id" = $1', [userId]);
+  await pool.query(
+    `UPDATE "users"
+     SET "is_banned" = false,
+         "banned_reason" = NULL,
+         "banned_until" = NULL
+     WHERE "id" = $1`,
+    [userId],
+  );
   return { success: true };
 }
