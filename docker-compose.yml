@@ -1,5 +1,5 @@
 # Deskive - Full Stack Setup
-# Usage: docker compose --env-file .env.docker up
+# Usage: docker compose up -d
 # Then visit http://localhost:5175 (frontend) and http://localhost:3002 (backend API)
 
 services:
@@ -44,6 +44,70 @@ services:
       - "${QDRANT_PORT:-6333}:6333"
     volumes:
       - qdrant_data:/qdrant/storage
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
+    container_name: deskive-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-3002}:3002"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      PORT: 3002
+      NODE_ENV: development
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_NAME: ${POSTGRES_DB:-deskive_dev}
+      DATABASE_USER: ${POSTGRES_USER:-postgres}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      QDRANT_HOST: qdrant
+      QDRANT_PORT: 6333
+      FRONTEND_URL: http://localhost:5175
+      CORS_ORIGIN: http://localhost:5175,http://localhost:5173
+      JWT_SECRET: ${JWT_SECRET:-your_jwt_secret_min32chars_change_me_in_production}
+      JWT_EXPIRES_IN: 7d
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      OPENAI_MODEL: gpt-4o-mini
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 40s
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    container_name: deskive-frontend
+    restart: unless-stopped
+    ports:
+      - "${FRONTEND_PORT:-5175}:5175"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:3002/api
+      VITE_WS_URL: ws://localhost:3002
+    depends_on:
+      - backend
+    stdin_open: true
+    tty: true
 
 volumes:
   postgres_data:

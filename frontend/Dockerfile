@@ -1,4 +1,4 @@
-# Life OS Backend Dockerfile
+# Deskive Frontend Dockerfile
 # Multi-stage build for different environments
 
 # =============================================
@@ -17,7 +17,7 @@ WORKDIR /app
 
 # Create non-root user
 RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nestjs -u 1001
+    adduser -S react -u 1001
 
 # Copy package files
 COPY package*.json ./
@@ -28,7 +28,7 @@ COPY package*.json ./
 FROM base AS deps
 
 # Install all dependencies (including dev dependencies)
-RUN npm install --only=production && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 # =============================================
 # Build stage - Build the application
@@ -57,44 +57,32 @@ RUN npm install
 COPY . .
 
 # Change ownership to nodejs user
-RUN chown -R nestjs:nodejs /app
-USER nestjs
+RUN chown -R react:nodejs /app
+USER react
 
 # Expose port
-EXPOSE 3002
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3002/health || exit 1
+EXPOSE 5175
 
 # Start the application in development mode
-CMD ["dumb-init", "npm", "run", "start:dev"]
+CMD ["dumb-init", "npm", "run", "dev", "--", "--host", "0.0.0.0"]
 
 # =============================================
 # Production stage - For production environment
 # =============================================
-FROM base AS production
-
-# Copy node_modules from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+FROM nginx:alpine AS production
 
 # Copy built application from build stage
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/package*.json ./
+COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy necessary runtime files
-COPY --from=build /app/src/database ./src/database
-
-# Change ownership to nodejs user
-RUN chown -R nestjs:nodejs /app
-USER nestjs
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Expose port
-EXPOSE 3000
+EXPOSE 80
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-  CMD curl -f http://localhost:3000/health || exit 1
+  CMD curl -f http://localhost/ || exit 1
 
-# Start the application in production mode
-CMD ["dumb-init", "node", "dist/main"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
