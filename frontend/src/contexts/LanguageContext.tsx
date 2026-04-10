@@ -2,6 +2,15 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
 import enMessages from '../i18n/en.json';
 import jaMessages from '../i18n/ja.json';
+import zhMessages from '../i18n/zh.json';
+import koMessages from '../i18n/ko.json';
+import esMessages from '../i18n/es.json';
+import frMessages from '../i18n/fr.json';
+import deMessages from '../i18n/de.json';
+import ptMessages from '../i18n/pt.json';
+import arMessages from '../i18n/ar.json';
+import hiMessages from '../i18n/hi.json';
+import ruMessages from '../i18n/ru.json';
 
 // Helper function to flatten nested messages
 const flattenMessages = (nestedMessages: any, prefix = ''): Record<string, string> => {
@@ -37,6 +46,15 @@ const flattenMessages = (nestedMessages: any, prefix = ''): Record<string, strin
 const messages = {
   en: flattenMessages(enMessages),
   ja: flattenMessages(jaMessages),
+  zh: flattenMessages(zhMessages),
+  ko: flattenMessages(koMessages),
+  es: flattenMessages(esMessages),
+  fr: flattenMessages(frMessages),
+  de: flattenMessages(deMessages),
+  pt: flattenMessages(ptMessages),
+  ar: flattenMessages(arMessages),
+  hi: flattenMessages(hiMessages),
+  ru: flattenMessages(ruMessages),
 };
 
 // Validate that key messages exist
@@ -55,11 +73,20 @@ if (Object.keys(messages.en).length < 10) {
 
 export type SupportedLocale = keyof typeof messages;
 
-export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'ja'];
+export const SUPPORTED_LOCALES: SupportedLocale[] = ['en', 'ja', 'zh', 'ko', 'es', 'fr', 'de', 'pt', 'ar', 'hi', 'ru'];
 
 export const LOCALE_LABELS: Record<SupportedLocale, string> = {
   en: 'English',
   ja: '日本語',
+  zh: '中文',
+  ko: '한국어',
+  es: 'Español',
+  fr: 'Français',
+  de: 'Deutsch',
+  pt: 'Português',
+  ar: 'العربية',
+  hi: 'हिन्दी',
+  ru: 'Русский',
 };
 
 interface LanguageContextType {

@@ -1,6 +1,6 @@
 -- =====================================================
 -- Deskive Database Schema - Initial Migration
--- Auto-generated from Fluxez schema.ts
+-- Auto-generated from schema.ts
 -- Generated: 2026-04-09T14:11:02.126Z
 -- Tables: 148
 -- =====================================================
@@ -1140,7 +1140,7 @@ CREATE INDEX IF NOT EXISTS "idx_chat_messages_role" ON "chat_messages" ("role");
 CREATE TABLE IF NOT EXISTS "video_calls" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   "workspace_id" UUID NOT NULL REFERENCES "workspaces"(id) ON DELETE CASCADE,
-  "fluxez_room_id" VARCHAR(255) NOT NULL,
+  "livekit_room_id" VARCHAR(255) NOT NULL,
   "title" VARCHAR(255) NOT NULL,
   "description" TEXT,
   "host_user_id" VARCHAR(255) NOT NULL,
@@ -1163,7 +1163,7 @@ CREATE INDEX IF NOT EXISTS "idx_video_calls_workspace_id" ON "video_calls" ("wor
 CREATE INDEX IF NOT EXISTS "idx_video_calls_host_user_id" ON "video_calls" ("host_user_id");
 CREATE INDEX IF NOT EXISTS "idx_video_calls_status" ON "video_calls" ("status");
 CREATE INDEX IF NOT EXISTS "idx_video_calls_call_type" ON "video_calls" ("call_type");
-CREATE UNIQUE INDEX IF NOT EXISTS "idx_video_calls_fluxez_room_id" ON "video_calls" ("fluxez_room_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "idx_video_calls_livekit_room_id" ON "video_calls" ("livekit_room_id");
 CREATE INDEX IF NOT EXISTS "idx_video_calls_scheduled_start_time" ON "video_calls" ("scheduled_start_time");
 CREATE INDEX IF NOT EXISTS "idx_video_calls_actual_start_time" ON "video_calls" ("actual_start_time");
 CREATE INDEX IF NOT EXISTS "idx_video_calls_created_at" ON "video_calls" ("created_at");
@@ -1193,7 +1193,7 @@ CREATE TABLE IF NOT EXISTS "video_call_participants" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   "video_call_id" UUID NOT NULL REFERENCES "video_calls"(id) ON DELETE CASCADE,
   "user_id" VARCHAR(255) NOT NULL,
-  "fluxez_participant_id" VARCHAR(255),
+  "livekit_participant_id" VARCHAR(255),
   "display_name" VARCHAR(255),
   "role" VARCHAR(255) DEFAULT 'participant',
   "status" VARCHAR(255) DEFAULT 'invited',
@@ -1220,7 +1220,7 @@ CREATE INDEX IF NOT EXISTS "idx_video_call_participants_status" ON "video_call_p
 CREATE TABLE IF NOT EXISTS "video_call_recordings" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   "video_call_id" UUID NOT NULL REFERENCES "video_calls"(id) ON DELETE CASCADE,
-  "fluxez_recording_id" VARCHAR(255) NOT NULL,
+  "livekit_recording_id" VARCHAR(255) NOT NULL,
   "recording_url" TEXT,
   "transcript_url" TEXT,
   "duration_seconds" INTEGER DEFAULT 0,
@@ -1233,7 +1233,7 @@ CREATE TABLE IF NOT EXISTS "video_call_recordings" (
 );
 
 CREATE INDEX IF NOT EXISTS "idx_video_call_recordings_video_call_id" ON "video_call_recordings" ("video_call_id");
-CREATE UNIQUE INDEX IF NOT EXISTS "idx_video_call_recordings_fluxez_recording_id" ON "video_call_recordings" ("fluxez_recording_id");
+CREATE UNIQUE INDEX IF NOT EXISTS "idx_video_call_recordings_livekit_recording_id" ON "video_call_recordings" ("livekit_recording_id");
 CREATE INDEX IF NOT EXISTS "idx_video_call_recordings_status" ON "video_call_recordings" ("status");
 CREATE INDEX IF NOT EXISTS "idx_video_call_recordings_created_at" ON "video_call_recordings" ("created_at");
 
