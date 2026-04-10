@@ -26,7 +26,7 @@ export class NoneProvider implements VideoProvider {
   private readonly logger = new Logger('NoneVideoProvider');
 
   constructor() {
-    this.logger.log('Video conferencing is DISABLED (VIDEO_PROVIDER not set or set to "none"). To enable video, set VIDEO_PROVIDER to one of: jitsi, livekit, daily.');
+    this.logger.log('Video conferencing is DISABLED (VIDEO_PROVIDER not set or set to "none"). To enable video, set VIDEO_PROVIDER to one of: jitsi, whereby, daily, livekit, agora.');
   }
 
   isAvailable(): boolean {

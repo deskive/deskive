@@ -139,22 +139,87 @@ To wire up, pick one:
 
 ### Video conferencing — multi-provider, picks one with `VIDEO_PROVIDER`
 
-Deskive ships with a pluggable video provider system. Pick the one that
-fits your stack and infra appetite by setting `VIDEO_PROVIDER` in `.env`:
+Deskive ships with a pluggable video provider system supporting **5 of
+the most popular video platforms** in the world. Pick whichever fits
+your stack and infra appetite by setting `VIDEO_PROVIDER` in `.env`:
 
-| Provider | Setup time | Infra | Recording | Cost (small) |
-|---|---|---|---|---|
-| `jitsi` (default-recommended) | **0 minutes** | **none** (uses public meet.jit.si) | Optional (paid JaaS or self-host Jibri) | **Free** |
-| `livekit` | ~10 minutes (LiveKit Cloud signup) | Cloud or self-hosted | ✅ Full (egress → S3-compat storage) | Free tier: 50 mins/mo |
-| `daily` | ~5 minutes (Daily.co signup) | Daily-hosted | ✅ Cloud recording (paid plan) | Free tier: 10k participant minutes/mo |
-| `none` | n/a | n/a | n/a | n/a — video disabled |
+| Provider | Setup time | Infra | Recording | Cost (small teams) | Frontend SDK |
+|---|---|---|---|---|---|
+| `jitsi` ⭐ | **0 min** | **none** (uses public meet.jit.si) | Paid JaaS or self-host Jibri | **Free** | `<script>` tag |
+| `whereby` ⭐ | **2 min** | none (just API key) | Host-initiated | Free tier: 100 min/mo | **iframe only** |
+| `daily` | ~5 min | Daily-hosted | ✅ Cloud (paid) | Free tier: 10k participant min/mo | `@daily-co/daily-js` |
+| `livekit` | ~10 min | Cloud or self-host | ✅ Full (egress → S3) | Free tier: 50 min/mo | `livekit-client` |
+| `agora` | ~10 min | Agora-hosted (global edge) | ✅ Cloud Recording (separate API) | Free tier: 10k min/mo | `agora-rtc-sdk-ng` |
+| `none` | n/a | n/a | n/a | video disabled | n/a |
 
-The active provider is selected by `VIDEO_PROVIDER` and queried at runtime
+⭐ = recommended for users who want "video that just works" with the
+least possible infrastructure burden.
+
+The active provider is picked by `VIDEO_PROVIDER` and queried at runtime
 via the `LivekitVideoService` façade (despite the legacy filename, it now
-supports all four providers). The frontend discovers which provider is
-active by calling `GET /api/v1/video-provider/info`.
+supports all 6 options). The frontend discovers which provider is active
+by calling `GET /api/v1/video-provider/info`.
 
-#### Option 1: Jitsi Meet (easiest — zero infra)
+#### Which one should you pick?
+
+- **You want the absolute easiest possible thing → `whereby`**.
+  Two env vars (`VIDEO_PROVIDER=whereby` + `WHEREBY_API_KEY`), and the
+  entire frontend integration is `<iframe src={room.joinUrl} />`. No
+  client SDK to install, no JWT auth, no WebSocket plumbing. Up to 200
+  participants per room. Free for the first 100 monthly meeting minutes.
+
+- **You want zero signup, zero infra, zero cost → `jitsi`**.
+  Set `VIDEO_PROVIDER=jitsi` and that's it — uses the free public
+  `meet.jit.si` instance. No API key, no signup. Recording is the only
+  feature you don't get on the public instance.
+
+- **You want a polished managed product with the best DX → `daily`**.
+  ~5-minute signup at https://dashboard.daily.co/, then `DAILY_API_KEY` +
+  `DAILY_DOMAIN`. Daily Prebuilt also offers a no-code iframe like
+  Whereby, plus a full SDK for custom UIs.
+
+- **You want full features and don't mind running infra (or trusting
+  LiveKit Cloud) → `livekit`**. The strongest open-source story.
+  Server-side recording, egress to S3, custom layouts, simulcast. Free
+  tier on LiveKit Cloud or self-host with Docker.
+
+- **You want a battle-tested global low-latency platform, especially for
+  Asia → `agora`**. ~10M daily active users on the platform. Best in
+  class for high-density / high-quality use cases. Cloud Recording is a
+  separate Agora product.
+
+#### Option 1: Whereby Embedded (easiest paid)
+
+```env
+VIDEO_PROVIDER=whereby
+WHEREBY_API_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
+WHEREBY_ROOM_MODE=normal              # "normal" (200 ppl) or "group" (large)
+```
+
+Sign up at https://whereby.com/org/signup, then **Settings → Embedded
+API → Create API key**. The provider talks to `https://api.whereby.dev/v1/`
+directly — no server SDK needed.
+
+Frontend integration is the simplest of any provider:
+
+```jsx
+function Call({ roomName }) {
+  const [url, setUrl] = useState('');
+  useEffect(() => {
+    fetch(`/api/v1/video/rooms/${roomName}/join`)
+      .then(r => r.json()).then(d => setUrl(d.url));
+  }, [roomName]);
+  return url ? (
+    <iframe src={url}
+      allow="camera; microphone; fullscreen; display-capture; autoplay"
+      style={{ width: '100%', height: '600px', border: 0 }} />
+  ) : null;
+}
+```
+
+That's the entire frontend. No SDK install, no build step.
+
+#### Option 2: Jitsi Meet (easiest free)
 
 ```env
 VIDEO_PROVIDER=jitsi
@@ -163,7 +228,7 @@ VIDEO_PROVIDER=jitsi
 That's it. With no other config, deskive uses the **free public**
 `meet.jit.si` instance — no signup, no API key, no infra. Rooms work,
 participants work, screen-share works, chat works. Recording is the only
-feature missing. Perfect for self-hosters, hobbyists, and small teams.
+feature missing.
 
 For a private deployment, point at your own Jitsi server or Jitsi as a
 Service (JaaS):
@@ -178,7 +243,23 @@ JITSI_KEY_ID=vpaas-magic-cookie-xxx/abc123  # JaaS key ID (optional)
 Frontend: load `https://<domain>/external_api.js` as a `<script>` tag,
 or `npm install @jitsi/react-sdk`.
 
-#### Option 2: LiveKit (full features, recommended for production)
+#### Option 3: Daily.co (managed, polished SDK)
+
+```env
+VIDEO_PROVIDER=daily
+DAILY_API_KEY=xxxxxxxxxxxxxxxxxxxxx
+DAILY_DOMAIN=mycompany               # your-company.daily.co subdomain
+DAILY_RECORDING_ENABLED=false        # set true if your Daily plan supports cloud recording
+```
+
+Sign up at https://dashboard.daily.co/. The provider uses Daily's REST
+API directly (via `fetch()`) — no server SDK needed. Free tier: 10,000
+monthly participant minutes.
+
+Frontend: `npm install @daily-co/daily-js` or use the Daily Prebuilt
+iframe (zero JS — just embed `<iframe src={joinUrl} />`).
+
+#### Option 4: LiveKit (full features, OSS-friendly)
 
 ```env
 VIDEO_PROVIDER=livekit
@@ -201,23 +282,37 @@ still runs as long as you don't pick `VIDEO_PROVIDER=livekit`.
 
 Frontend: `npm install livekit-client`.
 
-#### Option 3: Daily.co (managed, REST API, no SDK on server)
+#### Option 5: Agora (most popular globally)
 
 ```env
-VIDEO_PROVIDER=daily
-DAILY_API_KEY=xxxxxxxxxxxxxxxxxxxxx
-DAILY_DOMAIN=mycompany               # your-company.daily.co subdomain
-DAILY_RECORDING_ENABLED=false        # set true if your Daily plan supports cloud recording
+VIDEO_PROVIDER=agora
+AGORA_APP_ID=xxxxxxxxxxxxxxxxxxxxxxxxx
+AGORA_APP_CERTIFICATE=xxxxxxxxxxxxxxxxxxxxxx
+AGORA_TOKEN_TTL=86400                # optional, default 24h
 ```
 
-Sign up at https://dashboard.daily.co/. The provider uses Daily's REST
-API directly (via `fetch()`) — no server SDK needed. Free tier: 10,000
-monthly participant minutes.
+Sign up at https://www.agora.io/. From the Agora Console, create a
+project and copy the **App ID**. Enable the **App Certificate** under
+"Security" — copy that too. ~10 minutes total. Free tier: 10,000 minutes
+per month across audio + video.
 
-Frontend: `npm install @daily-co/daily-js` or use the Daily Prebuilt
-iframe (zero JS — just embed `<iframe src={joinUrl} />`).
+Agora's primitive is "channels" not "rooms", but the provider treats
+them 1:1 so the rest of the app stays agnostic. The user identity you
+pass to `generateToken()` is hashed to a stable uint32 uid (Agora's
+native identity type).
 
-#### Option 4: Disabled
+`agora-token` is listed as an `optionalDependencies`. Recording requires
+the separate Agora Cloud Recording REST API (different product, separate
+pricing) — the provider throws a clear error if you call `startRecording`
+without integrating it.
+
+Frontend: `npm install agora-rtc-sdk-ng`. Join a channel with:
+```js
+const client = AgoraRTC.createClient({ mode: 'rtc', codec: 'vp8' });
+await client.join(appId, channelName, token, uid);
+```
+
+#### Option 6: Disabled
 
 ```env
 VIDEO_PROVIDER=none

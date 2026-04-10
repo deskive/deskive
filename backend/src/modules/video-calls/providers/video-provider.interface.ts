@@ -120,7 +120,7 @@ export interface Recording {
  */
 export interface VideoProvider {
   /** Stable provider name for logging / clients. */
-  readonly name: 'livekit' | 'daily' | 'jitsi' | 'none';
+  readonly name: 'livekit' | 'daily' | 'jitsi' | 'agora' | 'whereby' | 'none';
 
   /** True if the provider has the credentials it needs to function. */
   isAvailable(): boolean;
