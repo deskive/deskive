@@ -96,9 +96,12 @@ export class AuthService {
       // This prevents database from throwing 401 before we can check email verification
       let userCheckResult;
       try {
-        // Use raw SQL query to check auth.users table
+        // Check email verification status. The legacy code queried
+        // `auth.users` (Supabase schema namespace); the open-source build
+        // also exposes that as a view (see migrations/002_auth_users.sql),
+        // but querying public.users directly is clearer.
         userCheckResult = await this.db.raw(
-          'SELECT id, email, email_confirmed_at FROM auth.users WHERE email = $1',
+          'SELECT id, email, email_confirmed_at FROM "users" WHERE LOWER(email) = LOWER($1)',
           [dto.email]
         );
 
@@ -110,8 +113,11 @@ export class AuthService {
         userCheckResult = null;
       }
 
-      if (userCheckResult && userCheckResult.length > 0) {
-        const userRecord = userCheckResult[0];
+      // db.raw returns a pg QueryResult ({rows, rowCount, ...}). Older
+      // SDK code may have returned an array directly, so handle both shapes.
+      const rows = (userCheckResult as any)?.rows ?? userCheckResult;
+      if (rows && rows.length > 0) {
+        const userRecord = rows[0];
 
         // Check if email is confirmed
         if (!userRecord.email_confirmed_at) {

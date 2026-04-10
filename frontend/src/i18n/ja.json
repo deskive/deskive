@@ -795,7 +795,7 @@
         "tryDifferentTerm": "別の検索用語を試してください",
         "typeChannelName": "チャンネル名を入力して検索",
         "searching": "検索中...",
-        "channelsAvailable": "{count}個のチャンネルが利用可能です"
+        "channelsAvailable": "{count}個のチャンネルが利用可能です{plural}"
       },
       "calls": {
         "voiceCall": "音声通話",
@@ -872,7 +872,7 @@
         "empty": "まだ会話がありません",
         "tryDifferent": "別の検索キーワードを試してください",
         "startNew": "新しい会話を開始してチャットを始めましょう",
-        "count": "{count}件の会話"
+        "count": "{count}件の会話{plural}"
       },
       "messageActionsMenu": {
         "copiedClipboard": "メッセージがクリップボードにコピーされました",
@@ -1385,7 +1385,7 @@
         "title": "\"{fileName}\"を共有",
         "description": "このファイルをワークスペースメンバーと共有",
         "searchPlaceholder": "メンバーを検索...",
-        "memberSelected": "{count}人のメンバーを選択中",
+        "memberSelected": "{count}人のメンバーを選択中{plural}",
         "sharing": "共有中..."
       },
       "dialogs": {
@@ -1481,8 +1481,8 @@
       },
       "messages": {
         "downloading": "ファイルをダウンロード中...",
-        "uploadSuccess": "{count}個のファイルを正常にアップロードしました",
-        "shareSuccess": "\"{fileName}\"を{count}人のメンバーと正常に共有しました",
+        "uploadSuccess": "{count}個のファイルを正常にアップロードしました{plural}",
+        "shareSuccess": "\"{fileName}\"を{count}人のメンバーと正常に共有しました{plural}",
         "imageGenerated": "画像が正常に生成されました！",
         "imageDescription": "{count}個の画像が生成されました。保存または破棄を選択してください。",
         "videoGenerated": "動画が生成され、正常に保存されました！",
@@ -1492,16 +1492,16 @@
         "imageSaved": "画像をファイルに保存しました",
         "imagesDiscarded": "画像を破棄しました",
         "pastedItem": "\"{name}\"を貼り付けました",
-        "pastedItems": "{count}個のアイテムを貼り付けました",
+        "pastedItems": "{count}個のアイテムを貼り付けました{plural}",
         "movedItem": "\"{name}\"を移動しました",
-        "movedItems": "{count}個のアイテムを移動しました",
+        "movedItems": "{count}個のアイテムを移動しました{plural}",
         "copiedItem": "\"{name}\"をコピーしました",
         "cutItem": "\"{name}\"を切り取りました"
       },
       "success": {
         "deleted": "ファイルを正常に削除しました",
         "folderDeleted": "フォルダを正常に削除しました",
-        "deletedItems": "{count}個のアイテムを正常に削除しました",
+        "deletedItems": "{count}個のアイテムを正常に削除しました{plural}",
         "deletedOne": "1個のアイテムを削除しました",
         "downloaded": "ファイルを正常にダウンロードしました",
         "folderCreated": "フォルダ\"{name}\"を正常に作成しました",
@@ -1511,14 +1511,14 @@
         "unstarred": "ファイルのスターを外しました",
         "restoreFile": "ファイル\"{fileName}\"を正常に復元しました",
         "restoreFolder": "{folderCount}個のフォルダと{fileCount}個のファイルを復元しました",
-        "copiedToClipboard": "{count}個のアイテムをクリップボードにコピーしました",
-        "cutToClipboard": "{count}個のアイテムをクリップボードに切り取りました"
+        "copiedToClipboard": "{count}個のアイテムをクリップボードにコピーしました{plural}",
+        "cutToClipboard": "{count}個のアイテムをクリップボードに切り取りました{plural}"
       },
       "errors": {
         "workspaceRequired": "ワークスペースIDが必要です",
         "itemNotFound": "アイテムが見つかりません",
         "deleteFailed": "アイテムの削除に失敗しました",
-        "deleteMultipleFailed": "{count}個のアイテムの削除に失敗しました: {reason}",
+        "deleteMultipleFailed": "{count}個のアイテムの削除に失敗しました: {reason}{plural}",
         "downloadFailed": "ファイルのダウンロードに失敗しました",
         "createFolderFailed": "フォルダの作成に失敗しました",
         "renameFailed": "名前の変更に失敗しました",
@@ -1526,10 +1526,10 @@
         "restoreFailed": "アイテムの復元に失敗しました",
         "copyFileFailed": "ファイルのコピーに失敗しました",
         "copyFolderFailed": "フォルダのコピーに失敗しました",
-        "copyMultipleFailed": "{count}個のアイテムのコピーに失敗しました: {reason}",
+        "copyMultipleFailed": "{count}個のアイテムのコピーに失敗しました: {reason}{plural}",
         "moveFileFailed": "ファイルの移動に失敗しました",
         "moveFolderFailed": "フォルダの移動に失敗しました",
-        "moveMultipleFailed": "{count}個のアイテムの移動に失敗しました: {reason}",
+        "moveMultipleFailed": "{count}個のアイテムの移動に失敗しました: {reason}{plural}",
         "loadFailed": "ファイルの読み込みに失敗しました",
         "uploadFailed": "ファイルのアップロードに失敗しました",
         "shareFailed": "ファイルの共有に失敗しました。もう一度お試しください。",
@@ -7092,7 +7092,7 @@
         "private": "プライベート",
         "directMessage": "ダイレクトメッセージ",
         "due": "期日",
-        "daysOverdue": "{count}日遅延"
+        "daysOverdue": "{count}日遅延{day}"
       }
     }
   },
@@ -8655,7 +8655,7 @@
         "title": "コネクタ",
         "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
         "searchPlaceholder": "コネクタを検索...",
-        "connectorsAvailable": "{count}個のコネクタが利用可能",
+        "connectorsAvailable": "{count}個のコネクタが利用可能{plural}",
         "noConnectorsFound": "コネクターが見つかりません",
         "noConnectorsMatch": "\"{query}\"に一致するコネクターがありません",
         "noConnectorsInCategory": "{category}カテゴリにコネクターがありません",
