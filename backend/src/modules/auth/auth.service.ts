@@ -97,7 +97,7 @@ export class AuthService {
       let userCheckResult;
       try {
         // Check email verification status. The legacy code queried
-        // `auth.users` (Supabase schema namespace); the open-source build
+        // `auth.users` (a separate schema namespace); the open-source build
         // also exposes that as a view (see migrations/002_auth_users.sql),
         // but querying public.users directly is clearer.
         userCheckResult = await this.db.raw(

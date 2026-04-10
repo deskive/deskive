@@ -232,7 +232,6 @@ const integrations = [
   { name: 'Smartsheet', logo: 'https://cdn.simpleicons.org/smartsheet/2F4C8B' },
   { name: 'Podio', logo: 'https://cdn.simpleicons.org/podio/F07C28' },
   { name: 'Firebase', logo: 'https://cdn.simpleicons.org/firebase/FFCA28' },
-  { name: 'Supabase', logo: 'https://cdn.simpleicons.org/supabase/3ECF8E' },
   { name: 'MongoDB', logo: 'https://cdn.simpleicons.org/mongodb/47A248' },
   { name: 'PostgreSQL', logo: 'https://cdn.simpleicons.org/postgresql/4169E1' },
   { name: 'MySQL', logo: 'https://cdn.simpleicons.org/mysql/4479A1' },
