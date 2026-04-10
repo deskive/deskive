@@ -40,6 +40,13 @@ export class AIService {
 
   constructor(private readonly db: DatabaseService) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in. Lets all this.aiProvider.generateText/
+  // chatCompletion calls compile.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Text Generation Service
    */

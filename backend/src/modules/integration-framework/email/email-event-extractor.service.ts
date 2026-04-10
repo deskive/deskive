@@ -74,6 +74,12 @@ export class EmailEventExtractorService {
     private calendarService: CalendarService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Process an email and extract/create events if applicable
    */

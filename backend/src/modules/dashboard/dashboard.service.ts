@@ -24,6 +24,12 @@ export class DashboardService {
     private langchainSuggestionsService: LangChainSuggestionsService,
   ) { }
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   async getDashboardData(workspaceId: string, userId: string, query: GetDashboardDto): Promise<DashboardResponse> {
     // Verify user has access to this workspace
     await this.verifyWorkspaceAccess(workspaceId, userId);

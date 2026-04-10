@@ -2227,24 +2227,10 @@ export class FilesService {
 
     const workspace = workspaceData[0];
 
-    // Get subscription for workspace (using owner_id as userId)
-    let maxStorageGb = 0.5; // Default to free plan (500 MB)
-    let planName = 'Free';
-
-    try {
-
-      // Find the plan limits based on subscription plan
-      const plan = plans.plans.find(p => p.id === subscription.plan);
-      if (plan && plan.limits) {
-        maxStorageGb = plan.limits.maxStorageGb;
-        planName = plan.name;
-      }
-    } catch (error) {
-      console.log('[checkStorageQuota] Error fetching subscription, using free plan limits:', error.message);
-      // If subscription fetch fails, use free plan limits (500 MB)
-    }
-
-    const maxStorageBytes = maxStorageGb * 1024 * 1024 * 1024; // Convert GB to bytes
+    // Open-source self-hosted: no plan-based storage limits
+    const maxStorageGb = Number.POSITIVE_INFINITY;
+    const planName = 'Self-hosted';
+    const maxStorageBytes = Number.POSITIVE_INFINITY;
 
     // Calculate current usage - using workaround pattern
     const allFilesResult = await this.db.find('files', {});
@@ -2284,25 +2270,11 @@ export class FilesService {
 
     const workspace = workspaceData[0];
 
-    // Get subscription for workspace
-    let maxStorageGb = 0.5; // Default to free plan (500 MB)
-    let planName = 'Free';
-    let planId = 'free';
-
-    try {
-      planId = subscription.plan;
-
-      // Find the plan limits based on subscription plan
-      const plan = plans.plans.find(p => p.id === subscription.plan);
-      if (plan && plan.limits) {
-        maxStorageGb = plan.limits.maxStorageGb;
-        planName = plan.name;
-      }
-    } catch (error) {
-      console.log('[getStorageStats] Error fetching subscription, using free plan limits');
-    }
-
-    const maxStorageBytes = maxStorageGb * 1024 * 1024 * 1024;
+    // Open-source self-hosted: no plan-based storage limits
+    const maxStorageGb = Number.POSITIVE_INFINITY;
+    const planName = 'Self-hosted';
+    const planId = 'self-hosted';
+    const maxStorageBytes = Number.POSITIVE_INFINITY;
 
     // Calculate current usage - using workaround pattern
     const allFilesResult = await this.db.find('files', {});
@@ -2541,25 +2513,11 @@ export class FilesService {
     }
     const workspace = workspaceData[0];
 
-    // Get subscription plan to determine storage limits
-    let maxStorageGb = 0.5; // Default to free plan (500 MB)
-    let planName = 'Free';
-    let planId = 'free';
-
-    try {
-      planId = subscription.plan;
-
-      // Find the plan limits based on subscription plan
-      const plan = plans.plans.find(p => p.id === subscription.plan);
-      if (plan && plan.limits) {
-        maxStorageGb = plan.limits.maxStorageGb;
-        planName = plan.name;
-      }
-    } catch (error) {
-      console.log('[getDashboardStats] Error fetching subscription, using free plan limits (500 MB)');
-    }
-
-    const maxStorageBytes = maxStorageGb * 1024 * 1024 * 1024;
+    // Open-source self-hosted: no plan-based storage limits
+    const maxStorageGb = Number.POSITIVE_INFINITY;
+    const planName = 'Self-hosted';
+    const planId = 'self-hosted';
+    const maxStorageBytes = Number.POSITIVE_INFINITY;
 
     // Get all workspace files
     const allFilesResult = await this.db.find('files', {});

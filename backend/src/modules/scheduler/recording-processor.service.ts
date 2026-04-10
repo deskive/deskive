@@ -29,6 +29,11 @@ export class RecordingProcessorService {
     private readonly videoCallsGateway: VideoCallsGateway,
   ) {}
 
+  // Legacy alias used throughout the file
+  private get dbVideoService(): LivekitVideoService {
+    return this.livekitVideoService;
+  }
+
   /**
    * Main cron job - runs every 30 seconds to check for completed recordings
    */

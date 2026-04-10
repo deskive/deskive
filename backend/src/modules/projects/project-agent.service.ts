@@ -162,6 +162,12 @@ export class ProjectAgentService {
     private readonly conversationMemoryService: ConversationMemoryService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Main entry point for the Project AI Agent
    * Receives natural language prompt and executes the appropriate action

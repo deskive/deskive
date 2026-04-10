@@ -56,6 +56,12 @@ export class SemanticSearchService implements OnModuleInit {
   private isInitialized = false;
 
   constructor(private readonly db: DatabaseService) {}
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
 
   async onModuleInit() {
     await this.ensureCollection();

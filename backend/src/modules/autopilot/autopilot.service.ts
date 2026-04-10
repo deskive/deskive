@@ -29,6 +29,12 @@ export class AutoPilotService {
     private readonly db: DatabaseService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Check if the command is a help request
    */

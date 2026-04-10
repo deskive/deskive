@@ -44,6 +44,12 @@ export class ActionExecutorService {
     @Optional() private readonly sharedConditionEvaluator?: SharedConditionEvaluatorService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Execute a single action
    */

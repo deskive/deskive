@@ -31,15 +31,106 @@ export class QueryBuilder {
     this._table = tableName;
   }
 
-  select(columns: string): this {
-    this._selectColumns = columns;
+  select(...columns: string[]): this {
+    if (columns.length === 0) {
+      this._selectColumns = '*';
+    } else if (columns.length === 1) {
+      this._selectColumns = columns[0];
+    } else {
+      this._selectColumns = columns.join(', ');
+    }
     this._operation = 'select';
     return this;
   }
 
-  where(column: string, operator: string, value: any): this {
-    this._whereValues.push(value);
+  where(column: string, operatorOrValue: any, value?: any): this {
+    // Support both: where('col', value) and where('col', '>=', value)
+    let operator: string;
+    let actualValue: any;
+    if (arguments.length === 2) {
+      operator = '=';
+      actualValue = operatorOrValue;
+    } else {
+      operator = operatorOrValue;
+      actualValue = value;
+    }
+    this._whereValues.push(actualValue);
     this._whereClauses.push(`"${column}" ${operator} $${this._whereValues.length}`);
+    return this;
+  }
+
+  // Comparison aliases used by some callers
+  gte(column: string, value: any): this { return this.where(column, '>=', value); }
+  lte(column: string, value: any): this { return this.where(column, '<=', value); }
+  gt(column: string, value: any): this { return this.where(column, '>', value); }
+  lt(column: string, value: any): this { return this.where(column, '<', value); }
+  eq(column: string, value: any): this { return this.where(column, '=', value); }
+  neq(column: string, value: any): this { return this.where(column, '!=', value); }
+
+  // Alias for whereIn
+  in(column: string, values: any[]): this {
+    return this.whereIn(column, values);
+  }
+
+  // Combined OR clause - accepts callbacks that build sub-clauses
+  or(...callbacks: Array<(qb: QueryBuilder) => any>): this {
+    const subClauses: string[] = [];
+    for (const cb of callbacks) {
+      const sub = new QueryBuilder(this._pool, this._table);
+      (sub as any)._whereValues = this._whereValues;
+      cb(sub);
+      if ((sub as any)._whereClauses.length > 0) {
+        subClauses.push((sub as any)._whereClauses.join(' AND '));
+      }
+    }
+    if (subClauses.length > 0) {
+      this._whereClauses.push(`(${subClauses.join(' OR ')})`);
+    }
+    return this;
+  }
+
+  // Count rows matching current filters
+  async count(): Promise<number> {
+    const whereStr = this.buildWhereClause();
+    const sql = `SELECT COUNT(*) as count FROM "${this._table}"${whereStr}`;
+    const result = await this._pool.query(sql, this._whereValues);
+    return parseInt(result.rows[0]?.count || '0', 10);
+  }
+
+  // JOIN support — minimal stubs that capture the join clause for the SELECT.
+  // The QueryBuilder is intentionally simple, so these append a raw clause.
+  private _joinClauses: string[] = [];
+
+  // Supports both:
+  //   leftJoin('projects', 'tasks.project_id = projects.id')
+  //   leftJoin('projects', 'tasks.project_id', '=', 'projects.id')
+  leftJoin(table: string, onClauseOrLeft: string, op?: string, right?: string): this {
+    const clause = op !== undefined ? `${onClauseOrLeft} ${op} ${right}` : onClauseOrLeft;
+    this._joinClauses.push(`LEFT JOIN "${table}" ON ${clause}`);
+    return this;
+  }
+
+  innerJoin(table: string, onClauseOrLeft: string, op?: string, right?: string): this {
+    const clause = op !== undefined ? `${onClauseOrLeft} ${op} ${right}` : onClauseOrLeft;
+    this._joinClauses.push(`INNER JOIN "${table}" ON ${clause}`);
+    return this;
+  }
+
+  join(table: string, onClauseOrLeft: string, op?: string, right?: string): this {
+    return this.innerJoin(table, onClauseOrLeft, op, right);
+  }
+
+  // GROUP BY clause
+  private _groupByClause: string = '';
+  groupBy(...columns: string[]): this {
+    this._groupByClause = ` GROUP BY ${columns.map((c) => `"${c}"`).join(', ')}`;
+    return this;
+  }
+
+  // WHERE LIKE - case-sensitive variant
+  whereLike(column: string, pattern: string): this {
+    this._whereValues.push(pattern);
+    this._whereClauses.push(`"${column}" LIKE $${this._whereValues.length}`);
     return this;
   }
 
@@ -88,7 +179,7 @@ export class QueryBuilder {
   }
 
   // Get all results (alias for execute)
-  async get(): Promise<{ data: any[]; count: number }> {
+  async get(): Promise<any> {
     return this.execute();
   }
 
@@ -148,7 +239,8 @@ export class QueryBuilder {
 
     switch (this._operation) {
       case 'select': {
-        const sql = `SELECT ${this._selectColumns} FROM "${this._table}"${whereStr}${this._orderByClause}${this._limitClause}${this._offsetClause}`;
+        const joinStr = this._joinClauses.length ? ' ' + this._joinClauses.join(' ') : '';
+        const sql = `SELECT ${this._selectColumns} FROM "${this._table}"${joinStr}${whereStr}${this._groupByClause}${this._orderByClause}${this._limitClause}${this._offsetClause}`;
         return { sql, params: this._whereValues };
       }
 
@@ -192,17 +284,19 @@ export class QueryBuilder {
     }
   }
 
-  async execute(): Promise<{ data: any[]; count: number }> {
+  async execute(): Promise<any> {
     const { sql, params } = this.buildSQL();
     const result = await this._pool.query(sql, params);
-    return {
-      data: result.rows,
-      count: result.rowCount || 0,
-    };
+    // Array-shaped result with `.data` self-ref and `.count` so callers can
+    // use both array methods and the {data, count} destructuring pattern.
+    const arr: any = (result.rows || []).slice();
+    arr.data = arr;
+    arr.count = result.rowCount || arr.length;
+    return arr;
   }
 
   // Alias for execute
-  async then(resolve: (value: { data: any[]; count: number }) => any, reject?: (reason: any) => any) {
+  async then(resolve: (value: any) => any, reject?: (reason: any) => any) {
     try {
       const result = await this.execute();
       resolve(result);

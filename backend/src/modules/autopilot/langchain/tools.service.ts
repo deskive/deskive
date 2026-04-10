@@ -99,6 +99,12 @@ export class AgentToolsService {
     });
   }
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Set the context for tool execution
    */

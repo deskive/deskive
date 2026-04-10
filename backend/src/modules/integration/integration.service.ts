@@ -6,6 +6,12 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable()
 export class IntegrationService {
   constructor(private readonly db: DatabaseService) {}
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
 
   // ============================================
   // VIDEO CALLS (Using database LiveKit)
@@ -341,7 +347,7 @@ export class IntegrationService {
 
     try {
       // Test database connection
-      await /* TODO: implement health ping */ this.db.raw("SELECT 1")();
+      await this.db.raw("SELECT 1");
     } catch (error) {
       console.error('Integration health check failed:', error);
       Object.keys(checks).forEach(key => {

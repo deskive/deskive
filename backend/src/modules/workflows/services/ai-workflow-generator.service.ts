@@ -46,6 +46,12 @@ export class AIWorkflowGeneratorService {
   private readonly logger = new Logger(AIWorkflowGeneratorService.name);
 
   constructor(private readonly db: DatabaseService) {}
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
 
   /**
    * Generate a workflow from natural language description

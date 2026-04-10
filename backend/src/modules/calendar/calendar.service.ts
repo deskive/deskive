@@ -1473,6 +1473,12 @@ export class CalendarService {
     }
   }
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Schedule reminder notifications for all event attendees and the organizer
    * Creates pending notifications in the notifications table that will be sent by the cron job

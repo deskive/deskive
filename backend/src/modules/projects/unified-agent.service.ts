@@ -44,6 +44,12 @@ export class UnifiedAgentService {
     private readonly conversationMemoryService: ConversationMemoryService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Main entry point for the Unified AI Agent
    * Intelligently routes to either Project Agent or Task Agent based on user intent

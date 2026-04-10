@@ -1,23 +1,21 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import type {
-  CreateRoomOptions,
-  VideoRoom,
-  RoomFilters,
-  TokenOptions,
-  RoomToken,
-  Participant,
-  RecordingConfig,
-  Recording,
-  SessionStats,
-  UpdateRoomOptions,
-  EgressOptions,
-  Egress,
-// TODO: Replace with livekit-server-sdk imports
+// TODO: Replace with livekit-server-sdk types
+type CreateRoomOptions = any;
+type VideoRoom = any;
+type RoomFilters = any;
+type TokenOptions = any;
+type RoomToken = any;
+type Participant = any;
+type RecordingConfig = any;
+type Recording = any;
+type SessionStats = any;
+type UpdateRoomOptions = any;
+type EgressOptions = any;
+type Egress = any;
 
 /**
- * database Video Conferencing Service
- * Wraps the database's video conferencing module
+ * Video Conferencing Service - LiveKit wrapper (TODO: implement)
  */
 @Injectable()
 export class LivekitVideoService {

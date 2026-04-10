@@ -33,6 +33,12 @@ export class MeetingIntelligenceService {
     private readonly configService: ConfigService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Generate meeting summary and extract insights from transcript
    */

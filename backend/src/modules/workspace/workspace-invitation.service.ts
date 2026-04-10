@@ -448,41 +448,11 @@ export class WorkspaceInvitationService {
   }
 
   /**
-   * Check if workspace has reached member limit based on subscription plan
+   * Check if workspace has reached member limit.
+   * Open-source self-hosted: no plan-based limits, all workspaces unlimited.
    */
   private async checkMemberLimit(workspaceId: string, userId: string): Promise<void> {
-    try {
-      // Get workspace subscription details
-
-      // Get plan details to check member limit
-      const currentPlan = plansResponse.plans.find(p => p.id === subscription.plan);
-
-      if (!currentPlan) {
-        this.logger.warn(`Plan not found for workspace ${workspaceId}, defaulting to free plan limits`);
-        // Default to free plan limits if plan not found
-        const freePlan = plansResponse.plans.find(p => p.id === 'free');
-        if (freePlan) {
-          await this.validateMemberCount(workspaceId, freePlan.limits.maxMembers);
-        }
-        return;
-      }
-
-      const maxMembers = currentPlan.limits.maxMembers;
-
-      // Enterprise plan has unlimited members (-1)
-      if (maxMembers === -1) {
-        return;
-      }
-
-      await this.validateMemberCount(workspaceId, maxMembers);
-    } catch (error) {
-      this.logger.error(`Failed to check member limit for workspace ${workspaceId}:`, error);
-      // If billing service fails, log but don't block (graceful degradation)
-      // You can change this to throw error if you want strict enforcement
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-    }
+    return;
   }
 
   /**

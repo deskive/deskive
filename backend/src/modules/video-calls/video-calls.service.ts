@@ -43,6 +43,17 @@ export class VideoCallsService {
     private readonly meetingIntelligenceService: MeetingIntelligenceService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
+  // Legacy alias used throughout the file - points at the LiveKit service
+  private get dbVideoService(): LivekitVideoService {
+    return this.livekitVideoService;
+  }
+
   // ============================================
   // Video Call CRUD Operations
   // ============================================

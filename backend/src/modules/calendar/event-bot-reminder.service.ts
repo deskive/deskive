@@ -86,7 +86,7 @@ export class EventBotReminderService implements OnModuleInit {
           const assignment = assignments.find(a => a.event_id === event.id);
           if (!assignment) return null;
 
-          const bot = botMap.get(assignment.bot_id);
+          const bot: any = botMap.get(assignment.bot_id);
           if (!bot) return null;
 
           return {

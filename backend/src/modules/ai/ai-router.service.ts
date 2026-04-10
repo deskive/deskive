@@ -51,6 +51,12 @@ export class AIRouterService {
     private readonly filesAgentService: FilesAgentService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   /**
    * Main entry point for the AI Router
    * Uses AI to intelligently determine which agent should handle the request

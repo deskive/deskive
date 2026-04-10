@@ -37,6 +37,12 @@ export class EmailService {
     private oauthService: EmailOAuthService,
   ) {}
 
+  // Legacy alias for the AI provider - delegates to db.getAI() until a real
+  // AIProviderService is wired in.
+  private get aiProvider(): any {
+    return this.db.getAI();
+  }
+
   // ==================== Connection Management ====================
 
   getAuthUrl(userId: string, workspaceId: string, returnUrl?: string) {

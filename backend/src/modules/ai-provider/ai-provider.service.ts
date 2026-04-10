@@ -106,7 +106,7 @@ export class AiProviderService implements OnModuleInit {
     audioBuffer: Buffer,
     options?: { model?: string; language?: string },
   ): Promise<{ text: string }> {
-    const file = new File([audioBuffer], 'audio.webm', { type: 'audio/webm' });
+    const file = new File([new Uint8Array(audioBuffer)], 'audio.webm', { type: 'audio/webm' });
     const response = await this.openai.audio.transcriptions.create({
       model: options?.model || 'whisper-1',
       file,

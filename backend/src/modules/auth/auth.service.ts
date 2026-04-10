@@ -995,7 +995,7 @@ export class AuthService {
       this.logger.log(`Deleting user ${userId} from auth service system`);
       try {
         // TODO: implement user deletion
-      await this.db.raw("DELETE FROM users WHERE id = $1", [userId);
+      await this.db.raw("DELETE FROM users WHERE id = $1", [userId]);
         this.logger.log(`Successfully deleted user ${userId} from auth service system`);
       } catch (error) {
         this.logger.error(`Failed to delete user from auth service system:`, error);
