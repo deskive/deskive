@@ -6,6 +6,7 @@
     "saving": "保存中...",
     "saveChanges": "変更を保存",
     "cancel": "キャンセル",
+    "confirm": "確認",
     "delete": "削除",
     "edit": "編集",
     "and": "と",
@@ -249,6 +250,7 @@
     "tutorial": "チュートリアル",
     "apps": "アプリ",
     "more": "その他",
+    "bots": "ボット",
     "connectors": "コネクタ",
     "tools": "ツール"
   },
@@ -634,10 +636,11 @@
         "title": "会話を開始",
         "searchPlaceholder": "メンバーを検索...",
         "noMembers": "メンバーが見つかりません",
-        "selectOneMember": "会話を開始するには1人のメンバーを選択してください",
-        "selectedCount": "{count}人のメンバーを選択",
         "cancel": "キャンセル",
-        "start": "会話を開始"
+        "selectMembers": "メンバーを選択",
+        "start": "会話を開始",
+        "selectOneMember": "会話を開始するには1人のメンバーを選択してください",
+        "selectedCount": "{count}人のメンバーを選択"
       },
       "directMessages": {
         "title": "ダイレクトメッセージ",
@@ -1255,7 +1258,6 @@
       "filters": {
         "type": "種類",
         "dateModified": "更新日",
-        "dateModifiedButton": "更新日時",
         "fileType": "ファイルタイプ",
         "folders": "フォルダ",
         "documents": "ドキュメント",
@@ -1270,8 +1272,6 @@
       },
       "buttons": {
         "newFolder": "新しいフォルダ",
-        "importFromDrive": "Driveからインポート",
-        "importFromDropbox": "Dropboxからインポート",
         "upload": "アップロード",
         "storage": "ストレージ",
         "copy": "コピー",
@@ -1291,15 +1291,33 @@
         "add": "追加"
       },
       "ai": {
-        "heading": "AIアクション",
-        "image": "AI画像",
-        "imageDesc": "プレゼンテーションやコンテンツ用のプロフェッショナルな画像を生成",
+        "title": "AIコンテンツ生成",
+        "description": "AIを活用したツールでプロフェッショナルなコンテンツを生成",
+        "images": "AI画像",
         "audio": "AI音声",
-        "audioDesc": "音声録音とオーディオコンテンツを作成",
         "video": "AIビデオ",
-        "videoDesc": "ビデオコンテンツを生成・編集",
-        "document": "AIドキュメント",
-        "documentDesc": "テンプレートとプロンプトからドキュメントを生成"
+        "documents": "AIドキュメント",
+        "imageDescription": "プレゼンテーションやコンテンツ用のプロフェッショナルな画像を生成",
+        "audioDescription": "音声録音や音声コンテンツを作成",
+        "videoDescription": "動画コンテンツを生成・編集",
+        "documentDescription": "テンプレートやプロンプトからドキュメントを生成",
+        "creating": "{type}を作成中",
+        "complete": "完了！",
+        "tips": {
+          "title": "💡 AI生成のヒント",
+          "specific": "• より良い結果を得るには、プロンプトを具体的にしてください",
+          "templates": "• 一貫性を保つために、テンプレートを出発点として使用してください",
+          "autoSaved": "• 生成されたコンテンツは自動的にファイルに保存されます",
+          "quality": "• 高品質設定を使用すると、より多くのクレジットを消費しますが、より良い結果が得られます"
+        },
+        "imagePreview": {
+          "title": "AI生成画像",
+          "description": "生成された画像を確認し、保存するものを選択してください",
+          "keepAll": "すべて保存",
+          "discardAll": "すべて破棄",
+          "keepImage": "この画像を保存",
+          "download": "ダウンロード"
+        }
       },
       "selection": {
         "selected": "{count}個選択中",
@@ -1461,35 +1479,6 @@
         "restore": "復元",
         "open": "開く"
       },
-      "aiOld": {
-        "title": "AIコンテンツ生成",
-        "description": "AIを活用したツールでプロフェッショナルなコンテンツを生成",
-        "images": "AI画像",
-        "audio": "AI音声",
-        "video": "AI動画",
-        "documents": "AIドキュメント",
-        "imageDescription": "プレゼンテーションやコンテンツ用のプロフェッショナルな画像を生成",
-        "audioDescription": "音声録音や音声コンテンツを作成",
-        "videoDescription": "動画コンテンツを生成・編集",
-        "documentDescription": "テンプレートやプロンプトからドキュメントを生成",
-        "creating": "{type}を作成中",
-        "complete": "完了！",
-        "tips": {
-          "title": "💡 AI生成のヒント",
-          "specific": "• より良い結果を得るには、プロンプトを具体的にしてください",
-          "templates": "• 一貫性を保つために、テンプレートを出発点として使用してください",
-          "autoSaved": "• 生成されたコンテンツは自動的にファイルに保存されます",
-          "quality": "• 高品質設定を使用すると、より多くのクレジットを消費しますが、より良い結果が得られます"
-        },
-        "imagePreview": {
-          "title": "AI生成画像",
-          "description": "生成された画像を確認し、保存するものを選択してください",
-          "keepAll": "すべて保存",
-          "discardAll": "すべて破棄",
-          "keepImage": "この画像を保存",
-          "download": "ダウンロード"
-        }
-      },
       "messages": {
         "downloading": "ファイルをダウンロード中...",
         "uploadSuccess": "{count}個のファイルを正常にアップロードしました",
@@ -1599,9 +1588,23 @@
       },
       "googleCalendar": {
         "title": "Googleカレンダー",
+        "loading": "接続を確認中...",
+        "connected": "接続済み",
         "notConnected": "Googleカレンダーに接続されていません",
+        "connectDescription": "Googleカレンダーを接続してイベントとスケジュールを同期します。",
         "connect": "Googleカレンダーを接続",
-        "connectDescription": "Googleカレンダーを接続してイベントとスケジュールを同期します。"
+        "disconnect": "切断",
+        "disconnectTitle": "Google Calendarを切断",
+        "disconnectDescription": "これにより、同期されたすべてのイベントがカレンダーから削除されます。この操作は取り消せません。",
+        "sync": "今すぐ同期",
+        "lastSynced": "最終同期: {time}",
+        "connectedSuccess": "Google Calendarに正常に接続しました!",
+        "connectedError": "Google Calendarへの接続に失敗しました。",
+        "disconnectSuccess": "Google Calendarを切断しました。",
+        "disconnectError": "Google Calendarの切断に失敗しました。",
+        "syncSuccess": "{synced}件のイベントを同期し、{deleted}件のイベントを削除しました。",
+        "syncError": "Google Calendarの同期に失敗しました。",
+        "connectError": "Google Calendarの接続を開始できませんでした。"
       },
       "page": {
         "title": "カレンダー",
@@ -2497,14 +2500,6 @@
         "collaboration": "コラボレーション",
         "export": "エクスポート"
       },
-      "emptyState": {
-        "title": "ノートを始める",
-        "description": "最初のノートを作成して、アイデアを記録したり、議事録を取ったり、ドキュメントを作成したりできます。"
-      },
-      "buttons": {
-        "newNote": "新規ノート",
-        "import": "インポート"
-      },
       "leftSidebar": {
         "searchPlaceholder": "ノートを検索...",
         "selected": "選択中",
@@ -2573,55 +2568,6 @@
         "createdNote": "このノートを作成しました",
         "updatedNote": "このノートを更新しました",
         "autoSaved": "ノートが自動保存されました"
-      },
-      "fileImport": {
-        "importContent": "コンテンツをインポート",
-        "chooseImportMethod": "新しいノートにコンテンツをインポートする方法を選択してください。",
-        "importFile": "ファイルをインポート",
-        "importURL": "URLをインポート",
-        "googleDrive": "Google Drive",
-        "back": "← 戻る",
-        "noteTitle": "ノートタイトル",
-        "noteTitlePlaceholder": "ノートのタイトルを入力...",
-        "selectFile": "ファイルを選択",
-        "supportedFiles": "サポート: TXT、Markdown、Word文書",
-        "supportedFilesPDF": "サポート: TXT、Markdown、Word文書、PDF（表と画像を含む）",
-        "url": "URL",
-        "urlPlaceholder": "https://example.com/article",
-        "urlHelper": "インポート元のURLを入力",
-        "supportedURLsTitle": "サポートされているURL:",
-        "supportedURLs": {
-          "news": "ニュース記事（BBC、CNNなど）",
-          "blogs": "ブログ投稿（Medium、Dev.toなど）",
-          "wikipedia": "Wikipedia記事",
-          "docs": "ドキュメントページ"
-        },
-        "urlLimitation": "注：Google Docs、Notion、ログインが必要なページはサポートされていません。これらの場合は、.docxまたは.pdfとしてダウンロードし、ファイルインポートを使用してください。",
-        "connectDrivePrompt": "ドキュメントをインポートするには、Google Driveに接続してください。",
-        "connectDriveButton": "Google Driveに接続",
-        "searchDocuments": "ドキュメントを検索...",
-        "noDocuments": "ドキュメントが見つかりません",
-        "selectedFile": "選択: {fileName}",
-        "cancel": "キャンセル",
-        "importing": "インポート中...",
-        "import": "インポート",
-        "titleRequired": "タイトルが必要です",
-        "titleRequiredMessage": "ノートのタイトルを入力してください。",
-        "error": "エラー",
-        "noWorkspace": "ワークスペースが選択されていません。",
-        "pdfImportSuccess": "PDFのインポートに成功しました",
-        "pdfImportDescription": "{pageCount}ページをインポートしました",
-        "importSuccessful": "インポート成功",
-        "importedAsNewNote": "コンテンツが新しいノートとしてインポートされました。",
-        "urlImportSuccess": "URLのインポートに成功しました",
-        "urlImportDescription": "{siteName}からコンテンツをインポートしました",
-        "website": "ウェブサイト",
-        "driveImportSuccess": "Google Driveのインポートに成功しました",
-        "driveImportDescription": "\"{fileName}\"をノートとしてインポートしました",
-        "importFailed": "インポート失敗",
-        "importFailedMessage": "コンテンツのインポートに失敗しました。もう一度お試しください。",
-        "failedLoadDrive": "Google Driveからファイルの読み込みに失敗しました",
-        "failedConnectDrive": "Google Driveへの接続に失敗しました"
       },
       "editor": {
         "untitled": "無題",
@@ -2784,6 +2730,55 @@
         "merge": "ノートを結合",
         "invalidDate": "無効な日付"
       },
+      "fileImport": {
+        "importContent": "コンテンツをインポート",
+        "chooseImportMethod": "新しいノートにコンテンツをインポートする方法を選択してください。",
+        "importFile": "ファイルをインポート",
+        "importURL": "URLをインポート",
+        "googleDrive": "Google Drive",
+        "back": "← 戻る",
+        "noteTitle": "ノートタイトル",
+        "noteTitlePlaceholder": "ノートのタイトルを入力...",
+        "selectFile": "ファイルを選択",
+        "supportedFiles": "サポート: TXT、Markdown、Word文書",
+        "supportedFilesPDF": "サポート: TXT、Markdown、Word文書、PDF（表と画像を含む）",
+        "url": "URL",
+        "urlPlaceholder": "https://example.com/article",
+        "urlHelper": "インポート元のURLを入力",
+        "supportedURLsTitle": "サポートされているURL:",
+        "supportedURLs": {
+          "news": "ニュース記事（BBC、CNNなど）",
+          "blogs": "ブログ投稿（Medium、Dev.toなど）",
+          "wikipedia": "Wikipedia記事",
+          "docs": "ドキュメントページ"
+        },
+        "urlLimitation": "注：Google Docs、Notion、ログインが必要なページはサポートされていません。これらの場合は、.docxまたは.pdfとしてダウンロードし、ファイルインポートを使用してください。",
+        "connectDrivePrompt": "ドキュメントをインポートするには、Google Driveに接続してください。",
+        "connectDriveButton": "Google Driveに接続",
+        "searchDocuments": "ドキュメントを検索...",
+        "noDocuments": "ドキュメントが見つかりません",
+        "selectedFile": "選択: {fileName}",
+        "cancel": "キャンセル",
+        "importing": "インポート中...",
+        "import": "インポート",
+        "titleRequired": "タイトルが必要です",
+        "titleRequiredMessage": "ノートのタイトルを入力してください。",
+        "error": "エラー",
+        "noWorkspace": "ワークスペースが選択されていません。",
+        "pdfImportSuccess": "PDFのインポートに成功しました",
+        "pdfImportDescription": "{pageCount}ページをインポートしました",
+        "importSuccessful": "インポート成功",
+        "importedAsNewNote": "コンテンツが新しいノートとしてインポートされました。",
+        "urlImportSuccess": "URLのインポートに成功しました",
+        "urlImportDescription": "{siteName}からコンテンツをインポートしました",
+        "website": "ウェブサイト",
+        "driveImportSuccess": "Google Driveのインポートに成功しました",
+        "driveImportDescription": "\"{fileName}\"をノートとしてインポートしました",
+        "importFailed": "インポート失敗",
+        "importFailedMessage": "コンテンツのインポートに失敗しました。もう一度お試しください。",
+        "failedLoadDrive": "Google Driveからファイルの読み込みに失敗しました",
+        "failedConnectDrive": "Google Driveへの接続に失敗しました"
+      },
       "bulkActions": {
         "selected": "{count}個選択中",
         "restore": "復元（{count}個）",
@@ -2900,23 +2895,10 @@
       }
     },
     "integrations": {
-      "page": {
-        "title": "統合",
-        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
-        "loading": "統合を読み込み中...",
-        "searchPlaceholder": "統合を検索...",
-        "filterBy": "フィルター条件:",
-        "noResults": "統合が見つかりません",
-        "noResultsDesc": "検索やフィルターを調整してみてください。"
-      },
-      "tabs": {
-        "marketplace": "マーケットプレイス",
-        "connected": "接続済み"
-      },
-      "sections": {
-        "popular": "人気",
-        "all": "すべての統合"
-      },
+      "title": "連携",
+      "description": "お気に入りのツールやサービスを接続",
+      "marketplace": "マーケットプレイス",
+      "installed": "インストール済み",
       "categories": {
         "communication": "コミュニケーション",
         "fileStorage": "ファイルストレージ",
@@ -2942,77 +2924,106 @@
         "ai": "AI＆機械学習",
         "other": "その他"
       },
-      "status": {
-        "connected": "接続済み",
-        "verified": "検証済み",
-        "installed": "インストール済み",
-        "comingSoon": "近日公開"
+      "category": {
+        "communication": "コミュニケーション",
+        "communicationDesc": "チャット、メッセージング、チームコミュニケーションツール",
+        "projectManagement": "プロジェクト管理",
+        "projectManagementDesc": "タスク追跡、プロジェクト計画、チーム調整",
+        "fileStorage": "ファイルストレージ",
+        "fileStorageDesc": "クラウドストレージおよびファイル共有サービス",
+        "calendar": "カレンダー",
+        "calendarDesc": "スケジュール、会議、時間管理",
+        "development": "開発",
+        "developmentDesc": "開発者向けツールとCI/CDプラットフォーム",
+        "crm": "CRM",
+        "crmDesc": "顧客関係管理システム",
+        "codeRepositories": "コードリポジトリ",
+        "codeRepositoriesDesc": "Gitリポジトリとバージョン管理システム",
+        "analytics": "分析",
+        "analyticsDesc": "データ分析とビジネスインテリジェンスツール",
+        "design": "デザイン",
+        "designDesc": "デザインおよびクリエイティブツール",
+        "productivity": "生産性",
+        "productivityDesc": "生産性およびワークフローツール",
+        "marketing": "マーケティング",
+        "marketingDesc": "マーケティングオートメーションとキャンペーンツール",
+        "hr": "人事",
+        "hrDesc": "人事および採用ツール",
+        "finance": "財務",
+        "financeDesc": "財務管理および会計ツール",
+        "socialMedia": "ソーシャルメディア",
+        "socialMediaDesc": "ソーシャルメディア管理ツール",
+        "ecommerce": "Eコマース",
+        "ecommerceDesc": "Eコマースおよびオンラインストアツール",
+        "security": "セキュリティ",
+        "securityDesc": "セキュリティおよびコンプライアンスツール",
+        "other": "その他",
+        "otherDesc": "その他の連携"
       },
-      "pricing": {
+      "page": {
+        "title": "統合",
+        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
+        "loading": "統合を読み込み中...",
+        "searchPlaceholder": "統合を検索...",
+        "noResults": "統合が見つかりません",
+        "noResultsDesc": "検索やフィルターを調整してみてください。",
+        "available": "{count}件利用可能"
+      },
+      "tabs": {
+        "marketplace": "マーケットプレイス",
+        "installed": "インストール済み"
+      },
+      "sections": {
+        "popularIntegrations": "人気の連携",
+        "allIntegrations": "すべての連携",
+        "totalCount": "(合計{count}件)"
+      },
+      "card": {
+        "verified": "認証済み",
+        "install": "インストール",
+        "installed": "インストール済み",
         "free": "無料",
         "freemium": "フリーミアム",
-        "paid": "有料"
+        "paid": "${cost}/{interval}",
+        "reviews": "({count})"
       },
-      "actions": {
-        "connect": "接続",
-        "disconnect": "切断",
-        "open": "開く",
-        "install": "統合をインストール",
-        "uninstall": "アンインストール",
-        "visitWebsite": "ウェブサイトを表示",
-        "back": "戻る",
-        "backToIntegrations": "統合に戻る"
+      "filters": {
+        "title": "フィルター",
+        "categories": "カテゴリ",
+        "authTypes": "認証",
+        "pricing": "料金",
+        "clearAll": "すべてクリア",
+        "quickFilters": "クイックフィルター",
+        "popularIntegrations": "人気の連携",
+        "verifiedIntegrations": "認証済みの連携",
+        "activeFilters": "有効なフィルター",
+        "popular": "人気",
+        "verified": "認証済み",
+        "auth": {
+          "oauth2": "OAuth 2.0",
+          "oauth2Desc": "安全な認可フロー",
+          "apiKey": "API Key",
+          "apiKeyDesc": "シンプルなAPIキー認証",
+          "basicAuth": "Basic Auth",
+          "basicAuthDesc": "ユーザー名とパスワード",
+          "jwt": "JWTトークン",
+          "jwtDesc": "JSON Web Token",
+          "webhookOnly": "Webhookのみ",
+          "webhookOnlyDesc": "受信のみの連携"
+        },
+        "pricingTypes": {
+          "free": "無料",
+          "freeDesc": "完全無料で利用可能",
+          "freemium": "フリーミアム",
+          "freemiumDesc": "無料で有料アップグレードあり",
+          "paid": "有料",
+          "paidDesc": "サブスクリプションが必要"
+        }
       },
-      "connect": "接続",
-      "disconnect": "切断",
-      "connected": "接続しました",
-      "disconnected": "切断しました",
-      "connectedDescription": "{name}に正常に接続しました",
-      "disconnectedDescription": "{name}から正常に切断しました",
-      "connectError": "接続エラー",
-      "disconnectError": "切断エラー",
-      "connectionError": "接続エラー",
-      "tokenExpired": "トークンの有効期限が切れました。再接続してください。",
-      "connectWithApiKey": "{name}を接続",
-      "apiKeyDescription": "{name}のAPIキーを入力して接続します。",
-      "apiKey": "APIキー",
-      "findApiKey": "APIキーの見つけ方",
-      "disconnectTitle": "{name}を切断しますか？",
-      "disconnectWarning": "{name}への接続を削除します。いつでも再接続できます。",
-      "connectedAs": "接続中のアカウント:",
       "empty": {
-        "noConnected": "接続された統合がありません",
-        "noConnectedDesc": "マーケットプレイスから最初の統合を接続して開始しましょう。",
-        "browse": "マーケットプレイスを閲覧"
-      },
-      "detail": {
-        "loading": "統合を読み込み中...",
-        "features": "機能",
-        "screenshots": "スクリーンショット",
-        "details": "統合の詳細",
-        "category": "カテゴリー",
-        "authentication": "認証",
-        "webhookSupport": "Webhookサポート",
-        "supported": "サポート済み",
-        "notSupported": "サポートなし",
-        "lastUpdated": "最終更新",
-        "support": "サポートとドキュメント",
-        "apiDocumentation": "APIドキュメント",
-        "contactSupport": "サポートに連絡",
-        "usageStats": "使用統計",
-        "successRate": "成功率",
-        "totalRequests": "リクエスト総数",
-        "avgResponseTime": "平均応答時間",
-        "overview": "概要",
-        "configuration": "設定",
-        "webhooks": "Webhook",
-        "logs": "ログ",
-        "installing": "インストール中...",
-        "installationFailed": "インストールに失敗しました",
-        "integrationInstalled": "統合がインストールされました",
-        "integrationUninstalled": "統合がアンインストールされました",
-        "reviews": "件のレビュー",
-        "installs": "件のインストール"
+        "noInstalled": "インストールされた連携はありません",
+        "noInstalledDesc": "マーケットプレイスから最初の連携をインストールして始めましょう。",
+        "browseMarketplace": "マーケットプレイスを見る"
       }
     },
     "videoCallsApp": {
@@ -3838,337 +3849,1293 @@
     }
   },
   "productPages": {
-    "forms": {
-      "title": "フォーム",
-      "subtitle": "カスタムフォームを作成してデータを収集",
+    "shared": {
+      "freeForever": "永久無料",
+      "noCreditCard": "クレジットカード不要",
+      "popular": "人気",
+      "mobileApps": "モバイルアプリ",
+      "mobileApp": "モバイルアプリ",
+      "essentialsTitle": "すべての基本機能を標準装備",
+      "flexibleViews": "柔軟なビュー",
+      "aiPowered": "AI搭載",
+      "powerFeatures": "パワフルな機能"
+    },
+    "chat": {
+      "badge": "Deskive Chat",
+      "title": "AI搭載のチャット。",
+      "titleHighlight": "完璧に同期して働く。",
+      "subtitle": "世界で最もインテリジェントなチームチャット。会話をタスクに変換し、AIで要約し、スレッドを統合し、シームレスに連携 — すべてを1か所で。",
+      "cta": "Deskive Chatを無料で試す",
+      "sections": {
+        "aiSuperpowers": "AIスーパーパワー",
+        "aiTitle": "チャットに知性を",
+        "aiSubtitle": "すべての会話に組み込まれた最先端のAI機能で、コミュニケーションを変革します",
+        "advancedTitle": "パワーユーザーツール",
+        "advancedSubtitle": "高度な整理と自動化により、大規模な会話を管理するために必要なすべて",
+        "collaborationTitle": "より良い協働を",
+        "collaborationSubtitle": "リッチメディア、コード共有、音声メッセージなど — 現代のチーム向けに構築",
+        "essentialsSubtitle": "生産的なチームコミュニケーションに必要なすべて",
+        "mobileTitle": "外出先でもチャット",
+        "mobileSubtitle": "完全な機能を備えたネイティブiOSおよびAndroidアプリ。いつでもどこでもつながります。"
+      },
+      "aiFeatures": {
+        "chatSummary": {
+          "title": "AIチャット要約",
+          "description": "AIで長い会話を瞬時に要約。すべてを読むことなく要点を把握できます。"
+        },
+        "smartReplies": {
+          "title": "スマート返信",
+          "description": "AIが文脈に応じた返信を提案。インテリジェントな提案で素早く返信できます。"
+        },
+        "chatToNote": {
+          "title": "チャットからノートへ",
+          "description": "会話を自動的に構造化されたノートに変換。重要な議論を逃しません。"
+        },
+        "chatToTask": {
+          "title": "チャットからタスクへ",
+          "description": "メッセージを瞬時に実行可能なタスクに変換。会話からアクションアイテムを抽出します。"
+        },
+        "sentimentAnalysis": {
+          "title": "感情分析",
+          "description": "AI搭載の感情追跡で、チームの雰囲気とエンゲージメントを把握できます。"
+        },
+        "autoCategorization": {
+          "title": "自動カテゴリ分類",
+          "description": "AIがコンテンツと文脈に基づいて会話を自動的に整理・タグ付けします。"
+        }
+      },
+      "advancedFeatures": {
+        "mergeChats": {
+          "title": "チャットの統合",
+          "description": "関連する複数の会話を1つの統合されたスレッドにまとめます。"
+        },
+        "scheduledMessages": {
+          "title": "予約メッセージ",
+          "description": "完璧なタイミングでメッセージを送信できるようにスケジュール。重要な更新を見逃しません。"
+        },
+        "pinMessages": {
+          "title": "メッセージをピン留め",
+          "description": "重要なメッセージを上部にピン留め。重要な情報を常に表示します。"
+        },
+        "messageTemplates": {
+          "title": "メッセージテンプレート",
+          "description": "一般的な返信に再利用可能なメッセージテンプレートを作成します。"
+        },
+        "pollsSurveys": {
+          "title": "投票とアンケート",
+          "description": "チャット内で直接インタラクティブな投票を作成し、素早いチームフィードバックを収集します。"
+        },
+        "messageForwarding": {
+          "title": "メッセージ転送",
+          "description": "メッセージを他のチャンネルやチームメンバーに文脈付きで転送できます。"
+        },
+        "chatExport": {
+          "title": "チャットエクスポート",
+          "description": "記録やコンプライアンスのために、会話をPDF、CSV、JSON形式でエクスポートします。"
+        },
+        "autoArchive": {
+          "title": "自動アーカイブ",
+          "description": "非アクティブなチャットを自動的にアーカイブし、ワークスペースをきれいに保ちます。"
+        },
+        "bookmarks": {
+          "title": "ブックマーク",
+          "description": "重要なメッセージや会話をブックマークして、素早くアクセスできます。"
+        },
+        "tagsLabels": {
+          "title": "タグとラベル",
+          "description": "カスタムタグと色分けされたラベルで会話を整理します。"
+        },
+        "advancedFilters": {
+          "title": "高度なフィルター",
+          "description": "日付、ユーザー、添付ファイル、メンションなどでメッセージをフィルタリングします。"
+        },
+        "messageThreads": {
+          "title": "メッセージスレッド",
+          "description": "ネストされたスレッド返信で会話を整理します。"
+        }
+      },
+      "collaborationFeatures": {
+        "screenSharing": {
+          "title": "画面共有",
+          "description": "どの会話からでも瞬時に画面を共有できます。"
+        },
+        "codeSnippets": {
+          "title": "コードスニペット",
+          "description": "100以上の言語のシンタックスハイライト付きでコードを共有できます。"
+        },
+        "voiceMessages": {
+          "title": "音声メッセージ",
+          "description": "入力に時間がかかるときは、音声メッセージを録音して送信できます。"
+        },
+        "richMedia": {
+          "title": "リッチメディア",
+          "description": "画像、動画、GIF、ドキュメントをシームレスに共有できます。"
+        },
+        "customEmojis": {
+          "title": "カスタム絵文字",
+          "description": "チーム専用の絵文字とリアクションを作成して、楽しいコミュニケーションを。"
+        },
+        "liveTranscription": {
+          "title": "ライブ文字起こし",
+          "description": "音声通話とビデオ通話のリアルタイム文字起こし。"
+        }
+      },
+      "coreFeatures": {
+        "channels": "チャンネル",
+        "directMessages": "ダイレクトメッセージ",
+        "threads": "スレッド",
+        "voiceVideo": "音声・ビデオ",
+        "notifications": "通知",
+        "reactions": "リアクション",
+        "search": "検索",
+        "fileSharing": "ファイル共有",
+        "mentions": "メンション",
+        "realtimeSync": "リアルタイム同期"
+      },
+      "mobileSection": {
+        "lightningFastTitle": "超高速",
+        "lightningFastDesc": "最適化されたパフォーマンスで競合他社の10倍の速さ",
+        "uptimeTitle": "99.9%稼働率",
+        "uptimeDesc": "必要なときにいつでも信頼できる、常に利用可能",
+        "offlineModeTitle": "オフラインモード",
+        "offlineModeDesc": "インターネットなしで作業し、オンラインに戻ったら同期"
+      }
+    },
+    "projects": {
+      "meta": {
+        "title": "プロジェクト管理 - カンバンボードとタスク追跡",
+        "description": "カンバンボード、ガントチャート、スプリント計画でプロジェクトを管理。強力なプロジェクト管理ツールで、タスク、期限、チームの進捗を追跡します。"
+      },
+      "badge": "プロジェクト管理",
+      "title": "計画、追跡、達成。",
+      "titleHighlight": "すべてを1つの場所で。",
+      "subtitle": "最もパワフルなプロジェクト管理プラットフォーム。カンバン、ガント、アジャイルスプリント、AI計画、リソース管理、リアルタイム分析 — チームの成功に必要なすべて。",
+      "cta": "プロジェクト管理を無料で始める",
+      "sections": {
+        "flexibleViews": "柔軟なビュー",
+        "viewsTitle": "あなたのやり方で",
+        "viewsSubtitle": "ビューを瞬時に切り替え。同じデータ、あらゆるワークフローに合わせた異なる視点。",
+        "aiPowered": "AI搭載",
+        "aiTitle": "インテリジェントなプロジェクト管理",
+        "aiSubtitle": "プロジェクトを自動的に計画、予測、最適化するAI",
+        "powerFeatures": "パワフルな機能",
+        "powerTitle": "エンタープライズグレードの機能",
+        "powerSubtitle": "複雑なプロジェクトと大規模チーム向けの高度な機能",
+        "collaboration": "コラボレーション",
+        "collaborationTitle": "シームレスな共同作業",
+        "collaborationSubtitle": "全員の認識を合わせ、生産性を高めるリアルタイムコラボレーションツール",
+        "essentialsTitle": "すべての基本機能を標準装備",
+        "essentialsSubtitle": "プロジェクトの成功に必要なすべて",
+        "mobileApps": "モバイルアプリ",
+        "mobileTitle": "どこでもプロジェクトを管理",
+        "mobileSubtitle": "完全な機能を備えたネイティブiOSおよびAndroidアプリ。外出先でもタスクを更新し、時間を追跡し、コラボレーションできます。"
+      },
+      "mobile": {
+        "offlineMode": {
+          "title": "オフラインモード",
+          "description": "インターネットなしで作業し、オンラインに戻ったら同期"
+        },
+        "quickTaskEntry": {
+          "title": "クイックタスク入力",
+          "description": "音声入力で数秒でタスクを作成・割り当て"
+        },
+        "timeTracking": {
+          "title": "時間追跡",
+          "description": "どこからでもワンタップでタイマーを開始・停止"
+        }
+      },
+      "views": {
+        "kanban": {
+          "title": "カンバンボード",
+          "description": "スイムレーン、WIP制限、カスタム列を備えたビジュアルなドラッグ&ドロップボード。"
+        },
+        "list": {
+          "title": "リストビュー",
+          "description": "並べ替え、フィルタリング、グループ化、一括操作が可能な強力なリストビュー。"
+        },
+        "calendar": {
+          "title": "カレンダービュー",
+          "description": "タスク、期限、マイルストーンを一目で確認できるビジュアルなカレンダー。"
+        },
+        "gantt": {
+          "title": "ガントタイムライン",
+          "description": "依存関係、クリティカルパス、ベースライン追跡を備えたインタラクティブなガントチャート。"
+        },
+        "table": {
+          "title": "テーブルビュー",
+          "description": "数式、計算、データエクスポートが可能なスプレッドシート形式のインターフェース。"
+        },
+        "portfolio": {
+          "title": "ポートフォリオビュー",
+          "description": "ポートフォリオレベルの洞察とリソース配分で複数のプロジェクトを管理します。"
+        }
+      },
+      "advanced": {
+        "dependencies": {
+          "title": "依存関係",
+          "description": "ビジュアルな関係マッピングでタスクの依存関係を管理します。"
+        },
+        "milestones": {
+          "title": "マイルストーン",
+          "description": "自動進捗計算でプロジェクトのマイルストーンを設定・追跡します。"
+        },
+        "customFields": {
+          "title": "カスタムフィールド",
+          "description": "追跡したいあらゆるデータタイプに無制限のカスタムフィールドを追加できます。"
+        },
+        "automations": {
+          "title": "自動化",
+          "description": "トリガー、条件、アクションで繰り返しタスクを自動化します。"
+        },
+        "templates": {
+          "title": "テンプレート",
+          "description": "新しいプロジェクトを瞬時に開始できる再利用可能なプロジェクトテンプレート。"
+        },
+        "labelsAndTags": {
+          "title": "ラベルとタグ",
+          "description": "カスタムラベル、優先度、カテゴリでタスクを整理します。"
+        },
+        "timeTracking": {
+          "title": "時間追跡",
+          "description": "請求可能時間と詳細レポート付きの組み込み時間追跡。"
+        },
+        "advancedFilters": {
+          "title": "高度なフィルター",
+          "description": "すべてのプロジェクトデータ全体で強力なフィルタリングと検索。"
+        },
+        "subtasks": {
+          "title": "サブタスク",
+          "description": "タスクを無制限のサブタスクレベルに分解できます。"
+        },
+        "baselineTracking": {
+          "title": "ベースライン追跡",
+          "description": "プロジェクトベースラインを保存して、計画と実際の進捗を比較します。"
+        },
+        "fileAttachments": {
+          "title": "ファイル添付",
+          "description": "バージョン管理付きでタスクに無制限のファイルを添付できます。"
+        },
+        "checklists": {
+          "title": "チェックリスト",
+          "description": "ステップごとの完了のためにタスクにチェックリストを追加します。"
+        }
+      },
+      "ai": {
+        "projectPlanning": {
+          "title": "AIプロジェクト計画",
+          "description": "AIが説明文からプロジェクト計画、タイムライン、タスク内訳を生成します。"
+        },
+        "smartScheduling": {
+          "title": "スマートスケジューリング",
+          "description": "AIがチームのキャパシティと依存関係に基づいてタスクのスケジュールを最適化します。"
+        },
+        "riskDetection": {
+          "title": "リスク検知",
+          "description": "AIがプロジェクトのリスクを特定し、軽減策を提案します。"
+        },
+        "predictiveAnalytics": {
+          "title": "予測分析",
+          "description": "AI予測で完了日とリソースニーズを予測します。"
+        },
+        "autoDocumentation": {
+          "title": "自動ドキュメント作成",
+          "description": "AIがプロジェクトドキュメント、レポート、ステータス更新を生成します。"
+        },
+        "resourceOptimization": {
+          "title": "リソース最適化",
+          "description": "AIがプロジェクト間で最適なリソース配分を推奨します。"
+        }
+      },
+      "collaboration": {
+        "taskComments": {
+          "title": "タスクコメント",
+          "description": "メンションと添付ファイル付きのスレッド型コメント。"
+        },
+        "teamCollaboration": {
+          "title": "チームコラボレーション",
+          "description": "ライブカーソルとアクティビティフィードによるリアルタイムコラボレーション。"
+        },
+        "guestAccess": {
+          "title": "ゲストアクセス",
+          "description": "クライアントやステークホルダーと安全にプロジェクトを共有できます。"
+        },
+        "realtimeUpdates": {
+          "title": "リアルタイム更新",
+          "description": "すべてのデバイスで即座に通知と更新を受信。"
+        },
+        "docsIntegration": {
+          "title": "ドキュメント連携",
+          "description": "タスク内にドキュメントを直接埋め込み、リンクできます。"
+        },
+        "versionHistory": {
+          "title": "バージョン履歴",
+          "description": "ロールバック機能付きですべての変更の完全な監査証跡。"
+        }
+      },
+      "coreFeatures": {
+        "kanbanBoards": "カンバンボード",
+        "ganttCharts": "ガントチャート",
+        "sprintPlanning": "スプリント計画",
+        "taskManagement": "タスク管理",
+        "timeTracking": "時間追跡",
+        "analytics": "分析",
+        "teamCollaboration": "チームコラボレーション",
+        "automation": "自動化",
+        "dependencies": "依存関係",
+        "milestones": "マイルストーン",
+        "customFields": "カスタムフィールド",
+        "templates": "テンプレート"
+      }
+    },
+    "files": {
+      "badge": "ファイル管理",
+      "title": "保存、整理、共同作業。",
+      "titleHighlight": "すべてのファイルを1か所に。",
+      "subtitle": "AI搭載の整理機能、バージョン管理、リッチプレビュー、リアルタイムコラボレーションを備えた安全なクラウドストレージ — シームレスなファイル管理に必要なすべて。",
+      "cta": "無料でファイル保存を始める",
+      "sections": {
+        "viewsTitle": "あなたのやり方でファイルを表示",
+        "viewsSubtitle": "ビューを瞬時に切り替え。同じファイル、あらゆるワークフローに合わせた異なる視点。",
+        "aiTitle": "インテリジェントなファイル管理",
+        "aiSubtitle": "ファイルを自動的に整理、タグ付け、検索するAI",
+        "powerTitle": "エンタープライズグレードのファイル管理",
+        "powerSubtitle": "基本的なストレージ以上のものが必要なチーム向けの高度な機能",
+        "essentialsSubtitle": "シームレスなファイル管理に必要なすべて",
+        "mobileTitle": "どこでもファイルにアクセス",
+        "mobileSubtitle": "完全な機能を備えたネイティブiOSおよびAndroidアプリ。外出先でファイルをアップロード、整理、共有できます。"
+      },
+      "views": {
+        "grid": {
+          "title": "グリッドビュー",
+          "description": "大きなサムネイルとクイックアクションを備えたビジュアルグリッドレイアウト。"
+        },
+        "list": {
+          "title": "リストビュー",
+          "description": "並べ替え、フィルタリング、一括選択を備えたコンパクトなリスト。"
+        },
+        "gallery": {
+          "title": "ギャラリービュー",
+          "description": "ライトボックスプレビュー付きの画像とメディア用の美しいギャラリー。"
+        },
+        "table": {
+          "title": "テーブルビュー",
+          "description": "カスタム列とデータエクスポートを備えたスプレッドシート形式のテーブル。"
+        },
+        "timeline": {
+          "title": "タイムラインビュー",
+          "description": "作成日または変更日別にファイルを時系列で表示。"
+        },
+        "tree": {
+          "title": "ツリービュー",
+          "description": "展開可能なネストされたフォルダーを備えた階層フォルダーツリー。"
+        }
+      },
+      "aiFeatures": {
+        "fileOrganization": {
+          "title": "AIファイル整理",
+          "description": "AIがコンテンツと文脈に基づいてファイルをスマートフォルダーに自動整理します。"
+        },
+        "smartTagging": {
+          "title": "スマートタグ付け",
+          "description": "AIがファイルに関連するタグを自動生成。手動でタグ付けする必要がありません。"
+        },
+        "semanticSearch": {
+          "title": "セマンティック検索",
+          "description": "必要なものを説明してファイルを見つけます。AIが文脈と意図を理解します。"
+        },
+        "imageGeneration": {
+          "title": "AI画像生成",
+          "description": "ワークスペース内でAIを使って画像、グラフィック、デザインを直接生成します。"
+        },
+        "documentAnalysis": {
+          "title": "ドキュメント分析",
+          "description": "AIがドキュメント、PDF、画像から重要な情報を自動抽出します。"
+        },
+        "duplicateDetection": {
+          "title": "重複検知",
+          "description": "AIが重複および類似ファイルを特定し、ストレージ容量を節約します。"
+        }
+      },
+      "advancedFeatures": {
+        "versionControl": {
+          "title": "バージョン管理",
+          "description": "無制限のバージョン履歴とロールバックを備えた自動バージョニング。"
+        },
+        "fileRecovery": {
+          "title": "ファイル復元",
+          "description": "削除したファイルを最大90日間復元できます。重要なデータを失うことはありません。"
+        },
+        "bulkOperations": {
+          "title": "一括操作",
+          "description": "数百のファイルをワンクリックで移動、コピー、タグ付け、共有できます。"
+        },
+        "richPreview": {
+          "title": "リッチプレビュー",
+          "description": "ダウンロードせずに40種類以上のファイルタイプをプレビュー。画像、PDF、動画、コード。"
+        },
+        "smartDownload": {
+          "title": "スマートダウンロード",
+          "description": "フォルダー全体をZIPとしてダウンロード。中断されたダウンロードを再開できます。"
+        },
+        "shareLinks": {
+          "title": "共有リンク",
+          "description": "有効期限とパスワード保護付きの安全な共有リンクを生成します。"
+        },
+        "customTags": {
+          "title": "カスタムタグ",
+          "description": "無制限のカスタムタグと色分けで整理します。"
+        },
+        "advancedFilters": {
+          "title": "高度なフィルター",
+          "description": "タイプ、サイズ、日付、タグ、所有者、カスタム属性でフィルタリング。"
+        },
+        "favorites": {
+          "title": "お気に入り",
+          "description": "重要なファイルとフォルダーにスターを付けて、素早くアクセスできます。"
+        },
+        "pinnedFiles": {
+          "title": "ピン留めファイル",
+          "description": "頻繁に使用するアイテムに簡単にアクセスできるようファイルをフォルダーの上部にピン留めします。"
+        },
+        "mediaPlayback": {
+          "title": "メディア再生",
+          "description": "字幕サポート付きでブラウザ内で直接動画と音声を再生します。"
+        },
+        "fileCompression": {
+          "title": "ファイル圧縮",
+          "description": "ZIP、RAR、7Zファイルをオンラインで圧縮・解凍します。"
+        }
+      },
+      "coreFeatures": {
+        "folders": "フォルダー",
+        "multiUpload": "複数アップロード",
+        "versions": "バージョン",
+        "sharing": "共有",
+        "preview": "プレビュー",
+        "smartSearch": "スマート検索",
+        "viewModes": "表示モード",
+        "security": "セキュリティ",
+        "downloads": "ダウンロード",
+        "tags": "タグ",
+        "cloudSync": "クラウド同期",
+        "recovery": "復元"
+      },
+      "mobile": {
+        "offlineAccess": {
+          "title": "オフラインアクセス",
+          "description": "オフラインでファイルにアクセスし、オンラインに戻ったら自動同期"
+        },
+        "cameraUpload": {
+          "title": "カメラアップロード",
+          "description": "スマートフォンから写真と動画を自動バックアップ"
+        },
+        "quickShare": {
+          "title": "クイック共有",
+          "description": "スマートフォンからワンタップでファイルを直接共有"
+        }
+      }
+    },
+    "calendar": {
+      "meta": {
+        "title": "カレンダーとスケジューリング - スマートな会議管理",
+        "description": "会議をスケジュールし、イベントを管理し、カレンダーをシームレスに同期。タイムゾーンサポート、会議室、カレンダー連携を備えたスマートスケジューリング。"
+      },
+      "badge": "カレンダーとスケジューリング",
+      "title": "よりスマートにスケジュール、より良く会議。",
+      "titleHighlight": "一瞬たりとも逃さない。",
+      "subtitle": "AI搭載のスケジューリング、チームの空き状況、定期イベント、タイムゾーンサポート、シームレスな連携を備えたインテリジェントなカレンダー — チームが整理された状態を保つために必要なすべて。",
+      "cta": "無料でスケジューリングを始める",
+      "sections": {
+        "viewsTitle": "あなたのやり方でスケジュールを表示",
+        "viewsSubtitle": "ビューを瞬時に切り替え。同じイベント、あらゆる計画ニーズに合わせた異なる視点。",
+        "aiTitle": "インテリジェントなスケジューリング",
+        "aiSubtitle": "会議のスケジュール、集中時間のブロック、カレンダーの最適化を自動的に行うAI",
+        "powerTitle": "エンタープライズグレードのカレンダー",
+        "powerSubtitle": "強力なスケジューリング機能が必要なチーム向けの高度な機能",
+        "essentialsSubtitle": "スマートなスケジューリングに必要なすべて",
+        "mobileTitle": "あらゆる場所にあなたのカレンダー",
+        "mobileSubtitle": "完全な機能を備えたネイティブiOSおよびAndroidアプリ。外出先でイベントを表示、作成、管理できます。"
+      },
+      "views": {
+        "month": {
+          "title": "月ビュー",
+          "description": "すべてのイベントを一目で確認できるクラシックな月間カレンダー。完璧な概要。"
+        },
+        "week": {
+          "title": "週ビュー",
+          "description": "時間枠付きの詳細な週間スケジュール。週の予定を詳細に確認できます。"
+        },
+        "day": {
+          "title": "日ビュー",
+          "description": "時間単位の毎日のスケジュール。今日重要なことに集中できます。"
+        },
+        "agenda": {
+          "title": "アジェンダビュー",
+          "description": "時系列順に並べられた今後のイベントのリスト。クリーンでシンプル。"
+        },
+        "timeline": {
+          "title": "タイムラインビュー",
+          "description": "イベントの期間と重なりを示すビジュアルタイムライン。計画に最適。"
+        },
+        "year": {
+          "title": "年ビュー",
+          "description": "1年全体を一度に確認。長期プロジェクトを簡単に計画できます。"
+        }
+      },
+      "ai": {
+        "smartScheduling": {
+          "title": "スマートスケジューリング",
+          "description": "AIがチームの空き状況と好みに基づいて最適な会議時間を見つけます。"
+        },
+        "meetingAssistant": {
+          "title": "会議アシスタント",
+          "description": "AIアシスタントが自動的にスケジュール、再スケジュール、カレンダー招待を送信します。"
+        },
+        "timeBlocking": {
+          "title": "タイムブロッキングAI",
+          "description": "AIがパターンに基づいて集中作業に最適な時間ブロックを提案します。"
+        },
+        "smartReminders": {
+          "title": "スマートリマインダー",
+          "description": "AIがスケジュールと場所に基づいて最適なタイミングでリマインダーを送信します。"
+        },
+        "travelTime": {
+          "title": "移動時間検知",
+          "description": "AIが移動時間を計算し、会議前のバッファ時間をブロックします。"
+        },
+        "meetingPrep": {
+          "title": "会議準備",
+          "description": "AIがカレンダーの説明から会議アジェンダと要約を生成します。"
+        }
+      },
+      "advanced": {
+        "recurringEvents": {
+          "title": "定期イベント",
+          "description": "カスタムパターンと例外を使用した毎日、毎週、毎月、毎年の繰り返し。"
+        },
+        "videoMeetings": {
+          "title": "ビデオ会議",
+          "description": "Zoom、Google Meet、Microsoft Teamsの会議リンクを自動作成します。"
+        },
+        "calendarSync": {
+          "title": "カレンダー同期",
+          "description": "Google、Outlook、Apple Calendar、iCloudとの双方向同期。"
+        },
+        "timezoneSupport": {
+          "title": "タイムゾーンサポート",
+          "description": "自動変換でタイムゾーンをまたいでスケジュールします。"
+        },
+        "teamCalendars": {
+          "title": "チームカレンダー",
+          "description": "空き状況と不在ステータスを含む共有チームカレンダー。"
+        },
+        "availabilitySharing": {
+          "title": "空き状況の共有",
+          "description": "やり取りなしで簡単にスケジュールできる空き状況リンクを共有します。"
+        },
+        "smartNotifications": {
+          "title": "スマート通知",
+          "description": "カスタマイズ可能なタイミングでのメール、プッシュ、SMSリマインダー。"
+        },
+        "locationSupport": {
+          "title": "場所サポート",
+          "description": "地図リンクと道順付きで会議の場所を追加します。"
+        },
+        "guestInvitations": {
+          "title": "ゲスト招待",
+          "description": "RSVP追跡と更新で外部ゲストを招待します。"
+        },
+        "eventTemplates": {
+          "title": "イベントテンプレート",
+          "description": "定期的な会議タイプをテンプレートとして保存し、素早くスケジュールします。"
+        },
+        "calendarFilters": {
+          "title": "カレンダーフィルター",
+          "description": "カレンダー、イベントタイプ、参加者、カスタムタグでフィルタリングします。"
+        },
+        "exportEvents": {
+          "title": "イベントのエクスポート",
+          "description": "バックアップと共有のためにiCal、CSV、PDFにエクスポートします。"
+        }
+      },
+      "coreFeatures": {
+        "multipleViews": "複数ビュー",
+        "smartScheduling": "スマートスケジューリング",
+        "recurringEvents": "定期イベント",
+        "teamCalendars": "チームカレンダー",
+        "videoMeetings": "ビデオ会議",
+        "timezoneSupport": "タイムゾーンサポート",
+        "reminders": "リマインダー",
+        "calendarSync": "カレンダー同期",
+        "quickActions": "クイックアクション",
+        "availability": "空き状況",
+        "locations": "場所",
+        "meetingLinks": "会議リンク"
+      },
+      "mobile": {
+        "pushNotifications": {
+          "title": "プッシュ通知",
+          "description": "スマートモバイルリマインダーで会議を絶対に逃しません"
+        },
+        "quickEventEntry": {
+          "title": "クイックイベント入力",
+          "description": "音声入力とスマート解析で数秒でイベントを追加"
+        },
+        "offlineAccess": {
+          "title": "オフラインアクセス",
+          "description": "オフラインでスケジュールを表示し、オンラインに戻ったら同期"
+        }
+      }
+    },
+    "notes": {
+      "meta": {
+        "title": "ノートとドキュメント - 共同知識ベース",
+        "description": "ブロックベースエディター、テンプレート、共同編集で美しいドキュメントを作成。強力なノート作成ツールでチームの知識ベースを構築します。"
+      },
       "hero": {
-        "badge": "フォームビルダー",
-        "title": "強力なカスタムフォームを作成",
-        "description": "直感的なドラッグ＆ドロップビルダーでカスタムフォームをデザイン。データを収集、整理、自動的に処理。ロジック、検証、統合を備えています。",
-        "cta": {
-          "primary": "フォームを作成",
-          "secondary": "例を見る"
+        "badge": "ノートとドキュメント",
+        "title": "書く、整理する、共同作業。",
+        "titleHighlight": "チームの知識ハブ。",
+        "description": "Notionスタイルのブロックエディター、AIライティング支援、リアルタイムコラボレーション、無制限の整理機能を備えた強力なノート作成 — チームの知識を記録し共有するために必要なすべて。",
+        "button": "無料で書き始める",
+        "trustLine": "永久無料 • クレジットカード不要"
+      },
+      "blocks": {
+        "badge": "ブロックタイプ",
+        "title": "パワフルなブロックで構築",
+        "subtitle": "ドラッグ&ドロップブロックで豊かで動的なドキュメントを作成。コンテンツタイプを組み合わせて、必要なものを正確に構築します。",
+        "textBlocks": {
+          "title": "テキストブロック",
+          "description": "インラインフォーマット、色、ハイライト付きのリッチテキスト段落。"
+        },
+        "headings": {
+          "title": "見出しとタイトル",
+          "description": "構造化されたドキュメント整理のための複数の見出しレベル。"
+        },
+        "lists": {
+          "title": "リストとチェックリスト",
+          "description": "箇条書きリスト、番号付きリスト、インタラクティブなToDoリスト。"
+        },
+        "code": {
+          "title": "コードブロック",
+          "description": "100以上のプログラミング言語でシンタックスハイライト付きコード。"
+        },
+        "tables": {
+          "title": "テーブルとデータベース",
+          "description": "並べ替え、フィルタリング、数式を備えた強力なテーブル。"
+        },
+        "media": {
+          "title": "メディア埋め込み",
+          "description": "画像、動画、ファイル、40以上の外部サービスの埋め込み。"
+        }
+      },
+      "ai": {
+        "badge": "AI搭載",
+        "title": "AIで素早く書く",
+        "subtitle": "ノートを瞬時に作成、編集、改善するのを支援するAI搭載のライティングツール。",
+        "writing": {
+          "title": "AIライティングアシスタント",
+          "description": "AIがスマートな提案でコンテンツの作成、編集、改善をサポートします。"
+        },
+        "summarization": {
+          "title": "自動要約",
+          "description": "AIが長いドキュメントから要約、キーポイント、TL;DRを生成します。"
+        },
+        "formatting": {
+          "title": "スマートフォーマット",
+          "description": "AIが自動的にテキストをフォーマットし、文法を修正し、可読性を向上させます。"
+        },
+        "translation": {
+          "title": "翻訳",
+          "description": "AI搭載の翻訳で100以上の言語にノートを翻訳します。"
+        },
+        "generation": {
+          "title": "コンテンツ生成",
+          "description": "シンプルなプロンプトから概要、テンプレート、コンテンツを生成します。"
+        },
+        "codeExplanation": {
+          "title": "コード説明",
+          "description": "AIがコードブロックを説明し、自動的に改善を提案します。"
         }
       },
       "features": {
-        "title": "フォーム機能",
-        "subtitle": "データ収集のために必要なすべて",
-        "dragAndDrop": {
-          "title": "ドラッグ＆ドロップビルダー",
-          "description": "コードなしで美しいフォームをデザイン。フィールドを簡単に追加、配置、カスタマイズ。"
+        "badge": "高度な機能",
+        "title": "エンタープライズグレードのパワー",
+        "subtitle": "大規模なプロのノート作成と知識管理に必要なすべて。",
+        "blockEditor": {
+          "title": "ブロックベースエディター",
+          "description": "柔軟なコンテンツ作成のためのNotionスタイルのドラッグ&ドロップブロック。"
         },
-        "conditionalLogic": {
-          "title": "条件付きロジック",
-          "description": "以前の回答に基づいてフィールドを表示または非表示。スマートでパーソナライズされたフォームエクスペリエンスを作成。"
+        "collaboration": {
+          "title": "リアルタイムコラボレーション",
+          "description": "複数のユーザーがライブカーソルと変更で同時に編集できます。"
         },
-        "validation": {
-          "title": "検証ルール",
-          "description": "カスタム検証ルールで正確なデータを確保。必須フィールド、形式、範囲チェック。"
+        "templates": {
+          "title": "テンプレートライブラリ",
+          "description": "会議、ドキュメント、Wiki、カスタムテンプレート用の事前構築テンプレート。"
         },
-        "multiplePages": {
-          "title": "複数ページ",
-          "description": "複雑なフォームを進捗バーで管理可能なステップに分割。"
+        "nestedPages": {
+          "title": "ネストされたページ",
+          "description": "無制限のネストされたページとフォルダーでノートを整理します。"
         },
-        "fileUploads": {
-          "title": "ファイルアップロード",
-          "description": "回答者がドキュメント、画像、その他のファイルをアップロードできるようにする。"
+        "links": {
+          "title": "双方向リンク",
+          "description": "ノートを相互にリンクし、バックリンクを自動的に表示します。"
         },
-        "integrations": {
-          "title": "統合",
-          "description": "フォームの送信をお気に入りのツールや自動ワークフローに接続。"
+        "versionHistory": {
+          "title": "バージョン履歴",
+          "description": "無制限のバージョン履歴と復元ですべての変更を追跡します。"
+        },
+        "search": {
+          "title": "全文検索",
+          "description": "すべてのノートとページ全体で瞬時に何でも見つけられます。"
+        },
+        "tags": {
+          "title": "タグとラベル",
+          "description": "カスタムタグ、ラベル、色分けで整理します。"
+        },
+        "bookmarks": {
+          "title": "ブックマーク",
+          "description": "重要なセクションやページを保存して、素早くアクセスできます。"
+        },
+        "export": {
+          "title": "エクスポートオプション",
+          "description": "Markdown、PDF、HTML、Wordドキュメントへエクスポートします。"
+        },
+        "styling": {
+          "title": "カスタムスタイリング",
+          "description": "ページの色、フォント、レイアウトをカスタマイズします。"
+        },
+        "multiColumn": {
+          "title": "マルチカラムレイアウト",
+          "description": "高度なページデザインのためにマルチカラムレイアウトを作成します。"
         }
       },
-      "fieldTypes": {
-        "title": "フィールドタイプ",
-        "subtitle": "あらゆる種類のデータを収集",
-        "shortText": "短いテキスト",
-        "longText": "長いテキスト",
-        "email": "メール",
-        "phone": "電話",
-        "number": "数値",
-        "dropdown": "ドロップダウン",
-        "multipleChoice": "多肢選択",
-        "checkboxes": "チェックボックス",
-        "date": "日付",
-        "time": "時刻",
-        "fileUpload": "ファイルアップロード",
-        "rating": "評価",
-        "matrix": "マトリックス",
-        "signature": "署名"
+      "essentials": {
+        "title": "すべての基本機能を標準装備",
+        "subtitle": "強力なノート作成と知識管理に必要なすべて。",
+        "blockEditor": "ブロックエディター",
+        "richText": "リッチテキスト",
+        "collaboration": "コラボレーション",
+        "templates": "テンプレート",
+        "organization": "整理",
+        "fullSearch": "全文検索",
+        "media": "メディア",
+        "codeBlocks": "コードブロック",
+        "tables": "テーブル",
+        "linking": "リンク",
+        "todos": "ToDo",
+        "aiWriting": "AIライティング"
       },
-      "useCases": {
-        "title": "フォームのユースケース",
-        "subtitle": "チームがフォームをどのように使用しているか",
-        "surveys": {
-          "title": "アンケートとフィードバック",
-          "description": "顧客、従業員、利害関係者からフィードバックを収集。"
-        },
-        "registration": {
-          "title": "登録フォーム",
-          "description": "イベント、ウェビナー、プログラムの登録フォームを作成。"
-        },
-        "applications": {
-          "title": "申請フォーム",
-          "description": "仕事、プログラム、助成金の申請を収集。"
-        },
-        "orders": {
-          "title": "注文フォーム",
-          "description": "支払い処理で製品やサービスの注文を受け付け。"
-        },
-        "contactForms": {
-          "title": "お問い合わせフォーム",
-          "description": "ウェブサイトにお問い合わせフォームを埋め込んでリードを捕捉。"
-        },
-        "assessments": {
-          "title": "評価とクイズ",
-          "description": "自動採点とフィードバック付きの評価を作成。"
+      "mobile": {
+        "badge": "モバイルアプリ",
+        "title": "外出先でノートを取る",
+        "description": "完全な機能を備えたネイティブiOSおよびAndroidアプリ。いつでもどこでもノートを作成、編集、整理できます。",
+        "features": {
+          "0": {
+            "title": "どこでも編集",
+            "description": "オフラインサポート付きのフル機能モバイルエディター"
+          },
+          "1": {
+            "title": "クイックキャプチャ",
+            "description": "クイックノート作成と音声入力でアイデアを瞬時にキャプチャ"
+          },
+          "2": {
+            "title": "リッチメディア",
+            "description": "スマートフォンから写真、動画、ファイルを直接追加"
+          }
         }
-      },
-      "templates": {
-        "title": "フォームテンプレート",
-        "subtitle": "人気のテンプレートから始める",
-        "customerFeedback": "顧客フィードバック",
-        "eventRegistration": "イベント登録",
-        "jobApplication": "求人応募",
-        "contactForm": "お問い合わせフォーム",
-        "orderForm": "注文フォーム",
-        "surveyForm": "アンケートフォーム"
-      },
-      "stats": {
-        "forms": "作成されたフォーム",
-        "submissions": "送信数",
-        "completionRate": "完了率",
-        "avgTime": "平均回答時間"
-      },
-      "cta": {
-        "title": "フォームの作成を始める準備はできましたか？",
-        "description": "データの収集と整理がこれまで以上に簡単になりました。",
-        "button": "フォームを作成"
-      }
-    },
-    "integrationsStandalone": {
-      "page": {
-        "title": "統合",
-        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
-        "loading": "統合を読み込み中...",
-        "searchPlaceholder": "統合を検索...",
-        "filterBy": "フィルター条件:",
-        "noResults": "統合が見つかりません",
-        "noResultsDesc": "検索やフィルターを調整してみてください。"
-      },
-      "tabs": {
-        "marketplace": "マーケットプレイス",
-        "connected": "接続済み"
       },
       "sections": {
-        "popular": "人気",
-        "all": "すべての統合"
-      },
-      "categories": {
-        "communication": "コミュニケーション",
-        "fileStorage": "ファイルストレージ",
-        "calendar": "カレンダー",
-        "email": "メール",
-        "projectManagement": "プロジェクト管理",
-        "crm": "CRM",
-        "development": "開発",
-        "analytics": "分析",
-        "marketing": "マーケティング",
-        "documentation": "ドキュメント",
-        "design": "デザイン",
-        "timeTracking": "時間追跡",
-        "videoConferencing": "ビデオ会議",
-        "automation": "自動化",
-        "productivity": "生産性",
-        "hr": "人事",
-        "finance": "財務",
-        "support": "サポート",
-        "security": "セキュリティ",
-        "ecommerce": "Eコマース",
-        "socialMedia": "ソーシャルメディア",
-        "ai": "AI＆機械学習",
-        "other": "その他"
-      },
-      "status": {
-        "connected": "接続済み",
-        "verified": "検証済み",
-        "installed": "インストール済み",
-        "comingSoon": "近日公開"
-      },
-      "pricing": {
-        "free": "無料",
-        "freemium": "フリーミアム",
-        "paid": "有料"
-      },
-      "actions": {
-        "connect": "接続",
-        "disconnect": "切断",
-        "open": "開く",
-        "install": "統合をインストール",
-        "uninstall": "アンインストール",
-        "visitWebsite": "ウェブサイトを表示",
-        "back": "戻る",
-        "backToIntegrations": "統合に戻る"
-      },
-      "connect": "接続",
-      "disconnect": "切断",
-      "connected": "接続しました",
-      "disconnected": "切断しました",
-      "connectedDescription": "{name}に正常に接続しました",
-      "disconnectedDescription": "{name}から正常に切断しました",
-      "connectError": "接続エラー",
-      "disconnectError": "切断エラー",
-      "connectionError": "接続エラー",
-      "tokenExpired": "トークンの有効期限が切れました。再接続してください。",
-      "connectWithApiKey": "{name}を接続",
-      "apiKeyDescription": "{name}のAPIキーを入力して接続します。",
-      "apiKey": "APIキー",
-      "findApiKey": "APIキーの見つけ方",
-      "disconnectTitle": "{name}を切断しますか？",
-      "disconnectWarning": "{name}への接続を削除します。いつでも再接続できます。",
-      "connectedAs": "接続中のアカウント:",
-      "empty": {
-        "noConnected": "接続された統合がありません",
-        "noConnectedDesc": "マーケットプレイスから最初の統合を接続して開始しましょう。",
-        "browse": "マーケットプレイスを閲覧"
-      },
-      "detail": {
-        "loading": "統合を読み込み中...",
-        "features": "機能",
-        "screenshots": "スクリーンショット",
-        "details": "統合の詳細",
-        "category": "カテゴリー",
-        "authentication": "認証",
-        "webhookSupport": "Webhookサポート",
-        "supported": "サポート済み",
-        "notSupported": "サポートなし",
-        "lastUpdated": "最終更新",
-        "support": "サポートとドキュメント",
-        "apiDocumentation": "APIドキュメント",
-        "contactSupport": "サポートに連絡",
-        "usageStats": "使用統計",
-        "successRate": "成功率",
-        "totalRequests": "リクエスト総数",
-        "avgResponseTime": "平均応答時間",
-        "overview": "概要",
-        "configuration": "設定",
-        "webhooks": "Webhook",
-        "logs": "ログ",
-        "installing": "インストール中...",
-        "installationFailed": "インストールに失敗しました",
-        "integrationInstalled": "統合がインストールされました",
-        "integrationUninstalled": "統合がアンインストールされました",
-        "reviews": "件のレビュー",
-        "installs": "件のインストール"
+        "blocksTitle": "必要なすべてのブロックタイプ",
+        "blocksSubtitle": "あらゆるユースケースに合わせた柔軟なコンテンツブロックで、豊かで美しいドキュメントを構築します",
+        "aiTitle": "インテリジェントなライティングアシスタント",
+        "aiSubtitle": "自動支援により、より良く、より速く、よりスマートに書くのを助けるAI",
+        "powerTitle": "プロフェッショナルなドキュメント作成",
+        "powerSubtitle": "強力なノート作成とドキュメント作成が必要なチーム向けの高度な機能",
+        "essentialsSubtitle": "強力なドキュメント作成に必要なすべて",
+        "mobileTitle": "どこでもノートを書く",
+        "mobileSubtitle": "完全な編集機能を備えたネイティブiOSおよびAndroidアプリ。外出先でノートを作成、編集、整理できます。"
       }
     },
-    "apps": {
+    "videoCalls": {
+      "meta": {
+        "title": "ビデオ通話と会議 - HDビデオミーティング | Deskive",
+        "description": "HD品質、AI文字起こし、画面共有、録画、シームレスな連携を備えたプロフェッショナルなビデオ会議。チームミーティング、ウェビナー、リモートコラボレーションに最適。"
+      },
+      "badge": "ビデオ会議",
+      "title": "どこでも顔を合わせて。",
+      "titleHighlight": "いつでも鮮明に。",
+      "subtitle": "HD品質、AI文字起こし、画面共有、録画、シームレスな連携を備えたプロフェッショナルなビデオ会議 — 生産的なリモート会議に必要なすべて。",
+      "cta": "最初の会議を始める",
+      "meetingTypes": {
+        "teamMeetings": {
+          "title": "チーム会議",
+          "description": "最大100人の参加者と毎日のスタンドアップ、スプリント計画、チームハドル"
+        },
+        "webinars": {
+          "title": "ウェビナーとプレゼンテーション",
+          "description": "画面共有、Q&A、ライブ投票を備えた大規模なウェビナーを開催できます"
+        },
+        "oneOnOne": {
+          "title": "1対1の会話",
+          "description": "メンタリング、コーチング、業績評価のための個人的なビデオ通話"
+        },
+        "liveStreaming": {
+          "title": "ライブストリーミング",
+          "description": "インタラクティブなチャット付きで無制限の視聴者に会議をブロードキャスト"
+        },
+        "breakoutRooms": {
+          "title": "ブレイクアウトルーム",
+          "description": "参加者を小さなグループに分けて集中した議論を行います"
+        },
+        "scheduledMeetings": {
+          "title": "予定会議",
+          "description": "シームレスなスケジューリングと自動リマインダーのためのカレンダー連携"
+        }
+      },
+      "aiFeatures": {
+        "transcription": {
+          "title": "ライブ文字起こし",
+          "description": "話者識別付きで30以上の言語でリアルタイム文字起こし"
+        },
+        "summaries": {
+          "title": "AI会議要約",
+          "description": "キーポイントとアクションアイテム付きの自動会議要約"
+        },
+        "highlights": {
+          "title": "スマートハイライト",
+          "description": "AIが会議から重要な瞬間と決定事項を抽出"
+        },
+        "translation": {
+          "title": "リアルタイム翻訳",
+          "description": "複数の言語での文字起こしと字幕の自動翻訳"
+        },
+        "noteTaking": {
+          "title": "AIノート作成",
+          "description": "文脈と重要な詳細をキャプチャするインテリジェントなノート作成"
+        },
+        "sentiment": {
+          "title": "感情分析",
+          "description": "AI搭載の感情分析でチームの雰囲気とエンゲージメントを把握"
+        }
+      },
+      "advancedFeatures": {
+        "screenSharing": {
+          "title": "画面共有",
+          "description": "画面、特定のアプリ、またはブラウザタブを高品質で共有"
+        },
+        "recording": {
+          "title": "クラウド録画",
+          "description": "すべての会議の自動録画とクラウドストレージ"
+        },
+        "backgrounds": {
+          "title": "バーチャル背景",
+          "description": "プロフェッショナルな外観のためのカスタム背景とぼかし効果"
+        },
+        "reactions": {
+          "title": "リアクションと絵文字",
+          "description": "ライブ絵文字リアクションと挙手で自分を表現できます"
+        },
+        "galleryView": {
+          "title": "ギャラリービュー",
+          "description": "カスタマイズ可能なグリッドレイアウトですべての参加者を一度に確認"
+        },
+        "picInPic": {
+          "title": "ピクチャインピクチャ",
+          "description": "他のタスクを行いながら会議を表示し続けます"
+        },
+        "waitingRooms": {
+          "title": "待機室",
+          "description": "バーチャル待機室で会議に参加する人を制御します"
+        },
+        "filters": {
+          "title": "美顔フィルター",
+          "description": "プロフェッショナルなビデオ強化フィルターで最高の姿を演出"
+        },
+        "noiseCancellation": {
+          "title": "ノイズキャンセリング",
+          "description": "鮮明な音声のためのAI搭載ノイズ抑制"
+        },
+        "whiteboard": {
+          "title": "インタラクティブホワイトボード",
+          "description": "リアルタイムのホワイトボード共有でアイデアを共同編集"
+        },
+        "export": {
+          "title": "エクスポートとダウンロード",
+          "description": "録画、文字起こし、ノートを複数の形式でエクスポート"
+        },
+        "controls": {
+          "title": "ホストコントロール",
+          "description": "ミュート、スポットライト、権限コントロールで参加者を管理"
+        }
+      },
+      "collaborationFeatures": {
+        "chat": {
+          "title": "会議内チャット",
+          "description": "通話中のファイル共有とプライベートメッセージ付きテキストチャット"
+        },
+        "notes": {
+          "title": "共有ノート",
+          "description": "リアルタイム同期による共同ノート作成"
+        },
+        "coHosts": {
+          "title": "共同ホストとモデレーター",
+          "description": "共同ホストを割り当てて、大規模な会議やウェビナーの管理を支援します"
+        },
+        "polls": {
+          "title": "ライブ投票とQ&A",
+          "description": "インタラクティブな投票とQ&Aセッションで参加者を引き付けます"
+        },
+        "timer": {
+          "title": "会議タイマー",
+          "description": "会議を順調に進めるための組み込みタイマーとアジェンダ"
+        },
+        "guestAccess": {
+          "title": "ゲストアクセス",
+          "description": "アカウント作成を必要とせず外部参加者を招待できます"
+        }
+      },
+      "coreFeatures": {
+        "hdVideo": "HD画質",
+        "screenShare": "画面共有",
+        "recording": "クラウド録画",
+        "backgrounds": "バーチャル背景",
+        "chat": "会議内チャット",
+        "breakoutRooms": "ブレイクアウトルーム",
+        "transcription": "ライブ文字起こし",
+        "security": "エンドツーエンド暗号化",
+        "quickJoin": "ワンクリック参加",
+        "audioControls": "高度な音声",
+        "hostControls": "ホストコントロール",
+        "guestInvite": "ゲストアクセス"
+      },
+      "mobile": {
+        "hdCalls": {
+          "title": "HDモバイル通話",
+          "description": "モバイルネットワークとデバイス向けに最適化されたフルHDビデオ品質"
+        },
+        "audioOnly": {
+          "title": "音声のみモード",
+          "description": "接続を維持しながら音声のみモードでデータを節約"
+        },
+        "oneTapJoin": {
+          "title": "ワンタップ参加",
+          "description": "カレンダー通知から瞬時に会議に参加"
+        }
+      },
+      "sections": {
+        "meetingTypesTitle": "あらゆるタイプの会議",
+        "meetingTypesSubtitle": "チームハドルから大規模ウェビナーまで、あらゆるタイプの会議を簡単に開催できます",
+        "aiTitle": "インテリジェントな会議アシスタント",
+        "aiSubtitle": "文字起こしや要約を行い、会議をより生産的にするAI",
+        "powerTitle": "プロフェッショナルなビデオ会議",
+        "powerSubtitle": "最高のビデオ品質とコラボレーションを求めるチーム向けの高度な機能",
+        "collaborationTitle": "リアルタイムでコラボレーション",
+        "collaborationSubtitle": "会議中に全員の関与と生産性を保つインタラクティブなツール",
+        "essentialsSubtitle": "生産的な会議に必要なすべて",
+        "mobileTitle": "どこからでも会議",
+        "mobileSubtitle": "完全なビデオ通話機能を備えたネイティブiOSおよびAndroidアプリ。同じ品質で外出先でも会議に参加できます。"
+      },
       "page": {
-        "title": "コネクタ",
-        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
-        "searchPlaceholder": "コネクタを検索...",
-        "connectorsAvailable": "{count}個のコネクタが利用可能",
-        "noConnectorsFound": "コネクタが見つかりません",
-        "noConnectorsMatch": "\"{query}\"に一致するコネクタはありません",
-        "noConnectorsInCategory": "{category}カテゴリーにコネクタはありません",
-        "clearFilters": "フィルターをクリア"
+        "title": "ビデオ通話",
+        "subtitle": "チームとAI搭載のビデオ通話を始めましょう",
+        "newMeeting": "新しい会議",
+        "scheduleMeeting": "会議をスケジュール",
+        "loading": "読み込み中..."
       },
-      "categories": {
-        "all": "すべて",
-        "communication": "コミュニケーション",
-        "productivity": "生産性",
-        "development": "開発",
-        "business": "ビジネス",
-        "marketing": "マーケティング",
-        "design": "デザイン",
-        "aiAutomation": "AI＆自動化",
-        "security": "セキュリティ"
+      "tabs": {
+        "contacts": "連絡先",
+        "history": "履歴",
+        "scheduled": "予定"
+      },
+      "contacts": {
+        "title": "連絡先",
+        "searchPlaceholder": "連絡先を検索...",
+        "filter": {
+          "all": "すべて",
+          "online": "オンライン",
+          "offline": "オフライン"
+        },
+        "status": {
+          "online": "オンライン",
+          "offline": "オフライン",
+          "away": "離席中",
+          "busy": "取り込み中"
+        },
+        "quickActions": {
+          "quickVideoCall": "クイックビデオ通話",
+          "quickVideoCallDesc": "即時会議を開始",
+          "scheduleMeeting": "会議をスケジュール",
+          "scheduleMeetingDesc": "後の予定を計画",
+          "aiFeatures": "AI機能",
+          "aiFeaturesDesc": "設定と環境設定"
+        },
+        "callButtons": {
+          "audio": "音声",
+          "video": "ビデオ"
+        }
+      },
+      "history": {
+        "title": "通話履歴",
+        "recentCalls": "最近の通話{count}件",
+        "noHistory": "通話履歴がありません",
+        "noHistoryDesc": "完了した通話がここに表示されます。",
+        "callAgain": "再通話",
+        "schedule": "スケジュール",
+        "recorded": "録画済み",
+        "formatDuration": "{hours}時間{minutes}分",
+        "formatDurationMinutes": "{minutes}分"
+      },
+      "scheduled": {
+        "title": "予定",
+        "noScheduled": "予定された会議はありません",
+        "noScheduledDesc": "現在、予定されているビデオ通話はありません。",
+        "scheduleFirst": "会議をスケジュール",
+        "join": "参加"
+      },
+      "schedule": {
+        "modalTitle": "会議をスケジュール",
+        "platformLabel": "会議プラットフォーム",
+        "platforms": {
+          "video": {
+            "name": "ビデオ",
+            "description": "AI機能付きフルHDビデオ"
+          },
+          "audio": {
+            "name": "音声",
+            "description": "鮮明な音声会議"
+          },
+          "webinar": {
+            "name": "ウェビナー",
+            "description": "大規模な聴衆向けのプレゼンテーション"
+          }
+        },
+        "meetingTitle": "会議タイトル *",
+        "meetingTitlePlaceholder": "会議タイトルを入力",
+        "meetingDescription": "説明(任意)",
+        "meetingDescriptionPlaceholder": "会議のアジェンダやメモを追加...",
+        "duration": "時間",
+        "durationOptions": {
+          "15": "15分",
+          "30": "30分",
+          "45": "45分",
+          "60": "1時間",
+          "90": "1.5時間",
+          "120": "2時間",
+          "180": "3時間"
+        },
+        "startImmediately": "会議を今すぐ開始",
+        "startImmediatelyDesc": "(すべての参加者に今すぐリアルタイム通話を送信)",
+        "date": "日付",
+        "time": "時刻",
+        "timezone": "タイムゾーン",
+        "location": {
+          "label": "会議場所",
+          "virtual": "バーチャル",
+          "virtualDesc": "オンライン会議",
+          "physical": "対面",
+          "physicalDesc": "物理的な場所",
+          "hybrid": "ハイブリッド",
+          "hybridDesc": "オンラインと対面の両方",
+          "physicalLocation": "物理的な場所",
+          "physicalLocationPlaceholder": "会議場所を入力(住所、部屋番号など)"
+        },
+        "attendees": {
+          "label": "参加者を追加",
+          "placeholder": "ワークスペースメンバーを選択...",
+          "selected": "選択された参加者はメールとカレンダーの招待を受け取ります"
+        },
+        "summary": {
+          "title": "会議の概要",
+          "dateTime": "日時:",
+          "duration": "時間:",
+          "durationMinutes": "{minutes}分",
+          "location": "場所:",
+          "recurrence": "繰り返し:",
+          "attendees": "参加者:",
+          "attendeesSelected": "{count}人選択済み"
+        },
+        "actions": {
+          "create": "会議をスケジュール",
+          "creating": "会議をスケジュール中...",
+          "startNow": "今すぐ通話を開始",
+          "starting": "通話を開始中...",
+          "cancel": "キャンセル"
+        },
+        "errors": {
+          "workspaceNotFound": "ワークスペースが見つかりません",
+          "titleRequired": "会議タイトルを入力してください",
+          "attendeesRequired": "少なくとも1人の参加者を選択してください"
+        },
+        "success": {
+          "scheduled": "会議が正常にスケジュールされました!",
+          "started": "通話を開始しました!参加中..."
+        }
+      },
+      "sidebar": {
+        "left": {
+          "contacts": "連絡先",
+          "recentContactsTitle": "ワークスペースメンバー",
+          "addContact": "追加",
+          "sections": {
+            "favorites": "お気に入り",
+            "recent": "最近",
+            "team": "チーム",
+            "external": "外部"
+          },
+          "tabs": {
+            "contacts": "連絡先",
+            "history": "履歴",
+            "meetings": "会議"
+          },
+          "scheduleNew": "新しい会議をスケジュール",
+          "quickActions": {
+            "audioCall": "音声通話",
+            "videoCall": "ビデオ通話",
+            "scheduleMeeting": "会議をスケジュール"
+          }
+        },
+        "right": {
+          "analytics": {
+            "title": "あなたの分析",
+            "totalMeetings": "会議の総数",
+            "totalTime": "合計時間",
+            "thisWeek": "今週",
+            "avgDuration": "平均時間"
+          },
+          "recentMeetings": {
+            "title": "最近の会議",
+            "viewDetails": "詳細を表示",
+            "participants": "参加者{count}人",
+            "status": {
+              "completed": "完了",
+              "active": "アクティブ",
+              "scheduled": "予定",
+              "cancelled": "キャンセル"
+            }
+          },
+          "summaries": {
+            "title": "最近の要約",
+            "keyPoints": "キーポイント{count}件",
+            "viewFull": "全体を表示"
+          },
+          "notes": {
+            "title": "最近のノート",
+            "aiAccuracy": "AI {percent}%",
+            "viewNote": "ノートを表示"
+          },
+          "details": {
+            "meetingDetails": "会議の詳細",
+            "duration": "時間:",
+            "date": "日付:",
+            "time": "時刻:",
+            "status": "ステータス:",
+            "participants": "参加者({count})",
+            "joinMeeting": "会議に参加",
+            "downloadRecording": "録画をダウンロード",
+            "copyDetails": "詳細をコピー",
+            "detailsCopied": "会議の詳細をクリップボードにコピーしました"
+          },
+          "summary": {
+            "meetingSummary": "会議の要約",
+            "summary": "要約:",
+            "keyPoints": "キーポイント",
+            "downloadPdf": "PDFをダウンロード",
+            "copySummary": "要約をコピー",
+            "summaryCopied": "要約をクリップボードにコピーしました",
+            "pdfDownloaded": "要約をPDFとしてダウンロードしました"
+          },
+          "note": {
+            "meetingNote": "会議ノート",
+            "aiAccuracy": "AI精度{percent}%",
+            "aiGenerated": "AI生成コンテンツ",
+            "context": "会議コンテキスト",
+            "confidence": "AI信頼度スコア",
+            "accuracy": "精度{percent}%",
+            "generated": "生成済み",
+            "saveToNotes": "ノートに保存",
+            "export": "エクスポート",
+            "copyNote": "ノートをコピー",
+            "noteSaved": "ノート\"{title}\"がNotesアプリに保存されました",
+            "noteExported": "ノートをドキュメントとしてエクスポートしました",
+            "noteCopied": "ノートをクリップボードにコピーしました",
+            "recordingDownloaded": "会議録画をダウンロードしました"
+          }
+        }
       },
       "actions": {
-        "connect": "接続",
-        "open": "開く",
-        "disconnect": "切断",
-        "connecting": "接続中...",
-        "notAvailable": "利用不可"
+        "startingCall": "通話を開始中...",
+        "callCreated": "通話を作成しました!",
+        "joinCall": "通話に参加",
+        "endCall": "通話を終了",
+        "muteAudio": "音声をミュート",
+        "unmuteAudio": "ミュートを解除",
+        "stopVideo": "ビデオを停止",
+        "startVideo": "ビデオを開始",
+        "shareScreen": "画面を共有",
+        "stopSharing": "共有を停止"
       },
-      "descriptions": {
-        "gmail": "Deskive内でメールを直接送受信",
-        "googleCalendar": "Googleカレンダーのイベントを同期・管理",
-        "googleDrive": "Googleドライブのファイルにアクセス・管理",
-        "github": "GitHubアカウントを接続してリポジトリを表示",
-        "googleSheets": "Googleスプレッドシートを表示・編集・同期",
-        "dropbox": "Dropboxのファイルにアクセス・管理"
+      "errors": {
+        "workspaceNotFound": "ワークスペースが見つかりません",
+        "callFailed": "通話を開始できませんでした",
+        "callStartFailed": "通話を開始できませんでした",
+        "scheduleFailed": "会議のスケジュールに失敗しました"
       },
-      "categoryLabels": {
-        "email": "メール",
-        "calendar": "カレンダー",
-        "fileStorage": "ファイルストレージ",
-        "development": "開発"
+      "formatTime": {
+        "justNow": "たった今",
+        "hoursAgo": "{hours}時間前",
+        "daysAgo": "{days}日前",
+        "duration": "{hours}時間{minutes}分",
+        "durationMinutes": "{minutes}分"
       }
     },
-    "templates": {
-      "pageTitle": "プロジェクトテンプレート",
-      "pageDescription": "テンプレートを選択して、事前定義されたタスクと構造で新しいプロジェクトを素早く作成できます。",
-      "refreshButton": "テンプレートを更新",
-      "seedSuccess": {
-        "title": "テンプレートを追加しました",
-        "description": "システムテンプレートが正常に追加されました。"
-      },
-      "seedError": {
-        "title": "エラー",
-        "description": "テンプレートの追加に失敗しました。"
-      },
-      "workspaceNotFound": "ワークスペースが見つかりません",
-      "searchPlaceholder": "テンプレートを検索...",
-      "noTemplatesFound": "テンプレートが見つかりません。",
-      "featured": "おすすめ",
-      "system": "システム",
-      "tasks": "タスク",
-      "usedTimes": "{count}回使用",
-      "showingTemplates": "{total}個中{start} - {end}個のテンプレートを表示",
-      "previous": "前へ",
-      "next": "次へ",
-      "cancel": "キャンセル",
-      "useThisTemplate": "このテンプレートを使用",
-      "createFromTemplate": "テンプレートからプロジェクトを作成",
-      "customizeProject": "新しいプロジェクトを作成する前にカスタマイズします。",
-      "projectName": "プロジェクト名",
-      "enterProjectName": "プロジェクト名を入力",
-      "description": "説明（任意）",
-      "enterProjectDescription": "プロジェクトの説明を入力",
-      "createProject": "プロジェクトを作成",
-      "templateStructure": "テンプレート構造",
-      "customFields": "カスタムフィールド",
-      "boardStages": "ボードステージ",
-      "blankProject": "空のプロジェクト",
-      "startFromScratch": "最初から始める",
-      "projectCreated": "プロジェクトを作成しました",
-      "projectCreatedDescription": "「{projectName}」が「{templateName}」テンプレートから作成されました。",
-      "createProjectError": "テンプレートからプロジェクトの作成に失敗しました。",
-      "complexity": "複雑さ",
-      "moreTasks": "さらに{count}個のタスク...",
-      "categories": {
-        "all": "すべて",
-        "softwareDevelopment": "ソフトウェア開発",
-        "marketing": "マーケティング",
-        "hr": "人事",
-        "design": "デザイン＆クリエイティブ",
-        "business": "ビジネス＆運営",
-        "events": "イベント＆ウェビナー",
-        "research": "リサーチ＆分析",
-        "personal": "個人＆生産性",
-        "sales": "営業",
-        "finance": "財務",
-        "itSupport": "ITサポート",
-        "education": "教育",
-        "freelance": "フリーランス",
-        "operations": "運営",
-        "healthcare": "医療",
-        "legal": "法務",
-        "realEstate": "不動産",
-        "manufacturing": "製造",
-        "nonprofit": "非営利",
-        "media": "メディア＆エンターテインメント"
+    "integrations": {
+      "badge": "強力な連携",
+      "title": "使用するすべてを接続",
+      "titleHighlight": "スタック全体を統合。",
+      "subtitle": "500以上のアプリやサービスとシームレスに連携。お気に入りの開発ツール、ビジネスアプリケーション、サービスを強力なAPI、Webhook、事前構築されたコネクターで接続します。",
+      "cta": "連携を探索",
+      "sections": {
+        "connectTitle": "シンプルな連携",
+        "connectSubtitle": "ノーコードソリューションから高度なAPI連携まで、ツールを簡単に接続します",
+        "developersTitle": "開発者向けに構築",
+        "developersSubtitle": "あらゆるプラットフォームとのシームレスな連携のための完全なREST API、Webhook、SDK",
+        "businessTitle": "ビジネス向けに構築",
+        "businessSubtitle": "CRM、マーケティング、財務、ビジネスインテリジェンスツール向けの事前構築されたコネクター",
+        "essentialsSubtitle": "ワークフローを統合するために必要なすべて"
+      }
+    },
+    "monitoring": {
+      "badge": "システム監視",
+      "title": "問題を先取り",
+      "titleHighlight": "ユーザーに影響を与える前に。",
+      "subtitle": "リアルタイムアラート、包括的なメトリクス、インテリジェントな異常検知でインフラ全体を監視。システムの健全性とパフォーマンスを完全に把握できます。",
+      "cta": "監視を開始",
+      "sections": {
+        "visibilityTitle": "完全なインフラ可視性",
+        "visibilitySubtitle": "包括的な可観測性ツールで、サーバーからアプリケーションまですべてを監視します",
+        "alertsTitle": "インテリジェントなアラート",
+        "alertsSubtitle": "カスタマイズ可能なしきい値、エスカレーションポリシー、マルチチャネル通知を備えたスマートアラート",
+        "performanceTitle": "パフォーマンス分析",
+        "performanceSubtitle": "詳細なメトリクス、トレンド分析、キャパシティプランニングでシステムを最適化します",
+        "essentialsSubtitle": "完全なシステム可視性のために必要なすべて"
+      }
+    },
+    "automation": {
+      "badge": "ワークフローオートメーション",
+      "title": "すべてを自動化",
+      "titleHighlight": "重要なことに集中しよう。",
+      "subtitle": "ドラッグ&ドロップでシンプルに強力な自動化ワークフローを構築。アプリを接続し、アクションをトリガーし、繰り返しタスクを排除して、チームの生産性を高め、毎週何時間も節約できます。",
+      "cta": "最初のワークフローを作成",
+      "sections": {
+        "automationTitle": "シンプルな自動化",
+        "automationSubtitle": "シンプルなトリガーから複雑なワークフローまで、あらゆるプロセスを簡単に自動化します",
+        "aiTitle": "AI搭載の自動化",
+        "aiSubtitle": "AIがパターンとニーズに基づいて自動化ワークフローを提案・作成します",
+        "powerTitle": "高度なワークフロー",
+        "powerSubtitle": "信頼性の高い自動化のための複雑な条件ロジック、カスタムスクリプト、エラーハンドリング",
+        "essentialsSubtitle": "ワークフローを自動化するために必要なすべて"
       }
     }
   },
@@ -4187,120 +5154,187 @@
     "setupMinutes": "5分でセットアップ"
   },
   "pricing": {
-    "title": "シンプルな価格設定",
-    "heading": "プランを選択",
-    "subtitle": "無料で始めて、成長に合わせて拡張。隠れた費用なし、驚きなし。",
-    "monthly": "月額",
-    "annual": "年額",
-    "savePercent": "{percent}%割引",
-    "twoMonthsFree": "2ヶ月無料",
-    "free": {
-      "name": "無料",
-      "description": "個人や小規模チームの開始に最適",
-      "price": "¥0",
-      "cta": "無料で始める",
-      "features": [
-        "最大5ユーザー",
-        "10GBストレージ",
-        "基本的なチャットとメッセージング",
-        "プロジェクト管理（5プロジェクトまで）",
-        "ファイル共有",
-        "ビデオ通話（最大4人まで）",
-        "モバイルアプリアクセス"
-      ]
+    "meta": {
+      "title": "料金プラン - シンプル、透明性、手頃",
+      "description": "チームに最適なDeskiveプランをお選びください。無料プランあり。有料プランは月額$29から。すべての機能を含み、隠れた料金はありません。14日間無料トライアル。",
+      "keywords": "料金, プラン, 費用, 無料トライアル, ワークスペース料金, チームコラボレーション料金"
     },
-    "starter": {
-      "name": "スターター",
-      "description": "より多くの力が必要な成長中のチームに最適",
-      "price": "¥800",
-      "period": "ユーザー/月",
-      "cta": "14日間無料トライアルを開始",
-      "features": [
-        "無制限ユーザー",
-        "100GBストレージ",
-        "高度なチャット機能",
-        "無制限プロジェクト",
-        "カレンダー統合",
-        "ビデオ通話（最大25人まで）",
-        "基本的な統合",
-        "優先メールサポート"
-      ]
+    "header": {
+      "badge": "シンプルな料金体系",
+      "title": "選べる",
+      "titleHighlight": "プラン",
+      "subtitle": "無料で始めて、成長に合わせて拡張。隠れた料金もサプライズもありません。",
+      "subtitleBold": "すべての有料プランに14日間の無料トライアル付き。"
     },
-    "professional": {
-      "name": "プロフェッショナル",
-      "description": "プロフェッショナルチーム向けの完全なソリューション",
-      "price": "¥1,600",
-      "period": "ユーザー/月",
-      "cta": "14日間無料トライアルを開始",
-      "badge": "最も人気",
-      "features": [
-        "無制限ユーザー",
-        "1TBストレージ",
-        "すべてのスターター機能",
-        "高度な分析",
-        "カスタムワークフロー",
-        "ビデオ通話（最大100人まで）",
-        "プレミアム統合",
-        "優先チャットサポート",
-        "高度なセキュリティ",
-        "カスタムブランディング"
-      ]
+    "promo": {
+      "limitedTime": "期間限定オファー",
+      "twoMonthsFree": "年間プランで2ヶ月無料",
+      "bestValue": "🎉 ベストバリュー",
+      "joinThousands": "すでにDeskiveを使用している数千のチームに参加しましょう。無料で始めて、いつでもアップグレードできます。"
     },
-    "enterprise": {
-      "name": "エンタープライズ",
-      "description": "大規模組織向けのカスタマイズされたソリューション",
-      "price": "お問い合わせ",
-      "cta": "営業に問い合わせ",
-      "features": [
-        "無制限ユーザー",
-        "無制限ストレージ",
-        "すべてのプロフェッショナル機能",
-        "専用アカウントマネージャー",
-        "SLA保証",
-        "高度な管理制御",
-        "SAML SSO",
-        "カスタム統合開発",
-        "オンボーディングサポート",
-        "カスタマイズされたトレーニング"
-      ]
+    "billing": {
+      "monthly": "月払い",
+      "annual": "年払い",
+      "twoMonthsFree": "2ヶ月無料",
+      "save": "17%節約",
+      "perMo": "/月",
+      "perMonth": "月額",
+      "perYear": "/年",
+      "forever": "永久",
+      "contactSales": "営業に問い合わせる"
     },
-    "banner": {
-      "title": "期間限定オファー",
-      "subtitle": "年間プランで2ヶ月無料"
-    },
-    "trust": {
-      "title": "世界中のチームに信頼されています",
-      "features": [
-        "14日間無料トライアル",
-        "クレジットカード不要",
-        "いつでもキャンセル可能"
-      ]
-    }
-  },
-  "featureHighlights": {
-    "badge": "機能",
-    "title": "チームに必要なすべての機能",
-    "titleHighlight": "より速く作業を完了",
-    "subtitle": "生産性を次のレベルに引き上げる必須機能。",
+    "trustedBy": "世界中のチームに信頼されています",
     "features": {
-      "tasks": "タスク",
-      "kanbanBoards": "カンバンボード",
-      "docs": "ドキュメント",
-      "aiAssistant": "AIアシスタント",
-      "calendar": "カレンダー",
-      "chat": "チャット",
-      "videoCalls": "ビデオ通話",
-      "files": "ファイル",
-      "projects": "プロジェクト",
-      "reporting": "レポート",
-      "goals": "目標",
-      "automations": "自動化",
-      "customFields": "カスタムフィールド",
-      "timeTracking": "時間追跡",
-      "dashboards": "ダッシュボード",
-      "forms": "フォーム",
-      "reminders": "リマインダー",
-      "collaboration": "コラボレーション"
+      "freeTrial": "14日間無料トライアル",
+      "noCreditCard": "クレジットカード不要",
+      "cancelAnytime": "いつでもキャンセル可能"
+    },
+    "loading": {
+      "text": "料金プランを読み込み中..."
+    },
+    "error": {
+      "text": "デフォルトの料金プランを表示しています。"
+    },
+    "plans": {
+      "free": {
+        "name": "無料",
+        "price": "$0",
+        "period": "永久",
+        "description": "個人および小規模チームの初めての利用に最適",
+        "buttonText": "始める",
+        "features": [
+          "5人のチームメンバー",
+          "1GBストレージ",
+          "基本的なチャットとメッセージング",
+          "基本的なファイル共有",
+          "モバイルアプリアクセス",
+          "コミュニティサポート",
+          "基本的な連携",
+          "2段階認証"
+        ],
+        "notIncluded": [
+          "高度な連携",
+          "優先サポート",
+          "カスタムブランディング",
+          "高度な分析",
+          "APIアクセス",
+          "データエクスポート"
+        ]
+      },
+      "starter": {
+        "name": "Starter",
+        "price": "$9.99",
+        "yearlyPrice": "$99.99",
+        "period": "月額",
+        "description": "より多くのパワーを必要とする成長中のチームに最適",
+        "buttonText": "始める",
+        "features": [
+          "25人のチームメンバー",
+          "25GBストレージ",
+          "スレッド付き高度なチャット",
+          "ビデオ通話(最大10名)",
+          "プロジェクト管理ツール",
+          "カレンダー連携",
+          "メールサポート",
+          "APIアクセス",
+          "カスタム連携(5件)",
+          "基本的な分析",
+          "データエクスポート(CSV)",
+          "ゲストアクセス"
+        ],
+        "notIncluded": [
+          "SSO認証",
+          "高度なセキュリティ機能",
+          "無制限の連携",
+          "24/7電話サポート"
+        ]
+      },
+      "professional": {
+        "name": "Professional",
+        "price": "$19.99",
+        "yearlyPrice": "$199.99",
+        "period": "月額",
+        "description": "プロフェッショナルチーム向けの完全なソリューション",
+        "buttonText": "始める",
+        "badge": "最も人気",
+        "features": [
+          "100人のチームメンバー",
+          "100GBストレージ",
+          "無制限のビデオ通話",
+          "高度なプロジェクト管理",
+          "AI搭載機能",
+          "カスタム連携(無制限)",
+          "高度な分析とレポート",
+          "優先サポート",
+          "データエクスポート(全形式)",
+          "99.9%稼働率SLA",
+          "高度なセキュリティ機能",
+          "カスタムワークフロー",
+          "時間追跡と請求",
+          "リソース管理"
+        ]
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "$49.99",
+        "yearlyPrice": "$499.99",
+        "period": "月額",
+        "description": "大規模組織向けのカスタマイズされたソリューション",
+        "buttonText": "始める",
+        "features": [
+          "無制限のチームメンバー",
+          "1TB以上のストレージ",
+          "エンタープライズSSO (SAML、OAuth)",
+          "高度なセキュリティとコンプライアンス",
+          "カスタムAIトレーニング",
+          "専任アカウントマネージャー",
+          "カスタム連携とAPI",
+          "24/7電話サポート",
+          "オンプレミス展開オプション",
+          "カスタム契約とSLA",
+          "監査ログとコンプライアンス",
+          "高度なユーザー権限",
+          "ホワイトラベルオプション",
+          "優先機能リクエスト",
+          "トレーニングとオンボーディング"
+        ]
+      }
+    },
+    "faq": {
+      "badge": "ご質問はありますか?",
+      "title": "よくある",
+      "titleHighlight": "ご質問",
+      "subtitle": "ご質問はありますか?お答えします。お探しの情報が見つからない場合は、サポートチームがお手伝いいたします。",
+      "questions": [
+        {
+          "question": "プランは後から変更できますか?",
+          "answer": "はい、いつでもプランをアップグレードまたはダウングレードできます。アップグレードの際は、日割り計算された差額が請求されます。ダウングレードの際は、未使用分のクレジットが付与されます。"
+        },
+        {
+          "question": "どのようなお支払い方法が利用できますか?",
+          "answer": "主要なクレジットカード(Visa、MasterCard、American Express)、PayPal、Enterpriseプランでは銀行振込をお受けしています。すべてのお支払いはStripeを通じて安全に処理されます。"
+        },
+        {
+          "question": "無料トライアルはありますか?",
+          "answer": "はい!すべての有料プランに14日間の無料トライアルが付いています。開始時にクレジットカードは不要です。トライアル期間中はすべての機能をご利用いただき、いつでもキャンセルできます。"
+        },
+        {
+          "question": "キャンセルした場合、データはどうなりますか?",
+          "answer": "データはキャンセル後30日間アクセス可能です。いつでもすべてのデータをエクスポートできます。30日後、データは当社のプライバシーポリシーに従って完全に削除されます。"
+        },
+        {
+          "question": "非営利団体や教育機関への割引はありますか?",
+          "answer": "はい、登録された非営利団体および教育機関には50%の割引を提供しています。営業チームに認証書類を添えてお問い合わせの上、割引をお申し込みください。"
+        },
+        {
+          "question": "返金は可能ですか?",
+          "answer": "すべての新規サブスクリプションに30日間の返金保証を提供しています。最初の30日以内にご満足いただけない場合、理由を問わず全額返金いたします。"
+        }
+      ],
+      "contact": {
+        "text": "まだご質問がありますか?",
+        "buttonText": "営業チームに問い合わせる"
+      }
     }
   },
   "faq": {
@@ -4550,6 +5584,32 @@
       "subjectSupport": "サポート",
       "subjectPartnership": "パートナーシップ",
       "subjectOther": "その他"
+    }
+  },
+  "featureHighlights": {
+    "badge": "機能",
+    "title": "チームに必要なすべての機能",
+    "titleHighlight": "より速く作業を完了",
+    "subtitle": "生産性を次のレベルに引き上げる必須機能。",
+    "features": {
+      "tasks": "タスク",
+      "kanbanBoards": "カンバンボード",
+      "docs": "ドキュメント",
+      "aiAssistant": "AIアシスタント",
+      "calendar": "カレンダー",
+      "chat": "チャット",
+      "videoCalls": "ビデオ通話",
+      "files": "ファイル",
+      "projects": "プロジェクト",
+      "reporting": "レポート",
+      "goals": "目標",
+      "automations": "自動化",
+      "customFields": "カスタムフィールド",
+      "timeTracking": "時間追跡",
+      "dashboards": "ダッシュボード",
+      "forms": "フォーム",
+      "reminders": "リマインダー",
+      "collaboration": "コラボレーション"
     }
   },
   "auth": {
@@ -4870,7 +5930,7 @@
       "cta": "今日からデータ駆動の意思決定を開始する",
       "ctaSubtitle": "高度な分析を使用してビジネスを成長させている何千もの企業に参加してください"
     },
-    "calendarProduct2": {
+    "calendar": {
       "title": "カレンダーとスケジューリング",
       "description": "AI搭載カレンダーでスケジュールを管理します。スマートスケジューリング、会議調整、すべてのデバイスでカレンダー同期。",
       "badge": "スマートカレンダー",
@@ -4905,7 +5965,7 @@
       "cta": "今日はあなたの時間をコントロールする",
       "ctaSubtitle": "スマートスケジューリングで生産性を変革した何百万ものユーザーに参加してください"
     },
-    "notesProduct3": {
+    "notes": {
       "meta": {
         "title": "ノート＆ドキュメンテーション - 協調的ノートテイキング",
         "description": "強力な知識管理ツールでノートを作成、整理、共有。ブロックベースエディタ、AI執筆アシスタント、リアルタイムコラボレーション。"
@@ -5102,156 +6162,101 @@
     }
   },
   "legal": {
-    "privacy": {
-      "badge": "あなたのプライバシーを守ります",
-      "title": "プライバシーポリシー",
-      "description": "個人情報の収集、使用、保護方法について説明します。お客様の信頼が私たちの最優先事項です。",
-      "lastUpdated": "最終更新: {date}",
-      "glance": {
-        "title": "プライバシーの概要",
-        "secure": {
-          "icon": "🔒",
-          "title": "エンタープライズセキュリティ",
-          "description": "銀行レベルの暗号化とSOC 2準拠"
+    "dataDeletion": {
+      "badge": "あなたの権利",
+      "title": "アカウントとデータの削除",
+      "description": "Deskiveアカウントと関連するすべてのデータを完全に削除する方法をご確認ください。私たちはあなたの忘れられる権利を尊重します。",
+      "warning": {
+        "title": "⚠️ 重要な警告",
+        "description": "アカウントの削除は永久的であり、元に戻すことはできません。続行する前に、削除される内容を確認してください：",
+        "item1": "すべての個人データが完全に削除されます",
+        "item2": "所有するすべてのワークスペースが削除されます",
+        "item3": "この操作は取り消したり元に戻すことはできません",
+        "item4": "アカウントは即座に無効化されます"
+      },
+      "whatDeleted": {
+        "title": "削除されるデータ",
+        "description": "アカウントを削除すると、以下のデータが完全に削除されます：",
+        "profile": {
+          "title": "プロフィール情報",
+          "description": "名前、メール、アバター、自己紹介、すべての個人情報"
         },
-        "noSale": {
-          "icon": "🚫",
-          "title": "データを販売しません",
-          "description": "お客様のデータはお客様のものです。第三者に販売することはありません。"
+        "messages": {
+          "title": "メッセージとチャット",
+          "description": "すべてのダイレクトメッセージ、チャンネルメッセージ、チャット履歴"
         },
-        "control": {
-          "icon": "⚙️",
-          "title": "完全なコントロール",
-          "description": "いつでもデータへのアクセス、エクスポート、削除が可能"
+        "files": {
+          "title": "ファイルとドキュメント",
+          "description": "アップロードされたすべてのファイル、ドキュメント、添付ファイル"
+        },
+        "calendar": {
+          "title": "カレンダーとイベント",
+          "description": "すべてのカレンダーイベント、ミーティング、スケジュール"
+        },
+        "videos": {
+          "title": "ビデオ録画",
+          "description": "すべてのビデオ通話録画とミーティング録画"
+        },
+        "media": {
+          "title": "写真とメディア",
+          "description": "すべての画像、ビデオ、その他のメディアファイル"
+        },
+        "workspaces": {
+          "title": "ワークスペースとプロジェクト",
+          "description": "所有するすべてのワークスペースと関連するプロジェクトデータ"
+        },
+        "preferences": {
+          "title": "設定と環境設定",
+          "description": "すべての環境設定、設定、構成"
         }
       },
-      "sections": {
-        "section1": {
-          "title": "1. 収集する情報",
-          "content": {
-            "0": "アカウント作成、サービス利用、またはコミュニケーション時に、お客様が直接提供する情報を収集します。これには以下が含まれます：",
-            "1": "• アカウント情報：氏名、メールアドレス、パスワード、プロフィール情報",
-            "2": "• ワークスペースデータ：作成またはアップロードしたファイル、ドキュメント、メッセージ、コメント、その他のコンテンツ",
-            "3": "• 利用情報：サービスとの対話方法、使用する機能、実行するアクション",
-            "4": "• デバイス情報：デバイスの種類、オペレーティングシステム、ブラウザの種類、IPアドレス、固有のデバイス識別子",
-            "5": "• 支払情報：請求先住所と支払方法の詳細（支払プロバイダーによって安全に処理されます）"
-          }
+      "process": {
+        "title": "アカウントの削除方法",
+        "description": "Deskiveアカウントを完全に削除するには、以下の簡単な手順に従ってください：",
+        "step1": {
+          "title": "アカウントにサインインする",
+          "description": "メールアドレスとパスワードを使用してDeskiveにログインします。アカウント削除をリクエストするには、サインインしている必要があります。"
         },
-        "section2": {
-          "title": "2. 情報の使用方法",
-          "content": {
-            "0": "収集した情報は以下の目的で使用します：",
-            "1": "• サービスの提供、維持、改善",
-            "2": "• 取引の処理と関連情報の送信",
-            "3": "• 技術的な通知、更新、セキュリティアラート、サポートメッセージの送信",
-            "4": "• コメント、質問、カスタマーサービスリクエストへの対応",
-            "5": "• 製品、サービス、オファー、イベントに関するコミュニケーション",
-            "6": "• サービスに関連するトレンド、使用状況、アクティビティの監視と分析",
-            "7": "• 不正取引やその他の違法行為の検出、調査、防止",
-            "8": "• エクスペリエンスのパーソナライズと改善"
-          }
+        "step2": {
+          "title": "セキュリティ設定に移動する",
+          "description": "設定 > セキュリティに移動し、ページ下部の「危険ゾーン」セクションまでスクロールします。"
         },
-        "section3": {
-          "title": "3. 情報の共有と開示",
-          "content": {
-            "0": "以下の場合にお客様の情報を共有することがあります：",
-            "1": "• 共有ワークスペースで協力する他のユーザーと",
-            "2": "• サービス提供に必要なベンダー、コンサルタント、サービスプロバイダーと",
-            "3": "• 法的要請に応じて、または適用法を遵守するため",
-            "4": "• Deskive、ユーザー、またはその他の権利、財産、安全を保護するため",
-            "5": "• お客様の同意または指示がある場合",
-            "6": "お客様の個人情報を第三者に販売することはありません。お客様のデータはお客様のものであり、私たちはそれを保護することに専念しています。"
-          }
+        "step3": {
+          "title": "アカウント削除をクリックする",
+          "description": "「アカウント削除」ボタンをクリックし、データの完全削除に関する警告メッセージを注意深く読みます。"
         },
-        "section4": {
-          "title": "4. データセキュリティ",
-          "content": {
-            "0": "お客様に関する情報を紛失、盗難、誤用、不正アクセス、開示、改ざん、破壊から保護するために合理的な措置を講じています。",
-            "1": "転送中および保存中のデータを保護するために業界標準の暗号化を使用しています。",
-            "2": "すべてのデータは、安全でSOC 2準拠のデータセンターに保存されています。",
-            "3": "厳格なアクセス制御と認証手順を実装しています。",
-            "4": "定期的なセキュリティ監査と侵入テストを実施しています。",
-            "5": "ただし、どのセキュリティシステムも完全ではありません。データベースのセキュリティを保証することはできず、インターネット経由で送信される情報が傍受されないことも保証できません。"
-          }
-        },
-        "section5": {
-          "title": "5. データ保持",
-          "content": {
-            "0": "アカウントがアクティブな間、またはサービスを提供するために必要な期間、お客様の情報を保持します。",
-            "1": "災害復旧の目的で、データのバックアップコピーを最大90日間保持する場合があります。",
-            "2": "support@deskive.com にご連絡いただくことで、いつでもデータの削除をリクエストできます。"
-          }
-        },
-        "section6": {
-          "title": "6. 国際データ転送",
-          "content": {
-            "0": "Deskiveは米国を拠点としており、米国およびその他の国で情報を処理および保存します。",
-            "1": "米国外からサービスにアクセスしている場合、お客様の情報が米国およびその他の国に転送、保存、処理される可能性があることにご注意ください。",
-            "2": "適用されるデータ保護法を遵守し、国際データ転送に適切な保護措置を実装しています。",
-            "3": "サービスを使用することにより、お客様の居住国以外の国への情報の転送に同意したものとみなされます。"
-          }
-        },
-        "section7": {
-          "title": "7. お客様の権利と選択",
-          "content": {
-            "0": "お客様の個人情報に関して、以下の権利があります：",
-            "1": "• アクセス：個人情報へのアクセスをリクエスト",
-            "2": "• 訂正：不正確または不完全な情報の訂正をリクエスト",
-            "3": "• 削除：個人情報の削除をリクエスト",
-            "4": "• ポータビリティ：ポータブル形式での情報のコピーをリクエスト",
-            "5": "• オプトアウト：マーケティングコミュニケーションのオプトアウト",
-            "6": "• 制限：情報処理の制限をリクエスト",
-            "7": "これらの権利を行使するには、support@deskive.com までご連絡ください。30日以内にリクエストに対応します。"
-          }
-        },
-        "section8": {
-          "title": "8. Cookieと追跡技術",
-          "content": {
-            "0": "サービスの使用に関する情報を収集および追跡するために、Cookieおよび類似の追跡技術を使用しています。",
-            "1": "Cookieは、デバイスに保存される小さなデータファイルです。セッションCookie（ブラウザを閉じると期限切れ）と永続的Cookie（設定された期間デバイスに残る）の両方を使用します。",
-            "2": "以下の目的でCookieを使用します：",
-            "3": "• 認証とセキュリティ",
-            "4": "• 設定と環境設定",
-            "5": "• 分析とパフォーマンス監視",
-            "6": "• 広告とマーケティング",
-            "7": "ブラウザの設定でCookieを制御できます。ただし、Cookieを無効にすると、サービスの一部の機能の使用が制限される場合があります。"
-          }
-        },
-        "section9": {
-          "title": "9. 子供のプライバシー",
-          "content": {
-            "0": "当社のサービスは13歳未満の子供を対象としておらず、13歳未満の子供から意図的に個人情報を収集することはありません。",
-            "1": "13歳未満の子供から個人情報を収集したことが判明した場合、できるだけ早くその情報を削除する措置を講じます。",
-            "2": "13歳未満の子供が当社に個人情報を提供したと思われる場合は、support@deskive.com までご連絡ください。"
-          }
-        },
-        "section10": {
-          "title": "10. プライバシーポリシーの変更",
-          "content": {
-            "0": "このプライバシーポリシーは随時更新される場合があります。重要な変更がある場合は、以下の方法で通知します：",
-            "1": "• このページに新しいプライバシーポリシーを掲載",
-            "2": "• 「最終更新」日付の更新",
-            "3": "• メール通知の送信（メールアドレスを提供している場合）",
-            "4": "変更がないか定期的にこのプライバシーポリシーを確認することをお勧めします。変更後もサービスを引き続き使用することは、更新されたプライバシーポリシーの受諾を示すものとします。"
-          }
-        },
-        "section11": {
-          "title": "11. お問い合わせ",
-          "content": {
-            "0": "このプライバシーポリシーまたは当社のデータ慣行に関してご質問、懸念、またはリクエストがある場合は、以下までご連絡ください：",
-            "1": "メール：support@deskive.com",
-            "2": "住所: 神奈川県横浜市緑区長津田6-5-5 日商II 1F 1-B号室",
-            "3": "電話：+81 45-508-9779",
-            "4": "データ保護責任者：support@deskive.com",
-            "5": "すべてのお問い合わせには48営業時間以内に対応します。"
-          }
+        "step4": {
+          "title": "削除を確認する",
+          "description": "この操作が永久的で取り消し不可能であることを理解していることを確認するために、確認フィールドに「DELETE」と入力します。"
         }
       },
-      "contactForm": {
-        "title": "プライバシーに関するご質問はありますか？",
-        "description": "プライバシー慣行に関してご質問や懸念がある場合は、お気軽にお問い合わせください。",
-        "emailButton": "プライバシーチームにメール",
-        "termsButton": "利用規約を読む"
+      "timeline": {
+        "title": "削除のタイムライン",
+        "description": "アカウント削除をリクエストした後に何が起こるか：",
+        "immediate": {
+          "title": "即時（0日）",
+          "description": "アカウントは即座に無効化され、ログアウトされます。アカウントやデータにアクセスできなくなります。"
+        },
+        "days30": {
+          "title": "30日以内",
+          "description": "すべての個人データとコンテンツがアクティブシステムから完全に削除され、復元できなくなります。"
+        },
+        "days90": {
+          "title": "90日以内",
+          "description": "すべてのデータがバックアップと災害復旧システムから削除されます。完全なデータ消去が達成されます。"
+        }
+      },
+      "cta": {
+        "title": "アカウントを削除する準備はできましたか？",
+        "description": "続行する場合は、アカウントにサインインして削除プロセスに従ってください。",
+        "deleteButton": "アカウント設定に移動",
+        "privacyButton": "プライバシーポリシーを読む"
+      },
+      "contact": {
+        "title": "サポートが必要ですか？",
+        "description": "アカウント削除やデータ削除についてご質問がある場合は、privacy@deskive.comまでプライバシーチームにお問い合わせください",
+        "emailButton": "プライバシーチームに連絡",
+        "termsButton": "利用規約を表示"
       }
     },
     "terms": {
@@ -5351,6 +6356,172 @@
             "4": "すべてのお問い合わせには、営業日48時間以内に対応いたします。"
           }
         }
+      }
+    },
+    "privacy": {
+      "badge": "あなたのプライバシーを守ります",
+      "title": "プライバシーポリシー",
+      "description": "個人情報の収集、使用、保護方法について説明します。お客様の信頼が私たちの最優先事項です。",
+      "lastUpdated": "最終更新: {date}",
+      "glance": {
+        "title": "プライバシーの概要",
+        "secure": {
+          "icon": "🔒",
+          "title": "エンタープライズセキュリティ",
+          "description": "銀行レベルの暗号化とSOC 2準拠"
+        },
+        "noSale": {
+          "icon": "🚫",
+          "title": "データを販売しません",
+          "description": "お客様のデータはお客様のものです。第三者に販売することはありません。"
+        },
+        "control": {
+          "icon": "⚙️",
+          "title": "完全なコントロール",
+          "description": "いつでもデータへのアクセス、エクスポート、削除が可能"
+        }
+      },
+      "sections": {
+        "section1": {
+          "title": "1. 収集する情報",
+          "content": {
+            "0": "アカウント作成、サービス利用、またはコミュニケーション時に、お客様が直接提供する情報を収集します。これには以下が含まれます：",
+            "1": "• アカウント情報：氏名、メールアドレス、パスワード、プロフィール情報",
+            "2": "• ワークスペースデータ：作成またはアップロードしたファイル、ドキュメント、メッセージ、コメント、その他のコンテンツ",
+            "3": "• 利用情報：サービスとの対話方法、使用する機能、実行するアクション",
+            "4": "• デバイス情報：デバイスの種類、オペレーティングシステム、ブラウザの種類、IPアドレス、固有のデバイス識別子",
+            "5": "• 支払情報：請求先住所と支払方法の詳細（支払プロバイダーによって安全に処理されます）",
+            "6": "• Slack連携データ: DeskiveをSlackに接続すると、シームレスな連携と通知を有効にするため、SlackユーザーID、ワークスペースID、チャンネルID、メールアドレス、プロフィール情報(名前、アバター)、OAuthトークンを収集します"
+          }
+        },
+        "section2": {
+          "title": "2. 情報の使用方法",
+          "content": {
+            "0": "収集した情報は以下の目的で使用します：",
+            "1": "• サービスの提供、維持、改善",
+            "2": "• 取引の処理と関連情報の送信",
+            "3": "• 技術的な通知、更新、セキュリティアラート、サポートメッセージの送信",
+            "4": "• コメント、質問、カスタマーサービスリクエストへの対応",
+            "5": "• 製品、サービス、オファー、イベントに関するコミュニケーション",
+            "6": "• サービスに関連するトレンド、使用状況、アクティビティの監視と分析",
+            "7": "• 不正取引やその他の違法行為の検出、調査、防止",
+            "8": "• エクスペリエンスのパーソナライズと改善"
+          }
+        },
+        "section3": {
+          "title": "3. 情報の共有と開示",
+          "content": {
+            "0": "以下の場合にお客様の情報を共有することがあります：",
+            "1": "• 共有ワークスペースで協力する他のユーザーと",
+            "2": "• サービス提供に必要なベンダー、コンサルタント、サービスプロバイダーと",
+            "3": "• 法的要請に応じて、または適用法を遵守するため",
+            "4": "• Deskive、ユーザー、またはその他の権利、財産、安全を保護するため",
+            "5": "• お客様の同意または指示がある場合",
+            "6": "お客様の個人情報を第三者に販売することはありません。お客様のデータはお客様のものであり、私たちはそれを保護することに専念しています。"
+          }
+        },
+        "section4": {
+          "title": "4. データセキュリティ",
+          "content": {
+            "0": "お客様に関する情報を紛失、盗難、誤用、不正アクセス、開示、改ざん、破壊から保護するために合理的な措置を講じています。",
+            "1": "転送中および保存中のデータを保護するために業界標準の暗号化を使用しています。",
+            "2": "すべてのデータは、安全でSOC 2準拠のデータセンターに保存されています。",
+            "3": "厳格なアクセス制御と認証手順を実装しています。",
+            "4": "定期的なセキュリティ監査と侵入テストを実施しています。",
+            "5": "ただし、どのセキュリティシステムも完全ではありません。データベースのセキュリティを保証することはできず、インターネット経由で送信される情報が傍受されないことも保証できません。"
+          }
+        },
+        "section5": {
+          "title": "5. データ保持",
+          "content": {
+            "0": "アカウントがアクティブな間、またはサービスを提供するために必要な期間、お客様の情報を保持します。",
+            "1": "災害復旧の目的で、データのバックアップコピーを最大90日間保持する場合があります。",
+            "2": "support@deskive.com にご連絡いただくことで、いつでもデータの削除をリクエストできます。",
+            "3": "support@deskive.com までご連絡いただくか、Slackアプリホームの切断オプションを使用することで、いつでもデータの削除をリクエストできます。"
+          }
+        },
+        "section6": {
+          "title": "6. 国際データ転送",
+          "content": {
+            "0": "Deskiveは米国を拠点としており、米国およびその他の国で情報を処理および保存します。",
+            "1": "米国外からサービスにアクセスしている場合、お客様の情報が米国およびその他の国に転送、保存、処理される可能性があることにご注意ください。",
+            "2": "適用されるデータ保護法を遵守し、国際データ転送に適切な保護措置を実装しています。",
+            "3": "サービスを使用することにより、お客様の居住国以外の国への情報の転送に同意したものとみなされます。"
+          }
+        },
+        "section7": {
+          "title": "7. お客様の権利と選択",
+          "content": {
+            "0": "お客様の個人情報に関して、以下の権利があります：",
+            "1": "• アクセス：個人情報へのアクセスをリクエスト",
+            "2": "• 訂正：不正確または不完全な情報の訂正をリクエスト",
+            "3": "• 削除：個人情報の削除をリクエスト",
+            "4": "• ポータビリティ：ポータブル形式での情報のコピーをリクエスト",
+            "5": "• オプトアウト：マーケティングコミュニケーションのオプトアウト",
+            "6": "• 制限：情報処理の制限をリクエスト",
+            "7": "これらの権利を行使するには、support@deskive.com までご連絡ください。30日以内にリクエストに対応します。"
+          }
+        },
+        "section8": {
+          "title": "8. Cookieと追跡技術",
+          "content": {
+            "0": "サービスの使用に関する情報を収集および追跡するために、Cookieおよび類似の追跡技術を使用しています。",
+            "1": "Cookieは、デバイスに保存される小さなデータファイルです。セッションCookie（ブラウザを閉じると期限切れ）と永続的Cookie（設定された期間デバイスに残る）の両方を使用します。",
+            "2": "以下の目的でCookieを使用します：",
+            "3": "• 認証とセキュリティ",
+            "4": "• 設定と環境設定",
+            "5": "• 分析とパフォーマンス監視",
+            "6": "• 広告とマーケティング",
+            "7": "ブラウザの設定でCookieを制御できます。ただし、Cookieを無効にすると、サービスの一部の機能の使用が制限される場合があります。"
+          }
+        },
+        "section9": {
+          "title": "9. 子供のプライバシー",
+          "content": {
+            "0": "当社のサービスは13歳未満の子供を対象としておらず、13歳未満の子供から意図的に個人情報を収集することはありません。",
+            "1": "13歳未満の子供から個人情報を収集したことが判明した場合、できるだけ早くその情報を削除する措置を講じます。",
+            "2": "13歳未満の子供が当社に個人情報を提供したと思われる場合は、support@deskive.com までご連絡ください。"
+          }
+        },
+        "section10": {
+          "title": "10. プライバシーポリシーの変更",
+          "content": {
+            "0": "このプライバシーポリシーは随時更新される場合があります。重要な変更がある場合は、以下の方法で通知します：",
+            "1": "• このページに新しいプライバシーポリシーを掲載",
+            "2": "• 「最終更新」日付の更新",
+            "3": "• メール通知の送信（メールアドレスを提供している場合）",
+            "4": "変更がないか定期的にこのプライバシーポリシーを確認することをお勧めします。変更後もサービスを引き続き使用することは、更新されたプライバシーポリシーの受諾を示すものとします。"
+          }
+        },
+        "section11": {
+          "title": "11. お問い合わせ",
+          "content": {
+            "0": "このプライバシーポリシーまたは当社のデータ慣行に関してご質問、懸念、またはリクエストがある場合は、以下までご連絡ください：",
+            "1": "メール：support@deskive.com",
+            "2": "住所: 神奈川県横浜市緑区長津田6-5-5 日商II 1F 1-B号室",
+            "3": "電話：+81 45-508-9779",
+            "4": "データ保護責任者：support@deskive.com",
+            "5": "すべてのお問い合わせには48営業時間以内に対応します。",
+            "6": "すべてのサブプロセッサーは、当社のプライバシーポリシーと一貫するセキュリティ基準を維持することが求められ、データ保護契約によって拘束されます。当社はサブプロセッサーを定期的にレビューおよび監査します。サブプロセッサーに関するご質問は、support@deskive.com までお問い合わせください。"
+          }
+        },
+        "section12": {
+          "title": "12. お問い合わせ",
+          "content": {
+            "0": "本プライバシーポリシーまたは当社のデータ取扱いに関するご質問、ご意見、ご要望がございましたら、以下までお問い合わせください:",
+            "1": "メール: support@deskive.com",
+            "2": "住所: 〒226-0027 神奈川県横浜市緑区長津田6-5-5 日昌ビル II 1F 1-B号室",
+            "3": "電話: +81 45-508-9779",
+            "4": "データ保護責任者: support@deskive.com",
+            "5": "すべてのお問い合わせには、48営業時間以内にご返信いたします。"
+          }
+        }
+      },
+      "contactForm": {
+        "title": "プライバシーに関するご質問はありますか？",
+        "description": "プライバシー慣行に関してご質問や懸念がある場合は、お気軽にお問い合わせください。",
+        "emailButton": "プライバシーチームにメール",
+        "termsButton": "利用規約を読む"
       }
     },
     "cookies": {
@@ -5529,6 +6700,284 @@
         }
       }
     },
+    "chat": {
+      "title": "チャット",
+      "searchMessages": "メッセージを検索...",
+      "previousResult": "前の結果",
+      "nextResult": "次の結果",
+      "voiceCall": "音声通話",
+      "videoCall": "ビデオ通話",
+      "bookmarkedMessages": "ブックマークしたメッセージ",
+      "toggleAISummaries": "AI要約を切り替え",
+      "pinnedMessages": {
+        "singular": "ピン留めされたメッセージ",
+        "plural": "ピン留めされたメッセージ",
+        "count": "{count}件の{text}"
+      },
+      "selectedMessages": "{count}件選択中",
+      "deleteButton": "削除",
+      "loadingMessages": "メッセージを読み込んでいます...",
+      "loadingOlderMessages": "古いメッセージを読み込んでいます...",
+      "noMoreMessages": "これ以上メッセージはありません",
+      "noMessagesYet": "まだメッセージがありません。会話を始めましょう!",
+      "replyingTo": "{name}に返信",
+      "directMessage": "ダイレクトメッセージ",
+      "typingIndicator": {
+        "singular": "{name}",
+        "two": "{name1}と{name2}",
+        "plural": "{count}人"
+      },
+      "inputPlaceholder": "メッセージを入力...",
+      "sendMessage": "メッセージを送信",
+      "uploadFile": "ファイルをアップロード",
+      "addEmoji": "絵文字を追加",
+      "scheduleMessage": "メッセージをスケジュール",
+      "aiAssistant": "AIアシスタント",
+      "error": "メッセージの読み込みエラー",
+      "createChannel": {
+        "title": "チャンネルを作成",
+        "editTitle": "チャンネルを編集",
+        "channelName": "チャンネル名",
+        "channelNamePlaceholder": "例: マーケティング",
+        "description": "説明（任意）",
+        "makePrivate": "プライベートにする",
+        "allWorkspaceMembers": "すべてのワークスペースメンバーがこのチャンネルにアクセスできます",
+        "onlySelectedMembers": "選択されたメンバーのみがこのチャンネルにアクセスできます",
+        "addMembers": "メンバーを追加（任意）",
+        "channelMembers": "チャンネルメンバー",
+        "searchMembers": "メンバーを検索...",
+        "loadingMembers": "メンバーを読み込み中...",
+        "noMembersFound": "メンバーが見つかりません",
+        "noMembers": "利用可能なメンバーがいません",
+        "cancel": "キャンセル",
+        "create": "作成",
+        "update": "更新"
+      },
+      "startConversation": {
+        "title": "会話を開始",
+        "searchPlaceholder": "メンバーを検索...",
+        "noMembers": "メンバーが見つかりません",
+        "cancel": "キャンセル",
+        "selectMembers": "メンバーを選択"
+      }
+    },
+    "files": {
+      "title": "ファイル",
+      "searchPlaceholder": "ファイル、コンテンツ、タグを検索...",
+      "allFiles": "すべてのファイル",
+      "dashboard": "ダッシュボード",
+      "messages": {
+        "workspaceRequired": "ワークスペースIDが必要です",
+        "itemNotFound": "アイテムが見つかりません",
+        "folderDeleted": "フォルダを削除しました",
+        "fileDeleted": "ファイルを削除しました",
+        "restoreSuccess": "{folders}個のフォルダと{files}個のファイルを復元しました",
+        "fileRestored": "ファイル「{name}」を復元しました",
+        "downloading": "ファイルをダウンロードしています...",
+        "downloadSuccess": "ファイルのダウンロードが完了しました",
+        "folderCreated": "フォルダ「{name}」を作成しました",
+        "folderRenamed": "フォルダ名を「{name}」に変更しました",
+        "fileRenamed": "ファイル名を「{name}」に変更しました",
+        "fileStarred": "ファイルにスターを付けました",
+        "fileUnstarred": "ファイルからスターを外しました"
+      },
+      "projects": "プロジェクト",
+      "calendar": "カレンダー",
+      "notes": "ノート",
+      "loading": "ファイルを読み込んでいます...",
+      "categories": {
+        "allFiles": "すべてのファイル",
+        "recent": "最近",
+        "starred": "スター付き",
+        "sharedWithMe": "共有されたファイル",
+        "trash": "ゴミ箱",
+        "documents": "ドキュメント",
+        "pdfs": "PDF",
+        "images": "画像",
+        "spreadsheets": "スプレッドシート",
+        "videos": "動画",
+        "audio": "音声"
+      },
+      "actions": {
+        "upload": "アップロード",
+        "createFolder": "フォルダを作成",
+        "delete": "削除",
+        "restore": "復元",
+        "download": "ダウンロード",
+        "rename": "名前を変更",
+        "copy": "コピー",
+        "move": "移動",
+        "star": "スターを付ける",
+        "unstar": "スターを外す"
+      },
+      "buttons": {
+        "newFolder": "新規フォルダ",
+        "importFromDrive": "Driveからインポート",
+        "importFromDropbox": "Dropboxからインポート"
+      },
+      "filters": {
+        "type": "タイプ",
+        "dateModifiedButton": "更新日時"
+      },
+      "storage": {
+        "planFree": "無料"
+      },
+      "tabs": {
+        "messageAttachments": "メッセージの添付ファイル",
+        "projectAssets": "プロジェクトアセット",
+        "calendarDocuments": "カレンダードキュメント",
+        "noteAttachments": "ノートの添付ファイル",
+        "comingSoon": "近日公開..."
+      }
+    },
+    "calendar": {
+      "title": "カレンダー",
+      "googleCalendar": {
+        "title": "Googleカレンダー",
+        "loading": "読み込み中...",
+        "connected": "接続されました",
+        "notConnected": "Googleカレンダーに接続されていません",
+        "connect": "Googleカレンダーを接続",
+        "disconnect": "接続解除",
+        "sync": "同期",
+        "syncing": "同期中...",
+        "refreshing": "更新中...",
+        "saving": "保存中...",
+        "connectDescription": "Googleカレンダーを接続してイベントとスケジュールを同期します。",
+        "connectError": "Googleカレンダーへの接続に失敗しました:",
+        "connectedSuccess": "Googleカレンダーが正常に接続されました",
+        "connectedError": "Googleカレンダーの接続に失敗しました",
+        "syncError": "カレンダーの更新に失敗しました",
+        "syncTooltip": "カレンダーを更新してGoogleから最新のイベントを取得",
+        "disconnectSuccess": "Googleカレンダーが正常に切断されました",
+        "disconnectError": "Googleカレンダーの切断に失敗しました",
+        "disconnectTitle": "Googleカレンダーの接続解除",
+        "disconnectDescription": "Googleカレンダーの接続を削除し、イベントの同期を停止します。いつでも再接続できます。",
+        "selectCalendars": "同期するカレンダーを選択 ({selected}/{total})",
+        "selectAtLeastOne": "少なくとも1つのカレンダーを選択してください",
+        "pleaseSelectCalendar": "少なくとも1つのカレンダーを選択してください",
+        "selectionUpdated": "カレンダーの選択が更新されました。イベントを同期中...",
+        "selectionUpdateFailed": "カレンダーの選択の更新に失敗しました",
+        "calendarsRefreshed": "利用可能なカレンダーが更新されました",
+        "calendarsRefreshFailed": "カレンダーの更新に失敗しました",
+        "calendarRefreshed": "カレンダーが更新されました！イベントはGoogleから直接取得されます。",
+        "refreshAvailableCalendars": "利用可能なカレンダーを更新",
+        "saveAndSync": "保存して同期",
+        "primary": "プライマリ",
+        "neverSynced": "同期されたことがありません",
+        "autoSync": "自動同期: 10分"
+      },
+      "views": {
+        "month": "月",
+        "week": "週",
+        "day": "日",
+        "agenda": "予定表",
+        "timeline": "タイムライン",
+        "year": "年"
+      },
+      "actions": {
+        "today": "今日",
+        "previous": "前へ",
+        "next": "次へ",
+        "createEvent": "イベントを作成",
+        "quickMeeting": "クイックミーティング",
+        "scheduleAssistant": "スケジュールアシスタント",
+        "filters": "フィルター",
+        "settings": "設定",
+        "analytics": "分析"
+      },
+      "event": {
+        "title": "イベントタイトル",
+        "description": "説明",
+        "startTime": "開始時刻",
+        "endTime": "終了時刻",
+        "location": "場所",
+        "attendees": "参加者",
+        "category": "カテゴリー",
+        "recurring": "繰り返し",
+        "reminders": "リマインダー",
+        "allDay": "終日イベント",
+        "save": "イベントを保存",
+        "cancel": "キャンセル",
+        "delete": "イベントを削除"
+      },
+      "categories": {
+        "work": "仕事",
+        "personal": "個人",
+        "meeting": "ミーティング",
+        "deadline": "締切",
+        "other": "その他"
+      },
+      "recurring": {
+        "none": "繰り返さない",
+        "daily": "毎日",
+        "weekly": "毎週",
+        "monthly": "毎月",
+        "yearly": "毎年",
+        "custom": "カスタム"
+      }
+    },
+    "notes": {
+      "title": "ノート",
+      "searchPlaceholder": "ノートを検索...",
+      "newNote": "新しいノート",
+      "newFolder": "新しいフォルダ",
+      "actions": {
+        "save": "保存",
+        "delete": "削除",
+        "share": "共有",
+        "export": "エクスポート",
+        "duplicate": "複製",
+        "moveTo": "移動先",
+        "addTag": "タグを追加",
+        "archive": "アーカイブ"
+      },
+      "editor": {
+        "heading1": "見出し1",
+        "heading2": "見出し2",
+        "heading3": "見出し3",
+        "paragraph": "段落",
+        "bold": "太字",
+        "italic": "斜体",
+        "underline": "下線",
+        "strikethrough": "取り消し線",
+        "code": "コード",
+        "codeBlock": "コードブロック",
+        "bulletList": "箇条書きリスト",
+        "numberedList": "番号付きリスト",
+        "checkbox": "チェックボックス",
+        "quote": "引用",
+        "divider": "区切り線",
+        "link": "リンク",
+        "image": "画像",
+        "table": "表",
+        "emoji": "絵文字"
+      },
+      "sidebar": {
+        "allNotes": "すべてのノート",
+        "recent": "最近",
+        "favorites": "お気に入り",
+        "shared": "共有",
+        "archived": "アーカイブ済み",
+        "tags": "タグ",
+        "folders": "フォルダ"
+      },
+      "templates": {
+        "title": "テンプレート",
+        "blank": "空白のノート",
+        "meeting": "ミーティングノート",
+        "project": "プロジェクト計画",
+        "todo": "ToDoリスト",
+        "brainstorm": "ブレインストーミング"
+      },
+      "messages": {
+        "saved": "ノートを保存しました",
+        "deleted": "ノートを削除しました",
+        "restored": "ノートを復元しました",
+        "shared": "ノートを共有しました",
+        "exported": "ノートをエクスポートしました"
+      }
+    },
     "userProfile": {
       "loading": "プロフィールを読み込み中...",
       "errorTitle": "プロフィールが見つかりません",
@@ -5562,103 +7011,6 @@
         "admin": "管理者",
         "member": "メンバー",
         "viewer": "閲覧者"
-      }
-    },
-    "dataDeletion": {
-      "badge": "あなたの権利",
-      "title": "アカウントとデータの削除",
-      "description": "Deskiveアカウントと関連するすべてのデータを完全に削除する方法をご確認ください。私たちはあなたの忘れられる権利を尊重します。",
-      "warning": {
-        "title": "⚠️ 重要な警告",
-        "description": "アカウントの削除は永久的であり、元に戻すことはできません。続行する前に、削除される内容を確認してください：",
-        "item1": "すべての個人データが完全に削除されます",
-        "item2": "所有するすべてのワークスペースが削除されます",
-        "item3": "この操作は取り消したり元に戻すことはできません",
-        "item4": "アカウントは即座に無効化されます"
-      },
-      "whatDeleted": {
-        "title": "削除されるデータ",
-        "description": "アカウントを削除すると、以下のデータが完全に削除されます：",
-        "profile": {
-          "title": "プロフィール情報",
-          "description": "名前、メール、アバター、自己紹介、すべての個人情報"
-        },
-        "messages": {
-          "title": "メッセージとチャット",
-          "description": "すべてのダイレクトメッセージ、チャンネルメッセージ、チャット履歴"
-        },
-        "files": {
-          "title": "ファイルとドキュメント",
-          "description": "アップロードされたすべてのファイル、ドキュメント、添付ファイル"
-        },
-        "calendar": {
-          "title": "カレンダーとイベント",
-          "description": "すべてのカレンダーイベント、ミーティング、スケジュール"
-        },
-        "videos": {
-          "title": "ビデオ録画",
-          "description": "すべてのビデオ通話録画とミーティング録画"
-        },
-        "media": {
-          "title": "写真とメディア",
-          "description": "すべての画像、ビデオ、その他のメディアファイル"
-        },
-        "workspaces": {
-          "title": "ワークスペースとプロジェクト",
-          "description": "所有するすべてのワークスペースと関連するプロジェクトデータ"
-        },
-        "preferences": {
-          "title": "設定と環境設定",
-          "description": "すべての環境設定、設定、構成"
-        }
-      },
-      "process": {
-        "title": "アカウントの削除方法",
-        "description": "Deskiveアカウントを完全に削除するには、以下の簡単な手順に従ってください：",
-        "step1": {
-          "title": "アカウントにサインインする",
-          "description": "メールアドレスとパスワードを使用してDeskiveにログインします。アカウント削除をリクエストするには、サインインしている必要があります。"
-        },
-        "step2": {
-          "title": "セキュリティ設定に移動する",
-          "description": "設定 > セキュリティに移動し、ページ下部の「危険ゾーン」セクションまでスクロールします。"
-        },
-        "step3": {
-          "title": "アカウント削除をクリックする",
-          "description": "「アカウント削除」ボタンをクリックし、データの完全削除に関する警告メッセージを注意深く読みます。"
-        },
-        "step4": {
-          "title": "削除を確認する",
-          "description": "この操作が永久的で取り消し不可能であることを理解していることを確認するために、確認フィールドに「DELETE」と入力します。"
-        }
-      },
-      "timeline": {
-        "title": "削除のタイムライン",
-        "description": "アカウント削除をリクエストした後に何が起こるか：",
-        "immediate": {
-          "title": "即時（0日）",
-          "description": "アカウントは即座に無効化され、ログアウトされます。アカウントやデータにアクセスできなくなります。"
-        },
-        "days30": {
-          "title": "30日以内",
-          "description": "すべての個人データとコンテンツがアクティブシステムから完全に削除され、復元できなくなります。"
-        },
-        "days90": {
-          "title": "90日以内",
-          "description": "すべてのデータがバックアップと災害復旧システムから削除されます。完全なデータ消去が達成されます。"
-        }
-      },
-      "cta": {
-        "title": "アカウントを削除する準備はできましたか？",
-        "description": "続行する場合は、アカウントにサインインして削除プロセスに従ってください。",
-        "deleteButton": "アカウント設定に移動",
-        "privacyButton": "プライバシーポリシーを読む"
-      },
-      "contact": {
-        "title": "サポートが必要ですか？",
-        "description": "アカウント削除やデータ削除についてご質問がある場合は、privacy@deskive.comまでプライバシーチームにお問い合わせください",
-        "emailButton": "プライバシーチームに連絡",
-        "termsButton": "利用規約を表示"
       }
     }
   },
@@ -5816,7 +7168,7 @@
       "workLifeBalance": "ワークライフバランス",
       "jobSatisfaction": "仕事の満足度"
     },
-    "filesProduct2": {
+    "files": {
       "totalFiles": "総ファイル数",
       "storageUsed": "使用中のストレージ",
       "storageUtilization": "ストレージ使用率",
@@ -5830,7 +7182,7 @@
       "files": "ファイル",
       "ofTotal": "全体の"
     },
-    "calendarProduct3": {
+    "calendar": {
       "totalEvents": "総イベント数",
       "meetingsHeld": "開催されたミーティング",
       "avgDuration": "平均時間",
@@ -6126,6 +7478,10 @@
         "workspace": {
           "label": "ワークスペースの変更",
           "description": "ワークスペース設定、メンバーの変更、管理者の更新"
+        },
+        "email": {
+          "label": "メール通知",
+          "description": "接続されたGmailに新しいメールが届いたときに通知を受け取ります"
         }
       },
       "actions": {
@@ -6348,298 +7704,6 @@
       }
     }
   },
-  "chat": {
-    "title": "チャット",
-    "searchMessages": "メッセージを検索...",
-    "previousResult": "前の結果",
-    "nextResult": "次の結果",
-    "voiceCall": "音声通話",
-    "videoCall": "ビデオ通話",
-    "bookmarkedMessages": "ブックマークしたメッセージ",
-    "toggleAISummaries": "AI要約を切り替え",
-    "pinnedMessages": {
-      "singular": "ピン留めされたメッセージ",
-      "plural": "ピン留めされたメッセージ",
-      "count": "{count}件の{text}"
-    },
-    "selectedMessages": "{count}件選択中",
-    "deleteButton": "削除",
-    "loadingMessages": "メッセージを読み込んでいます...",
-    "loadingOlderMessages": "古いメッセージを読み込んでいます...",
-    "noMoreMessages": "これ以上メッセージはありません",
-    "noMessagesYet": "まだメッセージがありません。会話を始めましょう!",
-    "replyingTo": "{name}に返信",
-    "directMessage": "ダイレクトメッセージ",
-    "typingIndicator": {
-      "singular": "{name}",
-      "two": "{name1}と{name2}",
-      "plural": "{count}人"
-    },
-    "inputPlaceholder": "メッセージを入力...",
-    "sendMessage": "メッセージを送信",
-    "uploadFile": "ファイルをアップロード",
-    "addEmoji": "絵文字を追加",
-    "scheduleMessage": "メッセージをスケジュール",
-    "aiAssistant": "AIアシスタント",
-    "error": "メッセージの読み込みエラー",
-    "createChannel": {
-      "title": "チャンネルを作成",
-      "editTitle": "チャンネルを編集",
-      "channelName": "チャンネル名",
-      "channelNamePlaceholder": "例: マーケティング",
-      "description": "説明（任意）",
-      "makePrivate": "プライベートにする",
-      "allWorkspaceMembers": "すべてのワークスペースメンバーがこのチャンネルにアクセスできます",
-      "onlySelectedMembers": "選択されたメンバーのみがこのチャンネルにアクセスできます",
-      "addMembers": "メンバーを追加（任意）",
-      "channelMembers": "チャンネルメンバー",
-      "searchMembers": "メンバーを検索...",
-      "loadingMembers": "メンバーを読み込み中...",
-      "noMembersFound": "メンバーが見つかりません",
-      "noMembers": "利用可能なメンバーがいません",
-      "cancel": "キャンセル",
-      "create": "作成",
-      "update": "更新"
-    },
-    "startConversation": {
-      "title": "会話を開始",
-      "searchPlaceholder": "メンバーを検索...",
-      "noMembers": "メンバーが見つかりません",
-      "selectOneMember": "会話を開始するには1人のメンバーを選択してください",
-      "selectedCount": "{count}人のメンバーを選択",
-      "cancel": "キャンセル",
-      "start": "会話を開始"
-    }
-  },
-  "files": {
-    "title": "ファイル",
-    "searchPlaceholder": "ファイル、コンテンツ、タグを検索...",
-    "allFiles": "すべてのファイル",
-    "dashboard": "ダッシュボード",
-    "messages": {
-      "workspaceRequired": "ワークスペースIDが必要です",
-      "itemNotFound": "アイテムが見つかりません",
-      "folderDeleted": "フォルダを削除しました",
-      "fileDeleted": "ファイルを削除しました",
-      "restoreSuccess": "{folders}個のフォルダと{files}個のファイルを復元しました",
-      "fileRestored": "ファイル「{name}」を復元しました",
-      "downloading": "ファイルをダウンロードしています...",
-      "downloadSuccess": "ファイルのダウンロードが完了しました",
-      "folderCreated": "フォルダ「{name}」を作成しました",
-      "folderRenamed": "フォルダ名を「{name}」に変更しました",
-      "fileRenamed": "ファイル名を「{name}」に変更しました",
-      "fileStarred": "ファイルにスターを付けました",
-      "fileUnstarred": "ファイルからスターを外しました"
-    },
-    "projects": "プロジェクト",
-    "calendar": "カレンダー",
-    "notes": "ノート",
-    "loading": "ファイルを読み込んでいます...",
-    "categories": {
-      "allFiles": "すべてのファイル",
-      "recent": "最近",
-      "starred": "スター付き",
-      "sharedWithMe": "共有されたファイル",
-      "trash": "ゴミ箱",
-      "documents": "ドキュメント",
-      "pdfs": "PDF",
-      "images": "画像",
-      "spreadsheets": "スプレッドシート",
-      "videos": "動画",
-      "audio": "音声"
-    },
-    "actions": {
-      "upload": "アップロード",
-      "createFolder": "フォルダを作成",
-      "delete": "削除",
-      "restore": "復元",
-      "download": "ダウンロード",
-      "rename": "名前を変更",
-      "copy": "コピー",
-      "move": "移動",
-      "star": "スターを付ける",
-      "unstar": "スターを外す"
-    },
-    "buttons": {
-      "newFolder": "新規フォルダ",
-      "importFromDrive": "Driveからインポート",
-      "importFromDropbox": "Dropboxからインポート"
-    },
-    "filters": {
-      "type": "タイプ",
-      "dateModifiedButton": "更新日時"
-    },
-    "storage": {
-      "planFree": "無料"
-    },
-    "tabs": {
-      "messageAttachments": "メッセージの添付ファイル",
-      "projectAssets": "プロジェクトアセット",
-      "calendarDocuments": "カレンダードキュメント",
-      "noteAttachments": "ノートの添付ファイル",
-      "comingSoon": "近日公開..."
-    }
-  },
-  "calendarTopLevel": {
-    "title": "カレンダー",
-    "googleCalendar": {
-      "title": "Googleカレンダー",
-      "loading": "読み込み中...",
-      "connected": "接続されました",
-      "notConnected": "Googleカレンダーに接続されていません",
-      "connect": "Googleカレンダーを接続",
-      "disconnect": "接続解除",
-      "sync": "同期",
-      "syncing": "同期中...",
-      "refreshing": "更新中...",
-      "saving": "保存中...",
-      "connectDescription": "Googleカレンダーを接続してイベントとスケジュールを同期します。",
-      "connectError": "Googleカレンダーへの接続に失敗しました:",
-      "connectedSuccess": "Googleカレンダーが正常に接続されました",
-      "connectedError": "Googleカレンダーの接続に失敗しました",
-      "syncError": "カレンダーの更新に失敗しました",
-      "syncTooltip": "カレンダーを更新してGoogleから最新のイベントを取得",
-      "disconnectSuccess": "Googleカレンダーが正常に切断されました",
-      "disconnectError": "Googleカレンダーの切断に失敗しました",
-      "disconnectTitle": "Googleカレンダーの接続解除",
-      "disconnectDescription": "Googleカレンダーの接続を削除し、イベントの同期を停止します。いつでも再接続できます。",
-      "selectCalendars": "同期するカレンダーを選択 ({selected}/{total})",
-      "selectAtLeastOne": "少なくとも1つのカレンダーを選択してください",
-      "pleaseSelectCalendar": "少なくとも1つのカレンダーを選択してください",
-      "selectionUpdated": "カレンダーの選択が更新されました。イベントを同期中...",
-      "selectionUpdateFailed": "カレンダーの選択の更新に失敗しました",
-      "calendarsRefreshed": "利用可能なカレンダーが更新されました",
-      "calendarsRefreshFailed": "カレンダーの更新に失敗しました",
-      "calendarRefreshed": "カレンダーが更新されました！イベントはGoogleから直接取得されます。",
-      "refreshAvailableCalendars": "利用可能なカレンダーを更新",
-      "saveAndSync": "保存して同期",
-      "primary": "プライマリ",
-      "neverSynced": "同期されたことがありません",
-      "autoSync": "自動同期: 10分"
-    },
-    "views": {
-      "month": "月",
-      "week": "週",
-      "day": "日",
-      "agenda": "予定表",
-      "timeline": "タイムライン",
-      "year": "年"
-    },
-    "actions": {
-      "today": "今日",
-      "previous": "前へ",
-      "next": "次へ",
-      "createEvent": "イベントを作成",
-      "quickMeeting": "クイックミーティング",
-      "scheduleAssistant": "スケジュールアシスタント",
-      "filters": "フィルター",
-      "settings": "設定",
-      "analytics": "分析"
-    },
-    "event": {
-      "title": "イベントタイトル",
-      "description": "説明",
-      "startTime": "開始時刻",
-      "endTime": "終了時刻",
-      "location": "場所",
-      "attendees": "参加者",
-      "category": "カテゴリー",
-      "recurring": "繰り返し",
-      "reminders": "リマインダー",
-      "allDay": "終日イベント",
-      "save": "イベントを保存",
-      "cancel": "キャンセル",
-      "delete": "イベントを削除"
-    },
-    "categories": {
-      "work": "仕事",
-      "personal": "個人",
-      "meeting": "ミーティング",
-      "deadline": "締切",
-      "other": "その他"
-    },
-    "recurring": {
-      "none": "繰り返さない",
-      "daily": "毎日",
-      "weekly": "毎週",
-      "monthly": "毎月",
-      "yearly": "毎年",
-      "custom": "カスタム"
-    }
-  },
-  "notes": {
-    "title": "ノート",
-    "searchPlaceholder": "ノートを検索...",
-    "newNote": "新しいノート",
-    "newFolder": "新しいフォルダ",
-    "actions": {
-      "save": "保存",
-      "delete": "削除",
-      "share": "共有",
-      "export": "エクスポート",
-      "duplicate": "複製",
-      "moveTo": "移動先",
-      "addTag": "タグを追加",
-      "archive": "アーカイブ"
-    },
-    "editor": {
-      "heading1": "見出し1",
-      "heading2": "見出し2",
-      "heading3": "見出し3",
-      "paragraph": "段落",
-      "bold": "太字",
-      "italic": "斜体",
-      "underline": "下線",
-      "strikethrough": "取り消し線",
-      "code": "コード",
-      "codeBlock": "コードブロック",
-      "bulletList": "箇条書きリスト",
-      "numberedList": "番号付きリスト",
-      "checkbox": "チェックボックス",
-      "quote": "引用",
-      "divider": "区切り線",
-      "link": "リンク",
-      "image": "画像",
-      "table": "表",
-      "emoji": "絵文字"
-    },
-    "sidebar": {
-      "allNotes": "すべてのノート",
-      "recent": "最近",
-      "favorites": "お気に入り",
-      "shared": "共有",
-      "archived": "アーカイブ済み",
-      "tags": "タグ",
-      "folders": "フォルダ"
-    },
-    "templates": {
-      "title": "テンプレート",
-      "blank": "空白のノート",
-      "meeting": "ミーティングノート",
-      "project": "プロジェクト計画",
-      "todo": "ToDoリスト",
-      "brainstorm": "ブレインストーミング"
-    },
-    "messages": {
-      "saved": "ノートを保存しました",
-      "deleted": "ノートを削除しました",
-      "restored": "ノートを復元しました",
-      "shared": "ノートを共有しました",
-      "exported": "ノートをエクスポートしました"
-    },
-    "feedback": {
-      "title": "フィードバック＆サポート",
-      "description": "バグの報告、機能のリクエスト、またはDeskiveの改善に役立つ提案を共有してください。",
-      "newFeedback": "新規フィードバック",
-      "tabs": {
-        "all": "すべて",
-        "pending": "保留中",
-        "resolved": "解決済み"
-      },
-      "noFeedback": "まだフィードバックがありません",
-      "clickToSubmit": "「新規フィードバック」をクリックして最初のフィードバックを送信"
-    }
-  },
   "sidebar": {
     "dashboard": "ダッシュボード",
     "chat": "チャット",
@@ -6656,12 +7720,12 @@
       "profile": "プロフィール",
       "security": "セキュリティ",
       "notifications": "通知",
-      "feedback": "フィードバック",
       "team": "チーム",
       "billing": "請求",
       "billingBadge": "重要",
       "workspaceSection": "ワークスペース",
-      "workspace": "ワークスペース設定"
+      "workspace": "ワークスペース設定",
+      "feedback": "フィードバック"
     }
   },
   "admin": {
@@ -6912,157 +7976,53 @@
       "poweredBy": "Deskive AIアシスタント",
       "pressEnter": "Enterで送信、Shift+Enterで改行",
       "quickCommands": "クイックコマンド",
-      "conversations": "会話",
-      "messages": "メッセージ",
-      "history": "履歴",
-      "viewHistory": "履歴を表示",
-      "clearChat": "チャットをクリア",
-      "noHistory": "会話はまだありません",
-      "startNew": "会話を始める",
-      "attachFile": "ファイルを添付",
-      "addReference": "ワークスペースから参照を追加"
-    },
-    "reference": {
-      "selectType": "アイテムタイプを選択",
-      "search": "検索...",
-      "noResults": "アイテムが見つかりません"
-    },
-    "comingSoon": {
-      "title": "AI機能は近日公開",
-      "description": "この機能は現在開発中です。しばらくお待ちください！"
+      "confirmAction": "アクションを確認"
     },
     "modules": {
       "projects": {
         "title": "プロジェクトアシスタント",
         "description": "AIでプロジェクトを作成・管理",
-        "placeholder": "例：モバイルアプリ開発の新規プロジェクトを作成",
-        "welcome": "こんにちは！オートパイロットです。プロジェクトの作成、タスクの追加、ステータスの更新、作業の管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：モバイルアプリ開発の新規プロジェクトを作成"
       },
       "calendar": {
         "title": "カレンダーアシスタント",
         "description": "AIで会議やイベントをスケジュール",
-        "placeholder": "例：明日の午後3時にチームミーティングをスケジュール",
-        "welcome": "こんにちは！オートパイロットです。会議のスケジュール、イベントの作成、カレンダーの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：明日の午後3時にチームミーティングをスケジュール"
       },
       "notes": {
         "title": "ノートアシスタント",
         "description": "AIでノートを作成・整理",
-        "placeholder": "例：スプリント計画についてのノートを作成",
-        "welcome": "こんにちは！オートパイロットです。ノートの作成、ドキュメントの執筆、アイデアの整理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：スプリント計画についてのノートを作成"
       },
       "chat": {
         "title": "チャットアシスタント",
         "description": "AIでメッセージを送信・コミュニケーション",
-        "placeholder": "例：チームチャンネルにメッセージを送信",
-        "welcome": "こんにちは！オートパイロットです。メッセージの送信、更新の投稿、チームとのコミュニケーションをお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：チームチャンネルにメッセージを送信"
       },
       "files": {
         "title": "ファイルアシスタント",
         "description": "AIでファイルを整理・管理",
-        "placeholder": "例：プロジェクト資料用のフォルダを作成",
-        "welcome": "こんにちは！オートパイロットです。フォルダの作成、ファイルの整理、ストレージの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：プロジェクト資料用のフォルダを作成"
       },
       "video": {
         "title": "ビデオ通話アシスタント",
         "description": "ビデオ通話をスケジュール・管理",
-        "placeholder": "例：チームとのビデオ通話をスケジュール",
-        "welcome": "こんにちは！オートパイロットです。インスタント会議の開始、ビデオ通話のスケジュール、チームへの招待をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：チームとのビデオ通話をスケジュール"
       },
       "search": {
         "title": "検索アシスタント",
         "description": "ワークスペース内を検索",
-        "placeholder": "例：今週作成したすべてのプロジェクトを検索",
-        "welcome": "こんにちは！オートパイロットです。何をお探しですか？**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：今週作成したすべてのプロジェクトを検索"
       },
       "settings": {
         "title": "設定アシスタント",
         "description": "ワークスペースの設定を構成",
-        "placeholder": "例：通知設定の変更方法は？",
-        "welcome": "こんにちは！オートパイロットです。設定についてどのようにお手伝いできますか？**help**と入力してすべての機能を確認してください！"
+        "placeholder": "例：通知設定の変更方法は？"
       },
       "dashboard": {
         "title": "AIアシスタント",
         "description": "何をしますか？",
-        "placeholder": "例：プロジェクトを作成、会議をスケジュール、ノートを書く",
-        "welcome": "こんにちは！ワークスペースアシスタントのオートパイロットです。タスク、カレンダー、ノート、ファイル、チャット、メールなど、様々な機能をお手伝いできます。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
-      },
-      "email": {
-        "title": "メールアシスタント",
-        "description": "AIでメールを作成・管理",
-        "placeholder": "例：メールを作成する",
-        "welcome": "こんにちは！オートパイロットです。メールの作成、受信トレイの要約、コミュニケーションの管理をお手伝いします。以下の提案を試すか、**help**と入力してすべての機能を確認してください！"
-      },
-      "analytics": {
-        "title": "分析アシスタント",
-        "description": "AIでデータを分析・可視化",
-        "placeholder": "例：分析を要約する",
-        "welcome": "こんにちは！オートパイロットです。データの分析、インサイトの提供、トレンドの表示をお手伝いします。何を知りたいですか？"
-      },
-      "monitoring": {
-        "title": "モニタリングアシスタント",
-        "description": "システムのヘルスチェックとアラート管理",
-        "placeholder": "例：システムステータスを確認",
-        "welcome": "こんにちは！オートパイロットです。システムヘルスの監視、アラートの確認、パフォーマンスの分析をお手伝いします。何が必要ですか？"
-      },
-      "integrations": {
-        "title": "インテグレーションアシスタント",
-        "description": "連携機能の設定と管理",
-        "placeholder": "例：連携機能のセットアップを手伝って",
-        "welcome": "こんにちは！オートパイロットです。連携機能の設定、構成、トラブルシューティングをお手伝いします。何をしたいですか？"
-      },
-      "templates": {
-        "title": "テンプレートアシスタント",
-        "description": "テンプレートの作成と管理",
-        "placeholder": "例：テンプレートを作成",
-        "welcome": "こんにちは！オートパイロットです。テンプレートの作成、カスタマイズ、管理をお手伝いします。何が必要ですか？"
-      },
-      "whiteboard": {
-        "title": "ホワイトボードアシスタント",
-        "description": "アイデアの整理と図の作成",
-        "placeholder": "例：アイデアをブレインストーミング",
-        "welcome": "こんにちは！オートパイロットです。ブレインストーミング、アイデアの整理、図の作成をお手伝いします。何に取り組んでいますか？"
-      },
-      "budget": {
-        "title": "予算アシスタント",
-        "description": "予算の分析と最適化",
-        "placeholder": "例：予算を分析",
-        "welcome": "こんにちは！オートパイロットです。予算の分析、経費の予測、支出の最適化をお手伝いします。何が必要ですか？"
-      },
-      "forms": {
-        "title": "フォームアシスタント",
-        "description": "フォームの作成と回答分析",
-        "placeholder": "例：新しいフォームを作成",
-        "welcome": "こんにちは！オートパイロットです。フォームの作成、回答の分析、改善の提案をお手伝いします。何をしたいですか？"
-      },
-      "members": {
-        "title": "メンバー管理アシスタント",
-        "description": "チームメンバーの管理",
-        "placeholder": "例：チームメンバーを招待",
-        "welcome": "こんにちは！オートパイロットです。チームメンバーの管理、役割の設定、アクティビティの確認をお手伝いします。何が必要ですか？"
-      },
-      "notifications": {
-        "title": "通知アシスタント",
-        "description": "通知の管理と設定",
-        "placeholder": "例：通知を要約",
-        "welcome": "こんにちは！オートパイロットです。通知の管理、優先順位付け、フィルタリングをお手伝いします。何が必要ですか？"
-      },
-      "more": {
-        "title": "AIアシスタント",
-        "description": "何でもお手伝いします",
-        "placeholder": "例：何かを作成",
-        "welcome": "こんにちは！オートパイロットです。今日はどのようにお手伝いできますか？**help**と入力してすべての機能を確認してください！"
-      },
-      "apps": {
-        "title": "アプリアシスタント",
-        "description": "アプリの検索と設定",
-        "placeholder": "例：アプリを検索",
-        "welcome": "こんにちは！オートパイロットです。アプリの検索と設定をお手伝いします。何をお探しですか？"
-      },
-      "profile": {
-        "title": "プロフィールアシスタント",
-        "description": "プロフィールと設定の管理",
-        "placeholder": "例：プロフィールを更新",
-        "welcome": "こんにちは！オートパイロットです。プロフィールと設定の管理をお手伝いします。何をしたいですか？"
+        "placeholder": "例：プロジェクトを作成、会議をスケジュール、ノートを書く"
       }
     },
     "commandCenter": {
@@ -7074,9 +8034,9 @@
     "suggestions": {
       "projects": {
         "createProject": "Q1計画用の新規プロジェクトを作成",
-        "createProjectWebsite": "ウェブサイトリニューアルプロジェクトを作成",
-        "createBoard": "マーケティングキャンペーン用のボードを作成",
-        "createSprint": "開発スプリントプロジェクトを作成"
+        "updateProject": "プロジェクトの優先度を高に更新",
+        "deleteProject": "プロジェクトを削除",
+        "createBoard": "マーケティングキャンペーン用のボードを作成"
       },
       "calendar": {
         "scheduleMeeting": "明日の午後2時にチームミーティングをスケジュール",
@@ -7097,13 +8057,11 @@
       },
       "files": {
         "createFolder": "ドキュメント用の新規フォルダを作成",
-        "organizeFiles": "ファイルをプロジェクトフォルダに整理"
+        "organizeFiles": "ファイルをプロジェクトフォルダに整理",
+        "searchFiles": "名前でファイルを検索",
+        "starImportant": "重要なファイルにスターを付ける"
       },
       "dashboard": {
-        "dailySummary": "今日のサマリーを表示",
-        "focusToday": "今日は何に集中すべき？",
-        "overdueTasks": "期限切れのタスクを表示",
-        "upcomingEvents": "今後の予定は？",
         "createProject": "Q1計画用の新規プロジェクトを作成",
         "scheduleMeeting": "明日の午後2時にチームミーティングをスケジュール",
         "createNote": "プロジェクト要件についてのノートを作成",
@@ -7111,40 +8069,16 @@
         "addTask": "デザインモックアップのレビュータスクを追加"
       }
     },
-    "status": {
-      "processing": "リクエストを処理中...",
-      "thinking": "考え中...",
-      "executing": "実行中...",
-      "completed": "完了しました",
-      "failed": "失敗しました"
-    },
-    "actions": {
-      "creatingTask": "タスクを作成中",
-      "creatingNote": "ノートを作成中",
-      "creatingEvent": "イベントを作成中",
-      "creatingProject": "プロジェクトを作成中",
-      "updatingTask": "タスクを更新中",
-      "updatingNote": "ノートを更新中",
-      "sendingMessage": "メッセージを送信中",
-      "fetchingTasks": "タスクを取得中",
-      "fetchingEvents": "イベントを取得中",
-      "fetchingProjects": "プロジェクトを取得中",
-      "fetchingMembers": "メンバーを取得中",
-      "fetchingChannels": "チャンネルを取得中",
-      "searchingNotes": "ノートを検索中",
-      "gettingCurrentTime": "現在時刻を取得中",
-      "taskCompleted": "タスク作成完了",
-      "noteCompleted": "ノート作成完了",
-      "eventCompleted": "イベント作成完了",
-      "projectCompleted": "プロジェクト作成完了",
-      "messageCompleted": "メッセージ送信完了",
-      "updateCompleted": "更新完了",
-      "fetchCompleted": "取得完了",
-      "searchCompleted": "検索完了"
-    },
     "toast": {
       "projectCreated": "✅ プロジェクト作成完了",
       "projectCreatedDesc": "「{name}」が正常に作成されました。",
+      "projectUpdated": "プロジェクトを更新しました",
+      "projectUpdatedDesc": "\"{name}\"を正常に更新しました。",
+      "projectDeleted": "プロジェクトを削除しました",
+      "projectDeletedDesc": "\"{name}\"を正常に削除しました。",
+      "projectNotFound": "プロジェクトが見つかりません",
+      "projectNotFoundDesc": "プロジェクト\"{name}\"が見つかりませんでした。名前を確認してもう一度お試しください。",
+      "deleteConfirmation": "\"{name}\"を削除してもよろしいですか?この操作は取り消せません。",
       "meetingScheduled": "📅 会議スケジュール完了",
       "meetingScheduledDesc": "「{title}」がカレンダーに追加されました。",
       "noteCreated": "📝 ノート作成完了",
@@ -7172,541 +8106,6 @@
       "newTask": "新規タスク"
     },
     "createdViaAI": "AIコマンドで作成"
-  },
-  "home": {
-    "seo": {
-      "title": "オールインワンワークスペースプラットフォーム",
-      "description": "統合されたチャット、プロジェクト、ファイル、カレンダー、ノート、ビデオ通話でチームを統合。AI搭載のコラボレーションツールで生産性を向上。無料トライアルを開始。"
-    },
-    "loading": "読み込み中..."
-  },
-  "blog": {
-    "title": "ブログ - Deskiveのインサイトと更新情報",
-    "description": "Deskiveチームからの最新のインサイト、ヒント、更新情報を読む",
-    "section": {
-      "title": "私たちのブログ",
-      "latest": "最新",
-      "insights": "インサイト",
-      "subtitle": "チームからの生産性のヒント、コラボレーションガイド、職場のインサイトを発見",
-      "viewAll": "すべての投稿を見る",
-      "noPosts": "ブログ投稿はまだありません",
-      "noPostsDesc": "チームからのインサイトと更新情報をお楽しみに",
-      "readTime": "{time}分で読む"
-    },
-    "post": {
-      "backToBlog": "ブログに戻る",
-      "notFound": "投稿が見つかりません",
-      "tags": "タグ",
-      "ratings": {
-        "title": "評価とレビュー",
-        "average": "平均評価",
-        "rating": "評価",
-        "ratings": "評価",
-        "distribution": "評価分布",
-        "yourRating": "あなたの評価",
-        "submitRating": "評価を送信",
-        "reviewOptional": "レビュー（任意）",
-        "reviewPlaceholder": "この投稿についてのご意見をお聞かせください...",
-        "nameOptional": "名前（任意）",
-        "namePlaceholder": "あなたの名前",
-        "emailOptional": "メール（任意）",
-        "emailPlaceholder": "your@email.com",
-        "recentReviews": "最近のレビュー",
-        "selectRating": "評価を選択してください",
-        "submitting": "送信中...",
-        "submitSuccess": "評価を送信しました！",
-        "submitError": "評価の送信に失敗しました"
-      },
-      "comments": {
-        "title": "コメント",
-        "count": "{count}件のコメント",
-        "noComments": "まだコメントがありません。最初にコメントしましょう！",
-        "addPlaceholder": "コメントを追加...",
-        "submit": "コメント",
-        "submitting": "送信中...",
-        "loginRequired": "コメントするにはログインしてください",
-        "loginButton": "ログインしてコメント",
-        "writeComment": "コメントを書いてください",
-        "loginToComment": "コメントするにはログインしてください",
-        "postSuccess": "コメントを投稿しました！",
-        "postError": "コメントの投稿に失敗しました",
-        "reply": "返信",
-        "replyPlaceholder": "返信を書く...",
-        "postReply": "返信を投稿",
-        "posting": "投稿中...",
-        "cancel": "キャンセル",
-        "writeReply": "返信を書いてください",
-        "loginToReply": "返信するにはログインしてください",
-        "replySuccess": "返信を投稿しました！",
-        "replyError": "返信の投稿に失敗しました",
-        "collapse": "折りたたむ",
-        "expand": "展開"
-      },
-      "related": {
-        "title": "関連投稿"
-      }
-    },
-    "search": {
-      "title": "ブログを検索",
-      "titleWithTerm": "検索: \"{term}\" - ブログ | Deskive",
-      "description": "Deskiveブログで記事を検索 - \"{term}\"の結果",
-      "placeholder": "記事、トピックなどを検索...",
-      "filters": "フィルター",
-      "heading": "検索フィルター",
-      "clearAll": "すべてクリア",
-      "category": "カテゴリ",
-      "allCategories": "すべてのカテゴリ",
-      "tag": "タグ",
-      "allTags": "すべてのタグ",
-      "resultsFor": "「{term}」の検索結果",
-      "results": "検索結果",
-      "sortBy": "並び替え",
-      "latest": "最新",
-      "alphabetical": "アルファベット順",
-      "asc": "昇順",
-      "desc": "降順",
-      "noResults": "結果が見つかりません",
-      "noResultsDesc": "検索条件を変更するか、フィルターをクリアしてください",
-      "clearFilters": "フィルターをクリア",
-      "browseAll": "すべての投稿を見る"
-    }
-  },
-  "features": {
-    "grid": {
-      "tasks": "タスク",
-      "kanban": "カンバンボード",
-      "docs": "ドキュメント",
-      "aiAssistant": "AIアシスタント",
-      "calendar": "カレンダー",
-      "chat": "チャット",
-      "videoCalls": "ビデオ通話",
-      "files": "ファイル",
-      "projects": "プロジェクト",
-      "reporting": "レポート",
-      "goals": "目標",
-      "automations": "自動化",
-      "customFields": "カスタムフィールド",
-      "timeTracking": "時間管理",
-      "dashboards": "ダッシュボード",
-      "forms": "フォーム",
-      "reminders": "リマインダー",
-      "collaboration": "コラボレーション",
-      "integrations": "統合",
-      "smartSearch": "スマート検索",
-      "ganttCharts": "ガントチャート",
-      "tags": "タグ",
-      "emails": "メール",
-      "proofing": "校正",
-      "templates": "テンプレート",
-      "guests": "ゲスト",
-      "support247": "24時間サポート"
-    }
-  },
-  "tools": {
-    "title": "ツール",
-    "subtitle": "生産性とコラボレーションを向上させるための強力なツール",
-    "featuresSection": {
-      "title": "すべてのツール機能",
-      "subtitle": "ワークフローを効率化する包括的なツールスイート"
-    },
-    "documentBuilder": {
-      "name": "ドキュメントビルダー",
-      "description": "リアルタイムコラボレーションを備えたプロフェッショナルなドキュメントを作成"
-    },
-    "bots": {
-      "name": "ボット",
-      "description": "ワークフローを自動化し、チームの生産性を向上"
-    },
-    "budgetManagement": {
-      "name": "予算管理",
-      "description": "プロジェクト予算と支出を効率的に追跡・管理"
-    },
-    "projectTemplates": {
-      "name": "プロジェクトテンプレート",
-      "description": "事前構築されたテンプレートでプロジェクトをすぐに開始"
-    },
-    "whiteboard": {
-      "name": "ホワイトボード",
-      "description": "リアルタイムでアイデアをブレインストーミングし視覚化"
-    },
-    "requestApproval": {
-      "name": "承認リクエスト",
-      "description": "承認ワークフローを効率化し、進捗を追跡"
-    },
-    "forms": {
-      "name": "フォーム",
-      "description": "カスタムフォームを作成してデータを収集"
-    }
-  },
-  "apps": {
-    "page": {
-      "title": "コネクタ",
-      "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
-      "searchPlaceholder": "コネクタを検索...",
-      "connectorsAvailable": "{count}個のコネクタが利用可能"
-    },
-    "categories": {
-      "all": "すべて",
-      "communication": "コミュニケーション",
-      "productivity": "生産性",
-      "development": "開発",
-      "business": "ビジネス",
-      "marketing": "マーケティング",
-      "design": "デザイン",
-      "aiAutomation": "AI＆自動化",
-      "security": "セキュリティ"
-    },
-    "actions": {
-      "connect": "接続",
-      "open": "開く",
-      "disconnect": "切断"
-    },
-    "descriptions": {
-      "gmail": "Deskive内でメールを直接送受信",
-      "googleCalendar": "Googleカレンダーのイベントを同期・管理",
-      "googleDrive": "Googleドライブのファイルにアクセス・管理",
-      "github": "GitHubアカウントを接続してリポジトリを表示",
-      "googleSheets": "Googleスプレッドシートを表示・編集・同期",
-      "dropbox": "Dropboxのファイルにアクセス・管理"
-    },
-    "categoryLabels": {
-      "email": "メール",
-      "calendar": "カレンダー",
-      "fileStorage": "ファイルストレージ",
-      "development": "開発"
-    }
-  },
-  "documents": {
-    "title": "ドキュメントビルダー",
-    "subtitle": "リアルタイムコラボレーションを備えたプロフェッショナルなドキュメントを作成",
-    "hero": {
-      "badge": "強力なドキュメント作成",
-      "title": "リアルタイムコラボレーションでドキュメントを作成",
-      "description": "チームと一緒にプロフェッショナルなドキュメントを作成、編集、コラボレーション。直感的なエディタと強力な機能でドキュメント作成がこれまで以上に簡単に。",
-      "cta": {
-        "primary": "無料で始める",
-        "secondary": "デモを見る"
-      }
-    },
-    "features": {
-      "title": "強力なドキュメント機能",
-      "subtitle": "生産性を向上させるために必要なすべて",
-      "realTimeCollaboration": {
-        "title": "リアルタイムコラボレーション",
-        "description": "チームメイトと同時に作業。変更は即座に同期され、全員が同じページを見ています。"
-      },
-      "richTextEditor": {
-        "title": "リッチテキストエディタ",
-        "description": "書式設定、画像、表などを備えた強力なエディタで美しいドキュメントを作成。"
-      },
-      "versionHistory": {
-        "title": "バージョン履歴",
-        "description": "すべての変更を追跡し、必要に応じて以前のバージョンに戻すことができます。"
-      },
-      "templates": {
-        "title": "ドキュメントテンプレート",
-        "description": "事前構築されたテンプレートから始めるか、独自のテンプレートを作成して時間を節約。"
-      },
-      "aiAssistance": {
-        "title": "AI執筆支援",
-        "description": "AIを活用したサジェスチョンでコンテンツを改善し、より速く書く。"
-      },
-      "exportOptions": {
-        "title": "エクスポートオプション",
-        "description": "ドキュメントをPDF、Word、Markdown、その他の形式にエクスポート。"
-      }
-    },
-    "useCases": {
-      "title": "ドキュメントのユースケース",
-      "subtitle": "チームによる使用方法",
-      "projectDocumentation": {
-        "title": "プロジェクトドキュメント",
-        "description": "プロジェクト計画、要件、技術仕様を作成・管理。"
-      },
-      "meetingNotes": {
-        "title": "会議メモ",
-        "description": "会議の議事録を取り、アクションアイテムを追跡し、意思決定を文書化。"
-      },
-      "knowledgeBase": {
-        "title": "ナレッジベース",
-        "description": "チームの知識とベストプラクティスを一元化された場所に構築。"
-      },
-      "proposals": {
-        "title": "提案書とレポート",
-        "description": "クライアントや利害関係者向けのプロフェッショナルな提案書とレポートを作成。"
-      }
-    },
-    "stats": {
-      "totalDocuments": "総ドキュメント数",
-      "drafts": "下書き",
-      "proposals": "提案書",
-      "archived": "アーカイブ済み"
-    },
-    "types": {
-      "allDocuments": "すべてのドキュメント",
-      "proposals": "提案書",
-      "contracts": "契約書",
-      "invoices": "請求書",
-      "sows": "業務委託契約書"
-    },
-    "status": {
-      "allStatus": "すべてのステータス",
-      "draft": "下書き",
-      "archived": "アーカイブ済み"
-    },
-    "search": {
-      "placeholder": "ドキュメントを検索..."
-    },
-    "filters": {
-      "status": "ステータス"
-    },
-    "actions": {
-      "newDocument": "新規ドキュメント"
-    },
-    "noDescription": "説明なし",
-    "cta": {
-      "title": "ドキュメント作成を始める準備はできましたか？",
-      "description": "何千ものチームに参加して、ドキュメントのコラボレーション方法を変革しましょう。",
-      "button": "無料で始める"
-    }
-  },
-  "bots": {
-    "title": "ボットビルダー",
-    "subtitle": "ワークフローを自動化し、チームの生産性を向上",
-    "description": "カスタムボットを作成するか、ワークスペース用に事前構築されたボットを有効化します",
-    "loading": "ボットを読み込み中...",
-    "button": {
-      "create": "ボットを作成",
-      "createFirst": "最初のボットを作成"
-    },
-    "tabs": {
-      "custom": "カスタムボット",
-      "prebuilt": "事前構築ボット",
-      "general": "一般",
-      "triggers": "トリガー",
-      "actions": "アクション",
-      "settings": "設定"
-    },
-    "empty": {
-      "title": "カスタムボットはまだありません",
-      "description": "チャネルや会話で応答、タスク、ワークフローを自動化するための最初のボットを作成します。"
-    },
-    "type": {
-      "aiAssistant": "AIアシスタント",
-      "webhook": "Webhook",
-      "prebuilt": "事前構築",
-      "custom": "カスタム",
-      "customBot": "カスタムボット",
-      "webhookBot": "Webhookボット"
-    },
-    "action": {
-      "viewLogs": "ログを表示",
-      "activate": "有効化",
-      "deactivate": "無効化",
-      "edit": "編集",
-      "delete": "削除"
-    },
-    "noDescription": "説明がありません",
-    "triggers": {
-      "keyword": "キーワード",
-      "regexPattern": "正規表現パターン",
-      "schedule": "スケジュール",
-      "webhook": "Webhook",
-      "mention": "メンション",
-      "anyMessage": "すべてのメッセージ"
-    },
-    "actions": {
-      "sendMessage": "メッセージを送信",
-      "aiResponse": "AI応答",
-      "aiAutopilot": "AI自動操縦",
-      "createTask": "タスクを作成",
-      "createEvent": "イベントを作成",
-      "callWebhook": "Webhookを呼び出し",
-      "sendEmail": "メールを送信"
-    },
-    "prebuilt": {
-      "loading": "事前構築ボットを読み込み中...",
-      "empty": {
-        "title": "事前構築ボットは利用できません",
-        "description": "すぐに有効化できるすぐに使えるボットについては、後でもう一度確認してください。"
-      },
-      "activated": "有効化済み",
-      "features": "機能:",
-      "more": "その他"
-    },
-    "toast": {
-      "activated": "ボットが有効化されました",
-      "deactivated": "ボットが無効化されました",
-      "isNowActive": "が有効になりました",
-      "isNowInactive": "が無効になりました",
-      "isNowActiveAndReady": "が有効化され、使用可能になりました",
-      "hasBeenDeactivated": "が無効化されました",
-      "deleted": "ボットが削除されました",
-      "hasBeenDeleted": "が削除されました",
-      "failedUpdateStatus": "ボットのステータスの更新に失敗しました",
-      "failedDelete": "ボットの削除に失敗しました",
-      "failedActivate": "ボットの有効化に失敗しました",
-      "failedDeactivate": "ボットの無効化に失敗しました"
-    },
-    "error": {
-      "loading": "ボットの読み込みエラー",
-      "tryAgain": "後でもう一度お試しください"
-    },
-    "delete": {
-      "title": "ボットを削除",
-      "description": "「{name}」を削除してもよろしいですか？この操作は元に戻せません。すべてのトリガー、アクション、実行ログが完全に削除されます。"
-    },
-    "hero": {
-      "badge": "インテリジェントオートメーション",
-      "title": "AIボットでワークフローを自動化",
-      "description": "インテリジェントボットで反復的なタスクを自動化。タスクの割り当て、通知の送信、承認の管理など、すべて自動的に。",
-      "cta": {
-        "primary": "ボットを作成",
-        "secondary": "動作を見る"
-      }
-    },
-    "features": {
-      "title": "ボット機能",
-      "subtitle": "チームをより効率的にする自動化",
-      "taskAutomation": {
-        "title": "タスク自動化",
-        "description": "プロジェクトステータス、期日、その他の条件に基づいてタスクを自動的に作成、割り当て、更新。"
-      },
-      "smartNotifications": {
-        "title": "スマート通知",
-        "description": "適切な人に適切なタイミングで関連する更新を送信。"
-      },
-      "approvalWorkflows": {
-        "title": "承認ワークフロー",
-        "description": "承認プロセスを自動化し、承認が必要なときにリマインダーを送信。"
-      },
-      "dataSync": {
-        "title": "データ同期",
-        "description": "異なるツールや統合間でデータを同期。"
-      },
-      "customTriggers": {
-        "title": "カスタムトリガー",
-        "description": "タスクステータス、期日、カスタムフィールドなど、あらゆるイベントに基づいてボットをトリガー。"
-      },
-      "aiPowered": {
-        "title": "AI搭載",
-        "description": "AI機能を使用してスマートな意思決定を行い、パターンから学習。"
-      }
-    },
-    "templates": {
-      "title": "人気のボットテンプレート",
-      "subtitle": "これらのテンプレートから始めるか、独自のボットを作成",
-      "dailyStandup": {
-        "title": "デイリースタンドアップリマインダー",
-        "description": "毎朝スタンドアップの更新をチームに自動的にリマインド。"
-      },
-      "taskAssignment": {
-        "title": "タスク自動割り当て",
-        "description": "ワークロード、スキル、可用性に基づいてタスクをチームメンバーに自動的に割り当て。"
-      },
-      "statusUpdates": {
-        "title": "ステータス更新",
-        "description": "関係者にプロジェクトのステータス更新を定期的に送信。"
-      },
-      "deadlineReminders": {
-        "title": "期日リマインダー",
-        "description": "タスクの期日が近づいたときにチームに通知。"
-      }
-    },
-    "useCases": {
-      "title": "ボットのユースケース",
-      "subtitle": "チームがボットをどのように使用しているか",
-      "onboarding": {
-        "title": "従業員オンボーディング",
-        "description": "新しいチームメンバーのオンボーディングプロセスを自動化。"
-      },
-      "projectManagement": {
-        "title": "プロジェクト管理",
-        "description": "プロジェクトのステータス更新とタスク割り当てを自動化。"
-      },
-      "clientCommunication": {
-        "title": "クライアントコミュニケーション",
-        "description": "クライアントへの更新と通知を自動化。"
-      },
-      "reporting": {
-        "title": "レポート",
-        "description": "定期的なレポートを生成し、関係者に送信。"
-      }
-    },
-    "cta": {
-      "title": "ワークフローの自動化を始める準備はできましたか？",
-      "description": "インテリジェントボットで時間を節約し、生産性を向上させましょう。",
-      "button": "最初のボットを作成"
-    },
-    "builder": {
-      "loadingBot": "ボットを読み込み中...",
-      "createNewBot": "新しいボットを作成",
-      "editBot": "編集: {name}",
-      "install": "インストール",
-      "save": "保存",
-      "saving": "保存中...",
-      "botInformation": "ボット情報",
-      "botInformationDesc": "ボットの名前、説明、種類を設定します",
-      "botSettings": "ボット設定",
-      "botSettingsDesc": "レート制限と実行設定を構成",
-      "triggersDesc": "ボットがいつ応答するかを定義",
-      "actionsDesc": "トリガーされたときにボットが実行する動作を定義",
-      "addTrigger": "トリガーを追加",
-      "addAction": "アクションを追加",
-      "loadingTriggers": "トリガーを読み込み中...",
-      "loadingActions": "アクションを読み込み中...",
-      "noTriggers": "トリガーがまだ設定されていません",
-      "noTriggersDesc": "トリガーを追加して、ボットがいつ応答するかを定義してください",
-      "noActions": "アクションがまだ設定されていません",
-      "noActionsDesc": "アクションを追加して、ボットが実行する動作を定義してください",
-      "deleteTrigger": "トリガーを削除",
-      "deleteTriggerConfirm": "「{name}」を削除してもよろしいですか？この操作は元に戻せません。",
-      "deleteAction": "アクションを削除",
-      "deleteActionConfirm": "「{name}」を削除してもよろしいですか？この操作は元に戻せません。",
-      "botCreated": "ボットが作成されました",
-      "botCreatedDesc": "ボットが正常に作成されました",
-      "botUpdated": "ボットが更新されました",
-      "botUpdatedDesc": "ボットが正常に更新されました",
-      "createFailed": "ボットの作成に失敗しました",
-      "updateFailed": "ボットの更新に失敗しました",
-      "triggerDeleted": "トリガーが削除されました",
-      "triggerDeletedDesc": "トリガーが削除されました",
-      "triggerDeleteFailed": "トリガーの削除に失敗しました",
-      "actionDeleted": "アクションが削除されました",
-      "actionDeletedDesc": "アクションが削除されました",
-      "actionDeleteFailed": "アクションの削除に失敗しました"
-    },
-    "form": {
-      "botName": "ボット名",
-      "botNamePlaceholder": "my-bot",
-      "botNameDesc": "ボットの一意の識別子（スペースなし）",
-      "displayName": "表示名",
-      "displayNamePlaceholder": "私の素晴らしいボット",
-      "displayNameDesc": "ユーザーに表示されるフレンドリーな名前",
-      "description": "説明",
-      "descriptionPlaceholder": "ボットが何をするかを説明してください...",
-      "botType": "ボットタイプ",
-      "selectBotType": "ボットタイプを選択",
-      "botTypeDesc": "作成するボットのタイプを選択",
-      "status": "ステータス",
-      "selectStatus": "ステータスを選択",
-      "statusDesc": "アクティブなボットのみがトリガーに応答します",
-      "statusDraft": "下書き",
-      "statusActive": "アクティブ",
-      "statusInactive": "非アクティブ",
-      "rateLimit": "レート制限（1分あたりの実行回数）",
-      "rateLimitDesc": "このボットが1分間に実行できる最大回数",
-      "responseDelay": "応答遅延（ミリ秒）",
-      "responseDelayDesc": "ボットが応答するまでの遅延（0〜10000ミリ秒）",
-      "maxRecursionDepth": "最大再帰深度",
-      "maxRecursionDepthDesc": "ボットチェーン実行の最大深度（無限ループを防止）"
-    },
-    "validation": {
-      "nameRequired": "名前は必須です",
-      "nameMaxLength": "名前は50文字以下にする必要があります",
-      "displayNameMaxLength": "表示名は100文字以下にする必要があります",
-      "descriptionMaxLength": "説明は500文字以下にする必要があります"
-    }
   },
   "budget": {
     "title": "予算管理",
@@ -8134,20 +8533,234 @@
         "pending": "保留中",
         "rejected": "却下"
       }
+    },
+    "integrations": {
+      "page": {
+        "title": "統合",
+        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
+        "loading": "統合を読み込み中...",
+        "searchPlaceholder": "統合を検索...",
+        "filterBy": "フィルター条件:",
+        "noResults": "統合が見つかりません",
+        "noResultsDesc": "検索やフィルターを調整してみてください。"
+      },
+      "tabs": {
+        "marketplace": "マーケットプレイス",
+        "connected": "接続済み"
+      },
+      "sections": {
+        "popular": "人気",
+        "all": "すべての統合"
+      },
+      "categories": {
+        "communication": "コミュニケーション",
+        "fileStorage": "ファイルストレージ",
+        "calendar": "カレンダー",
+        "email": "メール",
+        "projectManagement": "プロジェクト管理",
+        "crm": "CRM",
+        "development": "開発",
+        "analytics": "分析",
+        "marketing": "マーケティング",
+        "documentation": "ドキュメント",
+        "design": "デザイン",
+        "timeTracking": "時間追跡",
+        "videoConferencing": "ビデオ会議",
+        "automation": "自動化",
+        "productivity": "生産性",
+        "hr": "人事",
+        "finance": "財務",
+        "support": "サポート",
+        "security": "セキュリティ",
+        "ecommerce": "Eコマース",
+        "socialMedia": "ソーシャルメディア",
+        "ai": "AI＆機械学習",
+        "other": "その他"
+      },
+      "status": {
+        "connected": "接続済み",
+        "verified": "検証済み",
+        "installed": "インストール済み",
+        "comingSoon": "近日公開"
+      },
+      "pricing": {
+        "free": "無料",
+        "freemium": "フリーミアム",
+        "paid": "有料"
+      },
+      "actions": {
+        "connect": "接続",
+        "disconnect": "切断",
+        "open": "開く",
+        "install": "統合をインストール",
+        "uninstall": "アンインストール",
+        "visitWebsite": "ウェブサイトを表示",
+        "back": "戻る",
+        "backToIntegrations": "統合に戻る"
+      },
+      "connect": "接続",
+      "disconnect": "切断",
+      "connected": "接続しました",
+      "disconnected": "切断しました",
+      "connectedDescription": "{name}に正常に接続しました",
+      "disconnectedDescription": "{name}から正常に切断しました",
+      "connectError": "接続エラー",
+      "disconnectError": "切断エラー",
+      "connectionError": "接続エラー",
+      "tokenExpired": "トークンの有効期限が切れました。再接続してください。",
+      "connectWithApiKey": "{name}を接続",
+      "apiKeyDescription": "{name}のAPIキーを入力して接続します。",
+      "apiKey": "APIキー",
+      "findApiKey": "APIキーの見つけ方",
+      "disconnectTitle": "{name}を切断しますか？",
+      "disconnectWarning": "{name}への接続を削除します。いつでも再接続できます。",
+      "connectedAs": "接続中のアカウント:",
+      "empty": {
+        "noConnected": "接続された統合がありません",
+        "noConnectedDesc": "マーケットプレイスから最初の統合を接続して開始しましょう。",
+        "browse": "マーケットプレイスを閲覧"
+      },
+      "detail": {
+        "loading": "統合を読み込み中...",
+        "features": "機能",
+        "screenshots": "スクリーンショット",
+        "details": "統合の詳細",
+        "category": "カテゴリー",
+        "authentication": "認証",
+        "webhookSupport": "Webhookサポート",
+        "supported": "サポート済み",
+        "notSupported": "サポートなし",
+        "lastUpdated": "最終更新",
+        "support": "サポートとドキュメント",
+        "apiDocumentation": "APIドキュメント",
+        "contactSupport": "サポートに連絡",
+        "usageStats": "使用統計",
+        "successRate": "成功率",
+        "totalRequests": "リクエスト総数",
+        "avgResponseTime": "平均応答時間",
+        "overview": "概要",
+        "configuration": "設定",
+        "webhooks": "Webhook",
+        "logs": "ログ",
+        "installing": "インストール中...",
+        "installationFailed": "インストールに失敗しました",
+        "integrationInstalled": "統合がインストールされました",
+        "integrationUninstalled": "統合がアンインストールされました",
+        "reviews": "件のレビュー",
+        "installs": "件のインストール"
+      }
+    },
+    "apps": {
+      "page": {
+        "title": "コネクタ",
+        "subtitle": "外部アプリを接続してDeskiveの機能を拡張",
+        "searchPlaceholder": "コネクタを検索...",
+        "connectorsAvailable": "{count}個のコネクタが利用可能",
+        "noConnectorsFound": "コネクターが見つかりません",
+        "noConnectorsMatch": "\"{query}\"に一致するコネクターがありません",
+        "noConnectorsInCategory": "{category}カテゴリにコネクターがありません",
+        "clearFilters": "フィルターをクリア"
+      },
+      "categories": {
+        "all": "すべて",
+        "communication": "コミュニケーション",
+        "productivity": "生産性",
+        "development": "開発",
+        "business": "ビジネス",
+        "marketing": "マーケティング",
+        "design": "デザイン",
+        "aiAutomation": "AI＆自動化",
+        "security": "セキュリティ"
+      },
+      "actions": {
+        "connect": "接続",
+        "open": "開く",
+        "disconnect": "切断",
+        "connecting": "接続中...",
+        "notAvailable": "利用不可"
+      },
+      "descriptions": {
+        "gmail": "Deskive内でメールを直接送受信",
+        "googleCalendar": "Googleカレンダーのイベントを同期・管理",
+        "googleDrive": "Googleドライブのファイルにアクセス・管理",
+        "github": "GitHubアカウントを接続してリポジトリを表示",
+        "googleSheets": "Googleスプレッドシートを表示・編集・同期",
+        "dropbox": "Dropboxのファイルにアクセス・管理"
+      },
+      "categoryLabels": {
+        "email": "メール",
+        "calendar": "カレンダー",
+        "fileStorage": "ファイルストレージ",
+        "development": "開発"
+      }
+    },
+    "templates": {
+      "pageTitle": "プロジェクトテンプレート",
+      "pageDescription": "テンプレートを選択して、事前定義されたタスクと構造で新しいプロジェクトを素早く作成できます。",
+      "refreshButton": "テンプレートを更新",
+      "seedSuccess": {
+        "title": "テンプレートを追加しました",
+        "description": "システムテンプレートが正常に追加されました。"
+      },
+      "seedError": {
+        "title": "エラー",
+        "description": "テンプレートの追加に失敗しました。"
+      },
+      "workspaceNotFound": "ワークスペースが見つかりません",
+      "searchPlaceholder": "テンプレートを検索...",
+      "noTemplatesFound": "テンプレートが見つかりません。",
+      "featured": "おすすめ",
+      "system": "システム",
+      "tasks": "タスク",
+      "usedTimes": "{count}回使用",
+      "showingTemplates": "{total}個中{start} - {end}個のテンプレートを表示",
+      "previous": "前へ",
+      "next": "次へ",
+      "cancel": "キャンセル",
+      "useThisTemplate": "このテンプレートを使用",
+      "createFromTemplate": "テンプレートからプロジェクトを作成",
+      "customizeProject": "新しいプロジェクトを作成する前にカスタマイズします。",
+      "projectName": "プロジェクト名",
+      "enterProjectName": "プロジェクト名を入力",
+      "description": "説明（任意）",
+      "enterProjectDescription": "プロジェクトの説明を入力",
+      "createProject": "プロジェクトを作成",
+      "templateStructure": "テンプレート構造",
+      "customFields": "カスタムフィールド",
+      "boardStages": "ボードステージ",
+      "blankProject": "空のプロジェクト",
+      "startFromScratch": "最初から始める",
+      "projectCreated": "プロジェクトを作成しました",
+      "projectCreatedDescription": "「{projectName}」が「{templateName}」テンプレートから作成されました。",
+      "createProjectError": "テンプレートからプロジェクトの作成に失敗しました。",
+      "complexity": "複雑さ",
+      "moreTasks": "さらに{count}個のタスク...",
+      "categories": {
+        "all": "すべて",
+        "softwareDevelopment": "ソフトウェア開発",
+        "marketing": "マーケティング",
+        "hr": "人事",
+        "design": "デザイン＆クリエイティブ",
+        "business": "ビジネス＆運営",
+        "events": "イベント＆ウェビナー",
+        "research": "リサーチ＆分析",
+        "personal": "個人＆生産性",
+        "sales": "営業",
+        "finance": "財務",
+        "itSupport": "ITサポート",
+        "education": "教育",
+        "freelance": "フリーランス",
+        "operations": "運営",
+        "healthcare": "医療",
+        "legal": "法務",
+        "realEstate": "不動産",
+        "manufacturing": "製造",
+        "nonprofit": "非営利",
+        "media": "メディア＆エンターテインメント"
+      }
     }
   },
   "templates": {
-    "title": "プロジェクトテンプレート",
-    "subtitle": "事前構築されたテンプレートでプロジェクトをすぐに開始",
-    "hero": {
-      "badge": "プロジェクトテンプレート",
-      "title": "テンプレートでプロジェクトを迅速に開始",
-      "description": "プロジェクトテンプレートの広範なライブラリから選択するか、独自のテンプレートを作成。ベストプラクティスとプロジェクト構造で時間を節約。",
-      "cta": {
-        "primary": "テンプレートを閲覧",
-        "secondary": "カスタムを作成"
-      }
-    },
     "categories": {
       "all": "すべて",
       "softwareDevelopment": "ソフトウェア開発",
@@ -8170,51 +8783,6 @@
       "manufacturing": "製造",
       "nonprofit": "非営利",
       "media": "メディア＆エンターテインメント"
-    },
-    "features": {
-      "title": "テンプレート機能",
-      "subtitle": "テンプレートが時間を節約する方法",
-      "quickSetup": {
-        "title": "クイックセットアップ",
-        "description": "事前構成されたワークフローとタスクでプロジェクトを数分で開始。"
-      },
-      "customizable": {
-        "title": "完全カスタマイズ可能",
-        "description": "特定のニーズに合わせてテンプレートを変更。"
-      },
-      "bestPractices": {
-        "title": "ベストプラクティス",
-        "description": "業界のベストプラクティスとプロジェクト管理の方法論に基づいて構築。"
-      },
-      "shareTemplates": {
-        "title": "テンプレートを共有",
-        "description": "チームや組織全体でテンプレートを共有。"
-      }
-    },
-    "popular": {
-      "title": "人気のテンプレート",
-      "subtitle": "最も使用されているテンプレート",
-      "websiteRedesign": {
-        "title": "ウェブサイトリデザイン",
-        "description": "ウェブサイトリデザインプロジェクトのための完全なテンプレート。"
-      },
-      "productLaunch": {
-        "title": "製品発売",
-        "description": "製品発売を計画・実行するためのテンプレート。"
-      },
-      "sprintPlanning": {
-        "title": "スプリント計画",
-        "description": "アジャイルスプリントを計画・管理するためのテンプレート。"
-      },
-      "eventPlanning": {
-        "title": "イベント計画",
-        "description": "あらゆる規模のイベントを計画・管理。"
-      }
-    },
-    "cta": {
-      "title": "テンプレートでプロジェクトを開始する準備はできましたか？",
-      "description": "広範なテンプレートライブラリから選択して、すぐに開始しましょう。",
-      "button": "テンプレートを閲覧"
     },
     "pageTitle": "プロジェクトテンプレート",
     "pageDescription": "テンプレートを選択して、事前定義されたタスクと構造で新しいプロジェクトを素早く作成できます。",
@@ -8257,166 +8825,90 @@
     "complexity": "複雑さ",
     "moreTasks": "さらに{count}個のタスク..."
   },
+  "whiteboard": {
+    "title": "ホワイトボード",
+    "loading": "読み込み中...",
+    "defaultName": "無題のホワイトボード",
+    "defaultNameWithDate": "ホワイトボード {date}",
+    "updated": "更新日時:",
+    "noWhiteboardsYet": "まだホワイトボードがありません。作成を開始してください！",
+    "newWhiteboard": "新しいホワイトボード",
+    "showMenu": "メニューを表示",
+    "hideGrid": "グリッドを非表示",
+    "showGrid": "グリッドを表示",
+    "canvasBackground": "キャンバスの背景",
+    "copyData": "ホワイトボードデータをコピー",
+    "deleteWhiteboard": "ホワイトボードを削除",
+    "hideMenuBar": "メニューバーを非表示",
+    "hideHeader": "ヘッダーを非表示",
+    "showHeader": "ヘッダーを表示",
+    "error": {
+      "loadFailed": "ホワイトボードの読み込みに失敗しました",
+      "notFound": "ホワイトボードが見つかりません",
+      "saveFailed": "ホワイトボードの保存に失敗しました",
+      "createFailed": "ホワイトボードの作成に失敗しました",
+      "deleteFailed": "ホワイトボードの削除に失敗しました",
+      "exportFailed": "ホワイトボードのエクスポートに失敗しました",
+      "missingWorkspaceId": "ワークスペースIDがありません",
+      "couldNotExtractWorkspaceId": "URLからワークスペースIDを抽出できませんでした。"
+    },
+    "success": {
+      "saved": "ホワイトボードを保存しました",
+      "created": "ホワイトボードを作成しました",
+      "deleted": "ホワイトボードを削除しました",
+      "exportedPNG": "PNGとしてエクスポートしました",
+      "exportedSVG": "SVGとしてエクスポートしました",
+      "copiedToClipboard": "ホワイトボードデータをクリップボードにコピーしました"
+    },
+    "status": {
+      "saving": "保存中...",
+      "failedToSave": "保存に失敗しました",
+      "allChangesSaved": "すべての変更を保存しました"
+    },
+    "tools": {
+      "lock": "キャンバスをロック",
+      "unlock": "キャンバスのロックを解除",
+      "hand": "手のツール",
+      "select": "選択",
+      "rectangle": "長方形",
+      "diamond": "ダイヤモンド",
+      "ellipse": "楕円",
+      "arrow": "矢印",
+      "line": "線",
+      "draw": "描画",
+      "text": "テキスト",
+      "image": "画像",
+      "eraser": "消しゴム"
+    },
+    "export": {
+      "png": "PNGとしてエクスポート",
+      "svg": "SVGとしてエクスポート"
+    },
+    "dialog": {
+      "createNew": "新しいホワイトボードを作成",
+      "enterName": "新しいホワイトボードの名前を入力してください",
+      "name": "名前",
+      "namePlaceholder": "マイホワイトボード",
+      "create": "作成",
+      "open": "ホワイトボードを開く",
+      "select": "開くホワイトボードを選択してください",
+      "selectOrCreate": "開くホワイトボードを選択するか、新しく作成してください",
+      "deleteTitle": "ホワイトボードを削除しますか？",
+      "deleteDescription": "「{name}」を削除してもよろしいですか？この操作は元に戻せません。"
+    },
+    "stickyNote": {
+      "add": "付箋を追加",
+      "clickToEdit": "クリックして編集",
+      "selectColor": "付箋の色を選択："
+    },
+    "mindMap": {
+      "mode": "マインドマップモード",
+      "modeShort": "マインドマップ",
+      "exit": "マインドマップモードを終了",
+      "instructions": "クリックしてノードを追加。ドラッグしてノードを接続します。"
+    }
+  },
   "approvals": {
-    "title": "承認リクエスト",
-    "subtitle": "承認ワークフローを効率化し、進捗を追跡",
-    "hero": {
-      "badge": "承認管理",
-      "title": "承認プロセスを効率化",
-      "description": "承認ワークフローを簡素化。承認を迅速に作成、送信、追跡。自動リマインダーとリアルタイム通知で全員が同じページにいるようにします。",
-      "cta": {
-        "primary": "承認を作成",
-        "secondary": "動作を見る"
-      }
-    },
-    "features": {
-      "title": "承認機能",
-      "subtitle": "承認を簡単に管理",
-      "customWorkflows": {
-        "title": "カスタムワークフロー",
-        "description": "組織のニーズに合わせたカスタム承認ワークフローを作成。"
-      },
-      "multiLevelApprovals": {
-        "title": "複数レベルの承認",
-        "description": "複数の承認者とシーケンシャルまたはパラレルの承認を設定。"
-      },
-      "autoReminders": {
-        "title": "自動リマインダー",
-        "description": "保留中の承認について承認者に自動的にリマインド。"
-      },
-      "approvalTracking": {
-        "title": "承認追跡",
-        "description": "承認ステータスを追跡し、進捗をリアルタイムで監視。"
-      },
-      "mobileApprovals": {
-        "title": "モバイル承認",
-        "description": "モバイルデバイスから外出先でリクエストを承認。"
-      },
-      "auditTrail": {
-        "title": "監査証跡",
-        "description": "コンプライアンスと説明責任のためにすべての承認決定を記録。"
-      }
-    },
-    "types": {
-      "title": "リクエストタイプ",
-      "subtitle": "タイプを作成・管理",
-      "documents": {
-        "title": "ドキュメント",
-        "description": "提案書、契約書、レポート、その他のドキュメントの承認を得る。"
-      },
-      "expenses": {
-        "title": "経費",
-        "description": "経費レポートと購入リクエストを承認。"
-      },
-      "timeOff": {
-        "title": "休暇",
-        "description": "休暇申請と休暇リクエストを管理。"
-      },
-      "projects": {
-        "title": "プロジェクト",
-        "description": "プロジェクトの提案、フェーズ、成果物の承認を得る。"
-      },
-      "designs": {
-        "title": "デザイン",
-        "description": "デザインのモックアップとクリエイティブ資産をレビュー・承認。"
-      },
-      "budgets": {
-        "title": "予算",
-        "description": "予算の提案と財務計画を承認。"
-      },
-      "newType": "新しいタイプ",
-      "createType": "タイプを作成",
-      "noTypes": "リクエストタイプがありません",
-      "noDescription": "説明なし",
-      "inactive": "非アクティブ",
-      "fieldsCount": "{count}個のフィールド",
-      "activate": "アクティブ化",
-      "deactivate": "非アクティブ化",
-      "create": {
-        "title": "リクエストタイプを作成",
-        "name": "名前",
-        "namePlaceholder": "例：休暇申請",
-        "color": "色",
-        "description": "説明",
-        "descriptionPlaceholder": "このリクエストタイプの簡単な説明",
-        "create": "作成",
-        "cancel": "キャンセル",
-        "customFields": {
-          "title": "カスタムフィールド",
-          "subtitle": "ユーザーがこのリクエストタイプを送信する際に入力する必要があるフィールドを追加",
-          "addField": "フィールドを追加",
-          "fieldLabel": "フィールドラベル",
-          "fieldLabelPlaceholder": "例：開始日",
-          "fieldType": "フィールドタイプ",
-          "placeholder": "プレースホルダー",
-          "placeholderPlaceholder": "プレースホルダーテキスト",
-          "required": "必須フィールド",
-          "options": "オプション",
-          "addOption": "オプションを追加",
-          "optionPlaceholder": "オプション{index}",
-          "noFields": "カスタムフィールドが追加されていません",
-          "noFieldsDescription": "「フィールドを追加」をクリックしてカスタムフォームフィールドを作成",
-          "types": {
-            "text": "テキスト",
-            "textarea": "長文テキスト",
-            "number": "数値",
-            "date": "日付",
-            "datetime": "日時",
-            "select": "ドロップダウン",
-            "multiselect": "複数選択",
-            "checkbox": "チェックボックス",
-            "file": "ファイルアップロード",
-            "user": "ユーザー",
-            "currency": "通貨"
-          }
-        }
-      },
-      "toast": {
-        "loadFailed": "タイプの読み込みに失敗しました",
-        "created": "作成しました",
-        "createFailed": "失敗しました",
-        "deleted": "削除しました",
-        "deleteFailed": "失敗しました",
-        "activated": "アクティブ化しました",
-        "deactivated": "非アクティブ化しました",
-        "updateFailed": "失敗しました"
-      }
-    },
-    "workflow": {
-      "title": "承認ワークフロー",
-      "subtitle": "シンプルでパワフル",
-      "create": {
-        "title": "作成",
-        "description": "承認リクエストを作成し、承認者を割り当てる。"
-      },
-      "review": {
-        "title": "レビュー",
-        "description": "承認者がリクエストをレビューし、決定を下す。"
-      },
-      "track": {
-        "title": "追跡",
-        "description": "進捗を監視し、自動更新を受け取る。"
-      },
-      "complete": {
-        "title": "完了",
-        "description": "承認されたら、次のステップに進む。"
-      }
-    },
-    "stats": {
-      "approvals": "処理された承認",
-      "timeReduction": "承認時間の短縮",
-      "completion": "完了率",
-      "satisfaction": "ユーザー満足度",
-      "total": "合計",
-      "pending": "保留中",
-      "awaitingMyApproval": "私の承認待ち",
-      "approved": "承認済み"
-    },
-    "cta": {
-      "title": "承認の効率化を始める準備はできましたか？",
-      "description": "時間を節約し、より速く承認を得る。",
-      "button": "承認を作成"
-    },
     "manageTypes": "タイプを管理",
     "newRequest": "新しいリクエスト",
     "requestTypes": "リクエストタイプ",
@@ -8436,6 +8928,12 @@
       "pending": "保留中",
       "approved": "承認済み",
       "rejected": "却下"
+    },
+    "stats": {
+      "total": "合計",
+      "pending": "保留中",
+      "awaitingMyApproval": "私の承認待ち",
+      "approved": "承認済み"
     },
     "googleSheets": {
       "title": "Googleスプレッドシート連携",
@@ -8581,160 +9079,67 @@
         "requestDeleted": "リクエスト「{title}」が削除されました",
         "newRequest": "新しい承認リクエスト：「{title}」"
       }
-    }
-  },
-  "whiteboard": {
-    "title": "ホワイトボード",
-    "subtitle": "リアルタイムでアイデアをブレインストーミングし視覚化",
-    "hero": {
-      "badge": "ビジュアルコラボレーション",
-      "title": "リアルタイムでアイデアをブレインストーミング",
-      "description": "無限のキャンバスでビジュアルコラボレーション。ブレインストーミング、計画、複雑なアイデアをインタラクティブなホワイトボードで視覚化。",
-      "cta": {
-        "primary": "ホワイトボードを作成",
-        "secondary": "例を見る"
+    },
+    "types": {
+      "title": "リクエストタイプ",
+      "subtitle": "タイプを作成・管理",
+      "newType": "新しいタイプ",
+      "createType": "タイプを作成",
+      "noTypes": "リクエストタイプがありません",
+      "noDescription": "説明なし",
+      "inactive": "非アクティブ",
+      "fieldsCount": "{count}個のフィールド",
+      "activate": "アクティブ化",
+      "deactivate": "非アクティブ化",
+      "create": {
+        "title": "リクエストタイプを作成",
+        "name": "名前",
+        "namePlaceholder": "例：休暇申請",
+        "color": "色",
+        "description": "説明",
+        "descriptionPlaceholder": "このリクエストタイプの簡単な説明",
+        "create": "作成",
+        "cancel": "キャンセル",
+        "customFields": {
+          "title": "カスタムフィールド",
+          "subtitle": "ユーザーがこのリクエストタイプを送信する際に入力する必要があるフィールドを追加",
+          "addField": "フィールドを追加",
+          "fieldLabel": "フィールドラベル",
+          "fieldLabelPlaceholder": "例：開始日",
+          "fieldType": "フィールドタイプ",
+          "placeholder": "プレースホルダー",
+          "placeholderPlaceholder": "プレースホルダーテキスト",
+          "required": "必須フィールド",
+          "options": "オプション",
+          "addOption": "オプションを追加",
+          "optionPlaceholder": "オプション{index}",
+          "noFields": "カスタムフィールドが追加されていません",
+          "noFieldsDescription": "「フィールドを追加」をクリックしてカスタムフォームフィールドを作成",
+          "types": {
+            "text": "テキスト",
+            "textarea": "長文テキスト",
+            "number": "数値",
+            "date": "日付",
+            "datetime": "日時",
+            "select": "ドロップダウン",
+            "multiselect": "複数選択",
+            "checkbox": "チェックボックス",
+            "file": "ファイルアップロード",
+            "user": "ユーザー",
+            "currency": "通貨"
+          }
+        }
+      },
+      "toast": {
+        "loadFailed": "タイプの読み込みに失敗しました",
+        "created": "作成しました",
+        "createFailed": "失敗しました",
+        "deleted": "削除しました",
+        "deleteFailed": "失敗しました",
+        "activated": "アクティブ化しました",
+        "deactivated": "非アクティブ化しました",
+        "updateFailed": "失敗しました"
       }
-    },
-    "features": {
-      "title": "ホワイトボード機能",
-      "subtitle": "創造性を解き放つために必要なすべて",
-      "infiniteCanvas": {
-        "title": "無限キャンバス",
-        "description": "制限のない無限のキャンバスで作業。アイデアに合わせてズームイン・アウト。"
-      },
-      "realTimeCollab": {
-        "title": "リアルタイムコラボレーション",
-        "description": "チームメンバーと同時に作業。変更は即座に同期。"
-      },
-      "drawingTools": {
-        "title": "描画ツール",
-        "description": "ペン、図形、矢印、付箋など、豊富な描画ツール。"
-      },
-      "templates": {
-        "title": "テンプレート",
-        "description": "フローチャート、マインドマップ、プロジェクト計画などのテンプレートから始める。"
-      },
-      "imageUpload": {
-        "title": "画像アップロード",
-        "description": "画像やファイルを直接ホワイトボードにアップロード。"
-      },
-      "exportOptions": {
-        "title": "エクスポートオプション",
-        "description": "ホワイトボードを画像、PDF、またはプレゼンテーションとしてエクスポート。"
-      }
-    },
-    "useCases": {
-      "title": "ホワイトボードのユースケース",
-      "subtitle": "チームがホワイトボードをどのように使用しているか",
-      "brainstorming": {
-        "title": "ブレインストーミング",
-        "description": "チームでアイデアをブレインストーミングし、共同で創造。"
-      },
-      "projectPlanning": {
-        "title": "プロジェクト計画",
-        "description": "プロジェクトのタイムライン、マイルストーン、依存関係を視覚化。"
-      },
-      "workshopsAndMeetings": {
-        "title": "ワークショップと会議",
-        "description": "インタラクティブなワークショップと会議を実施。"
-      },
-      "userFlows": {
-        "title": "ユーザーフロー",
-        "description": "ユーザージャーニーとプロダクトフローを設計。"
-      },
-      "mindMaps": {
-        "title": "マインドマップ",
-        "description": "アイデアと概念のマインドマップを作成。"
-      },
-      "retrospectives": {
-        "title": "レトロスペクティブ",
-        "description": "インタラクティブなホワイトボードでチームのレトロを実施。"
-      }
-    },
-    "tools": {
-      "lock": "キャンバスをロック",
-      "unlock": "キャンバスのロックを解除",
-      "hand": "手のツール",
-      "select": "選択",
-      "rectangle": "長方形",
-      "diamond": "ダイヤモンド",
-      "ellipse": "楕円",
-      "arrow": "矢印",
-      "line": "線",
-      "draw": "描画",
-      "text": "テキスト",
-      "image": "画像",
-      "eraser": "消しゴム"
-    },
-    "cta": {
-      "title": "ビジュアルコラボレーションを始める準備はできましたか？",
-      "description": "チームに参加して、ホワイトボードでブレインストーミングと計画を開始しましょう。",
-      "button": "ホワイトボードを作成"
-    },
-    "loading": "読み込み中...",
-    "defaultName": "無題のホワイトボード",
-    "defaultNameWithDate": "ホワイトボード {date}",
-    "updated": "更新日時:",
-    "noWhiteboardsYet": "まだホワイトボードがありません。作成を開始してください！",
-    "newWhiteboard": "新しいホワイトボード",
-    "showMenu": "メニューを表示",
-    "hideGrid": "グリッドを非表示",
-    "showGrid": "グリッドを表示",
-    "canvasBackground": "キャンバスの背景",
-    "copyData": "ホワイトボードデータをコピー",
-    "deleteWhiteboard": "ホワイトボードを削除",
-    "hideMenuBar": "メニューバーを非表示",
-    "hideHeader": "ヘッダーを非表示",
-    "showHeader": "ヘッダーを表示",
-    "error": {
-      "loadFailed": "ホワイトボードの読み込みに失敗しました",
-      "notFound": "ホワイトボードが見つかりません",
-      "saveFailed": "ホワイトボードの保存に失敗しました",
-      "createFailed": "ホワイトボードの作成に失敗しました",
-      "deleteFailed": "ホワイトボードの削除に失敗しました",
-      "exportFailed": "ホワイトボードのエクスポートに失敗しました",
-      "missingWorkspaceId": "ワークスペースIDがありません",
-      "couldNotExtractWorkspaceId": "URLからワークスペースIDを抽出できませんでした。"
-    },
-    "success": {
-      "saved": "ホワイトボードを保存しました",
-      "created": "ホワイトボードを作成しました",
-      "deleted": "ホワイトボードを削除しました",
-      "exportedPNG": "PNGとしてエクスポートしました",
-      "exportedSVG": "SVGとしてエクスポートしました",
-      "copiedToClipboard": "ホワイトボードデータをクリップボードにコピーしました"
-    },
-    "status": {
-      "saving": "保存中...",
-      "failedToSave": "保存に失敗しました",
-      "allChangesSaved": "すべての変更を保存しました"
-    },
-    "export": {
-      "png": "PNGとしてエクスポート",
-      "svg": "SVGとしてエクスポート"
-    },
-    "dialog": {
-      "createNew": "新しいホワイトボードを作成",
-      "enterName": "新しいホワイトボードの名前を入力してください",
-      "name": "名前",
-      "namePlaceholder": "マイホワイトボード",
-      "create": "作成",
-      "open": "ホワイトボードを開く",
-      "select": "開くホワイトボードを選択してください",
-      "selectOrCreate": "開くホワイトボードを選択するか、新しく作成してください",
-      "deleteTitle": "ホワイトボードを削除しますか？",
-      "deleteDescription": "「{name}」を削除してもよろしいですか？この操作は元に戻せません。"
-    },
-    "stickyNote": {
-      "add": "付箋を追加",
-      "clickToEdit": "クリックして編集",
-      "selectColor": "付箋の色を選択："
-    },
-    "mindMap": {
-      "mode": "マインドマップモード",
-      "modeShort": "マインドマップ",
-      "exit": "マインドマップモードを終了",
-      "instructions": "クリックしてノードを追加。ドラッグしてノードを接続します。"
     }
   }
 }
