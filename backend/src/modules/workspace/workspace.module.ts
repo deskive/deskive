@@ -5,14 +5,12 @@ import { WorkspaceInvitationController } from './workspace-invitation.controller
 import { InvitationPublicController } from './invitation-public.controller';
 import { WorkspaceInvitationService } from './workspace-invitation.service';
 import { AuthModule } from '../auth/auth.module';
-import { BillingModule } from '../billing/billing.module';
 import { WebSocketModule } from '../../common/gateways/websocket.module';
 
 @Module({
   imports: [
     AuthModule,
     WebSocketModule,
-    forwardRef(() => BillingModule),
   ],
   controllers: [
     WorkspaceController,

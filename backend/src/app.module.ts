@@ -29,7 +29,6 @@ import { EventsModule } from './modules/events/events.module';
 import { SeoModule } from './modules/seo/seo.module';
 import { VideoCallsModule } from './modules/video-calls/video-calls.module';
 import { SettingsModule } from './modules/settings/settings.module';
-import { BillingModule } from './modules/billing/billing.module';
 import { ConversationMemoryModule } from './modules/conversation-memory/conversation-memory.module';
 import { SchedulerModule } from './modules/scheduler/scheduler.module';
 import { ContactModule } from './modules/contact/contact.module';
@@ -102,7 +101,6 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
     EventsModule,
     SeoModule,
     SettingsModule,
-    BillingModule,
     BlogModule,
     SchedulerModule,
     ContactModule,

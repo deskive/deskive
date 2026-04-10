@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Inject, forwardRef } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { BillingService } from '../billing/billing.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType } from '../notifications/dto';
 import { AppGateway } from '../../common/gateways/app.gateway';
@@ -13,7 +12,6 @@ import axios from 'axios';
 export class FilesService {
   constructor(
     private readonly db: DatabaseService,
-    private billingService: BillingService,
     private notificationsService: NotificationsService,
     @Inject(forwardRef(() => AppGateway))
     private appGateway: AppGateway,
@@ -2216,7 +2214,6 @@ export class FilesService {
 
   private async checkStorageQuota(workspaceId: string, fileSize: number) {
     // Get workspace subscription to determine storage limits
-    const plans = await this.billingService.getPlans();
 
     // Get workspace owner to fetch subscription
     const workspaceQuery = await this.db.find('workspaces', {
@@ -2235,7 +2232,6 @@ export class FilesService {
     let planName = 'Free';
 
     try {
-      const subscription = await this.billingService.getSubscription(workspaceId, workspace.owner_id);
 
       // Find the plan limits based on subscription plan
       const plan = plans.plans.find(p => p.id === subscription.plan);
@@ -2276,7 +2272,6 @@ export class FilesService {
 
   async getStorageStats(workspaceId: string) {
     // Get workspace subscription to determine storage limits
-    const plans = await this.billingService.getPlans();
 
     const workspaceQuery = await this.db.find('workspaces', {
       id: workspaceId
@@ -2295,7 +2290,6 @@ export class FilesService {
     let planId = 'free';
 
     try {
-      const subscription = await this.billingService.getSubscription(workspaceId, workspace.owner_id);
       planId = subscription.plan;
 
       // Find the plan limits based on subscription plan
@@ -2548,13 +2542,11 @@ export class FilesService {
     const workspace = workspaceData[0];
 
     // Get subscription plan to determine storage limits
-    const plans = await this.billingService.getPlans();
     let maxStorageGb = 0.5; // Default to free plan (500 MB)
     let planName = 'Free';
     let planId = 'free';
 
     try {
-      const subscription = await this.billingService.getSubscription(workspaceId, workspace.owner_id);
       planId = subscription.plan;
 
       // Find the plan limits based on subscription plan

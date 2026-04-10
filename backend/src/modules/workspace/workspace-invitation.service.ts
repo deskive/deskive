@@ -1,6 +1,5 @@
 import { Injectable, BadRequestException, NotFoundException, ConflictException, Logger, Inject, forwardRef } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { BillingService } from '../billing/billing.service';
 import { v4 as uuidv4 } from 'uuid';
 import * as crypto from 'crypto';
 
@@ -20,8 +19,6 @@ export class WorkspaceInvitationService {
 
   constructor(
     private readonly db: DatabaseService,
-    @Inject(forwardRef(() => BillingService))
-    private billingService: BillingService,
   ) {}
 
   /**
@@ -456,10 +453,8 @@ export class WorkspaceInvitationService {
   private async checkMemberLimit(workspaceId: string, userId: string): Promise<void> {
     try {
       // Get workspace subscription details
-      const subscription = await this.billingService.getSubscription(workspaceId, userId);
 
       // Get plan details to check member limit
-      const plansResponse = await this.billingService.getPlans();
       const currentPlan = plansResponse.plans.find(p => p.id === subscription.plan);
 
       if (!currentPlan) {
