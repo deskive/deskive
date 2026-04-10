@@ -81,7 +81,6 @@ Deskive is an open-source workspace collaboration platform that brings together 
 | **Self-Hosted** | ✅ Docker Compose | ❌ | ❌ | ❌ | ❌ |
 | **Open Source** | ✅ Apache 2.0 | ❌ | ❌ | ❌ | ❌ |
 | **Desktop App** | ✅ Tauri (macOS, Windows, Linux) | ✅ Electron | ✅ Electron | ❌ | ✅ Electron |
-| **Mobile App** | ✅ Flutter (iOS, Android) | ✅ Native | ✅ Native | ✅ Native | ✅ Native |
 | **Pricing** | 🟢 Free (self-hosted) | 💰 $8.75/user/mo | 💰 $10/user/mo | 💰 $10.99/user/mo | 💰 $4/user/mo |
 
 ## Quick Start
@@ -161,7 +160,6 @@ docker compose --env-file .env.docker up -d
 | **Backend** | NestJS 11, TypeScript, PostgreSQL (raw SQL), Redis, Qdrant, Socket.io |
 | **Frontend** | React 19, Vite, TypeScript, Tailwind CSS, Radix UI, Zustand, React Query |
 | **Desktop** | Tauri (macOS, Windows, Linux) |
-| **Mobile** | Flutter 3.7+ (iOS, Android) |
 | **Video** | LiveKit (HD calls, screen sharing, recording) |
 | **AI** | OpenAI (GPT-4o-mini, embeddings, Whisper transcription) |
 | **Payments** | Stripe (subscriptions) |
@@ -181,7 +179,6 @@ deskive/
 │   ├── src/components/      # UI components
 │   ├── src/i18n/            # English + Japanese translations
 │   └── src-tauri/           # Desktop app (Tauri)
-├── flutter/                 # Flutter mobile app (iOS + Android)
 │   └── lib/                 # Screens, services, providers
 ├── docker-compose.yml       # One-command self-hosting
 ├── start.sh                 # Development startup script

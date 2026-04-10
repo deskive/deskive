@@ -50,5 +50,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Global search with semantic capabilities
 - Stripe subscription billing
 - i18n support (English, Japanese)
-- Flutter mobile app (iOS, Android)
 - Tauri desktop app (macOS, Windows)

@@ -33,7 +33,6 @@ Open a [Feature Request](https://github.com/deskive/deskive/issues/new?template=
 
 ### Prerequisites
 - Node.js 20+, PostgreSQL 15+, Redis 7+
-- Flutter SDK 3.7+ (for mobile)
 - Docker & Docker Compose (recommended)
 
 ### Getting Started
@@ -59,7 +58,6 @@ npm run dev
 ## Code Style
 
 - **TypeScript** for backend and frontend
-- **Dart** for mobile (Flutter)
 - **Prettier** for formatting
 - **ESLint** for linting
 

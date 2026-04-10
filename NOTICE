@@ -38,11 +38,5 @@ Frontend:
   - LiveKit React (Apache-2.0 License) - https://livekit.io
   - Tauri (MIT License) - https://tauri.app
 
-Mobile:
-  - Flutter (BSD-3-Clause License) - https://flutter.dev
-  - Provider (MIT License) - https://pub.dev/packages/provider
-  - GetIt (MIT License) - https://pub.dev/packages/get_it
-  - Dio (MIT License) - https://pub.dev/packages/dio
-
 For the full list of dependencies, see package.json files in
-backend/ and frontend/ directories, and pubspec.yaml in flutter/.
+backend/ and frontend/ directories.
