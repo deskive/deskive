@@ -1280,8 +1280,14 @@ export class AuthService {
     const normalized = email.toLowerCase().trim();
     let user = await this.db.findOne('users', { email: normalized });
     if (!user) {
+      // password_hash stays NULL — the user cannot log in via
+      // password until they set one (users.password_hash is nullable
+      // in the schema). email_verified is set true because the user
+      // proved control of the inbox by clicking the magic-link.
       const inserted: any = await this.db.query(
-        'INSERT INTO users (email, email_confirmed_at, created_at) VALUES (LOWER($1), NOW(), NOW()) RETURNING id, email',
+        `INSERT INTO users (email, email_verified, email_confirmed_at, created_at, updated_at)
+         VALUES (LOWER($1), true, NOW(), NOW(), NOW())
+         RETURNING id, email, email_verified`,
         [normalized],
       );
       user = inserted?.rows?.[0];
@@ -1299,7 +1305,7 @@ export class AuthService {
       user: {
         id: user.id,
         email: user.email,
-        emailVerified: true,
+        emailVerified: user.email_verified ?? true,
       },
       access_token,
     };

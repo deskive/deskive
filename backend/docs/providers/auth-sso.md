@@ -1,6 +1,6 @@
 # Auth / SSO providers
 
-Team@Once supports pluggable auth providers controlled by the
+Deskive supports pluggable auth providers controlled by the
 `AUTH_PROVIDERS` env var. The frontend reads `GET /auth/providers` on
 page load and renders login buttons for whichever providers are
 enabled in the deployment.
@@ -12,7 +12,7 @@ AUTH_PROVIDERS=local,google,github,magic-link
 `local` (email + password) is always enabled — you don't need to list
 it, the registry auto-adds it.
 
-## Implemented in this PR (#31)
+## Implemented in this PR (#33)
 
 | Provider | Status | Env vars |
 |---|---|---|
@@ -21,7 +21,7 @@ it, the registry auto-adds it.
 | **github** | ready | `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `GITHUB_CALLBACK_URL` |
 | **magic-link** | ready *(NEW)* | `MAGIC_LINK_TTL_SECONDS` (optional, default 900) |
 
-Google and GitHub already existed in Team@Once as passport strategies —
+Google and GitHub already existed in deskive as passport strategies —
 this PR adds them to the central registry so the frontend can discover
 them without hardcoding. Magic Link is net-new.
 

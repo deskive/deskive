@@ -145,7 +145,7 @@ export class SsoRegistryService implements OnModuleInit {
       const key = r as AuthProviderKey;
       if (!PROVIDER_CATALOG[key].implemented) {
         this.logger.warn(
-          `Auth provider "${r}" is listed in AUTH_PROVIDERS but its adapter is not yet implemented (see issue #31). Skipping. The frontend's /auth/providers response will NOT include it.`,
+          `Auth provider "${r}" is listed in AUTH_PROVIDERS but its adapter is not yet implemented (see issue #25). Skipping. The frontend's /auth/providers response will NOT include it.`,
         );
         continue;
       }
