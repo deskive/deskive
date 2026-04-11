@@ -42,7 +42,7 @@ export class ProvidersHealthService {
         envVar: 'STORAGE_PROVIDER',
         currentHardcoded: 'r2',
         requiredEnvVars: ['R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY'],
-        issue: 20,
+        issue: 28,
       }),
       this.planned({
         concern: 'ai',
@@ -50,7 +50,7 @@ export class ProvidersHealthService {
         envVar: 'AI_PROVIDER',
         currentHardcoded: 'openai',
         requiredEnvVars: ['OPENAI_API_KEY'],
-        issue: 21,
+        issue: 29,
       }),
       this.planned({
         concern: 'email',
@@ -58,7 +58,7 @@ export class ProvidersHealthService {
         envVar: 'EMAIL_PROVIDER',
         currentHardcoded: 'smtp',
         requiredEnvVars: ['SMTP_HOST'],
-        issue: 22,
+        issue: 30,
       }),
       this.planned({
         concern: 'push',
@@ -66,7 +66,7 @@ export class ProvidersHealthService {
         envVar: 'PUSH_PROVIDER',
         currentHardcoded: 'fcm',
         requiredEnvVars: ['FIREBASE_SERVICE_ACCOUNT'],
-        issue: 23,
+        issue: 31,
       }),
       this.planned({
         concern: 'search',
@@ -74,7 +74,7 @@ export class ProvidersHealthService {
         envVar: 'SEARCH_PROVIDER',
         currentHardcoded: 'pg-trgm',
         requiredEnvVars: [],
-        issue: 24,
+        issue: 32,
       }),
       this.planned({
         concern: 'auth',
@@ -82,7 +82,7 @@ export class ProvidersHealthService {
         envVar: 'AUTH_PROVIDERS',
         currentHardcoded: 'local,google,github',
         requiredEnvVars: [],
-        issue: 25,
+        issue: 33,
       }),
       this.planned({
         concern: 'video',
@@ -130,7 +130,7 @@ export class ProvidersHealthService {
         provider: selected,
         status: 'skipped',
         details: args.issue
-          ? `adapter #${args.issue} not yet merged on main; current stack needs ${missing.join(', ')}`
+          ? `PR #${args.issue} not yet merged on main; current stack needs ${missing.join(', ')}`
           : `missing env vars: ${missing.join(', ')}`,
         adapterImplemented: false,
         issue: args.issue || undefined,
@@ -143,7 +143,7 @@ export class ProvidersHealthService {
       provider: selected,
       status: 'planned',
       details: args.issue
-        ? `adapter #${args.issue} not yet merged on main; current hardcoded stack (${args.currentHardcoded}) appears configured`
+        ? `PR #${args.issue} not yet merged on main; current hardcoded stack (${args.currentHardcoded}) appears configured`
         : `${args.currentHardcoded} appears configured`,
       adapterImplemented: false,
       issue: args.issue || undefined,
