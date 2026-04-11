@@ -4,7 +4,7 @@
  *   EMAIL_PROVIDER=mailgun
  *   MAILGUN_API_KEY=key-...
  *   MAILGUN_DOMAIN=mail.yourdomain.com
- *   EMAIL_FROM="Vasty Shop <noreply@mail.yourdomain.com>"
+ *   EMAIL_FROM="Deskive <noreply@mail.yourdomain.com>"
  *
  * Optional env vars:
  *   MAILGUN_REGION=us   (or 'eu' for the EU region)

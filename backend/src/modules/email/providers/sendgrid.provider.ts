@@ -3,7 +3,7 @@
  *
  *   EMAIL_PROVIDER=sendgrid
  *   SENDGRID_API_KEY=SG....
- *   EMAIL_FROM="Vasty Shop <noreply@yourdomain.com>"
+ *   EMAIL_FROM="Deskive <noreply@yourdomain.com>"
  *
  * Pure REST via fetch — no SDK dep needed. SendGrid is the enterprise
  * standard for transactional email, with solid deliverability and a

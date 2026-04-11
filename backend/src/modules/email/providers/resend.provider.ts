@@ -3,7 +3,7 @@
  *
  *   EMAIL_PROVIDER=resend
  *   RESEND_API_KEY=re_...
- *   EMAIL_FROM="Vasty Shop <noreply@yourdomain.com>"
+ *   EMAIL_FROM="Deskive <noreply@yourdomain.com>"
  *
  * Pure REST via fetch — no SDK dep needed on the server. Resend has a
  * generous free tier (3,000 emails/month) and a clean modern API.

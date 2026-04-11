@@ -3,7 +3,7 @@
  *
  *   EMAIL_PROVIDER=postmark
  *   POSTMARK_SERVER_TOKEN=...
- *   EMAIL_FROM="Vasty Shop <noreply@yourdomain.com>"
+ *   EMAIL_FROM="Deskive <noreply@yourdomain.com>"
  *
  * Pure REST via fetch. Postmark is known for top-tier deliverability on
  * transactional email. 100-emails/month free tier.

@@ -1,6 +1,6 @@
 # Email providers
 
-Vasty Shop supports six email backends plus a `none` default. Pick one by
+Deskive supports six email backends plus a `none` default. Pick one by
 setting `EMAIL_PROVIDER` in your `.env`.
 
 ```
@@ -41,7 +41,7 @@ SMTP_PORT=587
 SMTP_USER=your-user
 SMTP_PASSWORD=your-pass
 SMTP_SECURE=false          # true for port 465 implicit TLS
-EMAIL_FROM=Vasty Shop <noreply@yourdomain.com>
+EMAIL_FROM=Deskive <noreply@yourdomain.com>
 EMAIL_REPLY_TO=support@yourdomain.com
 ```
 
@@ -57,7 +57,7 @@ from the dashboard.
 ```
 EMAIL_PROVIDER=resend
 RESEND_API_KEY=re_...
-EMAIL_FROM=Vasty Shop <noreply@yourdomain.com>
+EMAIL_FROM=Deskive <noreply@yourdomain.com>
 ```
 
 Pure REST — no SDK dep on the server. 3,000 free emails/month + 100/day
@@ -71,7 +71,7 @@ permission, verify a sender identity.
 ```
 EMAIL_PROVIDER=sendgrid
 SENDGRID_API_KEY=SG.xxxxx
-EMAIL_FROM=Vasty Shop <noreply@yourdomain.com>
+EMAIL_FROM=Deskive <noreply@yourdomain.com>
 ```
 
 ### postmark
@@ -82,7 +82,7 @@ Token.
 ```
 EMAIL_PROVIDER=postmark
 POSTMARK_SERVER_TOKEN=...
-EMAIL_FROM=Vasty Shop <noreply@yourdomain.com>
+EMAIL_FROM=Deskive <noreply@yourdomain.com>
 ```
 
 ### ses
@@ -96,7 +96,7 @@ EMAIL_PROVIDER=ses
 SES_REGION=us-east-1
 SES_ACCESS_KEY_ID=AKIA...
 SES_SECRET_ACCESS_KEY=...
-EMAIL_FROM=Vasty Shop <noreply@yourdomain.com>
+EMAIL_FROM=Deskive <noreply@yourdomain.com>
 ```
 
 **Limitation**: attachments aren't supported yet. The current provider
@@ -114,7 +114,7 @@ EMAIL_PROVIDER=mailgun
 MAILGUN_API_KEY=key-...
 MAILGUN_DOMAIN=mail.yourdomain.com
 MAILGUN_REGION=us            # or 'eu' for EU data residency
-EMAIL_FROM=Vasty Shop <noreply@mail.yourdomain.com>
+EMAIL_FROM=Deskive <noreply@mail.yourdomain.com>
 ```
 
 ### none (default if unset)

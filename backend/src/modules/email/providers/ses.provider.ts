@@ -5,7 +5,7 @@
  *   SES_REGION=us-east-1
  *   SES_ACCESS_KEY_ID=AKIA...
  *   SES_SECRET_ACCESS_KEY=...
- *   EMAIL_FROM="Vasty Shop <noreply@yourdomain.com>"
+ *   EMAIL_FROM="Deskive <noreply@yourdomain.com>"
  *
  * The `@aws-sdk/client-ses` package is an OPTIONAL dependency — lazy-loaded
  * inside loadSdk() only when the provider is selected. Listed in

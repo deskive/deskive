@@ -8,7 +8,7 @@
  * Required env vars:
  *   SMTP_HOST       e.g. smtp.gmail.com, smtp.resend.com, mailtrap.io
  *   SMTP_PORT       587 (STARTTLS) or 465 (implicit TLS) or 25
- *   EMAIL_FROM      default From address, e.g. "Vasty Shop <noreply@...>"
+ *   EMAIL_FROM      default From address, e.g. "Deskive <noreply@...>"
  *
  * Optional env vars:
  *   SMTP_USER       username / API key user (leave blank for anon relays)
