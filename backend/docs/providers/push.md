@@ -1,8 +1,8 @@
 # Push notification providers
 
-Vasty Shop supports four push backends plus a `none` default for
-delivering order updates, flash-sale alerts, shipping notifications,
-chat messages, and promotional campaigns.
+Deskive supports four push backends plus a `none` default for
+delivering chat messages, task updates, meeting reminders, and
+workspace notifications.
 
 ```
 PUSH_PROVIDER=webpush   # zero-vendor default

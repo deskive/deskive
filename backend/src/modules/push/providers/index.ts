@@ -10,7 +10,7 @@
  *   expo       — Expo push service (React Native / Expo apps)
  *   none       — disabled
  *
- * Planned follow-ups (tracked in issue #21):
+ * Planned follow-ups (tracked in issue #23):
  *   apns       — direct Apple Push Notification service
  *                (needs HTTP/2 client — skipped in v1; use FCM for iOS
  *                in the meantime, which delivers via APNs under the hood)
@@ -62,7 +62,7 @@ export function createPushProvider(config: ConfigService): PushProvider {
     }
     case 'apns': {
       log.warn(
-        'PUSH_PROVIDER="apns" is planned but not yet implemented (see issue #21). Falling back to "none". For iOS push today, use fcm (delivers via APNs under the hood).',
+        'PUSH_PROVIDER="apns" is planned but not yet implemented (see issue #23). Falling back to "none". For iOS push today, use fcm (delivers via APNs under the hood).',
       );
       return new NonePushProvider();
     }
