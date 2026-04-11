@@ -3,7 +3,7 @@
  *
  * Reads STORAGE_PROVIDER from config and returns the matching provider.
  * Also provides a legacy shim: if STORAGE_PROVIDER is unset but the old
- * R2_* env vars are present, we default to 'r2' so existing vasty-shop
+ * R2_* env vars are present, we default to 'r2' so existing deskive
  * .env files keep working without the operator having to touch anything.
  *
  * Add a new provider by:

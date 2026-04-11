@@ -27,7 +27,7 @@
  *
  * Legacy env var shim:
  *   If R2_ACCOUNT_ID + R2_ACCESS_KEY_ID + R2_SECRET_ACCESS_KEY are set
- *   (the pre-adapter vasty-shop layout), this provider reads them when
+ *   (the pre-adapter deskive layout), this provider reads them when
  *   STORAGE_PROVIDER=r2 and the STORAGE_* equivalents are unset. That way
  *   existing .env files keep working during the transition.
  */

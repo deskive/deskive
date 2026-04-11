@@ -1,6 +1,6 @@
 # Storage providers
 
-Vasty Shop supports eight file storage backends plus a `none` default.
+Deskive supports eight file storage backends plus a `none` default.
 Pick one by setting `STORAGE_PROVIDER` in your `.env`.
 
 ```
@@ -62,7 +62,7 @@ Create a bucket, an IAM user with `s3:PutObject` / `GetObject` /
 
 ```
 STORAGE_PROVIDER=s3
-STORAGE_BUCKET=my-vasty-bucket
+STORAGE_BUCKET=my-deskive-bucket
 STORAGE_REGION=us-east-1
 STORAGE_ACCESS_KEY_ID=AKIA...
 STORAGE_SECRET_ACCESS_KEY=...
@@ -107,7 +107,7 @@ STORAGE_PROVIDER=minio
 STORAGE_ENDPOINT=http://localhost:9000
 STORAGE_ACCESS_KEY_ID=minioadmin
 STORAGE_SECRET_ACCESS_KEY=minioadmin
-STORAGE_BUCKET=vasty-dev
+STORAGE_BUCKET=deskive-dev
 STORAGE_FORCE_PATH_STYLE=true        # required for localhost MinIO
 ```
 

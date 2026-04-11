@@ -28,6 +28,8 @@ export class AzureProvider implements StorageProvider {
 
   private sdkLoaded = false;
   private client: any;
+  private sdk: any;
+  private sharedKeyCredential: any;
 
   constructor(config: ConfigService) {
     this.connectionString = config.get<string>(
@@ -59,9 +61,22 @@ export class AzureProvider implements StorageProvider {
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const sdk = require('@azure/storage-blob');
+      this.sdk = sdk;
       this.client = sdk.BlobServiceClient.fromConnectionString(
         this.connectionString,
       );
+      // Pull the StorageSharedKeyCredential out of the connection
+      // string so we can sign SAS tokens below. If the connection
+      // string uses a SAS token instead of AccountKey, this stays
+      // undefined and getSignedUrl falls back to throwing.
+      const accountName = /AccountName=([^;]+)/.exec(this.connectionString)?.[1];
+      const accountKey = /AccountKey=([^;]+)/.exec(this.connectionString)?.[1];
+      if (accountName && accountKey) {
+        this.sharedKeyCredential = new sdk.StorageSharedKeyCredential(
+          accountName,
+          accountKey,
+        );
+      }
       this.sdkLoaded = true;
       this.logger.log('@azure/storage-blob loaded');
     } catch (e: any) {
@@ -145,13 +160,44 @@ export class AzureProvider implements StorageProvider {
   async getSignedUrl(
     bucket: string,
     key: string,
-    _expiresInSeconds: number,
+    expiresInSeconds: number,
   ): Promise<string> {
-    // Generating SAS tokens requires the shared key credential, which
-    // the connection string gives us. For now we return the public URL —
-    // callers that need real SAS can implement `generateBlobSASQueryParameters`
-    // as a follow-up.
     this.loadSdk();
-    return this.getPublicUrl(bucket, key);
+
+    if (!this.sharedKeyCredential) {
+      // The connection string didn't include an AccountKey (could be
+      // a SAS-only connection string, or a managed-identity setup).
+      // Fail loudly instead of silently returning a public URL.
+      throw new Error(
+        'AzureProvider.getSignedUrl requires an AccountKey-based ' +
+          'AZURE_STORAGE_CONNECTION_STRING so the provider can sign ' +
+          'SAS tokens. The supplied connection string does not expose ' +
+          'AccountName/AccountKey (likely SAS or managed-identity). ' +
+          'Use a full access key connection string for signed URLs.',
+      );
+    }
+
+    const now = Date.now();
+    const expiresOn = new Date(now + expiresInSeconds * 1000);
+    // Start 60s in the past to tolerate mild clock skew.
+    const startsOn = new Date(now - 60_000);
+
+    const sasOptions = {
+      containerName: bucket,
+      blobName: key,
+      permissions: this.sdk.BlobSASPermissions.parse('r'),
+      startsOn,
+      expiresOn,
+      protocol: this.sdk.SASProtocol.Https,
+    };
+
+    const sasToken = this.sdk
+      .generateBlobSASQueryParameters(sasOptions, this.sharedKeyCredential)
+      .toString();
+
+    const blobUrl = this.client
+      .getContainerClient(bucket)
+      .getBlobClient(key).url;
+    return `${blobUrl}?${sasToken}`;
   }
 }

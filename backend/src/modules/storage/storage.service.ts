@@ -1,7 +1,7 @@
 /**
  * StorageService — the app's storage façade.
  *
- * Exposes the same public methods vasty-shop has always had
+ * Exposes the same public methods deskive has always had
  * (uploadFile / downloadFile / deleteFile / getPublicUrl / createSignedUrl /
  * listFiles) so existing call sites don't need to change, and internally
  * dispatches every call to whichever provider the operator has selected

@@ -83,7 +83,7 @@ async function main(): Promise<void> {
   // 3. local-fs with a temp dir — full happy path
   console.log('\n3. local-fs (real filesystem happy path)');
   {
-    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'vasty-storage-'));
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'deskive-storage-'));
     try {
       const p = createStorageProvider(
         fakeConfig({
@@ -136,7 +136,7 @@ async function main(): Promise<void> {
   // 4. local-fs rejects path traversal
   console.log('\n4. local-fs rejects path traversal');
   {
-    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'vasty-storage-'));
+    const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'deskive-storage-'));
     try {
       const p = createStorageProvider(
         fakeConfig({ STORAGE_PROVIDER: 'local-fs', LOCAL_FS_PATH: tmp }),
