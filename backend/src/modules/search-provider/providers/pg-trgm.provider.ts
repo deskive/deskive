@@ -6,27 +6,34 @@
  * Zero extra infrastructure — uses the Postgres you're already running.
  * The first time the provider is touched, it ensures the `pg_trgm`
  * extension exists (idempotent CREATE EXTENSION) and creates a GIN
- * index on each collection's `name + description` columns for fast
- * trigram similarity search.
+ * index on each collection's searchable columns for fast trigram
+ * similarity search.
  *
  * Search uses the `%` similarity operator (trigram match) for fuzzy
  * matching PLUS `ILIKE` for substring matching, combined with OR. The
- * relevance score is `similarity(name, q)` so exact-or-near-exact
+ * relevance score is `similarity(<first-col>, q)` so exact-or-near-exact
  * matches float to the top.
  *
  * Indexing is a no-op because Postgres IS the source of truth — the
- * moment the `products` row exists, it's searchable. This is a huge
- * UX win over external search engines that need a separate reindex
- * step on schema changes.
+ * moment the row exists, it's searchable. This is a huge UX win over
+ * external search engines that need a separate reindex step on schema
+ * changes.
  *
- * Not suitable for: semantic/vector search, cross-field ranking beyond
- * trigram similarity, faceted search on arbitrary fields. For those,
- * graduate to Meilisearch / Typesense / Qdrant.
+ * Not suitable for: semantic/vector search (use the existing Qdrant-
+ * backed SemanticSearchService for that), cross-field ranking beyond
+ * trigram similarity, or faceted search on arbitrary fields. For those,
+ * graduate to Meilisearch / Typesense.
  *
- * Supported collections (mapped to real table names):
- *   'products'    → products (columns: name, description, short_description, tags)
+ * Supported deskive collections (mapped to real table names):
+ *   'workspaces'       → workspaces.name + description
+ *   'projects'         → projects.name + description
+ *   'tasks'            → tasks.title + description
+ *   'channels'         → channels.name + description
+ *   'files'            → files.name + extracted_text
+ *   'calendar_events'  → calendar_events.title + description + location
  *
- * Add more collections by editing `TABLE_MAP` below.
+ * Add more collections by editing `TABLE_MAP` below. Each collection
+ * must have a text-typed id column or the provider will reject it.
  */
 import { Logger } from '@nestjs/common';
 import {
@@ -50,9 +57,34 @@ interface CollectionMap {
 }
 
 const TABLE_MAP: Record<string, CollectionMap> = {
-  products: {
-    table: 'products',
-    searchColumns: ['name', 'description', 'short_description'],
+  workspaces: {
+    table: 'workspaces',
+    searchColumns: ['name', 'description'],
+    idColumn: 'id',
+  },
+  projects: {
+    table: 'projects',
+    searchColumns: ['name', 'description'],
+    idColumn: 'id',
+  },
+  tasks: {
+    table: 'tasks',
+    searchColumns: ['title', 'description'],
+    idColumn: 'id',
+  },
+  channels: {
+    table: 'channels',
+    searchColumns: ['name', 'description'],
+    idColumn: 'id',
+  },
+  files: {
+    table: 'files',
+    searchColumns: ['name', 'extracted_text'],
+    idColumn: 'id',
+  },
+  calendar_events: {
+    table: 'calendar_events',
+    searchColumns: ['title', 'description', 'location'],
     idColumn: 'id',
   },
 };
@@ -249,8 +281,8 @@ export class PgTrgmProvider implements SearchProvider {
     // No-op — Postgres is the source of truth. We could re-run
     // ensureReady() to rebuild the GIN indexes, but REINDEX is an
     // expensive operation and not typically needed. Callers that
-    // really want to rebuild should run `REINDEX TABLE products`
-    // manually.
+    // really want to rebuild should run `REINDEX TABLE <table>`
+    // manually for the affected collection.
     return 0;
   }
 }

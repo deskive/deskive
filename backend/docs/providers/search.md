@@ -1,7 +1,13 @@
 # Search providers
 
-Vasty Shop supports pluggable product/catalog search. Pick a provider
-by setting `SEARCH_PROVIDER` in your `.env`.
+Deskive supports pluggable keyword search across workspace content
+(workspaces, projects, tasks, channels, files, calendar events). Pick
+a provider by setting `SEARCH_PROVIDER` in your `.env`.
+
+Keyword search is separate from deskive's existing Qdrant-backed
+semantic / vector search — the two coexist. Use `SearchProviderService`
+(this module) for keyword queries and `SemanticSearchService` (from
+`modules/search`) for embedding-based similarity.
 
 ```
 SEARCH_PROVIDER=pg-trgm   # zero-infra default
@@ -12,25 +18,22 @@ SEARCH_PROVIDER=pg-trgm   # zero-infra default
 | Provider | Free tier | Infra | Indexing | Typo tolerance | Facets | Best for |
 |---|---|---|---|---|---|---|
 | **pg-trgm** *(default)* | ♾️ | none (uses existing Postgres) | no-op (Postgres is source of truth) | good (trigram) | no | dev + small prod |
-| **meilisearch** | ♾️ self-hosted | docker | batch upsert | excellent | ✅ | recommended for prod e-commerce |
+| **meilisearch** | ♾️ self-hosted | docker | batch upsert | excellent | ✅ | recommended for prod |
 | **typesense** | ♾️ self-hosted | docker | JSONL import | excellent | ✅ | simpler schema than Meilisearch |
-| **qdrant** | ♾️ self-hosted | docker | [planned #22] | — | ✅ (via payload) | semantic/vector |
-| **weaviate** | ♾️ self-hosted | docker | [planned #22] | — | ✅ | hybrid keyword + vector |
-| **elasticsearch** | ♾️ self-hosted | docker | [planned #22] | ✅ | ✅ | enterprise stack |
-| **none** | — | — | — | — | — | default — search disabled |
+| **none** | — | — | — | — | — | keyword search disabled (semantic via Qdrant still works) |
+
+For semantic / vector search, use the existing `modules/search`
+(`SemanticSearchService` + Qdrant). That path is not affected by
+`SEARCH_PROVIDER`.
 
 ## Which should I pick?
 
-- **"I just want product search to work"** → `pg-trgm` (zero infra,
+- **"I just want workspace search to work"** → `pg-trgm` (zero infra,
   works against existing Postgres, no separate index to maintain)
-- **Production e-commerce with typo tolerance and faceting** →
-  `meilisearch` (exceptional UX out of the box)
-- **Alternative to Meilisearch with simpler schema config** →
-  `typesense`
-- **Semantic search / "find products similar to X"** → `qdrant`
-  *(coming in follow-up PR)*
-- **Existing Elasticsearch / OpenSearch cluster** →
-  `elasticsearch` *(coming in follow-up PR)*
+- **Production with typo tolerance and faceting** → `meilisearch`
+- **Alternative to Meilisearch with simpler schema config** → `typesense`
+- **Semantic / "find things similar to X" search** → keep using the
+  existing `SemanticSearchService` (Qdrant) under `modules/search/`
 
 ## Per-provider setup
 
@@ -39,8 +42,9 @@ SEARCH_PROVIDER=pg-trgm   # zero-infra default
 No setup beyond what you already have. On first search, the provider:
 
 1. Runs `CREATE EXTENSION IF NOT EXISTS pg_trgm` (idempotent)
-2. Creates GIN indexes on `products(name)`, `products(description)`,
-   `products(short_description)` for fast trigram similarity lookup
+2. Creates GIN indexes on each configured collection's search
+   columns for fast trigram similarity lookup (workspaces/name+
+   description, tasks/title+description, etc.)
 3. Searches use `col % $query` (trigram match) OR `col ILIKE '%query%'`
    (substring match), scored by `similarity(name, $query)`
 
@@ -57,7 +61,7 @@ fast path:
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 ```
 
-**Indexing**: no-op. The moment a row exists in `products`, it's
+**Indexing**: no-op. The moment a row is committed to Postgres it's
 searchable. No separate reindex step on schema changes.
 
 **Not suitable for**: semantic/vector search, faceted search on
@@ -138,24 +142,20 @@ rather than a silent bug — you'll get a clear warning at startup.
 Every method throws `SearchProviderNotConfiguredError`. The startup
 log prints which env var to set.
 
-## Migration from the old ProductsService.search()
+## Migration for existing deskive callers
 
-`ProductsService.search()` currently:
-1. Calls `DatabaseService.unifiedSearch()` — a non-existent method
-   that always throws
-2. Falls back to `manualSearch()` which runs a plain `ILIKE '%q%'`
-   query against the products table
-
-A follow-up PR will migrate `ProductsService.search()` to inject
-`SearchService` instead, removing the dead `unifiedSearch()` call.
-The pg-trgm provider is a straight upgrade over the current manual
-fallback: trigram similarity gives better relevance than raw ILIKE
-and the GIN index makes it fast.
+Modules that currently run ad-hoc `ILIKE '%q%'` queries over workspace
+content should inject `SearchProviderService` and call
+`search(collection, { q })` instead. Trigram similarity gives better
+relevance than raw ILIKE, and the GIN index makes it fast enough for
+the dashboard autocomplete path. The existing semantic search path
+(`SemanticSearchService` / Qdrant) is untouched and still handles
+embedding-similarity queries.
 
 ## Adding a new provider
 
 1. Implement `SearchProvider` in
-   `backend/src/modules/search/providers/<name>.provider.ts`
+   `backend/src/modules/search-provider/providers/<name>.provider.ts`
 2. Add a case to `createSearchProvider()` in `providers/index.ts`
 3. Document env vars in this file and in `.env.example`
 4. Add smoke-test coverage in

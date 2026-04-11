@@ -143,8 +143,8 @@ async function main(): Promise<void> {
   {
     const { query, calls } = makeMockPg(
       [
-        { id: 'p1', name: 'Blue Shirt', description: 'Cotton', _score: 0.9 },
-        { id: 'p2', name: 'Red Shirt', description: 'Silk', _score: 0.6 },
+        { id: 't1', title: 'Fix login bug', description: 'Login form errors', _score: 0.9 },
+        { id: 't2', title: 'Add login tests', description: 'E2E coverage', _score: 0.6 },
       ],
       { count: 2 },
     );
@@ -155,34 +155,34 @@ async function main(): Promise<void> {
     ok(p.name === 'pg-trgm');
     ok(p.isAvailable() === true);
 
-    const result = await p.search('products', {
-      q: 'shirt',
+    const result = await p.search('tasks', {
+      q: 'login',
       limit: 10,
-      filters: { category: 'clothing', status: 'active' },
-      rangeFilters: { price: { gte: 10, lte: 100 } },
+      filters: { status: 'todo', priority: 'high' },
+      rangeFilters: { story_points: { gte: 1, lte: 5 } },
     });
 
     ok(result.hits.length === 2);
     ok(result.total === 2);
-    ok(result.hits[0].document.name === 'Blue Shirt');
+    ok((result.hits[0].document as any).title === 'Fix login bug');
     ok(result.hits[0].score === 0.9);
     console.log(`  ✅ returned ${result.hits.length} hits, total=${result.total}`);
 
     // Verify SQL shape
     const mainQuery = calls.find((c) =>
-      c.sql.toLowerCase().includes('from products'),
+      c.sql.toLowerCase().includes('from tasks'),
     );
     ok(!!mainQuery);
     ok(mainQuery!.sql.includes('similarity'));
-    ok(mainQuery!.sql.includes('name %'));
-    ok(mainQuery!.sql.includes('category = '));
+    ok(mainQuery!.sql.includes('title %'));
     ok(mainQuery!.sql.includes('status = '));
-    ok(mainQuery!.sql.includes('price >= '));
-    ok(mainQuery!.sql.includes('price <= '));
-    ok(mainQuery!.params.includes('shirt'));
-    ok(mainQuery!.params.includes('clothing'));
-    ok(mainQuery!.params.includes(10));
-    ok(mainQuery!.params.includes(100));
+    ok(mainQuery!.sql.includes('priority = '));
+    ok(mainQuery!.sql.includes('story_points >= '));
+    ok(mainQuery!.sql.includes('story_points <= '));
+    ok(mainQuery!.params.includes('login'));
+    ok(mainQuery!.params.includes('todo'));
+    ok(mainQuery!.params.includes(1));
+    ok(mainQuery!.params.includes(5));
     console.log(`  ✅ SQL shape + bound params correct`);
 
     // Verify pg_trgm extension + index creation attempted
@@ -193,7 +193,7 @@ async function main(): Promise<void> {
     const indexCalls = calls.filter((c) =>
       c.sql.toLowerCase().includes('create index if not exists'),
     );
-    ok(indexCalls.length >= 3); // name, description, short_description
+    ok(indexCalls.length >= 2); // title, description
     console.log(`  ✅ pg_trgm extension + ${indexCalls.length} GIN indexes ensured`);
   }
 
@@ -205,12 +205,12 @@ async function main(): Promise<void> {
       config: fakeConfig({ SEARCH_PROVIDER: 'pg-trgm' }),
       pgQuery: query,
     });
-    await p.search('products', {
+    await p.search('tasks', {
       q: '',
-      filters: { "name; DROP TABLE products; --": 'x' } as any,
+      filters: { "title; DROP TABLE tasks; --": 'x' } as any,
     });
     const mainQuery = calls.find((c) =>
-      c.sql.toLowerCase().includes('from products'),
+      c.sql.toLowerCase().includes('from tasks'),
     );
     ok(!mainQuery!.sql.includes('DROP TABLE'));
     console.log(`  ✅ unsafe field name rejected (no DROP TABLE in SQL)`);
