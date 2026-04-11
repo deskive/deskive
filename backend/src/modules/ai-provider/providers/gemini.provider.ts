@@ -14,8 +14,8 @@
  * provider handles the translation.
  *
  * Free tier is generous and multimodal handling is excellent. Great
- * default for vision-heavy e-commerce workflows (product photo
- * autofill) when budget matters.
+ * default when cost matters and you want strong multimodal + long-
+ * context support.
  */
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';

@@ -452,6 +452,23 @@ async function main(): Promise<void> {
     );
   }
 
+  // 14b. groq without GROQ_API_KEY surfaces as groq/GROQ_API_KEY,
+  // not openai/OPENAI_API_KEY (the inner composer's default label).
+  console.log('\n14b. groq NotConfigured reports groq/GROQ_API_KEY');
+  {
+    const p = createAiProvider(fakeConfig({ AI_PROVIDER: 'groq' }));
+    ok(
+      await expectThrow(
+        'groq NotConfigured labels point at groq',
+        () => p.generateText({ messages: [{ role: 'user', content: 'hi' }] }),
+        (e) =>
+          e instanceof AiProviderNotConfiguredError &&
+          /groq/.test(e.message) &&
+          /GROQ_API_KEY/.test(e.message),
+      ),
+    );
+  }
+
   // 15. unknown value
   console.log('\n15. AI_PROVIDER=foobar → none (fallback)');
   {

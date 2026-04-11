@@ -19,6 +19,7 @@ import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   AiProvider,
+  AiProviderNotConfiguredError,
   AiProviderNotSupportedError,
   AnalyzeImageInput,
   GenerateEmbeddingInput,
@@ -81,15 +82,31 @@ export class GroqProvider implements AiProvider {
     return this.inner.isAvailable();
   }
 
+  /**
+   * The inner OpenAiProvider throws
+   *   AiProviderNotConfiguredError('openai', ['OPENAI_API_KEY'])
+   * when credentials are missing — which is wrong for Groq consumers.
+   * Catch and rethrow with the correct provider/env-var labels so
+   * operators see "groq / GROQ_API_KEY" in their logs.
+   */
+  private translate<T>(promise: Promise<T>): Promise<T> {
+    return promise.catch((e: unknown) => {
+      if (e instanceof AiProviderNotConfiguredError) {
+        throw new AiProviderNotConfiguredError('groq', ['GROQ_API_KEY']);
+      }
+      throw e;
+    });
+  }
+
   async generateText(input: GenerateTextInput): Promise<GenerateTextResult> {
-    const res = await this.inner.generateText(input);
+    const res = await this.translate(this.inner.generateText(input));
     return { ...res, provider: 'groq' };
   }
 
   async analyzeImage(input: AnalyzeImageInput): Promise<GenerateTextResult> {
     // Groq supports vision on a subset of models (e.g. llama-3.2-90b-vision).
     // We pass through; any model mismatch surfaces as a clear API error.
-    const res = await this.inner.analyzeImage(input);
+    const res = await this.translate(this.inner.analyzeImage(input));
     return { ...res, provider: 'groq' };
   }
 

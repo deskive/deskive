@@ -1,6 +1,6 @@
 # AI / LLM providers
 
-Vasty Shop supports five AI backends plus a `none` default. Pick one by
+Deskive supports five AI backends plus a `none` default. Pick one by
 setting `AI_PROVIDER` in your `.env`.
 
 ```
@@ -12,7 +12,7 @@ AI_PROVIDER=openai   # highest-quality default
 | Provider | Cost | Vision | Embeddings | JSON mode | Best for |
 |---|---|---|---|---|---|
 | **openai** | paid (3k-tier free trial) | ✅ | ✅ | native | highest quality, default |
-| **anthropic** | paid | ✅ | ❌ | prompt-based | long-context reasoning, product copy |
+| **anthropic** | paid | ✅ | ❌ | prompt-based | long-context reasoning |
 | **gemini** | generous free tier | ✅ | ✅ | native | cheap vision, multimodal |
 | **ollama** | free (local) | ✅ *(LLaVA)* | ✅ *(nomic-embed-text)* | `format=json` | fully offline dev, zero API cost |
 | **groq** | generous free tier | ⚠️ *(model-dependent)* | ❌ | via prompt | ultra-low latency |
@@ -22,8 +22,8 @@ AI_PROVIDER=openai   # highest-quality default
 
 - **"I'm a new contributor cloning the repo"** → `ollama` (zero API keys needed, fully offline)
 - **Production default, highest quality** → `openai`
-- **Long product descriptions / reasoning-heavy flows** → `anthropic`
-- **Cheap vision (product photo autofill) at scale** → `gemini`
+- **Long-context reasoning / summarization** → `anthropic`
+- **Cheap multimodal + vision at scale** → `gemini`
 - **Real-time UX where latency matters** → `groq`
 - **Haven't decided yet** → leave `AI_PROVIDER` unset; AI features fail loudly instead of silently returning empty
 
