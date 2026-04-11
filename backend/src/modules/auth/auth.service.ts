@@ -1269,4 +1269,45 @@ export class AuthService {
       throw new InternalServerErrorException('Failed to fetch deletion feedback statistics');
     }
   }
+
+  /**
+   * Sign a user in via magic link. Called by SsoController after the
+   * magic-link JWT has been verified. Finds the user by email (or
+   * creates a minimal record on first magic-link login) and issues a
+   * real access token.
+   */
+  async authenticateViaMagicLink(email: string) {
+    const normalized = email.toLowerCase().trim();
+    let user = await this.db.findOne('users', { email: normalized });
+    if (!user) {
+      // password_hash stays NULL — the user cannot log in via
+      // password until they set one (users.password_hash is nullable
+      // in the schema). email_verified is set true because the user
+      // proved control of the inbox by clicking the magic-link.
+      const inserted: any = await this.db.query(
+        `INSERT INTO users (email, email_verified, email_confirmed_at, created_at, updated_at)
+         VALUES (LOWER($1), true, NOW(), NOW(), NOW())
+         RETURNING id, email, email_verified`,
+        [normalized],
+      );
+      user = inserted?.rows?.[0];
+      if (!user) {
+        throw new InternalServerErrorException('Failed to create user during magic-link login');
+      }
+      this.logger.log(`Magic-link auto-provisioned user ${normalized}`);
+    }
+    const access_token = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      loginMethod: 'magic-link',
+    });
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        emailVerified: user.email_verified ?? true,
+      },
+      access_token,
+    };
+  }
 }
