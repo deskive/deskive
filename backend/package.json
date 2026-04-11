@@ -101,7 +101,9 @@
   "optionalDependencies": {
     "firebase-admin": "^13.6.0",
     "livekit-server-sdk": "^2.10.0",
-    "agora-token": "^2.0.5"
+    "agora-token": "^2.0.5",
+    "@google-cloud/storage": "^7.11.0",
+    "@azure/storage-blob": "^12.17.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.10",
