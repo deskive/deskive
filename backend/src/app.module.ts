@@ -7,6 +7,8 @@ import { StorageModule } from './modules/storage/storage.module';
 import { RedisModule } from './modules/redis/redis.module';
 import { AiProviderModule } from './modules/ai-provider/ai-provider.module';
 import { PushModule } from './modules/push/push.module';
+import { SearchProviderModule } from './modules/search-provider/search-provider.module';
+import { HealthModule } from './modules/health/health.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { WebSocketModule } from './common/gateways/websocket.module';
 import { CommonModule } from './common/common.module';
@@ -81,6 +83,8 @@ import { FeedbackModule } from './modules/feedback/feedback.module';
     RedisModule,
     AiProviderModule,
     PushModule,
+    SearchProviderModule,
+    HealthModule,
     AuthModule,
     // Core AI memory module (global)
     ConversationMemoryModule,

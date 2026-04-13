@@ -5094,7 +5094,7 @@
       "badge": "強力な連携",
       "title": "使用するすべてを接続",
       "titleHighlight": "スタック全体を統合。",
-      "subtitle": "500以上のアプリやサービスとシームレスに連携。お気に入りの開発ツール、ビジネスアプリケーション、サービスを強力なAPI、Webhook、事前構築されたコネクターで接続します。",
+      "subtitle": "カタログ内の180以上のアプリ(Slack、Google Workspace、GitHub、Jira、Notion、Asana、Linear、HubSpotなど)とシームレスに連携。プラグイン可能なOAuthフレームワーク、REST API、Webhookで、残りのスタックも接続できます。",
       "cta": "連携を探索",
       "sections": {
         "connectTitle": "シンプルな連携",
