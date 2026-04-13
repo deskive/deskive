@@ -185,7 +185,7 @@ export const CPUMetrics: React.FC<{
                 <YAxis domain={[0, 100]} />
                 <Tooltip 
                   labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-                  formatter={(value: number) => [`${value.toFixed(1)}%`, 'CPU Usage']}
+                  formatter={(value) => [`${Number(value).toFixed(1)}%`, 'CPU Usage']}
                 />
                 <Area 
                   type="monotone" 
@@ -287,7 +287,7 @@ export const MemoryMetrics: React.FC<{
                 <YAxis domain={[0, 100]} />
                 <Tooltip 
                   labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-                  formatter={(value: number) => [`${value.toFixed(1)}%`, 'Memory Usage']}
+                  formatter={(value) => [`${Number(value).toFixed(1)}%`, 'Memory Usage']}
                 />
                 <Area 
                   type="monotone" 
@@ -395,7 +395,7 @@ export const DiskMetrics: React.FC<{
                 <YAxis domain={[0, 100]} />
                 <Tooltip 
                   labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-                  formatter={(value: number) => [`${value.toFixed(1)}%`, 'Disk Usage']}
+                  formatter={(value) => [`${Number(value).toFixed(1)}%`, 'Disk Usage']}
                 />
                 <Area 
                   type="monotone" 
@@ -511,8 +511,8 @@ export const NetworkMetrics: React.FC<{
                 />
                 <Tooltip 
                   labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-                  formatter={(value: number, name: string) => [
-                    formatBytes(value), 
+                  formatter={(value, name) => [
+                    formatBytes(Number(value)),
                     name === 'bytesIn' ? 'Incoming' : 'Outgoing'
                   ]}
                 />

@@ -104,16 +104,14 @@ const SendInvitationModal: React.FC<SendInvitationModalProps> = ({
 
   if (!isOpen && !showUpgradeModal) return null;
 
+  // NOTE: an UpgradeLimitModal block previously lived here but its
+  // component was deleted upstream, leaving broken JSX that blocked
+  // the whole frontend tsc build. When a member-limit error fires,
+  // the normal error-alert path below surfaces the message instead.
+  // If a dedicated upgrade modal ships later, re-insert it here.
+
   return (
     <>
-      {/* Upgrade Plan Modal */}
-        isOpen={showUpgradeModal}
-        onClose={handleCloseUpgradeModal}
-        workspaceId={workspaceId}
-        limitType="members"
-        limitMessage={limitMessage}
-      />
-
       {/* Invitation Form Modal */}
       {isOpen && !showUpgradeModal && (
     <AnimatePresence>
