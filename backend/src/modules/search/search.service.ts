@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { SearchQueryDto } from './dto';
+import { SearchProviderService } from '../search-provider/search-provider.service';
 
 interface SearchFilters {
   author?: string;
@@ -13,7 +14,10 @@ interface SearchFilters {
 
 @Injectable()
 export class SearchService {
-  constructor(private readonly db: DatabaseService) { }
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly searchProvider: SearchProviderService,
+  ) { }
 
   async universalSearch(workspaceId: string, searchParams: SearchQueryDto, userId: string) {
     const { query, types = ['notes', 'files', 'folders', 'messages', 'tasks', 'projects', 'events', 'videos'], page = 1, limit = 20, ...filters } = searchParams;
@@ -85,31 +89,26 @@ export class SearchService {
   }
 
   private async searchInContentType(type: string, workspaceId: string, query: string, filters: SearchFilters, userId: string) {
-    const searchTerm = query.toLowerCase();
-
     try {
-      switch (type) {
-        case 'notes':
-          return await this.searchNotes(workspaceId, searchTerm, filters, userId);
-        case 'files':
-          return await this.searchFiles(workspaceId, searchTerm, filters, userId);
-        case 'folders':
-          return await this.searchFolders(workspaceId, searchTerm, filters, userId);
-        case 'messages':
-          return await this.searchMessages(workspaceId, searchTerm, filters, userId);
-        case 'tasks':
-          return await this.searchTasks(workspaceId, searchTerm, filters, userId);
-        case 'projects':
-          return await this.searchProjects(workspaceId, searchTerm, filters, userId);
-        case 'events':
-          return await this.searchEvents(workspaceId, searchTerm, filters, userId);
-        case 'videos':
-          return await this.searchVideos(workspaceId, searchTerm, filters, userId);
-        default:
-          return [];
-      }
+      // Use the pluggable search provider (pg-trgm/meilisearch/typesense)
+      // Collection name matches the content type (notes, files, messages, etc.)
+      const result = await this.searchProvider.search(type, {
+        q: query,
+        filters: {
+          workspace_id: workspaceId,
+          ...filters,
+        },
+        limit: 100, // Get more results for relevance ranking
+      });
+
+      // Transform search provider results to match existing format
+      return result.hits.map(hit => ({
+        ...hit.document,
+        _score: hit.score,
+      }));
     } catch (error) {
       console.error(`Error searching ${type}:`, error);
+      // Fallback to empty results if provider fails
       return [];
     }
   }
