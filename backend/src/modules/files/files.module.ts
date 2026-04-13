@@ -10,6 +10,12 @@ import { ConversationMemoryModule } from '../conversation-memory/conversation-me
 import { WebSocketModule } from '../../common/gateways/websocket.module';
 
 @Module({
+  imports: [
+    forwardRef(() => AuthModule),
+    forwardRef(() => NotificationsModule),
+    forwardRef(() => ConversationMemoryModule),
+    forwardRef(() => WebSocketModule),
+  ],
   controllers: [FilesController, SharedFilesController, StorageController, PublicStorageController],
   providers: [FilesService, FilesAgentService],
   exports: [FilesService, FilesAgentService],

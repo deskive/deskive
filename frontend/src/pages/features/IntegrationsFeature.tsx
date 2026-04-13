@@ -23,7 +23,7 @@ export default function IntegrationsFeature() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800">
       <PageSEO
         title="Integrations - Connect Your Favorite Apps"
-        description="Connect Deskive with 500+ apps and services. Seamless integrations with Slack, Google Workspace, GitHub, Jira, and more."
+        description="Deskive ships with 180+ connectors in the catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, Trello, HubSpot, and more — all driven by a pluggable OAuth framework."
         keywords={['integrations', 'app integrations', 'connect apps', 'API', 'webhooks', 'third-party apps']}
         ogImage="/og-images/features/integrations.png"
       />
@@ -46,8 +46,7 @@ export default function IntegrationsFeature() {
               Connect Everything You Use
             </h1>
             <p className="text-xl mb-8 text-indigo-50">
-              Seamlessly integrate with 500+ apps and services through our powerful API, 
-              pre-built connectors, and custom webhooks that unify your entire tech stack.
+              Seamlessly integrate with 180+ apps in the built-in catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, HubSpot, Shopify, and more — plus a pluggable OAuth framework, REST API, and webhooks for the rest of your stack.
             </p>
             <div className="flex gap-4 flex-wrap">
               <Button size="lg" className="bg-white text-indigo-600 hover:bg-gray-100">
