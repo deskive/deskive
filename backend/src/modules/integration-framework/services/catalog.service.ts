@@ -284,15 +284,15 @@ export class CatalogService {
         website: dto.website || null,
         documentation_url: dto.documentationUrl || null,
         auth_type: dto.authType,
-        auth_config: dto.authConfig,
+        auth_config: JSON.stringify(dto.authConfig || {}),
         api_base_url: dto.apiBaseUrl || null,
-        api_config: dto.apiConfig || {},
+        api_config: JSON.stringify(dto.apiConfig || {}),
         supports_webhooks: dto.supportsWebhooks || false,
-        webhook_config: dto.webhookConfig || {},
-        capabilities: dto.capabilities || [],
-        features: dto.features || [],
-        config_schema: dto.configSchema || {},
-        screenshots: dto.screenshots || [],
+        webhook_config: JSON.stringify(dto.webhookConfig || {}),
+        capabilities: JSON.stringify(dto.capabilities || []),
+        features: JSON.stringify(dto.features || []),
+        config_schema: JSON.stringify(dto.configSchema || {}),
+        screenshots: JSON.stringify(dto.screenshots || []),
         pricing_type: dto.pricingType || 'free',
         is_verified: dto.isVerified || false,
         is_featured: dto.isFeatured || false,
@@ -335,11 +335,11 @@ export class CatalogService {
       if (dto.name !== undefined) updateData.name = dto.name;
       if (dto.description !== undefined) updateData.description = dto.description;
       if (dto.logoUrl !== undefined) updateData.logo_url = dto.logoUrl;
-      if (dto.authConfig !== undefined) updateData.auth_config = dto.authConfig;
-      if (dto.apiConfig !== undefined) updateData.api_config = dto.apiConfig;
-      if (dto.webhookConfig !== undefined) updateData.webhook_config = dto.webhookConfig;
-      if (dto.capabilities !== undefined) updateData.capabilities = dto.capabilities;
-      if (dto.features !== undefined) updateData.features = dto.features;
+      if (dto.authConfig !== undefined) updateData.auth_config = JSON.stringify(dto.authConfig);
+      if (dto.apiConfig !== undefined) updateData.api_config = JSON.stringify(dto.apiConfig);
+      if (dto.webhookConfig !== undefined) updateData.webhook_config = JSON.stringify(dto.webhookConfig);
+      if (dto.capabilities !== undefined) updateData.capabilities = JSON.stringify(dto.capabilities);
+      if (dto.features !== undefined) updateData.features = JSON.stringify(dto.features);
       if (dto.isActive !== undefined) updateData.is_active = dto.isActive;
       if (dto.isVerified !== undefined) updateData.is_verified = dto.isVerified;
       if (dto.isFeatured !== undefined) updateData.is_featured = dto.isFeatured;
