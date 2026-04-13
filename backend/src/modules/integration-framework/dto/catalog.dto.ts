@@ -334,6 +334,12 @@ export class IntegrationCatalogResponseDto {
 
   @ApiProperty()
   updatedAt: string;
+
+  @ApiProperty({
+    description:
+      'True if the server-side credentials for this integration are configured in env (OAuth client id + secret, or the api_key env var). When false, the frontend should render a "Not configured" state and disable the Connect button — clicking would otherwise fail with a server error about missing env vars.',
+  })
+  credentialConfigured: boolean;
 }
 
 export class MarketplaceResponseDto {
