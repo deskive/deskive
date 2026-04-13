@@ -4,6 +4,7 @@ import { Request } from 'express';
 import { SearchService } from './search.service';
 import { SemanticSearchService, IndexableContentType } from './semantic-search.service';
 import { ContentIndexerService } from './content-indexer.service';
+import { SearchProviderService } from '../search-provider/search-provider.service';
 import {
   SearchQueryDto,
   GetRecentSearchesDto,
@@ -27,6 +28,7 @@ export class SearchController {
     private readonly searchService: SearchService,
     private readonly semanticSearchService: SemanticSearchService,
     private readonly contentIndexerService: ContentIndexerService,
+    private readonly searchProviderService: SearchProviderService,
   ) {}
 
   @Get()

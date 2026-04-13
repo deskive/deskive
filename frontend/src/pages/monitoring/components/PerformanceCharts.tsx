@@ -182,7 +182,7 @@ export const ResponseTimeChart: React.FC<{
           <YAxis />
           <Tooltip 
             labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-            formatter={(value: number, name: string) => [`${value.toFixed(0)}ms`, name]}
+            formatter={(value, name) => [`${Number(value).toFixed(0)}ms`, String(name)]}
           />
           <Legend />
           <Line 
@@ -484,7 +484,7 @@ export const CachePerformanceChart: React.FC<{
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip formatter={(value: number) => `${value.toFixed(1)}%`} />
+              <Tooltip formatter={(value) => `${Number(value).toFixed(1)}%`} />
               <Legend />
             </PieChart>
           </ResponsiveContainer>

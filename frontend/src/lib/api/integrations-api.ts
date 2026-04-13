@@ -60,6 +60,14 @@ export interface IntegrationCatalogEntry {
   reviewCount: number;
   createdAt: string;
   updatedAt: string;
+  /**
+   * True iff the operator has configured the server-side credentials
+   * for this integration (OAuth client id/secret or api_key env var).
+   * When false, the Connect button should be disabled with a
+   * "Not configured — admin must set {env var}" message, because
+   * clicking would otherwise fail with a server error.
+   */
+  credentialConfigured?: boolean;
 }
 
 // User's connection to an integration

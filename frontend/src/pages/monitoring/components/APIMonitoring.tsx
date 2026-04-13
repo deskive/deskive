@@ -357,8 +357,8 @@ const ResponseTimeChart: React.FC<{
           <YAxis yAxisId="throughput" orientation="right" />
           <Tooltip 
             labelFormatter={(value) => new Date(value).toLocaleTimeString()}
-            formatter={(value: number, name: string) => [
-              name === 'responseTime' ? `${value}ms` : `${value} req/min`,
+            formatter={(value, name) => [
+              name === 'responseTime' ? `${Number(value)}ms` : `${Number(value)} req/min`,
               name === 'responseTime' ? 'Response Time' : 'Throughput'
             ]}
           />
@@ -432,7 +432,7 @@ const StatusCodeChart: React.FC<{
                 ))}
               </Pie>
               <Tooltip 
-                formatter={(value: number) => value.toLocaleString()}
+                formatter={(value) => Number(value).toLocaleString()}
               />
               <Legend />
             </PieChart>

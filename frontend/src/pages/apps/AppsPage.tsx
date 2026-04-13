@@ -25,20 +25,12 @@ import { GoogleDriveBrowser } from './GoogleDriveBrowser';
 import GoogleSheetsBrowser from './GoogleSheetsBrowser';
 import { cn } from '@/lib/utils';
 
-// List of integration slugs that are actually configured with OAuth credentials in the backend
-// These are the ones that will work when users try to connect
-const CONFIGURED_INTEGRATION_SLUGS = [
-  // Google integrations (configured via Google Cloud Console)
-  'google-drive',
-  'gmail',
-  'google-calendar',
-  'google-sheets',
-  // GitHub (configured via GitHub OAuth App)
-  'github',
-  // Dropbox (configured via Dropbox App Console)
-  'dropbox',
-  // Add more slugs here as you configure them in the backend .env
-];
+// Whether a catalog integration is "connectable right now" is decided
+// by the backend: each catalog entry returns `credentialConfigured`,
+// which is true when the operator has set the required env vars
+// (OAuth client id/secret, or the api_key env var). No hardcoded
+// list here — previously a 6-slug whitelist silently hid every other
+// integration in the catalog.
 
 // Category tab definitions - grouped by functionality
 const CATEGORY_TABS: Array<{ id: string; categories: string[] }> = [
@@ -761,13 +753,15 @@ function AppsGrid() {
           />
         )}
 
-        {/* Catalog integrations */}
+        {/* Catalog integrations. `isConfigured` comes from the server
+            (`credentialConfigured`), which is true iff the operator has
+            set the required OAuth / api_key env vars for this integration. */}
         {filteredIntegrations.map((integration) => (
           <IntegrationCard
             key={integration.id}
             integration={integration}
             connection={getConnection(integration.id)}
-            isConfigured={CONFIGURED_INTEGRATION_SLUGS.includes(integration.slug)}
+            isConfigured={integration.credentialConfigured ?? false}
           />
         ))}
       </div>
