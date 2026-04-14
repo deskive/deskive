@@ -18,13 +18,24 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nParties\n', attributes: { bold: true } },
-        { insert: 'Owner: {{owner_name}}\nAddress: {{owner_address}}\n\nContractor: {{contractor_name}}\nLicense #: {{contractor_license}}\nAddress: {{contractor_address}}\n\n' },
+        {
+          insert:
+            'Owner: {{owner_name}}\nAddress: {{owner_address}}\n\nContractor: {{contractor_name}}\nLicense #: {{contractor_license}}\nAddress: {{contractor_address}}\n\n',
+        },
         { insert: 'Project Information\n', attributes: { bold: true } },
-        { insert: 'Project Name: {{project_name}}\nProject Location: {{project_location}}\nProject Description: {{project_description}}\n\n' },
+        {
+          insert:
+            'Project Name: {{project_name}}\nProject Location: {{project_location}}\nProject Description: {{project_description}}\n\n',
+        },
         { insert: 'Contract Price\n', attributes: { bold: true } },
-        { insert: 'Total Contract Price: {{contract_price}}\nContract Type: {{contract_type}}\n\n' },
+        {
+          insert: 'Total Contract Price: {{contract_price}}\nContract Type: {{contract_type}}\n\n',
+        },
         { insert: 'Project Schedule\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{start_date}}\nSubstantial Completion: {{completion_date}}\nFinal Completion: {{final_completion}}\n\n' },
+        {
+          insert:
+            'Start Date: {{start_date}}\nSubstantial Completion: {{completion_date}}\nFinal Completion: {{final_completion}}\n\n',
+        },
         { insert: 'Payment Terms\n', attributes: { bold: true } },
         { insert: '{{payment_terms}}\n\n' },
         { insert: 'Scope of Work\n', attributes: { bold: true } },
@@ -49,23 +60,48 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'contractor_address', type: 'textarea', label: 'Contractor Address', required: true },
       { key: 'project_name', type: 'text', label: 'Project Name', required: true },
       { key: 'project_location', type: 'text', label: 'Project Location', required: true },
-      { key: 'project_description', type: 'textarea', label: 'Project Description', required: true },
+      {
+        key: 'project_description',
+        type: 'textarea',
+        label: 'Project Description',
+        required: true,
+      },
       { key: 'contract_price', type: 'text', label: 'Contract Price', required: true },
-      { key: 'contract_type', type: 'select', label: 'Contract Type', required: true, options: ['Fixed Price', 'Cost Plus', 'Time and Materials', 'Unit Price'] },
+      {
+        key: 'contract_type',
+        type: 'select',
+        label: 'Contract Type',
+        required: true,
+        options: ['Fixed Price', 'Cost Plus', 'Time and Materials', 'Unit Price'],
+      },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'completion_date', type: 'date', label: 'Completion Date', required: true },
       { key: 'final_completion', type: 'date', label: 'Final Completion', required: false },
       { key: 'payment_terms', type: 'textarea', label: 'Payment Terms', required: true },
       { key: 'scope_of_work', type: 'textarea', label: 'Scope of Work', required: true },
       { key: 'general_conditions', type: 'textarea', label: 'General Conditions', required: true },
-      { key: 'insurance_requirements', type: 'textarea', label: 'Insurance Requirements', required: true },
+      {
+        key: 'insurance_requirements',
+        type: 'textarea',
+        label: 'Insurance Requirements',
+        required: true,
+      },
       { key: 'warranties', type: 'textarea', label: 'Warranties', required: true },
     ],
     signatureFields: [
       { id: 'owner', label: 'Owner', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Subcontractor Agreement',
@@ -84,15 +120,24 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nParties\n', attributes: { bold: true } },
-        { insert: 'General Contractor: {{gc_name}}\nAddress: {{gc_address}}\n\nSubcontractor: {{sub_name}}\nTrade: {{sub_trade}}\nLicense #: {{sub_license}}\nAddress: {{sub_address}}\n\n' },
+        {
+          insert:
+            'General Contractor: {{gc_name}}\nAddress: {{gc_address}}\n\nSubcontractor: {{sub_name}}\nTrade: {{sub_trade}}\nLicense #: {{sub_license}}\nAddress: {{sub_address}}\n\n',
+        },
         { insert: 'Project Information\n', attributes: { bold: true } },
-        { insert: 'Project: {{project_name}}\nLocation: {{project_location}}\nOwner: {{owner_name}}\n\n' },
+        {
+          insert:
+            'Project: {{project_name}}\nLocation: {{project_location}}\nOwner: {{owner_name}}\n\n',
+        },
         { insert: 'Scope of Work\n', attributes: { bold: true } },
         { insert: '{{scope_of_work}}\n\n' },
         { insert: 'Contract Sum\n', attributes: { bold: true } },
         { insert: 'Subcontract Amount: {{subcontract_amount}}\nRetainage: {{retainage}}\n\n' },
         { insert: 'Schedule\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{start_date}}\nCompletion Date: {{completion_date}}\nMilestones: {{milestones}}\n\n' },
+        {
+          insert:
+            'Start Date: {{start_date}}\nCompletion Date: {{completion_date}}\nMilestones: {{milestones}}\n\n',
+        },
         { insert: 'Payment Terms\n', attributes: { bold: true } },
         { insert: '{{payment_terms}}\n\n' },
         { insert: 'Insurance Requirements\n', attributes: { bold: true } },
@@ -120,13 +165,27 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'completion_date', type: 'date', label: 'Completion Date', required: true },
       { key: 'milestones', type: 'textarea', label: 'Milestones', required: false },
       { key: 'payment_terms', type: 'textarea', label: 'Payment Terms', required: true },
-      { key: 'insurance_requirements', type: 'textarea', label: 'Insurance Requirements', required: true },
+      {
+        key: 'insurance_requirements',
+        type: 'textarea',
+        label: 'Insurance Requirements',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'gc', label: 'General Contractor', required: true, position: { page: 1, x: 50, y: 700 } },
+      {
+        id: 'gc',
+        label: 'General Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
       { id: 'sub', label: 'Subcontractor', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Change Order',
@@ -145,7 +204,10 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProject Information\n', attributes: { bold: true } },
-        { insert: 'Project: {{project_name}}\nOriginal Contract #: {{contract_number}}\nOwner: {{owner_name}}\nContractor: {{contractor_name}}\n\n' },
+        {
+          insert:
+            'Project: {{project_name}}\nOriginal Contract #: {{contract_number}}\nOwner: {{owner_name}}\nContractor: {{contractor_name}}\n\n',
+        },
         { insert: 'Change Order Type: ' },
         { insert: '{{change_type}}', attributes: { bold: true } },
         { insert: '\n\nDescription of Change\n', attributes: { bold: true } },
@@ -153,9 +215,15 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: 'Reason for Change\n', attributes: { bold: true } },
         { insert: '{{change_reason}}\n\n' },
         { insert: 'Cost Impact\n', attributes: { bold: true } },
-        { insert: 'Original Contract Sum: {{original_sum}}\nPrevious Change Orders: {{previous_changes}}\nThis Change Order: {{this_change}}\nNew Contract Sum: {{new_sum}}\n\n' },
+        {
+          insert:
+            'Original Contract Sum: {{original_sum}}\nPrevious Change Orders: {{previous_changes}}\nThis Change Order: {{this_change}}\nNew Contract Sum: {{new_sum}}\n\n',
+        },
         { insert: 'Schedule Impact\n', attributes: { bold: true } },
-        { insert: 'Original Completion Date: {{original_date}}\nTime Extension: {{time_extension}}\nNew Completion Date: {{new_date}}\n\n' },
+        {
+          insert:
+            'Original Completion Date: {{original_date}}\nTime Extension: {{time_extension}}\nNew Completion Date: {{new_date}}\n\n',
+        },
         { insert: 'Attachments\n', attributes: { bold: true } },
         { insert: '{{attachments}}\n\n' },
         { insert: '\nContractor: _______________________  Date: ____________\n' },
@@ -170,7 +238,19 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'contract_number', type: 'text', label: 'Contract Number', required: true },
       { key: 'owner_name', type: 'text', label: 'Owner Name', required: true },
       { key: 'contractor_name', type: 'text', label: 'Contractor Name', required: true },
-      { key: 'change_type', type: 'select', label: 'Change Type', required: true, options: ['Owner Request', 'Design Change', 'Field Condition', 'Code Requirement', 'Value Engineering'] },
+      {
+        key: 'change_type',
+        type: 'select',
+        label: 'Change Type',
+        required: true,
+        options: [
+          'Owner Request',
+          'Design Change',
+          'Field Condition',
+          'Code Requirement',
+          'Value Engineering',
+        ],
+      },
       { key: 'change_description', type: 'textarea', label: 'Description', required: true },
       { key: 'change_reason', type: 'textarea', label: 'Reason', required: true },
       { key: 'original_sum', type: 'text', label: 'Original Sum', required: true },
@@ -183,11 +263,25 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'attachments', type: 'textarea', label: 'Attachments', required: false },
     ],
     signatureFields: [
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 680 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
       { id: 'owner', label: 'Owner', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'architect', label: 'Architect', required: false, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'architect',
+        label: 'Architect',
+        required: false,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Construction Bid Proposal',
@@ -210,15 +304,24 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: '\n\nTo: {{owner_name}}\n{{owner_address}}\n\n' },
         { insert: 'Re: {{project_name}}\n\n' },
         { insert: 'Bidder Information\n', attributes: { bold: true } },
-        { insert: 'Company: {{company_name}}\nLicense #: {{license_number}}\nAddress: {{company_address}}\nContact: {{contact_name}}\nPhone: {{phone}}\nEmail: {{email}}\n\n' },
+        {
+          insert:
+            'Company: {{company_name}}\nLicense #: {{license_number}}\nAddress: {{company_address}}\nContact: {{contact_name}}\nPhone: {{phone}}\nEmail: {{email}}\n\n',
+        },
         { insert: 'Project Understanding\n', attributes: { bold: true } },
         { insert: '{{project_understanding}}\n\n' },
         { insert: 'Bid Amount\n', attributes: { bold: true } },
-        { insert: 'Base Bid: {{base_bid}}\nAlternates: {{alternates}}\nTotal Bid: {{total_bid}}\n\n' },
+        {
+          insert:
+            'Base Bid: {{base_bid}}\nAlternates: {{alternates}}\nTotal Bid: {{total_bid}}\n\n',
+        },
         { insert: 'Bid Breakdown\n', attributes: { bold: true } },
         { insert: '{{bid_breakdown}}\n\n' },
         { insert: 'Schedule\n', attributes: { bold: true } },
-        { insert: 'Proposed Start: {{proposed_start}}\nProposed Completion: {{proposed_completion}}\nDuration: {{duration}}\n\n' },
+        {
+          insert:
+            'Proposed Start: {{proposed_start}}\nProposed Completion: {{proposed_completion}}\nDuration: {{duration}}\n\n',
+        },
         { insert: 'Qualifications\n', attributes: { bold: true } },
         { insert: '{{qualifications}}\n\n' },
         { insert: 'Exclusions\n', attributes: { bold: true } },
@@ -240,7 +343,12 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'contact_name', type: 'text', label: 'Contact Name', required: true },
       { key: 'phone', type: 'text', label: 'Phone', required: true },
       { key: 'email', type: 'text', label: 'Email', required: true },
-      { key: 'project_understanding', type: 'textarea', label: 'Project Understanding', required: true },
+      {
+        key: 'project_understanding',
+        type: 'textarea',
+        label: 'Project Understanding',
+        required: true,
+      },
       { key: 'base_bid', type: 'text', label: 'Base Bid', required: true },
       { key: 'alternates', type: 'text', label: 'Alternates', required: false },
       { key: 'total_bid', type: 'text', label: 'Total Bid', required: true },
@@ -253,9 +361,18 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { key: 'signatory_title', type: 'text', label: 'Signatory Title', required: true },
     ],
     signatureFields: [
-      { id: 'authorized', label: 'Authorized Signature', required: true, position: { page: 1, x: 50, y: 700 } },
+      {
+        id: 'authorized',
+        label: 'Authorized Signature',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Lien Waiver',
@@ -274,16 +391,25 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProject Information\n', attributes: { bold: true } },
-        { insert: 'Project: {{project_name}}\nProject Address: {{project_address}}\nOwner: {{owner_name}}\n\n' },
+        {
+          insert:
+            'Project: {{project_name}}\nProject Address: {{project_address}}\nOwner: {{owner_name}}\n\n',
+        },
         { insert: 'Claimant Information\n', attributes: { bold: true } },
         { insert: 'Company: {{claimant_name}}\nAddress: {{claimant_address}}\n\n' },
         { insert: 'Payment Information\n', attributes: { bold: true } },
-        { insert: 'Through Date: {{through_date}}\nAmount: {{payment_amount}}\nPayment For: {{payment_for}}\n\n' },
+        {
+          insert:
+            'Through Date: {{through_date}}\nAmount: {{payment_amount}}\nPayment For: {{payment_for}}\n\n',
+        },
         { insert: 'Waiver Statement\n', attributes: { bold: true } },
         { insert: '{{waiver_statement}}\n\n' },
         { insert: 'Exceptions\n', attributes: { bold: true } },
         { insert: '{{exceptions}}\n\n' },
-        { insert: 'The undersigned hereby certifies that the above information is true and correct.\n\n' },
+        {
+          insert:
+            'The undersigned hereby certifies that the above information is true and correct.\n\n',
+        },
         { insert: '\nClaimant Signature: _______________________  Date: ____________\n' },
         { insert: 'Printed Name: {{printed_name}}\n' },
         { insert: 'Title: {{title}}\n' },
@@ -291,7 +417,18 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       ],
     },
     placeholders: [
-      { key: 'waiver_type', type: 'select', label: 'Waiver Type', required: true, options: ['Conditional Progress', 'Unconditional Progress', 'Conditional Final', 'Unconditional Final'] },
+      {
+        key: 'waiver_type',
+        type: 'select',
+        label: 'Waiver Type',
+        required: true,
+        options: [
+          'Conditional Progress',
+          'Unconditional Progress',
+          'Conditional Final',
+          'Unconditional Final',
+        ],
+      },
       { key: 'date', type: 'date', label: 'Date', required: true },
       { key: 'project_name', type: 'text', label: 'Project Name', required: true },
       { key: 'project_address', type: 'textarea', label: 'Project Address', required: true },
@@ -310,6 +447,10 @@ export const CONSTRUCTION_CONTRACTS_TEMPLATES = [
       { id: 'claimant', label: 'Claimant', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'notary', label: 'Notary', required: false, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

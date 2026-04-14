@@ -241,7 +241,8 @@ export class AgentToolsService {
       },
       {
         name: 'Smart Summary & Insights',
-        description: 'Get summaries and insights about your daily, weekly activities, upcoming events, and overdue tasks',
+        description:
+          'Get summaries and insights about your daily, weekly activities, upcoming events, and overdue tasks',
         category: 'summary',
         examples: [
           'Give me a daily summary',
@@ -253,7 +254,8 @@ export class AgentToolsService {
       },
       {
         name: 'AI Writing Assistant',
-        description: 'Help with writing emails, meeting notes, documents, proposals, improving text, and translating content',
+        description:
+          'Help with writing emails, meeting notes, documents, proposals, improving text, and translating content',
         category: 'writing',
         examples: [
           'Draft a reply to this email',
@@ -267,7 +269,8 @@ export class AgentToolsService {
       },
       {
         name: 'Document & Image Analysis',
-        description: 'Analyze documents and images, extract key information, summarize content, and answer questions',
+        description:
+          'Analyze documents and images, extract key information, summarize content, and answer questions',
         category: 'analysis',
         examples: [
           'Summarize this document',
@@ -280,7 +283,8 @@ export class AgentToolsService {
       },
       {
         name: 'Batch Operations',
-        description: 'Efficiently create, update, or delete multiple items at once. Great for bulk task creation, mass updates, or organizing files.',
+        description:
+          'Efficiently create, update, or delete multiple items at once. Great for bulk task creation, mass updates, or organizing files.',
         category: 'batch',
         examples: [
           'Create 5 tasks for the sprint planning',
@@ -346,10 +350,7 @@ export class AgentToolsService {
         name: 'Whiteboards',
         description: 'Create and manage whiteboards for collaboration',
         category: 'whiteboards',
-        examples: [
-          'Create a whiteboard for brainstorming',
-          'List all whiteboards',
-        ],
+        examples: ['Create a whiteboard for brainstorming', 'List all whiteboards'],
       },
       {
         name: 'Workflow Automation',
@@ -373,7 +374,8 @@ export class AgentToolsService {
     return [
       new DynamicStructuredTool({
         name: 'create_calendar_event',
-        description: 'Create a new calendar event or meeting. Use this when the user wants to schedule something. Can attach notes, files, or other events using their IDs from previous tool results.',
+        description:
+          'Create a new calendar event or meeting. Use this when the user wants to schedule something. Can attach notes, files, or other events using their IDs from previous tool results.',
         schema: z.object({
           title: z.string().describe('Title of the event'),
           description: z.string().optional().describe('Event description'),
@@ -381,11 +383,30 @@ export class AgentToolsService {
           endTime: z.string().describe('End time in ISO format'),
           attendees: z.array(z.string()).optional().describe('List of attendee email addresses'),
           location: z.string().optional().describe('Event location'),
-          noteAttachments: z.array(z.string()).optional().describe('Array of note IDs to attach to this event (from create_note results)'),
-          fileAttachments: z.array(z.string()).optional().describe('Array of file IDs to attach to this event'),
-          eventAttachments: z.array(z.string()).optional().describe('Array of other event IDs to link to this event'),
+          noteAttachments: z
+            .array(z.string())
+            .optional()
+            .describe('Array of note IDs to attach to this event (from create_note results)'),
+          fileAttachments: z
+            .array(z.string())
+            .optional()
+            .describe('Array of file IDs to attach to this event'),
+          eventAttachments: z
+            .array(z.string())
+            .optional()
+            .describe('Array of other event IDs to link to this event'),
         }),
-        func: async ({ title, description, startTime, endTime, attendees, location, noteAttachments, fileAttachments, eventAttachments }) => {
+        func: async ({
+          title,
+          description,
+          startTime,
+          endTime,
+          attendees,
+          location,
+          noteAttachments,
+          fileAttachments,
+          eventAttachments,
+        }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
@@ -427,7 +448,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'list_calendar_events',
-        description: 'List calendar events for a date range. Use this to check schedule or find meetings.',
+        description:
+          'List calendar events for a date range. Use this to check schedule or find meetings.',
         schema: z.object({
           startDate: z.string().describe('Start date in ISO format'),
           endDate: z.string().describe('End date in ISO format'),
@@ -455,7 +477,11 @@ export class AgentToolsService {
         }),
         func: async ({ eventId }) => {
           try {
-            const event = await this.calendarService.getEvent(eventId, this.context.workspaceId, this.context.userId);
+            const event = await this.calendarService.getEvent(
+              eventId,
+              this.context.workspaceId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, event });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -465,10 +491,13 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'update_event_time',
-        description: 'Update the start and end time of a calendar event. Use when user wants to reschedule.',
+        description:
+          'Update the start and end time of a calendar event. Use when user wants to reschedule.',
         schema: z.object({
           eventId: z.string().describe('The ID of the event to update'),
-          startTime: z.string().describe('New start time in ISO format (e.g., 2024-01-15T14:00:00)'),
+          startTime: z
+            .string()
+            .describe('New start time in ISO format (e.g., 2024-01-15T14:00:00)'),
           endTime: z.string().describe('New end time in ISO format'),
         }),
         func: async ({ eventId, startTime, endTime }) => {
@@ -534,7 +563,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'update_event_attendees',
-        description: 'Update the attendees list of a calendar event. Replaces the entire attendee list.',
+        description:
+          'Update the attendees list of a calendar event. Replaces the entire attendee list.',
         schema: z.object({
           eventId: z.string().describe('The ID of the event to update'),
           attendees: z.array(z.string()).describe('Complete list of attendee email addresses'),
@@ -568,10 +598,13 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'add_event_reminder',
-        description: 'Add a reminder to a calendar event. Reminder time is in minutes before the event.',
+        description:
+          'Add a reminder to a calendar event. Reminder time is in minutes before the event.',
         schema: z.object({
           eventId: z.string().describe('The ID of the event'),
-          reminderMinutes: z.number().describe('Minutes before event to send reminder (e.g., 15, 30, 60)'),
+          reminderMinutes: z
+            .number()
+            .describe('Minutes before event to send reminder (e.g., 15, 30, 60)'),
         }),
         func: async ({ eventId, reminderMinutes }) => {
           if (!this.context.executeActions) {
@@ -584,7 +617,11 @@ export class AgentToolsService {
 
           try {
             // Get current event
-            const event = await this.calendarService.getEvent(eventId, this.context.workspaceId, this.context.userId);
+            const event = await this.calendarService.getEvent(
+              eventId,
+              this.context.workspaceId,
+              this.context.userId,
+            );
 
             // Add reminder to reminders array
             const currentReminders = event.reminders || [];
@@ -647,7 +684,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'delete_event',
-        description: 'Permanently delete a calendar event. Use this when the user wants to completely remove an event (not just cancel it).',
+        description:
+          'Permanently delete a calendar event. Use this when the user wants to completely remove an event (not just cancel it).',
         schema: z.object({
           eventId: z.string().describe('The ID of the event to delete'),
         }),
@@ -661,7 +699,8 @@ export class AgentToolsService {
           }
 
           try {
-            await this.db.table('calendar_events')
+            await this.db
+              .table('calendar_events')
               .update({
                 is_deleted: true,
                 deleted_at: new Date().toISOString(),
@@ -687,7 +726,9 @@ export class AgentToolsService {
         description: 'Respond to a calendar event invitation (accept, decline, or maybe).',
         schema: z.object({
           eventId: z.string().describe('The ID of the event to respond to'),
-          response: z.enum(['accepted', 'declined', 'tentative']).describe('Your response: accepted, declined, or tentative (maybe)'),
+          response: z
+            .enum(['accepted', 'declined', 'tentative'])
+            .describe('Your response: accepted, declined, or tentative (maybe)'),
         }),
         func: async ({ eventId, response }) => {
           if (!this.context.executeActions) {
@@ -700,13 +741,14 @@ export class AgentToolsService {
 
           try {
             // Update attendee status in the event
-            const eventResult = await this.db.table('calendar_events')
+            const eventResult = await this.db
+              .table('calendar_events')
               .select('*')
               .where('id', '=', eventId)
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
 
-            const events: any[] = Array.isArray(eventResult) ? eventResult : (eventResult.data || []);
+            const events: any[] = Array.isArray(eventResult) ? eventResult : eventResult.data || [];
             if (events.length === 0) {
               return JSON.stringify({ success: false, error: 'Event not found' });
             }
@@ -716,13 +758,17 @@ export class AgentToolsService {
 
             // Find and update the current user's response
             const updatedAttendees = attendees.map((attendee: any) => {
-              if (attendee.user_id === this.context.userId || attendee.email === this.context.userId) {
+              if (
+                attendee.user_id === this.context.userId ||
+                attendee.email === this.context.userId
+              ) {
                 return { ...attendee, response_status: response };
               }
               return attendee;
             });
 
-            await this.db.table('calendar_events')
+            await this.db
+              .table('calendar_events')
               .update({
                 attendees: updatedAttendees,
                 updated_at: new Date().toISOString(),
@@ -742,7 +788,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'update_calendar_event',
-        description: 'Update a calendar event. Can update title, description, time, location, or attendees.',
+        description:
+          'Update a calendar event. Can update title, description, time, location, or attendees.',
         schema: z.object({
           eventId: z.string().describe('The ID of the event to update'),
           title: z.string().optional().describe('New event title'),
@@ -796,19 +843,47 @@ export class AgentToolsService {
     return [
       new DynamicStructuredTool({
         name: 'create_task',
-        description: 'Create a new task in a project. Use this when the user wants to add a to-do item. If no projectId is provided, the task will be created in the default project. Can attach notes, files, or events using their IDs from previous tool results.',
+        description:
+          'Create a new task in a project. Use this when the user wants to add a to-do item. If no projectId is provided, the task will be created in the default project. Can attach notes, files, or events using their IDs from previous tool results.',
         schema: z.object({
           title: z.string().describe('Task title'),
           description: z.string().optional().describe('Task description'),
-          projectId: z.string().optional().describe('Project ID to add task to (will use default if not provided)'),
-          priority: z.enum(['low', 'medium', 'high']).optional().describe('Task priority: low, medium, or high'),
+          projectId: z
+            .string()
+            .optional()
+            .describe('Project ID to add task to (will use default if not provided)'),
+          priority: z
+            .enum(['low', 'medium', 'high'])
+            .optional()
+            .describe('Task priority: low, medium, or high'),
           dueDate: z.string().optional().describe('Due date in ISO format'),
           assigneeId: z.string().optional().describe('User ID to assign task to'),
-          noteAttachments: z.array(z.string()).optional().describe('Array of note IDs to attach to this task (from create_note results)'),
-          fileAttachments: z.array(z.string()).optional().describe('Array of file IDs to attach to this task'),
-          eventAttachments: z.array(z.string()).optional().describe('Array of event IDs to attach to this task (from create_calendar_event results)'),
+          noteAttachments: z
+            .array(z.string())
+            .optional()
+            .describe('Array of note IDs to attach to this task (from create_note results)'),
+          fileAttachments: z
+            .array(z.string())
+            .optional()
+            .describe('Array of file IDs to attach to this task'),
+          eventAttachments: z
+            .array(z.string())
+            .optional()
+            .describe(
+              'Array of event IDs to attach to this task (from create_calendar_event results)',
+            ),
         }),
-        func: async ({ title, description, projectId, priority, dueDate, assigneeId, noteAttachments, fileAttachments, eventAttachments }) => {
+        func: async ({
+          title,
+          description,
+          projectId,
+          priority,
+          dueDate,
+          assigneeId,
+          noteAttachments,
+          fileAttachments,
+          eventAttachments,
+        }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
@@ -821,17 +896,23 @@ export class AgentToolsService {
             // If no projectId provided, get the first project in the workspace
             let targetProjectId = projectId;
             if (!targetProjectId) {
-              const projectsResult = await this.db.table('projects')
+              const projectsResult = await this.db
+                .table('projects')
                 .select('id')
                 .where('workspace_id', '=', this.context.workspaceId)
                 .limit(1)
                 .execute();
 
-              const projects: any[] = Array.isArray(projectsResult) ? projectsResult : (projectsResult.data || []);
+              const projects: any[] = Array.isArray(projectsResult)
+                ? projectsResult
+                : projectsResult.data || [];
               if (projects.length > 0) {
                 targetProjectId = projects[0].id;
               } else {
-                return JSON.stringify({ success: false, error: 'No projects found in workspace. Please create a project first.' });
+                return JSON.stringify({
+                  success: false,
+                  error: 'No projects found in workspace. Please create a project first.',
+                });
               }
             }
 
@@ -871,7 +952,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'list_tasks',
-        description: 'List tasks, optionally filtered by project or status. Status can be any kanban stage ID.',
+        description:
+          'List tasks, optionally filtered by project or status. Status can be any kanban stage ID.',
         schema: z.object({
           projectId: z.string().optional().describe('Filter by project ID'),
           status: z.string().optional().describe('Filter by status (any kanban stage ID)'),
@@ -880,7 +962,8 @@ export class AgentToolsService {
         func: async ({ projectId, status, assigneeId }) => {
           try {
             // First get projects in this workspace to filter tasks
-            const projectsResult = await this.db.table('projects')
+            const projectsResult = await this.db
+              .table('projects')
               .select('id')
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
@@ -888,11 +971,14 @@ export class AgentToolsService {
             const projectIds = (projectsResult.data || []).map((p: any) => p.id);
 
             if (projectIds.length === 0) {
-              return JSON.stringify({ success: true, tasks: [], message: 'No projects found in workspace' });
+              return JSON.stringify({
+                success: true,
+                tasks: [],
+                message: 'No projects found in workspace',
+              });
             }
 
-            let query = this.db.table('tasks')
-              .select('*');
+            let query = this.db.table('tasks').select('*');
 
             if (projectId) {
               query = query.where('project_id', '=', projectId);
@@ -913,10 +999,15 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'update_task_status',
-        description: 'Update the status of a task. Status can be any kanban stage ID from the project (e.g., "todo", "in_progress", "done", "review", or custom stage IDs).',
+        description:
+          'Update the status of a task. Status can be any kanban stage ID from the project (e.g., "todo", "in_progress", "done", "review", or custom stage IDs).',
         schema: z.object({
           taskId: z.string().describe('Task ID to update'),
-          status: z.string().describe('New status - can be any kanban stage ID (e.g., "todo", "in_progress", "done", "review", or custom stage ID)'),
+          status: z
+            .string()
+            .describe(
+              'New status - can be any kanban stage ID (e.g., "todo", "in_progress", "done", "review", or custom stage ID)',
+            ),
         }),
         func: async ({ taskId, status }) => {
           if (!this.context.executeActions) {
@@ -928,7 +1019,8 @@ export class AgentToolsService {
           }
 
           try {
-            await this.db.table('tasks')
+            await this.db
+              .table('tasks')
               .update({ status, updated_at: new Date().toISOString() })
               .where('id', '=', taskId)
               .execute();
@@ -941,7 +1033,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'update_task',
-        description: 'Update task properties like title, description, priority, or due date. Use this for comprehensive task updates.',
+        description:
+          'Update task properties like title, description, priority, or due date. Use this for comprehensive task updates.',
         schema: z.object({
           taskId: z.string().describe('Task ID to update'),
           title: z.string().optional().describe('New task title'),
@@ -967,15 +1060,12 @@ export class AgentToolsService {
             if (dueDate !== undefined) updates.due_date = dueDate;
             if (labels !== undefined) updates.labels = labels;
 
-            await this.db.table('tasks')
-              .update(updates)
-              .where('id', '=', taskId)
-              .execute();
+            await this.db.table('tasks').update(updates).where('id', '=', taskId).execute();
 
             return JSON.stringify({
               success: true,
               message: `Task updated successfully`,
-              updatedFields: Object.keys(updates).filter(k => k !== 'updated_at'),
+              updatedFields: Object.keys(updates).filter((k) => k !== 'updated_at'),
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -999,7 +1089,8 @@ export class AgentToolsService {
           }
 
           try {
-            await this.db.table('tasks')
+            await this.db
+              .table('tasks')
               .update({
                 is_deleted: true,
                 deleted_at: new Date().toISOString(),
@@ -1036,7 +1127,8 @@ export class AgentToolsService {
           }
 
           try {
-            await this.db.table('tasks')
+            await this.db
+              .table('tasks')
               .update({
                 assigned_to: assigneeIds,
                 updated_at: new Date().toISOString(),
@@ -1072,18 +1164,25 @@ export class AgentToolsService {
 
           try {
             // Verify target project exists in workspace
-            const projectResult = await this.db.table('projects')
+            const projectResult = await this.db
+              .table('projects')
               .select('id', 'name')
               .where('id', '=', targetProjectId)
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
 
-            const projects: any[] = Array.isArray(projectResult) ? projectResult : (projectResult.data || []);
+            const projects: any[] = Array.isArray(projectResult)
+              ? projectResult
+              : projectResult.data || [];
             if (projects.length === 0) {
-              return JSON.stringify({ success: false, error: 'Target project not found in workspace' });
+              return JSON.stringify({
+                success: false,
+                error: 'Target project not found in workspace',
+              });
             }
 
-            await this.db.table('tasks')
+            await this.db
+              .table('tasks')
               .update({
                 project_id: targetProjectId,
                 updated_at: new Date().toISOString(),
@@ -1147,7 +1246,8 @@ export class AgentToolsService {
     return [
       new DynamicStructuredTool({
         name: 'send_channel_message',
-        description: 'Send a message to a channel. Use this when the user wants to post in a channel.',
+        description:
+          'Send a message to a channel. Use this when the user wants to post in a channel.',
         schema: z.object({
           channelId: z.string().describe('Channel ID to send message to'),
           content: z.string().describe('Message content'),
@@ -1162,7 +1262,9 @@ export class AgentToolsService {
           }
 
           try {
-            this.logger.log(`[AutoPilot] Sending message to channel: ${channelId}, content length: ${content.length}`);
+            this.logger.log(
+              `[AutoPilot] Sending message to channel: ${channelId}, content length: ${content.length}`,
+            );
             const message = await this.chatService.sendMessage(
               { content, channel_id: channelId } as any,
               this.context.userId,
@@ -1171,25 +1273,37 @@ export class AgentToolsService {
             return JSON.stringify({ success: true, message, messageId: message.id });
           } catch (error) {
             this.logger.error(`[AutoPilot] Channel message error: ${error.message}`, error.stack);
-            return JSON.stringify({ success: false, error: `Failed to send channel message: ${error.message}` });
+            return JSON.stringify({
+              success: false,
+              error: `Failed to send channel message: ${error.message}`,
+            });
           }
         },
       }),
 
       new DynamicStructuredTool({
         name: 'list_messages',
-        description: 'List messages from a channel or conversation. Use this to get message IDs before editing or deleting messages. Returns messages with their IDs, content, and sender info.',
+        description:
+          'List messages from a channel or conversation. Use this to get message IDs before editing or deleting messages. Returns messages with their IDs, content, and sender info.',
         schema: z.object({
           channelId: z.string().optional().describe('Channel ID to list messages from'),
-          conversationId: z.string().optional().describe('Conversation ID (DM) to list messages from'),
-          limit: z.number().optional().default(20).describe('Number of messages to return (default 20)'),
+          conversationId: z
+            .string()
+            .optional()
+            .describe('Conversation ID (DM) to list messages from'),
+          limit: z
+            .number()
+            .optional()
+            .default(20)
+            .describe('Number of messages to return (default 20)'),
         }),
         func: async ({ channelId, conversationId, limit = 20 }) => {
           try {
             if (!channelId && !conversationId) {
               return JSON.stringify({
                 success: false,
-                error: 'Please provide either channelId or conversationId. Use list_channels or list_conversations first to get valid IDs.',
+                error:
+                  'Please provide either channelId or conversationId. Use list_channels or list_conversations first to get valid IDs.',
               });
             }
 
@@ -1242,7 +1356,8 @@ export class AgentToolsService {
         func: async ({ query, channelId }) => {
           try {
             // Search messages using database query
-            let queryBuilder = this.db.table('messages')
+            let queryBuilder = this.db
+              .table('messages')
               .select('*')
               .where('content', 'ILIKE', `%${query}%`);
 
@@ -1277,9 +1392,12 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'edit_message',
-        description: 'Edit a message you previously sent. Only the author can edit their own messages. IMPORTANT: You must first use list_messages to get valid message IDs before editing.',
+        description:
+          'Edit a message you previously sent. Only the author can edit their own messages. IMPORTANT: You must first use list_messages to get valid message IDs before editing.',
         schema: z.object({
-          messageId: z.string().describe('Message ID (UUID format) to edit - get this from list_messages first'),
+          messageId: z
+            .string()
+            .describe('Message ID (UUID format) to edit - get this from list_messages first'),
           content: z.string().describe('New message content'),
         }),
         func: async ({ messageId, content }) => {
@@ -1288,7 +1406,8 @@ export class AgentToolsService {
           if (!messageId || !uuidRegex.test(messageId)) {
             return JSON.stringify({
               success: false,
-              error: 'Invalid message ID format. Please use list_messages first to get valid message IDs, then use the exact UUID from the results.',
+              error:
+                'Invalid message ID format. Please use list_messages first to get valid message IDs, then use the exact UUID from the results.',
             });
           }
 
@@ -1315,9 +1434,12 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'delete_message',
-        description: 'Delete a message you previously sent. Only the author can delete their own messages. IMPORTANT: You must first use list_messages to get valid message IDs before deleting.',
+        description:
+          'Delete a message you previously sent. Only the author can delete their own messages. IMPORTANT: You must first use list_messages to get valid message IDs before deleting.',
         schema: z.object({
-          messageId: z.string().describe('Message ID (UUID format) to delete - get this from list_messages first'),
+          messageId: z
+            .string()
+            .describe('Message ID (UUID format) to delete - get this from list_messages first'),
         }),
         func: async ({ messageId }) => {
           // UUID validation
@@ -1325,7 +1447,8 @@ export class AgentToolsService {
           if (!messageId || !uuidRegex.test(messageId)) {
             return JSON.stringify({
               success: false,
-              error: 'Invalid message ID format. Please use list_messages first to get valid message IDs, then use the exact UUID from the results.',
+              error:
+                'Invalid message ID format. Please use list_messages first to get valid message IDs, then use the exact UUID from the results.',
             });
           }
 
@@ -1356,7 +1479,8 @@ export class AgentToolsService {
     return [
       new DynamicStructuredTool({
         name: 'search_files',
-        description: 'Search for files by name or content. Returns file IDs that can be used with send_email attachFileIds parameter to attach files to emails.',
+        description:
+          'Search for files by name or content. Returns file IDs that can be used with send_email attachFileIds parameter to attach files to emails.',
         schema: z.object({
           query: z.string().describe('Search query'),
           fileType: z.string().optional().describe('Filter by file type (e.g., pdf, doc, image)'),
@@ -1381,7 +1505,8 @@ export class AgentToolsService {
 
       new DynamicStructuredTool({
         name: 'list_recent_files',
-        description: 'List recently uploaded or modified files. Returns file IDs that can be used with send_email attachFileIds parameter to attach files to emails.',
+        description:
+          'List recently uploaded or modified files. Returns file IDs that can be used with send_email attachFileIds parameter to attach files to emails.',
         schema: z.object({
           limit: z.number().optional().describe('Number of files to return (default 10)'),
         }),
@@ -1439,7 +1564,10 @@ export class AgentToolsService {
         description: 'Move a file to a different folder.',
         schema: z.object({
           fileId: z.string().describe('File ID to move'),
-          targetFolderId: z.string().optional().describe('Target folder ID (null or omit for root folder)'),
+          targetFolderId: z
+            .string()
+            .optional()
+            .describe('Target folder ID (null or omit for root folder)'),
         }),
         func: async ({ fileId, targetFolderId }) => {
           if (!this.context.executeActions) {
@@ -1473,7 +1601,10 @@ export class AgentToolsService {
         description: 'Create a new folder for organizing files.',
         schema: z.object({
           name: z.string().describe('Folder name'),
-          parentFolderId: z.string().optional().describe('Parent folder ID (null or omit for root folder)'),
+          parentFolderId: z
+            .string()
+            .optional()
+            .describe('Parent folder ID (null or omit for root folder)'),
         }),
         func: async ({ name, parentFolderId }) => {
           if (!this.context.executeActions) {
@@ -1544,14 +1675,17 @@ export class AgentToolsService {
         name: 'list_folders',
         description: 'List folders in the workspace or within a specific parent folder.',
         schema: z.object({
-          parentFolderId: z.string().optional().describe('Parent folder ID to list folders from (omit for root)'),
+          parentFolderId: z
+            .string()
+            .optional()
+            .describe('Parent folder ID to list folders from (omit for root)'),
         }),
         func: async ({ parentFolderId }) => {
           try {
             const folders = await this.filesService.getFolders(
               this.context.workspaceId,
               parentFolderId,
-              false,  // isDeleted
+              false, // isDeleted
               this.context.userId,
             );
             return JSON.stringify({ success: true, folders, count: folders.length });
@@ -1575,7 +1709,8 @@ export class AgentToolsService {
         schema: z.object({}),
         func: async () => {
           try {
-            const result = await this.db.table('workspace_members')
+            const result = await this.db
+              .table('workspace_members')
               .select('*')
               .where('workspace_id', '=', this.context.workspaceId)
               .where('is_active', '=', true)
@@ -1596,7 +1731,7 @@ export class AgentToolsService {
                 } catch {
                   return member;
                 }
-              })
+              }),
             );
 
             return JSON.stringify({ success: true, members: membersWithDetails });
@@ -1610,11 +1745,15 @@ export class AgentToolsService {
         name: 'list_projects',
         description: 'List all projects in the workspace.',
         schema: z.object({
-          status: z.enum(['active', 'archived', 'all']).optional().describe('Filter by project status'),
+          status: z
+            .enum(['active', 'archived', 'all'])
+            .optional()
+            .describe('Filter by project status'),
         }),
         func: async ({ status = 'active' }) => {
           try {
-            let query = this.db.table('projects')
+            let query = this.db
+              .table('projects')
               .select('*')
               .where('workspace_id', '=', this.context.workspaceId);
 
@@ -1648,7 +1787,9 @@ IMPORTANT: This returns the user's timezone. When scheduling actions at a specif
           let userTimezone = 'UTC';
           let timezoneOffsetMinutes = 0;
           try {
-            const settings = await this.settingsService.getNotificationSettings(this.context.userId);
+            const settings = await this.settingsService.getNotificationSettings(
+              this.context.userId,
+            );
             userTimezone = settings?.timezone || 'UTC';
 
             // Calculate timezone offset
@@ -1657,7 +1798,7 @@ IMPORTANT: This returns the user's timezone. When scheduling actions at a specif
               timeZoneName: 'shortOffset',
             });
             const parts = formatter.formatToParts(now);
-            const offsetPart = parts.find(p => p.type === 'timeZoneName');
+            const offsetPart = parts.find((p) => p.type === 'timeZoneName');
             if (offsetPart) {
               // Parse offset like "GMT+6" or "GMT-5:30"
               const match = offsetPart.value.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
@@ -1772,7 +1913,11 @@ EMAILING A NOTE - Two options:
               false, // isArchived
             );
             const limitedNotes = notes.slice(0, limit);
-            return JSON.stringify({ success: true, notes: limitedNotes, count: limitedNotes.length });
+            return JSON.stringify({
+              success: true,
+              notes: limitedNotes,
+              count: limitedNotes.length,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -1873,10 +2018,17 @@ EMAILING A NOTE - Two options:
 
       new DynamicStructuredTool({
         name: 'archive_note',
-        description: 'Archive a note by ID or title. Archived notes are hidden from the main list but not deleted. Use title for exact match when user specifies note by name.',
+        description:
+          'Archive a note by ID or title. Archived notes are hidden from the main list but not deleted. Use title for exact match when user specifies note by name.',
         schema: z.object({
-          noteId: z.string().optional().describe('Note ID to archive (use this if you have the ID)'),
-          title: z.string().optional().describe('Exact note title to archive (use this when user specifies note by name)'),
+          noteId: z
+            .string()
+            .optional()
+            .describe('Note ID to archive (use this if you have the ID)'),
+          title: z
+            .string()
+            .optional()
+            .describe('Exact note title to archive (use this when user specifies note by name)'),
         }),
         func: async ({ noteId, title }) => {
           try {
@@ -1885,7 +2037,8 @@ EMAILING A NOTE - Two options:
 
             // If title is provided but not noteId, find the note by exact title match
             if (!targetNoteId && title) {
-              const result = await this.db.table('notes')
+              const result = await this.db
+                .table('notes')
                 .select('id', 'title')
                 .where('title', '=', title)
                 .where('workspace_id', '=', this.context.workspaceId)
@@ -1895,15 +2048,16 @@ EMAILING A NOTE - Two options:
               const notes = Array.isArray(result) ? result : [];
               if (notes.length === 0) {
                 // Try case-insensitive search
-                const allNotesResult = await this.db.table('notes')
+                const allNotesResult = await this.db
+                  .table('notes')
                   .select('id', 'title')
                   .where('workspace_id', '=', this.context.workspaceId)
                   .where('is_deleted', '=', false)
                   .execute();
 
                 const allNotes = Array.isArray(allNotesResult) ? allNotesResult : [];
-                const matchingNote = allNotes.find((n: any) =>
-                  n.title.toLowerCase() === title.toLowerCase()
+                const matchingNote = allNotes.find(
+                  (n: any) => n.title.toLowerCase() === title.toLowerCase(),
                 );
 
                 if (!matchingNote) {
@@ -1935,7 +2089,8 @@ EMAILING A NOTE - Two options:
               });
             }
 
-            await this.db.table('notes')
+            await this.db
+              .table('notes')
               .update({
                 archived_at: new Date().toISOString(),
                 updated_at: new Date().toISOString(),
@@ -1958,8 +2113,14 @@ EMAILING A NOTE - Two options:
         name: 'restore_note',
         description: 'Restore a deleted or archived note by ID or title.',
         schema: z.object({
-          noteId: z.string().optional().describe('Note ID to restore (use this if you have the ID)'),
-          title: z.string().optional().describe('Exact note title to restore (use this when user specifies note by name)'),
+          noteId: z
+            .string()
+            .optional()
+            .describe('Note ID to restore (use this if you have the ID)'),
+          title: z
+            .string()
+            .optional()
+            .describe('Exact note title to restore (use this when user specifies note by name)'),
         }),
         func: async ({ noteId, title }) => {
           try {
@@ -1968,7 +2129,8 @@ EMAILING A NOTE - Two options:
 
             // If title is provided but not noteId, find the note by title (including deleted/archived)
             if (!targetNoteId && title) {
-              const result = await this.db.table('notes')
+              const result = await this.db
+                .table('notes')
                 .select('id', 'title')
                 .where('title', '=', title)
                 .where('workspace_id', '=', this.context.workspaceId)
@@ -1977,14 +2139,15 @@ EMAILING A NOTE - Two options:
               const notes = Array.isArray(result) ? result : [];
               if (notes.length === 0) {
                 // Try case-insensitive search
-                const allNotesResult = await this.db.table('notes')
+                const allNotesResult = await this.db
+                  .table('notes')
                   .select('id', 'title')
                   .where('workspace_id', '=', this.context.workspaceId)
                   .execute();
 
                 const allNotes = Array.isArray(allNotesResult) ? allNotesResult : [];
-                const matchingNote = allNotes.find((n: any) =>
-                  n.title.toLowerCase() === title.toLowerCase()
+                const matchingNote = allNotes.find(
+                  (n: any) => n.title.toLowerCase() === title.toLowerCase(),
                 );
 
                 if (!matchingNote) {
@@ -2016,7 +2179,8 @@ EMAILING A NOTE - Two options:
               });
             }
 
-            await this.db.table('notes')
+            await this.db
+              .table('notes')
               .update({
                 is_deleted: false,
                 deleted_at: null,
@@ -2042,7 +2206,10 @@ EMAILING A NOTE - Two options:
         description: 'Create a copy of an existing note.',
         schema: z.object({
           noteId: z.string().describe('Note ID to duplicate'),
-          newTitle: z.string().optional().describe('Title for the duplicated note (default: "Copy of [original title]")'),
+          newTitle: z
+            .string()
+            .optional()
+            .describe('Title for the duplicated note (default: "Copy of [original title]")'),
         }),
         func: async ({ noteId, newTitle }) => {
           if (!this.context.executeActions) {
@@ -2122,14 +2289,37 @@ Example: Create a note and email it:
           cc: z.array(z.string()).optional().describe('CC recipients'),
           bcc: z.array(z.string()).optional().describe('BCC recipients'),
           // Inline content (in email body)
-          includeNoteIds: z.array(z.string()).optional().describe('Note IDs to include content INLINE in email body'),
-          includeProjectIds: z.array(z.string()).optional().describe('Project IDs to include summary INLINE in email body'),
+          includeNoteIds: z
+            .array(z.string())
+            .optional()
+            .describe('Note IDs to include content INLINE in email body'),
+          includeProjectIds: z
+            .array(z.string())
+            .optional()
+            .describe('Project IDs to include summary INLINE in email body'),
           // File attachments
-          attachNoteIds: z.array(z.string()).optional().describe('Note IDs to ATTACH as HTML files'),
-          attachProjectIds: z.array(z.string()).optional().describe('Project IDs to ATTACH as text summary files'),
+          attachNoteIds: z
+            .array(z.string())
+            .optional()
+            .describe('Note IDs to ATTACH as HTML files'),
+          attachProjectIds: z
+            .array(z.string())
+            .optional()
+            .describe('Project IDs to ATTACH as text summary files'),
           attachFileIds: z.array(z.string()).optional().describe('File IDs to ATTACH from storage'),
         }),
-        func: async ({ to, subject, body, cc, bcc, includeNoteIds, includeProjectIds, attachNoteIds, attachProjectIds, attachFileIds }) => {
+        func: async ({
+          to,
+          subject,
+          body,
+          cc,
+          bcc,
+          includeNoteIds,
+          includeProjectIds,
+          attachNoteIds,
+          attachProjectIds,
+          attachFileIds,
+        }) => {
           const attachments: { filename: string; content: string; mimeType: string }[] = [];
           const attachmentNames: string[] = [];
           let finalBody = body;
@@ -2182,9 +2372,13 @@ Example: Create a note and email it:
                     .execute();
                   const tasks = tasksResult?.data || [];
 
-                  const tasksList = tasks.map((t: any) =>
-                    `<li>[${t.status || 'pending'}] ${t.title}${t.due_date ? ` (Due: ${t.due_date})` : ''}</li>`
-                  ).join('') || '<li>No tasks</li>';
+                  const tasksList =
+                    tasks
+                      .map(
+                        (t: any) =>
+                          `<li>[${t.status || 'pending'}] ${t.title}${t.due_date ? ` (Due: ${t.due_date})` : ''}</li>`,
+                      )
+                      .join('') || '<li>No tasks</li>';
 
                   finalBody += `\n\n<hr>\n<h3>📁 Project: ${project.name}</h3>
 <p><strong>Description:</strong> ${project.description || 'No description'}</p>
@@ -2195,7 +2389,9 @@ Example: Create a note and email it:
                   this.logger.log(`[AutoPilot] Project "${project.name}" included inline`);
                 }
               } catch (err) {
-                this.logger.warn(`[AutoPilot] Could not fetch project ${projectId}: ${err.message}`);
+                this.logger.warn(
+                  `[AutoPilot] Could not fetch project ${projectId}: ${err.message}`,
+                );
               }
             }
           }
@@ -2283,7 +2479,9 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                   this.logger.log(`[AutoPilot] Project "${project.name}" prepared as attachment`);
                 }
               } catch (err) {
-                this.logger.warn(`[AutoPilot] Could not fetch project ${projectId}: ${err.message}`);
+                this.logger.warn(
+                  `[AutoPilot] Could not fetch project ${projectId}: ${err.message}`,
+                );
               }
             }
           }
@@ -2341,16 +2539,39 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 attachments: attachments.length > 0 ? attachments : undefined,
               } as any,
             );
-            this.logger.log(`[AutoPilot] Email sent successfully with ${inlineContentNames.length} inline content(s) and ${attachments.length} attachment(s)`);
-            const inlineMsg = inlineContentNames.length > 0 ? ` with inline content: ${inlineContentNames.join(', ')}` : '';
-            const attachmentMsg = attachments.length > 0 ? ` and ${attachments.length} attachment(s): ${attachmentNames.join(', ')}` : '';
-            return JSON.stringify({ success: true, result, message: `Email sent to ${to.join(', ')}${inlineMsg}${attachmentMsg}` });
+            this.logger.log(
+              `[AutoPilot] Email sent successfully with ${inlineContentNames.length} inline content(s) and ${attachments.length} attachment(s)`,
+            );
+            const inlineMsg =
+              inlineContentNames.length > 0
+                ? ` with inline content: ${inlineContentNames.join(', ')}`
+                : '';
+            const attachmentMsg =
+              attachments.length > 0
+                ? ` and ${attachments.length} attachment(s): ${attachmentNames.join(', ')}`
+                : '';
+            return JSON.stringify({
+              success: true,
+              result,
+              message: `Email sent to ${to.join(', ')}${inlineMsg}${attachmentMsg}`,
+            });
           } catch (error) {
             this.logger.error(`[AutoPilot] Email send error: ${error.message}`, error.stack);
-            if (error.message?.includes('not found') || error.message?.includes('not connected') || error.message?.includes('Gmail')) {
-              return JSON.stringify({ success: false, error: 'Gmail is not connected. Please connect your Gmail account first in the Email section.' });
+            if (
+              error.message?.includes('not found') ||
+              error.message?.includes('not connected') ||
+              error.message?.includes('Gmail')
+            ) {
+              return JSON.stringify({
+                success: false,
+                error:
+                  'Gmail is not connected. Please connect your Gmail account first in the Email section.',
+              });
             }
-            return JSON.stringify({ success: false, error: `Failed to send email: ${error.message}` });
+            return JSON.stringify({
+              success: false,
+              error: `Failed to send email: ${error.message}`,
+            });
           }
         },
       }),
@@ -2365,20 +2586,37 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         }),
         func: async ({ labelId = 'INBOX', query, limit = 10 }) => {
           try {
-            this.logger.log(`[AutoPilot] Listing emails - labelId: ${labelId}, query: ${query || 'none'}, limit: ${limit}`);
+            this.logger.log(
+              `[AutoPilot] Listing emails - labelId: ${labelId}, query: ${query || 'none'}, limit: ${limit}`,
+            );
             const result = await this.emailService.getMessages(
               this.context.userId,
               this.context.workspaceId,
               { labelId, query, maxResults: limit },
             );
             this.logger.log(`[AutoPilot] Retrieved ${result.emails?.length || 0} emails`);
-            return JSON.stringify({ success: true, emails: result.emails, count: result.emails?.length || 0 });
+            return JSON.stringify({
+              success: true,
+              emails: result.emails,
+              count: result.emails?.length || 0,
+            });
           } catch (error) {
             this.logger.error(`[AutoPilot] List emails error: ${error.message}`, error.stack);
-            if (error.message?.includes('not found') || error.message?.includes('not connected') || error.message?.includes('Gmail')) {
-              return JSON.stringify({ success: false, error: 'Gmail is not connected. Please connect your Gmail account first in the Email section.' });
+            if (
+              error.message?.includes('not found') ||
+              error.message?.includes('not connected') ||
+              error.message?.includes('Gmail')
+            ) {
+              return JSON.stringify({
+                success: false,
+                error:
+                  'Gmail is not connected. Please connect your Gmail account first in the Email section.',
+              });
             }
-            return JSON.stringify({ success: false, error: `Failed to list emails: ${error.message}` });
+            return JSON.stringify({
+              success: false,
+              error: `Failed to list emails: ${error.message}`,
+            });
           }
         },
       }),
@@ -2408,7 +2646,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         description: 'Delete an email (move to trash or permanently delete).',
         schema: z.object({
           messageId: z.string().describe('The email message ID to delete'),
-          permanent: z.boolean().optional().describe('If true, permanently delete. Otherwise move to trash.'),
+          permanent: z
+            .boolean()
+            .optional()
+            .describe('If true, permanently delete. Otherwise move to trash.'),
         }),
         func: async ({ messageId, permanent = false }) => {
           if (!this.context.executeActions) {
@@ -2428,7 +2669,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             );
             return JSON.stringify({
               success: true,
-              message: permanent ? 'Email permanently deleted' : 'Email moved to trash'
+              message: permanent ? 'Email permanently deleted' : 'Email moved to trash',
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -2491,7 +2732,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             );
             return JSON.stringify({
               success: true,
-              message: isRead ? 'Email marked as read' : 'Email marked as unread'
+              message: isRead ? 'Email marked as read' : 'Email marked as unread',
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -2513,12 +2754,25 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         schema: z.object({
           title: z.string().describe('Meeting title'),
           description: z.string().optional().describe('Meeting description'),
-          scheduledStartTime: z.string().optional().describe('Scheduled start time in ISO format (omit for instant meeting)'),
+          scheduledStartTime: z
+            .string()
+            .optional()
+            .describe('Scheduled start time in ISO format (omit for instant meeting)'),
           scheduledEndTime: z.string().optional().describe('Scheduled end time in ISO format'),
-          participantIds: z.array(z.string()).optional().describe('User IDs to invite to the meeting'),
+          participantIds: z
+            .array(z.string())
+            .optional()
+            .describe('User IDs to invite to the meeting'),
           callType: z.enum(['video', 'audio']).optional().describe('Type of call (default: video)'),
         }),
-        func: async ({ title, description, scheduledStartTime, scheduledEndTime, participantIds, callType = 'video' }) => {
+        func: async ({
+          title,
+          description,
+          scheduledStartTime,
+          scheduledEndTime,
+          participantIds,
+          callType = 'video',
+        }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
@@ -2564,7 +2818,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         name: 'list_video_meetings',
         description: 'List video meetings in the workspace.',
         schema: z.object({
-          status: z.enum(['scheduled', 'active', 'ended', 'all']).optional().describe('Filter by meeting status'),
+          status: z
+            .enum(['scheduled', 'active', 'ended', 'all'])
+            .optional()
+            .describe('Filter by meeting status'),
         }),
         func: async ({ status }) => {
           try {
@@ -2626,15 +2883,14 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
           }
 
           try {
-            await this.videoCallsService.inviteParticipants(
-              callId,
-              this.context.userId,
-              { userIds, emails } as any,
-            );
+            await this.videoCallsService.inviteParticipants(callId, this.context.userId, {
+              userIds,
+              emails,
+            } as any);
             const inviteCount = (userIds?.length || 0) + (emails?.length || 0);
             return JSON.stringify({
               success: true,
-              message: `Invited ${inviteCount} participant(s) to the meeting`
+              message: `Invited ${inviteCount} participant(s) to the meeting`,
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -2652,7 +2908,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
     return [
       new DynamicStructuredTool({
         name: 'create_project',
-        description: 'Create a new project in the workspace. Returns projectId which can be used to create tasks in this project.',
+        description:
+          'Create a new project in the workspace. Returns projectId which can be used to create tasks in this project.',
         schema: z.object({
           name: z.string().describe('Project name'),
           description: z.string().optional().describe('Project description'),
@@ -2694,7 +2951,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
           projectId: z.string().describe('Project ID to update'),
           name: z.string().optional().describe('New project name'),
           description: z.string().optional().describe('New project description'),
-          status: z.enum(['active', 'archived', 'completed']).optional().describe('New project status'),
+          status: z
+            .enum(['active', 'archived', 'completed'])
+            .optional()
+            .describe('New project status'),
         }),
         func: async ({ projectId, name, description, status }) => {
           if (!this.context.executeActions) {
@@ -2744,10 +3004,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
           }
 
           try {
-            await this.projectsService.remove(
-              projectId,
-              this.context.userId,
-            );
+            await this.projectsService.remove(projectId, this.context.userId);
 
             return JSON.stringify({
               success: true,
@@ -2767,10 +3024,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         }),
         func: async ({ projectId }) => {
           try {
-            const project = await this.projectsService.findOne(
-              projectId,
-              this.context.userId,
-            );
+            const project = await this.projectsService.findOne(projectId, this.context.userId);
 
             return JSON.stringify({
               success: true,
@@ -2788,7 +3042,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         schema: z.object({
           projectId: z.string().describe('Project ID'),
           userId: z.string().describe('User ID to add as member'),
-          role: z.enum(['member', 'admin', 'viewer']).optional().describe('Member role (default: member)'),
+          role: z
+            .enum(['member', 'admin', 'viewer'])
+            .optional()
+            .describe('Member role (default: member)'),
         }),
         func: async ({ projectId, userId, role = 'member' }) => {
           if (!this.context.executeActions) {
@@ -2835,7 +3092,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
           }
 
           try {
-            await this.db.table('project_members')
+            await this.db
+              .table('project_members')
               .delete()
               .where('project_id', '=', projectId)
               .where('user_id', '=', userId)
@@ -2859,7 +3117,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
         }),
         func: async ({ projectId }) => {
           try {
-            const result = await this.db.table('project_members')
+            const result = await this.db
+              .table('project_members')
               .select('*')
               .where('project_id', '=', projectId)
               .execute();
@@ -2879,7 +3138,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 } catch {
                   return member;
                 }
-              })
+              }),
             );
 
             return JSON.stringify({
@@ -2903,7 +3162,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
     return [
       new DynamicStructuredTool({
         name: 'send_direct_message',
-        description: 'Send a direct message to a specific user. Use this when the user wants to message someone directly (not in a channel). First finds or creates a conversation with the recipient.',
+        description:
+          'Send a direct message to a specific user. Use this when the user wants to message someone directly (not in a channel). First finds or creates a conversation with the recipient.',
         schema: z.object({
           recipientId: z.string().describe('User ID of the recipient'),
           content: z.string().describe('Message content'),
@@ -2931,10 +3191,13 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Conversations use 'participants' field which contains array of user IDs
             let conversation = conversations.find((c: any) => {
               // Parse participants if it's a string
-              const participants = typeof c.participants === 'string'
-                ? JSON.parse(c.participants)
-                : c.participants || [];
-              return participants.includes(recipientId) && participants.includes(this.context.userId);
+              const participants =
+                typeof c.participants === 'string'
+                  ? JSON.parse(c.participants)
+                  : c.participants || [];
+              return (
+                participants.includes(recipientId) && participants.includes(this.context.userId)
+              );
             });
 
             // If no existing conversation, create one
@@ -2944,7 +3207,7 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 this.context.workspaceId,
                 {
                   type: 'direct',
-                  participants: [recipientId],  // Use 'participants' not 'member_ids'
+                  participants: [recipientId], // Use 'participants' not 'member_ids'
                 } as any,
                 this.context.userId,
               );
@@ -2967,7 +3230,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             });
           } catch (error) {
             this.logger.error(`[AutoPilot] Direct message error: ${error.message}`, error.stack);
-            return JSON.stringify({ success: false, error: `Failed to send direct message: ${error.message}` });
+            return JSON.stringify({
+              success: false,
+              error: `Failed to send direct message: ${error.message}`,
+            });
           }
         },
       }),
@@ -2999,9 +3265,13 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
     return [
       new DynamicStructuredTool({
         name: 'get_daily_summary',
-        description: 'Get a comprehensive summary of today\'s activities including tasks, meetings, messages, and notes. Use this when user asks about their day, daily summary, or what they have today.',
+        description:
+          "Get a comprehensive summary of today's activities including tasks, meetings, messages, and notes. Use this when user asks about their day, daily summary, or what they have today.",
         schema: z.object({
-          date: z.string().optional().describe('Date to summarize in ISO format (defaults to today)'),
+          date: z
+            .string()
+            .optional()
+            .describe('Date to summarize in ISO format (defaults to today)'),
         }),
         func: async ({ date }) => {
           try {
@@ -3012,7 +3282,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             endOfDay.setHours(23, 59, 59, 999);
 
             // Get projects in workspace first
-            const projectsResult = await this.db.table('projects')
+            const projectsResult = await this.db
+              .table('projects')
               .select('id')
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
@@ -3021,11 +3292,11 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Fetch tasks
             let tasksData = { completed: [], pending: [], inProgress: [], overdue: [] };
             if (projectIds.length > 0) {
-              const tasksResult = await this.db.table('tasks')
-                .select('*')
-                .execute();
+              const tasksResult = await this.db.table('tasks').select('*').execute();
               // Filter tasks to workspace projects in JavaScript
-              const allTasks: any[] = (tasksResult.data || []).filter((t: any) => projectIds.includes(t.project_id));
+              const allTasks: any[] = (tasksResult.data || []).filter((t: any) =>
+                projectIds.includes(t.project_id),
+              );
 
               const today = new Date();
               tasksData = {
@@ -3055,7 +3326,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Fetch recent notes created today
             let notesCreatedToday = [];
             try {
-              const notesResult = await this.db.table('notes')
+              const notesResult = await this.db
+                .table('notes')
                 .select('*')
                 .where('workspace_id', '=', this.context.workspaceId)
                 .where('created_by', '=', this.context.userId)
@@ -3101,7 +3373,9 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Generate highlights
             const highlights: string[] = [];
             if (summary.tasks.overdue > 0) {
-              highlights.push(`⚠️ You have ${summary.tasks.overdue} overdue task(s) that need attention`);
+              highlights.push(
+                `⚠️ You have ${summary.tasks.overdue} overdue task(s) that need attention`,
+              );
             }
             if (summary.meetings.total > 0) {
               highlights.push(`📅 You have ${summary.meetings.total} meeting(s) scheduled today`);
@@ -3130,22 +3404,27 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
 
       new DynamicStructuredTool({
         name: 'get_weekly_summary',
-        description: 'Get a summary of the week\'s activities including task progress, completed work, and upcoming deadlines. Use this when user asks about weekly summary or week overview.',
+        description:
+          "Get a summary of the week's activities including task progress, completed work, and upcoming deadlines. Use this when user asks about weekly summary or week overview.",
         schema: z.object({
-          weekOffset: z.number().optional().describe('Week offset from current week (0 = this week, -1 = last week)'),
+          weekOffset: z
+            .number()
+            .optional()
+            .describe('Week offset from current week (0 = this week, -1 = last week)'),
         }),
         func: async ({ weekOffset = 0 }) => {
           try {
             const today = new Date();
             const startOfWeek = new Date(today);
-            startOfWeek.setDate(today.getDate() - today.getDay() + (weekOffset * 7));
+            startOfWeek.setDate(today.getDate() - today.getDay() + weekOffset * 7);
             startOfWeek.setHours(0, 0, 0, 0);
             const endOfWeek = new Date(startOfWeek);
             endOfWeek.setDate(startOfWeek.getDate() + 6);
             endOfWeek.setHours(23, 59, 59, 999);
 
             // Get projects in workspace
-            const projectsResult = await this.db.table('projects')
+            const projectsResult = await this.db
+              .table('projects')
               .select('id, name')
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
@@ -3155,23 +3434,25 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Fetch all tasks
             let tasksData = { completed: [], created: [], overdue: [] };
             if (projectIds.length > 0) {
-              const tasksResult = await this.db.table('tasks')
-                .select('*')
-                .execute();
+              const tasksResult = await this.db.table('tasks').select('*').execute();
               // Filter tasks to workspace projects in JavaScript
-              const allTasks: any[] = (tasksResult.data || []).filter((t: any) => projectIds.includes(t.project_id));
+              const allTasks: any[] = (tasksResult.data || []).filter((t: any) =>
+                projectIds.includes(t.project_id),
+              );
 
               tasksData = {
-                completed: allTasks.filter((t: any) =>
-                  t.status === 'done' &&
-                  t.updated_at &&
-                  new Date(t.updated_at) >= startOfWeek &&
-                  new Date(t.updated_at) <= endOfWeek
+                completed: allTasks.filter(
+                  (t: any) =>
+                    t.status === 'done' &&
+                    t.updated_at &&
+                    new Date(t.updated_at) >= startOfWeek &&
+                    new Date(t.updated_at) <= endOfWeek,
                 ),
-                created: allTasks.filter((t: any) =>
-                  t.created_at &&
-                  new Date(t.created_at) >= startOfWeek &&
-                  new Date(t.created_at) <= endOfWeek
+                created: allTasks.filter(
+                  (t: any) =>
+                    t.created_at &&
+                    new Date(t.created_at) >= startOfWeek &&
+                    new Date(t.created_at) <= endOfWeek,
                 ),
                 overdue: allTasks.filter((t: any) => {
                   if (!t.due_date || t.status === 'done') return false;
@@ -3196,7 +3477,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             // Fetch notes created this week
             let notesCreated = [];
             try {
-              const notesResult = await this.db.table('notes')
+              const notesResult = await this.db
+                .table('notes')
                 .select('*')
                 .where('workspace_id', '=', this.context.workspaceId)
                 .where('created_by', '=', this.context.userId)
@@ -3218,7 +3500,9 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 completed: tasksData.completed.length,
                 created: tasksData.created.length,
                 overdue: tasksData.overdue.length,
-                completedList: tasksData.completed.slice(0, 5).map((t: any) => ({ title: t.title, priority: t.priority })),
+                completedList: tasksData.completed
+                  .slice(0, 5)
+                  .map((t: any) => ({ title: t.title, priority: t.priority })),
               },
               meetings: {
                 total: events.length,
@@ -3233,11 +3517,14 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             };
 
             // Calculate productivity score (simple heuristic)
-            const productivityScore = Math.min(100, Math.round(
-              (summary.tasks.completed * 10) +
-              (summary.meetings.total * 5) +
-              (summary.notes.created * 3)
-            ));
+            const productivityScore = Math.min(
+              100,
+              Math.round(
+                summary.tasks.completed * 10 +
+                  summary.meetings.total * 5 +
+                  summary.notes.created * 3,
+              ),
+            );
 
             return JSON.stringify({
               success: true,
@@ -3253,14 +3540,16 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
 
       new DynamicStructuredTool({
         name: 'get_overdue_tasks',
-        description: 'Get a list of all overdue tasks that need attention. Use this when user asks about overdue tasks, late tasks, or tasks past due date.',
+        description:
+          'Get a list of all overdue tasks that need attention. Use this when user asks about overdue tasks, late tasks, or tasks past due date.',
         schema: z.object({}),
         func: async () => {
           try {
             const today = new Date();
 
             // Get projects in workspace
-            const projectsResult = await this.db.table('projects')
+            const projectsResult = await this.db
+              .table('projects')
               .select('id, name')
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
@@ -3269,15 +3558,19 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             const projectMap = new Map(projects.map((p: any) => [p.id, p.name]));
 
             if (projectIds.length === 0) {
-              return JSON.stringify({ success: true, overdueTasks: [], message: 'No projects found' });
+              return JSON.stringify({
+                success: true,
+                overdueTasks: [],
+                message: 'No projects found',
+              });
             }
 
             // Fetch tasks with due dates
-            const tasksResult = await this.db.table('tasks')
-              .select('*')
-              .execute();
+            const tasksResult = await this.db.table('tasks').select('*').execute();
             // Filter tasks to workspace projects in JavaScript
-            const allTasks: any[] = (tasksResult.data || []).filter((t: any) => projectIds.includes(t.project_id));
+            const allTasks: any[] = (tasksResult.data || []).filter((t: any) =>
+              projectIds.includes(t.project_id),
+            );
 
             const overdueTasks = allTasks
               .filter((t: any) => {
@@ -3291,7 +3584,9 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 priority: t.priority,
                 status: t.status,
                 projectName: projectMap.get(t.project_id) || 'Unknown',
-                daysOverdue: Math.floor((today.getTime() - new Date(t.due_date).getTime()) / (1000 * 60 * 60 * 24)),
+                daysOverdue: Math.floor(
+                  (today.getTime() - new Date(t.due_date).getTime()) / (1000 * 60 * 60 * 24),
+                ),
               }))
               .sort((a, b) => b.daysOverdue - a.daysOverdue);
 
@@ -3299,9 +3594,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
               success: true,
               overdueTasks,
               totalOverdue: overdueTasks.length,
-              message: overdueTasks.length > 0
-                ? `You have ${overdueTasks.length} overdue task(s)`
-                : 'Great! No overdue tasks.',
+              message:
+                overdueTasks.length > 0
+                  ? `You have ${overdueTasks.length} overdue task(s)`
+                  : 'Great! No overdue tasks.',
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -3311,7 +3607,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
 
       new DynamicStructuredTool({
         name: 'get_upcoming_events',
-        description: 'Get upcoming meetings and events for the next few days. Use this when user asks what\'s coming up, upcoming meetings, or next events.',
+        description:
+          "Get upcoming meetings and events for the next few days. Use this when user asks what's coming up, upcoming meetings, or next events.",
         schema: z.object({
           days: z.number().optional().describe('Number of days to look ahead (default: 7)'),
         }),
@@ -3328,15 +3625,19 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
               this.context.userId,
             );
 
-            const upcomingEvents = events.map((e: any) => ({
-              id: e.id,
-              title: e.title,
-              startTime: e.start_time,
-              endTime: e.end_time,
-              location: e.location,
-              attendees: e.attendees?.length || 0,
-              daysUntil: Math.ceil((new Date(e.start_time).getTime() - now.getTime()) / (1000 * 60 * 60 * 24)),
-            })).sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
+            const upcomingEvents = events
+              .map((e: any) => ({
+                id: e.id,
+                title: e.title,
+                startTime: e.start_time,
+                endTime: e.end_time,
+                location: e.location,
+                attendees: e.attendees?.length || 0,
+                daysUntil: Math.ceil(
+                  (new Date(e.start_time).getTime() - now.getTime()) / (1000 * 60 * 60 * 24),
+                ),
+              }))
+              .sort((a, b) => new Date(a.startTime).getTime() - new Date(b.startTime).getTime());
 
             // Group by day
             const groupedByDay: Record<string, any[]> = {};
@@ -3351,9 +3652,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
               upcomingEvents,
               totalEvents: upcomingEvents.length,
               groupedByDay,
-              message: upcomingEvents.length > 0
-                ? `You have ${upcomingEvents.length} event(s) in the next ${days} days`
-                : `No events scheduled in the next ${days} days`,
+              message:
+                upcomingEvents.length > 0
+                  ? `You have ${upcomingEvents.length} event(s) in the next ${days} days`
+                  : `No events scheduled in the next ${days} days`,
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -3363,7 +3665,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
 
       new DynamicStructuredTool({
         name: 'get_focus_recommendations',
-        description: 'Get AI-powered recommendations on what to focus on today based on priorities, deadlines, and workload. Use this when user asks what to focus on, priorities, or needs guidance on what to do.',
+        description:
+          'Get AI-powered recommendations on what to focus on today based on priorities, deadlines, and workload. Use this when user asks what to focus on, priorities, or needs guidance on what to do.',
         schema: z.object({}),
         func: async () => {
           try {
@@ -3374,7 +3677,8 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             nextWeek.setDate(today.getDate() + 7);
 
             // Get projects
-            const projectsResult = await this.db.table('projects')
+            const projectsResult = await this.db
+              .table('projects')
               .select('id, name')
               .where('workspace_id', '=', this.context.workspaceId)
               .execute();
@@ -3383,25 +3687,27 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
             const projectMap = new Map(projects.map((p: any) => [p.id, p.name]));
 
             // Get tasks
-            let recommendations: any[] = [];
+            const recommendations: any[] = [];
             let overdueTasks: any[] = [];
             let urgentTasks: any[] = [];
             let inProgressTasks: any[] = [];
 
             if (projectIds.length > 0) {
-              const tasksResult = await this.db.table('tasks')
-                .select('*')
-                .execute();
+              const tasksResult = await this.db.table('tasks').select('*').execute();
               // Filter tasks to workspace projects in JavaScript and exclude completed
-              const allTasks: any[] = (tasksResult.data || [])
-                .filter((t: any) => projectIds.includes(t.project_id) && t.status !== 'done');
+              const allTasks: any[] = (tasksResult.data || []).filter(
+                (t: any) => projectIds.includes(t.project_id) && t.status !== 'done',
+              );
 
-              overdueTasks = allTasks.filter((t: any) => t.due_date && new Date(t.due_date) < today);
-              urgentTasks = allTasks.filter((t: any) =>
-                t.due_date &&
-                new Date(t.due_date) >= today &&
-                new Date(t.due_date) <= nextWeek &&
-                t.priority === 'high'
+              overdueTasks = allTasks.filter(
+                (t: any) => t.due_date && new Date(t.due_date) < today,
+              );
+              urgentTasks = allTasks.filter(
+                (t: any) =>
+                  t.due_date &&
+                  new Date(t.due_date) >= today &&
+                  new Date(t.due_date) <= nextWeek &&
+                  t.priority === 'high',
               );
               inProgressTasks = allTasks.filter((t: any) => t.status === 'in_progress');
 
@@ -3480,9 +3786,10 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
                 inProgressTasks: inProgressTasks.length,
                 todayMeetings: todayMeetings.length,
               },
-              message: recommendations.length > 0
-                ? `Here are ${Math.min(recommendations.length, 10)} things to focus on today`
-                : 'No urgent items. Great time to tackle new tasks!',
+              message:
+                recommendations.length > 0
+                  ? `Here are ${Math.min(recommendations.length, 10)} things to focus on today`
+                  : 'No urgent items. Great time to tackle new tasks!',
             });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -3500,11 +3807,19 @@ ${tasks.map((t: any) => `- [${t.status || 'pending'}] ${t.title}${t.due_date ? `
     return [
       new DynamicStructuredTool({
         name: 'draft_email_reply',
-        description: 'Draft a professional reply to an email. Use this when user wants help responding to an email, writing an email response, or crafting a reply.',
+        description:
+          'Draft a professional reply to an email. Use this when user wants help responding to an email, writing an email response, or crafting a reply.',
         schema: z.object({
           originalEmail: z.string().describe('The original email content to reply to'),
-          replyIntent: z.string().describe('What the user wants to say in the reply (e.g., "accept the meeting", "decline politely", "ask for more details")'),
-          tone: z.enum(['professional', 'friendly', 'formal', 'casual']).optional().describe('Tone of the reply (default: professional)'),
+          replyIntent: z
+            .string()
+            .describe(
+              'What the user wants to say in the reply (e.g., "accept the meeting", "decline politely", "ask for more details")',
+            ),
+          tone: z
+            .enum(['professional', 'friendly', 'formal', 'casual'])
+            .optional()
+            .describe('Tone of the reply (default: professional)'),
         }),
         func: async ({ originalEmail, replyIntent, tone = 'professional' }) => {
           try {
@@ -3527,7 +3842,10 @@ Only output the email content, no explanations.`;
               saveToDatabase: false,
             });
 
-            const emailContent = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const emailContent =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3543,12 +3861,18 @@ Only output the email content, no explanations.`;
 
       new DynamicStructuredTool({
         name: 'write_meeting_notes',
-        description: 'Generate structured meeting notes from a description, transcript, or summary of what was discussed. Use this when user wants to create meeting notes or document a meeting.',
+        description:
+          'Generate structured meeting notes from a description, transcript, or summary of what was discussed. Use this when user wants to create meeting notes or document a meeting.',
         schema: z.object({
-          meetingInfo: z.string().describe('Description of the meeting, transcript, or key points discussed'),
+          meetingInfo: z
+            .string()
+            .describe('Description of the meeting, transcript, or key points discussed'),
           meetingTitle: z.string().optional().describe('Title of the meeting'),
           attendees: z.array(z.string()).optional().describe('List of attendees'),
-          format: z.enum(['bullet', 'detailed', 'action-focused']).optional().describe('Format style for notes'),
+          format: z
+            .enum(['bullet', 'detailed', 'action-focused'])
+            .optional()
+            .describe('Format style for notes'),
         }),
         func: async ({ meetingInfo, meetingTitle, attendees, format = 'bullet' }) => {
           try {
@@ -3581,7 +3905,10 @@ Output the meeting notes in markdown format.`;
               saveToDatabase: false,
             });
 
-            const notesContent = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const notesContent =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3597,16 +3924,41 @@ Output the meeting notes in markdown format.`;
 
       new DynamicStructuredTool({
         name: 'write_document',
-        description: 'Help write various types of documents like proposals, reports, announcements, or any other written content. Use this when user needs help creating a document.',
+        description:
+          'Help write various types of documents like proposals, reports, announcements, or any other written content. Use this when user needs help creating a document.',
         schema: z.object({
-          documentType: z.enum(['proposal', 'report', 'announcement', 'memo', 'brief', 'summary', 'plan', 'other']).describe('Type of document to write'),
+          documentType: z
+            .enum([
+              'proposal',
+              'report',
+              'announcement',
+              'memo',
+              'brief',
+              'summary',
+              'plan',
+              'other',
+            ])
+            .describe('Type of document to write'),
           topic: z.string().describe('The main topic or subject of the document'),
           keyPoints: z.array(z.string()).optional().describe('Key points to include'),
           audience: z.string().optional().describe('Target audience for the document'),
-          length: z.enum(['short', 'medium', 'long']).optional().describe('Desired length of the document'),
-          additionalContext: z.string().optional().describe('Any additional context or requirements'),
+          length: z
+            .enum(['short', 'medium', 'long'])
+            .optional()
+            .describe('Desired length of the document'),
+          additionalContext: z
+            .string()
+            .optional()
+            .describe('Any additional context or requirements'),
         }),
-        func: async ({ documentType, topic, keyPoints, audience, length = 'medium', additionalContext }) => {
+        func: async ({
+          documentType,
+          topic,
+          keyPoints,
+          audience,
+          length = 'medium',
+          additionalContext,
+        }) => {
           try {
             const lengthGuide = {
               short: '200-400 words',
@@ -3633,7 +3985,10 @@ Include an executive summary if the document is medium or long length.`;
               saveToDatabase: false,
             });
 
-            const documentContent = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const documentContent =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3650,11 +4005,25 @@ Include an executive summary if the document is medium or long length.`;
 
       new DynamicStructuredTool({
         name: 'improve_writing',
-        description: 'Improve, rewrite, or enhance existing text. Use this when user wants to make text more professional, clearer, or better written.',
+        description:
+          'Improve, rewrite, or enhance existing text. Use this when user wants to make text more professional, clearer, or better written.',
         schema: z.object({
           text: z.string().describe('The text to improve'),
-          improvementType: z.enum(['professional', 'concise', 'detailed', 'friendly', 'formal', 'grammar', 'clarity']).describe('Type of improvement to make'),
-          preserveMeaning: z.boolean().optional().describe('Whether to strictly preserve the original meaning'),
+          improvementType: z
+            .enum([
+              'professional',
+              'concise',
+              'detailed',
+              'friendly',
+              'formal',
+              'grammar',
+              'clarity',
+            ])
+            .describe('Type of improvement to make'),
+          preserveMeaning: z
+            .boolean()
+            .optional()
+            .describe('Whether to strictly preserve the original meaning'),
         }),
         func: async ({ text, improvementType, preserveMeaning = true }) => {
           try {
@@ -3682,7 +4051,10 @@ Provide the improved version of the text. Only output the improved text, no expl
               saveToDatabase: false,
             });
 
-            const improvedText = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const improvedText =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3699,11 +4071,18 @@ Provide the improved version of the text. Only output the improved text, no expl
 
       new DynamicStructuredTool({
         name: 'summarize_content',
-        description: 'Summarize text, documents, or content into a shorter version. Use this when user wants a summary of something.',
+        description:
+          'Summarize text, documents, or content into a shorter version. Use this when user wants a summary of something.',
         schema: z.object({
           content: z.string().describe('The content to summarize'),
-          summaryLength: z.enum(['brief', 'moderate', 'detailed']).optional().describe('How long the summary should be'),
-          format: z.enum(['paragraph', 'bullets', 'key-points']).optional().describe('Format of the summary'),
+          summaryLength: z
+            .enum(['brief', 'moderate', 'detailed'])
+            .optional()
+            .describe('How long the summary should be'),
+          format: z
+            .enum(['paragraph', 'bullets', 'key-points'])
+            .optional()
+            .describe('Format of the summary'),
         }),
         func: async ({ content, summaryLength = 'moderate', format = 'paragraph' }) => {
           try {
@@ -3734,7 +4113,10 @@ Create a clear, accurate summary that captures the main points and essential inf
               saveToDatabase: false,
             });
 
-            const summary = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const summary =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3752,12 +4134,16 @@ Create a clear, accurate summary that captures the main points and essential inf
 
       new DynamicStructuredTool({
         name: 'generate_ideas',
-        description: 'Generate ideas, suggestions, or brainstorm options for a topic. Use this when user needs help coming up with ideas.',
+        description:
+          'Generate ideas, suggestions, or brainstorm options for a topic. Use this when user needs help coming up with ideas.',
         schema: z.object({
           topic: z.string().describe('The topic to generate ideas for'),
           context: z.string().optional().describe('Additional context about the situation'),
           numberOfIdeas: z.number().optional().describe('How many ideas to generate (default: 5)'),
-          ideaType: z.enum(['creative', 'practical', 'innovative', 'safe', 'mixed']).optional().describe('Type of ideas to generate'),
+          ideaType: z
+            .enum(['creative', 'practical', 'innovative', 'safe', 'mixed'])
+            .optional()
+            .describe('Type of ideas to generate'),
         }),
         func: async ({ topic, context, numberOfIdeas = 5, ideaType = 'mixed' }) => {
           try {
@@ -3788,7 +4174,10 @@ Format each idea as:
               saveToDatabase: false,
             });
 
-            const ideas = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const ideas =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3806,15 +4195,35 @@ Format each idea as:
 
       new DynamicStructuredTool({
         name: 'translate_text',
-        description: 'Translate text from one language to another. Use this when user wants to translate content, messages, or documents to a different language.',
+        description:
+          'Translate text from one language to another. Use this when user wants to translate content, messages, or documents to a different language.',
         schema: z.object({
           text: z.string().describe('The text to translate'),
-          targetLanguage: z.string().describe('The language to translate to (e.g., "Spanish", "French", "Japanese", "Arabic", "Bengali", "Hindi")'),
-          sourceLanguage: z.string().optional().describe('The source language (auto-detected if not specified)'),
-          preserveFormatting: z.boolean().optional().describe('Whether to preserve markdown/formatting in the translation'),
-          formalityLevel: z.enum(['formal', 'informal', 'neutral']).optional().describe('Level of formality for the translation'),
+          targetLanguage: z
+            .string()
+            .describe(
+              'The language to translate to (e.g., "Spanish", "French", "Japanese", "Arabic", "Bengali", "Hindi")',
+            ),
+          sourceLanguage: z
+            .string()
+            .optional()
+            .describe('The source language (auto-detected if not specified)'),
+          preserveFormatting: z
+            .boolean()
+            .optional()
+            .describe('Whether to preserve markdown/formatting in the translation'),
+          formalityLevel: z
+            .enum(['formal', 'informal', 'neutral'])
+            .optional()
+            .describe('Level of formality for the translation'),
         }),
-        func: async ({ text, targetLanguage, sourceLanguage, preserveFormatting = true, formalityLevel = 'neutral' }) => {
+        func: async ({
+          text,
+          targetLanguage,
+          sourceLanguage,
+          preserveFormatting = true,
+          formalityLevel = 'neutral',
+        }) => {
           try {
             const formalityInstructions = {
               formal: 'Use formal language and honorifics where appropriate',
@@ -3841,7 +4250,10 @@ Provide only the translated text, no explanations or notes. Ensure the translati
               saveToDatabase: false,
             });
 
-            const translatedText = typeof response === 'string' ? response : response.content || response.text || JSON.stringify(response);
+            const translatedText =
+              typeof response === 'string'
+                ? response
+                : response.content || response.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -3872,20 +4284,33 @@ Provide only the translated text, no explanations or notes. Ensure the translati
     return [
       new DynamicStructuredTool({
         name: 'analyze_image',
-        description: 'Analyze an attached image. IMPORTANT: When user has attached images, DO NOT provide imageUrl or imageBase64 - the images are automatically available from context. Just provide the question parameter.',
+        description:
+          'Analyze an attached image. IMPORTANT: When user has attached images, DO NOT provide imageUrl or imageBase64 - the images are automatically available from context. Just provide the question parameter.',
         schema: z.object({
-          question: z.string().optional().describe('What to analyze or question to answer about the image. Default: describe the image'),
-          analysisType: z.enum(['describe', 'extract_text', 'answer_question', 'detailed']).optional().describe('Type of analysis: describe, extract_text, answer_question, or detailed'),
+          question: z
+            .string()
+            .optional()
+            .describe(
+              'What to analyze or question to answer about the image. Default: describe the image',
+            ),
+          analysisType: z
+            .enum(['describe', 'extract_text', 'answer_question', 'detailed'])
+            .optional()
+            .describe('Type of analysis: describe, extract_text, answer_question, or detailed'),
         }),
         func: async ({ question = 'Describe this image in detail', analysisType = 'describe' }) => {
           try {
-            this.logger.log(`[analyze_image] Starting analysis. Context has ${this.context?.attachedImages?.length || 0} attached images`);
+            this.logger.log(
+              `[analyze_image] Starting analysis. Context has ${this.context?.attachedImages?.length || 0} attached images`,
+            );
 
             const analysisInstructions = {
               describe: 'Provide a detailed description of what you see in this image.',
-              extract_text: 'Extract and transcribe any text visible in this image. If no text is visible, say so.',
+              extract_text:
+                'Extract and transcribe any text visible in this image. If no text is visible, say so.',
               answer_question: `Answer this question about the image: ${question}`,
-              detailed: 'Provide a comprehensive analysis including: description, any text visible, colors, objects, people, context, and any notable details.',
+              detailed:
+                'Provide a comprehensive analysis including: description, any text visible, colors, objects, people, context, and any notable details.',
             };
 
             const systemPrompt = `${analysisInstructions[analysisType]}
@@ -3895,7 +4320,6 @@ User's specific request: ${question}
 Provide a clear, helpful response based on the image content.`;
 
             // Build the message content with image
-            let imageContent: any;
             let actualBase64: string | undefined;
             let actualMimeType = 'image/png';
 
@@ -3904,7 +4328,9 @@ Provide a clear, helpful response based on the image content.`;
               const attachedImage = this.context.attachedImages[0];
               actualBase64 = attachedImage.base64;
               actualMimeType = attachedImage.mimeType || 'image/png';
-              this.logger.log(`[analyze_image] Using attached image: ${attachedImage.name}, mimeType: ${actualMimeType}`);
+              this.logger.log(
+                `[analyze_image] Using attached image: ${attachedImage.name}, mimeType: ${actualMimeType}`,
+              );
             }
 
             if (!actualBase64) {
@@ -3915,7 +4341,7 @@ Provide a clear, helpful response based on the image content.`;
             }
 
             // Use base64 image directly with OpenAI Vision
-            imageContent = {
+            const imageContent = {
               type: 'image_url',
               image_url: {
                 url: `data:${actualMimeType};base64,${actualBase64}`,
@@ -3925,16 +4351,14 @@ Provide a clear, helpful response based on the image content.`;
 
             // Call OpenAI with vision
             const message = new HumanMessage({
-              content: [
-                { type: 'text', text: systemPrompt },
-                imageContent,
-              ],
+              content: [{ type: 'text', text: systemPrompt }, imageContent],
             });
 
             const response = await this.visionModel.invoke([message]);
-            const analysisResult = typeof response.content === 'string'
-              ? response.content
-              : JSON.stringify(response.content);
+            const analysisResult =
+              typeof response.content === 'string'
+                ? response.content
+                : JSON.stringify(response.content);
 
             return JSON.stringify({
               success: true,
@@ -3951,12 +4375,25 @@ Provide a clear, helpful response based on the image content.`;
 
       new DynamicStructuredTool({
         name: 'analyze_document',
-        description: 'Analyze a document and extract key information, summarize it, or answer questions about its content. Use when user shares document text.',
+        description:
+          'Analyze a document and extract key information, summarize it, or answer questions about its content. Use when user shares document text.',
         schema: z.object({
           documentContent: z.string().describe('The text content of the document'),
           documentName: z.string().optional().describe('Name of the document'),
-          analysisType: z.enum(['summarize', 'extract_key_points', 'answer_question', 'extract_action_items', 'analyze_sentiment']).optional().describe('Type of analysis. Default: summarize'),
-          question: z.string().optional().describe('Specific question to answer about the document'),
+          analysisType: z
+            .enum([
+              'summarize',
+              'extract_key_points',
+              'answer_question',
+              'extract_action_items',
+              'analyze_sentiment',
+            ])
+            .optional()
+            .describe('Type of analysis. Default: summarize'),
+          question: z
+            .string()
+            .optional()
+            .describe('Specific question to answer about the document'),
         }),
         func: async ({ documentContent, documentName, analysisType = 'summarize', question }) => {
           try {
@@ -4015,7 +4452,10 @@ Provide a comprehensive summary covering:
               saveToDatabase: false,
             });
 
-            const analysis = typeof response === 'string' ? response : response?.content || response?.text || JSON.stringify(response);
+            const analysis =
+              typeof response === 'string'
+                ? response
+                : response?.content || response?.text || JSON.stringify(response);
 
             return JSON.stringify({
               success: true,
@@ -4040,10 +4480,18 @@ Provide a comprehensive summary covering:
     return [
       new DynamicStructuredTool({
         name: 'get_referenced_item',
-        description: 'Fetch details of a referenced item (note, task, event, project, file) from the workspace. Use this when user has referenced an existing item and wants to view, summarize, edit, or work with it. If itemId is not a valid UUID, the tool will automatically find the correct ID from referenced items in context.',
+        description:
+          'Fetch details of a referenced item (note, task, event, project, file) from the workspace. Use this when user has referenced an existing item and wants to view, summarize, edit, or work with it. If itemId is not a valid UUID, the tool will automatically find the correct ID from referenced items in context.',
         schema: z.object({
-          itemType: z.enum(['note', 'task', 'event', 'project', 'file']).describe('Type of item to fetch'),
-          itemId: z.string().optional().describe('ID of the item to fetch (optional - will auto-resolve from context if not valid)'),
+          itemType: z
+            .enum(['note', 'task', 'event', 'project', 'file'])
+            .describe('Type of item to fetch'),
+          itemId: z
+            .string()
+            .optional()
+            .describe(
+              'ID of the item to fetch (optional - will auto-resolve from context if not valid)',
+            ),
         }),
         func: async ({ itemType, itemId }) => {
           try {
@@ -4053,18 +4501,26 @@ Provide a comprehensive summary covering:
 
             // If itemId is not a valid UUID, try to find it from referenced items in context
             if (!itemId || !uuidRegex.test(itemId)) {
-              this.logger.log(`[get_referenced_item] Invalid or missing itemId "${itemId}", looking up from context...`);
+              this.logger.log(
+                `[get_referenced_item] Invalid or missing itemId "${itemId}", looking up from context...`,
+              );
               const referencedItems = this.context.referencedItems || [];
-              const matchingItem = referencedItems.find(ref => ref.type === itemType);
+              const matchingItem = referencedItems.find((ref) => ref.type === itemType);
 
               if (matchingItem) {
                 resolvedId = matchingItem.id;
-                this.logger.log(`[get_referenced_item] Resolved ${itemType} ID from context: ${resolvedId} (title: "${matchingItem.title}")`);
+                this.logger.log(
+                  `[get_referenced_item] Resolved ${itemType} ID from context: ${resolvedId} (title: "${matchingItem.title}")`,
+                );
               } else {
                 return JSON.stringify({
                   success: false,
                   error: `No ${itemType} found in referenced items. Please reference a ${itemType} first.`,
-                  availableReferences: referencedItems.map(r => ({ type: r.type, title: r.title, id: r.id })),
+                  availableReferences: referencedItems.map((r) => ({
+                    type: r.type,
+                    title: r.title,
+                    id: r.id,
+                  })),
                 });
               }
             }
@@ -4074,7 +4530,11 @@ Provide a comprehensive summary covering:
 
             switch (itemType) {
               case 'note':
-                item = await this.notesService.getNote(resolvedId, this.context.workspaceId, this.context.userId);
+                item = await this.notesService.getNote(
+                  resolvedId,
+                  this.context.workspaceId,
+                  this.context.userId,
+                );
                 if (item) {
                   return JSON.stringify({
                     success: true,
@@ -4119,7 +4579,11 @@ Provide a comprehensive summary covering:
                 break;
 
               case 'event':
-                item = await this.calendarService.getEvent(resolvedId, this.context.workspaceId, this.context.userId);
+                item = await this.calendarService.getEvent(
+                  resolvedId,
+                  this.context.workspaceId,
+                  this.context.userId,
+                );
                 if (item) {
                   return JSON.stringify({
                     success: true,
@@ -4158,7 +4622,11 @@ Provide a comprehensive summary covering:
                 break;
 
               case 'file':
-                item = await this.filesService.getFile(itemId, this.context.workspaceId, this.context.userId);
+                item = await this.filesService.getFile(
+                  itemId,
+                  this.context.workspaceId,
+                  this.context.userId,
+                );
                 if (item) {
                   return JSON.stringify({
                     success: true,
@@ -4190,11 +4658,21 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'update_referenced_item',
-        description: 'Update a referenced item (note, task, event, project). Use this when user wants to edit or modify an existing item they have referenced. If itemId is not a valid UUID, the tool will automatically find the correct ID from referenced items in context.',
+        description:
+          'Update a referenced item (note, task, event, project). Use this when user wants to edit or modify an existing item they have referenced. If itemId is not a valid UUID, the tool will automatically find the correct ID from referenced items in context.',
         schema: z.object({
           itemType: z.enum(['note', 'task', 'event', 'project']).describe('Type of item to update'),
-          itemId: z.string().optional().describe('ID of the item to update (optional - will auto-resolve from context if not valid)'),
-          updates: z.record(z.string(), z.any()).describe('Object containing fields to update (e.g., {title: "New Title", content: "New content"})'),
+          itemId: z
+            .string()
+            .optional()
+            .describe(
+              'ID of the item to update (optional - will auto-resolve from context if not valid)',
+            ),
+          updates: z
+            .record(z.string(), z.any())
+            .describe(
+              'Object containing fields to update (e.g., {title: "New Title", content: "New content"})',
+            ),
         }),
         func: async ({ itemType, itemId, updates }) => {
           try {
@@ -4204,28 +4682,44 @@ Provide a comprehensive summary covering:
 
             // If itemId is not a valid UUID, try to find it from referenced items in context
             if (!itemId || !uuidRegex.test(itemId)) {
-              this.logger.log(`[update_referenced_item] Invalid or missing itemId "${itemId}", looking up from context...`);
+              this.logger.log(
+                `[update_referenced_item] Invalid or missing itemId "${itemId}", looking up from context...`,
+              );
               const referencedItems = this.context.referencedItems || [];
-              const matchingItem = referencedItems.find(ref => ref.type === itemType);
+              const matchingItem = referencedItems.find((ref) => ref.type === itemType);
 
               if (matchingItem) {
                 resolvedId = matchingItem.id;
-                this.logger.log(`[update_referenced_item] Resolved ${itemType} ID from context: ${resolvedId} (title: "${matchingItem.title}")`);
+                this.logger.log(
+                  `[update_referenced_item] Resolved ${itemType} ID from context: ${resolvedId} (title: "${matchingItem.title}")`,
+                );
               } else {
                 return JSON.stringify({
                   success: false,
                   error: `No ${itemType} found in referenced items. Please reference a ${itemType} first.`,
-                  availableReferences: referencedItems.map(r => ({ type: r.type, title: r.title, id: r.id })),
+                  availableReferences: referencedItems.map((r) => ({
+                    type: r.type,
+                    title: r.title,
+                    id: r.id,
+                  })),
                 });
               }
             }
 
-            this.logger.log(`[update_referenced_item] Updating ${itemType} ${resolvedId} with:`, updates);
+            this.logger.log(
+              `[update_referenced_item] Updating ${itemType} ${resolvedId} with:`,
+              updates,
+            );
             let result: any = null;
 
             switch (itemType) {
               case 'note':
-                result = await this.notesService.updateNote(resolvedId, this.context.workspaceId, updates as any, this.context.userId);
+                result = await this.notesService.updateNote(
+                  resolvedId,
+                  this.context.workspaceId,
+                  updates as any,
+                  this.context.userId,
+                );
                 if (result) {
                   return JSON.stringify({
                     success: true,
@@ -4266,7 +4760,11 @@ Provide a comprehensive summary covering:
                   }
                 }
                 this.logger.log(`[update_referenced_item] Task updates transformed:`, taskUpdates);
-                result = await this.projectsService.updateTask(resolvedId, taskUpdates as any, this.context.userId);
+                result = await this.projectsService.updateTask(
+                  resolvedId,
+                  taskUpdates as any,
+                  this.context.userId,
+                );
                 if (result) {
                   return JSON.stringify({
                     success: true,
@@ -4279,7 +4777,12 @@ Provide a comprehensive summary covering:
                 break;
 
               case 'event':
-                result = await this.calendarService.updateEvent(resolvedId, this.context.workspaceId, updates as any, this.context.userId);
+                result = await this.calendarService.updateEvent(
+                  resolvedId,
+                  this.context.workspaceId,
+                  updates as any,
+                  this.context.userId,
+                );
                 if (result) {
                   return JSON.stringify({
                     success: true,
@@ -4292,7 +4795,11 @@ Provide a comprehensive summary covering:
                 break;
 
               case 'project':
-                result = await this.projectsService.update(resolvedId, updates as any, this.context.userId);
+                result = await this.projectsService.update(
+                  resolvedId,
+                  updates as any,
+                  this.context.userId,
+                );
                 if (result) {
                   return JSON.stringify({
                     success: true,
@@ -4325,18 +4832,29 @@ Provide a comprehensive summary covering:
     return [
       new DynamicStructuredTool({
         name: 'batch_create_tasks',
-        description: 'Create multiple tasks at once. Use this for efficiently adding many tasks to a project in a single operation.',
+        description:
+          'Create multiple tasks at once. Use this for efficiently adding many tasks to a project in a single operation.',
         schema: z.object({
           projectId: z.string().describe('Project ID to add tasks to'),
-          tasks: z.array(z.object({
-            title: z.string().describe('Task title'),
-            description: z.string().optional().describe('Task description'),
-            status: z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done']).optional().describe('Task status'),
-            priority: z.enum(['low', 'medium', 'high', 'urgent']).optional().describe('Task priority'),
-            dueDate: z.string().optional().describe('Due date (ISO format)'),
-            assigneeId: z.string().optional().describe('User ID to assign the task to'),
-            labels: z.array(z.string()).optional().describe('Task labels'),
-          })).describe('Array of tasks to create'),
+          tasks: z
+            .array(
+              z.object({
+                title: z.string().describe('Task title'),
+                description: z.string().optional().describe('Task description'),
+                status: z
+                  .enum(['backlog', 'todo', 'in_progress', 'in_review', 'done'])
+                  .optional()
+                  .describe('Task status'),
+                priority: z
+                  .enum(['low', 'medium', 'high', 'urgent'])
+                  .optional()
+                  .describe('Task priority'),
+                dueDate: z.string().optional().describe('Due date (ISO format)'),
+                assigneeId: z.string().optional().describe('User ID to assign the task to'),
+                labels: z.array(z.string()).optional().describe('Task labels'),
+              }),
+            )
+            .describe('Array of tasks to create'),
           preview: z.boolean().optional().describe('If true, show preview without creating'),
         }),
         func: async ({ projectId, tasks, preview }) => {
@@ -4390,20 +4908,29 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'batch_update_tasks',
-        description: 'Update multiple tasks at once. Use this for efficiently modifying many tasks in a single operation (e.g., changing status of all tasks).',
+        description:
+          'Update multiple tasks at once. Use this for efficiently modifying many tasks in a single operation (e.g., changing status of all tasks).',
         schema: z.object({
-          tasks: z.array(z.object({
-            taskId: z.string().describe('Task ID to update'),
-            updates: z.object({
-              title: z.string().optional(),
-              description: z.string().optional(),
-              status: z.enum(['backlog', 'todo', 'in_progress', 'in_review', 'done']).optional(),
-              priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
-              dueDate: z.string().optional(),
-              assigneeId: z.string().optional(),
-              labels: z.array(z.string()).optional(),
-            }).describe('Fields to update'),
-          })).describe('Array of tasks with their updates'),
+          tasks: z
+            .array(
+              z.object({
+                taskId: z.string().describe('Task ID to update'),
+                updates: z
+                  .object({
+                    title: z.string().optional(),
+                    description: z.string().optional(),
+                    status: z
+                      .enum(['backlog', 'todo', 'in_progress', 'in_review', 'done'])
+                      .optional(),
+                    priority: z.enum(['low', 'medium', 'high', 'urgent']).optional(),
+                    dueDate: z.string().optional(),
+                    assigneeId: z.string().optional(),
+                    labels: z.array(z.string()).optional(),
+                  })
+                  .describe('Fields to update'),
+              }),
+            )
+            .describe('Array of tasks with their updates'),
           preview: z.boolean().optional().describe('If true, show preview without updating'),
         }),
         func: async ({ tasks, preview }) => {
@@ -4432,13 +4959,17 @@ Provide a comprehensive summary covering:
                 if (task.updates.labels) updateData.labels = task.updates.labels;
                 updateData.updated_at = new Date().toISOString();
 
-                await this.db.table('tasks')
+                await this.db
+                  .table('tasks')
                   .update(updateData)
                   .where('id', '=', task.taskId)
                   .where('workspace_id', '=', this.context.workspaceId)
                   .execute();
 
-                updatedTasks.push({ taskId: task.taskId, updatedFields: Object.keys(task.updates) });
+                updatedTasks.push({
+                  taskId: task.taskId,
+                  updatedFields: Object.keys(task.updates),
+                });
               } catch (err) {
                 errors.push({ taskId: task.taskId, error: err.message });
               }
@@ -4459,7 +4990,8 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'batch_delete_tasks',
-        description: 'Delete multiple tasks at once. Use this for efficiently removing many tasks in a single operation.',
+        description:
+          'Delete multiple tasks at once. Use this for efficiently removing many tasks in a single operation.',
         schema: z.object({
           taskIds: z.array(z.string()).describe('Array of task IDs to delete'),
           preview: z.boolean().optional().describe('If true, show preview without deleting'),
@@ -4480,7 +5012,8 @@ Provide a comprehensive summary covering:
 
             for (const taskId of taskIds) {
               try {
-                await this.db.table('tasks')
+                await this.db
+                  .table('tasks')
                   .update({
                     is_deleted: true,
                     deleted_at: new Date().toISOString(),
@@ -4511,17 +5044,22 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'batch_create_events',
-        description: 'Create multiple calendar events at once. Use this for scheduling recurring meetings or multiple events efficiently.',
+        description:
+          'Create multiple calendar events at once. Use this for scheduling recurring meetings or multiple events efficiently.',
         schema: z.object({
-          events: z.array(z.object({
-            title: z.string().describe('Event title'),
-            description: z.string().optional().describe('Event description'),
-            startTime: z.string().describe('Start time (ISO format)'),
-            endTime: z.string().describe('End time (ISO format)'),
-            location: z.string().optional().describe('Event location'),
-            attendees: z.array(z.string()).optional().describe('Attendee email addresses'),
-            isAllDay: z.boolean().optional().describe('Is all-day event'),
-          })).describe('Array of events to create'),
+          events: z
+            .array(
+              z.object({
+                title: z.string().describe('Event title'),
+                description: z.string().optional().describe('Event description'),
+                startTime: z.string().describe('Start time (ISO format)'),
+                endTime: z.string().describe('End time (ISO format)'),
+                location: z.string().optional().describe('Event location'),
+                attendees: z.array(z.string()).optional().describe('Attendee email addresses'),
+                isAllDay: z.boolean().optional().describe('Is all-day event'),
+              }),
+            )
+            .describe('Array of events to create'),
           preview: z.boolean().optional().describe('If true, show preview without creating'),
         }),
         func: async ({ events, preview }) => {
@@ -4552,7 +5090,7 @@ Provide a comprehensive summary covering:
                     attendees: event.attendees,
                     is_all_day: event.isAllDay,
                   } as any,
-                  this.context.userId
+                  this.context.userId,
                 );
                 createdEvents.push({ index: i + 1, id: newEvent.id, title: event.title });
               } catch (err) {
@@ -4575,7 +5113,8 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'batch_delete_notes',
-        description: 'Delete multiple notes at once. Use this for efficiently removing many notes in a single operation.',
+        description:
+          'Delete multiple notes at once. Use this for efficiently removing many notes in a single operation.',
         schema: z.object({
           noteIds: z.array(z.string()).describe('Array of note IDs to delete'),
           preview: z.boolean().optional().describe('If true, show preview without deleting'),
@@ -4596,7 +5135,11 @@ Provide a comprehensive summary covering:
 
             for (const noteId of noteIds) {
               try {
-                await this.notesService.deleteNote(noteId, this.context.workspaceId, this.context.userId);
+                await this.notesService.deleteNote(
+                  noteId,
+                  this.context.workspaceId,
+                  this.context.userId,
+                );
                 deletedNotes.push(noteId);
               } catch (err) {
                 errors.push({ noteId, error: err.message });
@@ -4618,7 +5161,8 @@ Provide a comprehensive summary covering:
 
       new DynamicStructuredTool({
         name: 'batch_move_files',
-        description: 'Move multiple files to a folder at once. Use this for organizing files efficiently.',
+        description:
+          'Move multiple files to a folder at once. Use this for organizing files efficiently.',
         schema: z.object({
           fileIds: z.array(z.string()).describe('Array of file IDs to move'),
           targetFolderId: z.string().describe('Target folder ID'),
@@ -4644,7 +5188,7 @@ Provide a comprehensive summary covering:
                   fileId,
                   this.context.workspaceId,
                   { target_folder_id: targetFolderId },
-                  this.context.userId
+                  this.context.userId,
                 );
                 movedFiles.push(fileId);
               } catch (err) {
@@ -4685,7 +5229,15 @@ Provide a comprehensive summary covering:
           startDate: z.string().optional().describe('Budget start date (ISO format)'),
           endDate: z.string().optional().describe('Budget end date (ISO format)'),
         }),
-        func: async ({ name, totalBudget, projectId, description, currency, startDate, endDate }) => {
+        func: async ({
+          name,
+          totalBudget,
+          projectId,
+          description,
+          currency,
+          startDate,
+          endDate,
+        }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
@@ -4708,7 +5260,11 @@ Provide a comprehensive summary covering:
                 end_date: endDate,
               } as any,
             );
-            return JSON.stringify({ success: true, budget, message: `Budget "${name}" created successfully` });
+            return JSON.stringify({
+              success: true,
+              budget,
+              message: `Budget "${name}" created successfully`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4723,7 +5279,10 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ projectId }) => {
           try {
-            const budgets = await this.budgetService.getBudgets(this.context.workspaceId, projectId);
+            const budgets = await this.budgetService.getBudgets(
+              this.context.workspaceId,
+              projectId,
+            );
             return JSON.stringify({ success: true, budgets, count: budgets.length });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -4739,7 +5298,10 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ budgetId }) => {
           try {
-            const summary = await this.budgetService.getBudgetSummary(this.context.workspaceId, budgetId);
+            const summary = await this.budgetService.getBudgetSummary(
+              this.context.workspaceId,
+              budgetId,
+            );
             return JSON.stringify({ success: true, summary });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -4760,7 +5322,16 @@ Provide a comprehensive summary covering:
           description: z.string().optional().describe('Additional details'),
           vendor: z.string().optional().describe('Vendor name'),
         }),
-        func: async ({ budgetId, title, amount, expenseDate, categoryId, taskId, description, vendor }) => {
+        func: async ({
+          budgetId,
+          title,
+          amount,
+          expenseDate,
+          categoryId,
+          taskId,
+          description,
+          vendor,
+        }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
@@ -4784,7 +5355,11 @@ Provide a comprehensive summary covering:
                 vendor,
               } as any,
             );
-            return JSON.stringify({ success: true, expense, message: `Expense "${title}" added successfully` });
+            return JSON.stringify({
+              success: true,
+              expense,
+              message: `Expense "${title}" added successfully`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4799,7 +5374,10 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ budgetId }) => {
           try {
-            const expenses = await this.budgetService.getExpenses(this.context.workspaceId, budgetId);
+            const expenses = await this.budgetService.getExpenses(
+              this.context.workspaceId,
+              budgetId,
+            );
             return JSON.stringify({ success: true, expenses, count: expenses.length });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -4828,7 +5406,11 @@ Provide a comprehensive summary covering:
               expenseId,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, expense, message: 'Expense approved successfully' });
+            return JSON.stringify({
+              success: true,
+              expense,
+              message: 'Expense approved successfully',
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4851,7 +5433,11 @@ Provide a comprehensive summary covering:
           }
 
           try {
-            await this.budgetService.deleteBudget(this.context.workspaceId, budgetId, this.context.userId);
+            await this.budgetService.deleteBudget(
+              this.context.workspaceId,
+              budgetId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, message: 'Budget deleted successfully' });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -4874,7 +5460,10 @@ Provide a comprehensive summary covering:
           requestTypeId: z.string().describe('Type of approval request'),
           title: z.string().describe('Request title'),
           description: z.string().optional().describe('Request description'),
-          priority: z.enum(['LOW', 'NORMAL', 'HIGH', 'URGENT']).optional().describe('Request priority'),
+          priority: z
+            .enum(['LOW', 'NORMAL', 'HIGH', 'URGENT'])
+            .optional()
+            .describe('Request priority'),
           dueDate: z.string().optional().describe('Due date (ISO format)'),
           approverIds: z.array(z.string()).optional().describe('Specific approvers to assign'),
         }),
@@ -4900,7 +5489,11 @@ Provide a comprehensive summary covering:
               } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, request, message: `Approval request "${title}" created` });
+            return JSON.stringify({
+              success: true,
+              request,
+              message: `Approval request "${title}" created`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4911,9 +5504,18 @@ Provide a comprehensive summary covering:
         name: 'list_approval_requests',
         description: 'List approval requests with optional filters.',
         schema: z.object({
-          status: z.enum(['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED']).optional().describe('Filter by status'),
-          pendingMyApproval: z.boolean().optional().describe('Show only requests pending my approval'),
-          priority: z.enum(['LOW', 'NORMAL', 'HIGH', 'URGENT']).optional().describe('Filter by priority'),
+          status: z
+            .enum(['PENDING', 'APPROVED', 'REJECTED', 'CANCELLED'])
+            .optional()
+            .describe('Filter by status'),
+          pendingMyApproval: z
+            .boolean()
+            .optional()
+            .describe('Show only requests pending my approval'),
+          priority: z
+            .enum(['LOW', 'NORMAL', 'HIGH', 'URGENT'])
+            .optional()
+            .describe('Filter by priority'),
         }),
         func: async ({ status, pendingMyApproval, priority }) => {
           try {
@@ -4922,7 +5524,11 @@ Provide a comprehensive summary covering:
               { status, pendingMyApproval, priority } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, requests: result.requests, total: result.total });
+            return JSON.stringify({
+              success: true,
+              requests: result.requests,
+              total: result.total,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4952,7 +5558,11 @@ Provide a comprehensive summary covering:
               { comments } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, request, message: 'Request approved successfully' });
+            return JSON.stringify({
+              success: true,
+              request,
+              message: 'Request approved successfully',
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -4995,7 +5605,10 @@ Provide a comprehensive summary covering:
         schema: z.object({}),
         func: async () => {
           try {
-            const stats = await this.approvalsService.getStats(this.context.workspaceId, this.context.userId);
+            const stats = await this.approvalsService.getStats(
+              this.context.workspaceId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, stats });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5009,7 +5622,9 @@ Provide a comprehensive summary covering:
         schema: z.object({}),
         func: async () => {
           try {
-            const requestTypes = await this.approvalsService.getRequestTypes(this.context.workspaceId);
+            const requestTypes = await this.approvalsService.getRequestTypes(
+              this.context.workspaceId,
+            );
             return JSON.stringify({ success: true, requestTypes });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5053,7 +5668,10 @@ Provide a comprehensive summary covering:
               actionUrl,
               workspaceId: this.context.workspaceId,
             } as any);
-            return JSON.stringify({ success: true, message: `Notification sent to ${userIds.length} user(s)` });
+            return JSON.stringify({
+              success: true,
+              message: `Notification sent to ${userIds.length} user(s)`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5083,14 +5701,19 @@ Provide a comprehensive summary covering:
         name: 'mark_notifications_read',
         description: 'Mark notifications as read.',
         schema: z.object({
-          notificationIds: z.array(z.string()).optional().describe('Specific notification IDs to mark as read'),
+          notificationIds: z
+            .array(z.string())
+            .optional()
+            .describe('Specific notification IDs to mark as read'),
           markAll: z.boolean().optional().describe('Mark all notifications as read'),
         }),
         func: async ({ notificationIds, markAll }) => {
           if (!this.context.executeActions) {
             return JSON.stringify({
               preview: true,
-              action: markAll ? 'Would mark all notifications as read' : 'Would mark notifications as read',
+              action: markAll
+                ? 'Would mark all notifications as read'
+                : 'Would mark notifications as read',
               details: { notificationIds, markAll },
             });
           }
@@ -5100,10 +5723,18 @@ Provide a comprehensive summary covering:
               await this.notificationsService.markAllAsReadBulk(this.context.userId);
               return JSON.stringify({ success: true, message: 'All notifications marked as read' });
             } else if (notificationIds && notificationIds.length > 0) {
-              await this.notificationsService.bulkMarkAsRead(this.context.userId, { notificationIds } as any);
-              return JSON.stringify({ success: true, message: `${notificationIds.length} notification(s) marked as read` });
+              await this.notificationsService.bulkMarkAsRead(this.context.userId, {
+                notificationIds,
+              } as any);
+              return JSON.stringify({
+                success: true,
+                message: `${notificationIds.length} notification(s) marked as read`,
+              });
             }
-            return JSON.stringify({ success: false, error: 'Specify notificationIds or set markAll to true' });
+            return JSON.stringify({
+              success: false,
+              error: 'Specify notificationIds or set markAll to true',
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5148,10 +5779,10 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ category, search }) => {
           try {
-            const templates = await this.templatesService.findAll(
-              this.context.workspaceId,
-              { category, search } as any,
-            );
+            const templates = await this.templatesService.findAll(this.context.workspaceId, {
+              category,
+              search,
+            } as any);
             return JSON.stringify({ success: true, templates });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5167,7 +5798,10 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ templateId }) => {
           try {
-            const template = await this.templatesService.findOne(this.context.workspaceId, templateId);
+            const template = await this.templatesService.findOne(
+              this.context.workspaceId,
+              templateId,
+            );
             return JSON.stringify({ success: true, template });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5204,7 +5838,11 @@ Provide a comprehensive summary covering:
               } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, project, message: `Project "${name}" created from template` });
+            return JSON.stringify({
+              success: true,
+              project,
+              message: `Project "${name}" created from template`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5256,7 +5894,11 @@ Provide a comprehensive summary covering:
               { title, content, templateId } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, document, message: `Document "${title}" created` });
+            return JSON.stringify({
+              success: true,
+              document,
+              message: `Document "${title}" created`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5341,7 +5983,10 @@ Provide a comprehensive summary covering:
           documentId: z.string().describe('Document ID'),
           email: z.string().describe('Recipient email'),
           name: z.string().describe('Recipient name'),
-          role: z.enum(['signer', 'viewer']).optional().describe('Recipient role (default: signer)'),
+          role: z
+            .enum(['signer', 'viewer'])
+            .optional()
+            .describe('Recipient role (default: signer)'),
         }),
         func: async ({ documentId, email, name, role = 'signer' }) => {
           if (!this.context.executeActions) {
@@ -5359,7 +6004,11 @@ Provide a comprehensive summary covering:
               { email, name, role } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, recipient, message: `Recipient ${email} added` });
+            return JSON.stringify({
+              success: true,
+              recipient,
+              message: `Recipient ${email} added`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5382,7 +6031,11 @@ Provide a comprehensive summary covering:
           }
 
           try {
-            await this.documentsService.delete(this.context.workspaceId, documentId, this.context.userId);
+            await this.documentsService.delete(
+              this.context.workspaceId,
+              documentId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, message: 'Document deleted' });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5420,7 +6073,11 @@ Provide a comprehensive summary covering:
               { name, description } as any,
               this.context.userId,
             );
-            return JSON.stringify({ success: true, whiteboard, message: `Whiteboard "${name}" created` });
+            return JSON.stringify({
+              success: true,
+              whiteboard,
+              message: `Whiteboard "${name}" created`,
+            });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
           }
@@ -5433,7 +6090,10 @@ Provide a comprehensive summary covering:
         schema: z.object({}),
         func: async () => {
           try {
-            const whiteboards = await this.whiteboardsService.getWhiteboards(this.context.workspaceId, this.context.userId);
+            const whiteboards = await this.whiteboardsService.getWhiteboards(
+              this.context.workspaceId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, whiteboards, count: whiteboards.length });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5457,7 +6117,11 @@ Provide a comprehensive summary covering:
           }
 
           try {
-            await this.whiteboardsService.deleteWhiteboard(this.context.workspaceId, whiteboardId, this.context.userId);
+            await this.whiteboardsService.deleteWhiteboard(
+              this.context.workspaceId,
+              whiteboardId,
+              this.context.userId,
+            );
             return JSON.stringify({ success: true, message: 'Whiteboard deleted' });
           } catch (error) {
             return JSON.stringify({ success: false, error: error.message });
@@ -5476,9 +6140,14 @@ Provide a comprehensive summary covering:
       // Create workflow from natural language
       new DynamicStructuredTool({
         name: 'create_workflow_from_description',
-        description: 'Create an automated workflow from a natural language description. Use this when the user wants to automate something like "notify me when...", "send a reminder when...", "create a task when...".',
+        description:
+          'Create an automated workflow from a natural language description. Use this when the user wants to automate something like "notify me when...", "send a reminder when...", "create a task when...".',
         schema: z.object({
-          description: z.string().describe('Natural language description of the workflow automation (e.g., "Send me a notification when a task becomes overdue")'),
+          description: z
+            .string()
+            .describe(
+              'Natural language description of the workflow automation (e.g., "Send me a notification when a task becomes overdue")',
+            ),
         }),
         func: async ({ description }) => {
           if (!this.context.executeActions) {
@@ -5523,14 +6192,17 @@ Provide a comprehensive summary covering:
                   stepConfig: {
                     actionType: step.actionType,
                     actionConfig: step.actionConfig,
-                    conditions: step.conditions.length > 0 ? {
-                      operator: 'and',
-                      conditions: step.conditions.map((c) => ({
-                        field: c.field,
-                        operator: c.operator,
-                        value: c.value,
-                      })),
-                    } : undefined,
+                    conditions:
+                      step.conditions.length > 0
+                        ? {
+                            operator: 'and',
+                            conditions: step.conditions.map((c) => ({
+                              field: c.field,
+                              operator: c.operator,
+                              value: c.value,
+                            })),
+                          }
+                        : undefined,
                   },
                 })),
               },
@@ -5563,10 +6235,9 @@ Provide a comprehensive summary covering:
         }),
         func: async ({ activeOnly }) => {
           try {
-            const result = await this.workflowsService.listWorkflows(
-              this.context.workspaceId,
-              { isActive: activeOnly },
-            );
+            const result = await this.workflowsService.listWorkflows(this.context.workspaceId, {
+              isActive: activeOnly,
+            });
 
             const workflows = result.data.map((w) => ({
               id: w.id,
@@ -5689,10 +6360,7 @@ Provide a comprehensive summary covering:
             );
             const workflowName = workflow.name;
 
-            await this.workflowsService.deleteWorkflow(
-              this.context.workspaceId,
-              workflowId,
-            );
+            await this.workflowsService.deleteWorkflow(this.context.workspaceId, workflowId);
 
             return JSON.stringify({
               success: true,
@@ -5771,13 +6439,22 @@ Examples of when to use this:
 - "Send a notification at 5 PM"
 - "Create a task tomorrow at 10 AM"`,
         schema: z.object({
-          actionType: z.enum(['send_email', 'send_notification', 'create_task', 'send_message'])
+          actionType: z
+            .enum(['send_email', 'send_notification', 'create_task', 'send_message'])
             .describe('The type of action to schedule'),
-          scheduledTime: z.string()
-            .describe('ISO 8601 datetime string in UTC for when to execute (e.g., "2024-01-15T09:50:00Z"). MUST be in UTC and in the future. Convert user local time to UTC.'),
-          actionConfig: z.record(z.string(), z.any())
-            .describe('Configuration for the action. For send_email: {to: ["email"], subject: "...", body: "..."}. For send_notification: {title: "...", message: "..."}'),
-          description: z.string().optional()
+          scheduledTime: z
+            .string()
+            .describe(
+              'ISO 8601 datetime string in UTC for when to execute (e.g., "2024-01-15T09:50:00Z"). MUST be in UTC and in the future. Convert user local time to UTC.',
+            ),
+          actionConfig: z
+            .record(z.string(), z.any())
+            .describe(
+              'Configuration for the action. For send_email: {to: ["email"], subject: "...", body: "..."}. For send_notification: {title: "...", message: "..."}',
+            ),
+          description: z
+            .string()
+            .optional()
             .describe('Human-readable description of what this scheduled action will do'),
         }),
         func: async ({ actionType, scheduledTime, actionConfig, description }) => {
@@ -5810,7 +6487,11 @@ Examples of when to use this:
 
             // Validate action config based on action type
             if (actionType === 'send_email') {
-              if (!actionConfig.to || !Array.isArray(actionConfig.to) || actionConfig.to.length === 0) {
+              if (
+                !actionConfig.to ||
+                !Array.isArray(actionConfig.to) ||
+                actionConfig.to.length === 0
+              ) {
                 return JSON.stringify({
                   success: false,
                   error: 'send_email requires "to" field with recipient email addresses',
@@ -5933,7 +6614,8 @@ Examples of when to use this:
             } else {
               return JSON.stringify({
                 success: false,
-                error: 'Could not cancel action. It may not exist, already executed, or you do not have permission.',
+                error:
+                  'Could not cancel action. It may not exist, already executed, or you do not have permission.',
               });
             }
           } catch (error) {

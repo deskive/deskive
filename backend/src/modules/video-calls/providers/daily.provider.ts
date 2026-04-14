@@ -82,7 +82,7 @@ export class DailyProvider implements VideoProvider {
     const res = await fetch(`${DAILY_API_BASE}${path}`, {
       method,
       headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -103,7 +103,10 @@ export class DailyProvider implements VideoProvider {
   }
 
   async createRoom(options: CreateRoomOptions): Promise<VideoRoom> {
-    const sanitized = options.roomName.replace(/[^a-zA-Z0-9_-]/g, '-').toLowerCase().slice(0, 60);
+    const sanitized = options.roomName
+      .replace(/[^a-zA-Z0-9_-]/g, '-')
+      .toLowerCase()
+      .slice(0, 60);
     const expiresIn = options.emptyTimeout ?? 24 * 60 * 60; // 1 day default
 
     const created = await this.dailyApi('POST', '/rooms', {
@@ -113,8 +116,7 @@ export class DailyProvider implements VideoProvider {
         max_participants: options.maxParticipants ?? 50,
         eject_at_room_exp: true,
         exp: Math.floor(Date.now() / 1000) + expiresIn,
-        enable_recording:
-          options.recordingEnabled || this.recordingEnabled ? 'cloud' : undefined,
+        enable_recording: options.recordingEnabled || this.recordingEnabled ? 'cloud' : undefined,
       },
     });
 
@@ -204,12 +206,18 @@ export class DailyProvider implements VideoProvider {
   async removeParticipant(roomId: string, identity: string): Promise<void> {
     // Daily doesn't have a REST "kick" endpoint - eject is done via the
     // client SDK with an admin token. Document this limitation.
-    throw new VideoProviderNotSupportedError('daily', 'removeParticipant (use the client-side daily-js sendAppMessage / eject from the room owner)');
+    throw new VideoProviderNotSupportedError(
+      'daily',
+      'removeParticipant (use the client-side daily-js sendAppMessage / eject from the room owner)',
+    );
   }
 
   async startRecording(roomId: string, _config: RecordingConfig = {}): Promise<Recording> {
     if (!this.recordingEnabled) {
-      throw new VideoProviderNotSupportedError('daily', 'startRecording (set DAILY_RECORDING_ENABLED=true and ensure your Daily plan supports cloud recording)');
+      throw new VideoProviderNotSupportedError(
+        'daily',
+        'startRecording (set DAILY_RECORDING_ENABLED=true and ensure your Daily plan supports cloud recording)',
+      );
     }
     // Daily cloud recording is started client-side via daily-js .startRecording().
     // Server-side starting requires the meeting-recording API which is plan-gated.
@@ -222,13 +230,19 @@ export class DailyProvider implements VideoProvider {
   }
 
   async stopRecording(_recordingId: string): Promise<void> {
-    throw new VideoProviderNotSupportedError('daily', 'stopRecording (use the client-side daily-js .stopRecording())');
+    throw new VideoProviderNotSupportedError(
+      'daily',
+      'stopRecording (use the client-side daily-js .stopRecording())',
+    );
   }
 
   async getRecording(recordingId: string): Promise<Recording | null> {
     try {
       // Daily exposes recordings via /recordings endpoint
-      const list = await this.dailyApi('GET', `/recordings?room_name=${encodeURIComponent(recordingId.split('-')[1] || '')}&limit=10`);
+      const list = await this.dailyApi(
+        'GET',
+        `/recordings?room_name=${encodeURIComponent(recordingId.split('-')[1] || '')}&limit=10`,
+      );
       const rec = (list.data || [])[0];
       if (!rec) return null;
       return {
@@ -248,11 +262,16 @@ export class DailyProvider implements VideoProvider {
     if (!m) return 24 * 60 * 60;
     const n = parseInt(m[1], 10);
     switch (m[2]) {
-      case 'd': return n * 86400;
-      case 'h': return n * 3600;
-      case 'm': return n * 60;
-      case 's': return n;
-      default: return n;
+      case 'd':
+        return n * 86400;
+      case 'h':
+        return n * 3600;
+      case 'm':
+        return n * 60;
+      case 's':
+        return n;
+      default:
+        return n;
     }
   }
 }

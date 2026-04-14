@@ -20,21 +20,21 @@ export class GenerateDescriptionSuggestionsDto {
   @ApiProperty({
     description: 'Type of description to generate',
     enum: DescriptionType,
-    example: DescriptionType.TASK
+    example: DescriptionType.TASK,
   })
   @IsEnum(DescriptionType)
   type: DescriptionType;
 
   @ApiProperty({
     description: 'Title/name of the item (task name, project name, event title, etc.)',
-    example: 'Weekly Team Standup'
+    example: 'Weekly Team Standup',
   })
   @IsString()
   title: string;
 
   @ApiPropertyOptional({
     description: 'Additional context to help generate better descriptions',
-    example: 'This is for the engineering team'
+    example: 'This is for the engineering team',
   })
   @IsOptional()
   @IsString()
@@ -43,7 +43,7 @@ export class GenerateDescriptionSuggestionsDto {
   @ApiPropertyOptional({
     description: 'Number of suggestions to generate (1-5)',
     default: 3,
-    example: 3
+    example: 3,
   })
   @IsOptional()
   @IsNumber()
@@ -52,7 +52,7 @@ export class GenerateDescriptionSuggestionsDto {
   @ApiPropertyOptional({
     description: 'Tone of the description',
     enum: DescriptionTone,
-    default: DescriptionTone.PROFESSIONAL
+    default: DescriptionTone.PROFESSIONAL,
   })
   @IsOptional()
   @IsEnum(DescriptionTone)
@@ -60,7 +60,7 @@ export class GenerateDescriptionSuggestionsDto {
 
   @ApiPropertyOptional({
     description: 'Maximum length hint for each description (short, medium, long)',
-    default: 'medium'
+    default: 'medium',
   })
   @IsOptional()
   @IsString()
@@ -71,7 +71,10 @@ export class DescriptionSuggestionResponseDto {
   @ApiProperty({
     description: 'Array of description suggestions',
     type: [String],
-    example: ['A weekly sync meeting to discuss progress...', 'Team standup to align on priorities...']
+    example: [
+      'A weekly sync meeting to discuss progress...',
+      'Team standup to align on priorities...',
+    ],
   })
   suggestions: string[];
 

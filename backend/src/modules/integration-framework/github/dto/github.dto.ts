@@ -106,7 +106,10 @@ export class ListRepositoriesQueryDto {
   @IsOptional()
   perPage?: number;
 
-  @ApiPropertyOptional({ description: 'Sort by: created, updated, pushed, full_name', default: 'updated' })
+  @ApiPropertyOptional({
+    description: 'Sort by: created, updated, pushed, full_name',
+    default: 'updated',
+  })
   @IsOptional()
   sort?: 'created' | 'updated' | 'pushed' | 'full_name';
 
@@ -114,7 +117,10 @@ export class ListRepositoriesQueryDto {
   @IsOptional()
   direction?: 'asc' | 'desc';
 
-  @ApiPropertyOptional({ description: 'Filter by type: all, owner, public, private, member', default: 'all' })
+  @ApiPropertyOptional({
+    description: 'Filter by type: all, owner, public, private, member',
+    default: 'all',
+  })
   @IsOptional()
   type?: 'all' | 'owner' | 'public' | 'private' | 'member';
 }

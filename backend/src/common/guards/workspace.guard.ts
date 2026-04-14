@@ -6,22 +6,23 @@ import { DatabaseService } from '../../modules/database/database.service';
 export class WorkspaceGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private readonly db: DatabaseService
+    private readonly db: DatabaseService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
-    
+
     if (!user) {
       throw new ForbiddenException('User not authenticated');
     }
 
     // Extract workspace ID from request params, query, or body
-    const workspaceId = request.params?.workspaceId || 
-                       request.query?.workspaceId || 
-                       request.body?.workspaceId ||
-                       request.headers['x-workspace-id'];
+    const workspaceId =
+      request.params?.workspaceId ||
+      request.query?.workspaceId ||
+      request.body?.workspaceId ||
+      request.headers['x-workspace-id'];
 
     if (!workspaceId) {
       throw new ForbiddenException('Workspace ID required');
@@ -46,15 +47,19 @@ export class WorkspaceGuard implements CanActivate {
         const membershipQuery = await this.db.findMany('workspace_members', {
           workspace_id: workspaceId,
           user_id: userId,
-          is_active: true
+          is_active: true,
         });
         console.log('[WorkspaceGuard] Membership query result:', JSON.stringify(membershipQuery));
         membershipData = membershipQuery.data || [];
       } catch (dbError) {
         // If database fails (e.g., 502 error), try using the table query builder as fallback
-        console.error('[WorkspaceGuard] database findMany failed, trying table query:', dbError.message);
+        console.error(
+          '[WorkspaceGuard] database findMany failed, trying table query:',
+          dbError.message,
+        );
         try {
-          const fallbackQuery = await this.db.table('workspace_members')
+          const fallbackQuery = await this.db
+            .table('workspace_members')
             .select('*')
             .where('workspace_id', '=', workspaceId)
             .where('user_id', '=', userId)
@@ -72,7 +77,12 @@ export class WorkspaceGuard implements CanActivate {
 
       const membership = Array.isArray(membershipData) ? membershipData[0] : null;
       if (!membership) {
-        console.log('[WorkspaceGuard] No membership found for user', userId, 'in workspace', workspaceId);
+        console.log(
+          '[WorkspaceGuard] No membership found for user',
+          userId,
+          'in workspace',
+          workspaceId,
+        );
         throw new ForbiddenException('Access denied: Not a member of this workspace');
       }
 
@@ -80,7 +90,7 @@ export class WorkspaceGuard implements CanActivate {
       request.workspace = {
         id: workspaceId,
         membershipRole: membership.role,
-        permissions: membership.permissions
+        permissions: membership.permissions,
       };
 
       console.log('[WorkspaceGuard] Access granted - role:', membership.role);

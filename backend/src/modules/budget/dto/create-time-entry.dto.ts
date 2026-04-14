@@ -1,4 +1,12 @@
-import { IsString, IsNotEmpty, IsOptional, IsUUID, IsBoolean, IsDateString, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsUUID,
+  IsBoolean,
+  IsDateString,
+  IsNumber,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateTimeEntryDto {

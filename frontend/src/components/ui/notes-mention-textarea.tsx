@@ -115,8 +115,8 @@ export function NotesMentionTextarea({
           const charOffset = currentLineText.length * avgCharWidth
 
           // Position near the @ symbol with offset to the right
-          let posX = rect.left + paddingLeft + charOffset + 40 // +40px offset to the right
-          let posY = rect.top + paddingTop + (currentLine * lineHeight) + lineHeight + 5
+          const posX = rect.left + paddingLeft + charOffset + 40 // +40px offset to the right
+          const posY = rect.top + paddingTop + (currentLine * lineHeight) + lineHeight + 5
 
           // Menu dimensions - FIXED SIZE (smaller for better UX)
           const menuWidth = 350

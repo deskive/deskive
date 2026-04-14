@@ -3,7 +3,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum ImageStyle {
   NATURAL = 'natural',
-  VIVID = 'vivid'
+  VIVID = 'vivid',
 }
 
 export enum ImageSize {
@@ -15,12 +15,12 @@ export enum ImageSize {
   LANDSCAPE_768_512 = '768x512',
   LANDSCAPE_1024_768 = '1024x768',
   WIDE_1024_576 = '1024x576',
-  ULTRA_WIDE_1344_768 = '1344x768'
+  ULTRA_WIDE_1344_768 = '1344x768',
 }
 
 export enum ImageQuality {
   STANDARD = 'standard',
-  HD = 'hd'
+  HD = 'hd',
 }
 
 export enum ImageType {
@@ -35,51 +35,57 @@ export enum ImageType {
   LANDSCAPE = 'landscape',
   PORTRAIT = 'portrait',
   ABSTRACT = 'abstract',
-  ICON = 'icon'
+  ICON = 'icon',
 }
 
 export class GenerateImageDto {
-  @ApiProperty({ description: 'The prompt describing the image to generate', example: 'A serene mountain landscape with a lake at sunset' })
+  @ApiProperty({
+    description: 'The prompt describing the image to generate',
+    example: 'A serene mountain landscape with a lake at sunset',
+  })
   @IsString()
   prompt: string;
 
-  @ApiPropertyOptional({ description: 'Negative prompt - what to avoid in the image', example: 'blurry, low quality, watermark' })
+  @ApiPropertyOptional({
+    description: 'Negative prompt - what to avoid in the image',
+    example: 'blurry, low quality, watermark',
+  })
   @IsOptional()
   @IsString()
   negative_prompt?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of image to generate',
     enum: ImageType,
-    example: ImageType.ARTWORK
+    example: ImageType.ARTWORK,
   })
   @IsEnum(ImageType)
   image_type: ImageType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Style of the image',
     enum: ImageStyle,
-    example: ImageStyle.VIVID
+    example: ImageStyle.VIVID,
   })
   @IsOptional()
   @IsEnum(ImageStyle)
   style?: ImageStyle;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Size of the generated image',
     enum: ImageSize,
     example: ImageSize.SQUARE_1024,
-    default: ImageSize.SQUARE_512
+    default: ImageSize.SQUARE_512,
   })
   @IsOptional()
   @IsEnum(ImageSize)
   size?: ImageSize;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Quality of the generated image',
     enum: ImageQuality,
     example: ImageQuality.HD,
-    default: ImageQuality.STANDARD
+    default: ImageQuality.STANDARD,
   })
   @IsOptional()
   @IsEnum(ImageQuality)
@@ -90,13 +96,19 @@ export class GenerateImageDto {
   @IsNumber({ allowInfinity: false, allowNaN: false })
   count?: number;
 
-  @ApiPropertyOptional({ description: 'Color palette keywords', example: ['warm', 'vibrant', 'sunset colors'] })
+  @ApiPropertyOptional({
+    description: 'Color palette keywords',
+    example: ['warm', 'vibrant', 'sunset colors'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   color_palette?: string[];
 
-  @ApiPropertyOptional({ description: 'Mood or atmosphere keywords', example: ['peaceful', 'mysterious', 'energetic'] })
+  @ApiPropertyOptional({
+    description: 'Mood or atmosphere keywords',
+    example: ['peaceful', 'mysterious', 'energetic'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -107,7 +119,7 @@ export class GenerateImageDto {
   @IsString()
   lighting?: string;
 
-  @ApiPropertyOptional({ description: 'Camera angle or perspective', example: 'bird\'s eye view' })
+  @ApiPropertyOptional({ description: 'Camera angle or perspective', example: "bird's eye view" })
   @IsOptional()
   @IsString()
   perspective?: string;
@@ -117,7 +129,10 @@ export class GenerateImageDto {
   @IsString()
   medium?: string;
 
-  @ApiPropertyOptional({ description: 'Artist or art style reference', example: 'in the style of Van Gogh' })
+  @ApiPropertyOptional({
+    description: 'Artist or art style reference',
+    example: 'in the style of Van Gogh',
+  })
   @IsOptional()
   @IsString()
   artist_reference?: string;

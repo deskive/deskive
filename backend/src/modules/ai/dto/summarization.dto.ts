@@ -7,7 +7,7 @@ export enum SummaryType {
   BULLET_POINTS = 'bullet_points',
   KEY_INSIGHTS = 'key_insights',
   EXECUTIVE_SUMMARY = 'executive_summary',
-  HIGHLIGHTS = 'highlights'
+  HIGHLIGHTS = 'highlights',
 }
 
 export enum ContentType {
@@ -23,16 +23,16 @@ export enum ContentType {
   SOCIAL_MEDIA = 'social_media',
   LEGAL_DOCUMENT = 'legal_document',
   TECHNICAL_MANUAL = 'technical_manual',
-  GENERAL = 'general'
+  GENERAL = 'general',
 }
 
 export enum SummaryLength {
-  VERY_SHORT = 'very_short',  // 1-2 sentences
-  SHORT = 'short',            // 3-5 sentences
-  MEDIUM = 'medium',          // 1-2 paragraphs
-  LONG = 'long',             // 3-4 paragraphs
-  DETAILED = 'detailed',      // 5+ paragraphs
-  CUSTOM = 'custom'          // Custom word/sentence count
+  VERY_SHORT = 'very_short', // 1-2 sentences
+  SHORT = 'short', // 3-5 sentences
+  MEDIUM = 'medium', // 1-2 paragraphs
+  LONG = 'long', // 3-4 paragraphs
+  DETAILED = 'detailed', // 5+ paragraphs
+  CUSTOM = 'custom', // Custom word/sentence count
 }
 
 export enum Language {
@@ -47,7 +47,7 @@ export enum Language {
   JAPANESE = 'ja',
   KOREAN = 'ko',
   ARABIC = 'ar',
-  HINDI = 'hi'
+  HINDI = 'hi',
 }
 
 export class SummarizeContentDto {
@@ -55,55 +55,64 @@ export class SummarizeContentDto {
   @IsString()
   content: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of summary to generate',
     enum: SummaryType,
-    example: SummaryType.ABSTRACTIVE
+    example: SummaryType.ABSTRACTIVE,
   })
   @IsEnum(SummaryType)
   summary_type: SummaryType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Type of content being summarized',
     enum: ContentType,
     example: ContentType.ARTICLE,
-    default: ContentType.GENERAL
+    default: ContentType.GENERAL,
   })
   @IsOptional()
   @IsEnum(ContentType)
   content_type?: ContentType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Desired length of summary',
     enum: SummaryLength,
     example: SummaryLength.MEDIUM,
-    default: SummaryLength.MEDIUM
+    default: SummaryLength.MEDIUM,
   })
   @IsOptional()
   @IsEnum(SummaryLength)
   length?: SummaryLength;
 
-  @ApiPropertyOptional({ description: 'Custom word count (only used when length is CUSTOM)', example: 150 })
+  @ApiPropertyOptional({
+    description: 'Custom word count (only used when length is CUSTOM)',
+    example: 150,
+  })
   @IsOptional()
   @IsNumber()
   word_count?: number;
 
-  @ApiPropertyOptional({ description: 'Custom sentence count (only used when length is CUSTOM)', example: 5 })
+  @ApiPropertyOptional({
+    description: 'Custom sentence count (only used when length is CUSTOM)',
+    example: 5,
+  })
   @IsOptional()
   @IsNumber()
   sentence_count?: number;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Language of the content and summary',
     enum: Language,
     example: Language.ENGLISH,
-    default: Language.ENGLISH
+    default: Language.ENGLISH,
   })
   @IsOptional()
   @IsEnum(Language)
   language?: Language;
 
-  @ApiPropertyOptional({ description: 'Focus areas or topics to emphasize in summary', example: ['financial results', 'market trends', 'future outlook'] })
+  @ApiPropertyOptional({
+    description: 'Focus areas or topics to emphasize in summary',
+    example: ['financial results', 'market trends', 'future outlook'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -119,7 +128,10 @@ export class SummarizeContentDto {
   @IsBoolean()
   include_quotes?: boolean;
 
-  @ApiPropertyOptional({ description: 'Include action items (for meeting transcripts, etc.)', default: false })
+  @ApiPropertyOptional({
+    description: 'Include action items (for meeting transcripts, etc.)',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   include_action_items?: boolean;
@@ -141,34 +153,43 @@ export class SummarizeContentDto {
 }
 
 export class SummarizeUrlDto {
-  @ApiProperty({ description: 'URL of the content to summarize', example: 'https://example.com/article' })
+  @ApiProperty({
+    description: 'URL of the content to summarize',
+    example: 'https://example.com/article',
+  })
   @IsUrl()
   url: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of summary to generate',
     enum: SummaryType,
-    example: SummaryType.ABSTRACTIVE
+    example: SummaryType.ABSTRACTIVE,
   })
   @IsEnum(SummaryType)
   summary_type: SummaryType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Desired length of summary',
     enum: SummaryLength,
     example: SummaryLength.MEDIUM,
-    default: SummaryLength.MEDIUM
+    default: SummaryLength.MEDIUM,
   })
   @IsOptional()
   @IsEnum(SummaryLength)
   length?: SummaryLength;
 
-  @ApiPropertyOptional({ description: 'Custom word count (only used when length is CUSTOM)', example: 150 })
+  @ApiPropertyOptional({
+    description: 'Custom word count (only used when length is CUSTOM)',
+    example: 150,
+  })
   @IsOptional()
   @IsNumber()
   word_count?: number;
 
-  @ApiPropertyOptional({ description: 'Focus areas or topics to emphasize in summary', example: ['main points', 'conclusions'] })
+  @ApiPropertyOptional({
+    description: 'Focus areas or topics to emphasize in summary',
+    example: ['main points', 'conclusions'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -179,7 +200,10 @@ export class SummarizeUrlDto {
   @IsBoolean()
   include_statistics?: boolean;
 
-  @ApiPropertyOptional({ description: 'Target audience for the summary', example: 'general readers' })
+  @ApiPropertyOptional({
+    description: 'Target audience for the summary',
+    example: 'general readers',
+  })
   @IsOptional()
   @IsString()
   target_audience?: string;
@@ -191,30 +215,36 @@ export class BatchSummarizeDto {
   @IsString({ each: true })
   contents: string[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of summary to generate',
     enum: SummaryType,
-    example: SummaryType.ABSTRACTIVE
+    example: SummaryType.ABSTRACTIVE,
   })
   @IsEnum(SummaryType)
   summary_type: SummaryType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Desired length of summary for each content',
     enum: SummaryLength,
     example: SummaryLength.SHORT,
-    default: SummaryLength.SHORT
+    default: SummaryLength.SHORT,
   })
   @IsOptional()
   @IsEnum(SummaryLength)
   length?: SummaryLength;
 
-  @ApiPropertyOptional({ description: 'Custom word count for each summary (only used when length is CUSTOM)', example: 100 })
+  @ApiPropertyOptional({
+    description: 'Custom word count for each summary (only used when length is CUSTOM)',
+    example: 100,
+  })
   @IsOptional()
   @IsNumber()
   word_count?: number;
 
-  @ApiPropertyOptional({ description: 'Focus areas or topics to emphasize in summaries', example: ['key points', 'conclusions'] })
+  @ApiPropertyOptional({
+    description: 'Focus areas or topics to emphasize in summaries',
+    example: ['key points', 'conclusions'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

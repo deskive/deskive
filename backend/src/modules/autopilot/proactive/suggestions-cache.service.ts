@@ -14,9 +14,7 @@ export class SuggestionsCacheService {
   private cache = new Map<string, CacheEntry>();
   private readonly CACHE_TTL_HOURS = 4;
 
-  constructor(
-    private readonly db: DatabaseService,
-  ) {}
+  constructor(private readonly db: DatabaseService) {}
 
   /**
    * Refresh suggestions cache for active users every 4 hours
@@ -38,12 +36,16 @@ export class SuggestionsCacheService {
           await this.generateAndCacheSuggestions(user.userId, user.workspaceId);
           refreshed++;
         } catch (error) {
-          this.logger.error(`[SuggestionsCache] Error refreshing for user ${user.userId}: ${error.message}`);
+          this.logger.error(
+            `[SuggestionsCache] Error refreshing for user ${user.userId}: ${error.message}`,
+          );
           errors++;
         }
       }
 
-      this.logger.log(`[SuggestionsCache] Refresh complete: ${refreshed} successful, ${errors} errors`);
+      this.logger.log(
+        `[SuggestionsCache] Refresh complete: ${refreshed} successful, ${errors} errors`,
+      );
     } catch (error) {
       this.logger.error(`[SuggestionsCache] Refresh job failed: ${error.message}`);
     }
@@ -64,7 +66,8 @@ export class SuggestionsCacheService {
 
     // Check database cache
     try {
-      const result = await this.db.table('autopilot_suggestions_cache')
+      const result = await this.db
+        .table('autopilot_suggestions_cache')
         .select('*')
         .where('user_id', '=', userId)
         .where('workspace_id', '=', workspaceId)
@@ -115,7 +118,8 @@ export class SuggestionsCacheService {
 
       // Store in database cache (upsert)
       try {
-        const result = await this.db.table('autopilot_suggestions_cache')
+        const result = await this.db
+          .table('autopilot_suggestions_cache')
           .select('id')
           .where('user_id', '=', userId)
           .where('workspace_id', '=', workspaceId)
@@ -123,7 +127,8 @@ export class SuggestionsCacheService {
 
         const existing = Array.isArray(result) ? result : [];
         if (existing.length > 0) {
-          await this.db.table('autopilot_suggestions_cache')
+          await this.db
+            .table('autopilot_suggestions_cache')
             .update({
               suggestions: JSON.stringify(suggestions),
               generated_at: now.toISOString(),
@@ -141,7 +146,9 @@ export class SuggestionsCacheService {
           });
         }
       } catch (dbError) {
-        this.logger.warn(`[SuggestionsCache] Failed to persist cache to database: ${dbError.message}`);
+        this.logger.warn(
+          `[SuggestionsCache] Failed to persist cache to database: ${dbError.message}`,
+        );
       }
 
       return suggestions;
@@ -159,7 +166,8 @@ export class SuggestionsCacheService {
     this.cache.delete(cacheKey);
 
     try {
-      await this.db.table('autopilot_suggestions_cache')
+      await this.db
+        .table('autopilot_suggestions_cache')
         .delete()
         .where('user_id', '=', userId)
         .where('workspace_id', '=', workspaceId)
@@ -177,7 +185,8 @@ export class SuggestionsCacheService {
       const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
       // Get recent activity from workspace_members
-      const result = await this.db.table('workspace_members')
+      const result = await this.db
+        .table('workspace_members')
         .select('user_id', 'workspace_id')
         .where('updated_at', '>=', oneDayAgo)
         .execute();
@@ -185,7 +194,8 @@ export class SuggestionsCacheService {
       const activeMembers = Array.isArray(result) ? result : [];
       if (activeMembers.length === 0) {
         // Fallback: get all workspace members
-        const allResult = await this.db.table('workspace_members')
+        const allResult = await this.db
+          .table('workspace_members')
           .select('user_id', 'workspace_id')
           .execute();
 
@@ -235,7 +245,8 @@ export class SuggestionsCacheService {
 
     try {
       // Get overdue tasks
-      const overdueResult = await this.db.table('tasks')
+      const overdueResult = await this.db
+        .table('tasks')
         .select('id', 'title', 'due_date', 'priority')
         .where('workspace_id', '=', workspaceId)
         .where('due_date', '<', now.toISOString())
@@ -256,7 +267,8 @@ export class SuggestionsCacheService {
       // Get tasks due today
       const todayEnd = new Date(now);
       todayEnd.setHours(23, 59, 59, 999);
-      const todayResult = await this.db.table('tasks')
+      const todayResult = await this.db
+        .table('tasks')
         .select('id', 'title')
         .where('workspace_id', '=', workspaceId)
         .where('due_date', '>=', now.toISOString())
@@ -278,7 +290,8 @@ export class SuggestionsCacheService {
       // Get events today
       const todayStart = new Date(now);
       todayStart.setHours(0, 0, 0, 0);
-      const eventsResult = await this.db.table('calendar_events')
+      const eventsResult = await this.db
+        .table('calendar_events')
         .select('id', 'title', 'start_time')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', todayStart.toISOString())
@@ -294,7 +307,6 @@ export class SuggestionsCacheService {
           reason: 'Check your calendar for the day',
         });
       }
-
     } catch (error) {
       this.logger.warn(`[SuggestionsCache] Error generating basic suggestions: ${error.message}`);
     }

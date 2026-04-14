@@ -65,7 +65,12 @@ export class NotionService {
 
   async queryDatabase(userId: string, workspaceId: string, databaseId: string, filter?: any) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', `/databases/${databaseId}/query`, connection, filter ? { filter } : {});
+    return this.makeRequest(
+      'POST',
+      `/databases/${databaseId}/query`,
+      connection,
+      filter ? { filter } : {},
+    );
   }
 
   async getDatabase(userId: string, workspaceId: string, databaseId: string) {

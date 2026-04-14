@@ -91,7 +91,7 @@ export class RealtimeTranscriptionService {
 
       const ws = new WebSocket(url, {
         headers: {
-          'Authorization': `Bearer ${this.openaiApiKey}`,
+          Authorization: `Bearer ${this.openaiApiKey}`,
           'OpenAI-Beta': 'realtime=v1',
         },
       });
@@ -244,8 +244,12 @@ export class RealtimeTranscriptionService {
         };
 
         // Accumulate transcript
-        const currentResponseTranscript = session.fullTranscript.get(message.item_id || message.response_id) || '';
-        session.fullTranscript.set(message.item_id || message.response_id, currentResponseTranscript + message.delta);
+        const currentResponseTranscript =
+          session.fullTranscript.get(message.item_id || message.response_id) || '';
+        session.fullTranscript.set(
+          message.item_id || message.response_id,
+          currentResponseTranscript + message.delta,
+        );
 
         session.emitter.emit('transcription', responseTranscriptDelta);
         break;
@@ -289,9 +293,7 @@ export class RealtimeTranscriptionService {
 
     try {
       // Convert to base64 if Buffer
-      const base64Audio = Buffer.isBuffer(audioData)
-        ? audioData.toString('base64')
-        : audioData;
+      const base64Audio = Buffer.isBuffer(audioData) ? audioData.toString('base64') : audioData;
 
       const message = {
         type: 'input_audio_buffer.append',
@@ -407,7 +409,7 @@ export class RealtimeTranscriptionService {
    * Get all active sessions for a call
    */
   getSessionsForCall(callId: string): TranscriptionSession[] {
-    return Array.from(this.sessions.values()).filter(s => s.callId === callId);
+    return Array.from(this.sessions.values()).filter((s) => s.callId === callId);
   }
 
   /**

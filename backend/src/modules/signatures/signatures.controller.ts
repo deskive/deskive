@@ -57,10 +57,7 @@ export class SignaturesController {
   @ApiOperation({ summary: 'Get default signature for the current user' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Default signature retrieved' })
-  async findDefault(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: any,
-  ) {
+  async findDefault(@Param('workspaceId') workspaceId: string, @Req() req: any) {
     const userId = req.user.sub || req.user.userId;
     const signature = await this.signaturesService.findDefault(workspaceId, userId);
     return {
@@ -97,11 +94,7 @@ export class SignaturesController {
     @Req() req: any,
   ) {
     const userId = req.user.sub || req.user.userId;
-    const signature = await this.signaturesService.findOne(
-      workspaceId,
-      signatureId,
-      userId,
-    );
+    const signature = await this.signaturesService.findOne(workspaceId, signatureId, userId);
     return {
       data: signature,
       message: 'Signature retrieved successfully',
@@ -120,12 +113,7 @@ export class SignaturesController {
     @Req() req: any,
   ) {
     const userId = req.user.sub || req.user.userId;
-    const signature = await this.signaturesService.update(
-      workspaceId,
-      signatureId,
-      dto,
-      userId,
-    );
+    const signature = await this.signaturesService.update(workspaceId, signatureId, dto, userId);
     return {
       data: signature,
       message: 'Signature updated successfully',
@@ -144,11 +132,7 @@ export class SignaturesController {
     @Req() req: any,
   ) {
     const userId = req.user.sub || req.user.userId;
-    const signature = await this.signaturesService.setDefault(
-      workspaceId,
-      signatureId,
-      userId,
-    );
+    const signature = await this.signaturesService.setDefault(workspaceId, signatureId, userId);
     return {
       data: signature,
       message: 'Default signature set successfully',

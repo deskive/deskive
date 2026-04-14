@@ -5,20 +5,14 @@
 
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  generateRSS,
-  generateAtom,
-  RSSChannel,
-  RSSItem,
-} from './helpers/rss.helper';
+import { generateRSS, generateAtom, RSSChannel, RSSItem } from './helpers/rss.helper';
 
 @Injectable()
 export class FeedService {
   private readonly baseUrl: string;
 
   constructor(private configService: ConfigService) {
-    this.baseUrl =
-      this.configService.get<string>('SITE_URL') || 'https://deskive.com';
+    this.baseUrl = this.configService.get<string>('SITE_URL') || 'https://deskive.com';
   }
 
   // Blog-related feed methods removed - will be implemented separately
@@ -53,7 +47,6 @@ export class FeedService {
     return generateRSS(channel);
   }
 
-
   /**
    * Get changelog items (placeholder implementation)
    * TODO: Replace with actual database query
@@ -80,8 +73,7 @@ export class FeedService {
       {
         title: 'Version 2.4.0 - Calendar Improvements',
         link: `${this.baseUrl}/changelog/v2-4-0`,
-        description:
-          'Smart scheduling, recurring events, and calendar sync improvements.',
+        description: 'Smart scheduling, recurring events, and calendar sync improvements.',
         content: `<h2>What's New</h2>
 <ul>
   <li>Smart scheduling with AI conflict detection</li>

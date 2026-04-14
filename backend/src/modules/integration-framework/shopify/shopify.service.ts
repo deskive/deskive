@@ -27,7 +27,13 @@ export class ShopifyService {
     return connection;
   }
 
-  private async makeRequest(method: string, endpoint: string, connection: any, shop: string, data?: any) {
+  private async makeRequest(
+    method: string,
+    endpoint: string,
+    connection: any,
+    shop: string,
+    data?: any,
+  ) {
     const response = await axios({
       method,
       url: `https://${shop}.myshopify.com/admin/api/2024-01${endpoint}`,
@@ -58,9 +64,17 @@ export class ShopifyService {
     return this.makeRequest('POST', '/products.json', connection, shop, { product: productData });
   }
 
-  async updateProduct(userId: string, workspaceId: string, shop: string, productId: string, updates: any) {
+  async updateProduct(
+    userId: string,
+    workspaceId: string,
+    shop: string,
+    productId: string,
+    updates: any,
+  ) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('PUT', `/products/${productId}.json`, connection, shop, { product: updates });
+    return this.makeRequest('PUT', `/products/${productId}.json`, connection, shop, {
+      product: updates,
+    });
   }
 
   // ==================== ORDER ACTIONS ====================

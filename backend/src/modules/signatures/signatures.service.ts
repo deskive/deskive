@@ -1,8 +1,4 @@
-import {
-  Injectable,
-  NotFoundException,
-  BadRequestException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { CreateSignatureDto, UpdateSignatureDto, SignatureType } from './dto';
 
@@ -91,11 +87,7 @@ export class SignaturesService {
   /**
    * Get a signature by ID
    */
-  async findOne(
-    workspaceId: string,
-    signatureId: string,
-    userId: string,
-  ): Promise<UserSignature> {
+  async findOne(workspaceId: string, signatureId: string, userId: string): Promise<UserSignature> {
     const result = await this.db
       .table('user_signatures')
       .select('*')
@@ -116,10 +108,7 @@ export class SignaturesService {
   /**
    * Get default signature for a user
    */
-  async findDefault(
-    workspaceId: string,
-    userId: string,
-  ): Promise<UserSignature | null> {
+  async findDefault(workspaceId: string, userId: string): Promise<UserSignature | null> {
     const result = await this.db
       .table('user_signatures')
       .select('*')
@@ -196,11 +185,7 @@ export class SignaturesService {
   /**
    * Delete a signature (soft delete)
    */
-  async delete(
-    workspaceId: string,
-    signatureId: string,
-    userId: string,
-  ): Promise<void> {
+  async delete(workspaceId: string, signatureId: string, userId: string): Promise<void> {
     // Verify ownership
     const signature = await this.findOne(workspaceId, signatureId, userId);
 
@@ -214,10 +199,7 @@ export class SignaturesService {
   /**
    * Unset all default signatures for a user
    */
-  private async unsetDefaultSignatures(
-    workspaceId: string,
-    userId: string,
-  ): Promise<void> {
+  private async unsetDefaultSignatures(workspaceId: string, userId: string): Promise<void> {
     const result = await this.db
       .table('user_signatures')
       .select('id')

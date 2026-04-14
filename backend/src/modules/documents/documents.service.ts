@@ -106,16 +106,17 @@ export class DocumentsService {
    * we check if the tables exist by querying them.
    */
   async ensureTablesExist(): Promise<boolean> {
-    const tables = ['documents', 'document_recipients', 'document_signatures', 'document_activity_logs'];
+    const tables = [
+      'documents',
+      'document_recipients',
+      'document_signatures',
+      'document_activity_logs',
+    ];
     let allExist = true;
 
     for (const tableName of tables) {
       try {
-        await this.db
-          .table(tableName)
-          .select('id')
-          .limit(1)
-          .execute();
+        await this.db.table(tableName).select('id').limit(1).execute();
         console.log(`✅ ${tableName} table exists`);
       } catch (error: any) {
         if (error.message?.includes('does not exist') || error.message?.includes('relation')) {
@@ -139,10 +140,7 @@ export class DocumentsService {
   /**
    * Generate a unique document number
    */
-  private async generateDocumentNumber(
-    workspaceId: string,
-    documentType: string,
-  ): Promise<string> {
+  private async generateDocumentNumber(workspaceId: string, documentType: string): Promise<string> {
     const prefix = this.getDocumentTypePrefix(documentType);
     const year = new Date().getFullYear();
 
@@ -232,10 +230,7 @@ export class DocumentsService {
     }
 
     // Sort by created_at descending
-    documents.sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
+    documents.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
 
     const total = documents.length;
     const page = Math.max(1, Number(query.page) || 1);
@@ -260,7 +255,10 @@ export class DocumentsService {
   /**
    * Get document statistics
    */
-  async getStats(workspaceId: string, userId: string): Promise<{
+  async getStats(
+    workspaceId: string,
+    userId: string,
+  ): Promise<{
     total: number;
     byStatus: Record<string, number>;
     byType: Record<string, number>;
@@ -362,20 +360,13 @@ export class DocumentsService {
   /**
    * Create a new document
    */
-  async create(
-    workspaceId: string,
-    dto: CreateDocumentDto,
-    userId: string,
-  ): Promise<Document> {
+  async create(workspaceId: string, dto: CreateDocumentDto, userId: string): Promise<Document> {
     let content = dto.content;
     let placeholders: any[] = [];
 
     // If creating from template, get template content
     if (dto.templateId) {
-      const template = await this.documentTemplatesService.findOne(
-        workspaceId,
-        dto.templateId,
-      );
+      const template = await this.documentTemplatesService.findOne(workspaceId, dto.templateId);
       content = content || template.content;
       placeholders = template.placeholders;
 
@@ -389,10 +380,7 @@ export class DocumentsService {
     const maxRetries = 5;
 
     while (retries < maxRetries) {
-      documentNumber = await this.generateDocumentNumber(
-        workspaceId,
-        dto.documentType,
-      );
+      documentNumber = await this.generateDocumentNumber(workspaceId, dto.documentType);
 
       // Add random suffix if retry (prevents collision)
       if (retries > 0) {
@@ -414,7 +402,9 @@ export class DocumentsService {
       }
 
       retries++;
-      this.logger.warn(`Document number ${documentNumber} already exists, retrying... (${retries}/${maxRetries})`);
+      this.logger.warn(
+        `Document number ${documentNumber} already exists, retrying... (${retries}/${maxRetries})`,
+      );
     }
 
     if (retries >= maxRetries) {
@@ -643,9 +633,7 @@ export class DocumentsService {
       .execute();
 
     const recipients = Array.isArray(result.data) ? result.data : [];
-    return recipients
-      .sort((a, b) => a.order - b.order)
-      .map((r) => this.mapRecipientToResponse(r));
+    return recipients.sort((a, b) => a.order - b.order).map((r) => this.mapRecipientToResponse(r));
   }
 
   /**
@@ -845,10 +833,7 @@ export class DocumentsService {
       created_at: now,
     };
 
-    const signatureResult = await this.db.insert(
-      'document_signatures',
-      signatureData,
-    );
+    const signatureResult = await this.db.insert('document_signatures', signatureData);
 
     // Update recipient status
     await this.db.update('document_recipients', recipientId, {
@@ -958,7 +943,13 @@ export class DocumentsService {
     workspaceId: string,
     documentId: string,
     signatureId: string,
-    position: { xPercent: number; yPercent: number; scale: number; topPx?: number; documentHeight?: number },
+    position: {
+      xPercent: number;
+      yPercent: number;
+      scale: number;
+      topPx?: number;
+      documentHeight?: number;
+    },
     userId: string,
     ipAddress?: string,
   ): Promise<Document> {
@@ -1063,7 +1054,10 @@ export class DocumentsService {
     // Check if there's already a signature embedded (prevent duplicates)
     if (updatedHtml.includes('class="embedded-signature"')) {
       // Remove old signature before adding new one
-      updatedHtml = updatedHtml.replace(/<div class="embedded-signature"[^>]*>[\s\S]*?<\/div>\s*<\/div>/g, '');
+      updatedHtml = updatedHtml.replace(
+        /<div class="embedded-signature"[^>]*>[\s\S]*?<\/div>\s*<\/div>/g,
+        '',
+      );
     }
 
     // Append signature at the end - it will be absolutely positioned
@@ -1176,10 +1170,7 @@ export class DocumentsService {
   /**
    * Get activity log for a document
    */
-  async getActivityLog(
-    workspaceId: string,
-    documentId: string,
-  ): Promise<DocumentActivityLog[]> {
+  async getActivityLog(workspaceId: string, documentId: string): Promise<DocumentActivityLog[]> {
     // Verify document belongs to workspace
     await this.findOne(workspaceId, documentId);
 
@@ -1191,10 +1182,7 @@ export class DocumentsService {
 
     const logs = Array.isArray(result.data) ? result.data : [];
     return logs
-      .sort(
-        (a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-      )
+      .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
       .map((log) => this.mapActivityLogToResponse(log));
   }
 
@@ -1245,7 +1233,13 @@ export class DocumentsService {
         viewed_at: new Date().toISOString(),
       });
 
-      await this.logActivity(documentId, null, recipient.id, 'viewed', `Document viewed by ${recipient.name}`);
+      await this.logActivity(
+        documentId,
+        null,
+        recipient.id,
+        'viewed',
+        `Document viewed by ${recipient.name}`,
+      );
     }
 
     return {

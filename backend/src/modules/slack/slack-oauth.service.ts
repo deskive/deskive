@@ -59,7 +59,8 @@ export class SlackOAuthService {
   constructor(private configService: ConfigService) {
     this.clientId = this.configService.get<string>('SLACK_CLIENT_ID') || '';
     this.clientSecret = this.configService.get<string>('SLACK_CLIENT_SECRET') || '';
-    this.redirectUri = this.configService.get<string>('SLACK_REDIRECT_URI') ||
+    this.redirectUri =
+      this.configService.get<string>('SLACK_REDIRECT_URI') ||
       `${this.configService.get<string>('API_URL')}/integrations/slack/callback`;
   }
 
@@ -130,7 +131,7 @@ export class SlackOAuthService {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-        }
+        },
       );
 
       if (!response.data.ok) {
@@ -149,15 +150,12 @@ export class SlackOAuthService {
    */
   async getUserInfo(accessToken: string, userId: string): Promise<SlackUserInfo['user']> {
     try {
-      const response = await axios.get<SlackUserInfo>(
-        'https://slack.com/api/users.info',
-        {
-          params: { user: userId },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await axios.get<SlackUserInfo>('https://slack.com/api/users.info', {
+        params: { user: userId },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       if (!response.data.ok) {
         throw new Error(response.data.error || 'Failed to get user info');
@@ -182,7 +180,7 @@ export class SlackOAuthService {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
 
       if (!response.data.ok) {
@@ -206,7 +204,7 @@ export class SlackOAuthService {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }
+        },
       );
 
       return response.data.ok === true;

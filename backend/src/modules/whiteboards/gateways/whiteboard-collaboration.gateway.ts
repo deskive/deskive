@@ -68,7 +68,9 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       // Check both query and auth for workspaceId
-      const workspaceId = client.handshake.query?.workspaceId as string || client.handshake.auth?.workspaceId as string;
+      const workspaceId =
+        (client.handshake.query?.workspaceId as string) ||
+        (client.handshake.auth?.workspaceId as string);
       if (!workspaceId) {
         this.logger.warn(`Whiteboard connection rejected: No workspace ID - ${client.id}`);
         client.disconnect();
@@ -84,13 +86,14 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       // Join workspace room for general notifications
       client.join(`workspace:${workspaceId}`);
 
-      this.logger.log(`User ${client.userName} (${client.userId}) connected to whiteboard collaboration`);
+      this.logger.log(
+        `User ${client.userName} (${client.userId}) connected to whiteboard collaboration`,
+      );
 
       client.emit('connected', {
         userId: client.userId,
         userName: client.userName,
       });
-
     } catch (error) {
       this.logger.error('Whiteboard connection error:', error);
       client.disconnect();
@@ -184,7 +187,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
         users,
         elements,
       };
-
     } catch (error) {
       this.logger.error(`Failed to join whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to join whiteboard' };
@@ -257,7 +259,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       return { success };
-
     } catch (error) {
       this.logger.error(`Failed to apply update for whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to apply update' };
@@ -293,7 +294,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       return { success };
-
     } catch (error) {
       this.logger.error(`Failed to update elements for whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to update elements' };
@@ -306,14 +306,20 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
   @SubscribeMessage('whiteboard:files-update')
   async handleFilesUpdate(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { sessionId: string; files: Record<string, { id: string; mimeType: string; dataURL: string }> },
+    @MessageBody()
+    data: {
+      sessionId: string;
+      files: Record<string, { id: string; mimeType: string; dataURL: string }>;
+    },
   ) {
     if (!client.userId || !data.sessionId || !data.files) {
       return { success: false, error: 'Invalid request' };
     }
 
     try {
-      this.logger.log(`Received files update for whiteboard ${data.sessionId}: ${Object.keys(data.files).length} files`);
+      this.logger.log(
+        `Received files update for whiteboard ${data.sessionId}: ${Object.keys(data.files).length} files`,
+      );
 
       // Broadcast files to all other users in the whiteboard room
       client.to(`whiteboard:${data.sessionId}`).emit('whiteboard:files', {
@@ -323,7 +329,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       });
 
       return { success: true };
-
     } catch (error) {
       this.logger.error(`Failed to broadcast files for whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to broadcast files' };
@@ -359,9 +364,11 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       return { success };
-
     } catch (error) {
-      this.logger.error(`Failed to apply awareness update for whiteboard ${data.sessionId}:`, error);
+      this.logger.error(
+        `Failed to apply awareness update for whiteboard ${data.sessionId}:`,
+        error,
+      );
       return { success: false, error: 'Failed to apply awareness update' };
     }
   }
@@ -390,8 +397,9 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
 
       if (user) {
         // Get user color for Excalidraw format
-        const colorIndex = this.collaborationService.getUsers(data.sessionId)
-          .findIndex(u => u.id === client.userId);
+        const colorIndex = this.collaborationService
+          .getUsers(data.sessionId)
+          .findIndex((u) => u.id === client.userId);
         const colorSet = COLLABORATOR_COLORS[colorIndex % COLLABORATOR_COLORS.length];
 
         // Broadcast pointer update to all other users in Excalidraw collaborator format
@@ -411,7 +419,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       return { success: true };
-
     } catch (error) {
       this.logger.error(`Failed to update pointer for whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to update pointer' };
@@ -482,7 +489,6 @@ export class WhiteboardCollaborationGateway implements OnGatewayConnection, OnGa
       }
 
       return { success: true };
-
     } catch (error) {
       this.logger.error(`Failed to handle sync request for whiteboard ${data.sessionId}:`, error);
       return { success: false, error: 'Failed to sync' };

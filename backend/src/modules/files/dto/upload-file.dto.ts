@@ -6,14 +6,14 @@ export class UploadFileDto {
     type: 'string',
     format: 'binary',
     description: 'File to upload',
-    required: true
+    required: true,
   })
   file: any;
 
   @ApiProperty({
     description: 'Workspace ID',
     example: 'uuid-here',
-    required: true
+    required: true,
   })
   @IsUUID()
   workspace_id: string;
@@ -21,7 +21,7 @@ export class UploadFileDto {
   @ApiProperty({
     description: 'Parent folder ID',
     example: 'uuid-here',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsUUID()
@@ -30,7 +30,7 @@ export class UploadFileDto {
   @ApiProperty({
     description: 'File description',
     example: 'Important project document',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -40,7 +40,7 @@ export class UploadFileDto {
     description: 'File tags (comma-separated or JSON array)',
     example: 'important,project,draft',
     required: false,
-    type: String
+    type: String,
   })
   @IsOptional()
   tags?: string | string[];
@@ -48,7 +48,7 @@ export class UploadFileDto {
   @ApiProperty({
     description: 'Whether file should be publicly accessible',
     example: false,
-    required: false
+    required: false,
   })
   @IsOptional()
   is_public?: boolean;

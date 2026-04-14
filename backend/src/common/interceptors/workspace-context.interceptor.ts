@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  NestInterceptor,
-  ExecutionContext,
-  CallHandler,
-} from '@nestjs/common';
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { DatabaseService } from '../../modules/database/database.service';
 
@@ -17,16 +12,17 @@ export class WorkspaceContextInterceptor implements NestInterceptor {
 
     if (user && !request.workspace) {
       // Try to get workspace context from various sources
-      const workspaceId = request.params?.workspaceId || 
-                         request.query?.workspaceId || 
-                         request.body?.workspaceId ||
-                         request.headers['x-workspace-id'];
+      const workspaceId =
+        request.params?.workspaceId ||
+        request.query?.workspaceId ||
+        request.body?.workspaceId ||
+        request.headers['x-workspace-id'];
 
       if (workspaceId) {
         try {
           // Get workspace details
           const workspaceQuery = await this.db.findMany('workspaces', {
-            id: workspaceId
+            id: workspaceId,
           });
 
           const workspace = workspaceQuery[0];
@@ -38,7 +34,7 @@ export class WorkspaceContextInterceptor implements NestInterceptor {
           const membershipQuery = await this.db.findMany('workspace_members', {
             workspace_id: workspaceId,
             user_id: user.sub,
-            is_active: true
+            is_active: true,
           });
 
           const membership = membershipQuery[0];
@@ -46,7 +42,7 @@ export class WorkspaceContextInterceptor implements NestInterceptor {
             request.workspace = {
               id: workspaceId,
               membershipRole: membership.role,
-              permissions: membership.permissions
+              permissions: membership.permissions,
             };
           }
         } catch (error) {

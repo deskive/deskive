@@ -28,7 +28,13 @@ export class TrelloService {
     return connection;
   }
 
-  private async makeRequest(method: string, endpoint: string, connection: any, params?: any, data?: any) {
+  private async makeRequest(
+    method: string,
+    endpoint: string,
+    connection: any,
+    params?: any,
+    data?: any,
+  ) {
     const queryParams = new URLSearchParams({
       key: connection.api_key || '',
       token: connection.access_token || '',
@@ -112,7 +118,9 @@ export class TrelloService {
 
   async getComments(userId: string, workspaceId: string, cardId: string) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('GET', `/cards/${cardId}/actions`, connection, { filter: 'commentCard' });
+    return this.makeRequest('GET', `/cards/${cardId}/actions`, connection, {
+      filter: 'commentCard',
+    });
   }
 
   // ==================== USER ACTIONS ====================

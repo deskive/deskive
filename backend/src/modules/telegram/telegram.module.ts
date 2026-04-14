@@ -5,10 +5,7 @@ import { TelegramService } from './telegram.service';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [TelegramController],
   providers: [TelegramService],
   exports: [TelegramService],

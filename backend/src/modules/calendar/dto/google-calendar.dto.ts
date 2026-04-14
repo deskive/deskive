@@ -42,7 +42,10 @@ export class GoogleCalendarConnectionResponseDto {
   @ApiProperty({ description: 'Whether Google Calendar is connected' })
   connected: boolean;
 
-  @ApiPropertyOptional({ type: GoogleCalendarConnectionDto, description: 'Connection details if connected' })
+  @ApiPropertyOptional({
+    type: GoogleCalendarConnectionDto,
+    description: 'Connection details if connected',
+  })
   data?: GoogleCalendarConnectionDto;
 }
 

@@ -87,7 +87,9 @@ export class NoteCollaborationService {
   private async loadNoteContent(noteId: string, doc: Y.Doc): Promise<void> {
     try {
       // Just log that the session was created - content comes from first client's Quill
-      this.logger.log(`Created collaboration session for note ${noteId} - content will sync from client`);
+      this.logger.log(
+        `Created collaboration session for note ${noteId} - content will sync from client`,
+      );
     } catch (error) {
       this.logger.error(`Failed to initialize note session for ${noteId}:`, error);
     }

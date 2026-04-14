@@ -131,13 +131,44 @@ Modern teams juggle multiple subscriptions: Slack for chat ($8.75/user/mo), Zoom
 | **Learning Curve** | 🟢 Low | 🟢 Low | 🟡 Medium | 🟡 Medium | 🔴 High |
 | **Pricing** | 🟢 Free (self-hosted) | 💰 $8.75/user/mo | 💰 $10/user/mo | 💰 $10.99/user/mo | 💰 $4/user/mo |
 
+### Deskive vs Open-Source Alternatives
+
+The proprietary comparison above is the "should I stop paying Slack + Notion + Asana" story. If you're comparing against other open-source workspace tools, this is the honest picture. Specialist tools beat us on depth per pillar; nobody else ships every pillar in one repo.
+
+| Feature | **Deskive** | [AppFlowy](https://github.com/AppFlowy-IO/AppFlowy) | [Huly](https://github.com/hcengineering/platform) | [Plane](https://github.com/makeplane/plane) | [Nextcloud Hub](https://github.com/nextcloud/server) | [Mattermost](https://github.com/mattermost/mattermost) |
+|---|---|---|---|---|---|---|
+| **Real-time Chat** | ✅ Channels, threads, reactions | ❌ | ✅ | ❌ | ✅ Talk | ✅ Best-in-class |
+| **Video Calls** | ✅ HD, recording, transcription (LiveKit) | ❌ | ✅ Virtual office | ❌ | ✅ Talk | ⚠️ Basic calls |
+| **Docs / Notes** | ✅ Tiptap + Yjs block editor | ✅ Best-in-class | ✅ Deep | ⚠️ Pages | ✅ OnlyOffice/Collabora | ❌ |
+| **Project Management** | ✅ Kanban, sprints, milestones | ⚠️ Board view | ✅ Linear-grade tracker | ✅ Cycles + modules | ⚠️ Deck plugin | ⚠️ Boards (ex-Focalboard) |
+| **Whiteboard** | ✅ Excalidraw-based | ❌ | ❌ | ❌ | ⚠️ Optional app | ❌ |
+| **Calendar** | ✅ Events, rooms, availability | ❌ | ⚠️ Team planner | ❌ | ✅ Groupware | ❌ |
+| **Forms Builder** | ✅ 19 field types, analytics | ⚠️ Grid view | ❌ | ❌ | ⚠️ Optional app | ❌ |
+| **Approvals** | ✅ Built-in workflows | ❌ | ❌ | ❌ | ⚠️ Flow | ⚠️ Playbooks |
+| **Budget Tracking** | ✅ Expenses, billing | ❌ | ❌ | ❌ | ❌ | ❌ |
+| **AI Agent** | ✅ AutoPilot + vector search | ✅ Local LLMs (Mistral/Llama) | 📋 Coming soon | ⚠️ Pages assist | ✅ Assistant | ⚠️ Copilot |
+| **Bots / Automation** | ✅ Custom bots, triggers | ❌ | ❌ | ⚠️ | ✅ Flow | ✅ Webhooks |
+| **Integrations Catalog** | **180+ in catalog, 6+ pre-wired OAuth** | ~1 (Zapier link) | 1 (GitHub bidi) | ~16 (GH, GL, Slack, Sentry, + importers) | 200+ (Nextcloud app store) | ~40–50 (marketplace) |
+| **Plugin Marketplace** | ❌ *(catalog is static, no third-party)* | ❌ | ❌ | ❌ | ✅ Best-in-class | ✅ |
+| **Self-Hosted** | ✅ Docker Compose | ✅ | ✅ | ✅ | ✅ | ✅ |
+| **Pluggable Providers** *(storage / AI / email / push / search / auth)* | ✅ All 7 swappable via env var | ❌ | ❌ | ❌ | ❌ (plugins) | ❌ (plugins) |
+
+**Honest summary:**
+
+- **On depth per feature**, specialists win their category: AppFlowy has the richer docs editor, Huly has a deeper Linear-grade tracker, Plane has more mature cycles/modules, Mattermost is production-proven chat at scale, Nextcloud has the biggest app ecosystem. We lose a 1v1 on any single pillar.
+- **On breadth under one data model**, we're the only OSS project shipping all 12 pillars natively in one repo under one login and one permission model. Huly comes closest but has no forms / approvals / budget / whiteboard. That "one unified workspace" story is real and not marketing.
+- **On the pluggable-provider pattern** (swap storage / AI / email / push / search / auth / video at the env-var level), we're the only one doing it — every other project hardcodes its backing services.
+
+If you need *one* tool for *all* of chat + video + docs + PM + forms + approvals + budget + AI — and you want to swap the infrastructure freely — deskive is the clearest choice today. If you need only one of those pillars and care about maximum depth on it, the specialist probably wins.
+
 ### What Makes Deskive Unique?
 
-1. **Truly Unified Platform** -- All features share the same data model, enabling deep integration impossible with separate tools
-2. **Self-Hosting Without Compromise** -- Full feature parity with SaaS alternatives, including video calls and AI
-3. **Modern Tech Stack** -- Built with React 19, NestJS 11, and TypeScript for maintainability and performance
-4. **AI-Native Design** -- Vector search, conversation memory, and AutoPilot agent built into the core platform
-5. **Cost-Effective Scaling** -- One infrastructure cost serves unlimited users, unlike per-seat SaaS pricing
+1. **Truly Unified Platform** -- All features share the same data model and permission model; a task, a chat message, a doc, and a calendar event are first-class citizens of the same workspace
+2. **Pluggable Infrastructure** -- Storage, AI, email, push, search, auth, and video backends are all swappable via env var. Move from R2 to GCS, OpenAI to Ollama, Gmail to Postmark, LiveKit to Jitsi — no code changes
+3. **Self-Hosting Without Compromise** -- Full feature parity with SaaS alternatives, including video calls and AI
+4. **Modern Tech Stack** -- Built with React 19, NestJS 11, TypeScript, Tiptap/Yjs, Excalidraw, LiveKit, and Qdrant
+5. **AI-Native Design** -- Vector search, conversation memory, and AutoPilot agent built into the core platform
+6. **Cost-Effective Scaling** -- One infrastructure cost serves unlimited users, unlike per-seat SaaS pricing
 
 ## 📊 Project Activity & Statistics
 

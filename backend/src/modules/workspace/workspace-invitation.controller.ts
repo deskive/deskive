@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Post,
-  Get,
-  Delete,
-  Body,
-  Param,
-  UseGuards,
-  Query,
-} from '@nestjs/common';
+import { Controller, Post, Get, Delete, Body, Param, UseGuards, Query } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -84,5 +75,4 @@ export class WorkspaceInvitationController {
   ) {
     return this.invitationService.resendInvitation(workspaceId, invitationId, userId);
   }
-
 }

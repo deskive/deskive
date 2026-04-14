@@ -97,7 +97,8 @@ export class SlackCalendarService {
 
       // Store in database temporarily (reusing slack_setup_sessions)
       const setupToken = randomBytes(32).toString('hex');
-      await this.db.table('slack_setup_sessions')
+      await this.db
+        .table('slack_setup_sessions')
         .insert({
           setup_token: setupToken,
           slack_data: JSON.stringify(slackSetupData),
@@ -109,7 +110,8 @@ export class SlackCalendarService {
       this.logger.log('Calendar setup session created:', setupToken);
 
       // Store installation data in whiteboard table (shared by all features)
-      const existingInstallation = await this.db.table('slack_whiteboard_installations')
+      const existingInstallation = await this.db
+        .table('slack_whiteboard_installations')
         .select('*')
         .where('team_id', '=', result.team.id)
         .execute();
@@ -127,14 +129,16 @@ export class SlackCalendarService {
       };
 
       if (existingInstallation.data && existingInstallation.data.length > 0) {
-        await this.db.table('slack_whiteboard_installations')
+        await this.db
+          .table('slack_whiteboard_installations')
           .update(installationData)
           .where('team_id', '=', result.team.id)
           .execute();
 
         this.logger.log('Updated existing installation for team:', result.team.id);
       } else {
-        await this.db.table('slack_whiteboard_installations')
+        await this.db
+          .table('slack_whiteboard_installations')
           .insert({
             ...installationData,
             created_at: new Date().toISOString(),
@@ -162,7 +166,8 @@ export class SlackCalendarService {
     this.logger.log('[Calendar Setup] Starting for user:', userId, 'with token:', setupToken);
 
     // Get setup session
-    const sessionResult = await this.db.table('slack_setup_sessions')
+    const sessionResult = await this.db
+      .table('slack_setup_sessions')
       .select('*')
       .where('setup_token', '=', setupToken)
       .where('completed', '=', false)
@@ -183,7 +188,10 @@ export class SlackCalendarService {
     }
 
     // Create or get workspace for Slack team
-    const workspaceId = await this.getOrCreateSlackWorkspace(slackData.slack_team_id, slackData.slack_team_name);
+    const workspaceId = await this.getOrCreateSlackWorkspace(
+      slackData.slack_team_id,
+      slackData.slack_team_name,
+    );
 
     // Add user to workspace
     await this.ensureUserInWorkspace(workspaceId, userId, true);
@@ -197,11 +205,12 @@ export class SlackCalendarService {
       slackData.slack_name,
       slackData.slack_avatar,
       slackData.user_access_token,
-      true
+      true,
     );
 
     // Mark session as completed
-    await this.db.table('slack_setup_sessions')
+    await this.db
+      .table('slack_setup_sessions')
       .update({ completed: true })
       .where('setup_token', '=', setupToken)
       .execute();
@@ -271,7 +280,12 @@ export class SlackCalendarService {
   /**
    * Create a quick event from natural language
    */
-  private async createQuickEvent(teamId: string, slackUserId: string, channelId: string, eventText: string) {
+  private async createQuickEvent(
+    teamId: string,
+    slackUserId: string,
+    channelId: string,
+    eventText: string,
+  ) {
     try {
       this.logger.log(`Creating quick event for team ${teamId}, user ${slackUserId}: ${eventText}`);
 
@@ -288,9 +302,10 @@ export class SlackCalendarService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
@@ -317,7 +332,7 @@ export class SlackCalendarService {
           end_time: parsedEvent.endTime,
           all_day: parsedEvent.allDay,
         },
-        deskiveUserId
+        deskiveUserId,
       );
 
       this.logger.log(`Event created: ${event.id}`);
@@ -388,7 +403,7 @@ export class SlackCalendarService {
                 },
                 {
                   type: 'button',
-                  text: { type: 'plain_text', text: '❌ Can\'t', emoji: true },
+                  text: { type: 'plain_text', text: "❌ Can't", emoji: true },
                   action_id: 'rsvp_declined',
                   value: event.id,
                 },
@@ -400,7 +415,8 @@ export class SlackCalendarService {
         messagePosted = true;
 
         // Store message reference for updates
-        await this.db.table('slack_event_messages')
+        await this.db
+          .table('slack_event_messages')
           .insert({
             event_id: event.id,
             team_id: teamId,
@@ -411,7 +427,6 @@ export class SlackCalendarService {
             updated_at: new Date().toISOString(),
           })
           .execute();
-
       } catch (postError) {
         this.logger.error('Could not post event to channel:', postError.message);
       }
@@ -454,9 +469,10 @@ export class SlackCalendarService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
@@ -698,14 +714,35 @@ export class SlackCalendarService {
                   value: 'Asia/Dhaka',
                 },
                 options: [
-                  { text: { type: 'plain_text', text: '🌍 Asia/Dhaka (GMT+6)' }, value: 'Asia/Dhaka' },
+                  {
+                    text: { type: 'plain_text', text: '🌍 Asia/Dhaka (GMT+6)' },
+                    value: 'Asia/Dhaka',
+                  },
                   { text: { type: 'plain_text', text: '🌍 UTC (GMT+0)' }, value: 'UTC' },
-                  { text: { type: 'plain_text', text: '🌍 America/New_York (EST)' }, value: 'America/New_York' },
-                  { text: { type: 'plain_text', text: '🌍 America/Los_Angeles (PST)' }, value: 'America/Los_Angeles' },
-                  { text: { type: 'plain_text', text: '🌍 Europe/London (GMT)' }, value: 'Europe/London' },
-                  { text: { type: 'plain_text', text: '🌍 Asia/Tokyo (JST)' }, value: 'Asia/Tokyo' },
-                  { text: { type: 'plain_text', text: '🌍 Asia/Singapore (SGT)' }, value: 'Asia/Singapore' },
-                  { text: { type: 'plain_text', text: '🌍 Australia/Sydney (AEST)' }, value: 'Australia/Sydney' },
+                  {
+                    text: { type: 'plain_text', text: '🌍 America/New_York (EST)' },
+                    value: 'America/New_York',
+                  },
+                  {
+                    text: { type: 'plain_text', text: '🌍 America/Los_Angeles (PST)' },
+                    value: 'America/Los_Angeles',
+                  },
+                  {
+                    text: { type: 'plain_text', text: '🌍 Europe/London (GMT)' },
+                    value: 'Europe/London',
+                  },
+                  {
+                    text: { type: 'plain_text', text: '🌍 Asia/Tokyo (JST)' },
+                    value: 'Asia/Tokyo',
+                  },
+                  {
+                    text: { type: 'plain_text', text: '🌍 Asia/Singapore (SGT)' },
+                    value: 'Asia/Singapore',
+                  },
+                  {
+                    text: { type: 'plain_text', text: '🌍 Australia/Sydney (AEST)' },
+                    value: 'Australia/Sydney',
+                  },
                 ],
               },
               label: {
@@ -773,9 +810,12 @@ export class SlackCalendarService {
       const meetingUrl = values.meeting_url_block?.meeting_url_input?.value || '';
       const attendeesRaw = values.attendees_block?.attendees_input?.value || '';
       const priority = values.priority_block?.priority_input?.selected_option?.value || 'normal';
-      const visibility = values.visibility_block?.visibility_input?.selected_option?.value || 'private';
-      const timezone = values.timezone_block?.timezone_input?.selected_option?.value || 'Asia/Dhaka';
-      const recurrence = values.recurrence_block?.recurrence_input?.selected_option?.value || 'none';
+      const visibility =
+        values.visibility_block?.visibility_input?.selected_option?.value || 'private';
+      const timezone =
+        values.timezone_block?.timezone_input?.selected_option?.value || 'Asia/Dhaka';
+      const recurrence =
+        values.recurrence_block?.recurrence_input?.selected_option?.value || 'none';
 
       // Parse attendees
       const attendees = attendeesRaw
@@ -791,7 +831,7 @@ export class SlackCalendarService {
       // Get timezone offset in hours (positive = east of UTC)
       const getTimezoneOffset = (tz: string): number => {
         const offsets: Record<string, number> = {
-          'UTC': 0,
+          UTC: 0,
           'America/New_York': -5,
           'America/Los_Angeles': -8,
           'Europe/London': 0,
@@ -834,7 +874,9 @@ export class SlackCalendarService {
 
         endDateTime = new Date(startDateTime.getTime() + parseInt(duration) * 60 * 1000);
 
-        this.logger.log(`Event time: ${date} ${startTime} (${timezone}) -> UTC: ${startDateTime.toISOString()}`);
+        this.logger.log(
+          `Event time: ${date} ${startTime} (${timezone}) -> UTC: ${startDateTime.toISOString()}`,
+        );
       }
 
       // Build recurrence rule if not 'none'
@@ -843,10 +885,10 @@ export class SlackCalendarService {
       if (recurrence !== 'none') {
         isRecurring = true;
         const recurrenceMap: Record<string, any> = {
-          'daily': { frequency: 'daily', interval: 1 },
-          'weekly': { frequency: 'weekly', interval: 1 },
-          'biweekly': { frequency: 'weekly', interval: 2 },
-          'monthly': { frequency: 'monthly', interval: 1 },
+          daily: { frequency: 'daily', interval: 1 },
+          weekly: { frequency: 'weekly', interval: 1 },
+          biweekly: { frequency: 'weekly', interval: 2 },
+          monthly: { frequency: 'monthly', interval: 1 },
         };
         recurrenceRule = recurrenceMap[recurrence] || null;
       }
@@ -889,7 +931,7 @@ export class SlackCalendarService {
       const event = await this.calendarService.createEvent(
         metadata.workspace_id,
         eventData,
-        deskiveUserId
+        deskiveUserId,
       );
 
       this.logger.log(`Event created from modal: ${event.id}`);
@@ -927,14 +969,28 @@ export class SlackCalendarService {
                   { type: 'mrkdwn', text: `*🎯 Priority:*\n${priority}` },
                 ],
               },
-              ...(description ? [{
-                type: 'section' as const,
-                text: { type: 'mrkdwn' as const, text: `*📝 Description:*\n${this.stripHtml(description)}` },
-              }] : []),
-              ...(attendees.length > 0 ? [{
-                type: 'section' as const,
-                text: { type: 'mrkdwn' as const, text: `*👥 Attendees:*\n${attendees.join(', ')}` },
-              }] : []),
+              ...(description
+                ? [
+                    {
+                      type: 'section' as const,
+                      text: {
+                        type: 'mrkdwn' as const,
+                        text: `*📝 Description:*\n${this.stripHtml(description)}`,
+                      },
+                    },
+                  ]
+                : []),
+              ...(attendees.length > 0
+                ? [
+                    {
+                      type: 'section' as const,
+                      text: {
+                        type: 'mrkdwn' as const,
+                        text: `*👥 Attendees:*\n${attendees.join(', ')}`,
+                      },
+                    },
+                  ]
+                : []),
               {
                 type: 'context',
                 elements: [
@@ -969,12 +1025,17 @@ export class SlackCalendarService {
   /**
    * Parse natural language event text (simple implementation)
    */
-  private parseEventText(text: string): { title: string; startTime: string; endTime: string; allDay: boolean } {
+  private parseEventText(text: string): {
+    title: string;
+    startTime: string;
+    endTime: string;
+    allDay: boolean;
+  } {
     const now = new Date();
     let title = text;
-    let startTime = new Date();
+    const startTime = new Date();
     let endTime = new Date();
-    let allDay = false;
+    const allDay = false;
 
     // Simple keyword parsing
     const lowerText = text.toLowerCase();
@@ -1058,7 +1119,8 @@ export class SlackCalendarService {
       tomorrow.setDate(tomorrow.getDate() + 1);
 
       // Query events
-      const eventsResult = await this.db.table('calendar_events')
+      const eventsResult = await this.db
+        .table('calendar_events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', today.toISOString())
@@ -1153,7 +1215,8 @@ export class SlackCalendarService {
       const endDate = new Date();
       endDate.setDate(endDate.getDate() + days);
 
-      const eventsResult = await this.db.table('calendar_events')
+      const eventsResult = await this.db
+        .table('calendar_events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', now.toISOString())
@@ -1186,7 +1249,11 @@ export class SlackCalendarService {
 
       events.forEach((event) => {
         const startTime = new Date(event.start_time);
-        const dateStr = startTime.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+        const dateStr = startTime.toLocaleDateString([], {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+        });
         const timeStr = event.all_day
           ? 'All Day'
           : startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -1252,7 +1319,8 @@ export class SlackCalendarService {
       }
 
       // Simple search by title (case insensitive)
-      const eventsResult = await this.db.table('calendar_events')
+      const eventsResult = await this.db
+        .table('calendar_events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('title', 'ILIKE', `%${query}%`)
@@ -1339,7 +1407,8 @@ export class SlackCalendarService {
       }
 
       // Check if already linked
-      const existingLink = await this.db.table('slack_calendar_channel_links')
+      const existingLink = await this.db
+        .table('slack_calendar_channel_links')
         .select('*')
         .where('team_id', '=', teamId)
         .where('channel_id', '=', channelId)
@@ -1365,7 +1434,8 @@ export class SlackCalendarService {
       }
 
       // Create link
-      await this.db.table('slack_calendar_channel_links')
+      await this.db
+        .table('slack_calendar_channel_links')
         .insert({
           workspace_id: workspaceId,
           team_id: teamId,
@@ -1403,7 +1473,8 @@ export class SlackCalendarService {
    */
   private async unlinkChannel(teamId: string, channelId: string) {
     try {
-      const result = await this.db.table('slack_calendar_channel_links')
+      const result = await this.db
+        .table('slack_calendar_channel_links')
         .delete()
         .where('team_id', '=', teamId)
         .where('channel_id', '=', channelId)
@@ -1484,13 +1555,14 @@ export class SlackCalendarService {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: '*📝 Create Events:*\n' +
+            text:
+              '*📝 Create Events:*\n' +
               '`/calendar create` - Open form with all event options\n' +
               '`/calendar new [title] at [time]` - Quick create from text\n\n' +
               '*📋 View Events:*\n' +
-              '`/calendar today` - View today\'s events\n' +
+              "`/calendar today` - View today's events\n" +
               '`/calendar list` - View upcoming events (7 days)\n' +
-              '`/calendar week` - View this week\'s events\n' +
+              "`/calendar week` - View this week's events\n" +
               '`/calendar search [query]` - Search events\n\n' +
               '*🔔 Notifications:*\n' +
               '`/calendar link` - Get notifications in this channel\n' +
@@ -1505,7 +1577,8 @@ export class SlackCalendarService {
           elements: [
             {
               type: 'mrkdwn',
-              text: '💡 *Tips:*\n' +
+              text:
+                '💡 *Tips:*\n' +
                 '• Use `/calendar create` for full event details (description, attendees, location, etc.)\n' +
                 '• Use `/calendar new Team lunch tomorrow at noon` for quick events',
             },
@@ -1582,7 +1655,12 @@ export class SlackCalendarService {
   /**
    * Handle RSVP
    */
-  private async handleRsvp(teamId: string, slackUserId: string, eventId: string, status: 'accepted' | 'tentative' | 'declined') {
+  private async handleRsvp(
+    teamId: string,
+    slackUserId: string,
+    eventId: string,
+    status: 'accepted' | 'tentative' | 'declined',
+  ) {
     try {
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
 
@@ -1592,7 +1670,8 @@ export class SlackCalendarService {
       }
 
       // Get event to find workspace
-      const eventResult = await this.db.table('calendar_events')
+      const eventResult = await this.db
+        .table('calendar_events')
         .select('*')
         .where('id', '=', eventId)
         .execute();
@@ -1622,7 +1701,8 @@ export class SlackCalendarService {
       const slackClient = new WebClient(installation.bot_token);
 
       const statusEmoji = status === 'going' ? '✅' : status === 'maybe' ? '🤔' : '❌';
-      const statusText = status === 'going' ? 'going' : status === 'maybe' ? 'maybe' : 'can\'t make it';
+      const statusText =
+        status === 'going' ? 'going' : status === 'maybe' ? 'maybe' : "can't make it";
 
       // Reply in thread
       await slackClient.chat.postMessage({
@@ -1658,14 +1738,16 @@ export class SlackCalendarService {
           const nextWeek = new Date(today);
           nextWeek.setDate(nextWeek.getDate() + 7);
 
-          const todayResult = await this.db.table('calendar_events')
+          const todayResult = await this.db
+            .table('calendar_events')
             .select('id')
             .where('workspace_id', '=', workspaceId)
             .where('start_time', '>=', today.toISOString())
             .where('start_time', '<', tomorrow.toISOString())
             .execute();
 
-          const upcomingResult = await this.db.table('calendar_events')
+          const upcomingResult = await this.db
+            .table('calendar_events')
             .select('id')
             .where('workspace_id', '=', workspaceId)
             .where('start_time', '>=', tomorrow.toISOString())
@@ -1716,7 +1798,7 @@ export class SlackCalendarService {
                 text:
                   '*📖 Quick Commands*\n' +
                   '• `/calendar new [title]` - Create event\n' +
-                  '• `/calendar today` - Today\'s events\n' +
+                  "• `/calendar today` - Today's events\n" +
                   '• `/calendar list` - Upcoming events\n' +
                   '• `/calendar help` - All commands',
               },
@@ -1756,12 +1838,12 @@ export class SlackCalendarService {
         responseText +=
           'Here are the available calendar commands:\n' +
           '• `/calendar new [title]` - Create an event\n' +
-          '• `/calendar today` - See today\'s events\n' +
+          "• `/calendar today` - See today's events\n" +
           '• `/calendar list` - See upcoming events\n' +
           '• `/calendar help` - All commands';
       } else {
         responseText +=
-          "I can help you manage your calendar! 📅\n\n" +
+          'I can help you manage your calendar! 📅\n\n' +
           'Try `/calendar today` to see your schedule!';
       }
 
@@ -1836,7 +1918,8 @@ export class SlackCalendarService {
       this.logger.log('Processing Slack reminders...');
 
       // Get all linked channels with reminder settings
-      const linksResult = await this.db.table('slack_calendar_channel_links')
+      const linksResult = await this.db
+        .table('slack_calendar_channel_links')
         .select('*')
         .where('is_active', '=', true)
         .execute();
@@ -1850,24 +1933,27 @@ export class SlackCalendarService {
 
       // For each linked channel, check for upcoming events
       for (const link of links) {
-        const notificationSettings = typeof link.notification_settings === 'string'
-          ? JSON.parse(link.notification_settings)
-          : link.notification_settings;
+        const notificationSettings =
+          typeof link.notification_settings === 'string'
+            ? JSON.parse(link.notification_settings)
+            : link.notification_settings;
 
         if (!notificationSettings?.event_reminders) continue;
 
-        const reminderMinutes = typeof link.reminder_minutes === 'string'
-          ? JSON.parse(link.reminder_minutes)
-          : (link.reminder_minutes || [15, 60]);
+        const reminderMinutes =
+          typeof link.reminder_minutes === 'string'
+            ? JSON.parse(link.reminder_minutes)
+            : link.reminder_minutes || [15, 60];
 
         for (const minutes of reminderMinutes) {
           // Use a 5-minute window to match cron interval
           const reminderTime = new Date(Date.now() + minutes * 60 * 1000);
           const reminderWindowStart = new Date(reminderTime.getTime() - 2.5 * 60 * 1000); // -2.5 min
-          const reminderWindowEnd = new Date(reminderTime.getTime() + 2.5 * 60 * 1000);   // +2.5 min
+          const reminderWindowEnd = new Date(reminderTime.getTime() + 2.5 * 60 * 1000); // +2.5 min
 
           // Get events starting within the reminder window
-          const eventsResult = await this.db.table('calendar_events')
+          const eventsResult = await this.db
+            .table('calendar_events')
             .select('*')
             .where('workspace_id', '=', link.workspace_id)
             .where('start_time', '>=', reminderWindowStart.toISOString())
@@ -1876,7 +1962,9 @@ export class SlackCalendarService {
 
           const events = eventsResult.data || [];
 
-          this.logger.debug(`Found ${events.length} events for ${minutes}min reminder in workspace ${link.workspace_id}`);
+          this.logger.debug(
+            `Found ${events.length} events for ${minutes}min reminder in workspace ${link.workspace_id}`,
+          );
 
           for (const event of events) {
             const eventStart = new Date(event.start_time);
@@ -1893,12 +1981,15 @@ export class SlackCalendarService {
             const maxReminderWindow = minutes + 10; // Allow 10 minute buffer
             const minutesUntilEvent = (eventStart.getTime() - now.getTime()) / (1000 * 60);
             if (minutesUntilEvent > maxReminderWindow) {
-              this.logger.debug(`Skipping event ${event.id} - starts in ${Math.round(minutesUntilEvent)} minutes, but checking ${minutes}min reminder`);
+              this.logger.debug(
+                `Skipping event ${event.id} - starts in ${Math.round(minutesUntilEvent)} minutes, but checking ${minutes}min reminder`,
+              );
               continue;
             }
 
             // Check if reminder already sent
-            const existingMessage = await this.db.table('slack_event_messages')
+            const existingMessage = await this.db
+              .table('slack_event_messages')
               .select('*')
               .where('event_id', '=', event.id)
               .where('channel_id', '=', link.channel_id)
@@ -1926,7 +2017,12 @@ export class SlackCalendarService {
   /**
    * Send event reminder to Slack channel
    */
-  private async sendEventReminder(teamId: string, channelId: string, event: any, minutesBefore: number) {
+  private async sendEventReminder(
+    teamId: string,
+    channelId: string,
+    event: any,
+    minutesBefore: number,
+  ) {
     try {
       const installation = await this.getInstallation(teamId);
       const slackClient = new WebClient(installation.bot_token);
@@ -1936,11 +2032,16 @@ export class SlackCalendarService {
 
       const startTime = new Date(event.start_time);
       const timeStr = startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const dateStr = startTime.toLocaleDateString([], { weekday: 'short', month: 'short', day: 'numeric' });
+      const dateStr = startTime.toLocaleDateString([], {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+      });
 
-      const reminderText = minutesBefore < 60
-        ? `${minutesBefore} minutes`
-        : `${Math.floor(minutesBefore / 60)} hour${minutesBefore >= 120 ? 's' : ''}`;
+      const reminderText =
+        minutesBefore < 60
+          ? `${minutesBefore} minutes`
+          : `${Math.floor(minutesBefore / 60)} hour${minutesBefore >= 120 ? 's' : ''}`;
 
       // Build action elements
       const actionElements: any[] = [
@@ -1988,7 +2089,8 @@ export class SlackCalendarService {
       });
 
       // Record that reminder was sent
-      await this.db.table('slack_event_messages')
+      await this.db
+        .table('slack_event_messages')
         .insert({
           event_id: event.id,
           team_id: teamId,
@@ -2000,7 +2102,9 @@ export class SlackCalendarService {
         })
         .execute();
 
-      this.logger.log(`Sent ${minutesBefore}min reminder for event ${event.id} to channel ${channelId}`);
+      this.logger.log(
+        `Sent ${minutesBefore}min reminder for event ${event.id} to channel ${channelId}`,
+      );
     } catch (error) {
       this.logger.error('Error sending event reminder:', error);
     }
@@ -2012,7 +2116,8 @@ export class SlackCalendarService {
    * Get Slack installation (uses whiteboard installations since it's the same app)
    */
   private async getInstallation(teamId: string) {
-    const result = await this.db.table('slack_whiteboard_installations')
+    const result = await this.db
+      .table('slack_whiteboard_installations')
       .select('*')
       .where('team_id', '=', teamId)
       .where('is_active', '=', true)
@@ -2029,10 +2134,14 @@ export class SlackCalendarService {
    * Get Deskive user ID from Slack user mapping
    * If no mapping exists, creates one for users already in the workspace
    */
-  private async getDeskiveUserIdFromSlack(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async getDeskiveUserIdFromSlack(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Check for existing mapping
-      const result = await this.db.table('slack_user_mappings')
+      const result = await this.db
+        .table('slack_user_mappings')
         .select('deskive_user_id')
         .where('slack_user_id', '=', slackUserId)
         .where('slack_team_id', '=', slackTeamId)
@@ -2044,7 +2153,9 @@ export class SlackCalendarService {
       }
 
       // 2. No mapping found - try to create one for existing workspace members
-      this.logger.log(`[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`);
+      this.logger.log(
+        `[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`,
+      );
       return await this.createMappingForExistingUser(slackUserId, slackTeamId);
     } catch (error) {
       this.logger.error('Error getting Deskive user ID:', error);
@@ -2055,7 +2166,10 @@ export class SlackCalendarService {
   /**
    * Create mapping for a user who's already in the workspace (invited via Deskive)
    */
-  private async createMappingForExistingUser(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async createMappingForExistingUser(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Get Slack user email
       const slackUserInfo = await this.getSlackUserInfo(slackUserId, slackTeamId);
@@ -2085,7 +2199,9 @@ export class SlackCalendarService {
       // 4. Check if user is a member of the workspace
       const isMember = await this.isUserInWorkspace(workspaceId, deskiveUserId);
       if (!isMember) {
-        this.logger.log(`[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`);
+        this.logger.log(
+          `[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`,
+        );
         return null;
       }
 
@@ -2100,10 +2216,12 @@ export class SlackCalendarService {
         name,
         avatar,
         null,
-        true
+        true,
       );
 
-      this.logger.log(`[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`);
+      this.logger.log(
+        `[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`,
+      );
       return deskiveUserId;
     } catch (error) {
       this.logger.error('[Mapping] Error creating mapping for existing user:', error);
@@ -2114,7 +2232,10 @@ export class SlackCalendarService {
   /**
    * Get Slack user information (email, name, avatar)
    */
-  private async getSlackUserInfo(slackUserId: string, slackTeamId: string): Promise<{ email: string; name: string; avatar: string } | null> {
+  private async getSlackUserInfo(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<{ email: string; name: string; avatar: string } | null> {
     try {
       const installation = await this.getInstallation(slackTeamId);
       const slackClient = new WebClient(installation.bot_token);
@@ -2142,7 +2263,8 @@ export class SlackCalendarService {
   private async findDeskiveUserByEmail(email: string): Promise<string | null> {
     try {
       // Query users table directly using database query builder
-      const result = await this.db.table('users')
+      const result = await this.db
+        .table('users')
         .select('id')
         .where('email', '=', email)
         .limit(1)
@@ -2160,7 +2282,8 @@ export class SlackCalendarService {
    */
   private async isUserInWorkspace(workspaceId: string, userId: string): Promise<boolean> {
     try {
-      const result = await this.db.table('workspace_members')
+      const result = await this.db
+        .table('workspace_members')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -2179,7 +2302,8 @@ export class SlackCalendarService {
    */
   private async getSlackWorkspaceId(teamId: string): Promise<string | null> {
     try {
-      const result = await this.db.table('workspaces')
+      const result = await this.db
+        .table('workspaces')
         .select('id')
         .where('metadata', '@>', JSON.stringify({ slack_team_id: teamId }))
         .execute();
@@ -2195,7 +2319,8 @@ export class SlackCalendarService {
    * Get or create workspace for Slack team
    */
   private async getOrCreateSlackWorkspace(teamId: string, teamName: string): Promise<string> {
-    const existingWorkspace = await this.db.table('workspaces')
+    const existingWorkspace = await this.db
+      .table('workspaces')
       .select('*')
       .where('metadata', '@>', JSON.stringify({ slack_team_id: teamId }))
       .execute();
@@ -2204,7 +2329,8 @@ export class SlackCalendarService {
       return existingWorkspace.data[0].id;
     }
 
-    const newWorkspace = await this.db.table('workspaces')
+    const newWorkspace = await this.db
+      .table('workspaces')
       .insert({
         name: teamName,
         description: `Workspace for Slack team: ${teamName}`,
@@ -2225,9 +2351,14 @@ export class SlackCalendarService {
   /**
    * Ensure user is a member of workspace
    */
-  private async ensureUserInWorkspace(workspaceId: string, userId: string, isOwner: boolean = false) {
+  private async ensureUserInWorkspace(
+    workspaceId: string,
+    userId: string,
+    isOwner: boolean = false,
+  ) {
     try {
-      const existing = await this.db.table('workspace_members')
+      const existing = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -2235,7 +2366,8 @@ export class SlackCalendarService {
 
       if (existing.data && existing.data.length > 0) return;
 
-      await this.db.table('workspace_members')
+      await this.db
+        .table('workspace_members')
         .insert({
           workspace_id: workspaceId,
           user_id: userId,
@@ -2248,7 +2380,8 @@ export class SlackCalendarService {
         .execute();
 
       if (isOwner) {
-        await this.db.table('workspaces')
+        await this.db
+          .table('workspaces')
           .update({
             owner_id: userId,
             updated_at: new Date().toISOString(),
@@ -2272,7 +2405,7 @@ export class SlackCalendarService {
     slackName: string,
     slackAvatar: string,
     userAccessToken: string | null,
-    onboardingCompleted: boolean
+    onboardingCompleted: boolean,
   ) {
     const mappingData = {
       deskive_user_id: deskiveUserId,
@@ -2287,20 +2420,23 @@ export class SlackCalendarService {
       updated_at: new Date().toISOString(),
     };
 
-    const existing = await this.db.table('slack_user_mappings')
+    const existing = await this.db
+      .table('slack_user_mappings')
       .select('*')
       .where('slack_user_id', '=', slackUserId)
       .where('slack_team_id', '=', slackTeamId)
       .execute();
 
     if (existing.data && existing.data.length > 0) {
-      await this.db.table('slack_user_mappings')
+      await this.db
+        .table('slack_user_mappings')
         .update(mappingData)
         .where('slack_user_id', '=', slackUserId)
         .where('slack_team_id', '=', slackTeamId)
         .execute();
     } else {
-      await this.db.table('slack_user_mappings')
+      await this.db
+        .table('slack_user_mappings')
         .insert({
           ...mappingData,
           created_at: new Date().toISOString(),

@@ -1,11 +1,20 @@
-import { IsString, IsOptional, IsEnum, IsArray, IsBoolean, IsUUID, IsNumber, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsArray,
+  IsBoolean,
+  IsUUID,
+  IsNumber,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
 export enum MessageRole {
   USER = 'user',
   ASSISTANT = 'assistant',
-  SYSTEM = 'system'
+  SYSTEM = 'system',
 }
 
 export enum ChatPersonality {
@@ -20,7 +29,7 @@ export enum ChatPersonality {
   WITTY = 'witty',
   EMPATHETIC = 'empathetic',
   EXPERT = 'expert',
-  MENTOR = 'mentor'
+  MENTOR = 'mentor',
 }
 
 export enum ChatContext {
@@ -38,7 +47,7 @@ export enum ChatContext {
   CAREER_COUNSELING = 'career_counseling',
   RELATIONSHIP_ADVICE = 'relationship_advice',
   ENTERTAINMENT = 'entertainment',
-  NEWS_CURRENT_EVENTS = 'news_current_events'
+  NEWS_CURRENT_EVENTS = 'news_current_events',
 }
 
 export enum ResponseFormat {
@@ -48,19 +57,22 @@ export enum ResponseFormat {
   BULLET_POINTS = 'bullet_points',
   NUMBERED_LIST = 'numbered_list',
   PARAGRAPH = 'paragraph',
-  STEP_BY_STEP = 'step_by_step'
+  STEP_BY_STEP = 'step_by_step',
 }
 
 export class ChatMessage {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Role of the message sender',
     enum: MessageRole,
-    example: MessageRole.USER
+    example: MessageRole.USER,
   })
   @IsEnum(MessageRole)
   role: MessageRole;
 
-  @ApiProperty({ description: 'Message content', example: 'Hello, can you help me with my project?' })
+  @ApiProperty({
+    description: 'Message content',
+    example: 'Hello, can you help me with my project?',
+  })
   @IsString()
   content: string;
 
@@ -75,7 +87,10 @@ export class ChatMessage {
 }
 
 export class CreateChatDto {
-  @ApiProperty({ description: 'User message to send', example: 'Hello, I need help with planning a trip to Japan' })
+  @ApiProperty({
+    description: 'User message to send',
+    example: 'Hello, I need help with planning a trip to Japan',
+  })
   @IsString()
   message: string;
 
@@ -84,31 +99,31 @@ export class CreateChatDto {
   @IsUUID()
   session_id?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'AI personality for responses',
     enum: ChatPersonality,
     example: ChatPersonality.FRIENDLY,
-    default: ChatPersonality.HELPFUL
+    default: ChatPersonality.HELPFUL,
   })
   @IsOptional()
   @IsEnum(ChatPersonality)
   personality?: ChatPersonality;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Context or domain for the conversation',
     enum: ChatContext,
     example: ChatContext.TRAVEL_PLANNING,
-    default: ChatContext.GENERAL
+    default: ChatContext.GENERAL,
   })
   @IsOptional()
   @IsEnum(ChatContext)
   context?: ChatContext;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Desired response format',
     enum: ResponseFormat,
     example: ResponseFormat.TEXT,
-    default: ResponseFormat.TEXT
+    default: ResponseFormat.TEXT,
   })
   @IsOptional()
   @IsEnum(ResponseFormat)
@@ -124,7 +139,10 @@ export class CreateChatDto {
   @IsNumber({ allowInfinity: false, allowNaN: false, maxDecimalPlaces: 2 })
   temperature?: number;
 
-  @ApiPropertyOptional({ description: 'System instructions or custom behavior', example: 'You are a travel expert specializing in Asian destinations' })
+  @ApiPropertyOptional({
+    description: 'System instructions or custom behavior',
+    example: 'You are a travel expert specializing in Asian destinations',
+  })
   @IsOptional()
   @IsString()
   system_prompt?: string;
@@ -144,7 +162,10 @@ export class CreateChatDto {
   @IsString()
   additional_context?: string;
 
-  @ApiPropertyOptional({ description: 'Tags for organizing conversations', example: ['travel', 'planning', 'japan'] })
+  @ApiPropertyOptional({
+    description: 'Tags for organizing conversations',
+    example: ['travel', 'planning', 'japan'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -158,35 +179,38 @@ export class ChatHistoryDto {
   @Type(() => ChatMessage)
   messages: ChatMessage[];
 
-  @ApiProperty({ description: 'User message to send', example: 'What about the weather in Tokyo during spring?' })
+  @ApiProperty({
+    description: 'User message to send',
+    example: 'What about the weather in Tokyo during spring?',
+  })
   @IsString()
   message: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'AI personality for responses',
     enum: ChatPersonality,
     example: ChatPersonality.FRIENDLY,
-    default: ChatPersonality.HELPFUL
+    default: ChatPersonality.HELPFUL,
   })
   @IsOptional()
   @IsEnum(ChatPersonality)
   personality?: ChatPersonality;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Context or domain for the conversation',
     enum: ChatContext,
     example: ChatContext.TRAVEL_PLANNING,
-    default: ChatContext.GENERAL
+    default: ChatContext.GENERAL,
   })
   @IsOptional()
   @IsEnum(ChatContext)
   context?: ChatContext;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Desired response format',
     enum: ResponseFormat,
     example: ResponseFormat.TEXT,
-    default: ResponseFormat.TEXT
+    default: ResponseFormat.TEXT,
   })
   @IsOptional()
   @IsEnum(ResponseFormat)

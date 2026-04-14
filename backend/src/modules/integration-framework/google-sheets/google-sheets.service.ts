@@ -92,9 +92,11 @@ export class GoogleSheetsService {
     userId: string,
     workspaceId: string,
     serverAuthCode: string,
-    userInfo?: { email?: string; displayName?: string; photoUrl?: string }
+    userInfo?: { email?: string; displayName?: string; photoUrl?: string },
   ): Promise<GoogleSheetsConnectionDto> {
-    this.logger.log(`Handling native Google Sign-In for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Handling native Google Sign-In for user ${userId} in workspace ${workspaceId}`,
+    );
 
     // Exchange the server auth code for tokens (using native method without redirect_uri)
     const tokens = await this.oauthService.exchangeNativeCodeForTokens(serverAuthCode);
@@ -141,7 +143,9 @@ export class GoogleSheetsService {
       connection = await this.db.insert('google_sheets_connections', connectionData);
     }
 
-    this.logger.log(`Google Sheets connected via native sign-in for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Google Sheets connected via native sign-in for user ${userId} in workspace ${workspaceId}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -149,7 +153,10 @@ export class GoogleSheetsService {
   /**
    * Get user's Google Sheets connection in this workspace
    */
-  async getConnection(userId: string, workspaceId: string): Promise<GoogleSheetsConnectionDto | null> {
+  async getConnection(
+    userId: string,
+    workspaceId: string,
+  ): Promise<GoogleSheetsConnectionDto | null> {
     const connection = await this.db.findOne('google_sheets_connections', {
       workspace_id: workspaceId,
       user_id: userId,
@@ -167,7 +174,9 @@ export class GoogleSheetsService {
    * Get any active Google Sheets connection for a workspace
    * Used for workspace-level operations like exporting approvals
    */
-  async getWorkspaceConnection(workspaceId: string): Promise<{ connection: GoogleSheetsConnectionDto; userId: string } | null> {
+  async getWorkspaceConnection(
+    workspaceId: string,
+  ): Promise<{ connection: GoogleSheetsConnectionDto; userId: string } | null> {
     const result = await this.db
       .table('google_sheets_connections')
       .select('*')
@@ -229,13 +238,20 @@ export class GoogleSheetsService {
     });
 
     if (!connection) {
-      throw new NotFoundException('Google Sheets not connected. Please connect your Google Sheets first.');
+      throw new NotFoundException(
+        'Google Sheets not connected. Please connect your Google Sheets first.',
+      );
     }
 
     // Check if token is expired or about to expire
-    if (connection.expires_at && this.oauthService.isTokenExpired(new Date(connection.expires_at))) {
+    if (
+      connection.expires_at &&
+      this.oauthService.isTokenExpired(new Date(connection.expires_at))
+    ) {
       if (!connection.refresh_token) {
-        throw new BadRequestException('Access token expired and no refresh token available. Please reconnect Google Sheets.');
+        throw new BadRequestException(
+          'Access token expired and no refresh token available. Please reconnect Google Sheets.',
+        );
       }
 
       // Refresh the token
@@ -262,7 +278,7 @@ export class GoogleSheetsService {
   async listSpreadsheets(
     userId: string,
     workspaceId: string,
-    options: { pageSize?: number; pageToken?: string } = {}
+    options: { pageSize?: number; pageToken?: string } = {},
   ): Promise<{ spreadsheets: SpreadsheetDto[]; nextPageToken?: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
     const pageSize = Math.min(options.pageSize || 100, 100);
@@ -278,7 +294,12 @@ export class GoogleSheetsService {
         pageSize,
         orderBy: 'modifiedTime desc',
       };
-      const myDriveResponse = await this.makeRequest(accessToken, 'GET', `${this.DRIVE_API_BASE}/files`, { params: myDriveParams });
+      const myDriveResponse = await this.makeRequest(
+        accessToken,
+        'GET',
+        `${this.DRIVE_API_BASE}/files`,
+        { params: myDriveParams },
+      );
       for (const file of myDriveResponse.data.files || []) {
         allFilesMap.set(file.id, file);
       }
@@ -295,13 +316,20 @@ export class GoogleSheetsService {
         pageSize,
         orderBy: 'modifiedTime desc',
       };
-      const sharedWithMeResponse = await this.makeRequest(accessToken, 'GET', `${this.DRIVE_API_BASE}/files`, { params: sharedWithMeParams });
+      const sharedWithMeResponse = await this.makeRequest(
+        accessToken,
+        'GET',
+        `${this.DRIVE_API_BASE}/files`,
+        { params: sharedWithMeParams },
+      );
       for (const file of sharedWithMeResponse.data.files || []) {
         if (!allFilesMap.has(file.id)) {
           allFilesMap.set(file.id, file);
         }
       }
-      this.logger.debug(`Found ${sharedWithMeResponse.data.files?.length || 0} shared spreadsheets`);
+      this.logger.debug(
+        `Found ${sharedWithMeResponse.data.files?.length || 0} shared spreadsheets`,
+      );
     } catch (error) {
       this.logger.error('Error fetching Shared with me files:', error.message);
     }
@@ -316,13 +344,20 @@ export class GoogleSheetsService {
         includeItemsFromAllDrives: true,
         corpora: 'allDrives',
       };
-      const sharedDrivesResponse = await this.makeRequest(accessToken, 'GET', `${this.DRIVE_API_BASE}/files`, { params: sharedDrivesParams });
+      const sharedDrivesResponse = await this.makeRequest(
+        accessToken,
+        'GET',
+        `${this.DRIVE_API_BASE}/files`,
+        { params: sharedDrivesParams },
+      );
       for (const file of sharedDrivesResponse.data.files || []) {
         if (!allFilesMap.has(file.id)) {
           allFilesMap.set(file.id, file);
         }
       }
-      this.logger.debug(`Found ${sharedDrivesResponse.data.files?.length || 0} shared drive spreadsheets`);
+      this.logger.debug(
+        `Found ${sharedDrivesResponse.data.files?.length || 0} shared drive spreadsheets`,
+      );
     } catch (error) {
       this.logger.debug('No shared drives access or error:', error.message);
     }
@@ -350,14 +385,18 @@ export class GoogleSheetsService {
   /**
    * Get spreadsheet details including all sheets
    */
-  async getSpreadsheet(userId: string, workspaceId: string, spreadsheetId: string): Promise<SpreadsheetDetailDto> {
+  async getSpreadsheet(
+    userId: string,
+    workspaceId: string,
+    spreadsheetId: string,
+  ): Promise<SpreadsheetDetailDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     const response = await this.makeRequest(
       accessToken,
       'GET',
       `${this.SHEETS_API_BASE}/spreadsheets/${spreadsheetId}`,
-      { params: { fields: 'spreadsheetId,properties,sheets.properties' } }
+      { params: { fields: 'spreadsheetId,properties,sheets.properties' } },
     );
 
     const data = response.data;
@@ -393,7 +432,7 @@ export class GoogleSheetsService {
     userId: string,
     workspaceId: string,
     title: string,
-    sheetNames?: string[]
+    sheetNames?: string[],
   ): Promise<CreateSpreadsheetResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -402,7 +441,7 @@ export class GoogleSheetsService {
     };
 
     if (sheetNames && sheetNames.length > 0) {
-      body.sheets = sheetNames.map(name => ({
+      body.sheets = sheetNames.map((name) => ({
         properties: { title: name },
       }));
     }
@@ -411,7 +450,7 @@ export class GoogleSheetsService {
       accessToken,
       'POST',
       `${this.SHEETS_API_BASE}/spreadsheets`,
-      { data: body }
+      { data: body },
     );
 
     return {
@@ -428,7 +467,7 @@ export class GoogleSheetsService {
     userId: string,
     workspaceId: string,
     spreadsheetId: string,
-    sheetName: string
+    sheetName: string,
   ): Promise<{ sheetId: number; title: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -448,7 +487,7 @@ export class GoogleSheetsService {
             },
           ],
         },
-      }
+      },
     );
 
     const addSheetResponse = response.data.replies?.[0]?.addSheet;
@@ -465,11 +504,13 @@ export class GoogleSheetsService {
     userId: string,
     workspaceId: string,
     spreadsheetId: string,
-    sheetName: string
+    sheetName: string,
   ): Promise<boolean> {
     try {
       const spreadsheet = await this.getSpreadsheet(userId, workspaceId, spreadsheetId);
-      return spreadsheet.sheets.some(sheet => sheet.title.toLowerCase() === sheetName.toLowerCase());
+      return spreadsheet.sheets.some(
+        (sheet) => sheet.title.toLowerCase() === sheetName.toLowerCase(),
+      );
     } catch {
       return false;
     }
@@ -483,14 +524,16 @@ export class GoogleSheetsService {
     workspaceId: string,
     spreadsheetId: string,
     sheetName: string,
-    headers?: string[]
+    headers?: string[],
   ): Promise<{ sheetId: number; title: string; isNew: boolean }> {
     // Check if sheet exists
     const exists = await this.sheetExists(userId, workspaceId, spreadsheetId, sheetName);
 
     if (exists) {
       const spreadsheet = await this.getSpreadsheet(userId, workspaceId, spreadsheetId);
-      const sheet = spreadsheet.sheets.find(s => s.title.toLowerCase() === sheetName.toLowerCase());
+      const sheet = spreadsheet.sheets.find(
+        (s) => s.title.toLowerCase() === sheetName.toLowerCase(),
+      );
       return { sheetId: sheet!.sheetId, title: sheet!.title, isNew: false };
     }
 
@@ -515,7 +558,7 @@ export class GoogleSheetsService {
     workspaceId: string,
     spreadsheetId: string,
     sheetName: string,
-    options: { range?: string; returnLinkToSheet?: boolean } = {}
+    options: { range?: string; returnLinkToSheet?: boolean } = {},
   ): Promise<GetRowsResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -524,7 +567,7 @@ export class GoogleSheetsService {
     const response = await this.makeRequest(
       accessToken,
       'GET',
-      `${this.SHEETS_API_BASE}/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(fullRange)}`
+      `${this.SHEETS_API_BASE}/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(fullRange)}`,
     );
 
     const result: GetRowsResponseDto = {
@@ -548,7 +591,7 @@ export class GoogleSheetsService {
     spreadsheetId: string,
     sheetName: string,
     values: any[][],
-    valueInputOption: 'RAW' | 'USER_ENTERED' = 'USER_ENTERED'
+    valueInputOption: 'RAW' | 'USER_ENTERED' = 'USER_ENTERED',
   ): Promise<RowOperationResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
     const range = `${sheetName}!A:ZZ`;
@@ -563,7 +606,7 @@ export class GoogleSheetsService {
           insertDataOption: 'INSERT_ROWS',
         },
         data: { values },
-      }
+      },
     );
 
     return {
@@ -586,7 +629,7 @@ export class GoogleSheetsService {
     sheetName: string,
     range: string,
     values: any[][],
-    valueInputOption: 'RAW' | 'USER_ENTERED' = 'USER_ENTERED'
+    valueInputOption: 'RAW' | 'USER_ENTERED' = 'USER_ENTERED',
   ): Promise<RowOperationResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
     const fullRange = `${sheetName}!${range}`;
@@ -598,7 +641,7 @@ export class GoogleSheetsService {
       {
         params: { valueInputOption },
         data: { values },
-      }
+      },
     );
 
     return {
@@ -625,7 +668,7 @@ export class GoogleSheetsService {
       valueToMatch?: string;
       valueInputOption?: 'RAW' | 'USER_ENTERED';
       appendIfNotFound?: boolean;
-    } = {}
+    } = {},
   ): Promise<RowOperationResponseDto> {
     const {
       columnToMatchOn,
@@ -640,11 +683,15 @@ export class GoogleSheetsService {
     if (!getResponse.values || getResponse.values.length === 0) {
       // No data in sheet, append as first row with headers
       const headers = Object.keys(columns);
-      const rowValues = headers.map(header => columns[header]);
+      const rowValues = headers.map((header) => columns[header]);
 
       const appendResponse = await this.appendRow(
-        userId, workspaceId, spreadsheetId, sheetName,
-        [headers, rowValues], valueInputOption
+        userId,
+        workspaceId,
+        spreadsheetId,
+        sheetName,
+        [headers, rowValues],
+        valueInputOption,
       );
 
       return {
@@ -659,16 +706,20 @@ export class GoogleSheetsService {
 
     // If no columnToMatchOn specified, just append
     if (!columnToMatchOn) {
-      const rowArray = headers.map(header => {
+      const rowArray = headers.map((header) => {
         const headerKey = Object.keys(columns).find(
-          key => key.toLowerCase() === header.toLowerCase()
+          (key) => key.toLowerCase() === header.toLowerCase(),
         );
         return headerKey !== undefined ? columns[headerKey] : '';
       });
 
       const appendResponse = await this.appendRow(
-        userId, workspaceId, spreadsheetId, sheetName,
-        [rowArray], valueInputOption
+        userId,
+        workspaceId,
+        spreadsheetId,
+        sheetName,
+        [rowArray],
+        valueInputOption,
       );
 
       return {
@@ -679,7 +730,7 @@ export class GoogleSheetsService {
 
     // Step 2: Find the column index for the matching column
     const matchColumnIndex = headers.findIndex(
-      header => header && header.toString().toLowerCase() === columnToMatchOn.toLowerCase()
+      (header) => header && header.toString().toLowerCase() === columnToMatchOn.toLowerCase(),
     );
 
     if (matchColumnIndex === -1) {
@@ -693,8 +744,11 @@ export class GoogleSheetsService {
         const row = sheetData[i];
         const cellValue = row[matchColumnIndex];
 
-        if (cellValue !== undefined && cellValue !== null &&
-            cellValue.toString() === valueToMatch.toString()) {
+        if (
+          cellValue !== undefined &&
+          cellValue !== null &&
+          cellValue.toString() === valueToMatch.toString()
+        ) {
           matchedRowIndex = i;
           break;
         }
@@ -707,7 +761,7 @@ export class GoogleSheetsService {
       const existingRow = sheetData[matchedRowIndex] || [];
       const rowArray = headers.map((header, index) => {
         const headerKey = Object.keys(columns).find(
-          key => key.toLowerCase() === header.toLowerCase()
+          (key) => key.toLowerCase() === header.toLowerCase(),
         );
         // If we have a new value for this column, use it; otherwise keep existing value
         if (headerKey !== undefined) {
@@ -721,8 +775,13 @@ export class GoogleSheetsService {
       const range = `A${rowNumber}:${this.columnIndexToLetter(headers.length - 1)}${rowNumber}`;
 
       const updateResponse = await this.updateRow(
-        userId, workspaceId, spreadsheetId, sheetName,
-        range, [rowArray], valueInputOption
+        userId,
+        workspaceId,
+        spreadsheetId,
+        sheetName,
+        range,
+        [rowArray],
+        valueInputOption,
       );
 
       return {
@@ -732,9 +791,9 @@ export class GoogleSheetsService {
       };
     } else {
       // For appending new rows, use empty strings for missing columns
-      const rowArray = headers.map(header => {
+      const rowArray = headers.map((header) => {
         const headerKey = Object.keys(columns).find(
-          key => key.toLowerCase() === header.toLowerCase()
+          (key) => key.toLowerCase() === header.toLowerCase(),
         );
         return headerKey !== undefined ? columns[headerKey] : '';
       });
@@ -744,8 +803,12 @@ export class GoogleSheetsService {
       }
 
       const appendResponse = await this.appendRow(
-        userId, workspaceId, spreadsheetId, sheetName,
-        [rowArray], valueInputOption
+        userId,
+        workspaceId,
+        spreadsheetId,
+        sheetName,
+        [rowArray],
+        valueInputOption,
       );
 
       return {
@@ -764,16 +827,16 @@ export class GoogleSheetsService {
     workspaceId: string,
     spreadsheetId: string,
     sheetName: string | undefined,
-    range: string
+    range: string,
   ): Promise<RowOperationResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
-    const fullRange = sheetName && range ? `${sheetName}!${range}` : (range || sheetName);
+    const fullRange = sheetName && range ? `${sheetName}!${range}` : range || sheetName;
 
     const response = await this.makeRequest(
       accessToken,
       'POST',
       `${this.SHEETS_API_BASE}/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(fullRange)}:clear`,
-      { data: {} }
+      { data: {} },
     );
 
     return {
@@ -790,7 +853,7 @@ export class GoogleSheetsService {
     userId: string,
     workspaceId: string,
     spreadsheetId: string,
-    sheetName: string
+    sheetName: string,
   ): Promise<ColumnHeaderDto[]> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
     const range = `${sheetName}!1:1`;
@@ -799,7 +862,7 @@ export class GoogleSheetsService {
       accessToken,
       'GET',
       `${this.SHEETS_API_BASE}/spreadsheets/${spreadsheetId}/values/${encodeURIComponent(range)}`,
-      { params: { valueRenderOption: 'FORMATTED_VALUE' } }
+      { params: { valueRenderOption: 'FORMATTED_VALUE' } },
     );
 
     if (!response.data.values || response.data.values.length === 0 || !response.data.values[0]) {
@@ -834,7 +897,7 @@ export class GoogleSheetsService {
     accessToken: string,
     method: string,
     url: string,
-    config: AxiosRequestConfig = {}
+    config: AxiosRequestConfig = {},
   ): Promise<any> {
     try {
       const response = await axios({
@@ -857,7 +920,9 @@ export class GoogleSheetsService {
         throw new NotFoundException('Spreadsheet or sheet not found');
       }
       this.logger.error('Google Sheets API error:', error.response?.data || error.message);
-      throw new BadRequestException(`Google Sheets API error: ${error.response?.data?.error?.message || error.message}`);
+      throw new BadRequestException(
+        `Google Sheets API error: ${error.response?.data?.error?.message || error.message}`,
+      );
     }
   }
 

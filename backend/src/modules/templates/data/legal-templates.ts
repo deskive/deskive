@@ -496,7 +496,14 @@ export const LEGAL_TEMPLATES = [
         name: 'Compliance Area',
         type: 'select',
         description: 'Area of compliance focus',
-        options: ['Anti-Corruption', 'Data Privacy', 'Antitrust', 'Securities', 'Employment', 'Environmental'],
+        options: [
+          'Anti-Corruption',
+          'Data Privacy',
+          'Antitrust',
+          'Securities',
+          'Employment',
+          'Environmental',
+        ],
         isRequired: true,
       },
       {
@@ -832,8 +839,7 @@ export const LEGAL_TEMPLATES = [
   {
     name: 'Mergers and Acquisitions',
     slug: 'mergers-acquisitions',
-    description:
-      'Manage M&A transactions from due diligence through closing and integration.',
+    description: 'Manage M&A transactions from due diligence through closing and integration.',
     category: 'legal',
     icon: 'GitMerge',
     color: '#8B5CF6',

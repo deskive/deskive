@@ -56,7 +56,11 @@ export class LangChainAgentService implements OnModuleInit {
    * Execute a command with the agent
    * Supports multi-step tool execution for complex tasks
    */
-  async execute(command: string, context: AgentContext, userLanguage: string = 'en'): Promise<AgentExecutionResult> {
+  async execute(
+    command: string,
+    context: AgentContext,
+    userLanguage: string = 'en',
+  ): Promise<AgentExecutionResult> {
     this.logger.log(`[AutoPilot] Executing: "${command.substring(0, 100)}..."`);
 
     // Set context in tools service for this execution
@@ -82,7 +86,9 @@ export class LangChainAgentService implements OnModuleInit {
       );
       memoryContext = relevantMemories.contextString;
       if (memoryContext) {
-        this.logger.log(`[AutoPilot] Retrieved ${relevantMemories.memories.length} memories, ${relevantMemories.preferences.length} preferences`);
+        this.logger.log(
+          `[AutoPilot] Retrieved ${relevantMemories.memories.length} memories, ${relevantMemories.preferences.length} preferences`,
+        );
       }
     } catch (memError) {
       this.logger.warn(`[AutoPilot] Failed to retrieve memories: ${memError.message}`);
@@ -102,9 +108,10 @@ export class LangChainAgentService implements OnModuleInit {
         this.logger.log(`[AutoPilot] Iteration ${iteration}/${MAX_ITERATIONS}`);
 
         // Build context from previous tool results
-        const previousToolContext = toolResults.length > 0
-          ? `\n\nPrevious tool results in this conversation:\n${toolResults.map((r, i) => `${i + 1}. ${r}`).join('\n')}`
-          : '';
+        const previousToolContext =
+          toolResults.length > 0
+            ? `\n\nPrevious tool results in this conversation:\n${toolResults.map((r, i) => `${i + 1}. ${r}`).join('\n')}`
+            : '';
 
         // Build the decision prompt with memory context
         const decisionPrompt = `${systemPrompt}
@@ -116,12 +123,16 @@ ${chatHistory ? `Previous conversation:\n${chatHistory}\n\n` : ''}${memoryContex
 
 TASK: Analyze what the user wants and decide the NEXT ACTION.
 
-${toolResults.length > 0 ? `
+${
+  toolResults.length > 0
+    ? `
 STATUS: You have already executed ${toolResults.length} tool(s). Review the results above.
 QUESTION: Is the user's request FULLY completed? If not, what's the next tool to call?
-` : `
+`
+    : `
 STATUS: This is the first step. Analyze what tools you need to complete the request.
-`}
+`
+}
 
 RESPOND WITH ONLY ONE OF THESE JSON FORMATS:
 
@@ -183,9 +194,10 @@ CRITICAL TIMEZONE HANDLING:
         let decisionText: string;
         try {
           const response = await this.openai.invoke(decisionPrompt);
-          decisionText = typeof response.content === 'string'
-            ? response.content
-            : JSON.stringify(response.content);
+          decisionText =
+            typeof response.content === 'string'
+              ? response.content
+              : JSON.stringify(response.content);
           this.logger.log('[AutoPilot] OpenAI response received');
         } catch (aiError) {
           this.logger.error(`[AutoPilot] OpenAI call failed: ${aiError.message}`);
@@ -198,7 +210,7 @@ CRITICAL TIMEZONE HANDLING:
 
         if (decision.use_tool && decision.tool_name) {
           // Find and execute the tool
-          const tool = tools.find(t => t.name === decision.tool_name);
+          const tool = tools.find((t) => t.name === decision.tool_name);
 
           if (tool) {
             this.logger.log(`[AutoPilot] Calling tool: ${decision.tool_name}`);
@@ -222,11 +234,12 @@ CRITICAL TIMEZONE HANDLING:
               // Add to tool results context for next iteration
               toolResults.push(`Tool "${decision.tool_name}" result: ${toolResult}`);
 
-              this.logger.log(`[AutoPilot] Tool ${decision.tool_name} executed successfully: ${isSuccess}`);
+              this.logger.log(
+                `[AutoPilot] Tool ${decision.tool_name} executed successfully: ${isSuccess}`,
+              );
 
               // Continue to next iteration to see if more tools are needed
               continueExecution = true;
-
             } catch (toolError) {
               this.logger.error(`[AutoPilot] Tool execution failed: ${toolError.message}`);
               actions.push({
@@ -268,29 +281,31 @@ Please provide a friendly, concise summary of what was done for the user.`;
 
         try {
           const summaryResponse = await this.openai.invoke(summaryPrompt);
-          output = typeof summaryResponse.content === 'string'
-            ? summaryResponse.content
-            : JSON.stringify(summaryResponse.content);
+          output =
+            typeof summaryResponse.content === 'string'
+              ? summaryResponse.content
+              : JSON.stringify(summaryResponse.content);
         } catch (summaryError) {
-          output = `I completed ${actions.length} action(s): ${actions.map(a => `${a.tool} (${a.success ? 'success' : 'failed'})`).join(', ')}`;
+          output = `I completed ${actions.length} action(s): ${actions.map((a) => `${a.tool} (${a.success ? 'success' : 'failed'})`).join(', ')}`;
         }
       }
 
       // Store episodic memory for significant interactions
-      if (actions.length > 0 && actions.some(a => a.success)) {
-        this.storeExecutionMemory(command, actions, output, context).catch(err => {
+      if (actions.length > 0 && actions.some((a) => a.success)) {
+        this.storeExecutionMemory(command, actions, output, context).catch((err) => {
           this.logger.warn(`[AutoPilot] Failed to store execution memory: ${err.message}`);
         });
       }
 
       return {
-        output: output || 'I processed your request but couldn\'t generate a response. Please try again.',
+        output:
+          output || "I processed your request but couldn't generate a response. Please try again.",
         actions,
-        reasoning: actions.length > 0
-          ? `Used ${actions.length} tool(s): ${actions.map(a => a.tool).join(', ')}`
-          : undefined,
+        reasoning:
+          actions.length > 0
+            ? `Used ${actions.length} tool(s): ${actions.map((a) => a.tool).join(', ')}`
+            : undefined,
       };
-
     } catch (error) {
       this.logger.error(`[AutoPilot] Execution error: ${error.message}`);
       throw error;
@@ -307,7 +322,7 @@ Please provide a friendly, concise summary of what was done for the user.`;
     context: AgentContext,
   ): Promise<void> {
     try {
-      const successfulActions = actions.filter(a => a.success);
+      const successfulActions = actions.filter((a) => a.success);
       if (successfulActions.length === 0) return;
 
       // Calculate importance based on action types
@@ -330,7 +345,7 @@ Please provide a friendly, concise summary of what was done for the user.`;
         tags,
         contextType,
         metadata: {
-          toolsUsed: successfulActions.map(a => a.tool),
+          toolsUsed: successfulActions.map((a) => a.tool),
           sessionId: context.sessionId,
         },
       });
@@ -348,8 +363,18 @@ Please provide a friendly, concise summary of what was done for the user.`;
    * Calculate importance score based on action types
    */
   private calculateMemoryImportance(actions: ExecutedAction[]): number {
-    const highImportanceActions = ['create_project', 'create_calendar_event', 'create_video_meeting', 'send_email'];
-    const mediumImportanceActions = ['create_task', 'create_note', 'update_task_status', 'send_channel_message'];
+    const highImportanceActions = [
+      'create_project',
+      'create_calendar_event',
+      'create_video_meeting',
+      'send_email',
+    ];
+    const mediumImportanceActions = [
+      'create_task',
+      'create_note',
+      'update_task_status',
+      'send_channel_message',
+    ];
 
     let maxImportance = 5;
     for (const action of actions) {
@@ -393,17 +418,19 @@ Please provide a friendly, concise summary of what was done for the user.`;
    * Build memory content from execution
    */
   private buildMemoryContent(command: string, actions: ExecutedAction[], output: string): string {
-    const actionSummary = actions.map(a => {
-      // Extract key info from output
-      try {
-        const parsed = JSON.parse(a.output || '{}');
-        if (parsed.name) return `${a.tool}: "${parsed.name}"`;
-        if (parsed.title) return `${a.tool}: "${parsed.title}"`;
-        return a.tool;
-      } catch {
-        return a.tool;
-      }
-    }).join(', ');
+    const actionSummary = actions
+      .map((a) => {
+        // Extract key info from output
+        try {
+          const parsed = JSON.parse(a.output || '{}');
+          if (parsed.name) return `${a.tool}: "${parsed.name}"`;
+          if (parsed.title) return `${a.tool}: "${parsed.title}"`;
+          return a.tool;
+        } catch {
+          return a.tool;
+        }
+      })
+      .join(', ');
 
     return `User request: "${command.substring(0, 200)}". Actions: ${actionSummary}. Result: ${output.substring(0, 200)}`;
   }
@@ -414,11 +441,14 @@ Please provide a friendly, concise summary of what was done for the user.`;
   private determineContextType(actions: ExecutedAction[]): ContextType | undefined {
     for (const action of actions) {
       if (action.tool.includes('task')) return ContextType.TASK;
-      if (action.tool.includes('calendar') || action.tool.includes('event')) return ContextType.CALENDAR;
+      if (action.tool.includes('calendar') || action.tool.includes('event'))
+        return ContextType.CALENDAR;
       if (action.tool.includes('note')) return ContextType.NOTE;
       if (action.tool.includes('project')) return ContextType.PROJECT;
-      if (action.tool.includes('video') || action.tool.includes('meeting')) return ContextType.MEETING;
-      if (action.tool.includes('message') || action.tool.includes('channel')) return ContextType.CHAT;
+      if (action.tool.includes('video') || action.tool.includes('meeting'))
+        return ContextType.MEETING;
+      if (action.tool.includes('message') || action.tool.includes('channel'))
+        return ContextType.CHAT;
       if (action.tool.includes('email')) return ContextType.EMAIL;
       if (action.tool.includes('file')) return ContextType.FILE;
     }
@@ -428,7 +458,10 @@ Please provide a friendly, concise summary of what was done for the user.`;
   /**
    * Learn preferences from user actions
    */
-  private async learnPreferencesFromActions(actions: ExecutedAction[], context: AgentContext): Promise<void> {
+  private async learnPreferencesFromActions(
+    actions: ExecutedAction[],
+    context: AgentContext,
+  ): Promise<void> {
     for (const action of actions) {
       try {
         const input = action.input || {};
@@ -475,7 +508,9 @@ Please provide a friendly, concise summary of what was done for the user.`;
     onStream: (event: { type: string; data: any }) => void,
     userLanguage: string = 'en',
   ): Promise<AgentExecutionResult> {
-    this.logger.log(`[AutoPilot] Executing with streaming: "${command.substring(0, 100)}..." [Language: ${userLanguage}]`);
+    this.logger.log(
+      `[AutoPilot] Executing with streaming: "${command.substring(0, 100)}..." [Language: ${userLanguage}]`,
+    );
 
     // Set context in tools service for this execution
     this.toolsService.setContext(context);
@@ -500,7 +535,9 @@ Please provide a friendly, concise summary of what was done for the user.`;
       );
       memoryContext = relevantMemories.contextString;
       if (memoryContext) {
-        this.logger.log(`[AutoPilot] Stream: Retrieved ${relevantMemories.memories.length} memories`);
+        this.logger.log(
+          `[AutoPilot] Stream: Retrieved ${relevantMemories.memories.length} memories`,
+        );
       }
     } catch (memError) {
       this.logger.warn(`[AutoPilot] Stream: Failed to retrieve memories: ${memError.message}`);
@@ -520,9 +557,10 @@ Please provide a friendly, concise summary of what was done for the user.`;
         this.logger.log(`[AutoPilot] Stream iteration ${iteration}/${MAX_ITERATIONS}`);
 
         // Build context from previous tool results
-        const previousToolContext = toolResults.length > 0
-          ? `\n\nPrevious tool results in this conversation:\n${toolResults.map((r, i) => `${i + 1}. ${r}`).join('\n')}`
-          : '';
+        const previousToolContext =
+          toolResults.length > 0
+            ? `\n\nPrevious tool results in this conversation:\n${toolResults.map((r, i) => `${i + 1}. ${r}`).join('\n')}`
+            : '';
 
         // Build the decision prompt with memory context
         const decisionPrompt = `${systemPrompt}
@@ -534,12 +572,16 @@ ${chatHistory ? `Previous conversation:\n${chatHistory}\n\n` : ''}${memoryContex
 
 TASK: Analyze what the user wants and decide the NEXT ACTION.
 
-${toolResults.length > 0 ? `
+${
+  toolResults.length > 0
+    ? `
 STATUS: You have already executed ${toolResults.length} tool(s). Review the results above.
 QUESTION: Is the user's request FULLY completed? If not, what's the next tool to call?
-` : `
+`
+    : `
 STATUS: This is the first step. Analyze what tools you need to complete the request.
-`}
+`
+}
 
 RESPOND WITH ONLY ONE OF THESE JSON FORMATS:
 
@@ -603,9 +645,10 @@ CRITICAL TIMEZONE HANDLING:
         let decisionText: string;
         try {
           const response = await this.openai.invoke(decisionPrompt);
-          decisionText = typeof response.content === 'string'
-            ? response.content
-            : JSON.stringify(response.content);
+          decisionText =
+            typeof response.content === 'string'
+              ? response.content
+              : JSON.stringify(response.content);
         } catch (aiError) {
           this.logger.error(`[AutoPilot] OpenAI call failed: ${aiError.message}`);
           throw new Error(`AI service error: ${aiError.message}`);
@@ -616,7 +659,7 @@ CRITICAL TIMEZONE HANDLING:
 
         if (decision.use_tool && decision.tool_name) {
           // Find and execute the tool
-          const tool = tools.find(t => t.name === decision.tool_name);
+          const tool = tools.find((t) => t.name === decision.tool_name);
 
           if (tool) {
             // Stream status: executing tool
@@ -655,7 +698,6 @@ CRITICAL TIMEZONE HANDLING:
               });
 
               continueExecution = true;
-
             } catch (toolError) {
               this.logger.error(`[AutoPilot] Tool execution failed: ${toolError.message}`);
               actions.push({
@@ -698,7 +740,10 @@ CRITICAL TIMEZONE HANDLING:
 
       // If we executed tools but didn't get a final response, generate one
       if (actions.length > 0 && !output) {
-        onStream({ type: 'status', data: { status: 'summarizing', message: 'Preparing summary...' } });
+        onStream({
+          type: 'status',
+          data: { status: 'summarizing', message: 'Preparing summary...' },
+        });
 
         const summaryPrompt = `${systemPrompt}
 
@@ -734,7 +779,7 @@ Please provide a friendly, concise summary of what was done for the user.`;
 
           output = fullResponse;
         } catch (summaryError) {
-          output = `I completed ${actions.length} action(s): ${actions.map(a => `${a.tool} (${a.success ? 'success' : 'failed'})`).join(', ')}`;
+          output = `I completed ${actions.length} action(s): ${actions.map((a) => `${a.tool} (${a.success ? 'success' : 'failed'})`).join(', ')}`;
           onStream({
             type: 'text',
             data: { content: output },
@@ -743,20 +788,21 @@ Please provide a friendly, concise summary of what was done for the user.`;
       }
 
       // Store episodic memory for significant interactions
-      if (actions.length > 0 && actions.some(a => a.success)) {
-        this.storeExecutionMemory(command, actions, output, context).catch(err => {
+      if (actions.length > 0 && actions.some((a) => a.success)) {
+        this.storeExecutionMemory(command, actions, output, context).catch((err) => {
           this.logger.warn(`[AutoPilot] Stream: Failed to store execution memory: ${err.message}`);
         });
       }
 
       return {
-        output: output || 'I processed your request but couldn\'t generate a response. Please try again.',
+        output:
+          output || "I processed your request but couldn't generate a response. Please try again.",
         actions,
-        reasoning: actions.length > 0
-          ? `Used ${actions.length} tool(s): ${actions.map(a => a.tool).join(', ')}`
-          : undefined,
+        reasoning:
+          actions.length > 0
+            ? `Used ${actions.length} tool(s): ${actions.map((a) => a.tool).join(', ')}`
+            : undefined,
       };
-
     } catch (error) {
       this.logger.error(`[AutoPilot] Stream execution error: ${error.message}`);
       throw error;
@@ -843,7 +889,7 @@ Please provide a friendly, concise summary of what was done for the user.`;
       en: 'IMPORTANT: Respond to the user in English.',
       ja: 'IMPORTANT: ユーザーには必ず日本語で応答してください。すべての回答、説明、メッセージは日本語で記述する必要があります。',
       es: 'IMPORTANTE: Responde al usuario en español.',
-      fr: 'IMPORTANT: Répondez à l\'utilisateur en français.',
+      fr: "IMPORTANT: Répondez à l'utilisateur en français.",
       de: 'WICHTIG: Antworten Sie dem Benutzer auf Deutsch.',
       zh: '重要提示：请用中文回复用户。',
       ko: '중요: 사용자에게 한국어로 응답하세요.',
@@ -1120,7 +1166,9 @@ Please provide a friendly, concise summary of what was done for the user.`;
             this.logger.warn('[AutoPilot] AI returned use_tool=true but no tool_name');
             return {
               use_tool: false,
-              response: parsed.explanation || 'I understood your request but encountered an issue. Please try again.',
+              response:
+                parsed.explanation ||
+                'I understood your request but encountered an issue. Please try again.',
             };
           }
         }
@@ -1156,8 +1204,10 @@ Please provide a friendly, concise summary of what was done for the user.`;
   private buildToolsDescription(tools: any[]): string {
     // Add example inputs for common tools to guide the AI
     const toolExamples: Record<string, string> = {
-      create_task: '{"title": "Review report", "description": "Review Q4 report", "priority": "high", "dueDate": "2026-01-15", "noteAttachments": ["note-uuid-from-create_note"]}',
-      create_calendar_event: '{"title": "Team Meeting", "startTime": "2026-01-03T14:00:00", "endTime": "2026-01-03T15:00:00", "description": "Weekly sync", "noteAttachments": ["note-uuid"]}',
+      create_task:
+        '{"title": "Review report", "description": "Review Q4 report", "priority": "high", "dueDate": "2026-01-15", "noteAttachments": ["note-uuid-from-create_note"]}',
+      create_calendar_event:
+        '{"title": "Team Meeting", "startTime": "2026-01-03T14:00:00", "endTime": "2026-01-03T15:00:00", "description": "Weekly sync", "noteAttachments": ["note-uuid"]}',
       list_calendar_events: '{"startDate": "2026-01-01", "endDate": "2026-01-07"}',
       send_channel_message: '{"channelId": "channel-uuid", "content": "Hello team!"}',
       search_messages: '{"query": "budget report"}',
@@ -1171,9 +1221,12 @@ Please provide a friendly, concise summary of what was done for the user.`;
       list_recent_files: '{"limit": 10}',
       create_note: '{"title": "Meeting Notes", "content": "Discussion about Q1 goals..."}',
       create_project: '{"name": "Q1 Marketing", "description": "Q1 marketing initiatives"}',
-      create_video_meeting: '{"title": "Team Sync", "scheduledStartTime": "2026-01-06T10:00:00", "scheduledEndTime": "2026-01-06T11:00:00"}',
-      send_direct_message: '{"recipientId": "user-uuid", "content": "Hi, can we discuss the project?"}',
-      send_email: '{"to": ["recipient@example.com"], "subject": "Meeting Follow-up", "body": "Thank you for attending..."}',
+      create_video_meeting:
+        '{"title": "Team Sync", "scheduledStartTime": "2026-01-06T10:00:00", "scheduledEndTime": "2026-01-06T11:00:00"}',
+      send_direct_message:
+        '{"recipientId": "user-uuid", "content": "Hi, can we discuss the project?"}',
+      send_email:
+        '{"to": ["recipient@example.com"], "subject": "Meeting Follow-up", "body": "Thank you for attending..."}',
       list_emails: '{"labelId": "INBOX", "limit": 10}',
       list_notes: '{"limit": 20}',
       search_notes: '{"query": "meeting notes"}',
@@ -1181,13 +1234,15 @@ Please provide a friendly, concise summary of what was done for the user.`;
       list_conversations: '{}',
     };
 
-    return tools.map(tool => {
-      const params = tool.schema ? this.describeSchema(tool.schema) : 'No parameters';
-      const example = toolExamples[tool.name] || '{}';
-      return `- ${tool.name}: ${tool.description}
+    return tools
+      .map((tool) => {
+        const params = tool.schema ? this.describeSchema(tool.schema) : 'No parameters';
+        const example = toolExamples[tool.name] || '{}';
+        return `- ${tool.name}: ${tool.description}
   Parameters: ${params}
   Example: ${example}`;
-    }).join('\n\n');
+      })
+      .join('\n\n');
   }
 
   /**
@@ -1300,14 +1355,20 @@ Please provide a friendly, concise summary of what was done for the user.`;
       contextInfo.push(`Selected project: ${context.selectedProjectId}`);
     }
     if (!context.executeActions) {
-      contextInfo.push('MODE: Preview only - DO NOT execute actions, just describe what would be done');
+      contextInfo.push(
+        'MODE: Preview only - DO NOT execute actions, just describe what would be done',
+      );
     }
 
     // Add info about attached images
     if (context.attachedImages && context.attachedImages.length > 0) {
       const imageNames = context.attachedImages.map((img: any) => img.name).join(', ');
-      contextInfo.push(`ATTACHED IMAGES: ${context.attachedImages.length} image(s) - ${imageNames}`);
-      contextInfo.push('IMPORTANT: To analyze these images, call the analyze_image tool with ONLY the "question" parameter (e.g., {"question": "What is in this image?"}). DO NOT provide imageUrl or imageBase64 - they are automatically loaded from context.');
+      contextInfo.push(
+        `ATTACHED IMAGES: ${context.attachedImages.length} image(s) - ${imageNames}`,
+      );
+      contextInfo.push(
+        'IMPORTANT: To analyze these images, call the analyze_image tool with ONLY the "question" parameter (e.g., {"question": "What is in this image?"}). DO NOT provide imageUrl or imageBase64 - they are automatically loaded from context.',
+      );
     }
 
     if (contextInfo.length > 0) {

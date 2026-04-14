@@ -25,10 +25,7 @@ export class LinearController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get Linear OAuth authorization URL' })
-  getAuthUrl(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: AuthenticatedRequest,
-  ) {
+  getAuthUrl(@Param('workspaceId') workspaceId: string, @Req() req: AuthenticatedRequest) {
     const userId = req.user.sub || req.user.userId;
     return this.linearOAuthService.getAuthorizationUrl(userId, workspaceId);
   }

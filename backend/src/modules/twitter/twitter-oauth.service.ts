@@ -44,14 +44,19 @@ export class TwitterOAuthService {
   constructor(private configService: ConfigService) {
     this.clientId = this.configService.get<string>('TWITTER_CLIENT_ID') || '';
     this.clientSecret = this.configService.get<string>('TWITTER_CLIENT_SECRET') || '';
-    this.redirectUri = this.configService.get<string>('TWITTER_REDIRECT_URI') ||
+    this.redirectUri =
+      this.configService.get<string>('TWITTER_REDIRECT_URI') ||
       `${this.configService.get<string>('API_URL')}/integrations/twitter/callback`;
   }
 
   /**
    * Generate OAuth authorization URL for Twitter (OAuth 2.0 with PKCE)
    */
-  getAuthorizationUrl(workspaceId: string, userId: string, returnUrl?: string): { url: string; state: string } {
+  getAuthorizationUrl(
+    workspaceId: string,
+    userId: string,
+    returnUrl?: string,
+  ): { url: string; state: string } {
     const state = this.generateState(workspaceId, userId, returnUrl);
 
     // Generate PKCE code verifier and challenge
@@ -116,7 +121,7 @@ export class TwitterOAuthService {
             'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Basic ${basicAuth}`,
           },
-        }
+        },
       );
 
       // Clean up code verifier
@@ -147,7 +152,7 @@ export class TwitterOAuthService {
             'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Basic ${basicAuth}`,
           },
-        }
+        },
       );
 
       return response.data;
@@ -162,17 +167,15 @@ export class TwitterOAuthService {
    */
   async getUserInfo(accessToken: string): Promise<TwitterUserResponse['data']> {
     try {
-      const response = await axios.get<TwitterUserResponse>(
-        'https://api.twitter.com/2/users/me',
-        {
-          params: {
-            'user.fields': 'id,name,username,profile_image_url,verified,public_metrics,created_at,description',
-          },
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const response = await axios.get<TwitterUserResponse>('https://api.twitter.com/2/users/me', {
+        params: {
+          'user.fields':
+            'id,name,username,profile_image_url,verified,public_metrics,created_at,description',
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       return response.data.data;
     } catch (error) {
@@ -199,7 +202,7 @@ export class TwitterOAuthService {
             'Content-Type': 'application/x-www-form-urlencoded',
             Authorization: `Basic ${basicAuth}`,
           },
-        }
+        },
       );
     } catch (error) {
       this.logger.error('Failed to revoke token:', error?.response?.data || error);

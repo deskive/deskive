@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsNumber, IsBoolean, IsArray, ValidateNested, IsUUID } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+  IsBoolean,
+  IsArray,
+  ValidateNested,
+  IsUUID,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export enum ProjectType {
@@ -7,21 +16,21 @@ export enum ProjectType {
   SCRUM = 'scrum',
   BUG_TRACKING = 'bug_tracking',
   FEATURE = 'feature',
-  RESEARCH = 'research'
+  RESEARCH = 'research',
 }
 
 export enum ProjectStatus {
   ACTIVE = 'active',
   ON_HOLD = 'on_hold',
   COMPLETED = 'completed',
-  ARCHIVED = 'archived'
+  ARCHIVED = 'archived',
 }
 
 export enum ProjectPriority {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  CRITICAL = 'critical'
+  CRITICAL = 'critical',
 }
 
 export class ProjectAttachmentsDto {
@@ -29,7 +38,7 @@ export class ProjectAttachmentsDto {
     description: 'Array of note attachment UUIDs',
     example: ['550e8400-e29b-41d4-a716-446655440000'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -40,7 +49,7 @@ export class ProjectAttachmentsDto {
     description: 'Array of file attachment UUIDs',
     example: ['660e8400-e29b-41d4-a716-446655440001'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -51,7 +60,7 @@ export class ProjectAttachmentsDto {
     description: 'Array of event attachment UUIDs',
     example: ['770e8400-e29b-41d4-a716-446655440002'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -87,30 +96,30 @@ export class CreateProjectDto {
   @IsString()
   description?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Project type',
     enum: ProjectType,
     example: ProjectType.KANBAN,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(ProjectType)
   type?: ProjectType = ProjectType.KANBAN;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Project status',
     enum: ProjectStatus,
     example: ProjectStatus.ACTIVE,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(ProjectStatus)
   status?: ProjectStatus = ProjectStatus.ACTIVE;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Project priority',
     enum: ProjectPriority,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(ProjectPriority)
@@ -154,7 +163,7 @@ export class CreateProjectDto {
   @ApiProperty({
     description: 'Kanban board stages',
     type: [KanbanStageDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -169,8 +178,8 @@ export class CreateProjectDto {
     example: {
       note_attachment: ['550e8400-e29b-41d4-a716-446655440000'],
       file_attachment: ['660e8400-e29b-41d4-a716-446655440001'],
-      event_attachment: ['770e8400-e29b-41d4-a716-446655440002']
-    }
+      event_attachment: ['770e8400-e29b-41d4-a716-446655440002'],
+    },
   })
   @IsOptional()
   @ValidateNested()
@@ -181,8 +190,11 @@ export class CreateProjectDto {
     description: 'Collaborative data including default assignees and team members',
     required: false,
     example: {
-      default_assignee_ids: ['550e8400-e29b-41d4-a716-446655440000', '660e8400-e29b-41d4-a716-446655440001']
-    }
+      default_assignee_ids: [
+        '550e8400-e29b-41d4-a716-446655440000',
+        '660e8400-e29b-41d4-a716-446655440001',
+      ],
+    },
   })
   @IsOptional()
   collaborative_data?: Record<string, any>;

@@ -316,7 +316,7 @@ export function BudgetCharts({ summary, expenses }: BudgetChartsProps) {
                   axisLine={{ strokeWidth: 0.5 }}
                 />
                 <Tooltip
-                  formatter={(value: number) => [formatCurrency(value), formatMessage({ id: 'budget.charts.totalSpent' })]}
+                  formatter={(value) => [formatCurrency(Number(value)), formatMessage({ id: 'budget.charts.totalSpent' })]}
                   contentStyle={{
                     backgroundColor: 'hsl(var(--background))',
                     border: '1px solid hsl(var(--border))',

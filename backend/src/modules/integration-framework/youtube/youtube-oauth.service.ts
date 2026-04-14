@@ -46,13 +46,16 @@ export class YoutubeOAuthService {
     const clientSecret = this.configService.get<string>('GOOGLE_OAUTH_CLIENT_SECRET');
 
     if (!clientId || !clientSecret) {
-      throw new Error('Google OAuth credentials not configured. Please set GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET');
+      throw new Error(
+        'Google OAuth credentials not configured. Please set GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET',
+      );
     }
 
     // Use unified Google OAuth redirect URI
     const apiUrl = this.configService.get<string>('API_URL') || 'http://localhost:3002';
-    const redirectUri = this.configService.get<string>('GOOGLE_OAUTH_REDIRECT_URI')
-      || `${apiUrl}/api/v1/integrations/google/callback`;
+    const redirectUri =
+      this.configService.get<string>('GOOGLE_OAUTH_REDIRECT_URI') ||
+      `${apiUrl}/api/v1/integrations/google/callback`;
 
     return { clientId, clientSecret, redirectUri };
   }
@@ -78,7 +81,12 @@ export class YoutubeOAuthService {
   /**
    * Decode and validate state parameter
    */
-  decodeState(state: string): { userId: string; workspaceId: string; returnUrl?: string; timestamp: number } {
+  decodeState(state: string): {
+    userId: string;
+    workspaceId: string;
+    returnUrl?: string;
+    timestamp: number;
+  } {
     try {
       const decoded = Buffer.from(state, 'base64url').toString('utf-8');
       const stateData = JSON.parse(decoded);
@@ -90,7 +98,9 @@ export class YoutubeOAuthService {
         throw new Error('State parameter expired. Please try again.');
       }
 
-      this.logger.log(`State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`);
+      this.logger.log(
+        `State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`,
+      );
       return stateData;
     } catch (error) {
       this.logger.error('Failed to decode state parameter:', error);
@@ -142,16 +152,10 @@ export class YoutubeOAuthService {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-        }
+        },
       );
 
-      const {
-        access_token,
-        refresh_token,
-        token_type,
-        expires_in,
-        scope,
-      } = response.data;
+      const { access_token, refresh_token, token_type, expires_in, scope } = response.data;
 
       this.logger.log('Successfully exchanged code for tokens');
 
@@ -164,7 +168,10 @@ export class YoutubeOAuthService {
         scope,
       };
     } catch (error: any) {
-      this.logger.error('Failed to exchange code for tokens:', error.response?.data || error.message);
+      this.logger.error(
+        'Failed to exchange code for tokens:',
+        error.response?.data || error.message,
+      );
       throw new Error('Failed to exchange authorization code for tokens');
     }
   }
@@ -190,15 +197,10 @@ export class YoutubeOAuthService {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-        }
+        },
       );
 
-      const {
-        access_token,
-        token_type,
-        expires_in,
-        scope,
-      } = response.data;
+      const { access_token, token_type, expires_in, scope } = response.data;
 
       this.logger.log('Successfully refreshed access token');
 
@@ -251,7 +253,7 @@ export class YoutubeOAuthService {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-        }
+        },
       );
 
       this.logger.log('Successfully revoked token');

@@ -57,7 +57,9 @@ export class EmailService {
     const userInfo = await this.oauthService.getUserInfo(tokens.accessToken);
 
     // Debug: Log user info to verify profile picture is being fetched
-    this.logger.log(`Gmail OAuth userInfo: email=${userInfo.email}, name=${userInfo.name}, picture=${userInfo.picture || 'NOT PROVIDED'}`);
+    this.logger.log(
+      `Gmail OAuth userInfo: email=${userInfo.email}, name=${userInfo.name}, picture=${userInfo.picture || 'NOT PROVIDED'}`,
+    );
 
     // Check for existing connection with the SAME email address
     // This allows multiple Gmail accounts with different email addresses
@@ -104,7 +106,7 @@ export class EmailService {
     userId: string,
     workspaceId: string,
     serverAuthCode: string,
-    userInfo: { email?: string; displayName?: string; photoUrl?: string }
+    userInfo: { email?: string; displayName?: string; photoUrl?: string },
   ): Promise<EmailConnectionDto> {
     // Exchange native auth code for tokens (no redirect_uri)
     const tokens = await this.oauthService.exchangeNativeCodeForTokens(serverAuthCode);
@@ -152,7 +154,9 @@ export class EmailService {
       connection = await this.db.insert('email_connections', connectionData);
     }
 
-    this.logger.log(`Gmail connected via native sign-in for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Gmail connected via native sign-in for user ${userId} in workspace ${workspaceId}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -167,7 +171,9 @@ export class EmailService {
 
     // Debug: Log connection data to verify profile_picture is stored
     if (connection) {
-      this.logger.log(`Gmail connection found: email=${connection.email_address}, profile_picture=${connection.profile_picture || 'NOT SET'}`);
+      this.logger.log(
+        `Gmail connection found: email=${connection.email_address}, profile_picture=${connection.profile_picture || 'NOT SET'}`,
+      );
     }
 
     if (!connection) {
@@ -239,14 +245,20 @@ export class EmailService {
       updated_at: new Date().toISOString(),
     });
 
-    this.logger.log(`Email connection ${connectionId} disconnected for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Email connection ${connectionId} disconnected for user ${userId} in workspace ${workspaceId}`,
+    );
   }
 
   /**
    * Get valid access token for Gmail API
    * @param connectionId - Optional specific connection ID. If not provided, returns first active Gmail connection.
    */
-  private async getValidAccessToken(userId: string, workspaceId: string, connectionId?: string): Promise<string> {
+  private async getValidAccessToken(
+    userId: string,
+    workspaceId: string,
+    connectionId?: string,
+  ): Promise<string> {
     let connection;
 
     if (connectionId) {
@@ -272,9 +284,14 @@ export class EmailService {
       throw new NotFoundException('Gmail not connected. Please connect your Gmail account first.');
     }
 
-    if (connection.expires_at && this.oauthService.isTokenExpired(new Date(connection.expires_at))) {
+    if (
+      connection.expires_at &&
+      this.oauthService.isTokenExpired(new Date(connection.expires_at))
+    ) {
       if (!connection.refresh_token) {
-        throw new BadRequestException('Access token expired and no refresh token available. Please reconnect Gmail.');
+        throw new BadRequestException(
+          'Access token expired and no refresh token available. Please reconnect Gmail.',
+        );
       }
 
       const newTokens = await this.oauthService.refreshAccessToken(connection.refresh_token);
@@ -302,7 +319,7 @@ export class EmailService {
       pageToken?: string;
       maxResults?: number;
       connectionId?: string;
-    } = {}
+    } = {},
   ): Promise<EmailListResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, options.connectionId);
 
@@ -324,7 +341,9 @@ export class EmailService {
       params.pageToken = pageToken;
     }
 
-    const response = await this.makeGmailRequest(accessToken, 'GET', '/users/me/messages', { params });
+    const response = await this.makeGmailRequest(accessToken, 'GET', '/users/me/messages', {
+      params,
+    });
 
     const emails: EmailListItemDto[] = [];
     if (response.data.messages) {
@@ -337,7 +356,7 @@ export class EmailService {
             accessToken,
             'GET',
             `/users/me/messages/${message.id}`,
-            { params: { format: 'metadata', metadataHeaders: ['From', 'To', 'Subject', 'Date'] } }
+            { params: { format: 'metadata', metadataHeaders: ['From', 'To', 'Subject', 'Date'] } },
           );
           emails.push(this.transformEmailListItem(fullMessage.data));
         } catch (error) {
@@ -353,14 +372,19 @@ export class EmailService {
     };
   }
 
-  async getMessage(userId: string, workspaceId: string, messageId: string, connectionId?: string): Promise<EmailDto> {
+  async getMessage(
+    userId: string,
+    workspaceId: string,
+    messageId: string,
+    connectionId?: string,
+  ): Promise<EmailDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
     const response = await this.makeGmailRequest(
       accessToken,
       'GET',
       `/users/me/messages/${messageId}`,
-      { params: { format: 'full' } }
+      { params: { format: 'full' } },
     );
 
     return this.transformEmail(response.data);
@@ -381,13 +405,11 @@ export class EmailService {
     const attachmentResponse = await this.makeGmailRequest(
       accessToken,
       'GET',
-      `/users/me/messages/${messageId}/attachments/${attachmentId}`
+      `/users/me/messages/${messageId}/attachments/${attachmentId}`,
     );
 
     // Gmail returns base64url encoded data
-    const base64Data = attachmentResponse.data.data
-      .replace(/-/g, '+')
-      .replace(/_/g, '/');
+    const base64Data = attachmentResponse.data.data.replace(/-/g, '+').replace(/_/g, '/');
     const buffer = Buffer.from(base64Data, 'base64');
 
     return {
@@ -397,7 +419,12 @@ export class EmailService {
     };
   }
 
-  async sendEmail(userId: string, workspaceId: string, dto: SendEmailDto, connectionId?: string): Promise<SendEmailResponseDto> {
+  async sendEmail(
+    userId: string,
+    workspaceId: string,
+    dto: SendEmailDto,
+    connectionId?: string,
+  ): Promise<SendEmailResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
     const rawMessage = this.createRawMessage({
@@ -426,7 +453,7 @@ export class EmailService {
     workspaceId: string,
     messageId: string,
     dto: ReplyEmailDto,
-    connectionId?: string
+    connectionId?: string,
   ): Promise<SendEmailResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
@@ -434,8 +461,8 @@ export class EmailService {
     const original = await this.getMessage(userId, workspaceId, messageId, connectionId);
 
     const replyTo = dto.replyAll
-      ? [...(original.to || []), ...(original.cc || [])].map(r => r.email)
-      : [original.from?.email].filter(Boolean) as string[];
+      ? [...(original.to || []), ...(original.cc || [])].map((r) => r.email)
+      : ([original.from?.email].filter(Boolean) as string[]);
 
     const subject = original.subject?.startsWith('Re:')
       ? original.subject
@@ -462,7 +489,13 @@ export class EmailService {
     };
   }
 
-  async deleteEmail(userId: string, workspaceId: string, messageId: string, permanent: boolean = false, connectionId?: string): Promise<void> {
+  async deleteEmail(
+    userId: string,
+    workspaceId: string,
+    messageId: string,
+    permanent: boolean = false,
+    connectionId?: string,
+  ): Promise<void> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
     if (permanent) {
@@ -475,24 +508,32 @@ export class EmailService {
     this.logger.log(`Email ${messageId} ${permanent ? 'permanently deleted' : 'moved to trash'}`);
   }
 
-  async markAsRead(userId: string, workspaceId: string, messageId: string, isRead: boolean = true, connectionId?: string): Promise<void> {
+  async markAsRead(
+    userId: string,
+    workspaceId: string,
+    messageId: string,
+    isRead: boolean = true,
+    connectionId?: string,
+  ): Promise<void> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
-    const body = isRead
-      ? { removeLabelIds: ['UNREAD'] }
-      : { addLabelIds: ['UNREAD'] };
+    const body = isRead ? { removeLabelIds: ['UNREAD'] } : { addLabelIds: ['UNREAD'] };
 
     await this.makeGmailRequest(accessToken, 'POST', `/users/me/messages/${messageId}/modify`, {
       data: body,
     });
   }
 
-  async starEmail(userId: string, workspaceId: string, messageId: string, isStarred: boolean = true, connectionId?: string): Promise<void> {
+  async starEmail(
+    userId: string,
+    workspaceId: string,
+    messageId: string,
+    isStarred: boolean = true,
+    connectionId?: string,
+  ): Promise<void> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
-    const body = isStarred
-      ? { addLabelIds: ['STARRED'] }
-      : { removeLabelIds: ['STARRED'] };
+    const body = isStarred ? { addLabelIds: ['STARRED'] } : { removeLabelIds: ['STARRED'] };
 
     await this.makeGmailRequest(accessToken, 'POST', `/users/me/messages/${messageId}/modify`, {
       data: body,
@@ -505,7 +546,7 @@ export class EmailService {
     messageId: string,
     addLabelIds?: string[],
     removeLabelIds?: string[],
-    connectionId?: string
+    connectionId?: string,
   ): Promise<void> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
@@ -533,7 +574,7 @@ export class EmailService {
     workspaceId: string,
     name: string,
     color?: { textColor: string; backgroundColor: string },
-    connectionId?: string
+    connectionId?: string,
   ): Promise<LabelDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId, connectionId);
 
@@ -556,13 +597,19 @@ export class EmailService {
 
   // ==================== Drafts ====================
 
-  async getDrafts(userId: string, workspaceId: string, pageToken?: string): Promise<{ drafts: any[]; nextPageToken?: string }> {
+  async getDrafts(
+    userId: string,
+    workspaceId: string,
+    pageToken?: string,
+  ): Promise<{ drafts: any[]; nextPageToken?: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     const params: any = { maxResults: 20 };
     if (pageToken) params.pageToken = pageToken;
 
-    const response = await this.makeGmailRequest(accessToken, 'GET', '/users/me/drafts', { params });
+    const response = await this.makeGmailRequest(accessToken, 'GET', '/users/me/drafts', {
+      params,
+    });
 
     return {
       drafts: response.data.drafts || [],
@@ -570,7 +617,11 @@ export class EmailService {
     };
   }
 
-  async createDraft(userId: string, workspaceId: string, dto: CreateDraftDto): Promise<DraftResponseDto> {
+  async createDraft(
+    userId: string,
+    workspaceId: string,
+    dto: CreateDraftDto,
+  ): Promise<DraftResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     const rawMessage = this.createRawMessage({
@@ -597,7 +648,12 @@ export class EmailService {
     };
   }
 
-  async updateDraft(userId: string, workspaceId: string, draftId: string, dto: CreateDraftDto): Promise<DraftResponseDto> {
+  async updateDraft(
+    userId: string,
+    workspaceId: string,
+    draftId: string,
+    dto: CreateDraftDto,
+  ): Promise<DraftResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     const rawMessage = this.createRawMessage({
@@ -611,11 +667,16 @@ export class EmailService {
       replyToMessageId: dto.replyToMessageId,
     });
 
-    const response = await this.makeGmailRequest(accessToken, 'PUT', `/users/me/drafts/${draftId}`, {
-      data: {
-        message: { raw: rawMessage, threadId: dto.threadId },
+    const response = await this.makeGmailRequest(
+      accessToken,
+      'PUT',
+      `/users/me/drafts/${draftId}`,
+      {
+        data: {
+          message: { raw: rawMessage, threadId: dto.threadId },
+        },
       },
-    });
+    );
 
     return {
       draftId: response.data.id,
@@ -636,7 +697,7 @@ export class EmailService {
     accessToken: string,
     method: string,
     endpoint: string,
-    config: { params?: any; data?: any } = {}
+    config: { params?: any; data?: any } = {},
   ): Promise<any> {
     const url = `${this.GMAIL_API_BASE}${endpoint}`;
 
@@ -661,7 +722,9 @@ export class EmailService {
         throw new NotFoundException('Email not found');
       }
       this.logger.error('Gmail API error:', error.response?.data || error.message);
-      throw new BadRequestException(`Gmail API error: ${error.response?.data?.error?.message || error.message}`);
+      throw new BadRequestException(
+        `Gmail API error: ${error.response?.data?.error?.message || error.message}`,
+      );
     }
   }
 
@@ -704,7 +767,9 @@ export class EmailService {
 
     this.logger.log(`transformEmail: messageId=${message.id}, hasPayload=${!!message.payload}`);
     const body = this.extractBody(message.payload);
-    this.logger.log(`transformEmail: bodyText=${body.text?.length || 0} chars, bodyHtml=${body.html?.length || 0} chars`);
+    this.logger.log(
+      `transformEmail: bodyText=${body.text?.length || 0} chars, bodyHtml=${body.html?.length || 0} chars`,
+    );
 
     return {
       id: message.id,
@@ -761,7 +826,10 @@ export class EmailService {
   private parseEmailAddresses(value: string | undefined): EmailAddressDto[] | undefined {
     if (!value) return undefined;
 
-    return value.split(',').map(addr => this.parseEmailAddress(addr.trim())).filter(Boolean) as EmailAddressDto[];
+    return value
+      .split(',')
+      .map((addr) => this.parseEmailAddress(addr.trim()))
+      .filter(Boolean) as EmailAddressDto[];
   }
 
   private extractBody(payload: any, depth: number = 0): { text?: string; html?: string } {
@@ -773,15 +841,17 @@ export class EmailService {
       return result;
     }
 
-    this.logger.log(`${indent}extractBody: mimeType=${payload.mimeType}, hasBody=${!!payload.body}, hasBodyData=${!!payload.body?.data}, partsCount=${payload.parts?.length || 0}`);
+    this.logger.log(
+      `${indent}extractBody: mimeType=${payload.mimeType}, hasBody=${!!payload.body}, hasBodyData=${!!payload.body?.data}, partsCount=${payload.parts?.length || 0}`,
+    );
 
     if (payload.body?.data) {
       // Gmail uses base64url encoding - convert to standard base64 before decoding
-      const base64Data = payload.body.data
-        .replace(/-/g, '+')
-        .replace(/_/g, '/');
+      const base64Data = payload.body.data.replace(/-/g, '+').replace(/_/g, '/');
       const decoded = Buffer.from(base64Data, 'base64').toString('utf-8');
-      this.logger.log(`${indent}extractBody: decoded ${decoded.length} chars for mimeType=${payload.mimeType}`);
+      this.logger.log(
+        `${indent}extractBody: decoded ${decoded.length} chars for mimeType=${payload.mimeType}`,
+      );
 
       if (payload.mimeType === 'text/plain') {
         result.text = decoded;
@@ -803,7 +873,9 @@ export class EmailService {
       }
     }
 
-    this.logger.log(`${indent}extractBody: returning text=${!!result.text} (${result.text?.length || 0}), html=${!!result.html} (${result.html?.length || 0})`);
+    this.logger.log(
+      `${indent}extractBody: returning text=${!!result.text} (${result.text?.length || 0}), html=${!!result.html} (${result.html?.length || 0})`,
+    );
     return result;
   }
 
@@ -913,16 +985,19 @@ export class EmailService {
       const attachmentParts: string[] = [];
       for (const attachment of options.attachments) {
         // Line-wrap base64 content at 76 characters (RFC 2045)
-        const wrappedContent = attachment.content.match(/.{1,76}/g)?.join('\r\n') || attachment.content;
+        const wrappedContent =
+          attachment.content.match(/.{1,76}/g)?.join('\r\n') || attachment.content;
 
-        attachmentParts.push([
-          `--${boundary}`,
-          `Content-Type: ${attachment.mimeType}; name="${attachment.filename}"`,
-          `Content-Disposition: attachment; filename="${attachment.filename}"`,
-          'Content-Transfer-Encoding: base64',
-          '',
-          wrappedContent,
-        ].join('\r\n'));
+        attachmentParts.push(
+          [
+            `--${boundary}`,
+            `Content-Type: ${attachment.mimeType}; name="${attachment.filename}"`,
+            `Content-Disposition: attachment; filename="${attachment.filename}"`,
+            'Content-Transfer-Encoding: base64',
+            '',
+            wrappedContent,
+          ].join('\r\n'),
+        );
       }
 
       // Final boundary
@@ -933,13 +1008,15 @@ export class EmailService {
         `--${boundary}--`,
       ].join('\r\n');
 
-      return Buffer.from(finalMessage).toString('base64')
+      return Buffer.from(finalMessage)
+        .toString('base64')
         .replace(/\+/g, '-')
         .replace(/\//g, '_')
         .replace(/=+$/, '');
     }
 
-    return Buffer.from(lines.join('\n')).toString('base64')
+    return Buffer.from(lines.join('\n'))
+      .toString('base64')
       .replace(/\+/g, '-')
       .replace(/\//g, '_')
       .replace(/=+$/, '');
@@ -963,19 +1040,21 @@ export class EmailService {
     const emailsToAnalyze = emails.slice(0, 10);
 
     // Build the prompt for AI analysis
-    const emailSummaries = emailsToAnalyze.map((email, index) => {
-      const sender = email.from?.name || email.from?.email || 'Unknown';
-      const subject = email.subject || '(No Subject)';
-      const snippet = email.snippet?.substring(0, 200) || '';
-      const isUnread = !email.isRead ? '[UNREAD]' : '';
-      const hasAttachment = email.hasAttachments ? '[HAS ATTACHMENTS]' : '';
+    const emailSummaries = emailsToAnalyze
+      .map((email, index) => {
+        const sender = email.from?.name || email.from?.email || 'Unknown';
+        const subject = email.subject || '(No Subject)';
+        const snippet = email.snippet?.substring(0, 200) || '';
+        const isUnread = !email.isRead ? '[UNREAD]' : '';
+        const hasAttachment = email.hasAttachments ? '[HAS ATTACHMENTS]' : '';
 
-      return `Email ${index + 1} (ID: ${email.id}):
+        return `Email ${index + 1} (ID: ${email.id}):
   From: ${sender}
   Subject: ${subject}
   Preview: ${snippet}
   ${isUnread} ${hasAttachment}`;
-    }).join('\n\n');
+      })
+      .join('\n\n');
 
     const prompt = `You are an email priority analyzer. Analyze the following emails and assign a priority score to each one.
 
@@ -1028,7 +1107,7 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
 
       // Return default priorities if AI fails
       return {
-        priorities: emailsToAnalyze.map(email => ({
+        priorities: emailsToAnalyze.map((email) => ({
           emailId: email.id,
           priority: {
             level: EmailPriorityLevel.NONE,
@@ -1077,15 +1156,17 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
 
       // If full parse fails, try to extract individual complete JSON objects
       // This handles truncated responses by salvaging what we can
-      const objectMatches = content.matchAll(/\{\s*"emailId"\s*:\s*"([^"]+)"[^}]*"level"\s*:\s*"([^"]+)"[^}]*"score"\s*:\s*(\d+)[^}]*"reason"\s*:\s*"([^"]*)"[^}]*"factors"\s*:\s*\[([^\]]*)\][^}]*\}/g);
+      const objectMatches = content.matchAll(
+        /\{\s*"emailId"\s*:\s*"([^"]+)"[^}]*"level"\s*:\s*"([^"]+)"[^}]*"score"\s*:\s*(\d+)[^}]*"reason"\s*:\s*"([^"]*)"[^}]*"factors"\s*:\s*\[([^\]]*)\][^}]*\}/g,
+      );
 
       const extractedItems: any[] = [];
       for (const match of objectMatches) {
         try {
           const factors = match[5]
             .split(',')
-            .map(f => f.trim().replace(/^"|"$/g, ''))
-            .filter(f => f.length > 0);
+            .map((f) => f.trim().replace(/^"|"$/g, ''))
+            .filter((f) => f.length > 0);
 
           extractedItems.push({
             emailId: match[1],
@@ -1100,7 +1181,9 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
       }
 
       if (extractedItems.length > 0) {
-        this.logger.log(`Extracted ${extractedItems.length} priority items from truncated response`);
+        this.logger.log(
+          `Extracted ${extractedItems.length} priority items from truncated response`,
+        );
         return this.mapPriorityResults(extractedItems, emails);
       }
 
@@ -1109,7 +1192,7 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
       this.logger.warn(`Failed to parse AI priority response: ${error.message}`);
 
       // Return default priorities for all emails
-      return emails.map(email => ({
+      return emails.map((email) => ({
         emailId: email.id,
         priority: {
           level: EmailPriorityLevel.NONE,
@@ -1134,7 +1217,7 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
     }
 
     // Map all emails, using parsed data if available, defaults otherwise
-    return emails.map(email => {
+    return emails.map((email) => {
       const item = parsedMap.get(email.id);
       if (item) {
         const level = this.normalizeLevel(item.level);
@@ -1188,7 +1271,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
         if (item.priority.level === EmailPriorityLevel.NONE) continue;
 
         // Upsert: update if exists, insert if not
-        const existingResult = await this.db.table('email_priorities')
+        const existingResult = await this.db
+          .table('email_priorities')
           .select('id')
           .where('workspace_id', '=', workspaceId)
           .where('user_id', '=', userId)
@@ -1199,7 +1283,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
 
         if (existingData.length > 0) {
           // Update existing
-          await this.db.table('email_priorities')
+          await this.db
+            .table('email_priorities')
             .where('id', '=', existingData[0].id)
             .update({
               level: item.priority.level,
@@ -1212,7 +1297,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
             .execute();
         } else {
           // Insert new
-          await this.db.table('email_priorities')
+          await this.db
+            .table('email_priorities')
             .insert({
               workspace_id: workspaceId,
               user_id: userId,
@@ -1246,7 +1332,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
       }
 
       // Query stored priorities - use whereIn pattern
-      const storedResult = await this.db.table('email_priorities')
+      const storedResult = await this.db
+        .table('email_priorities')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -1255,13 +1342,13 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
 
       const storedData = Array.isArray(storedResult?.data) ? storedResult.data : [];
 
-      const priorities = storedData.map(row => ({
+      const priorities = storedData.map((row) => ({
         emailId: row.email_id,
         priority: {
           level: row.level as EmailPriorityLevel,
           score: row.score,
           reason: row.reason || '',
-          factors: typeof row.factors === 'string' ? JSON.parse(row.factors) : (row.factors || []),
+          factors: typeof row.factors === 'string' ? JSON.parse(row.factors) : row.factors || [],
         },
       }));
 
@@ -1279,7 +1366,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
     connectionId: string,
   ): Promise<AnalyzeEmailPriorityResponseDto> {
     try {
-      const storedResult = await this.db.table('email_priorities')
+      const storedResult = await this.db
+        .table('email_priorities')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -1289,13 +1377,13 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
 
       const storedData = Array.isArray(storedResult?.data) ? storedResult.data : [];
 
-      const priorities = storedData.map(row => ({
+      const priorities = storedData.map((row) => ({
         emailId: row.email_id,
         priority: {
           level: row.level as EmailPriorityLevel,
           score: row.score,
           reason: row.reason || '',
-          factors: typeof row.factors === 'string' ? JSON.parse(row.factors) : (row.factors || []),
+          factors: typeof row.factors === 'string' ? JSON.parse(row.factors) : row.factors || [],
         },
       }));
 
@@ -1321,7 +1409,7 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
     this.logger.log(`Extracting travel info from email: ${subject}`);
 
     // Strip HTML tags for cleaner AI processing
-    let cleanBody = body
+    const cleanBody = body
       .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
       .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
       .replace(/<[^>]+>/g, ' ')
@@ -1345,7 +1433,8 @@ Respond ONLY with a valid JSON array in this exact format, no other text:
         );
 
         // Parse PDF to extract text using pdf-parse v2.x API
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+        // eslint-disable-next-line @typescript-eslint/no-require-imports
         const { PDFParse, VerbosityLevel } = require('pdf-parse');
         const pdfParser = new PDFParse({
           data: attachment.data,
@@ -1535,9 +1624,10 @@ Other rules:
     };
 
     const emoji = typeEmoji[ticketInfo.travelType] || '🚗';
-    const route = ticketInfo.departureLocation && ticketInfo.arrivalLocation
-      ? `${ticketInfo.departureLocation} → ${ticketInfo.arrivalLocation}`
-      : ticketInfo.departureLocation || ticketInfo.arrivalLocation || 'Travel';
+    const route =
+      ticketInfo.departureLocation && ticketInfo.arrivalLocation
+        ? `${ticketInfo.departureLocation} → ${ticketInfo.arrivalLocation}`
+        : ticketInfo.departureLocation || ticketInfo.arrivalLocation || 'Travel';
 
     const vehicleInfo = ticketInfo.vehicleNumber ? ` (${ticketInfo.vehicleNumber})` : '';
 
@@ -1553,7 +1643,9 @@ Other rules:
       lines.push(`Carrier: ${ticketInfo.carrier}`);
     }
     if (ticketInfo.vehicleNumber) {
-      lines.push(`${ticketInfo.travelType === TravelType.FLIGHT ? 'Flight' : ticketInfo.travelType === TravelType.TRAIN ? 'Train' : 'Vehicle'}: ${ticketInfo.vehicleNumber}`);
+      lines.push(
+        `${ticketInfo.travelType === TravelType.FLIGHT ? 'Flight' : ticketInfo.travelType === TravelType.TRAIN ? 'Train' : 'Vehicle'}: ${ticketInfo.vehicleNumber}`,
+      );
     }
     if (ticketInfo.bookingReference) {
       lines.push(`Booking Reference: ${ticketInfo.bookingReference}`);

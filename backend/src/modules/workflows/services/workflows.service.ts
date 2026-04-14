@@ -80,7 +80,8 @@ export class WorkflowsService {
   }
 
   async getWorkflow(workspaceId: string, workflowId: string): Promise<WorkflowResponseDto> {
-    const result = await this.db.table('workflows')
+    const result = await this.db
+      .table('workflows')
       .select('*')
       .where('id', '=', workflowId)
       .where('workspace_id', '=', workspaceId)
@@ -93,7 +94,8 @@ export class WorkflowsService {
     const workflow = this.transformWorkflow(result.data[0]);
 
     // Get steps
-    const stepsResult = await this.db.table('workflow_steps')
+    const stepsResult = await this.db
+      .table('workflow_steps')
       .select('*')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -114,9 +116,7 @@ export class WorkflowsService {
       offset?: number;
     },
   ): Promise<{ data: WorkflowResponseDto[]; total: number }> {
-    let query = this.db.table('workflows')
-      .select('*')
-      .where('workspace_id', '=', workspaceId);
+    let query = this.db.table('workflows').select('*').where('workspace_id', '=', workspaceId);
 
     if (options?.isActive !== undefined) {
       query = query.where('is_active', '=', options.isActive);
@@ -127,7 +127,8 @@ export class WorkflowsService {
     }
 
     // Get total count
-    const countResult = await this.db.table('workflows')
+    const countResult = await this.db
+      .table('workflows')
       .select('id')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -215,7 +216,8 @@ export class WorkflowsService {
     });
 
     // Update entity subscription active state
-    await this.db.table('workflow_entity_subscriptions')
+    await this.db
+      .table('workflow_entity_subscriptions')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute()
@@ -228,7 +230,8 @@ export class WorkflowsService {
       });
 
     // Update scheduled job active state
-    await this.db.table('workflow_scheduled_jobs')
+    await this.db
+      .table('workflow_scheduled_jobs')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute()
@@ -314,14 +317,16 @@ export class WorkflowsService {
     }> = [];
 
     // 1. Get scheduled jobs with upcoming runs
-    const scheduledJobsResult = await this.db.table('workflow_scheduled_jobs')
+    const scheduledJobsResult = await this.db
+      .table('workflow_scheduled_jobs')
       .select('*')
       .where('is_active', '=', true)
       .execute();
 
     for (const job of scheduledJobsResult.data || []) {
       // Get the workflow
-      const workflowResult = await this.db.table('workflows')
+      const workflowResult = await this.db
+        .table('workflows')
         .select('*')
         .where('id', '=', job.workflow_id)
         .where('workspace_id', '=', workspaceId)
@@ -338,9 +343,7 @@ export class WorkflowsService {
     }
 
     // 2. Get pending/running workflow executions
-    const executionsResult = await this.db.table('workflow_executions')
-      .select('*')
-      .execute();
+    const executionsResult = await this.db.table('workflow_executions').select('*').execute();
 
     for (const execution of executionsResult.data || []) {
       if (execution.status !== 'pending' && execution.status !== 'running') {
@@ -348,7 +351,8 @@ export class WorkflowsService {
       }
 
       // Get the workflow
-      const workflowResult = await this.db.table('workflows')
+      const workflowResult = await this.db
+        .table('workflows')
         .select('*')
         .where('id', '=', execution.workflow_id)
         .where('workspace_id', '=', workspaceId)
@@ -357,7 +361,8 @@ export class WorkflowsService {
       if (workflowResult.data?.[0]) {
         // Check if not already added as scheduled
         const existingIndex = pendingItems.findIndex(
-          (item) => item.workflow.id === workflowResult.data[0].id && item.pendingType === 'scheduled',
+          (item) =>
+            item.workflow.id === workflowResult.data[0].id && item.pendingType === 'scheduled',
         );
         if (existingIndex === -1) {
           pendingItems.push({
@@ -390,7 +395,11 @@ export class WorkflowsService {
     return { data: paginatedItems, total };
   }
 
-  async duplicateWorkflow(workspaceId: string, workflowId: string, userId: string): Promise<WorkflowResponseDto> {
+  async duplicateWorkflow(
+    workspaceId: string,
+    workflowId: string,
+    userId: string,
+  ): Promise<WorkflowResponseDto> {
     const original = await this.getWorkflow(workspaceId, workflowId);
 
     const newWorkflow = await this.createWorkflow(workspaceId, userId, {
@@ -419,7 +428,10 @@ export class WorkflowsService {
   // WORKFLOW STEPS
   // ============================================
 
-  async createWorkflowStep(workflowId: string, dto: CreateWorkflowStepDto): Promise<WorkflowStepResponseDto> {
+  async createWorkflowStep(
+    workflowId: string,
+    dto: CreateWorkflowStepDto,
+  ): Promise<WorkflowStepResponseDto> {
     const stepData = {
       workflow_id: workflowId,
       step_order: dto.stepOrder,
@@ -437,7 +449,10 @@ export class WorkflowsService {
     return this.transformWorkflowStep(result.data);
   }
 
-  async updateWorkflowStep(stepId: string, dto: UpdateWorkflowStepDto): Promise<WorkflowStepResponseDto> {
+  async updateWorkflowStep(
+    stepId: string,
+    dto: UpdateWorkflowStepDto,
+  ): Promise<WorkflowStepResponseDto> {
     const updateData: Record<string, any> = {
       updated_at: new Date().toISOString(),
     };
@@ -454,7 +469,8 @@ export class WorkflowsService {
 
     await this.db.update('workflow_steps', stepId, updateData);
 
-    const result = await this.db.table('workflow_steps')
+    const result = await this.db
+      .table('workflow_steps')
       .select('*')
       .where('id', '=', stepId)
       .execute();
@@ -467,7 +483,8 @@ export class WorkflowsService {
   }
 
   private async deleteWorkflowSteps(workflowId: string): Promise<void> {
-    const steps = await this.db.table('workflow_steps')
+    const steps = await this.db
+      .table('workflow_steps')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -508,7 +525,8 @@ export class WorkflowsService {
   }
 
   private async deleteEntitySubscriptions(workflowId: string): Promise<void> {
-    const subs = await this.db.table('workflow_entity_subscriptions')
+    const subs = await this.db
+      .table('workflow_entity_subscriptions')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -542,7 +560,8 @@ export class WorkflowsService {
   }
 
   private async deleteScheduledJobs(workflowId: string): Promise<void> {
-    const jobs = await this.db.table('workflow_scheduled_jobs')
+    const jobs = await this.db
+      .table('workflow_scheduled_jobs')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -582,7 +601,8 @@ export class WorkflowsService {
   }
 
   private async deleteWebhooks(workflowId: string): Promise<void> {
-    const webhooks = await this.db.table('workflow_webhooks')
+    const webhooks = await this.db
+      .table('workflow_webhooks')
       .select('id')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -629,7 +649,8 @@ export class WorkflowsService {
   }
 
   async getTemplate(templateId: string): Promise<any> {
-    const result = await this.db.table('automation_templates')
+    const result = await this.db
+      .table('automation_templates')
       .select('*')
       .where('id', '=', templateId)
       .execute();
@@ -675,7 +696,8 @@ export class WorkflowsService {
     });
 
     // Increment use count
-    await this.db.table('automation_templates')
+    await this.db
+      .table('automation_templates')
       .select('use_count')
       .where('id', '=', templateId)
       .execute()
@@ -730,7 +752,10 @@ export class WorkflowsService {
   // VALIDATION
   // ============================================
 
-  private async validateTriggerConfig(triggerType: WorkflowTriggerType, config: any): Promise<void> {
+  private async validateTriggerConfig(
+    triggerType: WorkflowTriggerType,
+    config: any,
+  ): Promise<void> {
     switch (triggerType) {
       case WorkflowTriggerType.ENTITY_CHANGE:
         if (!config.entityType || !config.eventType) {

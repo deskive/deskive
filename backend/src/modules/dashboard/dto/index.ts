@@ -10,5 +10,5 @@ export type {
   SprintSuggestionData,
   BillingSuggestionData,
   ChatMentionSuggestionData,
-  AnalyticsSuggestionData
+  AnalyticsSuggestionData,
 } from './dashboard.dto';

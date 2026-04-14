@@ -80,10 +80,7 @@ export class TemplatesController {
     type: Number,
     description: 'Items per page (default: 20, max: 100)',
   })
-  async findAll(
-    @Param('workspaceId') workspaceId: string,
-    @Query() query: TemplateQueryDto,
-  ) {
+  async findAll(@Param('workspaceId') workspaceId: string, @Query() query: TemplateQueryDto) {
     const result = await this.templatesService.findAll(workspaceId, query);
     return { data: result.templates, pagination: result.pagination };
   }
@@ -128,10 +125,7 @@ export class TemplatesController {
     status: 404,
     description: 'Template not found',
   })
-  async findOne(
-    @Param('workspaceId') workspaceId: string,
-    @Param('idOrSlug') idOrSlug: string,
-  ) {
+  async findOne(@Param('workspaceId') workspaceId: string, @Param('idOrSlug') idOrSlug: string) {
     const template = await this.templatesService.findOne(workspaceId, idOrSlug);
     return { data: template };
   }

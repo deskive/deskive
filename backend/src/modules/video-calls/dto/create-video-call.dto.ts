@@ -1,9 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, IsArray, IsEnum, IsDateString, MaxLength, IsNumber, Min, Max, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsEnum,
+  IsDateString,
+  MaxLength,
+  IsNumber,
+  Min,
+  Max,
+  IsObject,
+} from 'class-validator';
 
 export enum CallType {
   AUDIO = 'audio',
-  VIDEO = 'video'
+  VIDEO = 'video',
 }
 
 export enum VideoQuality {
@@ -11,7 +23,7 @@ export enum VideoQuality {
   MEDIUM = 'medium',
   HIGH = 'high',
   HD = 'hd',
-  FOUR_K = '4k'
+  FOUR_K = '4k',
 }
 
 export class CreateVideoCallDto {
@@ -20,7 +32,11 @@ export class CreateVideoCallDto {
   @MaxLength(200)
   title: string;
 
-  @ApiProperty({ description: 'Call description', example: 'Daily standup to discuss progress', required: false })
+  @ApiProperty({
+    description: 'Call description',
+    example: 'Daily standup to discuss progress',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   @MaxLength(1000)
@@ -46,7 +62,12 @@ export class CreateVideoCallDto {
   @IsBoolean()
   recording_enabled?: boolean = false;
 
-  @ApiProperty({ description: 'Video quality', enum: VideoQuality, example: VideoQuality.HD, required: false })
+  @ApiProperty({
+    description: 'Video quality',
+    enum: VideoQuality,
+    example: VideoQuality.HD,
+    required: false,
+  })
   @IsOptional()
   @IsEnum(VideoQuality)
   video_quality?: VideoQuality = VideoQuality.HD;
@@ -58,12 +79,20 @@ export class CreateVideoCallDto {
   @Max(500)
   max_participants?: number = 50;
 
-  @ApiProperty({ description: 'Scheduled start time (ISO 8601)', example: '2024-01-15T10:00:00Z', required: false })
+  @ApiProperty({
+    description: 'Scheduled start time (ISO 8601)',
+    example: '2024-01-15T10:00:00Z',
+    required: false,
+  })
   @IsOptional()
   @IsDateString()
   scheduled_start_time?: string;
 
-  @ApiProperty({ description: 'Scheduled end time (ISO 8601)', example: '2024-01-15T11:00:00Z', required: false })
+  @ApiProperty({
+    description: 'Scheduled end time (ISO 8601)',
+    example: '2024-01-15T11:00:00Z',
+    required: false,
+  })
   @IsOptional()
   @IsDateString()
   scheduled_end_time?: string;
@@ -73,7 +102,11 @@ export class CreateVideoCallDto {
   @IsBoolean()
   e2ee_enabled?: boolean = false;
 
-  @ApiProperty({ description: 'Lock room on join (no new participants after started)', example: false, required: false })
+  @ApiProperty({
+    description: 'Lock room on join (no new participants after started)',
+    example: false,
+    required: false,
+  })
   @IsOptional()
   @IsBoolean()
   lock_on_join?: boolean = false;
@@ -81,7 +114,7 @@ export class CreateVideoCallDto {
   @ApiProperty({
     description: 'Additional metadata (AI settings, location, recurrence, etc.)',
     example: { ai_features: true, ai_settings: {} },
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()

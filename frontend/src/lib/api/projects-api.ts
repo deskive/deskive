@@ -504,9 +504,7 @@ export const useProjects = (workspaceId: string, filters?: {
         setProjects(query.data.data);
       } else if (Array.isArray(query.data)) {
         setProjects(query.data);
-      } else {
       }
-    } else {
     }
   }, [query.data, setProjects]);
 

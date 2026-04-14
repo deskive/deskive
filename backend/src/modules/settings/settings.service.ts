@@ -43,10 +43,7 @@ export class SettingsService {
           sidebar_collapsed: false,
         };
 
-        const createResult = await this.db
-          .table('user_settings')
-          .insert(defaultSettings)
-          .execute();
+        const createResult = await this.db.table('user_settings').insert(defaultSettings).execute();
 
         userSettings = createResult.data?.[0] || defaultSettings;
       }
@@ -99,7 +96,9 @@ export class SettingsService {
         .where('user_id', '=', userId)
         .execute();
 
-      this.logger.log(`Notification settings updated successfully for user: ${userId}${timezone ? ` with timezone: ${timezone}` : ''}`);
+      this.logger.log(
+        `Notification settings updated successfully for user: ${userId}${timezone ? ` with timezone: ${timezone}` : ''}`,
+      );
 
       // Sync email notification setting with email_connections table
       await this.syncEmailNotificationSetting(userId, updatedSettings);
@@ -123,9 +122,12 @@ export class SettingsService {
       }
 
       // Check if email notifications are enabled (either push or inApp)
-      const notificationsEnabled = emailCategory.settings?.push === true || emailCategory.settings?.inApp === true;
+      const notificationsEnabled =
+        emailCategory.settings?.push === true || emailCategory.settings?.inApp === true;
 
-      this.logger.log(`Syncing email notifications for user ${userId}: enabled=${notificationsEnabled}`);
+      this.logger.log(
+        `Syncing email notifications for user ${userId}: enabled=${notificationsEnabled}`,
+      );
 
       // Update all email connections for this user
       await this.db
@@ -240,15 +242,23 @@ export class SettingsService {
       const userSettings = result.data?.[0];
 
       // If no settings exist or no tab arrangement, return default
-      if (!userSettings || !userSettings.tab_arrangement || Object.keys(userSettings.tab_arrangement).length === 0) {
+      if (
+        !userSettings ||
+        !userSettings.tab_arrangement ||
+        Object.keys(userSettings.tab_arrangement).length === 0
+      ) {
         this.logger.log(`No tab arrangement found for user ${userId}, returning default`);
         return this.getDefaultTabArrangement();
       }
 
       // Return stored tab arrangement with camelCase conversion
       return {
-        bottomNavTabIds: userSettings.tab_arrangement.bottomNavTabIds || this.getDefaultTabArrangement().bottomNavTabIds,
-        moreMenuTabIds: userSettings.tab_arrangement.moreMenuTabIds || this.getDefaultTabArrangement().moreMenuTabIds,
+        bottomNavTabIds:
+          userSettings.tab_arrangement.bottomNavTabIds ||
+          this.getDefaultTabArrangement().bottomNavTabIds,
+        moreMenuTabIds:
+          userSettings.tab_arrangement.moreMenuTabIds ||
+          this.getDefaultTabArrangement().moreMenuTabIds,
         lastModified: userSettings.tab_arrangement.lastModified || null,
       };
     } catch (error) {
@@ -287,7 +297,7 @@ export class SettingsService {
       }
 
       // Check for overlap between bottom nav and more menu
-      const overlap = dto.bottomNavTabIds.filter(id => dto.moreMenuTabIds.includes(id));
+      const overlap = dto.bottomNavTabIds.filter((id) => dto.moreMenuTabIds.includes(id));
       if (overlap.length > 0) {
         throw new BadRequestException(`Tabs cannot be in both sections: ${overlap.join(', ')}`);
       }

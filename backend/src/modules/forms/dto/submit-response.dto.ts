@@ -27,8 +27,8 @@ export class SubmitResponseDto {
   @ApiProperty({
     description: 'Response data as key-value pairs where key is fieldId',
     example: {
-      'field_1': { value: 'John Doe', label: 'Full Name' },
-      'field_2': { value: 'john@example.com', label: 'Email' },
+      field_1: { value: 'John Doe', label: 'Full Name' },
+      field_2: { value: 'john@example.com', label: 'Email' },
     },
   })
   @IsObject()

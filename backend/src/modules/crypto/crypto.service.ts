@@ -12,19 +12,21 @@ export class CryptoService {
   async storePublicKey(dto: UploadKeyDto) {
     try {
       // Check if key already exists for this user/device
-      const existing = await this.db.table('user_keys')
+      const existing = await this.db
+        .table('user_keys')
         .select('*')
         .where('user_id', '=', dto.userId)
         .where('device_id', '=', dto.deviceId)
         .execute();
 
-      const existingData = Array.isArray(existing) ? existing : (existing?.data || []);
+      const existingData = Array.isArray(existing) ? existing : existing?.data || [];
 
       if (existingData && existingData.length > 0) {
         // Update existing key
         console.log('[CryptoService] Updating existing key for user:', dto.userId);
 
-        const updated = await this.db.table('user_keys')
+        const updated = await this.db
+          .table('user_keys')
           .update({
             public_key: dto.publicKey,
             device_name: dto.deviceName,
@@ -37,7 +39,7 @@ export class CryptoService {
 
         console.log('[CryptoService] Update result:', updated);
 
-        const updatedData = Array.isArray(updated) ? updated[0] : (updated?.data?.[0] || updated);
+        const updatedData = Array.isArray(updated) ? updated[0] : updated?.data?.[0] || updated;
 
         if (!updatedData) {
           console.error('[CryptoService] Update failed - no data returned');
@@ -62,7 +64,8 @@ export class CryptoService {
         // Insert new key
         console.log('[CryptoService] Inserting new key for user:', dto.userId);
 
-        const result = await this.db.table('user_keys')
+        const result = await this.db
+          .table('user_keys')
           .insert({
             user_id: dto.userId,
             public_key: dto.publicKey,
@@ -78,7 +81,7 @@ export class CryptoService {
 
         console.log('[CryptoService] Insert result:', result);
 
-        const resultData = Array.isArray(result) ? result[0] : (result?.data?.[0] || result);
+        const resultData = Array.isArray(result) ? result[0] : result?.data?.[0] || result;
 
         if (!resultData) {
           console.error('[CryptoService] Insert failed - no data returned');
@@ -111,16 +114,17 @@ export class CryptoService {
    */
   async getPublicKeys(dto: GetPublicKeysDto) {
     try {
-      const keys = await this.db.table('user_keys')
+      const keys = await this.db
+        .table('user_keys')
         .select('user_id', 'public_key', 'device_id', 'device_name', 'is_active')
         .whereIn('user_id', dto.userIds)
         .where('is_active', '=', true)
         .execute();
 
-      const keysData = Array.isArray(keys) ? keys : (keys?.data || []);
+      const keysData = Array.isArray(keys) ? keys : keys?.data || [];
 
       return {
-        data: keysData.map(k => ({
+        data: keysData.map((k) => ({
           userId: k.user_id,
           publicKey: k.public_key,
           deviceId: k.device_id,
@@ -139,13 +143,14 @@ export class CryptoService {
    */
   async getPublicKey(userId: string) {
     try {
-      const keys = await this.db.table('user_keys')
+      const keys = await this.db
+        .table('user_keys')
         .select('*')
         .where('user_id', '=', userId)
         .where('is_active', '=', true)
         .execute();
 
-      const keysData = Array.isArray(keys) ? keys : (keys?.data || []);
+      const keysData = Array.isArray(keys) ? keys : keys?.data || [];
 
       if (!keysData || keysData.length === 0) {
         return {
@@ -155,9 +160,10 @@ export class CryptoService {
       }
 
       // Return the most recently used key
-      const mostRecent = keysData.sort((a, b) =>
-        new Date(b.last_used_at || b.created_at).getTime() -
-        new Date(a.last_used_at || a.created_at).getTime()
+      const mostRecent = keysData.sort(
+        (a, b) =>
+          new Date(b.last_used_at || b.created_at).getTime() -
+          new Date(a.last_used_at || a.created_at).getTime(),
       )[0];
 
       return {
@@ -182,19 +188,21 @@ export class CryptoService {
   async addConversationKey(dto: AddConversationKeyDto) {
     try {
       // Check if key already exists
-      const existing = await this.db.table('conversation_keys')
+      const existing = await this.db
+        .table('conversation_keys')
         .select('*')
         .where('conversation_id', '=', dto.conversationId)
         .where('user_id', '=', dto.userId)
         .execute();
 
-      const existingData = Array.isArray(existing) ? existing : (existing?.data || []);
+      const existingData = Array.isArray(existing) ? existing : existing?.data || [];
 
       if (existingData && existingData.length > 0) {
         // Update existing
         console.log('[CryptoService] Updating existing conversation key');
 
-        const updated = await this.db.table('conversation_keys')
+        const updated = await this.db
+          .table('conversation_keys')
           .update({
             encrypted_key: dto.encryptedKey,
             created_by: dto.createdBy,
@@ -207,7 +215,7 @@ export class CryptoService {
 
         console.log('[CryptoService] Update result:', updated);
 
-        const updatedData = Array.isArray(updated) ? updated[0] : (updated?.data?.[0] || updated);
+        const updatedData = Array.isArray(updated) ? updated[0] : updated?.data?.[0] || updated;
 
         if (!updatedData) {
           throw new Error('Failed to update conversation key');
@@ -226,7 +234,8 @@ export class CryptoService {
         // Insert new
         console.log('[CryptoService] Inserting new conversation key');
 
-        const result = await this.db.table('conversation_keys')
+        const result = await this.db
+          .table('conversation_keys')
           .insert({
             conversation_id: dto.conversationId,
             user_id: dto.userId,
@@ -241,7 +250,7 @@ export class CryptoService {
 
         console.log('[CryptoService] Insert result:', result);
 
-        const resultData = Array.isArray(result) ? result[0] : (result?.data?.[0] || result);
+        const resultData = Array.isArray(result) ? result[0] : result?.data?.[0] || result;
 
         if (!resultData) {
           throw new Error('Failed to insert conversation key');
@@ -268,13 +277,14 @@ export class CryptoService {
    */
   async getConversationKey(conversationId: string, userId: string) {
     try {
-      const keys = await this.db.table('conversation_keys')
+      const keys = await this.db
+        .table('conversation_keys')
         .select('*')
         .where('conversation_id', '=', conversationId)
         .where('user_id', '=', userId)
         .execute();
 
-      const keysData = Array.isArray(keys) ? keys : (keys?.data || []);
+      const keysData = Array.isArray(keys) ? keys : keys?.data || [];
 
       if (!keysData || keysData.length === 0) {
         return {
@@ -305,15 +315,16 @@ export class CryptoService {
    */
   async getUserDevices(userId: string) {
     try {
-      const devices = await this.db.table('user_keys')
+      const devices = await this.db
+        .table('user_keys')
         .select('*')
         .where('user_id', '=', userId)
         .execute();
 
-      const devicesData = Array.isArray(devices) ? devices : (devices?.data || []);
+      const devicesData = Array.isArray(devices) ? devices : devices?.data || [];
 
       return {
-        data: devicesData.map(d => ({
+        data: devicesData.map((d) => ({
           id: d.id,
           deviceId: d.device_id,
           deviceName: d.device_name,
@@ -334,7 +345,8 @@ export class CryptoService {
    */
   async deactivateDevice(userId: string, deviceId: string) {
     try {
-      await this.db.table('user_keys')
+      await this.db
+        .table('user_keys')
         .update({
           is_active: false,
           updated_at: new Date().toISOString(),

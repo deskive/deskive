@@ -50,7 +50,9 @@ describe('GoogleDriveOAuthService', () => {
       const result = service.getAuthorizationUrl('user-123', 'workspace-456');
 
       expect(result.authorizationUrl).toContain('https://accounts.google.com/o/oauth2/v2/auth');
-      expect(result.authorizationUrl).toContain('client_id=' + OAUTH_MOCK_CREDENTIALS.google.clientId);
+      expect(result.authorizationUrl).toContain(
+        'client_id=' + OAUTH_MOCK_CREDENTIALS.google.clientId,
+      );
       expect(result.authorizationUrl).toContain('scope=');
       expect(result.authorizationUrl).toContain('https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive');
     });

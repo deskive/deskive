@@ -5,7 +5,7 @@ export class UpdateWorkspaceSettingsDto {
   @ApiProperty({
     description: 'Workspace timezone',
     example: 'America/New_York',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -14,7 +14,7 @@ export class UpdateWorkspaceSettingsDto {
   @ApiProperty({
     description: 'Default currency for workspace',
     example: 'USD',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -23,7 +23,7 @@ export class UpdateWorkspaceSettingsDto {
   @ApiProperty({
     description: 'Default language for workspace',
     example: 'en',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -32,7 +32,7 @@ export class UpdateWorkspaceSettingsDto {
   @ApiProperty({
     description: 'Additional workspace settings as key-value pairs',
     example: { theme: 'dark', notifications: true },
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()

@@ -1,4 +1,10 @@
-import { Injectable, Logger, NotFoundException, ConflictException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ConflictException,
+  BadRequestException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
 import { InstallBotDto, UninstallBotDto } from '../dto/install-bot.dto';
 
@@ -35,10 +41,13 @@ export class BotInstallationsService {
     const locationField = dto.channelId ? 'channel_id' : 'conversation_id';
     const locationValue = dto.channelId || dto.conversationId;
 
-    this.logger.log(`[BotInstallations] Installing bot ${botId} to ${locationField}: ${locationValue}`);
+    this.logger.log(
+      `[BotInstallations] Installing bot ${botId} to ${locationField}: ${locationValue}`,
+    );
 
     // Check if already installed
-    const existing = await this.db.table('bot_installations')
+    const existing = await this.db
+      .table('bot_installations')
       .select('*')
       .where('bot_id', '=', botId)
       .where(locationField, '=', locationValue)
@@ -89,7 +98,8 @@ export class BotInstallationsService {
     const locationField = dto.channelId ? 'channel_id' : 'conversation_id';
     const locationValue = dto.channelId || dto.conversationId;
 
-    const result = await this.db.table('bot_installations')
+    const result = await this.db
+      .table('bot_installations')
       .select('*')
       .where('bot_id', '=', botId)
       .where(locationField, '=', locationValue)
@@ -106,32 +116,40 @@ export class BotInstallationsService {
       uninstalled_at: new Date().toISOString(),
     });
 
-    this.logger.log(`[BotInstallations] Uninstalled bot ${botId} from ${locationField}: ${locationValue}`);
+    this.logger.log(
+      `[BotInstallations] Uninstalled bot ${botId} from ${locationField}: ${locationValue}`,
+    );
   }
 
   /**
    * Get all installations for a bot
    */
   async findAllForBot(botId: string): Promise<BotInstallation[]> {
-    const result = await this.db.table('bot_installations')
+    const result = await this.db
+      .table('bot_installations')
       .select('*')
       .where('bot_id', '=', botId)
       .execute();
 
-    return (result.data || []).map((installation: any) => this.transformToInstallation(installation));
+    return (result.data || []).map((installation: any) =>
+      this.transformToInstallation(installation),
+    );
   }
 
   /**
    * Get active installations for a bot
    */
   async getActiveInstallations(botId: string): Promise<BotInstallation[]> {
-    const result = await this.db.table('bot_installations')
+    const result = await this.db
+      .table('bot_installations')
       .select('*')
       .where('bot_id', '=', botId)
       .where('is_active', '=', true)
       .execute();
 
-    return (result.data || []).map((installation: any) => this.transformToInstallation(installation));
+    return (result.data || []).map((installation: any) =>
+      this.transformToInstallation(installation),
+    );
   }
 
   /**
@@ -151,32 +169,41 @@ export class BotInstallationsService {
    * Get installations for a channel
    */
   async getInstallationsForChannel(channelId: string): Promise<BotInstallation[]> {
-    const result = await this.db.table('bot_installations')
+    const result = await this.db
+      .table('bot_installations')
       .select('*')
       .where('channel_id', '=', channelId)
       .where('is_active', '=', true)
       .execute();
 
-    return (result.data || []).map((installation: any) => this.transformToInstallation(installation));
+    return (result.data || []).map((installation: any) =>
+      this.transformToInstallation(installation),
+    );
   }
 
   /**
    * Get installations for a conversation
    */
   async getInstallationsForConversation(conversationId: string): Promise<BotInstallation[]> {
-    const result = await this.db.table('bot_installations')
+    const result = await this.db
+      .table('bot_installations')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .where('is_active', '=', true)
       .execute();
 
-    return (result.data || []).map((installation: any) => this.transformToInstallation(installation));
+    return (result.data || []).map((installation: any) =>
+      this.transformToInstallation(installation),
+    );
   }
 
   /**
    * Update installation settings override
    */
-  async updateSettingsOverride(installationId: string, settingsOverride: Record<string, any>): Promise<BotInstallation> {
+  async updateSettingsOverride(
+    installationId: string,
+    settingsOverride: Record<string, any>,
+  ): Promise<BotInstallation> {
     await this.findOne(installationId); // Verify exists
 
     await this.db.update('bot_installations', installationId, {

@@ -1,11 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsString,
-  IsOptional,
-  IsObject,
-  IsUUID,
-  IsUrl,
-} from 'class-validator';
+import { IsString, IsOptional, IsObject, IsUUID, IsUrl } from 'class-validator';
 import { ConnectionStatus } from '../interfaces/integration-config.interface';
 
 export class InitiateOAuthDto {

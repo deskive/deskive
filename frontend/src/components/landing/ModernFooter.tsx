@@ -1,15 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  Linkedin,
-  Facebook,
-  ArrowRight,
-  Github,
-  Sparkles
-} from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { useIntl } from 'react-intl';
-import { FaXTwitter } from 'react-icons/fa6';
-import { SITE_CONFIG } from '../../lib/config';
 
 interface FooterLink {
   label: string;
@@ -26,7 +18,6 @@ interface FooterSection {
 const ModernFooter: React.FC = () => {
   const navigate = useNavigate();
   const intl = useIntl();
-  const [email, setEmail] = useState('');
 
   const footerSections: FooterSection[] = [
     {
@@ -39,41 +30,8 @@ const ModernFooter: React.FC = () => {
         { label: intl.formatMessage({ id: 'footer.products.notes' }), href: '/products/notes' },
         { label: intl.formatMessage({ id: 'footer.products.videoCalls' }), href: '/products/video-calls' },
       ]
-    },
-    {
-      title: intl.formatMessage({ id: 'footer.sections.company' }),
-      links: [
-        { label: intl.formatMessage({ id: 'footer.company.pricing' }), href: '/#pricing', isHash: true },
-        { label: intl.formatMessage({ id: 'footer.company.faq', defaultMessage: 'FAQ' }), href: '/#faq', isHash: true },
-        { label: intl.formatMessage({ id: 'footer.company.contact' }), href: '/#contact', isHash: true },
-        { label: intl.formatMessage({ id: 'footer.company.support', defaultMessage: 'Support' }), href: '/support' },
-      ]
-    },
-    {
-      title: intl.formatMessage({ id: 'footer.sections.legal' }),
-      links: [
-        { label: intl.formatMessage({ id: 'footer.legal.privacy' }), href: '/privacy' },
-        { label: intl.formatMessage({ id: 'footer.legal.terms' }), href: '/terms' },
-        { label: intl.formatMessage({ id: 'footer.legal.cookies' }), href: '/cookies' },
-        { label: intl.formatMessage({ id: 'footer.legal.dataDeletion' }), href: '/data-deletion' },
-        { label: intl.formatMessage({ id: 'footer.legal.sitemap' }), href: '/sitemap.xml', isExternal: true },
-      ]
     }
   ];
-
-  const socialLinks: Array<{ icon: any; href: string; label: string }> = [
-    { icon: FaXTwitter, href: SITE_CONFIG.social.twitter, label: 'X' },
-    { icon: Facebook, href: SITE_CONFIG.social.facebook, label: 'Facebook' },
-    // { icon: Linkedin, href: SITE_CONFIG.social.linkedin, label: 'LinkedIn' },
-    // { icon: Github, href: SITE_CONFIG.social.github, label: 'GitHub' }
-  ];
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    console.log('Subscribe:', email);
-    setEmail('');
-  };
 
   return (
     <footer className="bg-gray-900 text-white">
@@ -110,25 +68,6 @@ const ModernFooter: React.FC = () => {
             <p className="text-gray-400 text-sm md:text-base max-w-sm leading-relaxed">
               {intl.formatMessage({ id: 'footer.tagline' })}
             </p>
-
-            {/* Social Links */}
-            <div className="flex space-x-3">
-              {socialLinks.map((social) => {
-                const IconComponent = social.icon;
-                return (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-gray-400 hover:bg-gradient-to-br hover:from-sky-500 hover:to-blue-600 hover:text-white transition-all duration-300"
-                    aria-label={social.label}
-                  >
-                    <IconComponent className="w-5 h-5" />
-                  </a>
-                );
-              })}
-            </div>
           </div>
 
           {/* Footer Links */}
@@ -155,13 +94,10 @@ const ModernFooter: React.FC = () => {
                           const hash = link.href.split('#')[1];
                           const basePath = link.href.split('#')[0] || '/';
 
-                          // If we're on a different page, navigate first then scroll
                           if (window.location.pathname !== basePath && basePath !== '/') {
                             navigate(link.href);
                           } else {
-                            // Same page or home page - just scroll to element
                             if (window.location.pathname !== '/' && basePath === '/') {
-                              // Navigate to home first, then scroll
                               navigate('/');
                               setTimeout(() => {
                                 const element = document.getElementById(hash);
@@ -197,41 +133,8 @@ const ModernFooter: React.FC = () => {
           ))}
         </div>
 
-        {/* Newsletter Section */}
-        <div className="py-10 md:py-12 border-y border-gray-800">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-            <div className="space-y-2">
-              <h3 className="text-xl md:text-2xl font-bold text-white">
-                {intl.formatMessage({ id: 'footer.newsletter.title' })}
-              </h3>
-              <p className="text-gray-400 text-sm md:text-base">
-                {intl.formatMessage({ id: 'footer.newsletter.description' })}
-              </p>
-            </div>
-            <div className="flex items-center">
-              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 w-full">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder={intl.formatMessage({ id: 'footer.newsletter.placeholder' })}
-                  required
-                  className="flex-1 px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent text-sm md:text-base"
-                />
-                <button
-                  type="submit"
-                  className="group px-5 md:px-6 py-3 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-semibold rounded-xl border-0 hover:scale-105 transition-all duration-300 flex items-center justify-center whitespace-nowrap text-sm md:text-base"
-                >
-                  {intl.formatMessage({ id: 'footer.newsletter.button' })}
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Section */}
-        <div className="pt-8 md:pt-10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+        <div className="pt-8 md:pt-10 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <p className="text-gray-400 text-xs md:text-sm">
             {intl.formatMessage({ id: 'footer.copyright' }, { year: new Date().getFullYear() })}
           </p>

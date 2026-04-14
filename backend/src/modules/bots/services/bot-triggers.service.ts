@@ -25,20 +25,33 @@ export class BotTriggersService {
   /**
    * Validate trigger config based on trigger type
    */
-  private validateTriggerConfig(triggerType: TriggerType, triggerConfig: Record<string, any>): void {
+  private validateTriggerConfig(
+    triggerType: TriggerType,
+    triggerConfig: Record<string, any>,
+  ): void {
     switch (triggerType) {
       case TriggerType.KEYWORD:
-        if (!triggerConfig.keywords || !Array.isArray(triggerConfig.keywords) || triggerConfig.keywords.length === 0) {
+        if (
+          !triggerConfig.keywords ||
+          !Array.isArray(triggerConfig.keywords) ||
+          triggerConfig.keywords.length === 0
+        ) {
           throw new BadRequestException('Keyword trigger requires at least one keyword');
         }
         // Ensure all keywords are non-empty strings
-        const validKeywords = triggerConfig.keywords.filter((k: any) => typeof k === 'string' && k.trim().length > 0);
+        const validKeywords = triggerConfig.keywords.filter(
+          (k: any) => typeof k === 'string' && k.trim().length > 0,
+        );
         if (validKeywords.length === 0) {
           throw new BadRequestException('Keyword trigger requires at least one non-empty keyword');
         }
         break;
       case TriggerType.REGEX:
-        if (!triggerConfig.pattern || typeof triggerConfig.pattern !== 'string' || triggerConfig.pattern.trim().length === 0) {
+        if (
+          !triggerConfig.pattern ||
+          typeof triggerConfig.pattern !== 'string' ||
+          triggerConfig.pattern.trim().length === 0
+        ) {
           throw new BadRequestException('Regex trigger requires a pattern');
         }
         // Validate regex pattern is valid
@@ -49,7 +62,11 @@ export class BotTriggersService {
         }
         break;
       case TriggerType.SCHEDULE:
-        if (!triggerConfig.cron || typeof triggerConfig.cron !== 'string' || triggerConfig.cron.trim().length === 0) {
+        if (
+          !triggerConfig.cron ||
+          typeof triggerConfig.cron !== 'string' ||
+          triggerConfig.cron.trim().length === 0
+        ) {
           throw new BadRequestException('Schedule trigger requires a cron expression');
         }
         break;
@@ -86,7 +103,8 @@ export class BotTriggersService {
    * Get all triggers for a bot
    */
   async findAllForBot(botId: string): Promise<BotTrigger[]> {
-    const result = await this.db.table('bot_triggers')
+    const result = await this.db
+      .table('bot_triggers')
       .select('*')
       .where('bot_id', '=', botId)
       .execute();
@@ -113,7 +131,8 @@ export class BotTriggersService {
    * Get active triggers for a bot
    */
   async getActiveTriggers(botId: string): Promise<BotTrigger[]> {
-    const result = await this.db.table('bot_triggers')
+    const result = await this.db
+      .table('bot_triggers')
       .select('*')
       .where('bot_id', '=', botId)
       .where('is_active', '=', true)
@@ -162,7 +181,8 @@ export class BotTriggersService {
     await this.findOne(triggerId); // Verify exists
 
     // Delete related cooldowns
-    const cooldowns = await this.db.table('bot_user_cooldowns')
+    const cooldowns = await this.db
+      .table('bot_user_cooldowns')
       .select('id')
       .where('trigger_id', '=', triggerId)
       .execute();
@@ -171,7 +191,8 @@ export class BotTriggersService {
     }
 
     // Delete related scheduled jobs
-    const jobs = await this.db.table('bot_scheduled_jobs')
+    const jobs = await this.db
+      .table('bot_scheduled_jobs')
       .select('id')
       .where('trigger_id', '=', triggerId)
       .execute();
@@ -192,7 +213,8 @@ export class BotTriggersService {
 
     const allTriggers: BotTrigger[] = [];
     for (const botId of botIds) {
-      const result = await this.db.table('bot_triggers')
+      const result = await this.db
+        .table('bot_triggers')
         .select('*')
         .where('bot_id', '=', botId)
         .where('trigger_type', '=', triggerType)

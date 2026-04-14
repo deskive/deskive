@@ -1,30 +1,40 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsDateString, IsBoolean, IsArray, IsUUID, IsEnum, IsObject, Allow } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsDateString,
+  IsBoolean,
+  IsArray,
+  IsUUID,
+  IsEnum,
+  IsObject,
+  Allow,
+} from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export enum EventVisibility {
   PRIVATE = 'private',
   PUBLIC = 'public',
-  INTERNAL = 'internal'
+  INTERNAL = 'internal',
 }
 
 export enum EventStatus {
   CONFIRMED = 'confirmed',
   TENTATIVE = 'tentative',
-  CANCELLED = 'cancelled'
+  CANCELLED = 'cancelled',
 }
 
 export enum EventPriority {
   LOW = 'low',
   NORMAL = 'normal',
   HIGH = 'high',
-  URGENT = 'urgent'
+  URGENT = 'urgent',
 }
 
 export class CreateEventDto {
   @ApiProperty({
     description: 'Event title',
-    example: 'Team Standup Meeting'
+    example: 'Team Standup Meeting',
   })
   @Transform(({ value }) => {
     if (value === undefined || value === null) return '';
@@ -33,25 +43,25 @@ export class CreateEventDto {
   @IsString()
   title: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event description',
     example: 'Daily standup to discuss project progress',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsString()
   description?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event start time',
-    example: '2024-01-15T10:00:00.000Z'
+    example: '2024-01-15T10:00:00.000Z',
   })
   @IsDateString()
   start_time: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event end time',
-    example: '2024-01-15T10:30:00.000Z'
+    example: '2024-01-15T10:30:00.000Z',
   })
   @IsDateString()
   end_time: string;
@@ -59,7 +69,7 @@ export class CreateEventDto {
   @ApiProperty({
     description: 'Whether this is an all-day event',
     example: false,
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -70,28 +80,28 @@ export class CreateEventDto {
   @IsBoolean()
   all_day?: boolean;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event location',
     example: 'Conference Room A',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsString()
   location?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Meeting room ID',
     example: 'uuid-here',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsUUID()
   room_id?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event category ID',
     example: 'uuid-here',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsUUID()
@@ -100,7 +110,7 @@ export class CreateEventDto {
   @ApiProperty({
     description: 'List of attendee email addresses',
     example: ['john@example.com', 'jane@example.com'],
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -132,40 +142,40 @@ export class CreateEventDto {
   @IsString({ each: true })
   attendees?: string[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Meeting URL (Zoom, Teams, etc.)',
     example: 'https://zoom.us/j/123456789',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsString()
   meeting_url?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event visibility',
     enum: EventVisibility,
     example: EventVisibility.PRIVATE,
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsEnum(EventVisibility)
   visibility?: EventVisibility;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event priority',
     enum: EventPriority,
     example: EventPriority.NORMAL,
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsEnum(EventPriority)
   priority?: EventPriority;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Event status',
     enum: EventStatus,
     example: EventStatus.CONFIRMED,
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsEnum(EventStatus)
@@ -174,7 +184,7 @@ export class CreateEventDto {
   @ApiProperty({
     description: 'Whether this is a recurring event',
     example: false,
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -188,7 +198,7 @@ export class CreateEventDto {
   @ApiProperty({
     description: 'Recurrence rule for recurring events',
     example: { frequency: 'weekly', interval: 1, daysOfWeek: ['monday', 'wednesday', 'friday'] },
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -206,16 +216,16 @@ export class CreateEventDto {
     frequency: 'daily' | 'weekly' | 'monthly' | 'yearly';
     interval?: number;
     daysOfWeek?: string[];
-    byWeekDay?: number[];  // Alternative format: array of day numbers (0=Sun, 1=Mon, etc.)
+    byWeekDay?: number[]; // Alternative format: array of day numbers (0=Sun, 1=Mon, etc.)
     endDate?: string;
-    until?: string;  // Alternative to endDate (ISO date string)
+    until?: string; // Alternative to endDate (ISO date string)
     occurrences?: number;
   };
 
   @ApiProperty({
     description: 'Reminder settings in minutes before event',
     example: [15, 60],
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -233,8 +243,13 @@ export class CreateEventDto {
 
   @ApiProperty({
     description: 'Unified attachments object containing file, note, event, and drive attachments',
-    example: { file_attachment: ['file-uuid-1'], note_attachment: ['note-uuid-1'], event_attachment: [], drive_attachment: [] },
-    required: false
+    example: {
+      file_attachment: ['file-uuid-1'],
+      note_attachment: ['note-uuid-1'],
+      event_attachment: [],
+      drive_attachment: [],
+    },
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {
@@ -242,7 +257,12 @@ export class CreateEventDto {
       try {
         return JSON.parse(value);
       } catch {
-        return { file_attachment: [], note_attachment: [], event_attachment: [], drive_attachment: [] };
+        return {
+          file_attachment: [],
+          note_attachment: [],
+          event_attachment: [],
+          drive_attachment: [],
+        };
       }
     }
     if (value && typeof value === 'object') {
@@ -250,7 +270,7 @@ export class CreateEventDto {
         file_attachment: Array.isArray(value.file_attachment) ? value.file_attachment : [],
         note_attachment: Array.isArray(value.note_attachment) ? value.note_attachment : [],
         event_attachment: Array.isArray(value.event_attachment) ? value.event_attachment : [],
-        drive_attachment: Array.isArray(value.drive_attachment) ? value.drive_attachment : []
+        drive_attachment: Array.isArray(value.drive_attachment) ? value.drive_attachment : [],
       };
     }
     return { file_attachment: [], note_attachment: [], event_attachment: [], drive_attachment: [] };
@@ -271,9 +291,10 @@ export class CreateEventDto {
   };
 
   @ApiProperty({
-    description: 'Array of file IDs embedded in the description content (for rich text images/files)',
+    description:
+      'Array of file IDs embedded in the description content (for rich text images/files)',
     example: ['file-uuid-1', 'file-uuid-2'],
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {

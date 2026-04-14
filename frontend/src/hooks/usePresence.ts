@@ -111,7 +111,6 @@ export const usePresence = (options: UsePresenceOptions = {}) => {
     if (!isConnected) return;
 
     let lastActivity = Date.now();
-    let activityTimeout: NodeJS.Timeout;
 
     const handleActivity = () => {
       lastActivity = Date.now();
@@ -140,7 +139,7 @@ export const usePresence = (options: UsePresenceOptions = {}) => {
     document.addEventListener('touchstart', handleActivity);
 
     // Check inactivity periodically
-    activityTimeout = setInterval(checkInactivity, updateInterval);
+    const activityTimeout = setInterval(checkInactivity, updateInterval);
 
     return () => {
       document.removeEventListener('mousedown', handleActivity);

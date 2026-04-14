@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const RE_LEASE_TEMPLATES = [
   {
@@ -20,29 +17,53 @@ export const RE_LEASE_TEMPLATES = [
         { insert: '{{lease_date}}', attributes: { bold: true } },
         { insert: ' between:\n\n' },
         { insert: 'LANDLORD:\n', attributes: { bold: true } },
-        { insert: '{{landlord_name}}\n{{landlord_address}}\nPhone: {{landlord_phone}}\nEmail: {{landlord_email}}\n\n' },
+        {
+          insert:
+            '{{landlord_name}}\n{{landlord_address}}\nPhone: {{landlord_phone}}\nEmail: {{landlord_email}}\n\n',
+        },
         { insert: 'TENANT(S):\n', attributes: { bold: true } },
         { insert: '{{tenant_names}}\n\n' },
         { insert: 'PROPERTY ADDRESS:\n', attributes: { bold: true } },
         { insert: '{{property_address}}\n\n' },
         { insert: '1. LEASE TERM\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{start_date}}\nEnd Date: {{end_date}}\nLease Type: {{lease_type}}\n\n' },
+        {
+          insert:
+            'Start Date: {{start_date}}\nEnd Date: {{end_date}}\nLease Type: {{lease_type}}\n\n',
+        },
         { insert: '2. RENT\n', attributes: { bold: true } },
-        { insert: 'Monthly Rent: {{monthly_rent}}\nDue Date: {{rent_due_day}} of each month\nLate Fee: {{late_fee}} after {{grace_period}} days\nPayment Method: {{payment_method}}\n\n' },
+        {
+          insert:
+            'Monthly Rent: {{monthly_rent}}\nDue Date: {{rent_due_day}} of each month\nLate Fee: {{late_fee}} after {{grace_period}} days\nPayment Method: {{payment_method}}\n\n',
+        },
         { insert: '3. SECURITY DEPOSIT\n', attributes: { bold: true } },
-        { insert: 'Amount: {{security_deposit}}\nTo be returned within {{deposit_return_days}} days after move-out, less any deductions.\n\n' },
+        {
+          insert:
+            'Amount: {{security_deposit}}\nTo be returned within {{deposit_return_days}} days after move-out, less any deductions.\n\n',
+        },
         { insert: '4. UTILITIES\n', attributes: { bold: true } },
         { insert: 'Landlord Pays: {{landlord_utilities}}\nTenant Pays: {{tenant_utilities}}\n\n' },
         { insert: '5. OCCUPANCY\n', attributes: { bold: true } },
-        { insert: 'Maximum Occupants: {{max_occupants}}\nOnly the following persons shall reside at the premises: {{authorized_occupants}}\n\n' },
+        {
+          insert:
+            'Maximum Occupants: {{max_occupants}}\nOnly the following persons shall reside at the premises: {{authorized_occupants}}\n\n',
+        },
         { insert: '6. PETS\n', attributes: { bold: true } },
-        { insert: 'Pets Allowed: {{pets_allowed}}\nPet Deposit: {{pet_deposit}}\nPet Rent: {{pet_rent}}\n\n' },
+        {
+          insert:
+            'Pets Allowed: {{pets_allowed}}\nPet Deposit: {{pet_deposit}}\nPet Rent: {{pet_rent}}\n\n',
+        },
         { insert: '7. MAINTENANCE AND REPAIRS\n', attributes: { bold: true } },
-        { insert: 'Tenant is responsible for: {{tenant_maintenance}}\nLandlord is responsible for: {{landlord_maintenance}}\n\n' },
+        {
+          insert:
+            'Tenant is responsible for: {{tenant_maintenance}}\nLandlord is responsible for: {{landlord_maintenance}}\n\n',
+        },
         { insert: '8. RULES AND REGULATIONS\n', attributes: { bold: true } },
         { insert: '{{rules}}\n\n' },
         { insert: '9. TERMINATION\n', attributes: { bold: true } },
-        { insert: 'Notice Required: {{termination_notice}} days\nEarly Termination Fee: {{early_termination_fee}}\n\n' },
+        {
+          insert:
+            'Notice Required: {{termination_notice}} days\nEarly Termination Fee: {{early_termination_fee}}\n\n',
+        },
         { insert: '10. GOVERNING LAW\n', attributes: { bold: true } },
         { insert: 'This Lease shall be governed by the laws of {{governing_state}}.\n\n' },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
@@ -60,7 +81,13 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'property_address', type: 'text', label: 'Property Address', required: true },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'end_date', type: 'date', label: 'End Date', required: true },
-      { key: 'lease_type', type: 'select', label: 'Lease Type', required: true, options: ['Fixed Term', 'Month-to-Month'] },
+      {
+        key: 'lease_type',
+        type: 'select',
+        label: 'Lease Type',
+        required: true,
+        options: ['Fixed Term', 'Month-to-Month'],
+      },
       { key: 'monthly_rent', type: 'currency', label: 'Monthly Rent', required: true },
       { key: 'rent_due_day', type: 'number', label: 'Rent Due Day', required: true },
       { key: 'late_fee', type: 'currency', label: 'Late Fee', required: true },
@@ -68,25 +95,70 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'payment_method', type: 'text', label: 'Payment Method', required: true },
       { key: 'security_deposit', type: 'currency', label: 'Security Deposit', required: true },
       { key: 'deposit_return_days', type: 'number', label: 'Deposit Return Days', required: true },
-      { key: 'landlord_utilities', type: 'text', label: 'Landlord-Paid Utilities', required: false },
+      {
+        key: 'landlord_utilities',
+        type: 'text',
+        label: 'Landlord-Paid Utilities',
+        required: false,
+      },
       { key: 'tenant_utilities', type: 'text', label: 'Tenant-Paid Utilities', required: false },
       { key: 'max_occupants', type: 'number', label: 'Maximum Occupants', required: true },
-      { key: 'authorized_occupants', type: 'textarea', label: 'Authorized Occupants', required: true },
-      { key: 'pets_allowed', type: 'select', label: 'Pets Allowed', required: true, options: ['Yes', 'No', 'With Approval'] },
+      {
+        key: 'authorized_occupants',
+        type: 'textarea',
+        label: 'Authorized Occupants',
+        required: true,
+      },
+      {
+        key: 'pets_allowed',
+        type: 'select',
+        label: 'Pets Allowed',
+        required: true,
+        options: ['Yes', 'No', 'With Approval'],
+      },
       { key: 'pet_deposit', type: 'currency', label: 'Pet Deposit', required: false },
       { key: 'pet_rent', type: 'currency', label: 'Monthly Pet Rent', required: false },
       { key: 'tenant_maintenance', type: 'textarea', label: 'Tenant Maintenance', required: true },
-      { key: 'landlord_maintenance', type: 'textarea', label: 'Landlord Maintenance', required: true },
+      {
+        key: 'landlord_maintenance',
+        type: 'textarea',
+        label: 'Landlord Maintenance',
+        required: true,
+      },
       { key: 'rules', type: 'textarea', label: 'Rules and Regulations', required: false },
-      { key: 'termination_notice', type: 'number', label: 'Termination Notice (Days)', required: true },
-      { key: 'early_termination_fee', type: 'currency', label: 'Early Termination Fee', required: false },
+      {
+        key: 'termination_notice',
+        type: 'number',
+        label: 'Termination Notice (Days)',
+        required: true,
+      },
+      {
+        key: 'early_termination_fee',
+        type: 'currency',
+        label: 'Early Termination Fee',
+        required: false,
+      },
       { key: 'governing_state', type: 'text', label: 'Governing State', required: true },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Commercial Lease Agreement',
@@ -108,15 +180,27 @@ export const RE_LEASE_TEMPLATES = [
         { insert: 'TENANT:\n', attributes: { bold: true } },
         { insert: '{{tenant_name}}\n{{tenant_address}}\n\n' },
         { insert: 'PREMISES:\n', attributes: { bold: true } },
-        { insert: 'Address: {{premises_address}}\nSquare Footage: {{square_footage}} sq ft\nUnit/Suite: {{unit_number}}\n\n' },
+        {
+          insert:
+            'Address: {{premises_address}}\nSquare Footage: {{square_footage}} sq ft\nUnit/Suite: {{unit_number}}\n\n',
+        },
         { insert: '1. LEASE TERM\n', attributes: { bold: true } },
-        { insert: 'Commencement Date: {{start_date}}\nExpiration Date: {{end_date}}\nRenewal Options: {{renewal_options}}\n\n' },
+        {
+          insert:
+            'Commencement Date: {{start_date}}\nExpiration Date: {{end_date}}\nRenewal Options: {{renewal_options}}\n\n',
+        },
         { insert: '2. BASE RENT\n', attributes: { bold: true } },
-        { insert: 'Annual Base Rent: {{annual_rent}}\nMonthly Rent: {{monthly_rent}}\nRent Per Square Foot: {{rent_per_sqft}}\n\n' },
+        {
+          insert:
+            'Annual Base Rent: {{annual_rent}}\nMonthly Rent: {{monthly_rent}}\nRent Per Square Foot: {{rent_per_sqft}}\n\n',
+        },
         { insert: '3. RENT ESCALATION\n', attributes: { bold: true } },
         { insert: '{{rent_escalation}}\n\n' },
         { insert: '4. ADDITIONAL RENT (CAM, Taxes, Insurance)\n', attributes: { bold: true } },
-        { insert: 'Lease Type: {{lease_structure}}\nEstimated CAM: {{estimated_cam}}\nBase Year: {{base_year}}\n\n' },
+        {
+          insert:
+            'Lease Type: {{lease_structure}}\nEstimated CAM: {{estimated_cam}}\nBase Year: {{base_year}}\n\n',
+        },
         { insert: '5. SECURITY DEPOSIT\n', attributes: { bold: true } },
         { insert: 'Amount: {{security_deposit}}\n\n' },
         { insert: '6. PERMITTED USE\n', attributes: { bold: true } },
@@ -124,9 +208,15 @@ export const RE_LEASE_TEMPLATES = [
         { insert: '7. TENANT IMPROVEMENTS\n', attributes: { bold: true } },
         { insert: 'Tenant Improvement Allowance: {{ti_allowance}}\n{{ti_terms}}\n\n' },
         { insert: '8. MAINTENANCE AND REPAIRS\n', attributes: { bold: true } },
-        { insert: 'Landlord Responsibilities: {{landlord_maintenance}}\nTenant Responsibilities: {{tenant_maintenance}}\n\n' },
+        {
+          insert:
+            'Landlord Responsibilities: {{landlord_maintenance}}\nTenant Responsibilities: {{tenant_maintenance}}\n\n',
+        },
         { insert: '9. INSURANCE REQUIREMENTS\n', attributes: { bold: true } },
-        { insert: 'General Liability: {{liability_coverage}}\nProperty Insurance: {{property_coverage}}\n\n' },
+        {
+          insert:
+            'General Liability: {{liability_coverage}}\nProperty Insurance: {{property_coverage}}\n\n',
+        },
         { insert: '10. ASSIGNMENT AND SUBLETTING\n', attributes: { bold: true } },
         { insert: '{{assignment_terms}}\n\n' },
         { insert: '11. DEFAULT AND REMEDIES\n', attributes: { bold: true } },
@@ -154,26 +244,66 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'monthly_rent', type: 'currency', label: 'Monthly Rent', required: true },
       { key: 'rent_per_sqft', type: 'currency', label: 'Rent Per Square Foot', required: false },
       { key: 'rent_escalation', type: 'textarea', label: 'Rent Escalation Terms', required: false },
-      { key: 'lease_structure', type: 'select', label: 'Lease Structure', required: true, options: ['Gross Lease', 'Net Lease', 'Double Net', 'Triple Net (NNN)', 'Modified Gross'] },
+      {
+        key: 'lease_structure',
+        type: 'select',
+        label: 'Lease Structure',
+        required: true,
+        options: ['Gross Lease', 'Net Lease', 'Double Net', 'Triple Net (NNN)', 'Modified Gross'],
+      },
       { key: 'estimated_cam', type: 'currency', label: 'Estimated Annual CAM', required: false },
       { key: 'base_year', type: 'number', label: 'Base Year', required: false },
       { key: 'security_deposit', type: 'currency', label: 'Security Deposit', required: true },
       { key: 'permitted_use', type: 'textarea', label: 'Permitted Use', required: true },
       { key: 'ti_allowance', type: 'currency', label: 'TI Allowance', required: false },
       { key: 'ti_terms', type: 'textarea', label: 'TI Terms', required: false },
-      { key: 'landlord_maintenance', type: 'textarea', label: 'Landlord Maintenance', required: true },
+      {
+        key: 'landlord_maintenance',
+        type: 'textarea',
+        label: 'Landlord Maintenance',
+        required: true,
+      },
       { key: 'tenant_maintenance', type: 'textarea', label: 'Tenant Maintenance', required: true },
-      { key: 'liability_coverage', type: 'text', label: 'Liability Coverage Required', required: true },
-      { key: 'property_coverage', type: 'text', label: 'Property Coverage Required', required: false },
-      { key: 'assignment_terms', type: 'textarea', label: 'Assignment/Subletting Terms', required: true },
+      {
+        key: 'liability_coverage',
+        type: 'text',
+        label: 'Liability Coverage Required',
+        required: true,
+      },
+      {
+        key: 'property_coverage',
+        type: 'text',
+        label: 'Property Coverage Required',
+        required: false,
+      },
+      {
+        key: 'assignment_terms',
+        type: 'textarea',
+        label: 'Assignment/Subletting Terms',
+        required: true,
+      },
       { key: 'default_terms', type: 'textarea', label: 'Default and Remedies', required: true },
       { key: 'governing_state', type: 'text', label: 'Governing State', required: true },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Sublease Agreement',
@@ -199,17 +329,26 @@ export const RE_LEASE_TEMPLATES = [
         { insert: 'PROPERTY:\n', attributes: { bold: true } },
         { insert: '{{property_address}}\n\n' },
         { insert: '1. ORIGINAL LEASE\n', attributes: { bold: true } },
-        { insert: 'This sublease is subject to the Master Lease dated {{master_lease_date}} between Sublessor and Landlord.\n\n' },
+        {
+          insert:
+            'This sublease is subject to the Master Lease dated {{master_lease_date}} between Sublessor and Landlord.\n\n',
+        },
         { insert: '2. SUBLEASE TERM\n', attributes: { bold: true } },
         { insert: 'Start Date: {{start_date}}\nEnd Date: {{end_date}}\n\n' },
         { insert: '3. RENT\n', attributes: { bold: true } },
-        { insert: 'Monthly Rent: {{monthly_rent}}\nDue Date: {{rent_due_day}} of each month\nPayable to: {{payable_to}}\n\n' },
+        {
+          insert:
+            'Monthly Rent: {{monthly_rent}}\nDue Date: {{rent_due_day}} of each month\nPayable to: {{payable_to}}\n\n',
+        },
         { insert: '4. SECURITY DEPOSIT\n', attributes: { bold: true } },
         { insert: 'Amount: {{security_deposit}}\n\n' },
         { insert: '5. LANDLORD CONSENT\n', attributes: { bold: true } },
         { insert: 'Landlord Consent: {{landlord_consent}}\n\n' },
         { insert: '6. SUBLESSOR RESPONSIBILITIES\n', attributes: { bold: true } },
-        { insert: 'Sublessor remains liable under the Master Lease and agrees to:\n{{sublessor_responsibilities}}\n\n' },
+        {
+          insert:
+            'Sublessor remains liable under the Master Lease and agrees to:\n{{sublessor_responsibilities}}\n\n',
+        },
         { insert: '7. SUBLESSEE RESPONSIBILITIES\n', attributes: { bold: true } },
         { insert: 'Sublessee agrees to:\n{{sublessee_responsibilities}}\n\n' },
         { insert: '8. CONDITION OF PREMISES\n', attributes: { bold: true } },
@@ -238,18 +377,58 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'rent_due_day', type: 'number', label: 'Rent Due Day', required: true },
       { key: 'payable_to', type: 'text', label: 'Rent Payable To', required: true },
       { key: 'security_deposit', type: 'currency', label: 'Security Deposit', required: true },
-      { key: 'landlord_consent', type: 'select', label: 'Landlord Consent', required: true, options: ['Obtained', 'Pending', 'Not Required'] },
-      { key: 'sublessor_responsibilities', type: 'textarea', label: 'Sublessor Responsibilities', required: true },
-      { key: 'sublessee_responsibilities', type: 'textarea', label: 'Sublessee Responsibilities', required: true },
-      { key: 'premises_condition', type: 'textarea', label: 'Condition of Premises', required: true },
+      {
+        key: 'landlord_consent',
+        type: 'select',
+        label: 'Landlord Consent',
+        required: true,
+        options: ['Obtained', 'Pending', 'Not Required'],
+      },
+      {
+        key: 'sublessor_responsibilities',
+        type: 'textarea',
+        label: 'Sublessor Responsibilities',
+        required: true,
+      },
+      {
+        key: 'sublessee_responsibilities',
+        type: 'textarea',
+        label: 'Sublessee Responsibilities',
+        required: true,
+      },
+      {
+        key: 'premises_condition',
+        type: 'textarea',
+        label: 'Condition of Premises',
+        required: true,
+      },
       { key: 'termination_terms', type: 'textarea', label: 'Termination Terms', required: true },
     ],
     signatureFields: [
-      { id: 'sublessor_signature', label: 'Sublessor Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'sublessee_signature', label: 'Sublessee Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'landlord_signature', label: 'Landlord Signature', required: false, position: { page: 1, x: 100, y: 760 } },
+      {
+        id: 'sublessor_signature',
+        label: 'Sublessor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'sublessee_signature',
+        label: 'Sublessee Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 760 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Rental Application',
@@ -263,31 +442,57 @@ export const RE_LEASE_TEMPLATES = [
     content: {
       ops: [
         { insert: 'RENTAL APPLICATION\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProperty Address: {{property_address}}\nApplication Date: {{application_date}}\nDesired Move-In Date: {{desired_move_in}}\nMonthly Rent: {{monthly_rent}}\n\n' },
+        {
+          insert:
+            '\nProperty Address: {{property_address}}\nApplication Date: {{application_date}}\nDesired Move-In Date: {{desired_move_in}}\nMonthly Rent: {{monthly_rent}}\n\n',
+        },
         { insert: 'APPLICANT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Full Name: {{applicant_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nDriver\'s License: {{drivers_license}}\nPhone: {{phone}}\nEmail: {{email}}\n\n' },
+        {
+          insert:
+            "Full Name: {{applicant_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nDriver's License: {{drivers_license}}\nPhone: {{phone}}\nEmail: {{email}}\n\n",
+        },
         { insert: 'CURRENT ADDRESS\n', attributes: { bold: true } },
-        { insert: 'Address: {{current_address}}\nHow Long: {{current_duration}}\nReason for Moving: {{reason_moving}}\nCurrent Landlord: {{current_landlord}}\nLandlord Phone: {{current_landlord_phone}}\nCurrent Rent: {{current_rent}}\n\n' },
+        {
+          insert:
+            'Address: {{current_address}}\nHow Long: {{current_duration}}\nReason for Moving: {{reason_moving}}\nCurrent Landlord: {{current_landlord}}\nLandlord Phone: {{current_landlord_phone}}\nCurrent Rent: {{current_rent}}\n\n',
+        },
         { insert: 'PREVIOUS ADDRESS\n', attributes: { bold: true } },
-        { insert: 'Address: {{previous_address}}\nHow Long: {{previous_duration}}\nLandlord: {{previous_landlord}}\nLandlord Phone: {{previous_landlord_phone}}\n\n' },
+        {
+          insert:
+            'Address: {{previous_address}}\nHow Long: {{previous_duration}}\nLandlord: {{previous_landlord}}\nLandlord Phone: {{previous_landlord_phone}}\n\n',
+        },
         { insert: 'EMPLOYMENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Employer: {{employer_name}}\nPosition: {{position}}\nEmployer Address: {{employer_address}}\nEmployer Phone: {{employer_phone}}\nSupervisor: {{supervisor}}\nMonthly Income: {{monthly_income}}\nEmployed Since: {{employed_since}}\n\n' },
+        {
+          insert:
+            'Employer: {{employer_name}}\nPosition: {{position}}\nEmployer Address: {{employer_address}}\nEmployer Phone: {{employer_phone}}\nSupervisor: {{supervisor}}\nMonthly Income: {{monthly_income}}\nEmployed Since: {{employed_since}}\n\n',
+        },
         { insert: 'ADDITIONAL INCOME\n', attributes: { bold: true } },
         { insert: '{{additional_income}}\n\n' },
         { insert: 'OCCUPANTS\n', attributes: { bold: true } },
-        { insert: 'Number of Occupants: {{num_occupants}}\nNames and Ages:\n{{occupant_list}}\n\n' },
+        {
+          insert: 'Number of Occupants: {{num_occupants}}\nNames and Ages:\n{{occupant_list}}\n\n',
+        },
         { insert: 'PETS\n', attributes: { bold: true } },
         { insert: 'Pets: {{has_pets}}\nType/Breed: {{pet_type}}\nWeight: {{pet_weight}}\n\n' },
         { insert: 'VEHICLES\n', attributes: { bold: true } },
         { insert: '{{vehicle_info}}\n\n' },
         { insert: 'EMERGENCY CONTACT\n', attributes: { bold: true } },
-        { insert: 'Name: {{emergency_contact}}\nRelationship: {{emergency_relationship}}\nPhone: {{emergency_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{emergency_contact}}\nRelationship: {{emergency_relationship}}\nPhone: {{emergency_phone}}\n\n',
+        },
         { insert: 'REFERENCES\n', attributes: { bold: true } },
         { insert: '{{references}}\n\n' },
         { insert: 'BACKGROUND QUESTIONS\n', attributes: { bold: true } },
-        { insert: 'Ever evicted: {{ever_evicted}}\nEver filed bankruptcy: {{bankruptcy}}\nFelony conviction: {{felony}}\n\n' },
+        {
+          insert:
+            'Ever evicted: {{ever_evicted}}\nEver filed bankruptcy: {{bankruptcy}}\nFelony conviction: {{felony}}\n\n',
+        },
         { insert: 'AUTHORIZATION AND CERTIFICATION\n', attributes: { bold: true } },
-        { insert: 'I certify that all information provided is true and complete. I authorize verification of this information and a credit/background check.\n\n' },
+        {
+          insert:
+            'I certify that all information provided is true and complete. I authorize verification of this information and a credit/background check.\n\n',
+        },
         { insert: 'Applicant Signature: _________________________\nDate: {{signature_date}}\n\n' },
         { insert: 'Application Fee: {{application_fee}} (Non-refundable)\n' },
       ],
@@ -300,19 +505,39 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'applicant_name', type: 'text', label: 'Applicant Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
       { key: 'ssn_last4', type: 'text', label: 'SSN Last 4 Digits', required: true },
-      { key: 'drivers_license', type: 'text', label: 'Driver\'s License', required: true },
+      { key: 'drivers_license', type: 'text', label: "Driver's License", required: true },
       { key: 'phone', type: 'text', label: 'Phone', required: true },
       { key: 'email', type: 'email', label: 'Email', required: true },
       { key: 'current_address', type: 'text', label: 'Current Address', required: true },
-      { key: 'current_duration', type: 'text', label: 'Duration at Current Address', required: true },
+      {
+        key: 'current_duration',
+        type: 'text',
+        label: 'Duration at Current Address',
+        required: true,
+      },
       { key: 'reason_moving', type: 'text', label: 'Reason for Moving', required: true },
       { key: 'current_landlord', type: 'text', label: 'Current Landlord', required: false },
-      { key: 'current_landlord_phone', type: 'text', label: 'Current Landlord Phone', required: false },
+      {
+        key: 'current_landlord_phone',
+        type: 'text',
+        label: 'Current Landlord Phone',
+        required: false,
+      },
       { key: 'current_rent', type: 'currency', label: 'Current Rent', required: false },
       { key: 'previous_address', type: 'text', label: 'Previous Address', required: false },
-      { key: 'previous_duration', type: 'text', label: 'Duration at Previous Address', required: false },
+      {
+        key: 'previous_duration',
+        type: 'text',
+        label: 'Duration at Previous Address',
+        required: false,
+      },
       { key: 'previous_landlord', type: 'text', label: 'Previous Landlord', required: false },
-      { key: 'previous_landlord_phone', type: 'text', label: 'Previous Landlord Phone', required: false },
+      {
+        key: 'previous_landlord_phone',
+        type: 'text',
+        label: 'Previous Landlord Phone',
+        required: false,
+      },
       { key: 'employer_name', type: 'text', label: 'Employer Name', required: true },
       { key: 'position', type: 'text', label: 'Position', required: true },
       { key: 'employer_address', type: 'text', label: 'Employer Address', required: true },
@@ -320,27 +545,70 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'supervisor', type: 'text', label: 'Supervisor Name', required: false },
       { key: 'monthly_income', type: 'currency', label: 'Monthly Income', required: true },
       { key: 'employed_since', type: 'date', label: 'Employed Since', required: true },
-      { key: 'additional_income', type: 'textarea', label: 'Additional Income Sources', required: false },
+      {
+        key: 'additional_income',
+        type: 'textarea',
+        label: 'Additional Income Sources',
+        required: false,
+      },
       { key: 'num_occupants', type: 'number', label: 'Number of Occupants', required: true },
       { key: 'occupant_list', type: 'textarea', label: 'Occupant Names and Ages', required: true },
-      { key: 'has_pets', type: 'select', label: 'Has Pets', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'has_pets',
+        type: 'select',
+        label: 'Has Pets',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'pet_type', type: 'text', label: 'Pet Type/Breed', required: false },
       { key: 'pet_weight', type: 'text', label: 'Pet Weight', required: false },
       { key: 'vehicle_info', type: 'textarea', label: 'Vehicle Information', required: false },
       { key: 'emergency_contact', type: 'text', label: 'Emergency Contact Name', required: true },
-      { key: 'emergency_relationship', type: 'text', label: 'Emergency Contact Relationship', required: true },
+      {
+        key: 'emergency_relationship',
+        type: 'text',
+        label: 'Emergency Contact Relationship',
+        required: true,
+      },
       { key: 'emergency_phone', type: 'text', label: 'Emergency Contact Phone', required: true },
       { key: 'references', type: 'textarea', label: 'Personal References', required: false },
-      { key: 'ever_evicted', type: 'select', label: 'Ever Evicted', required: true, options: ['Yes', 'No'] },
-      { key: 'bankruptcy', type: 'select', label: 'Filed Bankruptcy', required: true, options: ['Yes', 'No'] },
-      { key: 'felony', type: 'select', label: 'Felony Conviction', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'ever_evicted',
+        type: 'select',
+        label: 'Ever Evicted',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'bankruptcy',
+        type: 'select',
+        label: 'Filed Bankruptcy',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'felony',
+        type: 'select',
+        label: 'Felony Conviction',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
       { key: 'application_fee', type: 'currency', label: 'Application Fee', required: true },
     ],
     signatureFields: [
-      { id: 'applicant_signature', label: 'Applicant Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'applicant_signature',
+        label: 'Applicant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Lease Renewal Agreement',
@@ -364,18 +632,36 @@ export const RE_LEASE_TEMPLATES = [
         { insert: 'PROPERTY: ', attributes: { bold: true } },
         { insert: '{{property_address}}\n\n' },
         { insert: 'ORIGINAL LEASE\n', attributes: { bold: true } },
-        { insert: 'Original Lease Date: {{original_lease_date}}\nCurrent Expiration: {{current_expiration}}\n\n' },
+        {
+          insert:
+            'Original Lease Date: {{original_lease_date}}\nCurrent Expiration: {{current_expiration}}\n\n',
+        },
         { insert: 'RENEWAL TERMS\n', attributes: { bold: true } },
         { insert: '\n1. NEW LEASE TERM\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{new_start_date}}\nEnd Date: {{new_end_date}}\nTerm Length: {{term_length}}\n\n' },
+        {
+          insert:
+            'Start Date: {{new_start_date}}\nEnd Date: {{new_end_date}}\nTerm Length: {{term_length}}\n\n',
+        },
         { insert: '2. NEW RENT\n', attributes: { bold: true } },
-        { insert: 'Previous Monthly Rent: {{previous_rent}}\nNew Monthly Rent: {{new_rent}}\nRent Increase: {{rent_increase}}\n\n' },
+        {
+          insert:
+            'Previous Monthly Rent: {{previous_rent}}\nNew Monthly Rent: {{new_rent}}\nRent Increase: {{rent_increase}}\n\n',
+        },
         { insert: '3. SECURITY DEPOSIT\n', attributes: { bold: true } },
-        { insert: 'Current Deposit: {{current_deposit}}\nAdjustment Required: {{deposit_adjustment}}\n\n' },
+        {
+          insert:
+            'Current Deposit: {{current_deposit}}\nAdjustment Required: {{deposit_adjustment}}\n\n',
+        },
         { insert: '4. MODIFIED TERMS\n', attributes: { bold: true } },
-        { insert: 'The following terms of the Original Lease are hereby modified:\n{{modified_terms}}\n\n' },
+        {
+          insert:
+            'The following terms of the Original Lease are hereby modified:\n{{modified_terms}}\n\n',
+        },
         { insert: '5. UNCHANGED TERMS\n', attributes: { bold: true } },
-        { insert: 'All other terms and conditions of the Original Lease remain in full force and effect.\n\n' },
+        {
+          insert:
+            'All other terms and conditions of the Original Lease remain in full force and effect.\n\n',
+        },
         { insert: '6. ACKNOWLEDGMENT\n', attributes: { bold: true } },
         { insert: 'Both parties acknowledge receipt of a copy of this Renewal Agreement.\n\n' },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
@@ -395,16 +681,40 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'term_length', type: 'text', label: 'Term Length', required: true },
       { key: 'previous_rent', type: 'currency', label: 'Previous Monthly Rent', required: true },
       { key: 'new_rent', type: 'currency', label: 'New Monthly Rent', required: true },
-      { key: 'rent_increase', type: 'text', label: 'Rent Increase Amount/Percentage', required: true },
-      { key: 'current_deposit', type: 'currency', label: 'Current Security Deposit', required: true },
+      {
+        key: 'rent_increase',
+        type: 'text',
+        label: 'Rent Increase Amount/Percentage',
+        required: true,
+      },
+      {
+        key: 'current_deposit',
+        type: 'currency',
+        label: 'Current Security Deposit',
+        required: true,
+      },
       { key: 'deposit_adjustment', type: 'text', label: 'Deposit Adjustment', required: false },
       { key: 'modified_terms', type: 'textarea', label: 'Modified Terms', required: false },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Room Rental Agreement',
@@ -429,9 +739,15 @@ export const RE_LEASE_TEMPLATES = [
         { insert: '{{property_address}}\n' },
         { insert: 'Room Description: {{room_description}}\n\n' },
         { insert: '1. TERM\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{start_date}}\nEnd Date: {{end_date}}\nNotice to Terminate: {{notice_period}} days\n\n' },
+        {
+          insert:
+            'Start Date: {{start_date}}\nEnd Date: {{end_date}}\nNotice to Terminate: {{notice_period}} days\n\n',
+        },
         { insert: '2. RENT\n', attributes: { bold: true } },
-        { insert: 'Monthly Rent: {{monthly_rent}}\nDue Date: {{due_date}}\nPayment Method: {{payment_method}}\n\n' },
+        {
+          insert:
+            'Monthly Rent: {{monthly_rent}}\nDue Date: {{due_date}}\nPayment Method: {{payment_method}}\n\n',
+        },
         { insert: '3. SECURITY DEPOSIT\n', attributes: { bold: true } },
         { insert: 'Amount: {{security_deposit}}\n\n' },
         { insert: '4. UTILITIES INCLUDED\n', attributes: { bold: true } },
@@ -469,9 +785,23 @@ export const RE_LEASE_TEMPLATES = [
       { key: 'guest_policy', type: 'textarea', label: 'Guest Policy', required: true },
     ],
     signatureFields: [
-      { id: 'primary_tenant_signature', label: 'Primary Tenant Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'room_tenant_signature', label: 'Room Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'primary_tenant_signature',
+        label: 'Primary Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'room_tenant_signature',
+        label: 'Room Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

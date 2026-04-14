@@ -9,7 +9,10 @@ import nock from 'nock';
 import { AsanaService } from '../asana.service';
 import { AsanaOAuthService } from '../asana-oauth.service';
 import { deskiveService } from '../../../deskive/deskive.service';
-import { ConnectorTestHelper, TestFixture } from '../../../../../test/helpers/connector-test.helper';
+import {
+  ConnectorTestHelper,
+  TestFixture,
+} from '../../../../../test/helpers/connector-test.helper';
 
 // Import fixtures
 import createTaskFixture from './fixtures/create_task.json';
@@ -73,7 +76,7 @@ describe('AsanaService - Actions', () => {
         .get('/api/1.0/users/me')
         .matchHeader('authorization', 'Bearer mock-asana-token')
         .reply(200, {
-          data: { gid: 'user-123', email: 'test@test.com' }
+          data: { gid: 'user-123', email: 'test@test.com' },
         });
 
       const connection = await service.getConnection('user-123', 'workspace-456');
@@ -85,9 +88,9 @@ describe('AsanaService - Actions', () => {
     it('should throw error when not connected', async () => {
       jest.spyOn(deskiveService, 'findOne').mockResolvedValue(null);
 
-      await expect(
-        service.getConnection('user-123', 'workspace-456')
-      ).rejects.toThrow('Asana not connected');
+      await expect(service.getConnection('user-123', 'workspace-456')).rejects.toThrow(
+        'Asana not connected',
+      );
     });
   });
 
@@ -107,16 +110,12 @@ describe('AsanaService - Actions', () => {
 
         if (testCase.expected.success) {
           // Success case: expect normal response
-          const result = await service.createTask(
-            'user-123',
-            'workspace-456',
-            testCase.input
-          );
+          const result = await service.createTask('user-123', 'workspace-456', testCase.input);
           expect(result).toMatchObject(testCase.expected.data);
         } else {
           // Error case: expect service to throw
           await expect(
-            service.createTask('user-123', 'workspace-456', testCase.input)
+            service.createTask('user-123', 'workspace-456', testCase.input),
           ).rejects.toThrow();
         }
       });
@@ -137,11 +136,7 @@ describe('AsanaService - Actions', () => {
           .reply(testCase.mock.status, testCase.mock.response);
 
         // Execute action
-        const result = await service.getTasks(
-          'user-123',
-          'workspace-456',
-          testCase.input
-        );
+        const result = await service.getTasks('user-123', 'workspace-456', testCase.input);
 
         // Assert
         expect(result).toHaveLength(testCase.expected.data.length);
@@ -202,17 +197,15 @@ describe('AsanaService - Actions', () => {
         });
 
       await expect(
-        service.createTask('user-123', 'workspace-456', { name: 'Task' })
+        service.createTask('user-123', 'workspace-456', { name: 'Task' }),
       ).rejects.toThrow();
     });
 
     it('should handle network errors', async () => {
-      nock('https://app.asana.com')
-        .post('/api/1.0/tasks')
-        .replyWithError('Network error');
+      nock('https://app.asana.com').post('/api/1.0/tasks').replyWithError('Network error');
 
       await expect(
-        service.createTask('user-123', 'workspace-456', { name: 'Task' })
+        service.createTask('user-123', 'workspace-456', { name: 'Task' }),
       ).rejects.toThrow();
     });
   });

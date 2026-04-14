@@ -76,12 +76,12 @@ describe('ClickUpService - Actions', () => {
             'user-123',
             'workspace-456',
             'list-123',
-            testCase.input
+            testCase.input,
           );
           expect(result).toMatchObject(testCase.expected.data);
         } else {
           await expect(
-            service.createTask('user-123', 'workspace-456', 'list-123', testCase.input)
+            service.createTask('user-123', 'workspace-456', 'list-123', testCase.input),
           ).rejects.toThrow();
         }
       });
@@ -93,12 +93,10 @@ describe('ClickUpService - Actions', () => {
   // ===========================================
   describe('get_task', () => {
     it('should fetch task from ClickUp', async () => {
-      nock('https://api.clickup.com')
-        .get('/api/v2/task/task-123')
-        .reply(200, {
-          id: 'task-123',
-          name: 'Task 1',
-        });
+      nock('https://api.clickup.com').get('/api/v2/task/task-123').reply(200, {
+        id: 'task-123',
+        name: 'Task 1',
+      });
 
       const result = await service.getTask('user-123', 'workspace-456', 'task-123');
       expect(result.id).toBe('task-123');

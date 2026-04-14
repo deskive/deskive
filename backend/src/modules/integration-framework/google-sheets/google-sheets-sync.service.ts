@@ -27,7 +27,7 @@ export class GoogleSheetsSyncService {
   async createSyncConfig(
     userId: string,
     workspaceId: string,
-    dto: CreateSyncConfigDto
+    dto: CreateSyncConfigDto,
   ): Promise<SyncConfigDto> {
     // Verify user has a Google Sheets connection
     const connection = await this.db.findOne('google_sheets_connections', {
@@ -70,7 +70,9 @@ export class GoogleSheetsSyncService {
     // Query back the inserted record
     const insertedConfig = await this.db.findOne('google_sheets_syncs', { id: syncConfig.id });
 
-    this.logger.log(`Created sync config ${insertedConfig.id} for spreadsheet ${dto.spreadsheetId}`);
+    this.logger.log(
+      `Created sync config ${insertedConfig.id} for spreadsheet ${dto.spreadsheetId}`,
+    );
 
     return this.transformSyncConfig(insertedConfig);
   }
@@ -86,7 +88,7 @@ export class GoogleSheetsSyncService {
     });
 
     const configs = result?.data || result || [];
-    return Array.isArray(configs) ? configs.map(config => this.transformSyncConfig(config)) : [];
+    return Array.isArray(configs) ? configs.map((config) => this.transformSyncConfig(config)) : [];
   }
 
   /**
@@ -113,7 +115,7 @@ export class GoogleSheetsSyncService {
     userId: string,
     workspaceId: string,
     syncId: string,
-    dto: UpdateSyncConfigDto
+    dto: UpdateSyncConfigDto,
   ): Promise<SyncConfigDto> {
     const config = await this.db.findOne('google_sheets_syncs', {
       id: syncId,
@@ -232,7 +234,7 @@ export class GoogleSheetsSyncService {
   private async executeImportSync(
     userId: string,
     workspaceId: string,
-    config: any
+    config: any,
   ): Promise<SyncResultDto> {
     this.logger.log(`Executing import sync for config ${config.id}`);
 
@@ -241,7 +243,7 @@ export class GoogleSheetsSyncService {
       userId,
       workspaceId,
       config.spreadsheet_id,
-      config.sheet_name
+      config.sheet_name,
     );
 
     if (!sheetsData.values || sheetsData.values.length < 2) {
@@ -260,7 +262,7 @@ export class GoogleSheetsSyncService {
     const columnMapping = config.column_mapping || {};
 
     let rowsCreated = 0;
-    let rowsUpdated = 0;
+    const rowsUpdated = 0;
     let rowsSkipped = 0;
     const errors: string[] = [];
 
@@ -303,7 +305,7 @@ export class GoogleSheetsSyncService {
   private async executeExportSync(
     userId: string,
     workspaceId: string,
-    config: any
+    config: any,
   ): Promise<SyncResultDto> {
     this.logger.log(`Executing export sync for config ${config.id}`);
 
@@ -336,13 +338,14 @@ export class GoogleSheetsSyncService {
       userId,
       workspaceId,
       config.spreadsheet_id,
-      config.sheet_name
+      config.sheet_name,
     );
 
     const needsHeaders = !existingData.values || existingData.values.length === 0;
-    const headers = Object.keys(invertedMapping).length > 0
-      ? Object.values(invertedMapping)
-      : Object.keys(deskiveData[0]);
+    const headers =
+      Object.keys(invertedMapping).length > 0
+        ? Object.values(invertedMapping)
+        : Object.keys(deskiveData[0]);
 
     const rows: any[][] = [];
 
@@ -352,8 +355,9 @@ export class GoogleSheetsSyncService {
 
     // Convert data to rows
     for (const record of deskiveData) {
-      const row = headers.map(header => {
-        const field = Object.entries(invertedMapping).find(([, col]) => col === header)?.[0] || header;
+      const row = headers.map((header) => {
+        const field =
+          Object.entries(invertedMapping).find(([, col]) => col === header)?.[0] || header;
         return record[field] || '';
       });
       rows.push(row);
@@ -365,7 +369,7 @@ export class GoogleSheetsSyncService {
       workspaceId,
       config.spreadsheet_id,
       config.sheet_name,
-      rows
+      rows,
     );
 
     return {
@@ -384,7 +388,7 @@ export class GoogleSheetsSyncService {
   private async executeBidirectionalSync(
     userId: string,
     workspaceId: string,
-    config: any
+    config: any,
   ): Promise<SyncResultDto> {
     this.logger.log(`Executing bidirectional sync for config ${config.id}`);
 
@@ -413,7 +417,8 @@ export class GoogleSheetsSyncService {
     this.logger.log('Processing scheduled syncs...');
 
     // Get all active syncs with frequency other than manual
-    const result = await this.db.table('google_sheets_syncs')
+    const result = await this.db
+      .table('google_sheets_syncs')
       .select('*')
       .where('is_active', '=', true)
       .where('sync_frequency', '!=', SyncFrequency.MANUAL)

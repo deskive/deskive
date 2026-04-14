@@ -349,7 +349,11 @@ export class SetVariableStepConfigDto {
 }
 
 export class ParallelStepConfigDto {
-  @ApiProperty({ type: 'array', items: { type: 'array', items: { type: 'string' } }, description: 'Array of step ID arrays to execute in parallel' })
+  @ApiProperty({
+    type: 'array',
+    items: { type: 'array', items: { type: 'string' } },
+    description: 'Array of step ID arrays to execute in parallel',
+  })
   @IsArray()
   branches: string[][];
 
@@ -488,7 +492,11 @@ export class CreateWorkflowDto {
 
   @ApiProperty({ description: 'Trigger configuration based on trigger type' })
   @IsObject()
-  triggerConfig: EntityTriggerConfigDto | ScheduleTriggerConfigDto | WebhookTriggerConfigDto | Record<string, any>;
+  triggerConfig:
+    | EntityTriggerConfigDto
+    | ScheduleTriggerConfigDto
+    | WebhookTriggerConfigDto
+    | Record<string, any>;
 
   @ApiPropertyOptional({ type: [CreateWorkflowStepDto], description: 'Workflow steps' })
   @IsOptional()

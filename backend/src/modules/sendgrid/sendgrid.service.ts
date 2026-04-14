@@ -242,7 +242,8 @@ export class SendGridService {
       this.logger.error('Failed to send email:', error.response?.data || error.message);
       return {
         success: false,
-        error: error.response?.data?.errors?.[0]?.message || error.message || 'Failed to send email',
+        error:
+          error.response?.data?.errors?.[0]?.message || error.message || 'Failed to send email',
       };
     }
   }
@@ -295,7 +296,9 @@ export class SendGridService {
 
       successCount = bulkEmailDto.recipients.length;
 
-      this.logger.log(`Bulk email sent via SendGrid for user ${userId}, recipients: ${successCount}`);
+      this.logger.log(
+        `Bulk email sent via SendGrid for user ${userId}, recipients: ${successCount}`,
+      );
 
       return {
         jobId: messageId,
@@ -413,15 +416,9 @@ export class SendGridService {
         queryParams.append('end_date', endDate);
       }
 
-      const response = await this.makeApiRequest(
-        apiKey,
-        `/stats?${queryParams.toString()}`,
-        'GET',
-      );
+      const response = await this.makeApiRequest(apiKey, `/stats?${queryParams.toString()}`, 'GET');
 
-      const stats: EmailStatsDto[] = (response.data || []).map((s: any) =>
-        this.transformStats(s),
-      );
+      const stats: EmailStatsDto[] = (response.data || []).map((s: any) => this.transformStats(s));
 
       return { stats };
     } catch (error) {

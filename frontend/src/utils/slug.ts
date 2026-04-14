@@ -120,7 +120,7 @@ export function generateSlugFromTitle(
   title: string,
   maxLength: number = 60
 ): string {
-  let slug = generateSlug(title);
+  const slug = generateSlug(title);
 
   if (slug.length <= maxLength) {
     return slug;

@@ -6,7 +6,7 @@ export class BulkDeleteDto {
     description: 'Array of note IDs to delete',
     example: ['uuid-1', 'uuid-2', 'uuid-3'],
     type: [String],
-    minItems: 1
+    minItems: 1,
   })
   @IsArray()
   @ArrayMinSize(1, { message: 'At least one note ID is required' })

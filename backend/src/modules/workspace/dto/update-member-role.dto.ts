@@ -3,18 +3,18 @@ import { IsEnum, IsArray, IsOptional } from 'class-validator';
 import { WorkspaceRole } from './invite-member.dto';
 
 export class UpdateMemberRoleDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'New role for the member',
     enum: WorkspaceRole,
-    example: WorkspaceRole.ADMIN
+    example: WorkspaceRole.ADMIN,
   })
   @IsEnum(WorkspaceRole)
   role: WorkspaceRole;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Additional permissions',
     example: ['manage_projects', 'manage_files'],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()

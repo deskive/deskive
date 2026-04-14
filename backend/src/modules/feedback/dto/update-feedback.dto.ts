@@ -56,7 +56,8 @@ export class UpdateFeedbackDto {
 export class ResolveFeedbackDto {
   @ApiPropertyOptional({
     description: 'Resolution notes explaining how the feedback was addressed',
-    example: 'Fixed the crash by updating the notification settings handler. Will be available in version 1.2.4.',
+    example:
+      'Fixed the crash by updating the notification settings handler. Will be available in version 1.2.4.',
   })
   @IsOptional()
   @IsString()

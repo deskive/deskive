@@ -56,7 +56,8 @@ export class VideoCallsController {
   @ApiOperation({ summary: 'Get the active video conferencing provider and client SDK info' })
   @ApiResponse({
     status: 200,
-    description: 'Provider info: { provider: "jitsi"|"livekit"|"daily"|"none", available, serverUrl?, publicConfig? }',
+    description:
+      'Provider info: { provider: "jitsi"|"livekit"|"daily"|"none", available, serverUrl?, publicConfig? }',
   })
   getVideoProviderInfo() {
     return this.videoProvider.getProviderInfo();
@@ -84,8 +85,16 @@ export class VideoCallsController {
   @UseGuards(WorkspaceGuard)
   @ApiOperation({ summary: 'Get all video calls in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'status', required: false, description: 'Filter by status (scheduled, active, ended)' })
-  @ApiQuery({ name: 'call_type', required: false, description: 'Filter by call type (audio, video)' })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Filter by status (scheduled, active, ended)',
+  })
+  @ApiQuery({
+    name: 'call_type',
+    required: false,
+    description: 'Filter by call type (audio, video)',
+  })
   @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Limit results' })
   @ApiQuery({ name: 'offset', required: false, type: Number, description: 'Offset for pagination' })
   @ApiResponse({ status: 200, description: 'List of video calls' })
@@ -110,10 +119,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Video call details with participants' })
   @ApiResponse({ status: 404, description: 'Video call not found' })
-  async getCallById(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getCallById(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getCallById(callId, userId);
   }
 
@@ -122,10 +128,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Call ended successfully' })
   @ApiResponse({ status: 403, description: 'Only the host can end the call' })
-  async endCall(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async endCall(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.endCall(callId, userId);
   }
 
@@ -150,10 +153,7 @@ export class VideoCallsController {
   @ApiOperation({ summary: 'Leave a video call' })
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Successfully left call' })
-  async leaveCall(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async leaveCall(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.leaveCall(callId, userId);
   }
 
@@ -162,10 +162,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Successfully declined call' })
   @ApiResponse({ status: 400, description: 'Cannot decline call with current status' })
-  async declineCall(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async declineCall(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.declineCall(callId, userId);
   }
 
@@ -173,10 +170,7 @@ export class VideoCallsController {
   @ApiOperation({ summary: 'Get all participants in a call' })
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'List of participants' })
-  async getParticipants(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getParticipants(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getParticipants(callId, userId);
   }
 
@@ -230,10 +224,7 @@ export class VideoCallsController {
   @ApiOperation({ summary: 'Get all recordings for a call' })
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'List of recordings' })
-  async getRecordings(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getRecordings(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getRecordings(callId, userId);
   }
 
@@ -276,10 +267,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'List of pending join requests' })
   @ApiResponse({ status: 403, description: 'Only the host can view join requests' })
-  async getJoinRequests(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getJoinRequests(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getJoinRequests(callId, userId);
   }
 
@@ -339,7 +327,12 @@ export class VideoCallsController {
     @CurrentUser('sub') userId: string,
     @Body() dto: { target_language: string },
   ) {
-    return this.videoCallsService.translateRecording(callId, recordingId, userId, dto.target_language);
+    return this.videoCallsService.translateRecording(
+      callId,
+      recordingId,
+      userId,
+      dto.target_language,
+    );
   }
 
   @Post('video-calls/:callId/recordings/:recordingId/summarize')
@@ -364,10 +357,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Meeting summary retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Video call not found' })
-  async getMeetingSummary(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getMeetingSummary(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getMeetingSummary(callId, userId);
   }
 
@@ -376,10 +366,7 @@ export class VideoCallsController {
   @ApiParam({ name: 'callId', description: 'Video call ID' })
   @ApiResponse({ status: 200, description: 'Transcript retrieved successfully' })
   @ApiResponse({ status: 404, description: 'Video call not found' })
-  async getCallTranscript(
-    @Param('callId') callId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getCallTranscript(@Param('callId') callId: string, @CurrentUser('sub') userId: string) {
     return this.videoCallsService.getCallTranscript(callId, userId);
   }
 

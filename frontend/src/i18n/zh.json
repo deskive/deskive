@@ -5094,7 +5094,7 @@
       "badge": "Powerful Integrations",
       "title": "Connect Everything You Use",
       "titleHighlight": "Unify Your Entire Stack.",
-      "subtitle": "Seamlessly integrate with 500+ apps and services. Connect your favorite development tools, business applications, and services with powerful API, webhooks, and pre-built connectors.",
+      "subtitle": "Seamlessly integrate with 180+ apps in the built-in catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, HubSpot, and more — plus a pluggable OAuth framework, REST API, and webhooks for the rest of your stack.",
       "cta": "Explore Integrations",
       "sections": {
         "connectTitle": "Integration Made Simple",
@@ -5136,6 +5136,87 @@
         "powerTitle": "Advanced Workflows",
         "powerSubtitle": "Complex conditional logic, custom scripts, and error handling for reliable automation",
         "essentialsSubtitle": "Everything you need to automate your workflows"
+      }
+    }
+  },
+  "productDetail": {
+    "keyFeatures": "核心功能",
+    "chat": {
+      "name": "聊天",
+      "tagline": "团队实时消息沟通。",
+      "description": "通过频道、话题串、私信、提及和文件共享组织对话——为高效推进的团队而打造。",
+      "features": {
+        "0": "频道与话题串对话",
+        "1": "私信与群聊",
+        "2": "提及、表情回应与书签",
+        "3": "文件附件与多媒体内容",
+        "4": "在整个工作区中搜索消息",
+        "5": "定时消息与提醒"
+      }
+    },
+    "projects": {
+      "name": "项目",
+      "tagline": "看板与任务管理。",
+      "description": "通过灵活的看板、任务、子任务和自定义工作流，规划工作、跟踪进度并按时交付。",
+      "features": {
+        "0": "支持拖放的看板",
+        "1": "任务、子任务与清单",
+        "2": "负责人、截止日期与优先级",
+        "3": "标签、筛选与自定义字段",
+        "4": "评论与活动记录",
+        "5": "列表、看板与时间线视图"
+      }
+    },
+    "files": {
+      "name": "文件",
+      "tagline": "带版本控制的云存储。",
+      "description": "为每个项目提供共享的工作区云盘——上传、预览、整理并协作处理任意类型的文件。",
+      "features": {
+        "0": "文件夹层级与标签",
+        "1": "文档、图片和视频预览",
+        "2": "版本历史与恢复",
+        "3": "精细化的共享权限",
+        "4": "带有效期的链接分享",
+        "5": "回收站与恢复"
+      }
+    },
+    "calendar": {
+      "name": "日历",
+      "tagline": "让日程安排不再头疼。",
+      "description": "提供个人与共享日历，支持智能空闲时间、重复事件和会议安排。",
+      "features": {
+        "0": "按日、周、月查看",
+        "1": "重复事件与全天事件",
+        "2": "共享团队日历",
+        "3": "会议邀请与回复",
+        "4": "空闲与忙碌状态",
+        "5": "提醒与通知"
+      }
+    },
+    "notes": {
+      "name": "笔记",
+      "tagline": "面向团队的块式文档。",
+      "description": "通过强大的块式编辑器编写、组织并协作处理文档、规范和知识。",
+      "features": {
+        "0": "Notion 风格的块式编辑器",
+        "1": "实时协作编辑",
+        "2": "提及与内嵌嵌入",
+        "3": "嵌套页面与工作区",
+        "4": "常见文档的模板",
+        "5": "评论与建议"
+      }
+    },
+    "videoCalls": {
+      "name": "视频通话",
+      "tagline": "内置高清视频会议。",
+      "description": "直接从聊天、日历或共享会议链接发起安全、低延迟的视频通话。",
+      "features": {
+        "0": "一对一与群组通话",
+        "1": "屏幕共享与演讲者模式",
+        "2": "通话中聊天与表情回应",
+        "3": "面向外部嘉宾的会议链接",
+        "4": "背景虚化与虚拟背景",
+        "5": "录制支持"
       }
     }
   },

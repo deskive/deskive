@@ -45,7 +45,31 @@ export class IntegrationFiltersDto {
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ enum: ['COMMUNICATION', 'FILE_STORAGE', 'CALENDAR', 'EMAIL', 'PROJECT_MANAGEMENT', 'CRM', 'DEVELOPMENT', 'ANALYTICS', 'MARKETING', 'DOCUMENTATION', 'DESIGN', 'TIME_TRACKING', 'VIDEO_CONFERENCING', 'AUTOMATION', 'PRODUCTIVITY', 'HR', 'FINANCE', 'SUPPORT', 'SECURITY', 'ECOMMERCE', 'OTHER'] })
+  @ApiPropertyOptional({
+    enum: [
+      'COMMUNICATION',
+      'FILE_STORAGE',
+      'CALENDAR',
+      'EMAIL',
+      'PROJECT_MANAGEMENT',
+      'CRM',
+      'DEVELOPMENT',
+      'ANALYTICS',
+      'MARKETING',
+      'DOCUMENTATION',
+      'DESIGN',
+      'TIME_TRACKING',
+      'VIDEO_CONFERENCING',
+      'AUTOMATION',
+      'PRODUCTIVITY',
+      'HR',
+      'FINANCE',
+      'SUPPORT',
+      'SECURITY',
+      'ECOMMERCE',
+      'OTHER',
+    ],
+  })
   @IsOptional()
   @IsString()
   category?: IntegrationCategory;
@@ -334,6 +358,12 @@ export class IntegrationCatalogResponseDto {
 
   @ApiProperty()
   updatedAt: string;
+
+  @ApiProperty({
+    description:
+      'True if the server-side credentials for this integration are configured in env (OAuth client id + secret, or the api_key env var). When false, the frontend should render a "Not configured" state and disable the Connect button — clicking would otherwise fail with a server error about missing env vars.',
+  })
+  credentialConfigured: boolean;
 }
 
 export class MarketplaceResponseDto {

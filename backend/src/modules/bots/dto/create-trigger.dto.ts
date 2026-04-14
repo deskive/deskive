@@ -1,5 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsBoolean, IsObject, IsInt, Min, Max, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsBoolean,
+  IsObject,
+  IsInt,
+  Min,
+  Max,
+  MaxLength,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export enum TriggerType {
@@ -97,7 +109,10 @@ export class TriggerConditionsDto {
   @IsInt({ each: true })
   activeHours?: number[];
 
-  @ApiPropertyOptional({ description: 'Only on specific days (0=Sun, 6=Sat)', example: [1, 2, 3, 4, 5] })
+  @ApiPropertyOptional({
+    description: 'Only on specific days (0=Sun, 6=Sat)',
+    example: [1, 2, 3, 4, 5],
+  })
   @IsOptional()
   @IsInt({ each: true })
   activeDays?: number[];
@@ -116,7 +131,13 @@ export class CreateTriggerDto {
 
   @ApiProperty({ description: 'Trigger configuration (varies by type)' })
   @IsObject()
-  triggerConfig: KeywordTriggerConfigDto | RegexTriggerConfigDto | ScheduleTriggerConfigDto | WebhookTriggerConfigDto | MentionTriggerConfigDto | AnyMessageTriggerConfigDto;
+  triggerConfig:
+    | KeywordTriggerConfigDto
+    | RegexTriggerConfigDto
+    | ScheduleTriggerConfigDto
+    | WebhookTriggerConfigDto
+    | MentionTriggerConfigDto
+    | AnyMessageTriggerConfigDto;
 
   @ApiPropertyOptional({ description: 'Whether trigger is active', default: true })
   @IsOptional()
@@ -161,7 +182,13 @@ export class UpdateTriggerDto {
   @ApiPropertyOptional({ description: 'Trigger configuration' })
   @IsOptional()
   @IsObject()
-  triggerConfig?: KeywordTriggerConfigDto | RegexTriggerConfigDto | ScheduleTriggerConfigDto | WebhookTriggerConfigDto | MentionTriggerConfigDto | AnyMessageTriggerConfigDto;
+  triggerConfig?:
+    | KeywordTriggerConfigDto
+    | RegexTriggerConfigDto
+    | ScheduleTriggerConfigDto
+    | WebhookTriggerConfigDto
+    | MentionTriggerConfigDto
+    | AnyMessageTriggerConfigDto;
 
   @ApiPropertyOptional({ description: 'Whether trigger is active' })
   @IsOptional()

@@ -5094,7 +5094,7 @@
       "badge": "Powerful Integrations",
       "title": "Connect Everything You Use",
       "titleHighlight": "Unify Your Entire Stack.",
-      "subtitle": "Seamlessly integrate with 500+ apps and services. Connect your favorite development tools, business applications, and services with powerful API, webhooks, and pre-built connectors.",
+      "subtitle": "Seamlessly integrate with 180+ apps in the built-in catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, HubSpot, and more — plus a pluggable OAuth framework, REST API, and webhooks for the rest of your stack.",
       "cta": "Explore Integrations",
       "sections": {
         "connectTitle": "Integration Made Simple",
@@ -5136,6 +5136,87 @@
         "powerTitle": "Advanced Workflows",
         "powerSubtitle": "Complex conditional logic, custom scripts, and error handling for reliable automation",
         "essentialsSubtitle": "Everything you need to automate your workflows"
+      }
+    }
+  },
+  "productDetail": {
+    "keyFeatures": "Fonctionnalités clés",
+    "chat": {
+      "name": "Messagerie",
+      "tagline": "Messagerie d’équipe en temps réel.",
+      "description": "Des conversations organisées avec canaux, fils, messages directs, mentions et partage de fichiers — pensé pour les équipes qui avancent vite.",
+      "features": {
+        "0": "Canaux et conversations en fils",
+        "1": "Messages directs et discussions de groupe",
+        "2": "Mentions, réactions et favoris",
+        "3": "Pièces jointes et médias enrichis",
+        "4": "Recherche de messages dans tout l’espace de travail",
+        "5": "Messages programmés et rappels"
+      }
+    },
+    "projects": {
+      "name": "Projets",
+      "tagline": "Tableaux Kanban et gestion des tâches.",
+      "description": "Planifiez le travail, suivez l’avancement et livrez à temps grâce à des tableaux flexibles, des tâches, des sous-tâches et des workflows personnalisés.",
+      "features": {
+        "0": "Tableaux Kanban en glisser-déposer",
+        "1": "Tâches, sous-tâches et listes de contrôle",
+        "2": "Responsables, échéances et priorités",
+        "3": "Étiquettes, filtres et champs personnalisés",
+        "4": "Commentaires et historique d’activité",
+        "5": "Vues liste, tableau et chronologie"
+      }
+    },
+    "files": {
+      "name": "Fichiers",
+      "tagline": "Stockage cloud avec gestion des versions.",
+      "description": "Un disque partagé de l’espace de travail pour chaque projet — téléversez, prévisualisez, organisez et collaborez sur tout type de fichier.",
+      "features": {
+        "0": "Hiérarchies de dossiers et étiquetage",
+        "1": "Aperçus pour documents, images et vidéos",
+        "2": "Historique des versions et restauration",
+        "3": "Autorisations de partage granulaires",
+        "4": "Partage par lien avec date d’expiration",
+        "5": "Corbeille et récupération"
+      }
+    },
+    "calendar": {
+      "name": "Calendrier",
+      "tagline": "Planifier sans prise de tête.",
+      "description": "Calendriers personnels et partagés avec disponibilité intelligente, événements récurrents et planification de réunions.",
+      "features": {
+        "0": "Vues jour, semaine et mois",
+        "1": "Événements récurrents et toute la journée",
+        "2": "Calendriers d’équipe partagés",
+        "3": "Invitations à des réunions et réponses",
+        "4": "Disponibilité et statut d’occupation",
+        "5": "Rappels et notifications"
+      }
+    },
+    "notes": {
+      "name": "Notes",
+      "tagline": "Documents en blocs pour votre équipe.",
+      "description": "Rédigez, organisez et collaborez sur la documentation, les spécifications et la connaissance grâce à un puissant éditeur en blocs.",
+      "features": {
+        "0": "Éditeur en blocs façon Notion",
+        "1": "Édition collaborative en temps réel",
+        "2": "Mentions et intégrations en ligne",
+        "3": "Pages imbriquées et espaces de travail",
+        "4": "Modèles pour les documents courants",
+        "5": "Commentaires et suggestions"
+      }
+    },
+    "videoCalls": {
+      "name": "Appels vidéo",
+      "tagline": "Réunions vidéo HD, intégrées.",
+      "description": "Lancez des appels vidéo sécurisés et à faible latence directement depuis la messagerie, le calendrier ou un lien de réunion partagé.",
+      "features": {
+        "0": "Appels individuels et de groupe",
+        "1": "Partage d’écran et mode présentateur",
+        "2": "Chat et réactions pendant l’appel",
+        "3": "Liens de réunion pour les invités externes",
+        "4": "Flou d’arrière-plan et arrière-plans virtuels",
+        "5": "Prise en charge de l’enregistrement"
       }
     }
   },

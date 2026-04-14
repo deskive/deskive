@@ -13,8 +13,7 @@ export class SitemapService {
   private readonly baseUrl: string;
 
   constructor(private configService: ConfigService) {
-    this.baseUrl =
-      this.configService.get<string>('SITE_URL') || 'https://deskive.com';
+    this.baseUrl = this.configService.get<string>('SITE_URL') || 'https://deskive.com';
   }
 
   /**
@@ -97,14 +96,7 @@ export class SitemapService {
    */
   private getProductPages(): SitemapUrlDto[] {
     const now = new Date().toISOString();
-    const products = [
-      'chat',
-      'projects',
-      'files',
-      'calendar',
-      'notes',
-      'video-calls',
-    ];
+    const products = ['chat', 'projects', 'files', 'calendar', 'notes', 'video-calls'];
 
     return products.map((product) => ({
       loc: `${this.baseUrl}/products/${product}`,

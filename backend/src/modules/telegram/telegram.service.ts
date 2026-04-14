@@ -29,7 +29,7 @@ export class TelegramService {
   async saveConnection(
     userId: string,
     workspaceId: string,
-    botToken: string
+    botToken: string,
   ): Promise<TelegramConnectionDto> {
     // Validate the bot token by calling getMe
     const botInfo = await this.verifyBotToken(botToken);
@@ -61,7 +61,9 @@ export class TelegramService {
       connection = await this.db.insert('telegram_connections', connectionData);
     }
 
-    this.logger.log(`Telegram bot @${botInfo.username} connected for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Telegram bot @${botInfo.username} connected for user ${userId} in workspace ${workspaceId}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -117,7 +119,9 @@ export class TelegramService {
     });
 
     if (!connection) {
-      throw new NotFoundException('Telegram not connected. Please connect your Telegram bot first.');
+      throw new NotFoundException(
+        'Telegram not connected. Please connect your Telegram bot first.',
+      );
     }
 
     return connection.bot_token;
@@ -155,7 +159,9 @@ export class TelegramService {
       return this.transformBotInfo(response);
     } catch (error) {
       this.logger.error('Invalid bot token:', error.message);
-      throw new BadRequestException('Invalid Telegram bot token. Please check your token from @BotFather.');
+      throw new BadRequestException(
+        'Invalid Telegram bot token. Please check your token from @BotFather.',
+      );
     }
   }
 
@@ -174,7 +180,7 @@ export class TelegramService {
   async sendMessage(
     userId: string,
     workspaceId: string,
-    dto: TelegramSendMessageDto
+    dto: TelegramSendMessageDto,
   ): Promise<TelegramSendMessageResponseDto> {
     const botToken = await this.getBotToken(userId, workspaceId);
 
@@ -223,7 +229,7 @@ export class TelegramService {
   async getUpdates(
     userId: string,
     workspaceId: string,
-    query: TelegramGetUpdatesQueryDto
+    query: TelegramGetUpdatesQueryDto,
   ): Promise<TelegramUpdatesResponseDto> {
     const botToken = await this.getBotToken(userId, workspaceId);
 
@@ -251,7 +257,9 @@ export class TelegramService {
       // Update last synced timestamp
       await this.updateLastSynced(userId, workspaceId);
 
-      const updates: TelegramUpdateDto[] = response.map((update: any) => this.transformUpdate(update));
+      const updates: TelegramUpdateDto[] = response.map((update: any) =>
+        this.transformUpdate(update),
+      );
 
       // Calculate next offset
       let nextOffset: number | undefined;
@@ -288,7 +296,9 @@ export class TelegramService {
         lastName: response.last_name,
         description: response.description,
         inviteLink: response.invite_link,
-        pinnedMessage: response.pinned_message ? this.transformMessage(response.pinned_message) : undefined,
+        pinnedMessage: response.pinned_message
+          ? this.transformMessage(response.pinned_message)
+          : undefined,
       };
     } catch (error) {
       this.logger.error('Failed to get chat:', error.message);
@@ -302,7 +312,7 @@ export class TelegramService {
   async setWebhook(
     userId: string,
     workspaceId: string,
-    dto: TelegramSetWebhookDto
+    dto: TelegramSetWebhookDto,
   ): Promise<{ success: boolean; description: string }> {
     const botToken = await this.getBotToken(userId, workspaceId);
 
@@ -340,7 +350,7 @@ export class TelegramService {
   async deleteWebhook(
     userId: string,
     workspaceId: string,
-    dropPendingUpdates: boolean = false
+    dropPendingUpdates: boolean = false,
   ): Promise<{ success: boolean; description: string }> {
     const botToken = await this.getBotToken(userId, workspaceId);
 
@@ -388,15 +398,11 @@ export class TelegramService {
 
   private async makeApiRequest(botToken: string, method: string, params: any = {}): Promise<any> {
     try {
-      const response = await axios.post(
-        `${this.TELEGRAM_API_BASE}${botToken}/${method}`,
-        params,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await axios.post(`${this.TELEGRAM_API_BASE}${botToken}/${method}`, params, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
       if (!response.data.ok) {
         throw new Error(response.data.description || 'Unknown Telegram API error');
@@ -460,23 +466,29 @@ export class TelegramService {
     return {
       updateId: update.update_id,
       message: update.message ? this.transformMessage(update.message) : undefined,
-      editedMessage: update.edited_message ? this.transformMessage(update.edited_message) : undefined,
+      editedMessage: update.edited_message
+        ? this.transformMessage(update.edited_message)
+        : undefined,
       channelPost: update.channel_post ? this.transformMessage(update.channel_post) : undefined,
-      editedChannelPost: update.edited_channel_post ? this.transformMessage(update.edited_channel_post) : undefined,
+      editedChannelPost: update.edited_channel_post
+        ? this.transformMessage(update.edited_channel_post)
+        : undefined,
     };
   }
 
   private transformMessage(message: any): any {
     return {
       messageId: message.message_id,
-      from: message.from ? {
-        id: message.from.id,
-        isBot: message.from.is_bot,
-        firstName: message.from.first_name,
-        lastName: message.from.last_name,
-        username: message.from.username,
-        languageCode: message.from.language_code,
-      } : undefined,
+      from: message.from
+        ? {
+            id: message.from.id,
+            isBot: message.from.is_bot,
+            firstName: message.from.first_name,
+            lastName: message.from.last_name,
+            username: message.from.username,
+            languageCode: message.from.language_code,
+          }
+        : undefined,
       chat: {
         id: message.chat.id,
         type: message.chat.type,
@@ -487,7 +499,9 @@ export class TelegramService {
       },
       date: message.date,
       text: message.text,
-      replyToMessage: message.reply_to_message ? this.transformMessage(message.reply_to_message) : undefined,
+      replyToMessage: message.reply_to_message
+        ? this.transformMessage(message.reply_to_message)
+        : undefined,
     };
   }
 }

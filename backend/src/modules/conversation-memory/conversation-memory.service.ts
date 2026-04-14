@@ -65,7 +65,9 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
     // QdrantService may not be ready if Qdrant is not configured/running
     // This is expected in some environments - conversation memory is optional
     if (!this.qdrantService.isReady()) {
-      this.logger.warn('[ConversationMemory] QdrantService is not ready (Qdrant may not be configured or running). Conversation memory disabled.');
+      this.logger.warn(
+        '[ConversationMemory] QdrantService is not ready (Qdrant may not be configured or running). Conversation memory disabled.',
+      );
       this.isInitialized = false;
       return;
     }
@@ -86,7 +88,9 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
     try {
       this.logger.log('[ConversationMemory] Testing embeddings API...');
       // Use a more realistic sentence for testing embeddings API
-      await this.generateEmbedding('This is a test message to verify the embeddings API is working correctly for conversation memory.');
+      await this.generateEmbedding(
+        'This is a test message to verify the embeddings API is working correctly for conversation memory.',
+      );
       this.logger.log('[ConversationMemory] Embeddings API working - conversation memory enabled');
     } catch (error) {
       const errorMessage = (error as Error)?.message || '';
@@ -95,10 +99,12 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
       if (errorMessage.includes('AI feature may not be enabled')) {
         this.logger.log(
           '[ConversationMemory] AI/Embeddings feature not enabled in project. ' +
-          'Conversation memory disabled (optional feature). Enable OPENAI_API_KEY in .env to use this feature.'
+            'Conversation memory disabled (optional feature). Enable OPENAI_API_KEY in .env to use this feature.',
         );
       } else {
-        this.logger.warn('[ConversationMemory] Embeddings test failed - conversation memory disabled');
+        this.logger.warn(
+          '[ConversationMemory] Embeddings test failed - conversation memory disabled',
+        );
       }
       this.isInitialized = false;
     }
@@ -113,7 +119,9 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
 
       // Check if Qdrant service is ready
       if (!this.qdrantService.isReady()) {
-        this.logger.warn(`[ConversationMemory] ⚠️  Qdrant service not ready - conversation memory disabled`);
+        this.logger.warn(
+          `[ConversationMemory] ⚠️  Qdrant service not ready - conversation memory disabled`,
+        );
         this.isInitialized = false;
         return;
       }
@@ -199,9 +207,17 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
         },
       ]);
 
-      this.logger.log(`[ConversationMemory] Stored message: ${messageId} (${options.role}), action=${payload.action}, has_metadata=${!!payload.metadata}`);
-      if (payload.action === 'show_events' || payload.action === 'show_today_events' || payload.action === 'show_tomorrow_events') {
-        this.logger.log(`[ConversationMemory] Stored event action with event_titles=${payload.metadata?.event_titles}`);
+      this.logger.log(
+        `[ConversationMemory] Stored message: ${messageId} (${options.role}), action=${payload.action}, has_metadata=${!!payload.metadata}`,
+      );
+      if (
+        payload.action === 'show_events' ||
+        payload.action === 'show_today_events' ||
+        payload.action === 'show_tomorrow_events'
+      ) {
+        this.logger.log(
+          `[ConversationMemory] Stored event action with event_titles=${payload.metadata?.event_titles}`,
+        );
       }
       return messageId;
     } catch (error) {
@@ -238,15 +254,11 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
       };
 
       // Search Qdrant
-      const results = await this.qdrantService.searchVectors(
-        this.collectionName,
-        queryEmbedding,
-        {
-          limit,
-          filter,
-          with_payload: true,
-        },
-      );
+      const results = await this.qdrantService.searchVectors(this.collectionName, queryEmbedding, {
+        limit,
+        filter,
+        with_payload: true,
+      });
 
       // Convert results to ConversationSearchResult format
       const messages: ConversationSearchResult[] = [];
@@ -256,8 +268,12 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
           const payload = result.payload || {};
 
           // DEBUG: Log what Qdrant returned
-          this.logger.debug(`[ConversationMemory] Retrieved payload keys: ${Object.keys(payload).join(', ')}`);
-          this.logger.debug(`[ConversationMemory] payload.action = ${payload.action}, payload.entity_type = ${payload.entity_type}`);
+          this.logger.debug(
+            `[ConversationMemory] Retrieved payload keys: ${Object.keys(payload).join(', ')}`,
+          );
+          this.logger.debug(
+            `[ConversationMemory] payload.action = ${payload.action}, payload.entity_type = ${payload.entity_type}`,
+          );
 
           messages.push({
             id: String(result.id),
@@ -343,7 +359,9 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
       messages.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime());
       const recentMessages = messages.slice(0, limit);
 
-      this.logger.log(`[ConversationMemory] Retrieved ${recentMessages.length} recent messages (sorted in memory)`);
+      this.logger.log(
+        `[ConversationMemory] Retrieved ${recentMessages.length} recent messages (sorted in memory)`,
+      );
       return recentMessages;
     } catch (error) {
       this.logger.error(`[ConversationMemory] Failed to get recent history:`, error);
@@ -370,7 +388,9 @@ export class ConversationMemoryService implements OnApplicationBootstrap {
 
       await this.qdrantService.deleteVectorsByFilter(this.collectionName, filter);
 
-      this.logger.log(`[ConversationMemory] Deleted history for user ${user_id} in workspace ${workspace_id}`);
+      this.logger.log(
+        `[ConversationMemory] Deleted history for user ${user_id} in workspace ${workspace_id}`,
+      );
       return true;
     } catch (error) {
       this.logger.error(`[ConversationMemory] Failed to delete user history:`, error);

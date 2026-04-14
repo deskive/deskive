@@ -5,10 +5,7 @@ import { OpenAIService } from './openai.service';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [OpenAIController],
   providers: [OpenAIService],
   exports: [OpenAIService],

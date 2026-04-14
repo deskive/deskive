@@ -131,7 +131,12 @@ export const PROPOSAL_TEMPLATES = [
     ],
     signatureFields: [
       { id: 'client_signature', label: 'Client Signature', required: true, signerRole: 'client' },
-      { id: 'provider_signature', label: 'Provider Signature', required: true, signerRole: 'provider' },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        signerRole: 'provider',
+      },
     ],
     settings: {
       pageSize: 'A4',
@@ -172,7 +177,7 @@ export const PROPOSAL_TEMPLATES = [
         { insert: '{{pricing_breakdown}}\n', attributes: { placeholder: true } },
         { insert: '\nTotal: ' },
         { insert: '{{total_amount}}\n\n', attributes: { bold: true, placeholder: true } },
-        { insert: 'What\'s Not Included\n', attributes: { header: 2 } },
+        { insert: "What's Not Included\n", attributes: { header: 2 } },
         { insert: '{{exclusions}}\n\n', attributes: { placeholder: true } },
         { insert: 'Terms\n', attributes: { header: 2 } },
         { insert: '{{terms}}\n\n', attributes: { placeholder: true } },
@@ -184,7 +189,12 @@ export const PROPOSAL_TEMPLATES = [
       { key: 'project_name', label: 'Project Name', type: 'text', required: true },
       { key: 'client_name', label: 'Client Name', type: 'text', required: true },
       { key: 'date', label: 'Date', type: 'date', required: true },
-      { key: 'project_description', label: 'Project Description', type: 'textarea', required: true },
+      {
+        key: 'project_description',
+        label: 'Project Description',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'project_goals', label: 'Project Goals', type: 'textarea', required: true },
       { key: 'design_approach', label: 'Design Approach', type: 'textarea', required: true },
       { key: 'pages_included', label: 'Pages/Sections Included', type: 'textarea', required: true },
@@ -192,7 +202,7 @@ export const PROPOSAL_TEMPLATES = [
       { key: 'timeline', label: 'Timeline', type: 'textarea', required: true },
       { key: 'pricing_breakdown', label: 'Pricing Breakdown', type: 'textarea', required: true },
       { key: 'total_amount', label: 'Total Amount', type: 'currency', required: true },
-      { key: 'exclusions', label: 'What\'s Not Included', type: 'textarea', required: false },
+      { key: 'exclusions', label: "What's Not Included", type: 'textarea', required: false },
       { key: 'terms', label: 'Terms', type: 'textarea', required: true },
     ],
     signatureFields: [

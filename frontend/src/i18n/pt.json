@@ -5094,7 +5094,7 @@
       "badge": "Powerful Integrations",
       "title": "Connect Everything You Use",
       "titleHighlight": "Unify Your Entire Stack.",
-      "subtitle": "Seamlessly integrate with 500+ apps and services. Connect your favorite development tools, business applications, and services with powerful API, webhooks, and pre-built connectors.",
+      "subtitle": "Seamlessly integrate with 180+ apps in the built-in catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, HubSpot, and more — plus a pluggable OAuth framework, REST API, and webhooks for the rest of your stack.",
       "cta": "Explore Integrations",
       "sections": {
         "connectTitle": "Integration Made Simple",
@@ -5136,6 +5136,87 @@
         "powerTitle": "Advanced Workflows",
         "powerSubtitle": "Complex conditional logic, custom scripts, and error handling for reliable automation",
         "essentialsSubtitle": "Everything you need to automate your workflows"
+      }
+    }
+  },
+  "productDetail": {
+    "keyFeatures": "Principais recursos",
+    "chat": {
+      "name": "Chat",
+      "tagline": "Mensagens de equipe em tempo real.",
+      "description": "Conversas organizadas com canais, threads, mensagens diretas, menções e compartilhamento de arquivos — feito para equipes que se movem rápido.",
+      "features": {
+        "0": "Canais e conversas em threads",
+        "1": "Mensagens diretas e chats em grupo",
+        "2": "Menções, reações e favoritos",
+        "3": "Anexos de arquivos e mídia rica",
+        "4": "Busca de mensagens em todo o espaço de trabalho",
+        "5": "Mensagens agendadas e lembretes"
+      }
+    },
+    "projects": {
+      "name": "Projetos",
+      "tagline": "Quadros Kanban e gestão de tarefas.",
+      "description": "Planeje o trabalho, acompanhe o progresso e entregue no prazo com quadros flexíveis, tarefas, subtarefas e fluxos de trabalho personalizados.",
+      "features": {
+        "0": "Quadros Kanban com arrastar e soltar",
+        "1": "Tarefas, subtarefas e checklists",
+        "2": "Responsáveis, prazos e prioridades",
+        "3": "Etiquetas, filtros e campos personalizados",
+        "4": "Comentários e histórico de atividades",
+        "5": "Visualizações em lista, quadro e linha do tempo"
+      }
+    },
+    "files": {
+      "name": "Arquivos",
+      "tagline": "Armazenamento em nuvem com controle de versões.",
+      "description": "Um drive compartilhado do espaço de trabalho para cada projeto — envie, visualize, organize e colabore em qualquer tipo de arquivo.",
+      "features": {
+        "0": "Hierarquia de pastas e marcação por tags",
+        "1": "Pré-visualização de documentos, imagens e vídeos",
+        "2": "Histórico de versões e restauração",
+        "3": "Permissões de compartilhamento detalhadas",
+        "4": "Compartilhamento por link com expiração",
+        "5": "Lixeira e recuperação"
+      }
+    },
+    "calendar": {
+      "name": "Calendário",
+      "tagline": "Agendamento sem dor de cabeça.",
+      "description": "Calendários pessoais e compartilhados com disponibilidade inteligente, eventos recorrentes e agendamento de reuniões.",
+      "features": {
+        "0": "Visualizações por dia, semana e mês",
+        "1": "Eventos recorrentes e de dia inteiro",
+        "2": "Calendários compartilhados da equipe",
+        "3": "Convites para reuniões e confirmações",
+        "4": "Disponibilidade e status de ocupado",
+        "5": "Lembretes e notificações"
+      }
+    },
+    "notes": {
+      "name": "Notas",
+      "tagline": "Documentos em blocos para a sua equipe.",
+      "description": "Escreva, organize e colabore em documentação, especificações e conhecimento com um poderoso editor em blocos.",
+      "features": {
+        "0": "Editor em blocos no estilo Notion",
+        "1": "Edição colaborativa em tempo real",
+        "2": "Menções e incorporações inline",
+        "3": "Páginas aninhadas e espaços de trabalho",
+        "4": "Modelos para documentos comuns",
+        "5": "Comentários e sugestões"
+      }
+    },
+    "videoCalls": {
+      "name": "Chamadas de vídeo",
+      "tagline": "Reuniões em vídeo HD, integradas.",
+      "description": "Inicie chamadas de vídeo seguras e de baixa latência diretamente do chat, do calendário ou de um link de reunião compartilhado.",
+      "features": {
+        "0": "Chamadas individuais e em grupo",
+        "1": "Compartilhamento de tela e modo apresentador",
+        "2": "Chat e reações durante a chamada",
+        "3": "Links de reunião para convidados externos",
+        "4": "Desfoque de fundo e planos de fundo virtuais",
+        "5": "Suporte a gravação"
       }
     }
   },

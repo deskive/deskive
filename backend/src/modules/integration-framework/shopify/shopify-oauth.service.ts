@@ -60,7 +60,12 @@ export class ShopifyOAuthService {
     return Buffer.from(JSON.stringify(stateData)).toString('base64url');
   }
 
-  decodeState(state: string): { userId: string; workspaceId: string; shop: string; returnUrl?: string } {
+  decodeState(state: string): {
+    userId: string;
+    workspaceId: string;
+    shop: string;
+    returnUrl?: string;
+  } {
     try {
       const decoded = Buffer.from(state, 'base64url').toString('utf-8');
       const stateData = JSON.parse(decoded);
@@ -77,7 +82,12 @@ export class ShopifyOAuthService {
     }
   }
 
-  getAuthorizationUrl(userId: string, workspaceId: string, shop: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    shop: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { clientId, redirectUri } = this.getClientCredentials(shop);
     const state = this.generateState(userId, workspaceId, shop, returnUrl);
 
@@ -125,11 +135,14 @@ export class ShopifyOAuthService {
 
   async getShopInfo(accessToken: string, shop: string): Promise<ShopifyShopInfo> {
     try {
-      const response = await axios.get(`https://${shop}.myshopify.com/admin/api/2024-01/shop.json`, {
-        headers: {
-          'X-Shopify-Access-Token': accessToken,
+      const response = await axios.get(
+        `https://${shop}.myshopify.com/admin/api/2024-01/shop.json`,
+        {
+          headers: {
+            'X-Shopify-Access-Token': accessToken,
+          },
         },
-      });
+      );
 
       const shopData = response.data.shop;
 

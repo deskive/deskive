@@ -9,13 +9,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiParam,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { OpenAIService } from './openai.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
@@ -77,10 +71,7 @@ export class OpenAIController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
   @ApiResponse({ status: 404, description: 'Connection not found' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.openaiService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -111,10 +102,7 @@ export class OpenAIController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'List of available models' })
   @ApiResponse({ status: 404, description: 'OpenAI not connected' })
-  async listModels(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async listModels(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const models = await this.openaiService.listModels(userId, workspaceId);
     return {
       data: { models },

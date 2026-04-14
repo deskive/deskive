@@ -52,7 +52,6 @@ export class AIWorkflowGeneratorService {
     return this.db.getAI();
   }
 
-
   /**
    * Generate a workflow from natural language description
    */
@@ -77,10 +76,7 @@ export class AIWorkflowGeneratorService {
   /**
    * Parse description using AI
    */
-  private async parseWithAI(
-    description: string,
-    workspaceId: string,
-  ): Promise<NLPParseResult> {
+  private async parseWithAI(description: string, workspaceId: string): Promise<NLPParseResult> {
     const systemPrompt = `You are a workflow automation expert. Parse the user's natural language description and generate a workflow configuration.
 
 Available trigger types:
@@ -212,7 +208,7 @@ Generate a complete workflow JSON that implements this automation.`;
             field: cond.field || '',
             operator: cond.operator || 'equals',
             value: cond.value,
-            logicalOperator: condIndex > 0 ? (cond.logicalOperator || 'and') : null,
+            logicalOperator: condIndex > 0 ? cond.logicalOperator || 'and' : null,
           })),
           order: step.order || index + 1,
         })),
@@ -243,7 +239,10 @@ Generate a complete workflow JSON that implements this automation.`;
 
     // Detect trigger type
     if (lowerDesc.includes('when') || lowerDesc.includes('whenever')) {
-      if (lowerDesc.includes('task') && (lowerDesc.includes('created') || lowerDesc.includes('new'))) {
+      if (
+        lowerDesc.includes('task') &&
+        (lowerDesc.includes('created') || lowerDesc.includes('new'))
+      ) {
         workflow.triggerType = 'entity_change';
         workflow.triggerConfig = { entityType: 'task', eventType: 'created' };
         workflow.name = 'Task Creation Workflow';
@@ -353,7 +352,7 @@ Generate a complete workflow JSON that implements this automation.`;
 
     // Add conditions if detected
     if (lowerDesc.includes('high priority') || lowerDesc.includes('urgent')) {
-      workflow.steps.forEach(step => {
+      workflow.steps.forEach((step) => {
         step.conditions.push({
           field: 'triggerData.priority',
           operator: 'in',
@@ -429,8 +428,14 @@ Generate a complete workflow JSON that implements this automation.`;
       suggestions.push('Try starting with "When..." to specify a trigger');
     }
 
-    if (!lowerDesc.includes('email') && !lowerDesc.includes('notify') && !lowerDesc.includes('create')) {
-      suggestions.push('Add what action should happen (e.g., "send email", "notify team", "create task")');
+    if (
+      !lowerDesc.includes('email') &&
+      !lowerDesc.includes('notify') &&
+      !lowerDesc.includes('create')
+    ) {
+      suggestions.push(
+        'Add what action should happen (e.g., "send email", "notify team", "create task")',
+      );
     }
 
     if (lowerDesc.length < 20) {

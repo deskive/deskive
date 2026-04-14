@@ -109,9 +109,12 @@ function WorkspaceLayoutInner({ children }: WorkspaceLayoutProps) {
         const requestPermissionOnClick = () => {
           Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
+              // no-op
             } else if (permission === 'denied') {
+              // no-op
             }
-          }).catch(err => {
+          }).catch(_err => {
+            // no-op
           })
 
           // Remove listener after first request

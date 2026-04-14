@@ -1,4 +1,10 @@
-import { Injectable, Logger, NotFoundException, ConflictException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  ConflictException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
 import { CreateBotDto, BotStatus, BotType } from '../dto/create-bot.dto';
 import { UpdateBotDto } from '../dto/update-bot.dto';
@@ -78,7 +84,8 @@ export class BotsService {
    * Get all bots in a workspace
    */
   async findAll(workspaceId: string, userId: string): Promise<Bot[]> {
-    const result = await this.db.table('bots')
+    const result = await this.db
+      .table('bots')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -90,7 +97,8 @@ export class BotsService {
    * Get a single bot by ID
    */
   async findOne(botId: string, workspaceId: string): Promise<Bot> {
-    const result = await this.db.table('bots')
+    const result = await this.db
+      .table('bots')
       .select('*')
       .where('id', '=', botId)
       .where('workspace_id', '=', workspaceId)
@@ -119,7 +127,12 @@ export class BotsService {
   /**
    * Update a bot
    */
-  async update(botId: string, workspaceId: string, userId: string, dto: UpdateBotDto): Promise<Bot> {
+  async update(
+    botId: string,
+    workspaceId: string,
+    userId: string,
+    dto: UpdateBotDto,
+  ): Promise<Bot> {
     const bot = await this.findOne(botId, workspaceId);
 
     // If changing name, check for conflicts
@@ -164,7 +177,8 @@ export class BotsService {
     // Using transaction would be better but for now sequential deletes
 
     // Delete scheduled jobs
-    const scheduledJobs = await this.db.table('bot_scheduled_jobs')
+    const scheduledJobs = await this.db
+      .table('bot_scheduled_jobs')
       .select('id')
       .where('trigger_id', 'IN', `(SELECT id FROM bot_triggers WHERE bot_id = '${botId}')`)
       .execute();
@@ -173,7 +187,8 @@ export class BotsService {
     }
 
     // Delete cooldowns
-    const cooldowns = await this.db.table('bot_user_cooldowns')
+    const cooldowns = await this.db
+      .table('bot_user_cooldowns')
       .select('id')
       .where('trigger_id', 'IN', `(SELECT id FROM bot_triggers WHERE bot_id = '${botId}')`)
       .execute();
@@ -182,7 +197,8 @@ export class BotsService {
     }
 
     // Delete execution logs
-    const logs = await this.db.table('bot_execution_logs')
+    const logs = await this.db
+      .table('bot_execution_logs')
       .select('id')
       .where('bot_id', '=', botId)
       .execute();
@@ -191,7 +207,8 @@ export class BotsService {
     }
 
     // Delete installations
-    const installations = await this.db.table('bot_installations')
+    const installations = await this.db
+      .table('bot_installations')
       .select('id')
       .where('bot_id', '=', botId)
       .execute();
@@ -200,7 +217,8 @@ export class BotsService {
     }
 
     // Delete actions
-    const actions = await this.db.table('bot_actions')
+    const actions = await this.db
+      .table('bot_actions')
       .select('id')
       .where('bot_id', '=', botId)
       .execute();
@@ -209,7 +227,8 @@ export class BotsService {
     }
 
     // Delete triggers
-    const triggers = await this.db.table('bot_triggers')
+    const triggers = await this.db
+      .table('bot_triggers')
       .select('id')
       .where('bot_id', '=', botId)
       .execute();
@@ -250,12 +269,12 @@ export class BotsService {
     channelId?: string,
     conversationId?: string,
   ): Promise<Bot[]> {
-    console.log(`[BotsService] 🔍 Looking for bots in workspace=${workspaceId}, channel=${channelId}, conversation=${conversationId}`);
+    console.log(
+      `[BotsService] 🔍 Looking for bots in workspace=${workspaceId}, channel=${channelId}, conversation=${conversationId}`,
+    );
 
     // Get installations for this location
-    let query = this.db.table('bot_installations')
-      .select('bot_id')
-      .where('is_active', '=', true);
+    let query = this.db.table('bot_installations').select('bot_id').where('is_active', '=', true);
 
     if (channelId) {
       query = query.where('channel_id', '=', channelId);
@@ -269,17 +288,22 @@ export class BotsService {
     const installations = await query.execute();
     const botIds = (installations.data || []).map((i: any) => i.bot_id);
 
-    console.log(`[BotsService] 📦 Found ${botIds.length} installation(s): ${botIds.join(', ') || 'none'}`);
+    console.log(
+      `[BotsService] 📦 Found ${botIds.length} installation(s): ${botIds.join(', ') || 'none'}`,
+    );
 
     if (botIds.length === 0) {
-      console.log(`[BotsService] 💡 No bots installed. Install a bot to this channel via Bot Builder > Installations tab`);
+      console.log(
+        `[BotsService] 💡 No bots installed. Install a bot to this channel via Bot Builder > Installations tab`,
+      );
       return [];
     }
 
     // Get active bots
     const bots: Bot[] = [];
     for (const botId of botIds) {
-      const result = await this.db.table('bots')
+      const result = await this.db
+        .table('bots')
         .select('*')
         .where('id', '=', botId)
         .where('workspace_id', '=', workspaceId)
@@ -291,12 +315,11 @@ export class BotsService {
         console.log(`[BotsService] ✅ Bot ${result.data[0].name} is ACTIVE`);
       } else {
         // Check if bot exists but is not active
-        const botCheck = await this.db.table('bots')
-          .select('*')
-          .where('id', '=', botId)
-          .execute();
+        const botCheck = await this.db.table('bots').select('*').where('id', '=', botId).execute();
         if (botCheck.data?.[0]) {
-          console.log(`[BotsService] ⚠️ Bot ${botCheck.data[0].name} exists but status is '${botCheck.data[0].status}' (needs to be 'active')`);
+          console.log(
+            `[BotsService] ⚠️ Bot ${botCheck.data[0].name} exists but status is '${botCheck.data[0].status}' (needs to be 'active')`,
+          );
         } else {
           console.log(`[BotsService] ⚠️ Bot ${botId} not found in database`);
         }
@@ -336,7 +359,17 @@ export class BotsService {
     // Try multiple paths to support both development and production
     const possiblePaths = [
       path.join(__dirname, '..', 'seed', 'prebuilt-bots.seed.json'), // Compiled dist folder
-      path.join(__dirname, '..', '..', '..', 'src', 'modules', 'bots', 'seed', 'prebuilt-bots.seed.json'), // Development from dist
+      path.join(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        'src',
+        'modules',
+        'bots',
+        'seed',
+        'prebuilt-bots.seed.json',
+      ), // Development from dist
       path.join(process.cwd(), 'src', 'modules', 'bots', 'seed', 'prebuilt-bots.seed.json'), // Absolute from project root
     ];
 
@@ -546,11 +579,7 @@ export class BotsService {
   /**
    * Get all bots assigned to a project
    */
-  async getProjectBots(
-    workspaceId: string,
-    projectId: string,
-    userId: string,
-  ): Promise<Bot[]> {
+  async getProjectBots(workspaceId: string, projectId: string, userId: string): Promise<Bot[]> {
     this.logger.log(`[Bots] Getting bots for project ${projectId}`);
 
     const result = await this.db
@@ -631,8 +660,10 @@ export class BotsService {
       };
     });
 
-    const availableCount = botsWithStatus.filter(b => !b.isAssigned).length;
-    this.logger.log(`[Bots] Returning ${botsWithStatus.length} bots (${availableCount} available, ${assignedBotIds.length} assigned)`);
+    const availableCount = botsWithStatus.filter((b) => !b.isAssigned).length;
+    this.logger.log(
+      `[Bots] Returning ${botsWithStatus.length} bots (${availableCount} available, ${assignedBotIds.length} assigned)`,
+    );
 
     return botsWithStatus;
   }

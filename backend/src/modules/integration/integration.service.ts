@@ -12,12 +12,16 @@ export class IntegrationService {
     return this.db.getAI();
   }
 
-
   // ============================================
   // VIDEO CALLS (Using database LiveKit)
   // ============================================
 
-  async createVideoCall(workspaceId: string, channelId?: string, conversationId?: string, userId?: string) {
+  async createVideoCall(
+    workspaceId: string,
+    channelId?: string,
+    conversationId?: string,
+    userId?: string,
+  ) {
     try {
       // Generate unique room name
       const roomName = `deskive-${workspaceId}-${uuidv4()}`;
@@ -29,7 +33,7 @@ export class IntegrationService {
         conversation_id: conversationId,
         room_name: roomName,
         started_by: userId,
-        started_at: new Date().toISOString()
+        started_at: new Date().toISOString(),
       };
 
       const session = await this.db.insert('video_call_sessions', sessionData);
@@ -41,8 +45,8 @@ export class IntegrationService {
         identity: userId || 'anonymous',
         metadata: {
           workspace_id: workspaceId,
-          session_id: session.id
-        }
+          session_id: session.id,
+        },
       };
 
       // Generate meeting URL or token (implementation depends on database)
@@ -52,7 +56,7 @@ export class IntegrationService {
         session_id: session.id,
         room_name: roomName,
         meeting_url: meetingUrl,
-        ...videoCallData
+        ...videoCallData,
       };
     } catch (error) {
       console.error('Video call creation error:', error);
@@ -62,7 +66,7 @@ export class IntegrationService {
 
   async joinVideoCall(sessionId: string, userId: string) {
     const sessionQuery = await this.db.find('video_call_sessions', {
-      id: sessionId
+      id: sessionId,
     });
 
     const sessionData = Array.isArray(sessionQuery.data) ? sessionQuery.data : [];
@@ -76,19 +80,19 @@ export class IntegrationService {
     await this.db.insert('call_participants', {
       session_id: sessionId,
       user_id: userId,
-      joined_at: new Date().toISOString()
+      joined_at: new Date().toISOString(),
     });
 
     return {
       room_name: session.room_name,
-      meeting_url: `${process.env.FRONTEND_URL}/video-call/${session.room_name}`
+      meeting_url: `${process.env.FRONTEND_URL}/video-call/${session.room_name}`,
     };
   }
 
   async endVideoCall(sessionId: string, userId: string) {
     const session = await this.db.find('video_call_sessions', {
       id: sessionId,
-      started_by: userId
+      started_by: userId,
     });
 
     const sessionData = Array.isArray(session.data) ? session.data : [];
@@ -98,20 +102,22 @@ export class IntegrationService {
 
     // Update session end time
     await this.db.update('video_call_sessions', sessionId, {
-      ended_at: new Date().toISOString()
+      ended_at: new Date().toISOString(),
     });
 
     // Update all participants left time
     const participants = await this.db.find('call_participants', {
-      session_id: sessionId
+      session_id: sessionId,
     });
 
     const participantsData = Array.isArray(participants.data) ? participants.data : [];
     const updatePromises = participantsData
-      .filter(p => !p.left_at)
-      .map(p => this.db.update('call_participants', p.id, {
-        left_at: new Date().toISOString()
-      }));
+      .filter((p) => !p.left_at)
+      .map((p) =>
+        this.db.update('call_participants', p.id, {
+          left_at: new Date().toISOString(),
+        }),
+      );
 
     await Promise.all(updatePromises);
 
@@ -132,16 +138,19 @@ export class IntegrationService {
     }
   }
 
-  async generateSummary(content: string, type: 'meeting' | 'document' | 'conversation' = 'document') {
+  async generateSummary(
+    content: string,
+    type: 'meeting' | 'document' | 'conversation' = 'document',
+  ) {
     const prompts = {
       meeting: `Summarize the following meeting content in bullet points, highlighting key decisions, action items, and next steps:\n\n${content}`,
       document: `Provide a concise summary of the following document:\n\n${content}`,
-      conversation: `Summarize the key points from this conversation:\n\n${content}`
+      conversation: `Summarize the key points from this conversation:\n\n${content}`,
     };
 
     return await this.generateText(prompts[type], {
       max_tokens: 200,
-      temperature: 0.3
+      temperature: 0.3,
     });
   }
 
@@ -167,16 +176,19 @@ export class IntegrationService {
 
     return await this.generateText(prompt, {
       max_tokens: 500,
-      temperature: 0.3
+      temperature: 0.3,
     });
   }
 
   // Content analysis temporarily unavailable - not in AI module yet
-  async analyzeContent(content: string, analysisType: 'sentiment' | 'readability' | 'seo' | 'engagement' | 'all' = 'all') {
+  async analyzeContent(
+    content: string,
+    analysisType: 'sentiment' | 'readability' | 'seo' | 'engagement' | 'all' = 'all',
+  ) {
     // TODO: Implement when AI module supports content analysis
     return {
       error: 'Content analysis feature coming soon',
-      analysisType
+      analysisType,
     };
   }
 
@@ -185,7 +197,7 @@ export class IntegrationService {
       // Use database AI for speech-to-text
       return await this.aiProvider.generateAudio(audioBuffer.toString('base64'), {
         task: 'transcribe',
-        response_format: 'text'
+        response_format: 'text',
       });
     } catch (error) {
       console.error('Transcription error:', error);
@@ -197,21 +209,26 @@ export class IntegrationService {
   // EMAIL NOTIFICATIONS
   // ============================================
 
-  async sendNotificationEmail(to: string | string[], subject: string, content: string, templateData?: any) {
+  async sendNotificationEmail(
+    to: string | string[],
+    subject: string,
+    content: string,
+    templateData?: any,
+  ) {
     try {
       // Use database email service
       const emailData = {
         to: Array.isArray(to) ? to : [to],
         subject,
         html: this.generateEmailHtml(content, templateData),
-        text: content
+        text: content,
       };
 
       return await /* TODO: use EmailService */ this.db.sendEmail(
         emailData.to,
         emailData.subject,
         emailData.html,
-        emailData.text
+        emailData.text,
       );
     } catch (error) {
       console.error('Email sending error:', error);
@@ -219,7 +236,12 @@ export class IntegrationService {
     }
   }
 
-  async sendWorkspaceInviteEmail(email: string, workspaceName: string, inviterName: string, inviteToken: string) {
+  async sendWorkspaceInviteEmail(
+    email: string,
+    workspaceName: string,
+    inviterName: string,
+    inviteToken: string,
+  ) {
     const subject = `You've been invited to join ${workspaceName}`;
     const content = `
       <h2>You're invited to join ${workspaceName}</h2>
@@ -235,7 +257,13 @@ export class IntegrationService {
     return await this.sendNotificationEmail(email, subject, content);
   }
 
-  async sendTaskAssignmentEmail(email: string, taskTitle: string, projectName: string, assignerName: string, taskUrl: string) {
+  async sendTaskAssignmentEmail(
+    email: string,
+    taskTitle: string,
+    projectName: string,
+    assignerName: string,
+    taskUrl: string,
+  ) {
     const subject = `New task assigned: ${taskTitle}`;
     const content = `
       <h2>You've been assigned a new task</h2>
@@ -251,10 +279,15 @@ export class IntegrationService {
     return await this.sendNotificationEmail(email, subject, content);
   }
 
-  async sendEventReminderEmail(email: string, eventTitle: string, startTime: string, meetingUrl?: string) {
+  async sendEventReminderEmail(
+    email: string,
+    eventTitle: string,
+    startTime: string,
+    meetingUrl?: string,
+  ) {
     const eventDate = new Date(startTime);
     const subject = `Reminder: ${eventTitle} starts soon`;
-    
+
     let content = `
       <h2>Event Reminder</h2>
       <p><strong>Event:</strong> ${eventTitle}</p>
@@ -279,24 +312,32 @@ export class IntegrationService {
 
   async sendPushNotification(userIds: string | string[], title: string, body: string, data?: any) {
     try {
-      return await /* TODO: use Firebase directly */ this.db.sendPushNotification(userIds, title, body, data);
+      return await /* TODO: use Firebase directly */ this.db.sendPushNotification(
+        userIds,
+        title,
+        body,
+        data,
+      );
     } catch (error) {
       console.error('Push notification error:', error);
       throw new Error('Push notification service temporarily unavailable');
     }
   }
 
-  async sendWorkspaceNotification(workspaceId: string, title: string, body: string, excludeUserId?: string) {
+  async sendWorkspaceNotification(
+    workspaceId: string,
+    title: string,
+    body: string,
+    excludeUserId?: string,
+  ) {
     // Get all workspace members
     const members = await this.db.find('workspace_members', {
       workspace_id: workspaceId,
-      is_active: true
+      is_active: true,
     });
 
     const membersData = Array.isArray(members.data) ? members.data : [];
-    const userIds = membersData
-      .map(m => m.user_id)
-      .filter(id => id !== excludeUserId);
+    const userIds = membersData.map((m) => m.user_id).filter((id) => id !== excludeUserId);
 
     if (userIds.length > 0) {
       return await this.sendPushNotification(userIds, title, body, { workspace_id: workspaceId });
@@ -342,15 +383,15 @@ export class IntegrationService {
       video_calls: true,
       ai_services: true,
       email: true,
-      push_notifications: true
+      push_notifications: true,
     };
 
     try {
       // Test database connection
-      await this.db.raw("SELECT 1");
+      await this.db.raw('SELECT 1');
     } catch (error) {
       console.error('Integration health check failed:', error);
-      Object.keys(checks).forEach(key => {
+      Object.keys(checks).forEach((key) => {
         checks[key] = false;
       });
     }

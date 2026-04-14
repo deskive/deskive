@@ -11,9 +11,7 @@ export class ScheduledMessageProcessorService implements OnModuleInit {
   private sentCount = 0;
   private failedCount = 0;
 
-  constructor(
-    private readonly chatService: ChatService,
-  ) {}
+  constructor(private readonly chatService: ChatService) {}
 
   async onModuleInit() {
     this.logger.log('Scheduled Message Processor Service initialized');
@@ -45,11 +43,15 @@ export class ScheduledMessageProcessorService implements OnModuleInit {
       this.isProcessing = true;
       this.lastRunAt = new Date();
 
-      this.logger.log(`[ScheduledMessages] Checking for scheduled messages at ${this.lastRunAt.toISOString()}`);
+      this.logger.log(
+        `[ScheduledMessages] Checking for scheduled messages at ${this.lastRunAt.toISOString()}`,
+      );
 
       const results = await this.chatService.processScheduledMessages();
 
-      this.logger.log(`[ScheduledMessages] Result: ${results.processed} sent, ${results.failed} failed`);
+      this.logger.log(
+        `[ScheduledMessages] Result: ${results.processed} sent, ${results.failed} failed`,
+      );
 
       if (results.processed > 0 || results.failed > 0) {
         this.processedCount += results.processed;
@@ -58,13 +60,13 @@ export class ScheduledMessageProcessorService implements OnModuleInit {
 
         this.logger.log(
           `[ScheduledMessages] Processed ${results.processed + results.failed} message(s): ` +
-          `${results.processed} sent, ${results.failed} failed`
+            `${results.processed} sent, ${results.failed} failed`,
         );
       }
     } catch (error) {
       this.logger.error(
         `[ScheduledMessages] Error processing scheduled messages: ${error.message}`,
-        error.stack
+        error.stack,
       );
     } finally {
       this.isProcessing = false;

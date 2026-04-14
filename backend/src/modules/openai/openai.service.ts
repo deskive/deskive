@@ -179,7 +179,9 @@ export class OpenAIService {
     });
 
     if (!connection) {
-      throw new NotFoundException('OpenAI not connected. Please connect your OpenAI API key first.');
+      throw new NotFoundException(
+        'OpenAI not connected. Please connect your OpenAI API key first.',
+      );
     }
 
     const headers: Record<string, string> = {
@@ -328,19 +330,25 @@ export class OpenAIService {
       const message = error.response.data?.error?.message || error.message;
 
       if (status === 401) {
-        throw new BadRequestException('Invalid or expired OpenAI API key. Please reconnect your OpenAI account.');
+        throw new BadRequestException(
+          'Invalid or expired OpenAI API key. Please reconnect your OpenAI account.',
+        );
       }
       if (status === 429) {
         throw new BadRequestException('OpenAI rate limit exceeded. Please try again later.');
       }
       if (status === 500 || status === 503) {
-        throw new BadRequestException('OpenAI service is temporarily unavailable. Please try again later.');
+        throw new BadRequestException(
+          'OpenAI service is temporarily unavailable. Please try again later.',
+        );
       }
 
       throw new BadRequestException(`OpenAI API error: ${message}`);
     }
 
-    throw new BadRequestException('Failed to connect to OpenAI. Please check your internet connection.');
+    throw new BadRequestException(
+      'Failed to connect to OpenAI. Please check your internet connection.',
+    );
   }
 
   private transformConnection(connection: any): OpenAIConnectionDto {

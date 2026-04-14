@@ -2,7 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, MaxLength } from 'class-validator';
 
 export class JoinVideoCallDto {
-  @ApiProperty({ description: 'Display name for the participant', example: 'John Doe', required: false })
+  @ApiProperty({
+    description: 'Display name for the participant',
+    example: 'John Doe',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   @MaxLength(100)

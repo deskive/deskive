@@ -97,7 +97,8 @@ export class UnifiedAgentService {
             success: false,
             agentUsed: 'router',
             action: 'route_failed',
-            message: 'I detected you want to work with tasks, but I couldn\'t determine which project. Please specify a project name or navigate to a project first.',
+            message:
+              "I detected you want to work with tasks, but I couldn't determine which project. Please specify a project name or navigate to a project first.",
             error: 'PROJECT_CONTEXT_REQUIRED',
           };
         }
@@ -152,9 +153,10 @@ export class UnifiedAgentService {
     try {
       const projects = await this.projectsService.findAll(workspaceId, userId, {});
       if (projects && projects.length > 0) {
-        const projectList = projects.slice(0, 10).map((p: any) =>
-          `- "${p.name}" (ID: ${p.id})`
-        ).join('\n');
+        const projectList = projects
+          .slice(0, 10)
+          .map((p: any) => `- "${p.name}" (ID: ${p.id})`)
+          .join('\n');
         projectsContext = `\nAVAILABLE PROJECTS:\n${projectList}\n`;
       }
     } catch (error) {
@@ -226,24 +228,46 @@ Analyze the user prompt and respond with ONLY valid JSON:
 
     // Task-related keywords
     const taskKeywords = [
-      'task', 'tasks', 'todo', 'bug', 'story', 'subtask', 'epic',
-      'assign', 'assignee', 'due date', 'deadline', 'move to',
-      'complete', 'done', 'in progress', 'story points', 'sprint',
+      'task',
+      'tasks',
+      'todo',
+      'bug',
+      'story',
+      'subtask',
+      'epic',
+      'assign',
+      'assignee',
+      'due date',
+      'deadline',
+      'move to',
+      'complete',
+      'done',
+      'in progress',
+      'story points',
+      'sprint',
     ];
 
     // Project-related keywords
     const projectKeywords = [
-      'project', 'projects', 'kanban', 'scrum', 'workspace',
-      'team members', 'project settings', 'archive project',
+      'project',
+      'projects',
+      'kanban',
+      'scrum',
+      'workspace',
+      'team members',
+      'project settings',
+      'archive project',
     ];
 
-    const hasTaskKeyword = taskKeywords.some(kw => lowerPrompt.includes(kw));
-    const hasProjectKeyword = projectKeywords.some(kw => lowerPrompt.includes(kw));
+    const hasTaskKeyword = taskKeywords.some((kw) => lowerPrompt.includes(kw));
+    const hasProjectKeyword = projectKeywords.some((kw) => lowerPrompt.includes(kw));
 
     // Explicit task request
     if (hasTaskKeyword && !hasProjectKeyword) {
       // Try to extract project name from patterns like "in [project name]"
-      const projectNameMatch = lowerPrompt.match(/(?:in|for|to)\s+(?:project\s+)?["']?([^"'\n,]+?)["']?\s*(?:project)?$/i);
+      const projectNameMatch = lowerPrompt.match(
+        /(?:in|for|to)\s+(?:project\s+)?["']?([^"'\n,]+?)["']?\s*(?:project)?$/i,
+      );
       return {
         agent: 'task',
         projectName: projectNameMatch ? projectNameMatch[1].trim() : undefined,
@@ -303,8 +327,9 @@ Analyze the user prompt and respond with ONLY valid JSON:
 
       // Try partial match
       const partialMatch = projects.find(
-        (p: any) => p.name.toLowerCase().includes(projectName.toLowerCase()) ||
-                    projectName.toLowerCase().includes(p.name.toLowerCase()),
+        (p: any) =>
+          p.name.toLowerCase().includes(projectName.toLowerCase()) ||
+          projectName.toLowerCase().includes(p.name.toLowerCase()),
       );
       if (partialMatch) {
         this.logger.log(`[UnifiedAgent] Found partial project match: ${partialMatch.name}`);
@@ -315,7 +340,9 @@ Analyze the user prompt and respond with ONLY valid JSON:
       const searchWords = projectName.toLowerCase().split(/\s+/);
       const fuzzyMatch = projects.find((p: any) => {
         const projectWords = p.name.toLowerCase().split(/\s+/);
-        return searchWords.some(sw => projectWords.some((pw: string) => pw.includes(sw) || sw.includes(pw)));
+        return searchWords.some((sw) =>
+          projectWords.some((pw: string) => pw.includes(sw) || sw.includes(pw)),
+        );
       });
       if (fuzzyMatch) {
         this.logger.log(`[UnifiedAgent] Found fuzzy project match: ${fuzzyMatch.name}`);

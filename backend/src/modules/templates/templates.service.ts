@@ -106,17 +106,12 @@ export class TemplatesService {
     };
   }> {
     // Get all templates first, then filter
-    const result = await this.db
-      .table('project_templates')
-      .select('*')
-      .execute();
+    const result = await this.db.table('project_templates').select('*').execute();
 
     let templates = Array.isArray(result.data) ? result.data : [];
 
     // Filter: system templates (workspace_id is null) OR workspace-specific templates
-    templates = templates.filter(
-      (t) => t.workspace_id === null || t.workspace_id === workspaceId,
-    );
+    templates = templates.filter((t) => t.workspace_id === null || t.workspace_id === workspaceId);
 
     if (query.category) {
       templates = templates.filter((t) => t.category === query.category);
@@ -183,9 +178,7 @@ export class TemplatesService {
     let templates = Array.isArray(result.data) ? result.data : [];
 
     // Filter: system templates OR workspace-specific templates
-    templates = templates.filter(
-      (t) => t.workspace_id === null || t.workspace_id === workspaceId,
-    );
+    templates = templates.filter((t) => t.workspace_id === null || t.workspace_id === workspaceId);
 
     // Sort by usage_count descending
     templates.sort((a, b) => (b.usage_count || 0) - (a.usage_count || 0));
@@ -196,10 +189,7 @@ export class TemplatesService {
   /**
    * Get a single template by ID or slug
    */
-  async findOne(
-    workspaceId: string,
-    idOrSlug: string,
-  ): Promise<ProjectTemplate> {
+  async findOne(workspaceId: string, idOrSlug: string): Promise<ProjectTemplate> {
     // Check if idOrSlug is a valid UUID
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(idOrSlug);
 
@@ -257,14 +247,10 @@ export class TemplatesService {
       .where('slug', '=', createTemplateDto.slug)
       .execute();
 
-    const existing = Array.isArray(existingResult.data)
-      ? existingResult.data
-      : [];
+    const existing = Array.isArray(existingResult.data) ? existingResult.data : [];
 
     if (existing.length > 0) {
-      throw new ConflictException(
-        `Template with slug "${createTemplateDto.slug}" already exists`,
-      );
+      throw new ConflictException(`Template with slug "${createTemplateDto.slug}" already exists`);
     }
 
     const templateData = {
@@ -290,10 +276,7 @@ export class TemplatesService {
       updated_at: new Date().toISOString(),
     };
 
-    const result = await this.db.insert(
-      'project_templates',
-      templateData,
-    );
+    const result = await this.db.insert('project_templates', templateData);
 
     return this.mapTemplate(result);
   }
@@ -314,9 +297,7 @@ export class TemplatesService {
     }
 
     if (template.workspaceId !== workspaceId) {
-      throw new BadRequestException(
-        'Cannot modify templates from other workspaces',
-      );
+      throw new BadRequestException('Cannot modify templates from other workspaces');
     }
 
     const updateData: Record<string, any> = {
@@ -326,10 +307,8 @@ export class TemplatesService {
     if (updateTemplateDto.name) updateData.name = updateTemplateDto.name;
     if (updateTemplateDto.description !== undefined)
       updateData.description = updateTemplateDto.description;
-    if (updateTemplateDto.icon !== undefined)
-      updateData.icon = updateTemplateDto.icon;
-    if (updateTemplateDto.color !== undefined)
-      updateData.color = updateTemplateDto.color;
+    if (updateTemplateDto.icon !== undefined) updateData.icon = updateTemplateDto.icon;
+    if (updateTemplateDto.color !== undefined) updateData.color = updateTemplateDto.color;
     if (updateTemplateDto.structure)
       updateData.structure = JSON.stringify(updateTemplateDto.structure);
     if (updateTemplateDto.kanbanStages)
@@ -339,11 +318,7 @@ export class TemplatesService {
     if (updateTemplateDto.isFeatured !== undefined)
       updateData.is_featured = updateTemplateDto.isFeatured;
 
-    const result = await this.db.update(
-      'project_templates',
-      templateId,
-      updateData,
-    );
+    const result = await this.db.update('project_templates', templateId, updateData);
 
     return this.mapTemplate(result);
   }
@@ -351,11 +326,7 @@ export class TemplatesService {
   /**
    * Delete a custom template (cannot delete system templates)
    */
-  async delete(
-    workspaceId: string,
-    templateId: string,
-    userId: string,
-  ): Promise<void> {
+  async delete(workspaceId: string, templateId: string, userId: string): Promise<void> {
     const template = await this.findOne(workspaceId, templateId);
 
     if (template.isSystem) {
@@ -363,9 +334,7 @@ export class TemplatesService {
     }
 
     if (template.workspaceId !== workspaceId) {
-      throw new BadRequestException(
-        'Cannot delete templates from other workspaces',
-      );
+      throw new BadRequestException('Cannot delete templates from other workspaces');
     }
 
     await this.db.delete('project_templates', templateId);
@@ -404,18 +373,12 @@ export class TemplatesService {
         : undefined,
     };
 
-    const project = await this.projectsService.create(
-      workspaceId,
-      projectData,
-      userId,
-    );
+    const project = await this.projectsService.create(workspaceId, projectData, userId);
 
     // Create tasks from template structure
     const structure = template.structure;
     if (structure && structure.sections) {
-      const projectStartDate = dto.startDate
-        ? new Date(dto.startDate)
-        : new Date();
+      const projectStartDate = dto.startDate ? new Date(dto.startDate) : new Date();
 
       // Get the first kanban stage as default status, or fall back to 'todo'
       const defaultStatus = template.kanbanStages?.[0]?.id || 'todo';
@@ -423,10 +386,7 @@ export class TemplatesService {
       for (const section of structure.sections) {
         for (const task of section.tasks) {
           const taskDueDate = task.dueOffset
-            ? new Date(
-                projectStartDate.getTime() +
-                  task.dueOffset * 24 * 60 * 60 * 1000,
-              )
+            ? new Date(projectStartDate.getTime() + task.dueOffset * 24 * 60 * 60 * 1000)
             : null;
 
           // Determine assignees
@@ -454,9 +414,7 @@ export class TemplatesService {
             description: task.description || null,
             status: defaultStatus,
             priority: priorityMap[task.priority || 'medium'] || TaskPriority.MEDIUM,
-            due_date: taskDueDate
-              ? taskDueDate.toISOString().split('T')[0]
-              : null,
+            due_date: taskDueDate ? taskDueDate.toISOString().split('T')[0] : null,
             story_points: task.storyPoints || null,
             labels: task.labels || [],
             assigned_to: assignees,
@@ -531,9 +489,7 @@ export class TemplatesService {
         .where('slug', '=', template.slug)
         .execute();
 
-      const existing = Array.isArray(existingResult.data)
-        ? existingResult.data
-        : [];
+      const existing = Array.isArray(existingResult.data) ? existingResult.data : [];
 
       if (existing.length > 0) {
         continue;
@@ -549,9 +505,7 @@ export class TemplatesService {
         color: template.color,
         structure: JSON.stringify(template.structure),
         project_type: template.projectType,
-        kanban_stages: template.kanbanStages
-          ? JSON.stringify(template.kanbanStages)
-          : null,
+        kanban_stages: template.kanbanStages ? JSON.stringify(template.kanbanStages) : null,
         custom_fields: JSON.stringify(template.customFields || []),
         settings: JSON.stringify(template.settings || {}),
         is_system: true,
@@ -579,10 +533,7 @@ export class TemplatesService {
     const result = [];
 
     // Get all templates once
-    const allResult = await this.db
-      .table('project_templates')
-      .select('category')
-      .execute();
+    const allResult = await this.db.table('project_templates').select('category').execute();
 
     const allTemplates = Array.isArray(allResult.data) ? allResult.data : [];
 

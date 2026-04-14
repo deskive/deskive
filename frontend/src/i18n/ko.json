@@ -5094,7 +5094,7 @@
       "badge": "Powerful Integrations",
       "title": "Connect Everything You Use",
       "titleHighlight": "Unify Your Entire Stack.",
-      "subtitle": "Seamlessly integrate with 500+ apps and services. Connect your favorite development tools, business applications, and services with powerful API, webhooks, and pre-built connectors.",
+      "subtitle": "Seamlessly integrate with 180+ apps in the built-in catalog — Slack, Google Workspace, GitHub, Jira, Notion, Asana, Linear, HubSpot, and more — plus a pluggable OAuth framework, REST API, and webhooks for the rest of your stack.",
       "cta": "Explore Integrations",
       "sections": {
         "connectTitle": "Integration Made Simple",
@@ -5136,6 +5136,87 @@
         "powerTitle": "Advanced Workflows",
         "powerSubtitle": "Complex conditional logic, custom scripts, and error handling for reliable automation",
         "essentialsSubtitle": "Everything you need to automate your workflows"
+      }
+    }
+  },
+  "productDetail": {
+    "keyFeatures": "주요 기능",
+    "chat": {
+      "name": "채팅",
+      "tagline": "팀을 위한 실시간 메시징.",
+      "description": "채널, 스레드, 다이렉트 메시지, 멘션, 파일 공유로 정돈된 대화. 빠르게 움직이는 팀을 위해 만들어졌습니다.",
+      "features": {
+        "0": "채널과 스레드 기반 대화",
+        "1": "다이렉트 메시지와 그룹 채팅",
+        "2": "멘션, 반응, 북마크",
+        "3": "파일 첨부와 리치 미디어",
+        "4": "워크스페이스 전체에서 메시지 검색",
+        "5": "예약 메시지와 리마인더"
+      }
+    },
+    "projects": {
+      "name": "프로젝트",
+      "tagline": "칸반 보드와 작업 관리.",
+      "description": "유연한 보드, 작업, 하위 작업, 맞춤 워크플로우로 업무를 계획하고 진행 상황을 추적하며 제때 출시하세요.",
+      "features": {
+        "0": "드래그 앤 드롭 칸반 보드",
+        "1": "작업, 하위 작업, 체크리스트",
+        "2": "담당자, 마감일, 우선순위",
+        "3": "라벨, 필터, 사용자 정의 필드",
+        "4": "댓글과 활동 기록",
+        "5": "리스트, 보드, 타임라인 보기"
+      }
+    },
+    "files": {
+      "name": "파일",
+      "tagline": "버전 관리가 포함된 클라우드 스토리지.",
+      "description": "모든 프로젝트에 공유 워크스페이스 드라이브 제공 — 어떤 유형의 파일이든 업로드, 미리보기, 정리, 공동 작업이 가능합니다.",
+      "features": {
+        "0": "폴더 계층 구조와 태깅",
+        "1": "문서, 이미지, 동영상 미리보기",
+        "2": "버전 기록과 복원",
+        "3": "세분화된 공유 권한",
+        "4": "만료 기한이 있는 링크 공유",
+        "5": "휴지통과 복구"
+      }
+    },
+    "calendar": {
+      "name": "캘린더",
+      "tagline": "번거로움 없는 일정 관리.",
+      "description": "스마트한 가용 시간 확인, 반복 일정, 회의 예약을 지원하는 개인 및 공유 캘린더.",
+      "features": {
+        "0": "일간, 주간, 월간 보기",
+        "1": "반복 일정과 종일 일정",
+        "2": "공유 팀 캘린더",
+        "3": "회의 초대와 RSVP",
+        "4": "가용 시간과 바쁨 상태",
+        "5": "리마인더와 알림"
+      }
+    },
+    "notes": {
+      "name": "노트",
+      "tagline": "팀을 위한 블록 기반 문서.",
+      "description": "강력한 블록 에디터로 문서, 사양, 지식을 작성하고 정리하고 함께 작업하세요.",
+      "features": {
+        "0": "Notion 스타일 블록 에디터",
+        "1": "실시간 공동 편집",
+        "2": "멘션과 인라인 임베드",
+        "3": "중첩된 페이지와 워크스페이스",
+        "4": "자주 쓰는 문서를 위한 템플릿",
+        "5": "댓글과 제안"
+      }
+    },
+    "videoCalls": {
+      "name": "화상 통화",
+      "tagline": "내장된 HD 화상 회의.",
+      "description": "채팅, 캘린더, 또는 공유 미팅 링크에서 바로 안전하고 지연이 적은 화상 통화를 시작하세요.",
+      "features": {
+        "0": "1:1 및 그룹 통화",
+        "1": "화면 공유와 발표자 모드",
+        "2": "통화 중 채팅과 반응",
+        "3": "외부 참가자를 위한 미팅 링크",
+        "4": "배경 흐림과 가상 배경",
+        "5": "녹화 지원"
       }
     }
   },

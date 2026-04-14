@@ -24,32 +24,41 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionResponse = exception.getResponse();
-      message = typeof exceptionResponse === 'string' 
-        ? exceptionResponse 
-        : (exceptionResponse as any).message || message;
+      message =
+        typeof exceptionResponse === 'string'
+          ? exceptionResponse
+          : (exceptionResponse as any).message || message;
       details = typeof exceptionResponse === 'object' ? exceptionResponse : null;
     } else if (exception instanceof Error) {
       // Handle known error patterns
       if (exception.message.includes('JWT')) {
         status = HttpStatus.UNAUTHORIZED;
         message = 'Authentication failed';
-      } else if (exception.message.includes('duplicate key') || exception.message.includes('unique constraint')) {
+      } else if (
+        exception.message.includes('duplicate key') ||
+        exception.message.includes('unique constraint')
+      ) {
         status = HttpStatus.CONFLICT;
         message = 'Resource already exists';
       } else if (exception.message.includes('not found')) {
         status = HttpStatus.NOT_FOUND;
         message = 'Resource not found';
-      } else if (exception.message.includes('foreign key') || exception.message.includes('constraint')) {
+      } else if (
+        exception.message.includes('foreign key') ||
+        exception.message.includes('constraint')
+      ) {
         status = HttpStatus.BAD_REQUEST;
         message = 'Invalid data provided';
       } else {
-        message = process.env.NODE_ENV === 'development' ? exception.message : 'Something went wrong';
+        message =
+          process.env.NODE_ENV === 'development' ? exception.message : 'Something went wrong';
       }
     }
 
     // Generate correlation ID for tracking
-    const correlationId = request.headers['x-correlation-id'] || 
-                         `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const correlationId =
+      request.headers['x-correlation-id'] ||
+      `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 
     // Log the error for monitoring
     this.logger.error(
@@ -66,9 +75,10 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       message,
       correlationId,
       ...(details && { details }),
-      ...(process.env.NODE_ENV === 'development' && exception instanceof Error && { 
-        stack: exception.stack 
-      }),
+      ...(process.env.NODE_ENV === 'development' &&
+        exception instanceof Error && {
+          stack: exception.stack,
+        }),
     };
 
     response.status(status).json(errorResponse);

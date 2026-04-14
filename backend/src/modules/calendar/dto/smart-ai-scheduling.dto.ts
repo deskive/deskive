@@ -12,7 +12,8 @@ export enum SchedulingContext {
 export class SmartAISchedulingRequestDto {
   @ApiProperty({
     description: 'Natural language prompt describing the meeting or event to schedule',
-    example: 'Schedule a team meeting next week to discuss the new project launch. Need John, Sarah, and Mike to attend. Should be about 90 minutes with a projector.',
+    example:
+      'Schedule a team meeting next week to discuss the new project launch. Need John, Sarah, and Mike to attend. Should be about 90 minutes with a projector.',
   })
   @IsString()
   prompt: string;
@@ -153,7 +154,8 @@ export class SmartTimeSlotSuggestion {
 
   @ApiProperty({
     description: 'Detailed reasoning for this suggestion',
-    example: 'Optimal time slot: All mentioned attendees are available, matches inferred morning preference, and Conference Room A with projector is available',
+    example:
+      'Optimal time slot: All mentioned attendees are available, matches inferred morning preference, and Conference Room A with projector is available',
   })
   reasoning: string;
 
@@ -205,7 +207,8 @@ export class SmartAISchedulingResponseDto {
 
   @ApiProperty({
     description: 'AI-generated interpretation of the scheduling request',
-    example: 'I understand you want to schedule a 90-minute team meeting for 4 people to discuss a project launch, preferably next week with presentation capabilities.',
+    example:
+      'I understand you want to schedule a 90-minute team meeting for 4 people to discuss a project launch, preferably next week with presentation capabilities.',
   })
   interpretation: string;
 
@@ -255,7 +258,7 @@ export class SmartAISchedulingResponseDto {
   clarifyingQuestions?: string[];
 
   @ApiProperty({
-    description: 'Alternative approaches if primary suggestions don\'t work',
+    description: "Alternative approaches if primary suggestions don't work",
     type: [String],
     example: [
       'Consider splitting into two shorter 45-minute sessions',

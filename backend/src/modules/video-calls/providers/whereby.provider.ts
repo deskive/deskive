@@ -113,7 +113,7 @@ export class WherebyProvider implements VideoProvider {
     const res = await fetch(`${WHEREBY_API_BASE}${path}`, {
       method,
       headers: {
-        'Authorization': `Bearer ${this.apiKey}`,
+        Authorization: `Bearer ${this.apiKey}`,
         'Content-Type': 'application/json',
       },
       body: body ? JSON.stringify(body) : undefined,
@@ -194,7 +194,7 @@ export class WherebyProvider implements VideoProvider {
     }
 
     return {
-      token: url,  // No separate token; the URL is the token.
+      token: url, // No separate token; the URL is the token.
       url,
       provider: 'whereby',
     };
@@ -235,8 +235,6 @@ export class WherebyProvider implements VideoProvider {
    * Invalid characters are stripped, and we truncate the result.
    */
   private sanitizePrefix(name: string): string {
-    return (name || 'room')
-      .replace(/[^a-zA-Z0-9]/g, '')
-      .slice(0, 20) || 'room';
+    return (name || 'room').replace(/[^a-zA-Z0-9]/g, '').slice(0, 20) || 'room';
   }
 }

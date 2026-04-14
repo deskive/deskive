@@ -36,7 +36,11 @@ export class CreateCategoryDto {
   @IsOptional()
   categoryType?: CategoryType;
 
-  @ApiProperty({ description: 'Cost nature (fixed or variable)', enum: CostNature, default: CostNature.VARIABLE })
+  @ApiProperty({
+    description: 'Cost nature (fixed or variable)',
+    enum: CostNature,
+    default: CostNature.VARIABLE,
+  })
   @IsEnum(CostNature)
   @IsOptional()
   costNature?: CostNature;

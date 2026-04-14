@@ -1296,8 +1296,8 @@ export function NotionStyleNoteEditor({
           const viewportHeight = window.innerHeight
           const margin = 10
 
-          let posX = editorRect.left + bounds.left + 40
-          let posY = editorRect.top + bounds.top + bounds.height + 5
+          const posX = editorRect.left + bounds.left + 40
+          const posY = editorRect.top + bounds.top + bounds.height + 5
 
           // Calculate available space
           const spaceBelow = viewportHeight - posY

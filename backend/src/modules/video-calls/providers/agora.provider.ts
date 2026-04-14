@@ -97,14 +97,14 @@ export class AgoraProvider implements VideoProvider {
       throw new VideoProviderNotConfiguredError('agora', this.missingVars());
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       this.tokenBuilder = require('agora-token');
       this.sdkLoaded = true;
       this.logger.log('agora-token package loaded');
     } catch (e: any) {
       throw new Error(
         `Agora provider selected but the "agora-token" package is not installed. ` +
-        `Run: npm install agora-token    Original error: ${e.message}`,
+          `Run: npm install agora-token    Original error: ${e.message}`,
       );
     }
   }
@@ -118,11 +118,13 @@ export class AgoraProvider implements VideoProvider {
 
   private sanitize(name: string): string {
     // Agora channel names: max 64 chars, ASCII letters/digits/some punct.
-    return name
-      .replace(/[^a-zA-Z0-9_-]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '')
-      .slice(0, 64) || `room-${Date.now()}`;
+    return (
+      name
+        .replace(/[^a-zA-Z0-9_-]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .slice(0, 64) || `room-${Date.now()}`
+    );
   }
 
   async createRoom(options: CreateRoomOptions): Promise<VideoRoom> {
@@ -173,9 +175,10 @@ export class AgoraProvider implements VideoProvider {
     // The user identity is hashed to a stable uint32 uid (Agora's native
     // identity type) so the same string identity always produces the same uid.
     const uid = this.identityToUid(options.identity);
-    const role = options.isAdmin || options.canPublish !== false
-      ? this.tokenBuilder.RtcRole.PUBLISHER
-      : this.tokenBuilder.RtcRole.SUBSCRIBER;
+    const role =
+      options.isAdmin || options.canPublish !== false
+        ? this.tokenBuilder.RtcRole.PUBLISHER
+        : this.tokenBuilder.RtcRole.SUBSCRIBER;
 
     const token = this.tokenBuilder.RtcTokenBuilder.buildTokenWithUid(
       this.appId,
@@ -255,11 +258,16 @@ export class AgoraProvider implements VideoProvider {
     if (!m) return null;
     const n = parseInt(m[1], 10);
     switch (m[2]) {
-      case 'd': return n * 86400;
-      case 'h': return n * 3600;
-      case 'm': return n * 60;
-      case 's': return n;
-      default: return n;
+      case 'd':
+        return n * 86400;
+      case 'h':
+        return n * 3600;
+      case 'm':
+        return n * 60;
+      case 's':
+        return n;
+      default:
+        return n;
     }
   }
 }

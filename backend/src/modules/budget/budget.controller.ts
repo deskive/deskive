@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Patch,
+  Delete,
+  Body,
+  Param,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
@@ -29,7 +40,7 @@ export class BudgetController {
   async createBudget(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() createBudgetDto: CreateBudgetDto
+    @Body() createBudgetDto: CreateBudgetDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.createBudget(workspaceId, userId, createBudgetDto);
@@ -40,7 +51,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return all budgets' })
   async getBudgets(
     @Param('workspaceId') workspaceId: string,
-    @Query('projectId') projectId?: string
+    @Query('projectId') projectId?: string,
   ) {
     return this.budgetService.getBudgets(workspaceId, projectId);
   }
@@ -48,10 +59,7 @@ export class BudgetController {
   @Get(':id')
   @ApiOperation({ summary: 'Get budget by ID' })
   @ApiResponse({ status: 200, description: 'Return budget details' })
-  async getBudgetById(
-    @Param('workspaceId') workspaceId: string,
-    @Param('id') id: string
-  ) {
+  async getBudgetById(@Param('workspaceId') workspaceId: string, @Param('id') id: string) {
     return this.budgetService.getBudgetById(workspaceId, id);
   }
 
@@ -62,7 +70,7 @@ export class BudgetController {
   async updateBudget(
     @Param('workspaceId') workspaceId: string,
     @Param('id') id: string,
-    @Body() updateBudgetDto: UpdateBudgetDto
+    @Body() updateBudgetDto: UpdateBudgetDto,
   ) {
     return this.budgetService.updateBudget(workspaceId, id, updateBudgetDto);
   }
@@ -74,7 +82,7 @@ export class BudgetController {
   async deleteBudget(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Param('id') id: string
+    @Param('id') id: string,
   ) {
     const userId = req.user.sub || req.user.userId;
     await this.budgetService.deleteBudget(workspaceId, id, userId);
@@ -84,10 +92,7 @@ export class BudgetController {
   @Get(':id/summary')
   @ApiOperation({ summary: 'Get budget summary with statistics' })
   @ApiResponse({ status: 200, description: 'Return budget summary' })
-  async getBudgetSummary(
-    @Param('workspaceId') workspaceId: string,
-    @Param('id') id: string
-  ) {
+  async getBudgetSummary(@Param('workspaceId') workspaceId: string, @Param('id') id: string) {
     return this.budgetService.getBudgetSummary(workspaceId, id);
   }
 
@@ -97,7 +102,10 @@ export class BudgetController {
   @RequireRole('admin', 'owner')
   @ApiOperation({ summary: 'Create budget category' })
   @ApiResponse({ status: 201, description: 'Category created successfully' })
-  async createCategory(@Param('budgetId') budgetId: string, @Body() createCategoryDto: CreateCategoryDto) {
+  async createCategory(
+    @Param('budgetId') budgetId: string,
+    @Body() createCategoryDto: CreateCategoryDto,
+  ) {
     return this.budgetService.createCategory(budgetId, createCategoryDto);
   }
 
@@ -116,7 +124,7 @@ export class BudgetController {
     @Req() req,
     @Param('budgetId') budgetId: string,
     @Param('categoryId') categoryId: string,
-    @Body() updateCategoryDto: UpdateCategoryDto
+    @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.updateCategory(budgetId, categoryId, userId, updateCategoryDto);
@@ -129,7 +137,7 @@ export class BudgetController {
   async deleteCategory(
     @Req() req,
     @Param('budgetId') budgetId: string,
-    @Param('categoryId') categoryId: string
+    @Param('categoryId') categoryId: string,
   ) {
     const userId = req.user.sub || req.user.userId;
     await this.budgetService.deleteCategory(budgetId, categoryId, userId);
@@ -138,11 +146,11 @@ export class BudgetController {
 
   @Get(':id/analytics')
   @ApiOperation({ summary: 'Get budget cost analytics' })
-  @ApiResponse({ status: 200, description: 'Return budget analytics with fixed vs variable breakdown' })
-  async getBudgetAnalytics(
-    @Param('workspaceId') workspaceId: string,
-    @Param('id') id: string
-  ) {
+  @ApiResponse({
+    status: 200,
+    description: 'Return budget analytics with fixed vs variable breakdown',
+  })
+  async getBudgetAnalytics(@Param('workspaceId') workspaceId: string, @Param('id') id: string) {
     return this.budgetService.getBudgetSummary(workspaceId, id);
   }
 
@@ -152,7 +160,7 @@ export class BudgetController {
   async getVariableCostProjections(
     @Param('workspaceId') workspaceId: string,
     @Param('id') id: string,
-    @Query('months') months?: number
+    @Query('months') months?: number,
   ) {
     const projectionMonths = months ? parseInt(months.toString(), 10) : 3;
     return this.budgetService.getVariableCostProjection(workspaceId, id, projectionMonths);
@@ -167,7 +175,7 @@ export class BudgetController {
   async createExpense(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() createExpenseDto: CreateExpenseDto
+    @Body() createExpenseDto: CreateExpenseDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.createExpense(workspaceId, userId, createExpenseDto);
@@ -178,7 +186,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return all expenses' })
   async getExpenses(
     @Param('workspaceId') workspaceId: string,
-    @Param('budgetId') budgetId: string
+    @Param('budgetId') budgetId: string,
   ) {
     return this.budgetService.getExpenses(workspaceId, budgetId);
   }
@@ -190,7 +198,7 @@ export class BudgetController {
   async approveExpense(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Param('expenseId') expenseId: string
+    @Param('expenseId') expenseId: string,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.approveExpense(workspaceId, expenseId, userId);
@@ -205,7 +213,7 @@ export class BudgetController {
   async createTimeEntry(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() createTimeEntryDto: CreateTimeEntryDto
+    @Body() createTimeEntryDto: CreateTimeEntryDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.createTimeEntry(workspaceId, userId, createTimeEntryDto);
@@ -218,7 +226,7 @@ export class BudgetController {
   async startTimer(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() startTimerDto: StartTimerDto
+    @Body() startTimerDto: StartTimerDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.startTimer(workspaceId, userId, startTimerDto);
@@ -231,7 +239,7 @@ export class BudgetController {
   async stopTimer(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() stopTimerDto: StopTimerDto
+    @Body() stopTimerDto: StopTimerDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.stopTimer(workspaceId, userId, stopTimerDto.timeEntryId);
@@ -240,10 +248,7 @@ export class BudgetController {
   @Get('time-entries/running')
   @ApiOperation({ summary: 'Get running timer' })
   @ApiResponse({ status: 200, description: 'Return running timer if exists' })
-  async getRunningTimer(
-    @Req() req,
-    @Param('workspaceId') workspaceId: string
-  ) {
+  async getRunningTimer(@Req() req, @Param('workspaceId') workspaceId: string) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.getRunningTimer(workspaceId, userId);
   }
@@ -254,7 +259,7 @@ export class BudgetController {
   async getTimeEntries(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Query('taskId') taskId?: string
+    @Query('taskId') taskId?: string,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.getTimeEntries(workspaceId, userId, taskId);
@@ -266,7 +271,7 @@ export class BudgetController {
   async getAllTimeEntriesForBudget(
     @Param('workspaceId') workspaceId: string,
     @Param('budgetId') budgetId: string,
-    @Query('taskId') taskId?: string
+    @Query('taskId') taskId?: string,
   ) {
     return this.budgetService.getAllTimeEntriesForBudget(workspaceId, budgetId, taskId);
   }
@@ -276,7 +281,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return running timer for task if exists' })
   async getRunningTimerForTask(
     @Param('workspaceId') workspaceId: string,
-    @Param('taskId') taskId: string
+    @Param('taskId') taskId: string,
   ) {
     return this.budgetService.getRunningTimerForTask(workspaceId, taskId);
   }
@@ -286,7 +291,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return all running timers for task' })
   async getAllRunningTimersForTask(
     @Param('workspaceId') workspaceId: string,
-    @Param('taskId') taskId: string
+    @Param('taskId') taskId: string,
   ) {
     return this.budgetService.getAllRunningTimersForTask(workspaceId, taskId);
   }
@@ -300,7 +305,7 @@ export class BudgetController {
   async createBillingRate(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() createBillingRateDto: CreateBillingRateDto
+    @Body() createBillingRateDto: CreateBillingRateDto,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.createBillingRate(workspaceId, userId, createBillingRateDto);
@@ -318,7 +323,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return user billing rate' })
   async getUserBillingRate(
     @Param('workspaceId') workspaceId: string,
-    @Param('userId') userId: string
+    @Param('userId') userId: string,
   ) {
     return this.budgetService.getActiveBillingRateForUser(workspaceId, userId);
   }
@@ -332,7 +337,7 @@ export class BudgetController {
   async createTaskAllocations(
     @Req() req,
     @Param('workspaceId') workspaceId: string,
-    @Body() createDto: any
+    @Body() createDto: any,
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.createTaskAllocations(workspaceId, userId, createDto);
@@ -343,7 +348,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return task allocations' })
   async getTaskAllocations(
     @Param('workspaceId') workspaceId: string,
-    @Param('taskId') taskId: string
+    @Param('taskId') taskId: string,
   ) {
     return this.budgetService.getTaskAllocations(workspaceId, taskId);
   }
@@ -353,7 +358,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return all allocations for budget' })
   async getAllocationsForBudget(
     @Param('workspaceId') workspaceId: string,
-    @Param('budgetId') budgetId: string
+    @Param('budgetId') budgetId: string,
   ) {
     return this.budgetService.getAllocationsForBudget(workspaceId, budgetId);
   }
@@ -365,7 +370,7 @@ export class BudgetController {
   async updateTaskAllocation(
     @Param('workspaceId') workspaceId: string,
     @Param('allocationId') allocationId: string,
-    @Body() updateDto: any
+    @Body() updateDto: any,
   ) {
     return this.budgetService.updateTaskAllocation(workspaceId, allocationId, updateDto);
   }
@@ -376,7 +381,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Task allocation deleted successfully' })
   async deleteTaskAllocation(
     @Param('workspaceId') workspaceId: string,
-    @Param('allocationId') allocationId: string
+    @Param('allocationId') allocationId: string,
   ) {
     await this.budgetService.deleteTaskAllocation(workspaceId, allocationId);
     return { message: 'Task allocation deleted successfully' };
@@ -392,7 +397,10 @@ export class BudgetController {
     @Req() req,
     @Param('workspaceId') workspaceId: string,
     @Param('taskId') taskId: string,
-    @Body() body: { rates: Array<{ userId: string; hourlyRate: number; currency?: string; notes?: string }> }
+    @Body()
+    body: {
+      rates: Array<{ userId: string; hourlyRate: number; currency?: string; notes?: string }>;
+    },
   ) {
     const userId = req.user.sub || req.user.userId;
     return this.budgetService.setTaskAssigneeRates(workspaceId, userId, taskId, body.rates);
@@ -403,7 +411,7 @@ export class BudgetController {
   @ApiResponse({ status: 200, description: 'Return task assignee rates' })
   async getTaskAssigneeRates(
     @Param('workspaceId') workspaceId: string,
-    @Param('taskId') taskId: string
+    @Param('taskId') taskId: string,
   ) {
     return this.budgetService.getTaskAssigneeRates(workspaceId, taskId);
   }
@@ -414,7 +422,7 @@ export class BudgetController {
   async getTaskAssigneeRate(
     @Param('workspaceId') workspaceId: string,
     @Param('taskId') taskId: string,
-    @Param('userId') userId: string
+    @Param('userId') userId: string,
   ) {
     return this.budgetService.getTaskAssigneeRate(workspaceId, taskId, userId);
   }
@@ -426,7 +434,7 @@ export class BudgetController {
   async deleteTaskAssigneeRate(
     @Param('workspaceId') workspaceId: string,
     @Param('taskId') taskId: string,
-    @Param('userId') userId: string
+    @Param('userId') userId: string,
   ) {
     await this.budgetService.deleteTaskAssigneeRate(workspaceId, taskId, userId);
     return { message: 'Task assignee rate deleted successfully' };

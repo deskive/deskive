@@ -241,9 +241,7 @@ describe('OpenAIService', () => {
           ],
         };
 
-        nock('https://api.openai.com')
-          .get('/v1/models')
-          .reply(200, mockModels);
+        nock('https://api.openai.com').get('/v1/models').reply(200, mockModels);
 
         const result = await service.listModels(mockUserId, mockWorkspaceId);
 
@@ -301,9 +299,7 @@ describe('OpenAIService', () => {
           },
         };
 
-        nock('https://api.openai.com')
-          .post('/v1/chat/completions')
-          .reply(200, mockResponse);
+        nock('https://api.openai.com').post('/v1/chat/completions').reply(200, mockResponse);
 
         const result = await service.chatCompletion(mockUserId, mockWorkspaceId, {
           messages: [{ role: 'user', content: 'Hello' }],
@@ -360,8 +356,9 @@ describe('OpenAIService', () => {
         };
 
         nock('https://api.openai.com')
-          .post('/v1/chat/completions', (body) =>
-            body.temperature === 0.7 && body.max_tokens === 100
+          .post(
+            '/v1/chat/completions',
+            (body) => body.temperature === 0.7 && body.max_tokens === 100,
           )
           .reply(200, mockResponse);
 
@@ -411,9 +408,7 @@ describe('OpenAIService', () => {
           },
         };
 
-        nock('https://api.openai.com')
-          .post('/v1/embeddings')
-          .reply(200, mockEmbedding);
+        nock('https://api.openai.com').post('/v1/embeddings').reply(200, mockEmbedding);
 
         const result = await service.createEmbedding(mockUserId, mockWorkspaceId, {
           input: 'Hello world',
@@ -475,9 +470,7 @@ describe('OpenAIService', () => {
           },
         };
 
-        nock('https://api.openai.com')
-          .post('/v1/completions')
-          .reply(200, mockResponse);
+        nock('https://api.openai.com').post('/v1/completions').reply(200, mockResponse);
 
         const result = await service.textCompletion(mockUserId, mockWorkspaceId, {
           prompt: 'Hello, this is',
@@ -526,9 +519,7 @@ describe('OpenAIService', () => {
     });
 
     it('should handle network errors', async () => {
-      nock('https://api.openai.com')
-        .get('/v1/models')
-        .replyWithError('Network error');
+      nock('https://api.openai.com').get('/v1/models').replyWithError('Network error');
 
       await expect(service.listModels(mockUserId, mockWorkspaceId)).rejects.toThrow(
         BadRequestException,

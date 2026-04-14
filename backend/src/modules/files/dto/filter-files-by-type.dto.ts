@@ -8,7 +8,7 @@ export enum FileCategory {
   SPREADSHEETS = 'spreadsheets',
   VIDEOS = 'videos',
   AUDIO = 'audio',
-  PDFS = 'pdfs'
+  PDFS = 'pdfs',
 }
 
 export class FilterFilesByTypeDto {
@@ -16,7 +16,7 @@ export class FilterFilesByTypeDto {
     description: 'File category to filter by',
     enum: FileCategory,
     required: false,
-    example: FileCategory.IMAGES
+    example: FileCategory.IMAGES,
   })
   @IsOptional()
   @IsEnum(FileCategory)
@@ -25,7 +25,7 @@ export class FilterFilesByTypeDto {
   @ApiProperty({
     description: 'Specific MIME type to filter by (e.g., "image/png", "application/pdf")',
     required: false,
-    example: 'image/png'
+    example: 'image/png',
   })
   @IsOptional()
   @IsString()
@@ -34,7 +34,7 @@ export class FilterFilesByTypeDto {
   @ApiProperty({
     description: 'File extension to filter by (e.g., "pdf", "jpg")',
     required: false,
-    example: 'pdf'
+    example: 'pdf',
   })
   @IsOptional()
   @IsString()
@@ -43,7 +43,7 @@ export class FilterFilesByTypeDto {
   @ApiProperty({
     description: 'Folder ID to filter within',
     required: false,
-    example: '123e4567-e89b-12d3-a456-426614174000'
+    example: '123e4567-e89b-12d3-a456-426614174000',
   })
   @IsOptional()
   @IsString()
@@ -53,7 +53,7 @@ export class FilterFilesByTypeDto {
     description: 'Page number for pagination',
     required: false,
     example: 1,
-    default: 1
+    default: 1,
   })
   @IsOptional()
   @Type(() => Number)
@@ -65,7 +65,7 @@ export class FilterFilesByTypeDto {
     description: 'Number of items per page',
     required: false,
     example: 50,
-    default: 50
+    default: 50,
   })
   @IsOptional()
   @Type(() => Number)

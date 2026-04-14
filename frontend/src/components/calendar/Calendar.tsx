@@ -584,6 +584,7 @@ export function Calendar({ onReturnToCalendar }: CalendarProps = {}) {
       />
       
       {/* Schedule Meeting Modal - Disabled to prevent fetch errors */}
+      {/* eslint-disable-next-line no-constant-binary-expression */}
       {false && (
         <ScheduleMeetingModal
           open={showScheduleMeetingModal}

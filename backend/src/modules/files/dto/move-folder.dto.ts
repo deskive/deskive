@@ -3,10 +3,11 @@ import { IsOptional, IsUUID, IsString } from 'class-validator';
 
 export class MoveFolderDto {
   @ApiProperty({
-    description: 'Target parent folder ID to move the folder to. Set to null or omit to move to root.',
+    description:
+      'Target parent folder ID to move the folder to. Set to null or omit to move to root.',
     example: 'uuid-here',
     required: false,
-    nullable: true
+    nullable: true,
   })
   @IsOptional()
   @IsUUID()
@@ -15,7 +16,7 @@ export class MoveFolderDto {
   @ApiProperty({
     description: 'New name for the folder (optional)',
     example: 'Renamed Folder',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()

@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const TECHNICAL_OPERATIONS_TEMPLATES = [
   {
@@ -16,7 +13,10 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
     content: {
       ops: [
         { insert: 'DEPLOYMENT PLAN\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProject: {{project_name}}\nRelease Version: {{version}}\nDeployment Date: {{deployment_date}}\nPrepared By: {{prepared_by}}\n\n' },
+        {
+          insert:
+            '\nProject: {{project_name}}\nRelease Version: {{version}}\nDeployment Date: {{deployment_date}}\nPrepared By: {{prepared_by}}\n\n',
+        },
         { insert: '1. OVERVIEW\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{overview}}\n\n' },
         { insert: '2. DEPLOYMENT SCOPE\n', attributes: { bold: true, size: 'large' } },
@@ -34,7 +34,10 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
         { insert: '8. RISK ASSESSMENT\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{risk_assessment}}\n\n' },
         { insert: '9. DOWNTIME WINDOW\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nStart Time: {{downtime_start}}\nEnd Time: {{downtime_end}}\nExpected Duration: {{expected_duration}}\n\n' },
+        {
+          insert:
+            '\nStart Time: {{downtime_start}}\nEnd Time: {{downtime_end}}\nExpected Duration: {{expected_duration}}\n\n',
+        },
         { insert: '10. TEAM CONTACTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{team_contacts}}\n\n' },
         { insert: 'APPROVAL\n', attributes: { bold: true } },
@@ -50,7 +53,12 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'prepared_by', type: 'text', label: 'Prepared By', required: true },
       { key: 'overview', type: 'textarea', label: 'Overview', required: true },
       { key: 'deployment_scope', type: 'textarea', label: 'Deployment Scope', required: true },
-      { key: 'pre_deployment_checklist', type: 'textarea', label: 'Pre-Deployment Checklist', required: true },
+      {
+        key: 'pre_deployment_checklist',
+        type: 'textarea',
+        label: 'Pre-Deployment Checklist',
+        required: true,
+      },
       { key: 'deployment_steps', type: 'textarea', label: 'Deployment Steps', required: true },
       { key: 'verification_steps', type: 'textarea', label: 'Verification Steps', required: true },
       { key: 'rollback_plan', type: 'textarea', label: 'Rollback Plan', required: true },
@@ -62,11 +70,30 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'team_contacts', type: 'textarea', label: 'Team Contacts', required: true },
     ],
     signatureFields: [
-      { id: 'release_manager_signature', label: 'Release Manager Signature', required: true, position: { page: 1, x: 100, y: 620 } },
-      { id: 'tech_lead_signature', label: 'Tech Lead Signature', required: false, position: { page: 1, x: 100, y: 660 } },
-      { id: 'operations_signature', label: 'Operations Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'release_manager_signature',
+        label: 'Release Manager Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 620 },
+      },
+      {
+        id: 'tech_lead_signature',
+        label: 'Tech Lead Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'operations_signature',
+        label: 'Operations Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Incident Post-Mortem',
@@ -80,9 +107,14 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
     content: {
       ops: [
         { insert: 'INCIDENT POST-MORTEM\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nIncident ID: {{incident_id}}\nDate: {{incident_date}}\nAuthor: {{author}}\n\n' },
+        {
+          insert: '\nIncident ID: {{incident_id}}\nDate: {{incident_date}}\nAuthor: {{author}}\n\n',
+        },
         { insert: 'INCIDENT SUMMARY\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nTitle: {{incident_title}}\nSeverity: {{severity}}\nDuration: {{duration}}\nImpact: {{impact}}\n\n' },
+        {
+          insert:
+            '\nTitle: {{incident_title}}\nSeverity: {{severity}}\nDuration: {{duration}}\nImpact: {{impact}}\n\n',
+        },
         { insert: 'TIMELINE\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{timeline}}\n\n' },
         { insert: 'ROOT CAUSE\n', attributes: { bold: true, size: 'large' } },
@@ -112,12 +144,23 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'incident_date', type: 'date', label: 'Incident Date', required: true },
       { key: 'author', type: 'text', label: 'Author', required: true },
       { key: 'incident_title', type: 'text', label: 'Incident Title', required: true },
-      { key: 'severity', type: 'select', label: 'Severity', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
+      {
+        key: 'severity',
+        type: 'select',
+        label: 'Severity',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
       { key: 'duration', type: 'text', label: 'Duration', required: true },
       { key: 'impact', type: 'textarea', label: 'Impact', required: true },
       { key: 'timeline', type: 'textarea', label: 'Timeline', required: true },
       { key: 'root_cause', type: 'textarea', label: 'Root Cause', required: true },
-      { key: 'contributing_factors', type: 'textarea', label: 'Contributing Factors', required: false },
+      {
+        key: 'contributing_factors',
+        type: 'textarea',
+        label: 'Contributing Factors',
+        required: false,
+      },
       { key: 'detection', type: 'textarea', label: 'Detection', required: true },
       { key: 'response', type: 'textarea', label: 'Response', required: true },
       { key: 'resolution', type: 'textarea', label: 'Resolution', required: true },
@@ -128,7 +171,11 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'participants', type: 'textarea', label: 'Participants', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Change Request Form',
@@ -142,9 +189,15 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
     content: {
       ops: [
         { insert: 'CHANGE REQUEST FORM\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nChange Request ID: {{cr_id}}\nDate Submitted: {{submit_date}}\nRequester: {{requester}}\n\n' },
+        {
+          insert:
+            '\nChange Request ID: {{cr_id}}\nDate Submitted: {{submit_date}}\nRequester: {{requester}}\n\n',
+        },
         { insert: 'CHANGE DETAILS\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nChange Title: {{change_title}}\nChange Type: {{change_type}}\nPriority: {{priority}}\nUrgency: {{urgency}}\n\n' },
+        {
+          insert:
+            '\nChange Title: {{change_title}}\nChange Type: {{change_type}}\nPriority: {{priority}}\nUrgency: {{urgency}}\n\n',
+        },
         { insert: 'DESCRIPTION\n', attributes: { bold: true } },
         { insert: '{{description}}\n\n' },
         { insert: 'BUSINESS JUSTIFICATION\n', attributes: { bold: true } },
@@ -152,9 +205,15 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
         { insert: 'AFFECTED SYSTEMS/SERVICES\n', attributes: { bold: true } },
         { insert: '{{affected_systems}}\n\n' },
         { insert: 'IMPACT ASSESSMENT\n', attributes: { bold: true } },
-        { insert: '\nBusiness Impact: {{business_impact}}\nTechnical Impact: {{technical_impact}}\nRisk Level: {{risk_level}}\n\n' },
+        {
+          insert:
+            '\nBusiness Impact: {{business_impact}}\nTechnical Impact: {{technical_impact}}\nRisk Level: {{risk_level}}\n\n',
+        },
         { insert: 'IMPLEMENTATION PLAN\n', attributes: { bold: true } },
-        { insert: '\nProposed Start: {{proposed_start}}\nProposed End: {{proposed_end}}\n\n{{implementation_plan}}\n\n' },
+        {
+          insert:
+            '\nProposed Start: {{proposed_start}}\nProposed End: {{proposed_end}}\n\n{{implementation_plan}}\n\n',
+        },
         { insert: 'ROLLBACK PLAN\n', attributes: { bold: true } },
         { insert: '{{rollback_plan}}\n\n' },
         { insert: 'TESTING REQUIREMENTS\n', attributes: { bold: true } },
@@ -162,7 +221,10 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
         { insert: 'COMMUNICATION PLAN\n', attributes: { bold: true } },
         { insert: '{{communication_plan}}\n\n' },
         { insert: 'APPROVALS\n', attributes: { bold: true } },
-        { insert: '\nTechnical Approval: _________________________ Date: _____________\nBusiness Approval: _________________________ Date: _____________\nCAB Approval: _________________________ Date: _____________\n\n' },
+        {
+          insert:
+            '\nTechnical Approval: _________________________ Date: _____________\nBusiness Approval: _________________________ Date: _____________\nCAB Approval: _________________________ Date: _____________\n\n',
+        },
         { insert: 'STATUS\n', attributes: { bold: true } },
         { insert: '{{status}}\n' },
       ],
@@ -172,29 +234,101 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'submit_date', type: 'date', label: 'Date Submitted', required: true },
       { key: 'requester', type: 'text', label: 'Requester', required: true },
       { key: 'change_title', type: 'text', label: 'Change Title', required: true },
-      { key: 'change_type', type: 'select', label: 'Change Type', required: true, options: ['Standard', 'Normal', 'Emergency'] },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
-      { key: 'urgency', type: 'select', label: 'Urgency', required: true, options: ['Immediate', 'High', 'Medium', 'Low'] },
+      {
+        key: 'change_type',
+        type: 'select',
+        label: 'Change Type',
+        required: true,
+        options: ['Standard', 'Normal', 'Emergency'],
+      },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
+      {
+        key: 'urgency',
+        type: 'select',
+        label: 'Urgency',
+        required: true,
+        options: ['Immediate', 'High', 'Medium', 'Low'],
+      },
       { key: 'description', type: 'textarea', label: 'Description', required: true },
       { key: 'justification', type: 'textarea', label: 'Business Justification', required: true },
-      { key: 'affected_systems', type: 'textarea', label: 'Affected Systems/Services', required: true },
+      {
+        key: 'affected_systems',
+        type: 'textarea',
+        label: 'Affected Systems/Services',
+        required: true,
+      },
       { key: 'business_impact', type: 'textarea', label: 'Business Impact', required: true },
       { key: 'technical_impact', type: 'textarea', label: 'Technical Impact', required: true },
-      { key: 'risk_level', type: 'select', label: 'Risk Level', required: true, options: ['High', 'Medium', 'Low'] },
+      {
+        key: 'risk_level',
+        type: 'select',
+        label: 'Risk Level',
+        required: true,
+        options: ['High', 'Medium', 'Low'],
+      },
       { key: 'proposed_start', type: 'text', label: 'Proposed Start', required: true },
       { key: 'proposed_end', type: 'text', label: 'Proposed End', required: true },
-      { key: 'implementation_plan', type: 'textarea', label: 'Implementation Plan', required: true },
+      {
+        key: 'implementation_plan',
+        type: 'textarea',
+        label: 'Implementation Plan',
+        required: true,
+      },
       { key: 'rollback_plan', type: 'textarea', label: 'Rollback Plan', required: true },
-      { key: 'testing_requirements', type: 'textarea', label: 'Testing Requirements', required: true },
+      {
+        key: 'testing_requirements',
+        type: 'textarea',
+        label: 'Testing Requirements',
+        required: true,
+      },
       { key: 'communication_plan', type: 'textarea', label: 'Communication Plan', required: false },
-      { key: 'status', type: 'select', label: 'Status', required: true, options: ['Draft', 'Submitted', 'Under Review', 'Approved', 'Rejected', 'Implemented', 'Closed'] },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Status',
+        required: true,
+        options: [
+          'Draft',
+          'Submitted',
+          'Under Review',
+          'Approved',
+          'Rejected',
+          'Implemented',
+          'Closed',
+        ],
+      },
     ],
     signatureFields: [
-      { id: 'technical_approval', label: 'Technical Approval', required: true, position: { page: 1, x: 100, y: 620 } },
-      { id: 'business_approval', label: 'Business Approval', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'cab_approval', label: 'CAB Approval', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'technical_approval',
+        label: 'Technical Approval',
+        required: true,
+        position: { page: 1, x: 100, y: 620 },
+      },
+      {
+        id: 'business_approval',
+        label: 'Business Approval',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'cab_approval',
+        label: 'CAB Approval',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Network Diagram Documentation',
@@ -208,7 +342,10 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
     content: {
       ops: [
         { insert: 'NETWORK DIAGRAM DOCUMENTATION\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nDocument Version: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n' },
+        {
+          insert:
+            '\nDocument Version: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n',
+        },
         { insert: 'OVERVIEW\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{overview}}\n\n' },
         { insert: 'NETWORK TOPOLOGY\n', attributes: { bold: true, size: 'large' } },
@@ -240,8 +377,19 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'document_date', type: 'date', label: 'Document Date', required: true },
       { key: 'author', type: 'text', label: 'Author', required: true },
       { key: 'overview', type: 'textarea', label: 'Overview', required: true },
-      { key: 'topology_type', type: 'select', label: 'Topology Type', required: true, options: ['Star', 'Mesh', 'Hybrid', 'Ring', 'Bus'] },
-      { key: 'topology_description', type: 'textarea', label: 'Topology Description', required: true },
+      {
+        key: 'topology_type',
+        type: 'select',
+        label: 'Topology Type',
+        required: true,
+        options: ['Star', 'Mesh', 'Hybrid', 'Ring', 'Bus'],
+      },
+      {
+        key: 'topology_description',
+        type: 'textarea',
+        label: 'Topology Description',
+        required: true,
+      },
       { key: 'network_segments', type: 'textarea', label: 'Network Segments', required: true },
       { key: 'ip_scheme', type: 'textarea', label: 'IP Addressing Scheme', required: true },
       { key: 'vlan_config', type: 'textarea', label: 'VLAN Configuration', required: false },
@@ -254,7 +402,11 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'contact_info', type: 'textarea', label: 'Contact Information', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Database Schema Document',
@@ -268,7 +420,10 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
     content: {
       ops: [
         { insert: 'DATABASE SCHEMA DOCUMENT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nDatabase: {{database_name}}\nVersion: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n' },
+        {
+          insert:
+            '\nDatabase: {{database_name}}\nVersion: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n',
+        },
         { insert: 'DATABASE OVERVIEW\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nDatabase Type: {{database_type}}\nPurpose: {{purpose}}\n\n' },
         { insert: 'CONNECTION INFORMATION\n', attributes: { bold: true, size: 'large' } },
@@ -300,7 +455,13 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'version', type: 'text', label: 'Version', required: true },
       { key: 'document_date', type: 'date', label: 'Document Date', required: true },
       { key: 'author', type: 'text', label: 'Author', required: true },
-      { key: 'database_type', type: 'select', label: 'Database Type', required: true, options: ['PostgreSQL', 'MySQL', 'MongoDB', 'SQL Server', 'Oracle', 'SQLite', 'Other'] },
+      {
+        key: 'database_type',
+        type: 'select',
+        label: 'Database Type',
+        required: true,
+        options: ['PostgreSQL', 'MySQL', 'MongoDB', 'SQL Server', 'Oracle', 'SQLite', 'Other'],
+      },
       { key: 'purpose', type: 'textarea', label: 'Purpose', required: true },
       { key: 'host', type: 'text', label: 'Host', required: false },
       { key: 'port', type: 'text', label: 'Port', required: false },
@@ -317,7 +478,11 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'change_log', type: 'textarea', label: 'Change Log', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'IT Service Agreement',
@@ -333,15 +498,23 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
         { insert: 'IT SERVICE AGREEMENT\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nAgreement Date: {{agreement_date}}\n\n' },
         { insert: 'PARTIES\n', attributes: { bold: true } },
-        { insert: '\nService Provider: {{provider_name}}\nAddress: {{provider_address}}\n\nClient: {{client_name}}\nAddress: {{client_address}}\n\n' },
+        {
+          insert:
+            '\nService Provider: {{provider_name}}\nAddress: {{provider_address}}\n\nClient: {{client_name}}\nAddress: {{client_address}}\n\n',
+        },
         { insert: '1. SERVICES\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{services}}\n\n' },
         { insert: '2. SERVICE LEVELS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{service_levels}}\n\n' },
         { insert: '3. RESPONSE TIMES\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nCritical Issues: {{critical_response}}\nHigh Priority: {{high_response}}\nMedium Priority: {{medium_response}}\nLow Priority: {{low_response}}\n\n' },
+        {
+          insert:
+            '\nCritical Issues: {{critical_response}}\nHigh Priority: {{high_response}}\nMedium Priority: {{medium_response}}\nLow Priority: {{low_response}}\n\n',
+        },
         { insert: '4. AVAILABILITY\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nService Hours: {{service_hours}}\nUptime Guarantee: {{uptime_guarantee}}\n\n' },
+        {
+          insert: '\nService Hours: {{service_hours}}\nUptime Guarantee: {{uptime_guarantee}}\n\n',
+        },
         { insert: '5. SUPPORT CHANNELS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{support_channels}}\n\n' },
         { insert: '6. MAINTENANCE WINDOWS\n', attributes: { bold: true, size: 'large' } },
@@ -374,7 +547,12 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'service_hours', type: 'text', label: 'Service Hours', required: true },
       { key: 'uptime_guarantee', type: 'text', label: 'Uptime Guarantee', required: true },
       { key: 'support_channels', type: 'textarea', label: 'Support Channels', required: true },
-      { key: 'maintenance_windows', type: 'textarea', label: 'Maintenance Windows', required: true },
+      {
+        key: 'maintenance_windows',
+        type: 'textarea',
+        label: 'Maintenance Windows',
+        required: true,
+      },
       { key: 'pricing', type: 'textarea', label: 'Pricing', required: true },
       { key: 'term', type: 'text', label: 'Term', required: true },
       { key: 'termination_notice', type: 'text', label: 'Termination Notice', required: true },
@@ -382,9 +560,23 @@ export const TECHNICAL_OPERATIONS_TEMPLATES = [
       { key: 'liability', type: 'textarea', label: 'Liability', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'client_signature', label: 'Client Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'client_signature',
+        label: 'Client Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

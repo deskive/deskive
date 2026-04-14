@@ -4,6 +4,6 @@ interface CalendarViewProps {
   workspaceId?: string
 }
 
-export function CalendarView({ }: CalendarViewProps) {
+export function CalendarView(_props: CalendarViewProps) {
   return <Calendar />
 }

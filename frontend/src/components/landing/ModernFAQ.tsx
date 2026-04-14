@@ -1,67 +1,46 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useIntl } from 'react-intl';
-import { ChevronDown, HelpCircle, ArrowRight } from 'lucide-react';
-import { Button } from '../ui/button';
-import { useNavigate } from 'react-router-dom';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 
 interface FAQItem {
   question: string;
   answer: string;
-  category: 'general' | 'pricing' | 'features' | 'technical' | 'account';
+  category: 'general' | 'features' | 'technical';
 }
 
 const ModernFAQ: React.FC = () => {
   const intl = useIntl();
-  const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
 
-  // FAQ items covering all aspects of Deskive
   const faqItems: FAQItem[] = [
     // General Questions
     {
       question: intl.formatMessage({ id: 'faq.general.what.question', defaultMessage: 'What is Deskive and how does it work?' }),
-      answer: intl.formatMessage({ id: 'faq.general.what.answer', defaultMessage: 'Deskive is an all-in-one workspace platform that combines six essential team tools: Chat, Video Calls, Projects, Files, Calendar, and Notes. It works by providing a unified platform where teams can collaborate in real-time, manage projects with Kanban boards, share files securely, schedule meetings, and create documentation—all enhanced by AI-powered features.' }),
+      answer: intl.formatMessage({ id: 'faq.general.what.answer', defaultMessage: 'Deskive is an all-in-one workspace platform that combines six essential team tools: Chat, Video Calls, Projects, Files, Calendar, and Notes. It provides a unified platform where teams can collaborate in real-time, manage projects with Kanban boards, share files securely, schedule meetings, and create documentation—all enhanced by AI-powered features.' }),
       category: 'general'
     },
     {
       question: intl.formatMessage({ id: 'faq.general.beginners.question', defaultMessage: 'Is Deskive suitable for beginners?' }),
-      answer: intl.formatMessage({ id: 'faq.general.beginners.answer', defaultMessage: 'Absolutely! Deskive is designed with simplicity in mind. Our intuitive interface makes it easy for anyone to get started. The Free plan is perfect for beginners, offering essential features forever free with no credit card required.' }),
+      answer: intl.formatMessage({ id: 'faq.general.beginners.answer', defaultMessage: 'Absolutely. Deskive is designed with simplicity in mind. Its intuitive interface makes it easy for anyone to get started, whether you are a solo user or part of a larger team.' }),
       category: 'general'
     },
     {
       question: intl.formatMessage({ id: 'faq.general.devices.question', defaultMessage: 'Can I use Deskive on multiple devices?' }),
-      answer: intl.formatMessage({ id: 'faq.general.devices.answer', defaultMessage: 'Yes! Deskive is available on web browsers, desktop apps (macOS and Windows), and mobile apps (Android available, iOS coming soon). Your data syncs automatically across all devices in real-time, so you can seamlessly switch between your computer, tablet, and phone.' }),
+      answer: intl.formatMessage({ id: 'faq.general.devices.answer', defaultMessage: 'Yes. Deskive runs on modern web browsers and offers desktop and mobile clients. Your data syncs automatically across all devices in real-time so you can seamlessly switch between your computer, tablet, and phone.' }),
       category: 'general'
     },
-
-    // Pricing Questions
     {
-      question: intl.formatMessage({ id: 'faq.pricing.free.question', defaultMessage: 'Is there a free plan?' }),
-      answer: intl.formatMessage({ id: 'faq.pricing.free.answer', defaultMessage: 'Yes! Our Free plan is completely free forever. It includes 5 team members, 1 GB storage, basic chat & messaging, file sharing, mobile app access, and 2FA authentication. No credit card required, no time limits.' }),
-      category: 'pricing'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.pricing.change.question', defaultMessage: 'Can I change my plan anytime?' }),
-      answer: intl.formatMessage({ id: 'faq.pricing.change.answer', defaultMessage: 'Yes, you can upgrade or downgrade your plan at any time. When upgrading, you\'ll get immediate access to new features. When downgrading, changes take effect at the next billing cycle.' }),
-      category: 'pricing'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.pricing.payment.question', defaultMessage: 'What payment methods do you accept?' }),
-      answer: intl.formatMessage({ id: 'faq.pricing.payment.answer', defaultMessage: 'We accept all major credit cards including Visa, MasterCard, and American Express. All payments are processed securely through Stripe with bank-level encryption.' }),
-      category: 'pricing'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.pricing.cancel.question', defaultMessage: 'How do I cancel my subscription?' }),
-      answer: intl.formatMessage({ id: 'faq.pricing.cancel.answer', defaultMessage: 'You can cancel your subscription at any time through Stripe subscription management. Your subscription will remain active until the end of your current billing period.' }),
-      category: 'pricing'
+      question: intl.formatMessage({ id: 'faq.general.opensource.question', defaultMessage: 'Is Deskive open source?' }),
+      answer: intl.formatMessage({ id: 'faq.general.opensource.answer', defaultMessage: 'Yes. Deskive is open source, so you can self-host it, inspect the code, and contribute improvements back to the project.' }),
+      category: 'general'
     },
 
     // Features Questions
     {
       question: intl.formatMessage({ id: 'faq.features.ai.question', defaultMessage: 'What AI-powered features are included?' }),
-      answer: intl.formatMessage({ id: 'faq.features.ai.answer', defaultMessage: 'Deskive includes AI-powered features across all modules: Smart chat summaries, AI content generation for notes, intelligent meeting scheduling suggestions, automatic task prioritization, smart file organization, and an AI assistant available across the platform.' }),
+      answer: intl.formatMessage({ id: 'faq.features.ai.answer', defaultMessage: 'Deskive includes AI-powered features across all modules: smart chat summaries, AI content generation for notes, intelligent meeting scheduling suggestions, automatic task prioritization, smart file organization, and an AI assistant available across the platform.' }),
       category: 'features'
     },
     {
@@ -70,68 +49,39 @@ const ModernFAQ: React.FC = () => {
       category: 'features'
     },
     {
-      question: intl.formatMessage({ id: 'faq.features.video.question', defaultMessage: 'What video call features are available?' }),
-      answer: intl.formatMessage({ id: 'faq.features.video.answer', defaultMessage: 'Deskive offers HD video conferencing with screen sharing, meeting recording, background blur, virtual backgrounds, and public meeting links for external participants. Video calls support up to 10 participants on Starter and unlimited on Professional/Enterprise plans.' }),
-      category: 'features'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.features.storage.question', defaultMessage: 'How much storage do I get?' }),
-      answer: intl.formatMessage({ id: 'faq.features.storage.answer', defaultMessage: 'Storage varies by plan: Free (1 GB), Starter (25 GB), Professional (100 GB), Enterprise (1 TB+). All plans include file versioning and secure cloud storage.' }),
-      category: 'features'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.features.integrations.question', defaultMessage: 'Are there integrations available?' }),
-      answer: intl.formatMessage({ id: 'faq.features.integrations.answer', defaultMessage: 'Yes! Starter plans include 5 custom integrations, Professional plans include unlimited integrations, and Enterprise plans include custom integrations with API access and dedicated support.' }),
+      question: intl.formatMessage({ id: 'faq.features.collaboration.question', defaultMessage: 'How does real-time collaboration work?' }),
+      answer: intl.formatMessage({ id: 'faq.features.collaboration.answer', defaultMessage: 'Edits to notes, tasks, and files are synced live between everyone in the workspace. You can see presence indicators, typing status, and changes as they happen—no refresh required.' }),
       category: 'features'
     },
 
     // Technical Questions
     {
       question: intl.formatMessage({ id: 'faq.technical.security.question', defaultMessage: 'How secure is my data?' }),
-      answer: intl.formatMessage({ id: 'faq.technical.security.answer', defaultMessage: 'We take security seriously. All data is encrypted at rest and in transit using AES-256 encryption. We use secure HTTPS connections, offer two-factor authentication, and comply with GDPR and CCPA regulations. Enterprise plans include additional security features like SSO (SAML) and audit logs.' }),
+      answer: intl.formatMessage({ id: 'faq.technical.security.answer', defaultMessage: 'Data is encrypted at rest and in transit using industry-standard AES-256 encryption. Connections use HTTPS, two-factor authentication is supported, and because Deskive is open source you can audit the security model yourself.' }),
       category: 'technical'
     },
     {
       question: intl.formatMessage({ id: 'faq.technical.export.question', defaultMessage: 'Can I export my data?' }),
-      answer: intl.formatMessage({ id: 'faq.technical.export.answer', defaultMessage: 'Yes! You own your data and can export it anytime. Starter plans support CSV export, while Professional and Enterprise plans offer exports in multiple formats including CSV, JSON, and PDF.' }),
+      answer: intl.formatMessage({ id: 'faq.technical.export.answer', defaultMessage: 'Yes. You own your data and can export it at any time. Common formats include CSV, JSON, and PDF depending on the module.' }),
       category: 'technical'
     },
     {
       question: intl.formatMessage({ id: 'faq.technical.browsers.question', defaultMessage: 'What browsers and platforms are supported?' }),
-      answer: intl.formatMessage({ id: 'faq.technical.browsers.answer', defaultMessage: 'Deskive works on all modern browsers including Chrome, Firefox, Safari, and Edge (latest versions). We also offer native desktop apps for macOS (Apple Silicon & Intel) and Windows, plus mobile apps (Android available, iOS coming soon).' }),
+      answer: intl.formatMessage({ id: 'faq.technical.browsers.answer', defaultMessage: 'Deskive works on all modern browsers including Chrome, Firefox, Safari, and Edge (latest versions). Native desktop clients are available for macOS and Windows, plus mobile apps for Android and iOS.' }),
       category: 'technical'
     },
     {
-      question: intl.formatMessage({ id: 'faq.technical.uptime.question', defaultMessage: 'What is your uptime guarantee?' }),
-      answer: intl.formatMessage({ id: 'faq.technical.uptime.answer', defaultMessage: 'Professional plans include a 99.9% uptime SLA. Enterprise plans offer custom SLAs with dedicated infrastructure and priority incident response. We monitor our systems 24/7.' }),
+      question: intl.formatMessage({ id: 'faq.technical.selfhost.question', defaultMessage: 'Can I self-host Deskive?' }),
+      answer: intl.formatMessage({ id: 'faq.technical.selfhost.answer', defaultMessage: 'Yes. Because Deskive is open source you can run the full stack on your own infrastructure. Check the repository for deployment guides and configuration options.' }),
       category: 'technical'
-    },
-
-    // Account Questions
-    {
-      question: intl.formatMessage({ id: 'faq.account.data.question', defaultMessage: 'What happens to my data if I cancel?' }),
-      answer: intl.formatMessage({ id: 'faq.account.data.answer', defaultMessage: 'You can cancel your subscription at any time. Your subscription will remain active until the end of your billing period. You can export your data anytime before or after cancellation. For data deletion requests, visit the Data Deletion page in our footer.' }),
-      category: 'account'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.account.team.question', defaultMessage: 'How do I add team members?' }),
-      answer: intl.formatMessage({ id: 'faq.account.team.answer', defaultMessage: 'Go to your workspace settings and select "Members". You can invite team members by email or generate an invite link. You can assign roles (Admin, Member, Viewer) to control access levels. Team member limits vary by plan: Free (5), Starter (25), Professional (100), Enterprise (unlimited).' }),
-      category: 'account'
-    },
-    {
-      question: intl.formatMessage({ id: 'faq.account.support.question', defaultMessage: 'How do I get support?' }),
-      answer: intl.formatMessage({ id: 'faq.account.support.answer', defaultMessage: 'Support options vary by plan: Free users get community support and documentation. Starter users have email support. Professional users get priority support with faster response times. Enterprise users receive 24/7 phone support and a dedicated account manager.' }),
-      category: 'account'
     }
   ];
 
   const categories = [
     { id: 'all', label: intl.formatMessage({ id: 'faq.category.all', defaultMessage: 'All Questions' }), count: faqItems.length },
     { id: 'general', label: intl.formatMessage({ id: 'faq.category.general', defaultMessage: 'General' }), count: faqItems.filter(i => i.category === 'general').length },
-    { id: 'pricing', label: intl.formatMessage({ id: 'faq.category.pricing', defaultMessage: 'Pricing & Billing' }), count: faqItems.filter(i => i.category === 'pricing').length },
     { id: 'features', label: intl.formatMessage({ id: 'faq.category.features', defaultMessage: 'Features' }), count: faqItems.filter(i => i.category === 'features').length },
     { id: 'technical', label: intl.formatMessage({ id: 'faq.category.technical', defaultMessage: 'Technical' }), count: faqItems.filter(i => i.category === 'technical').length },
-    { id: 'account', label: intl.formatMessage({ id: 'faq.category.account', defaultMessage: 'Account' }), count: faqItems.filter(i => i.category === 'account').length },
   ];
 
   const filteredFAQs = selectedCategory === 'all'
@@ -304,39 +254,6 @@ const ModernFAQ: React.FC = () => {
             )}
           </motion.div>
 
-          {/* Contact CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            viewport={{ once: true }}
-            className="mt-12 text-center"
-          >
-            <p className="text-gray-600 mb-6 text-lg">
-              {intl.formatMessage({ id: 'faq.contact.text', defaultMessage: "Still have questions? We're here to help!" })}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="outline"
-                className="border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-sky-300 px-6 py-3"
-                onClick={() => {
-                  const contactElement = document.getElementById('contact');
-                  if (contactElement) {
-                    contactElement.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-              >
-                {intl.formatMessage({ id: 'faq.contact.button', defaultMessage: 'Contact Support' })}
-              </Button>
-              <Button
-                className="bg-gradient-to-r from-sky-500 to-blue-500 hover:from-sky-600 hover:to-blue-600 text-white border-0 px-6 py-3 group shadow-lg shadow-sky-500/25"
-                onClick={() => navigate('/auth/register')}
-              >
-                {intl.formatMessage({ id: 'faq.getStarted.button', defaultMessage: 'Get Started Free' })}
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </div>
-          </motion.div>
         </div>
       </div>
     </section>

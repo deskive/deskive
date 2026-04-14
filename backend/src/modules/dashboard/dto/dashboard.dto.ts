@@ -5,42 +5,42 @@ export enum DashboardPeriod {
   DAY = 'day',
   WEEK = 'week',
   MONTH = 'month',
-  YEAR = 'year'
+  YEAR = 'year',
 }
 
 export class GetDashboardDto {
-  @ApiProperty({ 
-    description: 'Start date for dashboard data', 
+  @ApiProperty({
+    description: 'Start date for dashboard data',
     example: '2023-01-01T00:00:00.000Z',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsDateString()
   startDate?: string;
 
-  @ApiProperty({ 
-    description: 'End date for dashboard data', 
+  @ApiProperty({
+    description: 'End date for dashboard data',
     example: '2023-12-31T23:59:59.999Z',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsDateString()
   endDate?: string;
 
-  @ApiProperty({ 
-    description: 'Time period for aggregation', 
+  @ApiProperty({
+    description: 'Time period for aggregation',
     enum: DashboardPeriod,
     example: DashboardPeriod.DAY,
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsEnum(DashboardPeriod)
   period?: DashboardPeriod = DashboardPeriod.DAY;
 
-  @ApiProperty({ 
-    description: 'Limit for activity items', 
+  @ApiProperty({
+    description: 'Limit for activity items',
     example: 10,
-    required: false 
+    required: false,
   })
   @IsOptional()
   limit?: number = 10;

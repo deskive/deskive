@@ -1,4 +1,12 @@
-import { IsString, IsOptional, IsBoolean, IsArray, IsObject, IsEnum, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsObject,
+  IsEnum,
+  IsNumber,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 // ==================== Connection DTOs ====================
@@ -120,7 +128,9 @@ export class GetRowsDto {
   @IsString()
   sheetName: string;
 
-  @ApiPropertyOptional({ description: 'Cell range in A1 notation (e.g., A1:D10). Leave empty for all rows.' })
+  @ApiPropertyOptional({
+    description: 'Cell range in A1 notation (e.g., A1:D10). Leave empty for all rows.',
+  })
   @IsString()
   @IsOptional()
   range?: string;
@@ -155,7 +165,10 @@ export class AppendRowDto {
   @IsArray()
   values: any[][];
 
-  @ApiPropertyOptional({ description: 'How input data should be interpreted', enum: ['RAW', 'USER_ENTERED'] })
+  @ApiPropertyOptional({
+    description: 'How input data should be interpreted',
+    enum: ['RAW', 'USER_ENTERED'],
+  })
   @IsString()
   @IsOptional()
   valueInputOption?: 'RAW' | 'USER_ENTERED';
@@ -178,7 +191,10 @@ export class UpdateRowDto {
   @IsArray()
   values: any[][];
 
-  @ApiPropertyOptional({ description: 'How input data should be interpreted', enum: ['RAW', 'USER_ENTERED'] })
+  @ApiPropertyOptional({
+    description: 'How input data should be interpreted',
+    enum: ['RAW', 'USER_ENTERED'],
+  })
   @IsString()
   @IsOptional()
   valueInputOption?: 'RAW' | 'USER_ENTERED';
@@ -207,7 +223,10 @@ export class AppendOrUpdateRowDto {
   @IsObject()
   columns: Record<string, any>;
 
-  @ApiPropertyOptional({ description: 'How input data should be interpreted', enum: ['RAW', 'USER_ENTERED'] })
+  @ApiPropertyOptional({
+    description: 'How input data should be interpreted',
+    enum: ['RAW', 'USER_ENTERED'],
+  })
   @IsString()
   @IsOptional()
   valueInputOption?: 'RAW' | 'USER_ENTERED';

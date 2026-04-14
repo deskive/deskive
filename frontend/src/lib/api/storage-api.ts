@@ -20,7 +20,7 @@ export const storageApi = {
     console.log('Uploading file:', file.name, 'size:', file.size, 'type:', file.type, 'to workspace:', workspaceId);
     
     // Check FormData contents
-    for (let [key, value] of formData.entries()) {
+    for (const [key, value] of formData.entries()) {
       console.log('FormData entry:', key, value);
     }
     

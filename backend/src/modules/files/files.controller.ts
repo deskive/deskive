@@ -27,7 +27,40 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { FilesService } from './files.service';
 import { FilesAgentService, FileAgentRequest, FileAgentResponse } from './files-agent.service';
-import { UploadFileDto, AddFileByUrlDto, CreateFolderDto, ShareFileDto, MoveFileDto, MoveFolderDto, UpdateFileDto, UpdateFolderDto, CopyFileDto, CopyFolderDto, FilterFilesByTypeDto, FileCategory, DashboardStatsResponseDto, DeleteFilesDto, DeleteFoldersDto, CopyFilesDto, CopyFoldersDto, MoveFilesDto, MoveFoldersDto, CreateShareLinkDto, UpdateShareLinkDto, VerifySharePasswordDto, CreateFileCommentDto, UpdateFileCommentDto, ResolveCommentDto, FileCommentResponseDto, MarkFileOfflineDto, UpdateOfflineSettingsDto, BatchUpdateSyncStatusDto, OfflineFileResponseDto, CheckUpdateResponseDto, OfflineStorageStatsDto } from './dto';
+import {
+  UploadFileDto,
+  AddFileByUrlDto,
+  CreateFolderDto,
+  ShareFileDto,
+  MoveFileDto,
+  MoveFolderDto,
+  UpdateFileDto,
+  UpdateFolderDto,
+  CopyFileDto,
+  CopyFolderDto,
+  FilterFilesByTypeDto,
+  FileCategory,
+  DashboardStatsResponseDto,
+  DeleteFilesDto,
+  DeleteFoldersDto,
+  CopyFilesDto,
+  CopyFoldersDto,
+  MoveFilesDto,
+  MoveFoldersDto,
+  CreateShareLinkDto,
+  UpdateShareLinkDto,
+  VerifySharePasswordDto,
+  CreateFileCommentDto,
+  UpdateFileCommentDto,
+  ResolveCommentDto,
+  FileCommentResponseDto,
+  MarkFileOfflineDto,
+  UpdateOfflineSettingsDto,
+  BatchUpdateSyncStatusDto,
+  OfflineFileResponseDto,
+  CheckUpdateResponseDto,
+  OfflineStorageStatsDto,
+} from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -119,7 +152,8 @@ export class FilesController {
   @Get('ai/stats')
   @ApiOperation({
     summary: 'Get conversation statistics for the Files AI agent',
-    description: 'Returns statistics about the conversation between the user and the Files AI agent.',
+    description:
+      'Returns statistics about the conversation between the user and the Files AI agent.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -154,7 +188,12 @@ export class FilesController {
   @ApiOperation({ summary: 'Get folders in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiQuery({ name: 'parent_id', required: false, description: 'Parent folder ID' })
-  @ApiQuery({ name: 'is_deleted', required: false, description: 'Filter by deleted status (true/false)', type: Boolean })
+  @ApiQuery({
+    name: 'is_deleted',
+    required: false,
+    description: 'Filter by deleted status (true/false)',
+    type: Boolean,
+  })
   @ApiResponse({ status: 200, description: 'List of folders' })
   async getFolders(
     @Param('workspaceId') workspaceId: string,
@@ -169,7 +208,8 @@ export class FilesController {
   @Get('trash')
   @ApiOperation({
     summary: 'Get deleted items tree structure',
-    description: 'Returns a hierarchical tree structure of all deleted folders and files for rendering in trash view. Includes nested folders and files with their relationships preserved.'
+    description:
+      'Returns a hierarchical tree structure of all deleted folders and files for rendering in trash view. Includes nested folders and files with their relationships preserved.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -190,8 +230,8 @@ export class FilesController {
                 name: 'Subfolder',
                 type: 'folder',
                 children: [],
-                files: []
-              }
+                files: [],
+              },
             ],
             files: [
               {
@@ -200,24 +240,22 @@ export class FilesController {
                 type: 'file',
                 size: '1024',
                 mime_type: 'application/pdf',
-                deleted_at: '2025-10-15T08:00:00.000Z'
-              }
-            ]
-          }
+                deleted_at: '2025-10-15T08:00:00.000Z',
+              },
+            ],
+          },
         ],
         stats: {
           total_deleted_folders: 5,
           total_deleted_files: 12,
           total_deleted_items: 17,
           total_size_bytes: 1048576,
-          total_size_formatted: '1 MB'
-        }
-      }
-    }
+          total_size_formatted: '1 MB',
+        },
+      },
+    },
   })
-  async getDeletedItemsTree(
-    @Param('workspaceId') workspaceId: string,
-  ) {
+  async getDeletedItemsTree(@Param('workspaceId') workspaceId: string) {
     return this.filesService.getDeletedItemsTree(workspaceId);
   }
 
@@ -240,7 +278,8 @@ export class FilesController {
   @Put('batch-move-folders')
   @ApiOperation({
     summary: 'Move multiple folders',
-    description: 'Moves multiple folders to a target parent folder. Returns a detailed report of successful and failed move operations.'
+    description:
+      'Moves multiple folders to a target parent folder. Returns a detailed report of successful and failed move operations.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -254,16 +293,16 @@ export class FilesController {
         success: [
           {
             folderId: 'folder-uuid-1',
-            name: 'Project A'
+            name: 'Project A',
           },
           {
             folderId: 'folder-uuid-2',
-            name: 'Documents'
-          }
+            name: 'Documents',
+          },
         ],
-        failed: []
-      }
-    }
+        failed: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request or cannot move into descendants' })
   async moveMultipleFolders(
@@ -276,14 +315,15 @@ export class FilesController {
       moveFoldersDto.folder_ids,
       workspaceId,
       moveFoldersDto.target_parent_id,
-      userId
+      userId,
     );
   }
 
   @Put('folders/:folderId/move')
   @ApiOperation({
     summary: 'Move or rename a folder',
-    description: 'Moves a folder to a different parent folder or to root (null parent_id). Can optionally rename the folder during the move.'
+    description:
+      'Moves a folder to a different parent folder or to root (null parent_id). Can optionally rename the folder during the move.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'folderId', description: 'Folder ID' })
@@ -295,11 +335,14 @@ export class FilesController {
         id: 'folder-uuid',
         name: 'My Folder',
         parent_id: 'new-parent-uuid',
-        updated_at: '2025-10-15T08:00:00.000Z'
-      }
-    }
+        updated_at: '2025-10-15T08:00:00.000Z',
+      },
+    },
   })
-  @ApiResponse({ status: 400, description: 'Cannot move folder into itself or its descendants, or folder name already exists' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot move folder into itself or its descendants, or folder name already exists',
+  })
   @ApiResponse({ status: 404, description: 'Folder or target parent folder not found' })
   async moveFolder(
     @Param('workspaceId') workspaceId: string,
@@ -327,7 +370,8 @@ export class FilesController {
   @Delete('folders/:folderId/recursive')
   @ApiOperation({
     summary: 'Delete a folder recursively',
-    description: 'Soft deletes a folder and all its contents including subfolders and files. Sets is_deleted=true for all affected records.'
+    description:
+      'Soft deletes a folder and all its contents including subfolders and files. Sets is_deleted=true for all affected records.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'folderId', description: 'Folder ID' })
@@ -344,7 +388,8 @@ export class FilesController {
   @Post('folders/:folderId/restore')
   @ApiOperation({
     summary: 'Restore a deleted folder recursively',
-    description: 'Restores a deleted folder and all its contents including subfolders and files. Sets is_deleted=false for all affected records.'
+    description:
+      'Restores a deleted folder and all its contents including subfolders and files. Sets is_deleted=false for all affected records.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'folderId', description: 'Deleted folder ID' })
@@ -355,9 +400,9 @@ export class FilesController {
       example: {
         message: 'Folder and all contents restored successfully',
         restored_folders_count: 5,
-        restored_files_count: 12
-      }
-    }
+        restored_files_count: 12,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Deleted folder not found' })
   async restoreFolderRecursive(
@@ -371,7 +416,8 @@ export class FilesController {
   @Delete('folders')
   @ApiOperation({
     summary: 'Delete multiple folders recursively',
-    description: 'Soft deletes multiple folders and all their contents. Returns a detailed report of successful and failed deletions.'
+    description:
+      'Soft deletes multiple folders and all their contents. Returns a detailed report of successful and failed deletions.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -387,22 +433,22 @@ export class FilesController {
           {
             folderId: 'folder-uuid-1',
             folders_deleted: 3,
-            files_deleted: 10
+            files_deleted: 10,
           },
           {
             folderId: 'folder-uuid-2',
             folders_deleted: 5,
-            files_deleted: 14
-          }
+            files_deleted: 14,
+          },
         ],
         failed: [
           {
             folderId: 'folder-uuid-3',
-            reason: 'You do not have permission to delete this folder'
-          }
-        ]
-      }
-    }
+            reason: 'You do not have permission to delete this folder',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   async deleteMultipleFolders(
@@ -410,7 +456,11 @@ export class FilesController {
     @Body() deleteFoldersDto: DeleteFoldersDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.filesService.deleteMultipleFolders(deleteFoldersDto.folder_ids, workspaceId, userId);
+    return this.filesService.deleteMultipleFolders(
+      deleteFoldersDto.folder_ids,
+      workspaceId,
+      userId,
+    );
   }
 
   // ============================================
@@ -456,9 +506,10 @@ export class FilesController {
   }
 
   @Post('add-by-url')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Add file by URL',
-    description: 'Add a file to the workspace using a direct URL instead of uploading. Useful for AI-generated files or external file references.'
+    description:
+      'Add a file to the workspace using a direct URL instead of uploading. Useful for AI-generated files or external file references.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 201, description: 'File added successfully' })
@@ -476,7 +527,12 @@ export class FilesController {
   @ApiOperation({ summary: 'Get files in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiQuery({ name: 'folder_id', required: false, description: 'Folder ID to filter by' })
-  @ApiQuery({ name: 'is_deleted', required: false, description: 'Filter by deleted status (true/false)', type: Boolean })
+  @ApiQuery({
+    name: 'is_deleted',
+    required: false,
+    description: 'Filter by deleted status (true/false)',
+    type: Boolean,
+  })
   @ApiQuery({ name: 'page', required: false, description: 'Page number', example: 1 })
   @ApiQuery({ name: 'limit', required: false, description: 'Items per page', example: 50 })
   @ApiResponse({ status: 200, description: 'List of files' })
@@ -489,7 +545,14 @@ export class FilesController {
     @CurrentUser('sub') userId?: string,
   ) {
     const isDeletedBool = isDeleted === 'true' ? true : isDeleted === 'false' ? false : undefined;
-    return this.filesService.getFiles(workspaceId, folderId, page || 1, limit || 50, isDeletedBool, userId);
+    return this.filesService.getFiles(
+      workspaceId,
+      folderId,
+      page || 1,
+      limit || 50,
+      isDeletedBool,
+      userId,
+    );
   }
 
   @Get('shared-with-me')
@@ -531,26 +594,36 @@ export class FilesController {
       date_from: dateFrom,
       date_to: dateTo,
     };
-    return this.filesService.searchFiles(workspaceId, query, filters, page || 1, limit || 50, userId);
+    return this.filesService.searchFiles(
+      workspaceId,
+      query,
+      filters,
+      page || 1,
+      limit || 50,
+      userId,
+    );
   }
 
   @Get('stats')
   @ApiOperation({ summary: 'Get workspace storage statistics' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Storage statistics' })
-  async getStorageStats(
-    @Param('workspaceId') workspaceId: string,
-  ) {
+  async getStorageStats(@Param('workspaceId') workspaceId: string) {
     return this.filesService.getStorageStats(workspaceId);
   }
 
   @Get('dashboard-stats')
   @ApiOperation({
     summary: 'Get comprehensive dashboard statistics',
-    description: 'Returns hybrid statistics: workspace-wide storage (all users see same total) + user-specific file counts (images, documents, etc. uploaded by current user)'
+    description:
+      'Returns hybrid statistics: workspace-wide storage (all users see same total) + user-specific file counts (images, documents, etc. uploaded by current user)',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ status: 200, description: 'Dashboard statistics with workspace storage and user file counts', type: DashboardStatsResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Dashboard statistics with workspace storage and user file counts',
+    type: DashboardStatsResponseDto,
+  })
   async getDashboardStats(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId?: string,
@@ -562,8 +635,16 @@ export class FilesController {
   @Get('recent')
   @ApiOperation({ summary: 'Get recently accessed files uploaded by current user' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'limit', required: false, description: 'Number of recent files to return', example: 100 })
-  @ApiResponse({ status: 200, description: 'List of recently accessed files uploaded by current user' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of recent files to return',
+    example: 100,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'List of recently accessed files uploaded by current user',
+  })
   async getRecentFiles(
     @Param('workspaceId') workspaceId: string,
     @Query('limit') limit?: number,
@@ -589,16 +670,29 @@ export class FilesController {
   @Get('by-type')
   @ApiOperation({
     summary: 'Get files filtered by type (uploaded by current user)',
-    description: 'Filter files by category (documents, images, videos, etc.), MIME type, or file extension. Returns only files uploaded by the current user.'
+    description:
+      'Filter files by category (documents, images, videos, etc.), MIME type, or file extension. Returns only files uploaded by the current user.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'category', required: false, enum: FileCategory, description: 'File category to filter by' })
+  @ApiQuery({
+    name: 'category',
+    required: false,
+    enum: FileCategory,
+    description: 'File category to filter by',
+  })
   @ApiQuery({ name: 'mime_type', required: false, description: 'Specific MIME type to filter by' })
-  @ApiQuery({ name: 'extension', required: false, description: 'File extension to filter by (e.g., pdf, jpg)' })
+  @ApiQuery({
+    name: 'extension',
+    required: false,
+    description: 'File extension to filter by (e.g., pdf, jpg)',
+  })
   @ApiQuery({ name: 'folder_id', required: false, description: 'Folder ID to filter within' })
   @ApiQuery({ name: 'page', required: false, description: 'Page number', example: 1 })
   @ApiQuery({ name: 'limit', required: false, description: 'Items per page', example: 50 })
-  @ApiResponse({ status: 200, description: 'Filtered list of files by type uploaded by current user' })
+  @ApiResponse({
+    status: 200,
+    description: 'Filtered list of files by type uploaded by current user',
+  })
   async getFilesByType(
     @Param('workspaceId') workspaceId: string,
     @Query('category') category?: FileCategory,
@@ -615,7 +709,7 @@ export class FilesController {
       extension,
       folder_id,
       page: page || 1,
-      limit: limit || 50
+      limit: limit || 50,
     };
     return this.filesService.getFilesByType(workspaceId, filterDto, userId);
   }
@@ -672,7 +766,8 @@ export class FilesController {
   @Put('batch-move')
   @ApiOperation({
     summary: 'Move multiple files',
-    description: 'Moves multiple files to a target folder. Returns a detailed report of successful and failed move operations.'
+    description:
+      'Moves multiple files to a target folder. Returns a detailed report of successful and failed move operations.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -686,16 +781,16 @@ export class FilesController {
         success: [
           {
             fileId: 'file-uuid-1',
-            name: 'document.pdf'
+            name: 'document.pdf',
           },
           {
             fileId: 'file-uuid-2',
-            name: 'image.jpg'
-          }
+            name: 'image.jpg',
+          },
         ],
-        failed: []
-      }
-    }
+        failed: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   async moveMultipleFiles(
@@ -707,7 +802,7 @@ export class FilesController {
       moveFilesDto.file_ids,
       workspaceId,
       moveFilesDto.target_folder_id,
-      userId
+      userId,
     );
   }
 
@@ -729,7 +824,8 @@ export class FilesController {
   @Put(':fileId')
   @ApiOperation({
     summary: 'Update file details',
-    description: 'Update file name, description, tags, starred status, or mark file as accessed (updates last_opened_at timestamp)'
+    description:
+      'Update file name, description, tags, starred status, or mark file as accessed (updates last_opened_at timestamp)',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -762,7 +858,8 @@ export class FilesController {
   @Delete()
   @ApiOperation({
     summary: 'Delete multiple files',
-    description: 'Soft deletes multiple files at once. Returns a detailed report of successful and failed deletions.'
+    description:
+      'Soft deletes multiple files at once. Returns a detailed report of successful and failed deletions.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -778,11 +875,11 @@ export class FilesController {
         failed: [
           {
             fileId: 'file-uuid-4',
-            reason: 'You do not have permission to delete this file'
-          }
-        ]
-      }
-    }
+            reason: 'You do not have permission to delete this file',
+          },
+        ],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request' })
   async deleteMultipleFiles(
@@ -796,7 +893,8 @@ export class FilesController {
   @Post(':fileId/restore')
   @ApiOperation({
     summary: 'Restore a deleted file',
-    description: 'Restores a deleted file. The file will be restored to its original folder if the folder still exists and is not deleted.'
+    description:
+      'Restores a deleted file. The file will be restored to its original folder if the folder still exists and is not deleted.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'Deleted file ID' })
@@ -809,10 +907,10 @@ export class FilesController {
         file: {
           id: 'file-uuid',
           name: 'document.pdf',
-          folder_id: 'folder-uuid'
-        }
-      }
-    }
+          folder_id: 'folder-uuid',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Parent folder is deleted' })
   @ApiResponse({ status: 404, description: 'Deleted file not found' })
@@ -831,7 +929,8 @@ export class FilesController {
   @Post(':fileId/copy')
   @ApiOperation({
     summary: 'Copy a file',
-    description: 'Creates a duplicate of the file with a new name and/or in a different folder. The actual file content is also copied to storage.'
+    description:
+      'Creates a duplicate of the file with a new name and/or in a different folder. The actual file content is also copied to storage.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID to copy' })
@@ -850,7 +949,8 @@ export class FilesController {
   @Post('copy')
   @ApiOperation({
     summary: 'Copy multiple files',
-    description: 'Copies multiple files to a target folder. Returns a detailed report of successful and failed copy operations.'
+    description:
+      'Copies multiple files to a target folder. Returns a detailed report of successful and failed copy operations.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -865,17 +965,17 @@ export class FilesController {
           {
             fileId: 'file-uuid-1',
             newFileId: 'new-file-uuid-1',
-            name: 'document (Copy).pdf'
+            name: 'document (Copy).pdf',
           },
           {
             fileId: 'file-uuid-2',
             newFileId: 'new-file-uuid-2',
-            name: 'image (Copy).jpg'
-          }
+            name: 'image (Copy).jpg',
+          },
         ],
-        failed: []
-      }
-    }
+        failed: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request or storage quota exceeded' })
   async copyMultipleFiles(
@@ -887,14 +987,15 @@ export class FilesController {
       copyFilesDto.file_ids,
       workspaceId,
       copyFilesDto.target_folder_id,
-      userId
+      userId,
     );
   }
 
   @Post('folders/batch-copy')
   @ApiOperation({
     summary: 'Copy multiple folders recursively',
-    description: 'Copies multiple folders with all their contents. Returns a detailed report of successful and failed copy operations.'
+    description:
+      'Copies multiple folders with all their contents. Returns a detailed report of successful and failed copy operations.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
@@ -909,17 +1010,17 @@ export class FilesController {
           {
             folderId: 'folder-uuid-1',
             newFolderId: 'new-folder-uuid-1',
-            name: 'Project A (Copy)'
+            name: 'Project A (Copy)',
           },
           {
             folderId: 'folder-uuid-2',
             newFolderId: 'new-folder-uuid-2',
-            name: 'Documents (Copy)'
-          }
+            name: 'Documents (Copy)',
+          },
         ],
-        failed: []
-      }
-    }
+        failed: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request or cannot copy into descendants' })
   async copyMultipleFolders(
@@ -932,19 +1033,23 @@ export class FilesController {
       copyFoldersDto.folder_ids,
       workspaceId,
       copyFoldersDto.target_parent_id,
-      userId
+      userId,
     );
   }
 
   @Post('folders/:folderId/copy')
   @ApiOperation({
     summary: 'Copy a folder recursively',
-    description: 'Creates a duplicate of the folder including all subfolders and files. All file contents are also copied to storage.'
+    description:
+      'Creates a duplicate of the folder including all subfolders and files. All file contents are also copied to storage.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'folderId', description: 'Folder ID to copy' })
   @ApiResponse({ status: 201, description: 'Folder copied successfully with all contents' })
-  @ApiResponse({ status: 400, description: 'Cannot copy folder into itself or storage quota exceeded' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot copy folder into itself or storage quota exceeded',
+  })
   @ApiResponse({ status: 404, description: 'Folder or target parent folder not found' })
   async copyFolder(
     @Param('workspaceId') workspaceId: string,
@@ -980,10 +1085,7 @@ export class FilesController {
   @ApiParam({ name: 'shareId', description: 'Share ID' })
   @ApiResponse({ status: 200, description: 'Share link revoked successfully' })
   @ApiResponse({ status: 403, description: 'Permission denied' })
-  async revokeFileShare(
-    @Param('shareId') shareId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async revokeFileShare(@Param('shareId') shareId: string, @CurrentUser('sub') userId: string) {
     return this.filesService.revokeFileShare(shareId, userId);
   }
 
@@ -994,7 +1096,8 @@ export class FilesController {
   @Post(':fileId/share-link')
   @ApiOperation({
     summary: 'Create a public share link for a file',
-    description: 'Creates a shareable link that anyone can use to access the file. Supports password protection, expiration dates, and download limits.'
+    description:
+      'Creates a shareable link that anyone can use to access the file. Supports password protection, expiration dates, and download limits.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1014,9 +1117,9 @@ export class FilesController {
         downloadCount: 0,
         viewCount: 0,
         isActive: true,
-        createdAt: '2025-12-30T00:00:00.000Z'
-      }
-    }
+        createdAt: '2025-12-30T00:00:00.000Z',
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'File not found' })
   async createShareLink(
@@ -1031,7 +1134,7 @@ export class FilesController {
   @Get(':fileId/share-links')
   @ApiOperation({
     summary: 'Get all share links for a file',
-    description: 'Returns all active share links created for this file.'
+    description: 'Returns all active share links created for this file.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1048,23 +1151,20 @@ export class FilesController {
   @Get('share-links/:shareId')
   @ApiOperation({
     summary: 'Get share link details',
-    description: 'Returns detailed information about a specific share link.'
+    description: 'Returns detailed information about a specific share link.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'shareId', description: 'Share link ID' })
   @ApiResponse({ status: 200, description: 'Share link details' })
   @ApiResponse({ status: 404, description: 'Share link not found' })
-  async getShareLink(
-    @Param('shareId') shareId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getShareLink(@Param('shareId') shareId: string, @CurrentUser('sub') userId: string) {
     return this.filesService.getShareLink(shareId, userId);
   }
 
   @Put('share-links/:shareId')
   @ApiOperation({
     summary: 'Update share link settings',
-    description: 'Update access level, password, expiration, download limits, or disable the link.'
+    description: 'Update access level, password, expiration, download limits, or disable the link.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'shareId', description: 'Share link ID' })
@@ -1081,16 +1181,14 @@ export class FilesController {
   @Delete('share-links/:shareId')
   @ApiOperation({
     summary: 'Delete a share link',
-    description: 'Permanently removes the share link. Anyone with the link will no longer be able to access the file.'
+    description:
+      'Permanently removes the share link. Anyone with the link will no longer be able to access the file.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'shareId', description: 'Share link ID' })
   @ApiResponse({ status: 200, description: 'Share link deleted successfully' })
   @ApiResponse({ status: 404, description: 'Share link not found' })
-  async deleteShareLink(
-    @Param('shareId') shareId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async deleteShareLink(@Param('shareId') shareId: string, @CurrentUser('sub') userId: string) {
     return this.filesService.deleteShareLink(shareId, userId);
   }
 
@@ -1101,11 +1199,15 @@ export class FilesController {
   @Get(':fileId/comments')
   @ApiOperation({
     summary: 'Get all comments for a file',
-    description: 'Returns all comments for a file organized in threads with author information.'
+    description: 'Returns all comments for a file organized in threads with author information.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
-  @ApiResponse({ status: 200, description: 'Comments retrieved successfully', type: [FileCommentResponseDto] })
+  @ApiResponse({
+    status: 200,
+    description: 'Comments retrieved successfully',
+    type: [FileCommentResponseDto],
+  })
   @ApiResponse({ status: 404, description: 'File not found' })
   async getFileComments(
     @Param('workspaceId') workspaceId: string,
@@ -1118,11 +1220,15 @@ export class FilesController {
   @Post(':fileId/comments')
   @ApiOperation({
     summary: 'Add a comment to a file',
-    description: 'Creates a new comment on a file. Can also be a reply to an existing comment.'
+    description: 'Creates a new comment on a file. Can also be a reply to an existing comment.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
-  @ApiResponse({ status: 201, description: 'Comment created successfully', type: FileCommentResponseDto })
+  @ApiResponse({
+    status: 201,
+    description: 'Comment created successfully',
+    type: FileCommentResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'File or parent comment not found' })
   async createComment(
     @Param('workspaceId') workspaceId: string,
@@ -1136,12 +1242,16 @@ export class FilesController {
   @Get(':fileId/comments/:commentId')
   @ApiOperation({
     summary: 'Get a specific comment',
-    description: 'Returns a single comment with author information.'
+    description: 'Returns a single comment with author information.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
   @ApiParam({ name: 'commentId', description: 'Comment ID' })
-  @ApiResponse({ status: 200, description: 'Comment retrieved successfully', type: FileCommentResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Comment retrieved successfully',
+    type: FileCommentResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'File or comment not found' })
   async getComment(
     @Param('workspaceId') workspaceId: string,
@@ -1155,12 +1265,16 @@ export class FilesController {
   @Put(':fileId/comments/:commentId')
   @ApiOperation({
     summary: 'Update a comment',
-    description: 'Updates the content of a comment. Only the comment author can edit.'
+    description: 'Updates the content of a comment. Only the comment author can edit.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
   @ApiParam({ name: 'commentId', description: 'Comment ID' })
-  @ApiResponse({ status: 200, description: 'Comment updated successfully', type: FileCommentResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Comment updated successfully',
+    type: FileCommentResponseDto,
+  })
   @ApiResponse({ status: 403, description: 'Not authorized to edit this comment' })
   @ApiResponse({ status: 404, description: 'File or comment not found' })
   async updateComment(
@@ -1176,7 +1290,8 @@ export class FilesController {
   @Delete(':fileId/comments/:commentId')
   @ApiOperation({
     summary: 'Delete a comment',
-    description: 'Soft deletes a comment and all its replies. Only the comment author or file owner can delete.'
+    description:
+      'Soft deletes a comment and all its replies. Only the comment author or file owner can delete.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1196,12 +1311,16 @@ export class FilesController {
   @Put(':fileId/comments/:commentId/resolve')
   @ApiOperation({
     summary: 'Resolve or unresolve a comment',
-    description: 'Marks a comment as resolved or unresolved. Useful for tracking feedback.'
+    description: 'Marks a comment as resolved or unresolved. Useful for tracking feedback.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
   @ApiParam({ name: 'commentId', description: 'Comment ID' })
-  @ApiResponse({ status: 200, description: 'Comment resolve status updated', type: FileCommentResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Comment resolve status updated',
+    type: FileCommentResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'File or comment not found' })
   async resolveComment(
     @Param('workspaceId') workspaceId: string,
@@ -1210,7 +1329,13 @@ export class FilesController {
     @Body() dto: ResolveCommentDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.filesService.resolveComment(workspaceId, fileId, commentId, dto.is_resolved, userId);
+    return this.filesService.resolveComment(
+      workspaceId,
+      fileId,
+      commentId,
+      dto.is_resolved,
+      userId,
+    );
   }
 
   // ============================================
@@ -1220,11 +1345,16 @@ export class FilesController {
   @Post(':fileId/offline')
   @ApiOperation({
     summary: 'Mark file for offline access',
-    description: 'Marks a file to be available offline. The client will download and cache the file locally.'
+    description:
+      'Marks a file to be available offline. The client will download and cache the file locally.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
-  @ApiResponse({ status: 201, description: 'File marked for offline access', type: OfflineFileResponseDto })
+  @ApiResponse({
+    status: 201,
+    description: 'File marked for offline access',
+    type: OfflineFileResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'File not found' })
   async markFileOffline(
     @Param('workspaceId') workspaceId: string,
@@ -1238,7 +1368,7 @@ export class FilesController {
   @Delete(':fileId/offline')
   @ApiOperation({
     summary: 'Remove file from offline access',
-    description: 'Removes a file from offline access. The client should delete the local cache.'
+    description: 'Removes a file from offline access. The client should delete the local cache.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1254,10 +1384,15 @@ export class FilesController {
   @Get('offline')
   @ApiOperation({
     summary: 'Get all offline files',
-    description: 'Returns all files marked for offline access by the current user in this workspace.'
+    description:
+      'Returns all files marked for offline access by the current user in this workspace.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ status: 200, description: 'List of offline files', type: [OfflineFileResponseDto] })
+  @ApiResponse({
+    status: 200,
+    description: 'List of offline files',
+    type: [OfflineFileResponseDto],
+  })
   async getOfflineFiles(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
@@ -1268,10 +1403,15 @@ export class FilesController {
   @Get('offline/stats')
   @ApiOperation({
     summary: 'Get offline storage statistics',
-    description: 'Returns statistics about offline files including total count, size, and sync status breakdown.'
+    description:
+      'Returns statistics about offline files including total count, size, and sync status breakdown.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ status: 200, description: 'Offline storage statistics', type: OfflineStorageStatsDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Offline storage statistics',
+    type: OfflineStorageStatsDto,
+  })
   async getOfflineStorageStats(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
@@ -1282,10 +1422,15 @@ export class FilesController {
   @Get('offline/needs-sync')
   @ApiOperation({
     summary: 'Get files needing sync',
-    description: 'Returns files that have auto-sync enabled and have updates available on the server.'
+    description:
+      'Returns files that have auto-sync enabled and have updates available on the server.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ status: 200, description: 'List of files needing sync', type: [OfflineFileResponseDto] })
+  @ApiResponse({
+    status: 200,
+    description: 'List of files needing sync',
+    type: [OfflineFileResponseDto],
+  })
   async getFilesNeedingSync(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
@@ -1296,7 +1441,7 @@ export class FilesController {
   @Get(':fileId/offline')
   @ApiOperation({
     summary: 'Get offline status for a file',
-    description: 'Returns the offline status and sync information for a specific file.'
+    description: 'Returns the offline status and sync information for a specific file.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1312,11 +1457,16 @@ export class FilesController {
   @Put(':fileId/offline')
   @ApiOperation({
     summary: 'Update offline file settings',
-    description: 'Updates settings for an offline file such as auto-sync, priority, or sync status.'
+    description:
+      'Updates settings for an offline file such as auto-sync, priority, or sync status.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
-  @ApiResponse({ status: 200, description: 'Offline settings updated', type: OfflineFileResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Offline settings updated',
+    type: OfflineFileResponseDto,
+  })
   @ApiResponse({ status: 404, description: 'File is not marked for offline access' })
   async updateOfflineSettings(
     @Param('workspaceId') workspaceId: string,
@@ -1330,7 +1480,8 @@ export class FilesController {
   @Get(':fileId/offline/check-update')
   @ApiOperation({
     summary: 'Check if file has updates',
-    description: 'Compares server version with locally synced version to determine if an update is available.'
+    description:
+      'Compares server version with locally synced version to determine if an update is available.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'File ID' })
@@ -1347,7 +1498,8 @@ export class FilesController {
   @Post('offline/sync-status')
   @ApiOperation({
     summary: 'Batch update sync status',
-    description: 'Updates sync status for multiple files at once. Used by client after syncing files.'
+    description:
+      'Updates sync status for multiple files at once. Used by client after syncing files.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Batch update results' })
@@ -1372,7 +1524,8 @@ export class SharedFilesController {
   @Get(':shareToken')
   @ApiOperation({
     summary: 'Access a shared file via public link',
-    description: 'Returns file information for a shared link. If password protected, returns requiresPassword: true.'
+    description:
+      'Returns file information for a shared link. If password protected, returns requiresPassword: true.',
   })
   @ApiParam({ name: 'shareToken', description: 'Share token from the share URL' })
   @ApiQuery({ name: 'password', required: false, description: 'Password if the link is protected' })
@@ -1393,12 +1546,12 @@ export class SharedFilesController {
           canDownload: false,
           sharedBy: {
             name: 'John Doe',
-            avatarUrl: 'https://example.com/avatar.jpg'
+            avatarUrl: 'https://example.com/avatar.jpg',
           },
-          sharedAt: '2025-12-30T00:00:00.000Z'
-        }
-      }
-    }
+          sharedAt: '2025-12-30T00:00:00.000Z',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Link expired, disabled, or download limit reached' })
   @ApiResponse({ status: 404, description: 'Share link not found' })
@@ -1412,7 +1565,7 @@ export class SharedFilesController {
   @Post(':shareToken/verify-password')
   @ApiOperation({
     summary: 'Verify password for a protected share link',
-    description: 'Verifies the password and returns file details if correct.'
+    description: 'Verifies the password and returns file details if correct.',
   })
   @ApiParam({ name: 'shareToken', description: 'Share token' })
   @ApiResponse({ status: 200, description: 'Password verified, file details returned' })
@@ -1427,7 +1580,7 @@ export class SharedFilesController {
   @Get(':shareToken/download')
   @ApiOperation({
     summary: 'Download a shared file',
-    description: 'Downloads the file if the share link allows downloads. Updates download count.'
+    description: 'Downloads the file if the share link allows downloads. Updates download count.',
   })
   @ApiParam({ name: 'shareToken', description: 'Share token' })
   @ApiQuery({ name: 'password', required: false, description: 'Password if required' })

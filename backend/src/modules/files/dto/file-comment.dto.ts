@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, IsUUID, IsObject, MaxLength, MinLength } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsUUID,
+  IsObject,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class CreateFileCommentDto {
   @ApiProperty({
@@ -7,7 +15,7 @@ export class CreateFileCommentDto {
     example: 'Great work on this document!',
     required: true,
     minLength: 1,
-    maxLength: 5000
+    maxLength: 5000,
   })
   @IsString()
   @MinLength(1)
@@ -17,7 +25,7 @@ export class CreateFileCommentDto {
   @ApiProperty({
     description: 'Parent comment ID for replies (optional)',
     example: 'comment-uuid',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsUUID()
@@ -26,7 +34,7 @@ export class CreateFileCommentDto {
   @ApiProperty({
     description: 'Additional metadata (mentions, attachments, etc.)',
     example: { mentions: ['user-uuid-1'], position: { x: 100, y: 200 } },
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -39,7 +47,7 @@ export class UpdateFileCommentDto {
     example: 'Updated comment text',
     required: true,
     minLength: 1,
-    maxLength: 5000
+    maxLength: 5000,
   })
   @IsString()
   @MinLength(1)
@@ -48,7 +56,7 @@ export class UpdateFileCommentDto {
 
   @ApiProperty({
     description: 'Additional metadata',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -58,7 +66,7 @@ export class UpdateFileCommentDto {
 export class ResolveCommentDto {
   @ApiProperty({
     description: 'Whether to resolve or unresolve the comment',
-    example: true
+    example: true,
   })
   @IsBoolean()
   is_resolved: boolean;

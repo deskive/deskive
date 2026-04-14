@@ -1,4 +1,5 @@
 import { Injectable, Logger, NotFoundException, ConflictException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../../database/database.service';
 import { snakeCase } from 'change-case';
 import {
@@ -21,7 +22,71 @@ export class CatalogService {
   private readonly logger = new Logger(CatalogService.name);
   private readonly tableName = 'integration_catalog';
 
-  constructor(private readonly db: DatabaseService) {}
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly config: ConfigService,
+  ) {}
+
+  /**
+   * Count active integrations. Used by onModuleInit to decide whether
+   * to run the auto-seed on startup (skip if the table is already
+   * populated, so we don't spam the log on every restart).
+   */
+  async countIntegrations(): Promise<number> {
+    try {
+      const result = await this.db.table(this.tableName).select('id').execute();
+      const arr = Array.isArray(result?.data) ? result.data : [];
+      return arr.length;
+    } catch {
+      // Table might not exist yet on a very fresh install — treat as 0
+      // so the seeder runs (or noisily fails on its own).
+      return 0;
+    }
+  }
+
+  /**
+   * Return true iff the operator has configured the server-side
+   * credentials for this integration (OAuth client id/secret, or an
+   * api_key env var). The frontend uses this to gate the Connect
+   * button so clicking doesn't 500 on missing env vars.
+   *
+   * We read the `authConfig` / `apiKeyConfig` that was stored with
+   * the catalog row and check the env vars it declares. Unknown
+   * auth types default to `true` so webhook-only integrations still
+   * render as connectable.
+   */
+  private isCredentialConfigured(row: Record<string, unknown>): boolean {
+    const authType = row.auth_type as string | undefined;
+    const authConfig = row.auth_config as Record<string, unknown> | undefined;
+
+    if (!authConfig || !authType) return false;
+
+    if (authType === 'oauth2' || authType === 'oauth1') {
+      const clientIdEnvKey = authConfig.clientIdEnvKey as string | undefined;
+      const clientSecretEnvKey = authConfig.clientSecretEnvKey as string | undefined;
+      if (!clientIdEnvKey || !clientSecretEnvKey) return false;
+      const id = this.config.get<string>(clientIdEnvKey);
+      const secret = this.config.get<string>(clientSecretEnvKey);
+      return !!(id && secret);
+    }
+
+    if (authType === 'api_key') {
+      // Some api_key entries store the expected env key in
+      // authConfig.keyEnvKey; others rely on per-user input only. If
+      // no server-side env var is declared, treat as user-provided —
+      // the connect dialog prompts for the key at click-time, so
+      // "configured" is effectively always true.
+      const keyEnvKey = authConfig.keyEnvKey as string | undefined;
+      if (!keyEnvKey) return true;
+      return !!this.config.get<string>(keyEnvKey);
+    }
+
+    if (authType === 'webhook_only' || authType === 'basic_auth') {
+      return true;
+    }
+
+    return false;
+  }
 
   /**
    * Get marketplace integrations with filtering and pagination
@@ -141,11 +206,7 @@ export class CatalogService {
    */
   async getById(id: string): Promise<IntegrationCatalogResponseDto> {
     try {
-      const result = await this.db
-        .table(this.tableName)
-        .select('*')
-        .where('id', '=', id)
-        .execute();
+      const result = await this.db.table(this.tableName).select('*').where('id', '=', id).execute();
 
       const resultArray = Array.isArray(result?.data) ? result.data : [];
 
@@ -216,15 +277,15 @@ export class CatalogService {
         website: dto.website || null,
         documentation_url: dto.documentationUrl || null,
         auth_type: dto.authType,
-        auth_config: dto.authConfig,
+        auth_config: JSON.stringify(dto.authConfig || {}),
         api_base_url: dto.apiBaseUrl || null,
-        api_config: dto.apiConfig || {},
+        api_config: JSON.stringify(dto.apiConfig || {}),
         supports_webhooks: dto.supportsWebhooks || false,
-        webhook_config: dto.webhookConfig || {},
-        capabilities: dto.capabilities || [],
-        features: dto.features || [],
-        config_schema: dto.configSchema || {},
-        screenshots: dto.screenshots || [],
+        webhook_config: JSON.stringify(dto.webhookConfig || {}),
+        capabilities: JSON.stringify(dto.capabilities || []),
+        features: JSON.stringify(dto.features || []),
+        config_schema: JSON.stringify(dto.configSchema || {}),
+        screenshots: JSON.stringify(dto.screenshots || []),
         pricing_type: dto.pricingType || 'free',
         is_verified: dto.isVerified || false,
         is_featured: dto.isFeatured || false,
@@ -267,11 +328,13 @@ export class CatalogService {
       if (dto.name !== undefined) updateData.name = dto.name;
       if (dto.description !== undefined) updateData.description = dto.description;
       if (dto.logoUrl !== undefined) updateData.logo_url = dto.logoUrl;
-      if (dto.authConfig !== undefined) updateData.auth_config = dto.authConfig;
-      if (dto.apiConfig !== undefined) updateData.api_config = dto.apiConfig;
-      if (dto.webhookConfig !== undefined) updateData.webhook_config = dto.webhookConfig;
-      if (dto.capabilities !== undefined) updateData.capabilities = dto.capabilities;
-      if (dto.features !== undefined) updateData.features = dto.features;
+      if (dto.authConfig !== undefined) updateData.auth_config = JSON.stringify(dto.authConfig);
+      if (dto.apiConfig !== undefined) updateData.api_config = JSON.stringify(dto.apiConfig);
+      if (dto.webhookConfig !== undefined)
+        updateData.webhook_config = JSON.stringify(dto.webhookConfig);
+      if (dto.capabilities !== undefined)
+        updateData.capabilities = JSON.stringify(dto.capabilities);
+      if (dto.features !== undefined) updateData.features = JSON.stringify(dto.features);
       if (dto.isActive !== undefined) updateData.is_active = dto.isActive;
       if (dto.isVerified !== undefined) updateData.is_verified = dto.isVerified;
       if (dto.isFeatured !== undefined) updateData.is_featured = dto.isFeatured;
@@ -443,6 +506,7 @@ export class CatalogService {
       reviewCount: (row.review_count as number) || 0,
       createdAt: row.created_at as string,
       updatedAt: row.updated_at as string,
+      credentialConfigured: this.isCredentialConfigured(row),
     };
   }
 

@@ -64,7 +64,7 @@ export class NotificationsController {
     if (!createNotificationDto.user_id && !createNotificationDto.user_ids) {
       createNotificationDto.user_id = req.user.sub;
     }
-    
+
     return this.notificationsService.sendNotification(createNotificationDto);
   }
 
@@ -93,10 +93,7 @@ export class NotificationsController {
   })
   @ApiResponse({ status: 404, description: 'Notification not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async markAsRead(
-    @Request() req: any,
-    @Param('id') id: string,
-  ): Promise<NotificationResponseDto> {
+  async markAsRead(@Request() req: any, @Param('id') id: string): Promise<NotificationResponseDto> {
     return this.notificationsService.markAsRead(req.user.sub, id);
   }
 
@@ -144,10 +141,7 @@ export class NotificationsController {
   })
   @ApiResponse({ status: 404, description: 'Notification not found' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async deleteNotification(
-    @Request() req: any,
-    @Param('id') id: string,
-  ): Promise<void> {
+  async deleteNotification(@Request() req: any, @Param('id') id: string): Promise<void> {
     return this.notificationsService.deleteNotification(req.user.sub, id);
   }
 
@@ -234,10 +228,7 @@ export class NotificationsController {
   })
   @ApiResponse({ status: 400, description: 'Bad request' })
   @ApiResponse({ status: 401, description: 'Unauthorized' })
-  async updatePreferences(
-    @Request() req: any,
-    @Body() updatePreferencesDto: UpdatePreferencesDto,
-  ) {
+  async updatePreferences(@Request() req: any, @Body() updatePreferencesDto: UpdatePreferencesDto) {
     return this.notificationsService.updateNotificationPreferences(
       req.user.sub,
       updatePreferencesDto,
@@ -313,7 +304,7 @@ export class NotificationsController {
       is_read: false,
       limit: 1000, // High limit to get all unread
     });
-    
+
     return { count: notifications.unread_count || 0 };
   }
 
@@ -341,7 +332,8 @@ export class NotificationsController {
   @Post('fcm/register-token')
   @ApiOperation({
     summary: 'Register FCM token for mobile device',
-    description: 'Called when Flutter app user logs in. Registers the device for push notifications via Firebase Cloud Messaging.',
+    description:
+      'Called when Flutter app user logs in. Registers the device for push notifications via Firebase Cloud Messaging.',
   })
   @ApiResponse({
     status: 201,

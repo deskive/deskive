@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const HEALTHCARE_PATIENT_TEMPLATES = [
   {
@@ -18,13 +15,25 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'PATIENT REGISTRATION FORM\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nFacility: {{facility_name}}\nDate: {{registration_date}}\n\n' },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Full Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nGender: {{gender}}\nSSN (Last 4): {{ssn_last4}}\nMarital Status: {{marital_status}}\n\n' },
+        {
+          insert:
+            'Full Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nGender: {{gender}}\nSSN (Last 4): {{ssn_last4}}\nMarital Status: {{marital_status}}\n\n',
+        },
         { insert: 'CONTACT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Address: {{address}}\nCity: {{city}} State: {{state}} ZIP: {{zip}}\nPhone: {{phone}}\nEmail: {{email}}\nPreferred Contact Method: {{preferred_contact}}\n\n' },
+        {
+          insert:
+            'Address: {{address}}\nCity: {{city}} State: {{state}} ZIP: {{zip}}\nPhone: {{phone}}\nEmail: {{email}}\nPreferred Contact Method: {{preferred_contact}}\n\n',
+        },
         { insert: 'EMERGENCY CONTACT\n', attributes: { bold: true } },
-        { insert: 'Name: {{emergency_name}}\nRelationship: {{emergency_relationship}}\nPhone: {{emergency_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{emergency_name}}\nRelationship: {{emergency_relationship}}\nPhone: {{emergency_phone}}\n\n',
+        },
         { insert: 'INSURANCE INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Primary Insurance: {{primary_insurance}}\nPolicy Number: {{policy_number}}\nGroup Number: {{group_number}}\nSubscriber Name: {{subscriber_name}}\nSubscriber DOB: {{subscriber_dob}}\nRelationship to Patient: {{subscriber_relationship}}\n\n' },
+        {
+          insert:
+            'Primary Insurance: {{primary_insurance}}\nPolicy Number: {{policy_number}}\nGroup Number: {{group_number}}\nSubscriber Name: {{subscriber_name}}\nSubscriber DOB: {{subscriber_dob}}\nRelationship to Patient: {{subscriber_relationship}}\n\n',
+        },
         { insert: 'Secondary Insurance (if applicable):\n', attributes: { bold: true } },
         { insert: '{{secondary_insurance}}\n\n' },
         { insert: 'PRIMARY CARE PHYSICIAN\n', attributes: { bold: true } },
@@ -32,10 +41,19 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'REASON FOR VISIT\n', attributes: { bold: true } },
         { insert: '{{reason_for_visit}}\n\n' },
         { insert: 'PHARMACY INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Preferred Pharmacy: {{pharmacy_name}}\nPharmacy Phone: {{pharmacy_phone}}\nPharmacy Address: {{pharmacy_address}}\n\n' },
+        {
+          insert:
+            'Preferred Pharmacy: {{pharmacy_name}}\nPharmacy Phone: {{pharmacy_phone}}\nPharmacy Address: {{pharmacy_address}}\n\n',
+        },
         { insert: 'CONSENT AND AUTHORIZATION\n', attributes: { bold: true } },
-        { insert: 'I hereby authorize the release of medical information necessary to process insurance claims. I authorize payment of medical benefits to the healthcare provider.\n\n' },
-        { insert: 'Patient/Guardian Signature: _________________________\nDate: {{signature_date}}\n' },
+        {
+          insert:
+            'I hereby authorize the release of medical information necessary to process insurance claims. I authorize payment of medical benefits to the healthcare provider.\n\n',
+        },
+        {
+          insert:
+            'Patient/Guardian Signature: _________________________\nDate: {{signature_date}}\n',
+        },
       ],
     },
     placeholders: [
@@ -43,26 +61,65 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'registration_date', type: 'date', label: 'Registration Date', required: true },
       { key: 'patient_name', type: 'text', label: 'Patient Full Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'gender', type: 'select', label: 'Gender', required: true, options: ['Male', 'Female', 'Non-Binary', 'Prefer Not to Say'] },
+      {
+        key: 'gender',
+        type: 'select',
+        label: 'Gender',
+        required: true,
+        options: ['Male', 'Female', 'Non-Binary', 'Prefer Not to Say'],
+      },
       { key: 'ssn_last4', type: 'text', label: 'SSN Last 4 Digits', required: false },
-      { key: 'marital_status', type: 'select', label: 'Marital Status', required: true, options: ['Single', 'Married', 'Divorced', 'Widowed', 'Separated'] },
+      {
+        key: 'marital_status',
+        type: 'select',
+        label: 'Marital Status',
+        required: true,
+        options: ['Single', 'Married', 'Divorced', 'Widowed', 'Separated'],
+      },
       { key: 'address', type: 'text', label: 'Street Address', required: true },
       { key: 'city', type: 'text', label: 'City', required: true },
       { key: 'state', type: 'text', label: 'State', required: true },
       { key: 'zip', type: 'text', label: 'ZIP Code', required: true },
       { key: 'phone', type: 'text', label: 'Phone Number', required: true },
       { key: 'email', type: 'email', label: 'Email Address', required: false },
-      { key: 'preferred_contact', type: 'select', label: 'Preferred Contact', required: true, options: ['Phone', 'Email', 'Text'] },
+      {
+        key: 'preferred_contact',
+        type: 'select',
+        label: 'Preferred Contact',
+        required: true,
+        options: ['Phone', 'Email', 'Text'],
+      },
       { key: 'emergency_name', type: 'text', label: 'Emergency Contact Name', required: true },
-      { key: 'emergency_relationship', type: 'text', label: 'Emergency Contact Relationship', required: true },
+      {
+        key: 'emergency_relationship',
+        type: 'text',
+        label: 'Emergency Contact Relationship',
+        required: true,
+      },
       { key: 'emergency_phone', type: 'text', label: 'Emergency Contact Phone', required: true },
-      { key: 'primary_insurance', type: 'text', label: 'Primary Insurance Company', required: false },
+      {
+        key: 'primary_insurance',
+        type: 'text',
+        label: 'Primary Insurance Company',
+        required: false,
+      },
       { key: 'policy_number', type: 'text', label: 'Policy Number', required: false },
       { key: 'group_number', type: 'text', label: 'Group Number', required: false },
       { key: 'subscriber_name', type: 'text', label: 'Subscriber Name', required: false },
       { key: 'subscriber_dob', type: 'date', label: 'Subscriber DOB', required: false },
-      { key: 'subscriber_relationship', type: 'select', label: 'Relationship to Patient', required: false, options: ['Self', 'Spouse', 'Child', 'Other'] },
-      { key: 'secondary_insurance', type: 'textarea', label: 'Secondary Insurance Details', required: false },
+      {
+        key: 'subscriber_relationship',
+        type: 'select',
+        label: 'Relationship to Patient',
+        required: false,
+        options: ['Self', 'Spouse', 'Child', 'Other'],
+      },
+      {
+        key: 'secondary_insurance',
+        type: 'textarea',
+        label: 'Secondary Insurance Details',
+        required: false,
+      },
       { key: 'pcp_name', type: 'text', label: 'PCP Name', required: false },
       { key: 'pcp_phone', type: 'text', label: 'PCP Phone', required: false },
       { key: 'reason_for_visit', type: 'textarea', label: 'Reason for Visit', required: true },
@@ -72,9 +129,18 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Guardian Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Guardian Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Medical History Form',
@@ -88,28 +154,52 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
     content: {
       ops: [
         { insert: 'MEDICAL HISTORY FORM\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{form_date}}\n\n' },
+        {
+          insert:
+            '\nPatient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{form_date}}\n\n',
+        },
         { insert: 'CURRENT MEDICATIONS\n', attributes: { bold: true } },
-        { insert: 'List all current medications, including over-the-counter drugs and supplements:\n{{current_medications}}\n\n' },
+        {
+          insert:
+            'List all current medications, including over-the-counter drugs and supplements:\n{{current_medications}}\n\n',
+        },
         { insert: 'ALLERGIES\n', attributes: { bold: true } },
-        { insert: 'Drug Allergies: {{drug_allergies}}\nFood Allergies: {{food_allergies}}\nOther Allergies: {{other_allergies}}\n\n' },
+        {
+          insert:
+            'Drug Allergies: {{drug_allergies}}\nFood Allergies: {{food_allergies}}\nOther Allergies: {{other_allergies}}\n\n',
+        },
         { insert: 'PAST MEDICAL HISTORY\n', attributes: { bold: true } },
-        { insert: 'Please check all that apply:\n{{medical_conditions}}\n\nOther conditions: {{other_conditions}}\n\n' },
+        {
+          insert:
+            'Please check all that apply:\n{{medical_conditions}}\n\nOther conditions: {{other_conditions}}\n\n',
+        },
         { insert: 'SURGICAL HISTORY\n', attributes: { bold: true } },
         { insert: 'List all previous surgeries with approximate dates:\n{{surgical_history}}\n\n' },
         { insert: 'HOSPITALIZATIONS\n', attributes: { bold: true } },
         { insert: 'List all previous hospitalizations:\n{{hospitalizations}}\n\n' },
         { insert: 'FAMILY MEDICAL HISTORY\n', attributes: { bold: true } },
-        { insert: 'Father: {{father_history}}\nMother: {{mother_history}}\nSiblings: {{siblings_history}}\nGrandparents: {{grandparents_history}}\n\n' },
+        {
+          insert:
+            'Father: {{father_history}}\nMother: {{mother_history}}\nSiblings: {{siblings_history}}\nGrandparents: {{grandparents_history}}\n\n',
+        },
         { insert: 'SOCIAL HISTORY\n', attributes: { bold: true } },
-        { insert: 'Tobacco Use: {{tobacco_use}}\nAlcohol Use: {{alcohol_use}}\nRecreational Drug Use: {{drug_use}}\nExercise: {{exercise_habits}}\nOccupation: {{occupation}}\n\n' },
+        {
+          insert:
+            'Tobacco Use: {{tobacco_use}}\nAlcohol Use: {{alcohol_use}}\nRecreational Drug Use: {{drug_use}}\nExercise: {{exercise_habits}}\nOccupation: {{occupation}}\n\n',
+        },
         { insert: 'IMMUNIZATION HISTORY\n', attributes: { bold: true } },
         { insert: '{{immunization_history}}\n\n' },
-        { insert: 'WOMEN\'S HEALTH (if applicable)\n', attributes: { bold: true } },
-        { insert: 'Last Menstrual Period: {{last_period}}\nPregnancies: {{pregnancies}}\nBirth Control: {{birth_control}}\n\n' },
+        { insert: "WOMEN'S HEALTH (if applicable)\n", attributes: { bold: true } },
+        {
+          insert:
+            'Last Menstrual Period: {{last_period}}\nPregnancies: {{pregnancies}}\nBirth Control: {{birth_control}}\n\n',
+        },
         { insert: 'REVIEW OF SYSTEMS\n', attributes: { bold: true } },
         { insert: '{{review_of_systems}}\n\n' },
-        { insert: 'I certify that the above information is accurate to the best of my knowledge.\n\n' },
+        {
+          insert:
+            'I certify that the above information is accurate to the best of my knowledge.\n\n',
+        },
         { insert: 'Patient Signature: _________________________ Date: _____________\n' },
       ],
     },
@@ -117,7 +207,12 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
       { key: 'form_date', type: 'date', label: 'Form Date', required: true },
-      { key: 'current_medications', type: 'textarea', label: 'Current Medications', required: true },
+      {
+        key: 'current_medications',
+        type: 'textarea',
+        label: 'Current Medications',
+        required: true,
+      },
       { key: 'drug_allergies', type: 'textarea', label: 'Drug Allergies', required: true },
       { key: 'food_allergies', type: 'textarea', label: 'Food Allergies', required: false },
       { key: 'other_allergies', type: 'textarea', label: 'Other Allergies', required: false },
@@ -125,25 +220,62 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'other_conditions', type: 'textarea', label: 'Other Conditions', required: false },
       { key: 'surgical_history', type: 'textarea', label: 'Surgical History', required: false },
       { key: 'hospitalizations', type: 'textarea', label: 'Hospitalizations', required: false },
-      { key: 'father_history', type: 'text', label: 'Father\'s Health History', required: false },
-      { key: 'mother_history', type: 'text', label: 'Mother\'s Health History', required: false },
-      { key: 'siblings_history', type: 'text', label: 'Siblings\' Health History', required: false },
-      { key: 'grandparents_history', type: 'text', label: 'Grandparents\' Health History', required: false },
-      { key: 'tobacco_use', type: 'select', label: 'Tobacco Use', required: true, options: ['Never', 'Former', 'Current'] },
-      { key: 'alcohol_use', type: 'select', label: 'Alcohol Use', required: true, options: ['None', 'Occasional', 'Moderate', 'Heavy'] },
-      { key: 'drug_use', type: 'select', label: 'Recreational Drug Use', required: true, options: ['None', 'Former', 'Current'] },
+      { key: 'father_history', type: 'text', label: "Father's Health History", required: false },
+      { key: 'mother_history', type: 'text', label: "Mother's Health History", required: false },
+      { key: 'siblings_history', type: 'text', label: "Siblings' Health History", required: false },
+      {
+        key: 'grandparents_history',
+        type: 'text',
+        label: "Grandparents' Health History",
+        required: false,
+      },
+      {
+        key: 'tobacco_use',
+        type: 'select',
+        label: 'Tobacco Use',
+        required: true,
+        options: ['Never', 'Former', 'Current'],
+      },
+      {
+        key: 'alcohol_use',
+        type: 'select',
+        label: 'Alcohol Use',
+        required: true,
+        options: ['None', 'Occasional', 'Moderate', 'Heavy'],
+      },
+      {
+        key: 'drug_use',
+        type: 'select',
+        label: 'Recreational Drug Use',
+        required: true,
+        options: ['None', 'Former', 'Current'],
+      },
       { key: 'exercise_habits', type: 'text', label: 'Exercise Habits', required: false },
       { key: 'occupation', type: 'text', label: 'Occupation', required: false },
-      { key: 'immunization_history', type: 'textarea', label: 'Immunization History', required: false },
+      {
+        key: 'immunization_history',
+        type: 'textarea',
+        label: 'Immunization History',
+        required: false,
+      },
       { key: 'last_period', type: 'date', label: 'Last Menstrual Period', required: false },
       { key: 'pregnancies', type: 'text', label: 'Number of Pregnancies', required: false },
       { key: 'birth_control', type: 'text', label: 'Birth Control Method', required: false },
       { key: 'review_of_systems', type: 'textarea', label: 'Review of Systems', required: false },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Discharge Summary',
@@ -159,7 +291,10 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'PATIENT DISCHARGE SUMMARY\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nFacility: {{facility_name}}\nDischarge Date: {{discharge_date}}\n\n' },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nAdmission Date: {{admission_date}}\nAttending Physician: {{attending_physician}}\n\n' },
+        {
+          insert:
+            'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nAdmission Date: {{admission_date}}\nAttending Physician: {{attending_physician}}\n\n',
+        },
         { insert: 'ADMISSION DIAGNOSIS\n', attributes: { bold: true } },
         { insert: '{{admission_diagnosis}}\n\n' },
         { insert: 'DISCHARGE DIAGNOSIS\n', attributes: { bold: true } },
@@ -169,13 +304,19 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'PROCEDURES PERFORMED\n', attributes: { bold: true } },
         { insert: '{{procedures}}\n\n' },
         { insert: 'DISCHARGE CONDITION\n', attributes: { bold: true } },
-        { insert: 'Condition at Discharge: {{discharge_condition}}\nDischarge Disposition: {{discharge_disposition}}\n\n' },
+        {
+          insert:
+            'Condition at Discharge: {{discharge_condition}}\nDischarge Disposition: {{discharge_disposition}}\n\n',
+        },
         { insert: 'DISCHARGE MEDICATIONS\n', attributes: { bold: true } },
         { insert: '{{discharge_medications}}\n\n' },
         { insert: 'FOLLOW-UP APPOINTMENTS\n', attributes: { bold: true } },
         { insert: '{{follow_up_appointments}}\n\n' },
         { insert: 'DISCHARGE INSTRUCTIONS\n', attributes: { bold: true } },
-        { insert: 'Activity: {{activity_restrictions}}\nDiet: {{diet_instructions}}\nWound Care: {{wound_care}}\n\n' },
+        {
+          insert:
+            'Activity: {{activity_restrictions}}\nDiet: {{diet_instructions}}\nWound Care: {{wound_care}}\n\n',
+        },
         { insert: 'WARNING SIGNS - RETURN TO ER IF:\n', attributes: { bold: true } },
         { insert: '{{warning_signs}}\n\n' },
         { insert: 'PENDING RESULTS\n', attributes: { bold: true } },
@@ -189,28 +330,96 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'discharge_date', type: 'date', label: 'Discharge Date', required: true },
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'admission_date', type: 'date', label: 'Admission Date', required: true },
       { key: 'attending_physician', type: 'text', label: 'Attending Physician', required: true },
-      { key: 'admission_diagnosis', type: 'textarea', label: 'Admission Diagnosis', required: true },
-      { key: 'discharge_diagnosis', type: 'textarea', label: 'Discharge Diagnosis', required: true },
-      { key: 'hospital_course', type: 'textarea', label: 'Hospital Course Summary', required: true },
+      {
+        key: 'admission_diagnosis',
+        type: 'textarea',
+        label: 'Admission Diagnosis',
+        required: true,
+      },
+      {
+        key: 'discharge_diagnosis',
+        type: 'textarea',
+        label: 'Discharge Diagnosis',
+        required: true,
+      },
+      {
+        key: 'hospital_course',
+        type: 'textarea',
+        label: 'Hospital Course Summary',
+        required: true,
+      },
       { key: 'procedures', type: 'textarea', label: 'Procedures Performed', required: false },
-      { key: 'discharge_condition', type: 'select', label: 'Discharge Condition', required: true, options: ['Stable', 'Improved', 'Unchanged', 'Guarded'] },
-      { key: 'discharge_disposition', type: 'select', label: 'Discharge Disposition', required: true, options: ['Home', 'Home with Services', 'Skilled Nursing Facility', 'Rehabilitation', 'Hospice', 'Transfer'] },
-      { key: 'discharge_medications', type: 'textarea', label: 'Discharge Medications', required: true },
-      { key: 'follow_up_appointments', type: 'textarea', label: 'Follow-up Appointments', required: true },
-      { key: 'activity_restrictions', type: 'textarea', label: 'Activity Restrictions', required: true },
+      {
+        key: 'discharge_condition',
+        type: 'select',
+        label: 'Discharge Condition',
+        required: true,
+        options: ['Stable', 'Improved', 'Unchanged', 'Guarded'],
+      },
+      {
+        key: 'discharge_disposition',
+        type: 'select',
+        label: 'Discharge Disposition',
+        required: true,
+        options: [
+          'Home',
+          'Home with Services',
+          'Skilled Nursing Facility',
+          'Rehabilitation',
+          'Hospice',
+          'Transfer',
+        ],
+      },
+      {
+        key: 'discharge_medications',
+        type: 'textarea',
+        label: 'Discharge Medications',
+        required: true,
+      },
+      {
+        key: 'follow_up_appointments',
+        type: 'textarea',
+        label: 'Follow-up Appointments',
+        required: true,
+      },
+      {
+        key: 'activity_restrictions',
+        type: 'textarea',
+        label: 'Activity Restrictions',
+        required: true,
+      },
       { key: 'diet_instructions', type: 'textarea', label: 'Diet Instructions', required: false },
       { key: 'wound_care', type: 'textarea', label: 'Wound Care Instructions', required: false },
       { key: 'warning_signs', type: 'textarea', label: 'Warning Signs', required: true },
       { key: 'pending_results', type: 'textarea', label: 'Pending Results', required: false },
     ],
     signatureFields: [
-      { id: 'physician_signature', label: 'Physician Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'patient_signature', label: 'Patient/Family Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'physician_signature',
+        label: 'Physician Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Family Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Referral Form',
@@ -226,17 +435,29 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'PATIENT REFERRAL FORM\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nReferral Date: {{referral_date}}\n\n' },
         { insert: 'REFERRING PROVIDER\n', attributes: { bold: true } },
-        { insert: 'Provider Name: {{referring_provider}}\nPractice: {{referring_practice}}\nPhone: {{referring_phone}}\nFax: {{referring_fax}}\nNPI: {{referring_npi}}\n\n' },
+        {
+          insert:
+            'Provider Name: {{referring_provider}}\nPractice: {{referring_practice}}\nPhone: {{referring_phone}}\nFax: {{referring_fax}}\nNPI: {{referring_npi}}\n\n',
+        },
         { insert: 'REFERRED TO\n', attributes: { bold: true } },
-        { insert: 'Specialist/Provider: {{referred_to}}\nSpecialty: {{specialty}}\nPhone: {{specialist_phone}}\nFax: {{specialist_fax}}\n\n' },
+        {
+          insert:
+            'Specialist/Provider: {{referred_to}}\nSpecialty: {{specialty}}\nPhone: {{specialist_phone}}\nFax: {{specialist_fax}}\n\n',
+        },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nPhone: {{patient_phone}}\nInsurance: {{insurance}}\nPolicy Number: {{policy_number}}\n\n' },
+        {
+          insert:
+            'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nPhone: {{patient_phone}}\nInsurance: {{insurance}}\nPolicy Number: {{policy_number}}\n\n',
+        },
         { insert: 'REFERRAL INFORMATION\n', attributes: { bold: true } },
         { insert: 'Urgency: {{urgency}}\nReferral Type: {{referral_type}}\n\n' },
         { insert: 'REASON FOR REFERRAL\n', attributes: { bold: true } },
         { insert: '{{reason_for_referral}}\n\n' },
         { insert: 'CLINICAL INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Relevant Diagnoses: {{diagnoses}}\nCurrent Medications: {{medications}}\nAllergies: {{allergies}}\n\n' },
+        {
+          insert:
+            'Relevant Diagnoses: {{diagnoses}}\nCurrent Medications: {{medications}}\nAllergies: {{allergies}}\n\n',
+        },
         { insert: 'RELEVANT HISTORY AND FINDINGS\n', attributes: { bold: true } },
         { insert: '{{clinical_findings}}\n\n' },
         { insert: 'TESTS/STUDIES PERFORMED\n', attributes: { bold: true } },
@@ -264,21 +485,58 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'patient_phone', type: 'text', label: 'Patient Phone', required: true },
       { key: 'insurance', type: 'text', label: 'Insurance', required: false },
       { key: 'policy_number', type: 'text', label: 'Policy Number', required: false },
-      { key: 'urgency', type: 'select', label: 'Urgency', required: true, options: ['Routine', 'Urgent', 'Emergent'] },
-      { key: 'referral_type', type: 'select', label: 'Referral Type', required: true, options: ['Consultation', 'Treatment', 'Diagnostic Testing', 'Second Opinion', 'Co-management'] },
-      { key: 'reason_for_referral', type: 'textarea', label: 'Reason for Referral', required: true },
+      {
+        key: 'urgency',
+        type: 'select',
+        label: 'Urgency',
+        required: true,
+        options: ['Routine', 'Urgent', 'Emergent'],
+      },
+      {
+        key: 'referral_type',
+        type: 'select',
+        label: 'Referral Type',
+        required: true,
+        options: [
+          'Consultation',
+          'Treatment',
+          'Diagnostic Testing',
+          'Second Opinion',
+          'Co-management',
+        ],
+      },
+      {
+        key: 'reason_for_referral',
+        type: 'textarea',
+        label: 'Reason for Referral',
+        required: true,
+      },
       { key: 'diagnoses', type: 'textarea', label: 'Relevant Diagnoses', required: true },
       { key: 'medications', type: 'textarea', label: 'Current Medications', required: false },
       { key: 'allergies', type: 'text', label: 'Allergies', required: true },
       { key: 'clinical_findings', type: 'textarea', label: 'Clinical Findings', required: true },
-      { key: 'tests_performed', type: 'textarea', label: 'Tests/Studies Performed', required: false },
+      {
+        key: 'tests_performed',
+        type: 'textarea',
+        label: 'Tests/Studies Performed',
+        required: false,
+      },
       { key: 'requested_services', type: 'textarea', label: 'Requested Services', required: true },
       { key: 'attached_documents', type: 'textarea', label: 'Attached Documents', required: false },
     ],
     signatureFields: [
-      { id: 'referring_signature', label: 'Referring Provider Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'referring_signature',
+        label: 'Referring Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Appointment Reminder',
@@ -312,8 +570,14 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: '{{items_to_bring}}\n\n' },
         { insert: 'SPECIAL INSTRUCTIONS:\n', attributes: { bold: true } },
         { insert: '{{special_instructions}}\n\n' },
-        { insert: 'Please arrive {{arrival_time}} minutes early to complete any necessary paperwork.\n\n' },
-        { insert: 'If you need to reschedule or cancel your appointment, please call us at least {{cancellation_notice}} hours in advance at {{practice_phone}}.\n\n' },
+        {
+          insert:
+            'Please arrive {{arrival_time}} minutes early to complete any necessary paperwork.\n\n',
+        },
+        {
+          insert:
+            'If you need to reschedule or cancel your appointment, please call us at least {{cancellation_notice}} hours in advance at {{practice_phone}}.\n\n',
+        },
         { insert: 'We look forward to seeing you!\n\n' },
         { insert: 'Sincerely,\n{{practice_name}}\n' },
       ],
@@ -332,12 +596,26 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       { key: 'location', type: 'text', label: 'Location', required: true },
       { key: 'visit_type', type: 'text', label: 'Type of Visit', required: true },
       { key: 'items_to_bring', type: 'textarea', label: 'Items to Bring', required: false },
-      { key: 'special_instructions', type: 'textarea', label: 'Special Instructions', required: false },
+      {
+        key: 'special_instructions',
+        type: 'textarea',
+        label: 'Special Instructions',
+        required: false,
+      },
       { key: 'arrival_time', type: 'number', label: 'Minutes to Arrive Early', required: true },
-      { key: 'cancellation_notice', type: 'number', label: 'Cancellation Notice Hours', required: true },
+      {
+        key: 'cancellation_notice',
+        type: 'number',
+        label: 'Cancellation Notice Hours',
+        required: true,
+      },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Rights and Responsibilities',
@@ -350,18 +628,33 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
     isFeatured: false,
     content: {
       ops: [
-        { insert: 'PATIENT RIGHTS AND RESPONSIBILITIES\n', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: 'PATIENT RIGHTS AND RESPONSIBILITIES\n',
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '\n{{facility_name}}\n\n' },
         { insert: 'PATIENT RIGHTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nAs a patient, you have the right to:\n\n' },
         { insert: '1. Respectful Care\n', attributes: { bold: true } },
-        { insert: 'Receive considerate and respectful care regardless of age, race, religion, gender, sexual orientation, or disability.\n\n' },
+        {
+          insert:
+            'Receive considerate and respectful care regardless of age, race, religion, gender, sexual orientation, or disability.\n\n',
+        },
         { insert: '2. Information\n', attributes: { bold: true } },
-        { insert: 'Receive complete information about your diagnosis, treatment, and prognosis in terms you can understand.\n\n' },
+        {
+          insert:
+            'Receive complete information about your diagnosis, treatment, and prognosis in terms you can understand.\n\n',
+        },
         { insert: '3. Informed Consent\n', attributes: { bold: true } },
-        { insert: 'Give informed consent before any treatment or procedure, and refuse treatment to the extent permitted by law.\n\n' },
+        {
+          insert:
+            'Give informed consent before any treatment or procedure, and refuse treatment to the extent permitted by law.\n\n',
+        },
         { insert: '4. Privacy and Confidentiality\n', attributes: { bold: true } },
-        { insert: 'Have your medical records kept confidential and privacy respected during examinations and treatments.\n\n' },
+        {
+          insert:
+            'Have your medical records kept confidential and privacy respected during examinations and treatments.\n\n',
+        },
         { insert: '5. Pain Management\n', attributes: { bold: true } },
         { insert: 'Have your pain addressed and managed appropriately.\n\n' },
         { insert: '6. Grievances\n', attributes: { bold: true } },
@@ -372,7 +665,10 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'PATIENT RESPONSIBILITIES\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nAs a patient, you are responsible for:\n\n' },
         { insert: '1. Providing Information\n', attributes: { bold: true } },
-        { insert: 'Providing accurate and complete information about your health history and current condition.\n\n' },
+        {
+          insert:
+            'Providing accurate and complete information about your health history and current condition.\n\n',
+        },
         { insert: '2. Following Treatment Plans\n', attributes: { bold: true } },
         { insert: 'Following the treatment plan recommended by your healthcare provider.\n\n' },
         { insert: '3. Asking Questions\n', attributes: { bold: true } },
@@ -383,19 +679,41 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
         { insert: 'Meeting your financial obligations promptly.\n\n' },
         { insert: '{{additional_responsibilities}}\n\n' },
         { insert: 'I acknowledge that I have received and understand this document.\n\n' },
-        { insert: 'Patient/Representative Signature: _________________________ Date: _____________\n' },
+        {
+          insert:
+            'Patient/Representative Signature: _________________________ Date: _____________\n',
+        },
         { insert: 'Relationship to Patient: _________________________\n' },
       ],
     },
     placeholders: [
       { key: 'facility_name', type: 'text', label: 'Facility Name', required: true },
-      { key: 'additional_rights', type: 'textarea', label: 'Additional Patient Rights', required: false },
-      { key: 'additional_responsibilities', type: 'textarea', label: 'Additional Patient Responsibilities', required: false },
+      {
+        key: 'additional_rights',
+        type: 'textarea',
+        label: 'Additional Patient Rights',
+        required: false,
+      },
+      {
+        key: 'additional_responsibilities',
+        type: 'textarea',
+        label: 'Additional Patient Responsibilities',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Satisfaction Survey',
@@ -410,7 +728,10 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
       ops: [
         { insert: 'PATIENT SATISFACTION SURVEY\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\nVisit Date: {{visit_date}}\n\n' },
-        { insert: 'Thank you for choosing our facility. Your feedback helps us improve our services.\n\n' },
+        {
+          insert:
+            'Thank you for choosing our facility. Your feedback helps us improve our services.\n\n',
+        },
         { insert: 'ACCESS TO CARE\n', attributes: { bold: true } },
         { insert: '1. Ease of scheduling appointment: {{scheduling_rating}}\n' },
         { insert: '2. Wait time for appointment: {{wait_time_rating}}\n' },
@@ -442,28 +763,126 @@ export const HEALTHCARE_PATIENT_TEMPLATES = [
     placeholders: [
       { key: 'facility_name', type: 'text', label: 'Facility Name', required: true },
       { key: 'visit_date', type: 'date', label: 'Visit Date', required: true },
-      { key: 'scheduling_rating', type: 'select', label: 'Scheduling Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'wait_time_rating', type: 'select', label: 'Wait Time Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'location_rating', type: 'select', label: 'Location Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'reception_rating', type: 'select', label: 'Reception Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'staff_helpfulness', type: 'select', label: 'Staff Helpfulness', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
+      {
+        key: 'scheduling_rating',
+        type: 'select',
+        label: 'Scheduling Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'wait_time_rating',
+        type: 'select',
+        label: 'Wait Time Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'location_rating',
+        type: 'select',
+        label: 'Location Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'reception_rating',
+        type: 'select',
+        label: 'Reception Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'staff_helpfulness',
+        type: 'select',
+        label: 'Staff Helpfulness',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
       { key: 'provider_name', type: 'text', label: 'Provider Name', required: false },
-      { key: 'time_rating', type: 'select', label: 'Time Spent Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'explanation_rating', type: 'select', label: 'Explanation Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'questions_rating', type: 'select', label: 'Questions Answered Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'comfort_rating', type: 'select', label: 'Comfort Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'listening_rating', type: 'select', label: 'Listening Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'cleanliness_rating', type: 'select', label: 'Cleanliness Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'waiting_area_rating', type: 'select', label: 'Waiting Area Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'overall_rating', type: 'select', label: 'Overall Rating', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
-      { key: 'recommend', type: 'select', label: 'Would Recommend', required: true, options: ['Definitely Yes', 'Probably Yes', 'Probably No', 'Definitely No'] },
+      {
+        key: 'time_rating',
+        type: 'select',
+        label: 'Time Spent Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'explanation_rating',
+        type: 'select',
+        label: 'Explanation Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'questions_rating',
+        type: 'select',
+        label: 'Questions Answered Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'comfort_rating',
+        type: 'select',
+        label: 'Comfort Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'listening_rating',
+        type: 'select',
+        label: 'Listening Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'cleanliness_rating',
+        type: 'select',
+        label: 'Cleanliness Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'waiting_area_rating',
+        type: 'select',
+        label: 'Waiting Area Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'overall_rating',
+        type: 'select',
+        label: 'Overall Rating',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
+      {
+        key: 'recommend',
+        type: 'select',
+        label: 'Would Recommend',
+        required: true,
+        options: ['Definitely Yes', 'Probably Yes', 'Probably No', 'Definitely No'],
+      },
       { key: 'positive_feedback', type: 'textarea', label: 'Positive Feedback', required: false },
-      { key: 'improvement_feedback', type: 'textarea', label: 'Improvement Feedback', required: false },
-      { key: 'additional_comments', type: 'textarea', label: 'Additional Comments', required: false },
+      {
+        key: 'improvement_feedback',
+        type: 'textarea',
+        label: 'Improvement Feedback',
+        required: false,
+      },
+      {
+        key: 'additional_comments',
+        type: 'textarea',
+        label: 'Additional Comments',
+        required: false,
+      },
       { key: 'patient_name', type: 'text', label: 'Patient Name (Optional)', required: false },
       { key: 'patient_phone', type: 'text', label: 'Patient Phone (Optional)', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

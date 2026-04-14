@@ -271,15 +271,6 @@ const ModuleExplorerSection: React.FC = () => {
                 ))}
               </div>
 
-              {!isAuthenticated && (
-                <Button
-                  className="w-full group bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-semibold border-0 hover:scale-105 transition-all duration-300"
-                  onClick={handleGetStarted}
-                >
-                  {intl.formatMessage({ id: 'hero.cta.tryFree' })}
-                  <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              )}
             </motion.div>
 
             {/* Quick Info Card */}

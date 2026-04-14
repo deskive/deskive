@@ -1,6 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { CreateActivityEventDto, EventsQueryDto, ActivityFeedQueryDto, EventType, EventPriority } from './dto';
+import {
+  CreateActivityEventDto,
+  EventsQueryDto,
+  ActivityFeedQueryDto,
+  EventType,
+  EventPriority,
+} from './dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -39,9 +45,7 @@ export class EventsService {
 
   async findEvents(workspaceId: string, query: EventsQueryDto, userId: string) {
     // Build the base query
-    let eventsQuery = this.db.table('events')
-      .select('*')
-      .where('workspace_id', '=', workspaceId);
+    let eventsQuery = this.db.table('events').select('*').where('workspace_id', '=', workspaceId);
 
     // Apply filters
     if (query.eventTypes && query.eventTypes.length > 0) {
@@ -107,17 +111,22 @@ export class EventsService {
     const events = eventsResult.data || [];
 
     // Parse JSON fields
-    const processedEvents = events.map(event => ({
+    const processedEvents = events.map((event) => ({
       ...event,
       metadata: event.metadata ? JSON.parse(event.metadata) : null,
       tags: event.tags ? JSON.parse(event.tags) : null,
     }));
 
     // Get event type distribution
-    const distributionResult = await this.db.table('events')
+    const distributionResult = await this.db
+      .table('events')
       .select('event_type')
       .where('workspace_id', '=', workspaceId)
-      .where('created_at', '>=', query.startDate || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+      .where(
+        'created_at',
+        '>=',
+        query.startDate || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+      )
       .where('created_at', '<=', query.endDate || new Date().toISOString())
       .groupBy('event_type')
       .execute();
@@ -125,14 +134,19 @@ export class EventsService {
     const distribution = distributionResult.data || [];
     const distributionCounts = await Promise.all(
       distribution.map(async (item) => {
-        const count = await this.db.table('events')
+        const count = await this.db
+          .table('events')
           .where('workspace_id', '=', workspaceId)
           .where('event_type', '=', item.event_type)
-          .where('created_at', '>=', query.startDate || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString())
+          .where(
+            'created_at',
+            '>=',
+            query.startDate || new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+          )
           .where('created_at', '<=', query.endDate || new Date().toISOString())
           .count();
         return { ...item, count };
-      })
+      }),
     );
 
     return {
@@ -158,7 +172,8 @@ export class EventsService {
 
   async getActivityFeed(workspaceId: string, query: ActivityFeedQueryDto, userId: string) {
     // Build query for activity logs
-    let activityQuery = this.db.table('activity_logs')
+    let activityQuery = this.db
+      .table('activity_logs')
       .select('*')
       .where('workspace_id', '=', workspaceId);
 
@@ -194,11 +209,12 @@ export class EventsService {
     const activities = activitiesResult.data || [];
 
     // Enrich activities with user information
-    const userIds = [...new Set(activities.map(activity => activity.user_id))];
+    const userIds = [...new Set(activities.map((activity) => activity.user_id))];
     let usersResult;
     if (userIds.length > 0) {
       // Use whereIn for multiple user IDs
-      usersResult = await this.db.table('users')
+      usersResult = await this.db
+        .table('users')
         .select('id', 'name', 'email', 'avatar_url')
         .whereIn('id', userIds)
         .execute();
@@ -213,7 +229,7 @@ export class EventsService {
     }, {});
 
     // Process activities with user information
-    const processedActivities = activities.map(activity => ({
+    const processedActivities = activities.map((activity) => ({
       ...activity,
       user: userMap[activity.user_id] || null,
       metadata: activity.metadata ? JSON.parse(activity.metadata) : null,
@@ -236,7 +252,8 @@ export class EventsService {
 
   async markEventAsRead(workspaceId: string, eventId: string, userId: string) {
     // Verify event exists in workspace
-    const eventResult = await this.db.table('events')
+    const eventResult = await this.db
+      .table('events')
       .select('*')
       .where('id', '=', eventId)
       .where('workspace_id', '=', workspaceId)
@@ -249,7 +266,8 @@ export class EventsService {
     }
 
     // Mark as read
-    await this.db.table('events')
+    await this.db
+      .table('events')
       .where('id', '=', eventId)
       .update({ is_read: true, read_at: new Date().toISOString() });
 
@@ -257,7 +275,8 @@ export class EventsService {
   }
 
   async markAllEventsAsRead(workspaceId: string, userId: string) {
-    await this.db.table('events')
+    await this.db
+      .table('events')
       .where('workspace_id', '=', workspaceId)
       .where('is_read', '=', false)
       .update({ is_read: true, read_at: new Date().toISOString() });
@@ -267,8 +286,9 @@ export class EventsService {
 
   async deleteExpiredEvents(workspaceId: string) {
     const now = new Date().toISOString();
-    
-    const result = await this.db.table('events')
+
+    const result = await this.db
+      .table('events')
       .where('workspace_id', '=', workspaceId)
       .where('expires_at', '<', now)
       .delete();
@@ -276,7 +296,11 @@ export class EventsService {
     return { deletedCount: result.count || 0 };
   }
 
-  private async createActivityLog(workspaceId: string, userId: string, eventDto: CreateActivityEventDto) {
+  private async createActivityLog(
+    workspaceId: string,
+    userId: string,
+    eventDto: CreateActivityEventDto,
+  ) {
     const activityData = {
       workspace_id: workspaceId,
       user_id: userId,
@@ -284,14 +308,16 @@ export class EventsService {
       entity_id: eventDto.entityId,
       entity_type: eventDto.entityType,
       description: eventDto.description || eventDto.title,
-      metadata: eventDto.metadata ? JSON.stringify({
-        ...JSON.parse(eventDto.metadata),
-        priority: eventDto.priority,
-        tags: eventDto.tags,
-      }) : JSON.stringify({
-        priority: eventDto.priority,
-        tags: eventDto.tags,
-      }),
+      metadata: eventDto.metadata
+        ? JSON.stringify({
+            ...JSON.parse(eventDto.metadata),
+            priority: eventDto.priority,
+            tags: eventDto.tags,
+          })
+        : JSON.stringify({
+            priority: eventDto.priority,
+            tags: eventDto.tags,
+          }),
       created_at: new Date().toISOString(),
     };
 
@@ -299,7 +325,8 @@ export class EventsService {
   }
 
   private async getUnreadCount(workspaceId: string, userId: string): Promise<number> {
-    const result = await this.db.table('events')
+    const result = await this.db
+      .table('events')
       .where('workspace_id', '=', workspaceId)
       .where('is_read', '=', false)
       .count();
@@ -312,7 +339,8 @@ export class EventsService {
     const end = endDate || new Date().toISOString();
 
     // Get activity type distribution
-    const typeDistributionResult = await this.db.table('activity_logs')
+    const typeDistributionResult = await this.db
+      .table('activity_logs')
       .select('action')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', start)
@@ -323,18 +351,20 @@ export class EventsService {
     const typeDistribution = typeDistributionResult.data || [];
     const typeDistributionCounts = await Promise.all(
       typeDistribution.map(async (item) => {
-        const count = await this.db.table('activity_logs')
+        const count = await this.db
+          .table('activity_logs')
           .where('workspace_id', '=', workspaceId)
           .where('action', '=', item.action)
           .where('created_at', '>=', start)
           .where('created_at', '<=', end)
           .count();
         return { ...item, count };
-      })
+      }),
     );
 
     // Get daily activity counts
-    const dailyActivityResult = await this.db.table('activity_logs')
+    const dailyActivityResult = await this.db
+      .table('activity_logs')
       .select('created_at')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', start)
@@ -351,7 +381,8 @@ export class EventsService {
     }, {});
 
     // Get top active users
-    const userActivityResult = await this.db.table('activity_logs')
+    const userActivityResult = await this.db
+      .table('activity_logs')
       .select('user_id')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', start)
@@ -362,14 +393,15 @@ export class EventsService {
     const userActivityData = userActivityResult.data || [];
     const userActivityCounts = await Promise.all(
       userActivityData.map(async (item) => {
-        const count = await this.db.table('activity_logs')
+        const count = await this.db
+          .table('activity_logs')
           .where('workspace_id', '=', workspaceId)
           .where('user_id', '=', item.user_id)
           .where('created_at', '>=', start)
           .where('created_at', '<=', end)
           .count();
         return { ...item, count };
-      })
+      }),
     );
 
     const topUsers = userActivityCounts
@@ -386,7 +418,7 @@ export class EventsService {
         date,
         count,
       })),
-      topActiveUsers: topUsers.map(user => ({
+      topActiveUsers: topUsers.map((user) => ({
         userId: user.user_id,
         activityCount: parseInt(user.count as string),
       })),
