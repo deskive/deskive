@@ -93,7 +93,7 @@ export class GoogleSheetsController {
         email: dto.email,
         displayName: dto.displayName,
         photoUrl: dto.photoUrl,
-      }
+      },
     );
     return { data: connection };
   }
@@ -101,10 +101,7 @@ export class GoogleSheetsController {
   @Delete('disconnect')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiOperation({ summary: 'Disconnect Google Sheets' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: any,
-  ): Promise<void> {
+  async disconnect(@Param('workspaceId') workspaceId: string, @Req() req: any): Promise<void> {
     const userId = req.user.sub || req.user.userId;
     await this.sheetsService.disconnect(userId, workspaceId);
   }
@@ -121,7 +118,10 @@ export class GoogleSheetsController {
     @Req() req?: any,
   ): Promise<{ data: { spreadsheets: SpreadsheetDto[]; nextPageToken?: string } }> {
     const userId = req.user.sub || req.user.userId;
-    const result = await this.sheetsService.listSpreadsheets(userId, workspaceId, { pageSize, pageToken });
+    const result = await this.sheetsService.listSpreadsheets(userId, workspaceId, {
+      pageSize,
+      pageToken,
+    });
     return { data: result };
   }
 
@@ -160,7 +160,12 @@ export class GoogleSheetsController {
     @Req() req: any,
   ): Promise<{ data: CreateSpreadsheetResponseDto }> {
     const userId = req.user.sub || req.user.userId;
-    const result = await this.sheetsService.createSpreadsheet(userId, workspaceId, dto.title, dto.sheets);
+    const result = await this.sheetsService.createSpreadsheet(
+      userId,
+      workspaceId,
+      dto.title,
+      dto.sheets,
+    );
     return { data: result };
   }
 
@@ -202,7 +207,7 @@ export class GoogleSheetsController {
       spreadsheetId,
       sheetName,
       dto.values,
-      dto.valueInputOption
+      dto.valueInputOption,
     );
     return { data: result };
   }
@@ -225,7 +230,7 @@ export class GoogleSheetsController {
       sheetName,
       dto.range,
       dto.values,
-      dto.valueInputOption
+      dto.valueInputOption,
     );
     return { data: result };
   }
@@ -237,7 +242,8 @@ export class GoogleSheetsController {
     @Param('workspaceId') workspaceId: string,
     @Param('spreadsheetId') spreadsheetId: string,
     @Param('sheetName') sheetName: string,
-    @Body() dto: {
+    @Body()
+    dto: {
       columns: Record<string, any>;
       columnToMatchOn?: string;
       valueToMatch?: string;
@@ -258,7 +264,7 @@ export class GoogleSheetsController {
         valueToMatch: dto.valueToMatch,
         valueInputOption: dto.valueInputOption,
         appendIfNotFound: dto.appendIfNotFound,
-      }
+      },
     );
     return { data: result };
   }
@@ -274,7 +280,13 @@ export class GoogleSheetsController {
     @Req() req: any,
   ): Promise<{ data: RowOperationResponseDto }> {
     const userId = req.user.sub || req.user.userId;
-    const result = await this.sheetsService.clearRange(userId, workspaceId, spreadsheetId, sheetName, range);
+    const result = await this.sheetsService.clearRange(
+      userId,
+      workspaceId,
+      spreadsheetId,
+      sheetName,
+      range,
+    );
     return { data: result };
   }
 
@@ -288,7 +300,12 @@ export class GoogleSheetsController {
     @Req() req: any,
   ): Promise<{ data: ColumnHeaderDto[] }> {
     const userId = req.user.sub || req.user.userId;
-    const result = await this.sheetsService.getColumnHeaders(userId, workspaceId, spreadsheetId, sheetName);
+    const result = await this.sheetsService.getColumnHeaders(
+      userId,
+      workspaceId,
+      spreadsheetId,
+      sheetName,
+    );
     return { data: result };
   }
 

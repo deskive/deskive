@@ -112,9 +112,7 @@ describe('DropboxService', () => {
         deskiveService.update.mockResolvedValue({ ...mockConnection, is_active: false });
 
         // Mock token revocation
-        nock('https://api.dropboxapi.com')
-          .post('/2/auth/token/revoke')
-          .reply(200, null);
+        nock('https://api.dropboxapi.com').post('/2/auth/token/revoke').reply(200, null);
 
         await service.disconnect(mockUserId, mockWorkspaceId);
 
@@ -123,7 +121,7 @@ describe('DropboxService', () => {
           mockConnection.id,
           expect.objectContaining({
             is_active: false,
-          })
+          }),
         );
       });
 
@@ -131,7 +129,7 @@ describe('DropboxService', () => {
         deskiveService.findOne.mockResolvedValue(null);
 
         await expect(service.disconnect(mockUserId, mockWorkspaceId)).rejects.toThrow(
-          NotFoundException
+          NotFoundException,
         );
       });
     });
@@ -169,9 +167,7 @@ describe('DropboxService', () => {
           has_more: false,
         };
 
-        nock('https://api.dropboxapi.com')
-          .post('/2/files/list_folder')
-          .reply(200, mockFiles);
+        nock('https://api.dropboxapi.com').post('/2/files/list_folder').reply(200, mockFiles);
 
         const result = await service.listFiles(mockUserId, mockWorkspaceId);
 
@@ -201,9 +197,7 @@ describe('DropboxService', () => {
           has_more: false,
         };
 
-        nock('https://api.dropboxapi.com')
-          .post('/2/files/search_v2')
-          .reply(200, mockSearchResults);
+        nock('https://api.dropboxapi.com').post('/2/files/search_v2').reply(200, mockSearchResults);
 
         const result = await service.listFiles(mockUserId, mockWorkspaceId, {
           query: 'report',
@@ -277,7 +271,7 @@ describe('DropboxService', () => {
           });
 
         await expect(
-          service.getFile(mockUserId, mockWorkspaceId, '/nonexistent.pdf')
+          service.getFile(mockUserId, mockWorkspaceId, '/nonexistent.pdf'),
         ).rejects.toThrow(NotFoundException);
       });
     });
@@ -291,11 +285,7 @@ describe('DropboxService', () => {
             metadata: { name: 'file.pdf' },
           });
 
-        const result = await service.getTemporaryLink(
-          mockUserId,
-          mockWorkspaceId,
-          '/file.pdf'
-        );
+        const result = await service.getTemporaryLink(mockUserId, mockWorkspaceId, '/file.pdf');
 
         expect(result).toContain('https://dl.dropboxusercontent.com');
       });
@@ -317,11 +307,7 @@ describe('DropboxService', () => {
           .post('/2/files/create_folder_v2')
           .reply(200, mockCreatedFolder);
 
-        const result = await service.createFolder(
-          mockUserId,
-          mockWorkspaceId,
-          '/New Folder'
-        );
+        const result = await service.createFolder(mockUserId, mockWorkspaceId, '/New Folder');
 
         expect(result.name).toBe('New Folder');
       });
@@ -339,7 +325,7 @@ describe('DropboxService', () => {
           });
 
         await expect(
-          service.deleteFile(mockUserId, mockWorkspaceId, '/deleted.txt')
+          service.deleteFile(mockUserId, mockWorkspaceId, '/deleted.txt'),
         ).resolves.not.toThrow();
       });
     });
@@ -357,15 +343,13 @@ describe('DropboxService', () => {
           },
         };
 
-        nock('https://api.dropboxapi.com')
-          .post('/2/files/move_v2')
-          .reply(200, mockMovedFile);
+        nock('https://api.dropboxapi.com').post('/2/files/move_v2').reply(200, mockMovedFile);
 
         const result = await service.moveFile(
           mockUserId,
           mockWorkspaceId,
           '/moved.txt',
-          '/Archive/moved.txt'
+          '/Archive/moved.txt',
         );
 
         expect(result.pathDisplay).toBe('/Archive/moved.txt');
@@ -385,15 +369,13 @@ describe('DropboxService', () => {
           },
         };
 
-        nock('https://api.dropboxapi.com')
-          .post('/2/files/copy_v2')
-          .reply(200, mockCopiedFile);
+        nock('https://api.dropboxapi.com').post('/2/files/copy_v2').reply(200, mockCopiedFile);
 
         const result = await service.copyFile(
           mockUserId,
           mockWorkspaceId,
           '/original.txt',
-          '/Backup/copy.txt'
+          '/Backup/copy.txt',
         );
 
         expect(result.pathDisplay).toBe('/Backup/copy.txt');
@@ -414,11 +396,7 @@ describe('DropboxService', () => {
             path_lower: '/shared.pdf',
           });
 
-        const result = await service.createSharedLink(
-          mockUserId,
-          mockWorkspaceId,
-          '/shared.pdf'
-        );
+        const result = await service.createSharedLink(mockUserId, mockWorkspaceId, '/shared.pdf');
 
         expect(result.url).toContain('dropbox.com');
       });
@@ -436,11 +414,7 @@ describe('DropboxService', () => {
             ],
           });
 
-        const result = await service.createSharedLink(
-          mockUserId,
-          mockWorkspaceId,
-          '/shared.pdf'
-        );
+        const result = await service.createSharedLink(mockUserId, mockWorkspaceId, '/shared.pdf');
 
         expect(result.url).toContain('existing-link');
       });
@@ -478,13 +452,11 @@ describe('DropboxService', () => {
       deskiveService.update.mockResolvedValue(mockConnection);
 
       // Mock token refresh
-      nock('https://api.dropboxapi.com')
-        .post('/oauth2/token')
-        .reply(200, {
-          access_token: 'new-access-token',
-          token_type: 'bearer',
-          expires_in: 14400,
-        });
+      nock('https://api.dropboxapi.com').post('/oauth2/token').reply(200, {
+        access_token: 'new-access-token',
+        token_type: 'bearer',
+        expires_in: 14400,
+      });
 
       // Mock the actual API call after refresh
       nock('https://api.dropboxapi.com')
@@ -502,7 +474,7 @@ describe('DropboxService', () => {
         expiredConnection.id,
         expect.objectContaining({
           access_token: 'new-access-token',
-        })
+        }),
       );
     });
 
@@ -515,9 +487,9 @@ describe('DropboxService', () => {
 
       deskiveService.findOne.mockResolvedValue(expiredConnectionNoRefresh);
 
-      await expect(
-        service.getStorageQuota(mockUserId, mockWorkspaceId)
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.getStorageQuota(mockUserId, mockWorkspaceId)).rejects.toThrow(
+        BadRequestException,
+      );
     });
   });
 
@@ -525,9 +497,9 @@ describe('DropboxService', () => {
     it('should throw NotFoundException when no connection exists', async () => {
       deskiveService.findOne.mockResolvedValue(null);
 
-      await expect(
-        service.listFiles(mockUserId, mockWorkspaceId)
-      ).rejects.toThrow(NotFoundException);
+      await expect(service.listFiles(mockUserId, mockWorkspaceId)).rejects.toThrow(
+        NotFoundException,
+      );
     });
   });
 });

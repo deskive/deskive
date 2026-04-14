@@ -76,7 +76,11 @@ export class TrelloOAuthService {
     }
   }
 
-  getAuthorizationUrl(userId: string, workspaceId: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { apiKey, redirectUri } = this.getClientCredentials();
     const state = this.generateState(userId, workspaceId, returnUrl);
 

@@ -376,11 +376,7 @@ export class SlackService {
   /**
    * Get user info
    */
-  async getUser(
-    workspaceId: string,
-    userId: string,
-    slackUserId: string,
-  ): Promise<SlackUserDto> {
+  async getUser(workspaceId: string, userId: string, slackUserId: string): Promise<SlackUserDto> {
     const accessToken = await this.getAccessToken(workspaceId, userId);
 
     const response = await this.slackApi(accessToken, 'users.info', {
@@ -427,11 +423,7 @@ export class SlackService {
   /**
    * Get file info
    */
-  async getFile(
-    workspaceId: string,
-    userId: string,
-    fileId: string,
-  ): Promise<SlackFileDto> {
+  async getFile(workspaceId: string, userId: string, fileId: string): Promise<SlackFileDto> {
     const accessToken = await this.getAccessToken(workspaceId, userId);
 
     const response = await this.slackApi(accessToken, 'files.info', {
@@ -452,7 +444,10 @@ export class SlackService {
     workspaceId: string,
     userId: string,
     query: SearchQueryDto,
-  ): Promise<{ messages: { total: number; matches: SlackMessageDto[] }; files?: { total: number; matches: SlackFileDto[] } }> {
+  ): Promise<{
+    messages: { total: number; matches: SlackMessageDto[] };
+    files?: { total: number; matches: SlackFileDto[] };
+  }> {
     const accessToken = await this.getAccessToken(workspaceId, userId);
 
     const params: any = {
@@ -471,10 +466,12 @@ export class SlackService {
         total: response.messages?.total || 0,
         matches: (response.messages?.matches || []).map((msg: any) => this.mapToMessageDto(msg)),
       },
-      files: response.files ? {
-        total: response.files.total || 0,
-        matches: (response.files.matches || []).map((file: any) => this.mapToFileDto(file)),
-      } : undefined,
+      files: response.files
+        ? {
+            total: response.files.total || 0,
+            matches: (response.files.matches || []).map((file: any) => this.mapToFileDto(file)),
+          }
+        : undefined,
     };
   }
 
@@ -493,23 +490,21 @@ export class SlackService {
   private async getAccessToken(workspaceId: string, userId: string): Promise<string> {
     const connection = await this.getConnectionRecord(workspaceId, userId);
     if (!connection) {
-      throw new NotFoundException('No Slack connection found. Please connect your Slack account first.');
+      throw new NotFoundException(
+        'No Slack connection found. Please connect your Slack account first.',
+      );
     }
     return connection.access_token;
   }
 
   private async slackApi(accessToken: string, method: string, params: any = {}): Promise<any> {
     try {
-      const response = await axios.post(
-        `${this.slackApiUrl}/${method}`,
-        params,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json; charset=utf-8',
-          },
-        }
-      );
+      const response = await axios.post(`${this.slackApiUrl}/${method}`, params, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+      });
 
       if (!response.data.ok) {
         throw new BadRequestException(response.data.error || `Slack API error: ${method}`);

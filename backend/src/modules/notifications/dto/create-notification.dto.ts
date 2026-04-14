@@ -1,4 +1,12 @@
-import { IsString, IsOptional, IsEnum, IsDateString, IsObject, IsArray, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsDateString,
+  IsObject,
+  IsArray,
+  IsBoolean,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export enum NotificationType {
@@ -24,114 +32,114 @@ export enum NotificationType {
   CHANNEL_MEMBER_REMOVED = 'channel_member_removed',
   VIDEO_CALL = 'video_call',
   FEEDBACK_RESOLVED = 'feedback_resolved',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export enum NotificationPriority {
   LOW = 'low',
   NORMAL = 'normal',
   HIGH = 'high',
-  URGENT = 'urgent'
+  URGENT = 'urgent',
 }
 
 export class CreateNotificationDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'User ID to send notification to (optional if sending to multiple users)',
-    example: 'user_123' 
+    example: 'user_123',
   })
   @IsOptional()
   @IsString()
   user_id?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Array of user IDs to send notification to (for bulk notifications)',
     type: [String],
-    example: ['user_123', 'user_456'] 
+    example: ['user_123', 'user_456'],
   })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   user_ids?: string[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Notification type',
     enum: NotificationType,
-    example: NotificationType.REMINDER
+    example: NotificationType.REMINDER,
   })
   @IsEnum(NotificationType)
   type: NotificationType;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Notification title',
-    example: 'Workout Reminder' 
+    example: 'Workout Reminder',
   })
   @IsString()
   title: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Notification message content',
-    example: 'Time for your scheduled workout!' 
+    example: 'Time for your scheduled workout!',
   })
   @IsOptional()
   @IsString()
   message?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Additional data payload',
-    example: { workoutId: 'workout_123', type: 'strength' }
+    example: { workoutId: 'workout_123', type: 'strength' },
   })
   @IsOptional()
   @IsObject()
   data?: Record<string, any>;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Action URL for notification click',
-    example: '/workouts/123' 
+    example: '/workouts/123',
   })
   @IsOptional()
   @IsString()
   action_url?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Notification priority',
     enum: NotificationPriority,
-    example: NotificationPriority.NORMAL
+    example: NotificationPriority.NORMAL,
   })
   @IsOptional()
   @IsEnum(NotificationPriority)
   priority?: NotificationPriority;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Notification expiration date',
-    example: '2024-12-31T23:59:59Z' 
+    example: '2024-12-31T23:59:59Z',
   })
   @IsOptional()
   @IsDateString()
   expires_at?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Whether to send push notification',
-    example: true 
+    example: true,
   })
   @IsOptional()
   @IsBoolean()
   send_push?: boolean;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Whether to send email notification',
-    example: false 
+    example: false,
   })
   @IsOptional()
   @IsBoolean()
   send_email?: boolean;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Push notification configuration',
-    example: { 
+    example: {
       sound: 'default',
       badge: 1,
-      category: 'reminder'
-    }
+      category: 'reminder',
+    },
   })
   @IsOptional()
   @IsObject()
@@ -141,8 +149,8 @@ export class CreateNotificationDto {
     description: 'Email configuration',
     example: {
       template: 'reminder',
-      variables: { userName: 'John' }
-    }
+      variables: { userName: 'John' },
+    },
   })
   @IsOptional()
   @IsObject()
@@ -150,7 +158,7 @@ export class CreateNotificationDto {
 
   @ApiPropertyOptional({
     description: 'Force send notification bypassing user preferences (e.g., for mentions)',
-    example: false
+    example: false,
   })
   @IsOptional()
   @IsBoolean()

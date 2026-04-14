@@ -40,7 +40,12 @@ export const PERSONAL_TEMPLATES = [
       { key: 'location', type: 'text', label: 'Location', required: true },
       { key: 'linkedIn', type: 'text', label: 'LinkedIn URL', required: false },
       { key: 'portfolio', type: 'text', label: 'Portfolio URL', required: false },
-      { key: 'professionalSummary', type: 'textarea', label: 'Professional Summary', required: true },
+      {
+        key: 'professionalSummary',
+        type: 'textarea',
+        label: 'Professional Summary',
+        required: true,
+      },
       { key: 'experience', type: 'textarea', label: 'Work Experience', required: true },
       { key: 'education', type: 'textarea', label: 'Education', required: true },
       { key: 'skills', type: 'textarea', label: 'Skills', required: true },
@@ -48,7 +53,11 @@ export const PERSONAL_TEMPLATES = [
       { key: 'awards', type: 'textarea', label: 'Awards & Achievements', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 0.75, right: 0.75, bottom: 0.75, left: 0.75 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 0.75, right: 0.75, bottom: 0.75, left: 0.75 },
+    },
   },
   {
     name: 'Cover Letter',
@@ -92,9 +101,18 @@ export const PERSONAL_TEMPLATES = [
       { key: 'closingParagraph', type: 'textarea', label: 'Closing Paragraph', required: true },
     ],
     signatureFields: [
-      { id: 'applicant', label: 'Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'applicant',
+        label: 'Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Personal Budget Planner',
@@ -187,7 +205,11 @@ export const PERSONAL_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Last Will and Testament',
@@ -202,7 +224,10 @@ export const PERSONAL_TEMPLATES = [
       ops: [
         { insert: 'LAST WILL AND TESTAMENT', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\n' },
-        { insert: 'I, {{testatorName}}, of {{testatorAddress}}, being of sound mind and memory, do hereby declare this to be my Last Will and Testament, revoking all previous wills and codicils.\n\n' },
+        {
+          insert:
+            'I, {{testatorName}}, of {{testatorAddress}}, being of sound mind and memory, do hereby declare this to be my Last Will and Testament, revoking all previous wills and codicils.\n\n',
+        },
         { insert: 'ARTICLE I - FAMILY', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{familyDeclarations}}\n\n' },
         { insert: 'ARTICLE II - DEBTS AND EXPENSES', attributes: { bold: true, size: 'large' } },
@@ -212,14 +237,23 @@ export const PERSONAL_TEMPLATES = [
         { insert: 'ARTICLE IV - RESIDUARY ESTATE', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{residuaryEstate}}\n\n' },
         { insert: 'ARTICLE V - EXECUTOR', attributes: { bold: true, size: 'large' } },
-        { insert: '\nI appoint {{executorName}} as the Executor of this Will. If they are unable or unwilling to serve, I appoint {{alternateExecutor}} as alternate Executor.\n\n' },
-        { insert: 'ARTICLE VI - GUARDIAN (if applicable)', attributes: { bold: true, size: 'large' } },
+        {
+          insert:
+            '\nI appoint {{executorName}} as the Executor of this Will. If they are unable or unwilling to serve, I appoint {{alternateExecutor}} as alternate Executor.\n\n',
+        },
+        {
+          insert: 'ARTICLE VI - GUARDIAN (if applicable)',
+          attributes: { bold: true, size: 'large' },
+        },
         { insert: '\n{{guardianProvisions}}\n\n' },
         { insert: 'ARTICLE VII - GENERAL PROVISIONS', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{generalProvisions}}\n\n' },
         { insert: 'IN WITNESS WHEREOF, I have signed this Will on {{signatureDate}}.\n\n' },
         { insert: 'WITNESSES:', attributes: { bold: true } },
-        { insert: '\n\nWe declare that the person who signed this Will, or asked another to sign for them, did so in our presence, and that we believe them to be of sound mind.\n\n' },
+        {
+          insert:
+            '\n\nWe declare that the person who signed this Will, or asked another to sign for them, did so in our presence, and that we believe them to be of sound mind.\n\n',
+        },
         { insert: 'Witness 1: ', attributes: { bold: true } },
         { insert: '{{witness1Name}}\n' },
         { insert: 'Address: ', attributes: { bold: true } },
@@ -239,7 +273,12 @@ export const PERSONAL_TEMPLATES = [
       { key: 'residuaryEstate', type: 'textarea', label: 'Residuary Estate', required: true },
       { key: 'executorName', type: 'text', label: 'Executor Name', required: true },
       { key: 'alternateExecutor', type: 'text', label: 'Alternate Executor', required: true },
-      { key: 'guardianProvisions', type: 'textarea', label: 'Guardian Provisions', required: false },
+      {
+        key: 'guardianProvisions',
+        type: 'textarea',
+        label: 'Guardian Provisions',
+        required: false,
+      },
       { key: 'generalProvisions', type: 'textarea', label: 'General Provisions', required: true },
       { key: 'signatureDate', type: 'date', label: 'Signature Date', required: true },
       { key: 'witness1Name', type: 'text', label: 'Witness 1 Name', required: true },
@@ -248,11 +287,30 @@ export const PERSONAL_TEMPLATES = [
       { key: 'witness2Address', type: 'textarea', label: 'Witness 2 Address', required: true },
     ],
     signatureFields: [
-      { id: 'testator', label: 'Testator Signature', required: true, position: { page: 1, x: 100, y: 600 } },
-      { id: 'witness1', label: 'Witness 1 Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'witness2', label: 'Witness 2 Signature', required: true, position: { page: 1, x: 350, y: 700 } },
+      {
+        id: 'testator',
+        label: 'Testator Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
+      {
+        id: 'witness1',
+        label: 'Witness 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'witness2',
+        label: 'Witness 2 Signature',
+        required: true,
+        position: { page: 1, x: 350, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Power of Attorney',
@@ -267,7 +325,10 @@ export const PERSONAL_TEMPLATES = [
       ops: [
         { insert: 'GENERAL POWER OF ATTORNEY', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\n' },
-        { insert: 'I, {{principalName}}, residing at {{principalAddress}}, hereby appoint {{agentName}}, residing at {{agentAddress}}, as my Attorney-in-Fact ("Agent").\n\n' },
+        {
+          insert:
+            'I, {{principalName}}, residing at {{principalAddress}}, hereby appoint {{agentName}}, residing at {{agentAddress}}, as my Attorney-in-Fact ("Agent").\n\n',
+        },
         { insert: '1. POWERS GRANTED', attributes: { bold: true, size: 'large' } },
         { insert: '\nI grant my Agent the following powers:\n' },
         { insert: '{{powersGranted}}\n\n' },
@@ -276,13 +337,19 @@ export const PERSONAL_TEMPLATES = [
         { insert: '3. TERMINATION', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{termination}}\n\n' },
         { insert: '4. SUCCESSOR AGENT', attributes: { bold: true, size: 'large' } },
-        { insert: '\nIf my Agent is unable or unwilling to act, I appoint {{successorAgent}} as my successor Agent.\n\n' },
+        {
+          insert:
+            '\nIf my Agent is unable or unwilling to act, I appoint {{successorAgent}} as my successor Agent.\n\n',
+        },
         { insert: '5. THIRD PARTY RELIANCE', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{thirdPartyReliance}}\n\n' },
         { insert: '6. REVOCATION', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{revocation}}\n\n' },
         { insert: '7. GOVERNING LAW', attributes: { bold: true, size: 'large' } },
-        { insert: '\nThis Power of Attorney shall be governed by the laws of {{governingState}}.\n\n' },
+        {
+          insert:
+            '\nThis Power of Attorney shall be governed by the laws of {{governingState}}.\n\n',
+        },
         { insert: 'Executed this {{executionDate}}.\n\n' },
         { insert: 'NOTARIZATION (if required)', attributes: { bold: true } },
         { insert: '\n{{notarizationText}}\n\n' },
@@ -297,18 +364,47 @@ export const PERSONAL_TEMPLATES = [
       { key: 'effectiveDate', type: 'textarea', label: 'Effective Date Terms', required: true },
       { key: 'termination', type: 'textarea', label: 'Termination Terms', required: true },
       { key: 'successorAgent', type: 'text', label: 'Successor Agent', required: true },
-      { key: 'thirdPartyReliance', type: 'textarea', label: 'Third Party Reliance Terms', required: true },
+      {
+        key: 'thirdPartyReliance',
+        type: 'textarea',
+        label: 'Third Party Reliance Terms',
+        required: true,
+      },
       { key: 'revocation', type: 'textarea', label: 'Revocation Terms', required: true },
-      { key: 'governingState', type: 'text', label: 'Governing State/Jurisdiction', required: true },
+      {
+        key: 'governingState',
+        type: 'text',
+        label: 'Governing State/Jurisdiction',
+        required: true,
+      },
       { key: 'executionDate', type: 'date', label: 'Execution Date', required: true },
       { key: 'notarizationText', type: 'textarea', label: 'Notarization Text', required: false },
     ],
     signatureFields: [
-      { id: 'principal', label: 'Principal Signature', required: true, position: { page: 1, x: 100, y: 650 } },
-      { id: 'agent', label: 'Agent Signature (Acceptance)', required: true, position: { page: 1, x: 350, y: 650 } },
-      { id: 'witness', label: 'Witness Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'principal',
+        label: 'Principal Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
+      {
+        id: 'agent',
+        label: 'Agent Signature (Acceptance)',
+        required: true,
+        position: { page: 1, x: 350, y: 650 },
+      },
+      {
+        id: 'witness',
+        label: 'Witness Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Personal Reference Letter',
@@ -327,11 +423,17 @@ export const PERSONAL_TEMPLATES = [
         { insert: '{{writerEmail}}\n\n' },
         { insert: '{{currentDate}}\n\n' },
         { insert: 'To Whom It May Concern,\n\n' },
-        { insert: 'I am writing to provide a personal reference for {{subjectName}}. I have known {{subjectName}} for {{yearsKnown}} in the capacity of {{relationship}}.\n\n' },
+        {
+          insert:
+            'I am writing to provide a personal reference for {{subjectName}}. I have known {{subjectName}} for {{yearsKnown}} in the capacity of {{relationship}}.\n\n',
+        },
         { insert: '{{bodyParagraph1}}\n\n' },
         { insert: '{{bodyParagraph2}}\n\n' },
         { insert: '{{bodyParagraph3}}\n\n' },
-        { insert: 'I highly recommend {{subjectName}} without reservation. If you have any questions or need additional information, please do not hesitate to contact me.\n\n' },
+        {
+          insert:
+            'I highly recommend {{subjectName}} without reservation. If you have any questions or need additional information, please do not hesitate to contact me.\n\n',
+        },
         { insert: 'Sincerely,\n\n\n' },
         { insert: '{{writerName}}\n' },
       ],
@@ -350,9 +452,18 @@ export const PERSONAL_TEMPLATES = [
       { key: 'bodyParagraph3', type: 'textarea', label: 'Body Paragraph 3', required: false },
     ],
     signatureFields: [
-      { id: 'writer', label: 'Writer Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'writer',
+        label: 'Writer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Resignation Letter',
@@ -375,12 +486,21 @@ export const PERSONAL_TEMPLATES = [
         { insert: '{{companyName}}\n' },
         { insert: '{{companyAddress}}\n\n' },
         { insert: 'Dear {{managerName}},\n\n' },
-        { insert: 'Please accept this letter as formal notification of my resignation from my position as {{yourPosition}} at {{companyName}}.\n\n' },
-        { insert: 'My last day of work will be {{lastDay}}, providing {{noticePeriod}} notice as required.\n\n' },
+        {
+          insert:
+            'Please accept this letter as formal notification of my resignation from my position as {{yourPosition}} at {{companyName}}.\n\n',
+        },
+        {
+          insert:
+            'My last day of work will be {{lastDay}}, providing {{noticePeriod}} notice as required.\n\n',
+        },
         { insert: '{{reasonParagraph}}\n\n' },
         { insert: '{{transitionParagraph}}\n\n' },
         { insert: '{{gratitudeParagraph}}\n\n' },
-        { insert: 'Thank you for the opportunities for growth and professional development during my time here. I wish you and the company continued success.\n\n' },
+        {
+          insert:
+            'Thank you for the opportunities for growth and professional development during my time here. I wish you and the company continued success.\n\n',
+        },
         { insert: 'Sincerely,\n\n\n' },
         { insert: '{{yourName}}\n' },
       ],
@@ -403,9 +523,18 @@ export const PERSONAL_TEMPLATES = [
       { key: 'gratitudeParagraph', type: 'textarea', label: 'Gratitude', required: true },
     ],
     signatureFields: [
-      { id: 'employee', label: 'Your Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'employee',
+        label: 'Your Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Thank You Letter',
@@ -436,7 +565,11 @@ export const PERSONAL_TEMPLATES = [
       { key: 'yourName', type: 'text', label: 'Your Name', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Complaint Letter',
@@ -462,8 +595,13 @@ export const PERSONAL_TEMPLATES = [
         { insert: '{{impactStatement}}\n\n' },
         { insert: '{{previousAttempts}}\n\n' },
         { insert: '{{desiredResolution}}\n\n' },
-        { insert: 'I expect a response within {{responseDeadline}}. If this matter is not resolved satisfactorily, I will have no choice but to {{escalationAction}}.\n\n' },
-        { insert: 'Please contact me at {{yourPhone}} or {{yourEmail}} to discuss this matter.\n\n' },
+        {
+          insert:
+            'I expect a response within {{responseDeadline}}. If this matter is not resolved satisfactorily, I will have no choice but to {{escalationAction}}.\n\n',
+        },
+        {
+          insert: 'Please contact me at {{yourPhone}} or {{yourEmail}} to discuss this matter.\n\n',
+        },
         { insert: 'Sincerely,\n\n\n' },
         { insert: '{{yourName}}\n\n' },
         { insert: 'Enclosures: {{enclosures}}\n', attributes: { italic: true } },
@@ -480,16 +618,30 @@ export const PERSONAL_TEMPLATES = [
       { key: 'complaintSubject', type: 'text', label: 'Complaint Subject', required: true },
       { key: 'issueDescription', type: 'textarea', label: 'Issue Description', required: true },
       { key: 'impactStatement', type: 'textarea', label: 'Impact Statement', required: true },
-      { key: 'previousAttempts', type: 'textarea', label: 'Previous Attempts to Resolve', required: false },
+      {
+        key: 'previousAttempts',
+        type: 'textarea',
+        label: 'Previous Attempts to Resolve',
+        required: false,
+      },
       { key: 'desiredResolution', type: 'textarea', label: 'Desired Resolution', required: true },
       { key: 'responseDeadline', type: 'text', label: 'Response Deadline', required: true },
       { key: 'escalationAction', type: 'text', label: 'Escalation Action', required: true },
       { key: 'enclosures', type: 'textarea', label: 'Enclosures', required: false },
     ],
     signatureFields: [
-      { id: 'sender', label: 'Your Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'sender',
+        label: 'Your Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Goal Setting Worksheet',
@@ -531,7 +683,10 @@ export const PERSONAL_TEMPLATES = [
         { insert: 'SUPPORT NEEDED', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{supportNeeded}}\n\n' },
         { insert: 'COMMITMENT', attributes: { bold: true, size: 'large' } },
-        { insert: '\nI commit to working toward these goals and reviewing my progress regularly.\n\n' },
+        {
+          insert:
+            '\nI commit to working toward these goals and reviewing my progress regularly.\n\n',
+        },
       ],
     },
     placeholders: [
@@ -542,16 +697,35 @@ export const PERSONAL_TEMPLATES = [
       { key: 'careerGoals', type: 'textarea', label: 'Career Goals', required: true },
       { key: 'financialGoals', type: 'textarea', label: 'Financial Goals', required: true },
       { key: 'healthGoals', type: 'textarea', label: 'Health & Fitness Goals', required: true },
-      { key: 'educationGoals', type: 'textarea', label: 'Education & Learning Goals', required: false },
+      {
+        key: 'educationGoals',
+        type: 'textarea',
+        label: 'Education & Learning Goals',
+        required: false,
+      },
       { key: 'relationshipGoals', type: 'textarea', label: 'Relationship Goals', required: false },
-      { key: 'personalDevelopment', type: 'textarea', label: 'Personal Development Goals', required: false },
+      {
+        key: 'personalDevelopment',
+        type: 'textarea',
+        label: 'Personal Development Goals',
+        required: false,
+      },
       { key: 'actionSteps', type: 'textarea', label: 'Action Steps', required: true },
       { key: 'potentialObstacles', type: 'textarea', label: 'Potential Obstacles', required: true },
       { key: 'supportNeeded', type: 'textarea', label: 'Support Needed', required: false },
     ],
     signatureFields: [
-      { id: 'commitment', label: 'Commitment Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'commitment',
+        label: 'Commitment Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

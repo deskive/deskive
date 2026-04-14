@@ -3,11 +3,7 @@
  * Custom validator decorator for validating URL-friendly slugs in DTOs
  */
 
-import {
-  registerDecorator,
-  ValidationOptions,
-  ValidationArguments,
-} from 'class-validator';
+import { registerDecorator, ValidationOptions, ValidationArguments } from 'class-validator';
 
 /**
  * Check if a string is a valid slug format
@@ -118,10 +114,7 @@ export function IsSlugWithLength(
  *   slug: string;
  * }
  */
-export function IsSlugUnique(
-  tableName: string,
-  validationOptions?: ValidationOptions,
-) {
+export function IsSlugUnique(tableName: string, validationOptions?: ValidationOptions) {
   return function (object: object, propertyName: string) {
     registerDecorator({
       name: 'isSlugUnique',

@@ -19,13 +19,7 @@
  *     returns a real access token. Frontend redirects to the app
  *     after this.
  */
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  BadRequestException,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, BadRequestException } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
 import { SsoRegistryService } from './sso-registry.service';
 import { MagicLinkService } from './magic-link.service';
@@ -70,9 +64,7 @@ export class SsoController {
   })
   async verifyMagicLink(@Body() body: { token?: string }) {
     if (!this.registry.isEnabled('magic-link')) {
-      throw new BadRequestException(
-        'Magic link auth is not enabled in this deployment.',
-      );
+      throw new BadRequestException('Magic link auth is not enabled in this deployment.');
     }
     if (!body?.token) {
       throw new BadRequestException('token is required');

@@ -42,10 +42,7 @@ export class CryptoController {
   @Get('conversation-keys/:conversationId')
   @ApiOperation({ summary: 'Get encrypted conversation key for current user' })
   @ApiResponse({ status: 200, description: 'Returns encrypted conversation key' })
-  async getConversationKey(
-    @Param('conversationId') conversationId: string,
-    @Request() req
-  ) {
+  async getConversationKey(@Param('conversationId') conversationId: string, @Request() req) {
     const userId = req.user.sub || req.user.userId;
     return this.cryptoService.getConversationKey(conversationId, userId);
   }
@@ -60,10 +57,7 @@ export class CryptoController {
   @Post('devices/:deviceId/deactivate')
   @ApiOperation({ summary: 'Deactivate a device' })
   @ApiResponse({ status: 200, description: 'Device deactivated successfully' })
-  async deactivateDevice(
-    @Param('deviceId') deviceId: string,
-    @Request() req
-  ) {
+  async deactivateDevice(@Param('deviceId') deviceId: string, @Request() req) {
     const userId = req.user.sub || req.user.userId;
     return this.cryptoService.deactivateDevice(userId, deviceId);
   }

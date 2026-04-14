@@ -109,10 +109,7 @@ export interface SearchProvider {
   deleteDocument(collection: string, id: string): Promise<void>;
 
   /** Run a search query against a collection. */
-  search<T = SearchableDocument>(
-    collection: string,
-    query: SearchQuery,
-  ): Promise<SearchResult<T>>;
+  search<T = SearchableDocument>(collection: string, query: SearchQuery): Promise<SearchResult<T>>;
 
   /**
    * Rebuild the index for a collection from a source iterator. Used
@@ -120,10 +117,7 @@ export interface SearchProvider {
    * is a no-op because there's no separate index; for Meilisearch /
    * Typesense this wipes and repopulates.
    */
-  reindex(
-    collection: string,
-    source: AsyncIterable<SearchableDocument>,
-  ): Promise<number>;
+  reindex(collection: string, source: AsyncIterable<SearchableDocument>): Promise<number>;
 }
 
 /**

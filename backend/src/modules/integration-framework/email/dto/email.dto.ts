@@ -1,5 +1,14 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsBoolean, IsOptional, IsArray, IsNumber, IsEmail, IsEnum, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsBoolean,
+  IsOptional,
+  IsArray,
+  IsNumber,
+  IsEmail,
+  IsEnum,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 // ==================== Provider Types ====================
@@ -495,7 +504,9 @@ export class TravelTicketInfoDto {
   @ApiPropertyOptional({ description: 'Additional notes or details' })
   notes?: string;
 
-  @ApiPropertyOptional({ description: 'Timezone offset of departure location (e.g., +01:00 for Madrid)' })
+  @ApiPropertyOptional({
+    description: 'Timezone offset of departure location (e.g., +01:00 for Madrid)',
+  })
   departureTimezone?: string;
 }
 

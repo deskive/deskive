@@ -64,7 +64,7 @@ export class SesProvider implements EmailProvider {
       throw new EmailProviderNotConfiguredError('ses', this.missingVars());
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const sdk = require('@aws-sdk/client-ses');
       this.client = new sdk.SESClient({
         region: this.region,
@@ -95,11 +95,7 @@ export class SesProvider implements EmailProvider {
     this.loadSdk();
 
     const toAddresses = Array.isArray(input.to) ? input.to : [input.to];
-    const ccAddresses = input.cc
-      ? Array.isArray(input.cc)
-        ? input.cc
-        : [input.cc]
-      : undefined;
+    const ccAddresses = input.cc ? (Array.isArray(input.cc) ? input.cc : [input.cc]) : undefined;
     const bccAddresses = input.bcc
       ? Array.isArray(input.bcc)
         ? input.bcc
@@ -122,20 +118,12 @@ export class SesProvider implements EmailProvider {
         CcAddresses: ccAddresses,
         BccAddresses: bccAddresses,
       },
-      ReplyToAddresses: input.replyTo
-        ? [input.replyTo]
-        : this.replyTo
-          ? [this.replyTo]
-          : undefined,
+      ReplyToAddresses: input.replyTo ? [input.replyTo] : this.replyTo ? [this.replyTo] : undefined,
       Message: {
         Subject: { Data: input.subject, Charset: 'UTF-8' },
         Body: {
-          Html: input.html
-            ? { Data: input.html, Charset: 'UTF-8' }
-            : undefined,
-          Text: input.text
-            ? { Data: input.text, Charset: 'UTF-8' }
-            : undefined,
+          Html: input.html ? { Data: input.html, Charset: 'UTF-8' } : undefined,
+          Text: input.text ? { Data: input.text, Charset: 'UTF-8' } : undefined,
         },
       },
     });

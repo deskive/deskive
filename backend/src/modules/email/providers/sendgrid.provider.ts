@@ -38,9 +38,7 @@ export class SendgridProvider implements EmailProvider {
     if (this.isAvailable()) {
       this.logger.log('SendGrid provider configured');
     } else {
-      this.logger.warn(
-        'SendGrid provider selected but SENDGRID_API_KEY missing',
-      );
+      this.logger.warn('SendGrid provider selected but SENDGRID_API_KEY missing');
     }
   }
 
@@ -60,9 +58,7 @@ export class SendgridProvider implements EmailProvider {
 
   async send(input: SendEmailInput): Promise<SendEmailResult> {
     if (!this.isAvailable()) {
-      throw new EmailProviderNotConfiguredError('sendgrid', [
-        'SENDGRID_API_KEY',
-      ]);
+      throw new EmailProviderNotConfiguredError('sendgrid', ['SENDGRID_API_KEY']);
     }
 
     const toList = Array.isArray(input.to) ? input.to : [input.to];
@@ -75,14 +71,10 @@ export class SendgridProvider implements EmailProvider {
         {
           to: toList.map((t) => this.parseAddress(t)),
           cc: input.cc
-            ? (Array.isArray(input.cc) ? input.cc : [input.cc]).map((a) =>
-                this.parseAddress(a),
-              )
+            ? (Array.isArray(input.cc) ? input.cc : [input.cc]).map((a) => this.parseAddress(a))
             : undefined,
           bcc: input.bcc
-            ? (Array.isArray(input.bcc) ? input.bcc : [input.bcc]).map((a) =>
-                this.parseAddress(a),
-              )
+            ? (Array.isArray(input.bcc) ? input.bcc : [input.bcc]).map((a) => this.parseAddress(a))
             : undefined,
           subject: input.subject,
         },

@@ -7,16 +7,9 @@ import { AuthModule } from '../auth/auth.module';
 import { WebSocketModule } from '../../common/gateways/websocket.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    forwardRef(() => WebSocketModule),
-  ],
+  imports: [AuthModule, forwardRef(() => WebSocketModule)],
   controllers: [WhiteboardsController],
-  providers: [
-    WhiteboardsService,
-    WhiteboardCollaborationService,
-    WhiteboardCollaborationGateway,
-  ],
+  providers: [WhiteboardsService, WhiteboardCollaborationService, WhiteboardCollaborationGateway],
   exports: [WhiteboardsService, WhiteboardCollaborationService],
 })
 export class WhiteboardsModule {}

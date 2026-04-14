@@ -45,12 +45,10 @@ describe('ClickUpOAuthService', () => {
   });
 
   it('should exchange code for tokens', async () => {
-    nock('https://api.clickup.com')
-      .post('/api/v2/oauth/token')
-      .reply(200, {
-        access_token: 'pk_mock_clickup_token',
-        token_type: 'Bearer',
-      });
+    nock('https://api.clickup.com').post('/api/v2/oauth/token').reply(200, {
+      access_token: 'pk_mock_clickup_token',
+      token_type: 'Bearer',
+    });
 
     const tokens = await service.exchangeCodeForTokens('test-code');
 

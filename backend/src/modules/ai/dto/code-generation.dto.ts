@@ -26,7 +26,7 @@ export enum ProgrammingLanguage {
   SCALA = 'scala',
   PERL = 'perl',
   LUA = 'lua',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export enum CodeType {
@@ -43,7 +43,7 @@ export enum CodeType {
   TEMPLATE = 'template',
   UTILITY = 'utility',
   MODULE = 'module',
-  FULL_APPLICATION = 'full_application'
+  FULL_APPLICATION = 'full_application',
 }
 
 export enum Framework {
@@ -66,69 +66,81 @@ export enum Framework {
   REACT_NATIVE = 'react_native',
   IONIC = 'ionic',
   NONE = 'none',
-  OTHER = 'other'
+  OTHER = 'other',
 }
 
 export enum CodeComplexity {
   SIMPLE = 'simple',
   INTERMEDIATE = 'intermediate',
   ADVANCED = 'advanced',
-  EXPERT = 'expert'
+  EXPERT = 'expert',
 }
 
 export class GenerateCodeDto {
-  @ApiProperty({ description: 'Description of the code to generate', example: 'Create a REST API endpoint for user authentication with JWT tokens' })
+  @ApiProperty({
+    description: 'Description of the code to generate',
+    example: 'Create a REST API endpoint for user authentication with JWT tokens',
+  })
   @IsString()
   prompt: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Programming language',
     enum: ProgrammingLanguage,
-    example: ProgrammingLanguage.TYPESCRIPT
+    example: ProgrammingLanguage.TYPESCRIPT,
   })
   @IsEnum(ProgrammingLanguage)
   language: ProgrammingLanguage;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of code to generate',
     enum: CodeType,
-    example: CodeType.API_ENDPOINT
+    example: CodeType.API_ENDPOINT,
   })
   @IsEnum(CodeType)
   code_type: CodeType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Framework or library to use',
     enum: Framework,
-    example: Framework.NESTJS
+    example: Framework.NESTJS,
   })
   @IsOptional()
   @IsEnum(Framework)
   framework?: Framework;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Complexity level of the code',
     enum: CodeComplexity,
     example: CodeComplexity.INTERMEDIATE,
-    default: CodeComplexity.INTERMEDIATE
+    default: CodeComplexity.INTERMEDIATE,
   })
   @IsOptional()
   @IsEnum(CodeComplexity)
   complexity?: CodeComplexity;
 
-  @ApiPropertyOptional({ description: 'Specific requirements or features', example: ['validation', 'error handling', 'unit tests'] })
+  @ApiPropertyOptional({
+    description: 'Specific requirements or features',
+    example: ['validation', 'error handling', 'unit tests'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   requirements?: string[];
 
-  @ApiPropertyOptional({ description: 'Dependencies or packages to include', example: ['express', 'jsonwebtoken', 'bcrypt'] })
+  @ApiPropertyOptional({
+    description: 'Dependencies or packages to include',
+    example: ['express', 'jsonwebtoken', 'bcrypt'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   dependencies?: string[];
 
-  @ApiPropertyOptional({ description: 'Coding style or conventions', example: 'Google JavaScript Style Guide' })
+  @ApiPropertyOptional({
+    description: 'Coding style or conventions',
+    example: 'Google JavaScript Style Guide',
+  })
   @IsOptional()
   @IsString()
   style_guide?: string;
@@ -158,13 +170,19 @@ export class GenerateCodeDto {
   @IsString()
   environment?: 'development' | 'staging' | 'production';
 
-  @ApiPropertyOptional({ description: 'Performance considerations', example: ['optimization', 'caching', 'scalability'] })
+  @ApiPropertyOptional({
+    description: 'Performance considerations',
+    example: ['optimization', 'caching', 'scalability'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   performance_requirements?: string[];
 
-  @ApiPropertyOptional({ description: 'Security considerations', example: ['authentication', 'authorization', 'input_sanitization'] })
+  @ApiPropertyOptional({
+    description: 'Security considerations',
+    example: ['authentication', 'authorization', 'input_sanitization'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

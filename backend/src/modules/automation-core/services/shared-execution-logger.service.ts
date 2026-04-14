@@ -132,7 +132,9 @@ export class SharedExecutionLoggerService {
         output_data: output ? JSON.stringify(output) : null,
       });
 
-      this.logger.log(`[ExecutionLogger] Completed ${automationType} execution: ${executionId} (${durationMs}ms)`);
+      this.logger.log(
+        `[ExecutionLogger] Completed ${automationType} execution: ${executionId} (${durationMs}ms)`,
+      );
     } catch (error) {
       this.logger.error(`[ExecutionLogger] Failed to complete execution: ${error.message}`);
     }
@@ -163,7 +165,9 @@ export class SharedExecutionLoggerService {
         output_data: output ? JSON.stringify(output) : null,
       });
 
-      this.logger.error(`[ExecutionLogger] Failed ${automationType} execution: ${executionId} - ${error}`);
+      this.logger.error(
+        `[ExecutionLogger] Failed ${automationType} execution: ${executionId} - ${error}`,
+      );
     } catch (err) {
       this.logger.error(`[ExecutionLogger] Failed to log failure: ${err.message}`);
     }
@@ -172,10 +176,7 @@ export class SharedExecutionLoggerService {
   /**
    * Log a step execution (for workflows)
    */
-  async logStep(
-    executionId: string,
-    step: StepLogEntry,
-  ): Promise<string | undefined> {
+  async logStep(executionId: string, step: StepLogEntry): Promise<string | undefined> {
     try {
       const result = await this.db.insert('workflow_step_executions', {
         execution_id: executionId,
@@ -201,10 +202,7 @@ export class SharedExecutionLoggerService {
   /**
    * Update step execution
    */
-  async updateStep(
-    stepExecutionId: string,
-    updates: Partial<StepLogEntry>,
-  ): Promise<void> {
+  async updateStep(stepExecutionId: string, updates: Partial<StepLogEntry>): Promise<void> {
     try {
       const updateData: Record<string, any> = {};
 
@@ -236,7 +234,8 @@ export class SharedExecutionLoggerService {
     const idColumn = this.getAutomationIdColumn(automationType);
 
     try {
-      let query = this.db.table(tableName)
+      let query = this.db
+        .table(tableName)
         .select('*')
         .where(idColumn, '=', automationId)
         .orderBy('started_at', 'DESC')
@@ -274,7 +273,8 @@ export class SharedExecutionLoggerService {
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString();
 
     try {
-      const result = await this.db.table(tableName)
+      const result = await this.db
+        .table(tableName)
         .select('status', 'duration_ms')
         .where(idColumn, '=', automationId)
         .where('started_at', '>=', since)
@@ -282,14 +282,15 @@ export class SharedExecutionLoggerService {
 
       const executions = result.data || [];
       const total = executions.length;
-      const completed = executions.filter((e: any) => e.status === ExecutionStatus.COMPLETED).length;
+      const completed = executions.filter(
+        (e: any) => e.status === ExecutionStatus.COMPLETED,
+      ).length;
       const failed = executions.filter((e: any) => e.status === ExecutionStatus.FAILED).length;
-      const durations = executions
-        .filter((e: any) => e.duration_ms)
-        .map((e: any) => e.duration_ms);
-      const avgDurationMs = durations.length > 0
-        ? durations.reduce((a: number, b: number) => a + b, 0) / durations.length
-        : 0;
+      const durations = executions.filter((e: any) => e.duration_ms).map((e: any) => e.duration_ms);
+      const avgDurationMs =
+        durations.length > 0
+          ? durations.reduce((a: number, b: number) => a + b, 0) / durations.length
+          : 0;
 
       return { total, completed, failed, avgDurationMs };
     } catch (error) {
@@ -309,7 +310,8 @@ export class SharedExecutionLoggerService {
     const cutoff = new Date(Date.now() - retentionDays * 24 * 60 * 60 * 1000).toISOString();
 
     try {
-      const old = await this.db.table(tableName)
+      const old = await this.db
+        .table(tableName)
         .select('id')
         .where('started_at', '<', cutoff)
         .execute();
@@ -334,9 +336,7 @@ export class SharedExecutionLoggerService {
   // Helper methods
 
   private getTableName(automationType: AutomationType): string {
-    return automationType === AutomationType.BOT
-      ? 'bot_execution_logs'
-      : 'workflow_executions';
+    return automationType === AutomationType.BOT ? 'bot_execution_logs' : 'workflow_executions';
   }
 
   private getAutomationIdColumn(automationType: AutomationType): string {

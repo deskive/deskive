@@ -42,19 +42,12 @@ export class AnthropicProvider implements AiProvider {
   constructor(config: ConfigService) {
     this.apiKey = config.get<string>('ANTHROPIC_API_KEY', '');
     this.defaultModel = config.get<string>('AI_MODEL', 'claude-sonnet-4-5');
-    this.defaultVisionModel = config.get<string>(
-      'AI_VISION_MODEL',
-      this.defaultModel,
-    );
+    this.defaultVisionModel = config.get<string>('AI_VISION_MODEL', this.defaultModel);
 
     if (this.isAvailable()) {
-      this.logger.log(
-        `Anthropic provider configured (model=${this.defaultModel})`,
-      );
+      this.logger.log(`Anthropic provider configured (model=${this.defaultModel})`);
     } else {
-      this.logger.warn(
-        'Anthropic provider selected but ANTHROPIC_API_KEY missing',
-      );
+      this.logger.warn('Anthropic provider selected but ANTHROPIC_API_KEY missing');
     }
   }
 
@@ -141,8 +134,7 @@ export class AnthropicProvider implements AiProvider {
         ? {
             promptTokens: res.usage.input_tokens,
             completionTokens: res.usage.output_tokens,
-            totalTokens:
-              (res.usage.input_tokens ?? 0) + (res.usage.output_tokens ?? 0),
+            totalTokens: (res.usage.input_tokens ?? 0) + (res.usage.output_tokens ?? 0),
           }
         : undefined,
     };
@@ -171,10 +163,7 @@ export class AnthropicProvider implements AiProvider {
       messages: [
         {
           role: 'user',
-          content: [
-            imageBlock,
-            { type: 'text', text: input.prompt },
-          ],
+          content: [imageBlock, { type: 'text', text: input.prompt }],
         },
       ],
     })) as {
@@ -201,9 +190,7 @@ export class AnthropicProvider implements AiProvider {
     };
   }
 
-  async generateEmbedding(
-    _input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(_input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     throw new AiProviderNotSupportedError(
       'anthropic',
       'generateEmbedding (Anthropic has no embeddings endpoint — use Voyage AI, OpenAI, or a local embedding model for vectors)',

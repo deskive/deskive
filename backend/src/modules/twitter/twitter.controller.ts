@@ -12,7 +12,14 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiQuery,
+  ApiParam,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -57,7 +64,11 @@ export class TwitterController {
     @CurrentUser('sub') userId: string,
     @Query('returnUrl') returnUrl?: string,
   ): Promise<{ authorizationUrl: string; state: string }> {
-    const { url, state } = this.twitterOAuthService.getAuthorizationUrl(workspaceId, userId, returnUrl);
+    const { url, state } = this.twitterOAuthService.getAuthorizationUrl(
+      workspaceId,
+      userId,
+      returnUrl,
+    );
 
     return {
       authorizationUrl: url,
@@ -67,7 +78,11 @@ export class TwitterController {
 
   @Get('connection')
   @ApiOperation({ summary: 'Get current Twitter connection' })
-  @ApiResponse({ status: 200, description: 'Returns the connection details', type: TwitterConnectionDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the connection details',
+    type: TwitterConnectionDto,
+  })
   @ApiResponse({ status: 404, description: 'No connection found' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   async getConnection(
@@ -97,7 +112,11 @@ export class TwitterController {
 
   @Get('timeline/home')
   @ApiOperation({ summary: 'Get home timeline' })
-  @ApiResponse({ status: 200, description: 'Returns home timeline tweets', type: TimelineResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns home timeline tweets',
+    type: TimelineResponseDto,
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   async getHomeTimeline(
     @Param('workspaceId') workspaceId: string,
@@ -119,7 +138,12 @@ export class TwitterController {
     @CurrentUser('sub') userId: string,
     @Query() query: TimelineQueryDto,
   ): Promise<{ data: TimelineResponseDto }> {
-    const result = await this.twitterService.getUserTweets(workspaceId, userId, twitterUserId, query);
+    const result = await this.twitterService.getUserTweets(
+      workspaceId,
+      userId,
+      twitterUserId,
+      query,
+    );
     return { data: result };
   }
 
@@ -429,12 +453,18 @@ export class TwitterCallbackController {
       // Check for OAuth errors
       if (query.error) {
         this.logger.error(`Twitter OAuth error: ${query.error} - ${query.error_description}`);
-        res.redirect('/apps?twitter=error&message=' + encodeURIComponent(query.error_description || query.error));
+        res.redirect(
+          '/apps?twitter=error&message=' +
+            encodeURIComponent(query.error_description || query.error),
+        );
         return;
       }
 
       if (!query.code || !query.state) {
-        res.redirect('/apps?twitter=error&message=' + encodeURIComponent('Missing authorization code or state'));
+        res.redirect(
+          '/apps?twitter=error&message=' +
+            encodeURIComponent('Missing authorization code or state'),
+        );
         return;
       }
 

@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const LEGAL_MISC_TEMPLATES = [
   {
@@ -17,27 +14,62 @@ export const LEGAL_MISC_TEMPLATES = [
       ops: [
         { insert: 'WAIVER AND RELEASE OF LIABILITY\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nREAD CAREFULLY BEFORE SIGNING\n\n', attributes: { bold: true, color: 'red' } },
-        { insert: 'In consideration for being permitted to participate in {{activity_description}} (the "Activity") organized by {{organization_name}} ("Organization"), I agree to the following:\n\n' },
+        {
+          insert:
+            'In consideration for being permitted to participate in {{activity_description}} (the "Activity") organized by {{organization_name}} ("Organization"), I agree to the following:\n\n',
+        },
         { insert: '1. ASSUMPTION OF RISK\n', attributes: { bold: true } },
-        { insert: 'I acknowledge that participation in the Activity involves inherent risks, including but not limited to:\n{{risks_description}}\n\n' },
-        { insert: 'I voluntarily assume full responsibility for any risks of loss, property damage, or personal injury that may be sustained.\n\n' },
+        {
+          insert:
+            'I acknowledge that participation in the Activity involves inherent risks, including but not limited to:\n{{risks_description}}\n\n',
+        },
+        {
+          insert:
+            'I voluntarily assume full responsibility for any risks of loss, property damage, or personal injury that may be sustained.\n\n',
+        },
         { insert: '2. RELEASE OF LIABILITY\n', attributes: { bold: true } },
-        { insert: 'I hereby release, waive, discharge, and covenant not to sue the Organization, its directors, officers, employees, volunteers, and agents from any and all claims, demands, or causes of action arising from my participation in the Activity.\n\n' },
+        {
+          insert:
+            'I hereby release, waive, discharge, and covenant not to sue the Organization, its directors, officers, employees, volunteers, and agents from any and all claims, demands, or causes of action arising from my participation in the Activity.\n\n',
+        },
         { insert: '3. INDEMNIFICATION\n', attributes: { bold: true } },
-        { insert: 'I agree to indemnify and hold harmless the Organization from any claims, damages, or expenses arising from my actions or negligence.\n\n' },
+        {
+          insert:
+            'I agree to indemnify and hold harmless the Organization from any claims, damages, or expenses arising from my actions or negligence.\n\n',
+        },
         { insert: '4. MEDICAL TREATMENT\n', attributes: { bold: true } },
-        { insert: 'I authorize emergency medical treatment if required and agree to bear the costs of such treatment.\n\n' },
+        {
+          insert:
+            'I authorize emergency medical treatment if required and agree to bear the costs of such treatment.\n\n',
+        },
         { insert: 'Emergency Contact: {{emergency_contact}}\nPhone: {{emergency_phone}}\n\n' },
         { insert: '5. PHOTO/VIDEO RELEASE\n', attributes: { bold: true } },
-        { insert: 'I grant permission to use photographs or videos of my participation: {{photo_release}}\n\n' },
+        {
+          insert:
+            'I grant permission to use photographs or videos of my participation: {{photo_release}}\n\n',
+        },
         { insert: '6. ACKNOWLEDGMENT\n', attributes: { bold: true } },
-        { insert: 'I have read this waiver and release, fully understand its terms, and sign it voluntarily.\n\n' },
+        {
+          insert:
+            'I have read this waiver and release, fully understand its terms, and sign it voluntarily.\n\n',
+        },
         { insert: 'PARTICIPANT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{participant_name}}\nDate of Birth: {{date_of_birth}}\nAddress: {{participant_address}}\nPhone: {{participant_phone}}\n\n' },
-        { insert: 'Participant Signature: _________________________\nDate: {{signature_date}}\n\n' },
+        {
+          insert:
+            'Name: {{participant_name}}\nDate of Birth: {{date_of_birth}}\nAddress: {{participant_address}}\nPhone: {{participant_phone}}\n\n',
+        },
+        {
+          insert: 'Participant Signature: _________________________\nDate: {{signature_date}}\n\n',
+        },
         { insert: 'FOR MINORS (Under 18):\n', attributes: { bold: true } },
-        { insert: 'I am the parent/guardian of the above-named minor and consent to their participation.\n\n' },
-        { insert: 'Parent/Guardian Signature: _________________________\nPrint Name: {{guardian_name}}\nDate: _____________\n' },
+        {
+          insert:
+            'I am the parent/guardian of the above-named minor and consent to their participation.\n\n',
+        },
+        {
+          insert:
+            'Parent/Guardian Signature: _________________________\nPrint Name: {{guardian_name}}\nDate: _____________\n',
+        },
       ],
     },
     placeholders: [
@@ -46,7 +78,13 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'risks_description', type: 'textarea', label: 'Known Risks', required: true },
       { key: 'emergency_contact', type: 'text', label: 'Emergency Contact', required: true },
       { key: 'emergency_phone', type: 'text', label: 'Emergency Phone', required: true },
-      { key: 'photo_release', type: 'select', label: 'Photo/Video Permission', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'photo_release',
+        type: 'select',
+        label: 'Photo/Video Permission',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'participant_name', type: 'text', label: 'Participant Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
       { key: 'participant_address', type: 'text', label: 'Participant Address', required: true },
@@ -55,10 +93,24 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'guardian_name', type: 'text', label: 'Parent/Guardian Name', required: false },
     ],
     signatureFields: [
-      { id: 'participant_signature', label: 'Participant Signature', required: true, position: { page: 1, x: 100, y: 650 } },
-      { id: 'guardian_signature', label: 'Guardian Signature', required: false, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'participant_signature',
+        label: 'Participant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
+      {
+        id: 'guardian_signature',
+        label: 'Guardian Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Authorization Letter',
@@ -78,7 +130,10 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: '{{authorizer_name}}', attributes: { bold: true } },
         { insert: ', residing at {{authorizer_address}}, hereby authorize:\n\n' },
         { insert: 'AUTHORIZED PERSON:\n', attributes: { bold: true } },
-        { insert: 'Name: {{authorized_person}}\nRelationship: {{relationship}}\nID Number: {{authorized_id}}\n\n' },
+        {
+          insert:
+            'Name: {{authorized_person}}\nRelationship: {{relationship}}\nID Number: {{authorized_id}}\n\n',
+        },
         { insert: 'PURPOSE OF AUTHORIZATION:\n', attributes: { bold: true } },
         { insert: '{{authorization_purpose}}\n\n' },
         { insert: 'SCOPE OF AUTHORITY:\n', attributes: { bold: true } },
@@ -88,10 +143,16 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'LIMITATIONS:\n', attributes: { bold: true } },
         { insert: '{{limitations}}\n\n' },
         { insert: 'IDENTIFICATION:\n', attributes: { bold: true } },
-        { insert: 'The authorized person will present valid identification when acting under this authorization.\n\n' },
+        {
+          insert:
+            'The authorized person will present valid identification when acting under this authorization.\n\n',
+        },
         { insert: 'I declare that I am authorizing this of my own free will.\n\n' },
         { insert: 'AUTHORIZER:\n', attributes: { bold: true } },
-        { insert: 'Signature: _________________________\nPrint Name: {{authorizer_name}}\nID Number: {{authorizer_id}}\nPhone: {{authorizer_phone}}\nDate: {{letter_date}}\n' },
+        {
+          insert:
+            'Signature: _________________________\nPrint Name: {{authorizer_name}}\nID Number: {{authorizer_id}}\nPhone: {{authorizer_phone}}\nDate: {{letter_date}}\n',
+        },
       ],
     },
     placeholders: [
@@ -101,7 +162,12 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'authorized_person', type: 'text', label: 'Authorized Person Name', required: true },
       { key: 'relationship', type: 'text', label: 'Relationship', required: true },
       { key: 'authorized_id', type: 'text', label: 'Authorized Person ID', required: true },
-      { key: 'authorization_purpose', type: 'textarea', label: 'Purpose of Authorization', required: true },
+      {
+        key: 'authorization_purpose',
+        type: 'textarea',
+        label: 'Purpose of Authorization',
+        required: true,
+      },
       { key: 'scope_of_authority', type: 'textarea', label: 'Scope of Authority', required: true },
       { key: 'valid_from', type: 'date', label: 'Valid From', required: true },
       { key: 'valid_until', type: 'date', label: 'Valid Until', required: true },
@@ -110,9 +176,18 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'authorizer_phone', type: 'text', label: 'Authorizer Phone', required: true },
     ],
     signatureFields: [
-      { id: 'authorizer_signature', label: 'Authorizer Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'authorizer_signature',
+        label: 'Authorizer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Notice of Termination',
@@ -133,19 +208,30 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'RE: NOTICE OF TERMINATION - {{agreement_name}}\n', attributes: { bold: true } },
         { insert: 'Agreement Date: {{agreement_date}}\n\n' },
         { insert: 'Dear {{recipient_name}}:\n\n' },
-        { insert: 'Please be advised that {{sender_name}} hereby provides formal notice of termination of the above-referenced agreement.\n\n' },
+        {
+          insert:
+            'Please be advised that {{sender_name}} hereby provides formal notice of termination of the above-referenced agreement.\n\n',
+        },
         { insert: 'TERMINATION DETAILS\n', attributes: { bold: true } },
-        { insert: 'Effective Date of Termination: {{termination_date}}\nNotice Period: {{notice_period}}\n\n' },
+        {
+          insert:
+            'Effective Date of Termination: {{termination_date}}\nNotice Period: {{notice_period}}\n\n',
+        },
         { insert: 'REASON FOR TERMINATION\n', attributes: { bold: true } },
         { insert: '{{termination_reason}}\n\n' },
         { insert: 'TERMINATION PURSUANT TO\n', attributes: { bold: true } },
         { insert: 'Section/Clause: {{termination_clause}}\n\n' },
         { insert: 'REQUIRED ACTIONS\n', attributes: { bold: true } },
-        { insert: 'Upon termination, the following actions are required:\n{{required_actions}}\n\n' },
+        {
+          insert: 'Upon termination, the following actions are required:\n{{required_actions}}\n\n',
+        },
         { insert: 'FINAL OBLIGATIONS\n', attributes: { bold: true } },
         { insert: '{{final_obligations}}\n\n' },
         { insert: 'SURVIVING PROVISIONS\n', attributes: { bold: true } },
-        { insert: 'The following provisions shall survive termination: {{surviving_provisions}}\n\n' },
+        {
+          insert:
+            'The following provisions shall survive termination: {{surviving_provisions}}\n\n',
+        },
         { insert: 'Please confirm receipt of this notice.\n\n' },
         { insert: 'Sincerely,\n\n{{sender_name}}\n{{sender_title}}\n' },
       ],
@@ -154,22 +240,52 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'sender_name', type: 'text', label: 'Sender Name', required: true },
       { key: 'sender_address', type: 'text', label: 'Sender Address', required: true },
       { key: 'notice_date', type: 'date', label: 'Notice Date', required: true },
-      { key: 'delivery_method', type: 'select', label: 'Delivery Method', required: true, options: ['Certified Mail', 'Email', 'Hand Delivery', 'FedEx'] },
+      {
+        key: 'delivery_method',
+        type: 'select',
+        label: 'Delivery Method',
+        required: true,
+        options: ['Certified Mail', 'Email', 'Hand Delivery', 'FedEx'],
+      },
       { key: 'recipient_name', type: 'text', label: 'Recipient Name', required: true },
       { key: 'recipient_address', type: 'text', label: 'Recipient Address', required: true },
       { key: 'agreement_name', type: 'text', label: 'Agreement Name', required: true },
       { key: 'agreement_date', type: 'date', label: 'Original Agreement Date', required: true },
-      { key: 'termination_date', type: 'date', label: 'Termination Effective Date', required: true },
+      {
+        key: 'termination_date',
+        type: 'date',
+        label: 'Termination Effective Date',
+        required: true,
+      },
       { key: 'notice_period', type: 'text', label: 'Notice Period', required: true },
-      { key: 'termination_reason', type: 'textarea', label: 'Reason for Termination', required: true },
-      { key: 'termination_clause', type: 'text', label: 'Termination Clause Reference', required: true },
+      {
+        key: 'termination_reason',
+        type: 'textarea',
+        label: 'Reason for Termination',
+        required: true,
+      },
+      {
+        key: 'termination_clause',
+        type: 'text',
+        label: 'Termination Clause Reference',
+        required: true,
+      },
       { key: 'required_actions', type: 'textarea', label: 'Required Actions', required: true },
       { key: 'final_obligations', type: 'textarea', label: 'Final Obligations', required: true },
-      { key: 'surviving_provisions', type: 'textarea', label: 'Surviving Provisions', required: true },
+      {
+        key: 'surviving_provisions',
+        type: 'textarea',
+        label: 'Surviving Provisions',
+        required: true,
+      },
       { key: 'sender_title', type: 'text', label: 'Sender Title', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Retainer Agreement',
@@ -191,13 +307,25 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'CLIENT:\n', attributes: { bold: true } },
         { insert: '{{client_name}}\n{{client_address}}\n\n' },
         { insert: '1. SCOPE OF SERVICES\n', attributes: { bold: true } },
-        { insert: 'Service Provider agrees to provide the following services on a retainer basis:\n{{services_description}}\n\n' },
+        {
+          insert:
+            'Service Provider agrees to provide the following services on a retainer basis:\n{{services_description}}\n\n',
+        },
         { insert: '2. RETAINER FEE\n', attributes: { bold: true } },
-        { insert: 'Monthly Retainer Fee: {{monthly_fee}}\nHours Included: {{included_hours}} hours per month\nAdditional Hours Rate: {{additional_rate}}/hour\n\n' },
+        {
+          insert:
+            'Monthly Retainer Fee: {{monthly_fee}}\nHours Included: {{included_hours}} hours per month\nAdditional Hours Rate: {{additional_rate}}/hour\n\n',
+        },
         { insert: '3. PAYMENT TERMS\n', attributes: { bold: true } },
-        { insert: 'Payment Due: {{payment_due}}\nPayment Method: {{payment_method}}\nInitial Retainer Deposit: {{initial_deposit}}\n\n' },
+        {
+          insert:
+            'Payment Due: {{payment_due}}\nPayment Method: {{payment_method}}\nInitial Retainer Deposit: {{initial_deposit}}\n\n',
+        },
         { insert: '4. TERM\n', attributes: { bold: true } },
-        { insert: 'Initial Term: {{initial_term}}\nAuto-Renewal: {{auto_renewal}}\nTermination Notice: {{termination_notice}}\n\n' },
+        {
+          insert:
+            'Initial Term: {{initial_term}}\nAuto-Renewal: {{auto_renewal}}\nTermination Notice: {{termination_notice}}\n\n',
+        },
         { insert: '5. UNUSED HOURS\n', attributes: { bold: true } },
         { insert: '{{unused_hours_policy}}\n\n' },
         { insert: '6. AVAILABILITY AND RESPONSE TIME\n', attributes: { bold: true } },
@@ -205,11 +333,19 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: '7. DELIVERABLES\n', attributes: { bold: true } },
         { insert: '{{deliverables}}\n\n' },
         { insert: '8. CONFIDENTIALITY\n', attributes: { bold: true } },
-        { insert: 'Both parties agree to maintain confidentiality of proprietary information.\n\n' },
+        {
+          insert: 'Both parties agree to maintain confidentiality of proprietary information.\n\n',
+        },
         { insert: '9. INDEPENDENT CONTRACTOR\n', attributes: { bold: true } },
-        { insert: 'Service Provider is an independent contractor and not an employee of Client.\n\n' },
+        {
+          insert:
+            'Service Provider is an independent contractor and not an employee of Client.\n\n',
+        },
         { insert: '10. LIMITATION OF LIABILITY\n', attributes: { bold: true } },
-        { insert: 'Service Provider\'s liability is limited to the amount of fees paid in the {{liability_period}} prior to the claim.\n\n' },
+        {
+          insert:
+            "Service Provider's liability is limited to the amount of fees paid in the {{liability_period}} prior to the claim.\n\n",
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
         { insert: 'SERVICE PROVIDER: _________________________ Date: _____________\n' },
         { insert: 'CLIENT: _________________________ Date: _____________\n' },
@@ -221,7 +357,12 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'provider_address', type: 'text', label: 'Provider Address', required: true },
       { key: 'client_name', type: 'text', label: 'Client Name', required: true },
       { key: 'client_address', type: 'text', label: 'Client Address', required: true },
-      { key: 'services_description', type: 'textarea', label: 'Services Description', required: true },
+      {
+        key: 'services_description',
+        type: 'textarea',
+        label: 'Services Description',
+        required: true,
+      },
       { key: 'monthly_fee', type: 'currency', label: 'Monthly Retainer Fee', required: true },
       { key: 'included_hours', type: 'number', label: 'Included Hours', required: true },
       { key: 'additional_rate', type: 'currency', label: 'Additional Hours Rate', required: true },
@@ -229,19 +370,49 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'payment_method', type: 'text', label: 'Payment Method', required: true },
       { key: 'initial_deposit', type: 'currency', label: 'Initial Deposit', required: true },
       { key: 'initial_term', type: 'text', label: 'Initial Term', required: true },
-      { key: 'auto_renewal', type: 'select', label: 'Auto-Renewal', required: true, options: ['Yes', 'No'] },
-      { key: 'termination_notice', type: 'text', label: 'Termination Notice Period', required: true },
-      { key: 'unused_hours_policy', type: 'textarea', label: 'Unused Hours Policy', required: true },
+      {
+        key: 'auto_renewal',
+        type: 'select',
+        label: 'Auto-Renewal',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'termination_notice',
+        type: 'text',
+        label: 'Termination Notice Period',
+        required: true,
+      },
+      {
+        key: 'unused_hours_policy',
+        type: 'textarea',
+        label: 'Unused Hours Policy',
+        required: true,
+      },
       { key: 'response_time', type: 'text', label: 'Response Time', required: true },
       { key: 'availability', type: 'text', label: 'Availability', required: true },
       { key: 'deliverables', type: 'textarea', label: 'Deliverables', required: true },
       { key: 'liability_period', type: 'text', label: 'Liability Period', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'client_signature', label: 'Client Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'client_signature',
+        label: 'Client Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Mutual Confidentiality Agreement',
@@ -265,26 +436,52 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'PURPOSE:\n', attributes: { bold: true } },
         { insert: '{{purpose}}\n\n' },
         { insert: '1. DEFINITION OF CONFIDENTIAL INFORMATION\n', attributes: { bold: true } },
-        { insert: '"Confidential Information" means any non-public information disclosed by either party, including but not limited to:\n{{confidential_categories}}\n\n' },
+        {
+          insert:
+            '"Confidential Information" means any non-public information disclosed by either party, including but not limited to:\n{{confidential_categories}}\n\n',
+        },
         { insert: '2. MUTUAL OBLIGATIONS\n', attributes: { bold: true } },
         { insert: 'Each party agrees to:\n' },
-        { insert: '- Hold Confidential Information in strict confidence\n- Use Confidential Information only for the stated Purpose\n- Limit disclosure to personnel with a need to know\n- Protect information with the same care as its own confidential information\n\n' },
+        {
+          insert:
+            '- Hold Confidential Information in strict confidence\n- Use Confidential Information only for the stated Purpose\n- Limit disclosure to personnel with a need to know\n- Protect information with the same care as its own confidential information\n\n',
+        },
         { insert: '3. EXCLUSIONS\n', attributes: { bold: true } },
         { insert: 'Confidential Information does not include information that:\n' },
-        { insert: '- Is or becomes publicly available\n- Was known prior to disclosure\n- Is independently developed\n- Is rightfully obtained from third parties\n- Is disclosed with written consent\n\n' },
+        {
+          insert:
+            '- Is or becomes publicly available\n- Was known prior to disclosure\n- Is independently developed\n- Is rightfully obtained from third parties\n- Is disclosed with written consent\n\n',
+        },
         { insert: '4. TERM\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall remain in effect for {{term_years}} years from the Effective Date.\nConfidentiality obligations survive for {{survival_period}} after termination.\n\n' },
+        {
+          insert:
+            'This Agreement shall remain in effect for {{term_years}} years from the Effective Date.\nConfidentiality obligations survive for {{survival_period}} after termination.\n\n',
+        },
         { insert: '5. RETURN OF INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Upon request or termination, each party shall return or destroy all Confidential Information.\n\n' },
+        {
+          insert:
+            'Upon request or termination, each party shall return or destroy all Confidential Information.\n\n',
+        },
         { insert: '6. NO LICENSE\n', attributes: { bold: true } },
         { insert: 'No license is granted under any intellectual property rights.\n\n' },
         { insert: '7. REMEDIES\n', attributes: { bold: true } },
-        { insert: 'Each party acknowledges that breach may cause irreparable harm entitling the other party to injunctive relief.\n\n' },
+        {
+          insert:
+            'Each party acknowledges that breach may cause irreparable harm entitling the other party to injunctive relief.\n\n',
+        },
         { insert: '8. GOVERNING LAW\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n' },
+        {
+          insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n',
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
-        { insert: 'PARTY A: _________________________ Date: _____________\nName: {{party_a_signatory}}\nTitle: {{party_a_title}}\n\n' },
-        { insert: 'PARTY B: _________________________ Date: _____________\nName: {{party_b_signatory}}\nTitle: {{party_b_title}}\n' },
+        {
+          insert:
+            'PARTY A: _________________________ Date: _____________\nName: {{party_a_signatory}}\nTitle: {{party_a_title}}\n\n',
+        },
+        {
+          insert:
+            'PARTY B: _________________________ Date: _____________\nName: {{party_b_signatory}}\nTitle: {{party_b_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -294,20 +491,44 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'party_b_name', type: 'text', label: 'Party B Name', required: true },
       { key: 'party_b_address', type: 'text', label: 'Party B Address', required: true },
       { key: 'purpose', type: 'textarea', label: 'Purpose of Disclosure', required: true },
-      { key: 'confidential_categories', type: 'textarea', label: 'Categories of Confidential Information', required: true },
+      {
+        key: 'confidential_categories',
+        type: 'textarea',
+        label: 'Categories of Confidential Information',
+        required: true,
+      },
       { key: 'term_years', type: 'number', label: 'Agreement Term (Years)', required: true },
       { key: 'survival_period', type: 'text', label: 'Survival Period', required: true },
-      { key: 'governing_jurisdiction', type: 'text', label: 'Governing Jurisdiction', required: true },
+      {
+        key: 'governing_jurisdiction',
+        type: 'text',
+        label: 'Governing Jurisdiction',
+        required: true,
+      },
       { key: 'party_a_signatory', type: 'text', label: 'Party A Signatory', required: true },
       { key: 'party_a_title', type: 'text', label: 'Party A Title', required: true },
       { key: 'party_b_signatory', type: 'text', label: 'Party B Signatory', required: true },
       { key: 'party_b_title', type: 'text', label: 'Party B Title', required: true },
     ],
     signatureFields: [
-      { id: 'party_a_signature', label: 'Party A Signature', required: true, position: { page: 1, x: 100, y: 680 } },
-      { id: 'party_b_signature', label: 'Party B Signature', required: true, position: { page: 1, x: 100, y: 760 } },
+      {
+        id: 'party_a_signature',
+        label: 'Party A Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 680 },
+      },
+      {
+        id: 'party_b_signature',
+        label: 'Party B Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 760 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Guaranty Agreement',
@@ -330,25 +551,45 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'BENEFICIARY:\n', attributes: { bold: true } },
         { insert: '{{beneficiary_name}}\n{{beneficiary_address}}\n\n' },
         { insert: 'RECITALS\n', attributes: { bold: true } },
-        { insert: 'WHEREAS, {{principal_name}} ("Principal") and Beneficiary have entered into {{underlying_agreement}} dated {{underlying_date}};\n\n' },
+        {
+          insert:
+            'WHEREAS, {{principal_name}} ("Principal") and Beneficiary have entered into {{underlying_agreement}} dated {{underlying_date}};\n\n',
+        },
         { insert: 'WHEREAS, Guarantor has agreed to guarantee the obligations of Principal;\n\n' },
         { insert: '1. GUARANTY\n', attributes: { bold: true } },
-        { insert: 'Guarantor unconditionally and irrevocably guarantees the full and punctual payment and performance of all obligations of Principal under the {{underlying_agreement}}.\n\n' },
+        {
+          insert:
+            'Guarantor unconditionally and irrevocably guarantees the full and punctual payment and performance of all obligations of Principal under the {{underlying_agreement}}.\n\n',
+        },
         { insert: '2. MAXIMUM AMOUNT\n', attributes: { bold: true } },
         { insert: 'Maximum Guaranteed Amount: {{maximum_amount}}\n\n' },
         { insert: '3. TYPE OF GUARANTY\n', attributes: { bold: true } },
         { insert: 'This is a {{guaranty_type}} guaranty.\n\n' },
         { insert: '4. WAIVERS\n', attributes: { bold: true } },
         { insert: 'Guarantor waives:\n' },
-        { insert: '- Notice of acceptance of this Guaranty\n- Notice of default by Principal\n- Demand, presentment, and protest\n- Any right to require Beneficiary to proceed first against Principal\n\n' },
+        {
+          insert:
+            '- Notice of acceptance of this Guaranty\n- Notice of default by Principal\n- Demand, presentment, and protest\n- Any right to require Beneficiary to proceed first against Principal\n\n',
+        },
         { insert: '5. CONTINUING GUARANTY\n', attributes: { bold: true } },
-        { insert: 'This is a continuing guaranty and shall remain in effect until all obligations are satisfied.\n\n' },
+        {
+          insert:
+            'This is a continuing guaranty and shall remain in effect until all obligations are satisfied.\n\n',
+        },
         { insert: '6. SUBROGATION\n', attributes: { bold: true } },
-        { insert: 'Guarantor shall not exercise subrogation rights until all obligations are fully satisfied.\n\n' },
+        {
+          insert:
+            'Guarantor shall not exercise subrogation rights until all obligations are fully satisfied.\n\n',
+        },
         { insert: '7. GOVERNING LAW\n', attributes: { bold: true } },
-        { insert: 'This Guaranty shall be governed by the laws of {{governing_jurisdiction}}.\n\n' },
+        {
+          insert: 'This Guaranty shall be governed by the laws of {{governing_jurisdiction}}.\n\n',
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
-        { insert: 'GUARANTOR: _________________________ Date: _____________\nPrint Name: {{guarantor_name}}\n' },
+        {
+          insert:
+            'GUARANTOR: _________________________ Date: _____________\nPrint Name: {{guarantor_name}}\n',
+        },
       ],
     },
     placeholders: [
@@ -360,14 +601,39 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'principal_name', type: 'text', label: 'Principal Name', required: true },
       { key: 'underlying_agreement', type: 'text', label: 'Underlying Agreement', required: true },
       { key: 'underlying_date', type: 'date', label: 'Underlying Agreement Date', required: true },
-      { key: 'maximum_amount', type: 'currency', label: 'Maximum Guaranteed Amount', required: true },
-      { key: 'guaranty_type', type: 'select', label: 'Guaranty Type', required: true, options: ['payment', 'performance', 'payment and performance'] },
-      { key: 'governing_jurisdiction', type: 'text', label: 'Governing Jurisdiction', required: true },
+      {
+        key: 'maximum_amount',
+        type: 'currency',
+        label: 'Maximum Guaranteed Amount',
+        required: true,
+      },
+      {
+        key: 'guaranty_type',
+        type: 'select',
+        label: 'Guaranty Type',
+        required: true,
+        options: ['payment', 'performance', 'payment and performance'],
+      },
+      {
+        key: 'governing_jurisdiction',
+        type: 'text',
+        label: 'Governing Jurisdiction',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'guarantor_signature', label: 'Guarantor Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'guarantor_signature',
+        label: 'Guarantor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Assignment and Assumption Agreement',
@@ -380,7 +646,10 @@ export const LEGAL_MISC_TEMPLATES = [
     isFeatured: false,
     content: {
       ops: [
-        { insert: 'ASSIGNMENT AND ASSUMPTION AGREEMENT\n', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: 'ASSIGNMENT AND ASSUMPTION AGREEMENT\n',
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '\nThis Assignment and Assumption Agreement ("Agreement") is made as of ' },
         { insert: '{{effective_date}}', attributes: { bold: true } },
         { insert: ' among:\n\n' },
@@ -391,23 +660,46 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: 'CONSENTING PARTY (if required):\n', attributes: { bold: true } },
         { insert: '{{consenting_party_name}}\n\n' },
         { insert: 'RECITALS\n', attributes: { bold: true } },
-        { insert: 'WHEREAS, Assignor is party to {{original_agreement}} dated {{original_date}} (the "Original Agreement");\n\n' },
-        { insert: 'WHEREAS, Assignor desires to assign its rights and obligations under the Original Agreement to Assignee;\n\n' },
+        {
+          insert:
+            'WHEREAS, Assignor is party to {{original_agreement}} dated {{original_date}} (the "Original Agreement");\n\n',
+        },
+        {
+          insert:
+            'WHEREAS, Assignor desires to assign its rights and obligations under the Original Agreement to Assignee;\n\n',
+        },
         { insert: '1. ASSIGNMENT\n', attributes: { bold: true } },
-        { insert: 'Assignor hereby assigns, transfers, and conveys to Assignee all of Assignor\'s right, title, and interest in and to the Original Agreement.\n\n' },
+        {
+          insert:
+            "Assignor hereby assigns, transfers, and conveys to Assignee all of Assignor's right, title, and interest in and to the Original Agreement.\n\n",
+        },
         { insert: '2. ASSUMPTION\n', attributes: { bold: true } },
-        { insert: 'Assignee hereby accepts the assignment and assumes all of Assignor\'s obligations under the Original Agreement arising on or after the Effective Date.\n\n' },
+        {
+          insert:
+            "Assignee hereby accepts the assignment and assumes all of Assignor's obligations under the Original Agreement arising on or after the Effective Date.\n\n",
+        },
         { insert: '3. CONSENT\n', attributes: { bold: true } },
-        { insert: 'The Consenting Party hereby consents to this assignment and releases Assignor from obligations arising after the Effective Date.\n\n' },
+        {
+          insert:
+            'The Consenting Party hereby consents to this assignment and releases Assignor from obligations arising after the Effective Date.\n\n',
+        },
         { insert: '4. CONSIDERATION\n', attributes: { bold: true } },
         { insert: '{{consideration}}\n\n' },
         { insert: '5. REPRESENTATIONS AND WARRANTIES\n', attributes: { bold: true } },
         { insert: 'Assignor represents that:\n' },
-        { insert: '- The Original Agreement is in full force and effect\n- Assignor has the right to make this assignment\n- There are no defaults under the Original Agreement\n- All required consents have been obtained\n\n' },
+        {
+          insert:
+            '- The Original Agreement is in full force and effect\n- Assignor has the right to make this assignment\n- There are no defaults under the Original Agreement\n- All required consents have been obtained\n\n',
+        },
         { insert: '6. INDEMNIFICATION\n', attributes: { bold: true } },
-        { insert: 'Assignor shall indemnify Assignee for obligations arising before the Effective Date.\nAssignee shall indemnify Assignor for obligations arising after the Effective Date.\n\n' },
+        {
+          insert:
+            'Assignor shall indemnify Assignee for obligations arising before the Effective Date.\nAssignee shall indemnify Assignor for obligations arising after the Effective Date.\n\n',
+        },
         { insert: '7. GOVERNING LAW\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n' },
+        {
+          insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n',
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
         { insert: 'ASSIGNOR: _________________________ Date: _____________\n' },
         { insert: 'ASSIGNEE: _________________________ Date: _____________\n' },
@@ -420,18 +712,47 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'assignor_address', type: 'text', label: 'Assignor Address', required: true },
       { key: 'assignee_name', type: 'text', label: 'Assignee Name', required: true },
       { key: 'assignee_address', type: 'text', label: 'Assignee Address', required: true },
-      { key: 'consenting_party_name', type: 'text', label: 'Consenting Party Name', required: false },
+      {
+        key: 'consenting_party_name',
+        type: 'text',
+        label: 'Consenting Party Name',
+        required: false,
+      },
       { key: 'original_agreement', type: 'text', label: 'Original Agreement Name', required: true },
       { key: 'original_date', type: 'date', label: 'Original Agreement Date', required: true },
       { key: 'consideration', type: 'textarea', label: 'Consideration', required: true },
-      { key: 'governing_jurisdiction', type: 'text', label: 'Governing Jurisdiction', required: true },
+      {
+        key: 'governing_jurisdiction',
+        type: 'text',
+        label: 'Governing Jurisdiction',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'assignor_signature', label: 'Assignor Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'assignee_signature', label: 'Assignee Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'consenting_party_signature', label: 'Consenting Party Signature', required: false, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'assignor_signature',
+        label: 'Assignor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'assignee_signature',
+        label: 'Assignee Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'consenting_party_signature',
+        label: 'Consenting Party Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Amendment to Agreement',
@@ -448,15 +769,24 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: '\nAmendment No. {{amendment_number}}\n\n' },
         { insert: 'This Amendment ("Amendment") is made as of ' },
         { insert: '{{amendment_date}}', attributes: { bold: true } },
-        { insert: ' to the {{original_agreement_name}} dated {{original_date}} (the "Original Agreement") between:\n\n' },
+        {
+          insert:
+            ' to the {{original_agreement_name}} dated {{original_date}} (the "Original Agreement") between:\n\n',
+        },
         { insert: 'PARTY A:\n', attributes: { bold: true } },
         { insert: '{{party_a_name}}\n\n' },
         { insert: 'PARTY B:\n', attributes: { bold: true } },
         { insert: '{{party_b_name}}\n\n' },
         { insert: 'RECITALS\n', attributes: { bold: true } },
         { insert: 'WHEREAS, the parties entered into the Original Agreement;\n\n' },
-        { insert: 'WHEREAS, the parties desire to amend certain terms of the Original Agreement;\n\n' },
-        { insert: 'NOW, THEREFORE, for good and valuable consideration, the parties agree as follows:\n\n' },
+        {
+          insert:
+            'WHEREAS, the parties desire to amend certain terms of the Original Agreement;\n\n',
+        },
+        {
+          insert:
+            'NOW, THEREFORE, for good and valuable consideration, the parties agree as follows:\n\n',
+        },
         { insert: '1. AMENDMENTS\n', attributes: { bold: true } },
         { insert: 'The Original Agreement is hereby amended as follows:\n\n' },
         { insert: '{{amendments}}\n\n' },
@@ -465,11 +795,17 @@ export const LEGAL_MISC_TEMPLATES = [
         { insert: '3. NEW PROVISIONS\n', attributes: { bold: true } },
         { insert: 'The following new provisions are hereby added:\n{{new_provisions}}\n\n' },
         { insert: '4. EFFECT ON ORIGINAL AGREEMENT\n', attributes: { bold: true } },
-        { insert: 'Except as specifically amended herein, all terms and conditions of the Original Agreement remain in full force and effect.\n\n' },
+        {
+          insert:
+            'Except as specifically amended herein, all terms and conditions of the Original Agreement remain in full force and effect.\n\n',
+        },
         { insert: '5. EFFECTIVE DATE\n', attributes: { bold: true } },
         { insert: 'This Amendment shall be effective as of {{effective_date}}.\n\n' },
         { insert: '6. CONFLICTS\n', attributes: { bold: true } },
-        { insert: 'In the event of any conflict between this Amendment and the Original Agreement, this Amendment shall prevail.\n\n' },
+        {
+          insert:
+            'In the event of any conflict between this Amendment and the Original Agreement, this Amendment shall prevail.\n\n',
+        },
         { insert: '7. COUNTERPARTS\n', attributes: { bold: true } },
         { insert: 'This Amendment may be executed in counterparts.\n\n' },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
@@ -480,7 +816,12 @@ export const LEGAL_MISC_TEMPLATES = [
     placeholders: [
       { key: 'amendment_number', type: 'number', label: 'Amendment Number', required: true },
       { key: 'amendment_date', type: 'date', label: 'Amendment Date', required: true },
-      { key: 'original_agreement_name', type: 'text', label: 'Original Agreement Name', required: true },
+      {
+        key: 'original_agreement_name',
+        type: 'text',
+        label: 'Original Agreement Name',
+        required: true,
+      },
       { key: 'original_date', type: 'date', label: 'Original Agreement Date', required: true },
       { key: 'party_a_name', type: 'text', label: 'Party A Name', required: true },
       { key: 'party_b_name', type: 'text', label: 'Party B Name', required: true },
@@ -490,9 +831,23 @@ export const LEGAL_MISC_TEMPLATES = [
       { key: 'effective_date', type: 'date', label: 'Effective Date', required: true },
     ],
     signatureFields: [
-      { id: 'party_a_signature', label: 'Party A Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'party_b_signature', label: 'Party B Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'party_a_signature',
+        label: 'Party A Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'party_b_signature',
+        label: 'Party B Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

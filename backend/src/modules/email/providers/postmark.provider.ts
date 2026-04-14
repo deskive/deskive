@@ -37,9 +37,7 @@ export class PostmarkProvider implements EmailProvider {
     if (this.isAvailable()) {
       this.logger.log('Postmark provider configured');
     } else {
-      this.logger.warn(
-        'Postmark provider selected but POSTMARK_SERVER_TOKEN missing',
-      );
+      this.logger.warn('Postmark provider selected but POSTMARK_SERVER_TOKEN missing');
     }
   }
 
@@ -49,24 +47,14 @@ export class PostmarkProvider implements EmailProvider {
 
   async send(input: SendEmailInput): Promise<SendEmailResult> {
     if (!this.isAvailable()) {
-      throw new EmailProviderNotConfiguredError('postmark', [
-        'POSTMARK_SERVER_TOKEN',
-      ]);
+      throw new EmailProviderNotConfiguredError('postmark', ['POSTMARK_SERVER_TOKEN']);
     }
 
     const payload: any = {
       From: input.from ?? this.from,
       To: Array.isArray(input.to) ? input.to.join(', ') : input.to,
-      Cc: input.cc
-        ? Array.isArray(input.cc)
-          ? input.cc.join(', ')
-          : input.cc
-        : undefined,
-      Bcc: input.bcc
-        ? Array.isArray(input.bcc)
-          ? input.bcc.join(', ')
-          : input.bcc
-        : undefined,
+      Cc: input.cc ? (Array.isArray(input.cc) ? input.cc.join(', ') : input.cc) : undefined,
+      Bcc: input.bcc ? (Array.isArray(input.bcc) ? input.bcc.join(', ') : input.bcc) : undefined,
       ReplyTo: input.replyTo ?? this.replyTo,
       Subject: input.subject,
       HtmlBody: input.html,
@@ -97,9 +85,7 @@ export class PostmarkProvider implements EmailProvider {
       ErrorCode?: number;
     };
     if (!res.ok) {
-      throw new Error(
-        `Postmark API failed: ${res.status} ${JSON.stringify(body)}`,
-      );
+      throw new Error(`Postmark API failed: ${res.status} ${JSON.stringify(body)}`);
     }
     return {
       messageId: body.MessageID ?? `postmark-${Date.now()}`,

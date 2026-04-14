@@ -6,18 +6,9 @@ import { YoutubeOAuthService } from './youtube-oauth.service';
 import { AuthModule } from '../../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [YoutubeController],
-  providers: [
-    YoutubeService,
-    YoutubeOAuthService,
-  ],
-  exports: [
-    YoutubeService,
-    YoutubeOAuthService,
-  ],
+  providers: [YoutubeService, YoutubeOAuthService],
+  exports: [YoutubeService, YoutubeOAuthService],
 })
 export class YoutubeModule {}

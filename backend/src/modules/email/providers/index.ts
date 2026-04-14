@@ -24,9 +24,7 @@ import { NoneEmailProvider } from './none.provider';
 const log = new Logger('EmailProviderFactory');
 
 export function createEmailProvider(config: ConfigService): EmailProvider {
-  const choice = (config.get<string>('EMAIL_PROVIDER') || 'none')
-    .toLowerCase()
-    .trim();
+  const choice = (config.get<string>('EMAIL_PROVIDER') || 'none').toLowerCase().trim();
 
   switch (choice) {
     case 'smtp':
@@ -42,23 +40,17 @@ export function createEmailProvider(config: ConfigService): EmailProvider {
     }
     case 'sendgrid': {
       const p = new SendgridProvider(config);
-      log.log(
-        `Selected email provider: sendgrid (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected email provider: sendgrid (available=${p.isAvailable()})`);
       return p;
     }
     case 'postmark': {
       const p = new PostmarkProvider(config);
-      log.log(
-        `Selected email provider: postmark (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected email provider: postmark (available=${p.isAvailable()})`);
       return p;
     }
     case 'mailgun': {
       const p = new MailgunProvider(config);
-      log.log(
-        `Selected email provider: mailgun (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected email provider: mailgun (available=${p.isAvailable()})`);
       return p;
     }
     case 'ses':

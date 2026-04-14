@@ -162,24 +162,16 @@ export const mockTokenRefresh = (
 ): nock.Scope => {
   const config = OAUTH_PROVIDERS[provider];
   return nock(config.tokenUrl)
-    .post(config.tokenPath, (body: string) =>
-      body.includes('grant_type=refresh_token'),
-    )
+    .post(config.tokenPath, (body: string) => body.includes('grant_type=refresh_token'))
     .reply(status, response);
 };
 
 /**
  * Mock OAuth user info endpoint
  */
-export const mockUserInfo = (
-  provider: OAuthProvider,
-  response: any,
-  status = 200,
-): nock.Scope => {
+export const mockUserInfo = (provider: OAuthProvider, response: any, status = 200): nock.Scope => {
   const config = OAUTH_PROVIDERS[provider];
-  return nock(config.userInfoUrl)
-    .get(config.userInfoPath)
-    .reply(status, response);
+  return nock(config.userInfoUrl).get(config.userInfoPath).reply(status, response);
 };
 
 /**
@@ -214,10 +206,7 @@ export const mockCustomOAuthEndpoint = (
 /**
  * Mock token revocation endpoint
  */
-export const mockTokenRevocation = (
-  provider: OAuthProvider,
-  status = 200,
-): nock.Scope => {
+export const mockTokenRevocation = (provider: OAuthProvider, status = 200): nock.Scope => {
   const config = OAUTH_PROVIDERS[provider];
   // Most providers use a /revoke endpoint
   const revokePath =
@@ -235,7 +224,8 @@ export const MOCK_TOKENS: Record<OAuthProvider, MockTokenResponse> = {
     refresh_token: '1//mock-google-refresh-token-abc',
     expires_in: 3600,
     token_type: 'Bearer',
-    scope: 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email',
+    scope:
+      'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/userinfo.email',
     id_token: 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.mock-id-token',
   },
   slack: {

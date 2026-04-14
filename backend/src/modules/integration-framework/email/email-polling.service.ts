@@ -86,8 +86,8 @@ export class EmailPollingService {
       const allConnections: EmailConnection[] = Array.isArray(connectionsResult.data)
         ? connectionsResult.data
         : Array.isArray(connectionsResult)
-        ? connectionsResult
-        : [];
+          ? connectionsResult
+          : [];
 
       // Filter to connections that need polling (notifications OR auto_create_events)
       const connections = allConnections.filter(
@@ -95,7 +95,9 @@ export class EmailPollingService {
       );
 
       if (connections.length === 0) {
-        this.logger.debug('No active email connections needing polling (notifications or auto_create_events)');
+        this.logger.debug(
+          'No active email connections needing polling (notifications or auto_create_events)',
+        );
         return;
       }
 
@@ -224,7 +226,9 @@ export class EmailPollingService {
         return;
       }
 
-      this.logger.log(`Found ${recentEmails.length} new IMAP email(s) within 24h for ${connection.email_address}`);
+      this.logger.log(
+        `Found ${recentEmails.length} new IMAP email(s) within 24h for ${connection.email_address}`,
+      );
 
       // Create notifications for recent emails only (if notifications enabled)
       if (connection.notifications_enabled) {
@@ -254,7 +258,13 @@ export class EmailPollingService {
    */
   private async processEmailsForEvents(
     connection: EmailConnection,
-    emails: Array<{ id: string; threadId: string; from?: { name?: string; email: string }; subject?: string; date?: string }>,
+    emails: Array<{
+      id: string;
+      threadId: string;
+      from?: { name?: string; email: string };
+      subject?: string;
+      date?: string;
+    }>,
     imapConfig: { host: string; port: number; secure: boolean; user: string; password: string },
   ): Promise<void> {
     this.logger.log(`🔍 Processing ${emails.length} email(s) for event extraction...`);
@@ -293,7 +303,9 @@ export class EmailPollingService {
     }
 
     if (totalEventsCreated > 0) {
-      this.logger.log(`📅 Auto-created ${totalEventsCreated} event(s) from emails for ${connection.email_address}`);
+      this.logger.log(
+        `📅 Auto-created ${totalEventsCreated} event(s) from emails for ${connection.email_address}`,
+      );
     }
   }
 
@@ -340,7 +352,9 @@ export class EmailPollingService {
     }
 
     if (totalEventsCreated > 0) {
-      this.logger.log(`📅 Auto-created ${totalEventsCreated} event(s) from Gmail for ${connection.email_address}`);
+      this.logger.log(
+        `📅 Auto-created ${totalEventsCreated} event(s) from Gmail for ${connection.email_address}`,
+      );
     }
   }
 
@@ -485,7 +499,13 @@ export class EmailPollingService {
    */
   private async createImapEmailNotification(
     connection: EmailConnection,
-    email: { id: string; threadId: string; from?: { name?: string; email: string }; subject?: string; snippet?: string },
+    email: {
+      id: string;
+      threadId: string;
+      from?: { name?: string; email: string };
+      subject?: string;
+      snippet?: string;
+    },
   ): Promise<void> {
     try {
       const senderName = email.from?.name || email.from?.email || 'Unknown Sender';
@@ -526,9 +546,14 @@ export class EmailPollingService {
   private async getValidAccessToken(connection: EmailConnection): Promise<string | null> {
     try {
       // Check if token is expired
-      if (connection.expires_at && this.oauthService.isTokenExpired(new Date(connection.expires_at))) {
+      if (
+        connection.expires_at &&
+        this.oauthService.isTokenExpired(new Date(connection.expires_at))
+      ) {
         if (!connection.refresh_token) {
-          this.logger.warn(`Access token expired and no refresh token for ${connection.email_address}`);
+          this.logger.warn(
+            `Access token expired and no refresh token for ${connection.email_address}`,
+          );
           return null;
         }
 
@@ -689,7 +714,10 @@ export class EmailPollingService {
   /**
    * Fetch full message details
    */
-  private async fetchMessageDetails(accessToken: string, messageId: string): Promise<GmailMessage | null> {
+  private async fetchMessageDetails(
+    accessToken: string,
+    messageId: string,
+  ): Promise<GmailMessage | null> {
     try {
       const response = await axios.get(`${this.GMAIL_API_BASE}/users/me/messages/${messageId}`, {
         headers: { Authorization: `Bearer ${accessToken}` },
@@ -716,8 +744,10 @@ export class EmailPollingService {
     try {
       // Extract headers
       const headers = email.payload?.headers || [];
-      const fromHeader = headers.find(h => h.name.toLowerCase() === 'from')?.value || 'Unknown Sender';
-      const subjectHeader = headers.find(h => h.name.toLowerCase() === 'subject')?.value || '(No Subject)';
+      const fromHeader =
+        headers.find((h) => h.name.toLowerCase() === 'from')?.value || 'Unknown Sender';
+      const subjectHeader =
+        headers.find((h) => h.name.toLowerCase() === 'subject')?.value || '(No Subject)';
 
       // Parse sender name and email
       const senderMatch = fromHeader.match(/^(?:(.+?)\s*<(.+?)>|(.+))$/);
@@ -808,7 +838,9 @@ export class EmailPollingService {
       updated_at: new Date().toISOString(),
     });
 
-    this.logger.log(`Email notifications ${enabled ? 'enabled' : 'disabled'} for ${connection.email_address}`);
+    this.logger.log(
+      `Email notifications ${enabled ? 'enabled' : 'disabled'} for ${connection.email_address}`,
+    );
   }
 
   /**
@@ -832,7 +864,11 @@ export class EmailPollingService {
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const connections = Array.isArray(result.data) ? result.data : Array.isArray(result) ? result : [];
+    const connections = Array.isArray(result.data)
+      ? result.data
+      : Array.isArray(result)
+        ? result
+        : [];
 
     if (connections.length === 0) {
       throw new Error('Email connection not found');
@@ -884,7 +920,11 @@ export class EmailPollingService {
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const connections = Array.isArray(result.data) ? result.data : Array.isArray(result) ? result : [];
+    const connections = Array.isArray(result.data)
+      ? result.data
+      : Array.isArray(result)
+        ? result
+        : [];
 
     if (connections.length === 0) {
       throw new Error('Email connection not found');

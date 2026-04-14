@@ -58,7 +58,10 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Business Justification', attributes: { header: 2 } },
         { insert: '\n' },
-        { insert: 'Explain how this training relates to your job responsibilities and career development:\n' },
+        {
+          insert:
+            'Explain how this training relates to your job responsibilities and career development:\n',
+        },
         { insert: '{{justification}}' },
         { insert: '\n\n' },
         { insert: 'Expected Outcomes', attributes: { header: 2 } },
@@ -80,7 +83,13 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'request_date', label: 'Request Date', type: 'date', required: true },
       { key: 'training_name', label: 'Training Name', type: 'text', required: true },
       { key: 'provider', label: 'Training Provider', type: 'text', required: true },
-      { key: 'training_type', label: 'Training Type', type: 'select', required: true, options: ['Online', 'In-Person', 'Workshop', 'Conference', 'Certification'] },
+      {
+        key: 'training_type',
+        label: 'Training Type',
+        type: 'select',
+        required: true,
+        options: ['Online', 'In-Person', 'Workshop', 'Conference', 'Certification'],
+      },
       { key: 'start_date', label: 'Start Date', type: 'date', required: true },
       { key: 'end_date', label: 'End Date', type: 'date', required: true },
       { key: 'location', label: 'Location', type: 'text', required: false },
@@ -91,7 +100,11 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'expected_outcomes', label: 'Expected Outcomes', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Training Evaluation Form',
@@ -161,20 +174,72 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'instructor', label: 'Instructor/Provider', type: 'text', required: true },
       { key: 'participant_name', label: 'Participant Name', type: 'text', required: true },
       { key: 'department', label: 'Department', type: 'text', required: true },
-      { key: 'relevance_rating', label: 'Relevance Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'content_rating', label: 'Content Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'clarity_rating', label: 'Clarity Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'applicability_rating', label: 'Applicability Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'knowledge_rating', label: 'Knowledge Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'communication_rating', label: 'Communication Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
-      { key: 'engagement_rating', label: 'Engagement Rating', type: 'select', required: true, options: ['1', '2', '3', '4', '5'] },
+      {
+        key: 'relevance_rating',
+        label: 'Relevance Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'content_rating',
+        label: 'Content Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'clarity_rating',
+        label: 'Clarity Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'applicability_rating',
+        label: 'Applicability Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'knowledge_rating',
+        label: 'Knowledge Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'communication_rating',
+        label: 'Communication Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
+      {
+        key: 'engagement_rating',
+        label: 'Engagement Rating',
+        type: 'select',
+        required: true,
+        options: ['1', '2', '3', '4', '5'],
+      },
       { key: 'key_takeaways', label: 'Key Takeaways', type: 'textarea', required: true },
       { key: 'application_plan', label: 'Application Plan', type: 'textarea', required: true },
-      { key: 'recommend', label: 'Recommend to Others', type: 'select', required: true, options: ['Yes', 'No', 'Maybe'] },
+      {
+        key: 'recommend',
+        label: 'Recommend to Others',
+        type: 'select',
+        required: true,
+        options: ['Yes', 'No', 'Maybe'],
+      },
       { key: 'comments', label: 'Additional Comments', type: 'textarea', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Training Attendance Record',
@@ -204,13 +269,32 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Attendance Record', attributes: { header: 2 } },
         { insert: '\n' },
-        { insert: '| Employee Name | Employee ID | Department | Signature | Time In | Time Out |\n' },
-        { insert: '|---------------|-------------|------------|-----------|---------|----------|\n' },
-        { insert: '| {{attendee_1_name}} | {{attendee_1_id}} | {{attendee_1_dept}} | _______ | _______ | _______ |\n' },
-        { insert: '| {{attendee_2_name}} | {{attendee_2_id}} | {{attendee_2_dept}} | _______ | _______ | _______ |\n' },
-        { insert: '| {{attendee_3_name}} | {{attendee_3_id}} | {{attendee_3_dept}} | _______ | _______ | _______ |\n' },
-        { insert: '| {{attendee_4_name}} | {{attendee_4_id}} | {{attendee_4_dept}} | _______ | _______ | _______ |\n' },
-        { insert: '| {{attendee_5_name}} | {{attendee_5_id}} | {{attendee_5_dept}} | _______ | _______ | _______ |\n' },
+        {
+          insert: '| Employee Name | Employee ID | Department | Signature | Time In | Time Out |\n',
+        },
+        {
+          insert: '|---------------|-------------|------------|-----------|---------|----------|\n',
+        },
+        {
+          insert:
+            '| {{attendee_1_name}} | {{attendee_1_id}} | {{attendee_1_dept}} | _______ | _______ | _______ |\n',
+        },
+        {
+          insert:
+            '| {{attendee_2_name}} | {{attendee_2_id}} | {{attendee_2_dept}} | _______ | _______ | _______ |\n',
+        },
+        {
+          insert:
+            '| {{attendee_3_name}} | {{attendee_3_id}} | {{attendee_3_dept}} | _______ | _______ | _______ |\n',
+        },
+        {
+          insert:
+            '| {{attendee_4_name}} | {{attendee_4_id}} | {{attendee_4_dept}} | _______ | _______ | _______ |\n',
+        },
+        {
+          insert:
+            '| {{attendee_5_name}} | {{attendee_5_id}} | {{attendee_5_dept}} | _______ | _______ | _______ |\n',
+        },
         { insert: '\n' },
         { insert: 'Training Summary', attributes: { header: 2 } },
         { insert: '\n' },
@@ -237,7 +321,11 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'attendance_rate', label: 'Attendance Rate', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Employee Training Plan',
@@ -306,15 +394,29 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'department', label: 'Department', type: 'text', required: true },
       { key: 'manager', label: 'Manager', type: 'text', required: true },
       { key: 'plan_period', label: 'Plan Period', type: 'text', required: true },
-      { key: 'current_technical_skills', label: 'Current Technical Skills', type: 'textarea', required: true },
-      { key: 'current_soft_skills', label: 'Current Soft Skills', type: 'textarea', required: true },
+      {
+        key: 'current_technical_skills',
+        label: 'Current Technical Skills',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        key: 'current_soft_skills',
+        label: 'Current Soft Skills',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'short_term_goals', label: 'Short-term Goals', type: 'textarea', required: true },
       { key: 'long_term_goals', label: 'Long-term Goals', type: 'textarea', required: true },
       { key: 'resources_required', label: 'Resources Required', type: 'textarea', required: true },
       { key: 'success_metrics', label: 'Success Metrics', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Training Certificate',
@@ -333,7 +435,10 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: 'This is to certify that\n\n', attributes: { align: 'center' } },
         { insert: '{{employee_name}}', attributes: { bold: true, size: 'large', align: 'center' } },
         { insert: '\n\n', attributes: { align: 'center' } },
-        { insert: 'has successfully completed the training program\n\n', attributes: { align: 'center' } },
+        {
+          insert: 'has successfully completed the training program\n\n',
+          attributes: { align: 'center' },
+        },
         { insert: '{{training_name}}', attributes: { bold: true, size: 'large', align: 'center' } },
         { insert: '\n\n', attributes: { align: 'center' } },
         { insert: 'Duration: ', attributes: { align: 'center' } },
@@ -342,7 +447,11 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: 'Completion Date: ', attributes: { align: 'center' } },
         { insert: '{{completion_date}}', attributes: { bold: true, align: 'center' } },
         { insert: '\n\n\n', attributes: { align: 'center' } },
-        { insert: 'This certificate acknowledges the successful completion of all required coursework and assessments.\n\n', attributes: { align: 'center' } },
+        {
+          insert:
+            'This certificate acknowledges the successful completion of all required coursework and assessments.\n\n',
+          attributes: { align: 'center' },
+        },
         { insert: '________________________\n', attributes: { align: 'center' } },
         { insert: '{{authorized_signature}}\n', attributes: { align: 'center' } },
         { insert: '{{authorized_title}}\n\n', attributes: { align: 'center' } },
@@ -361,7 +470,11 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'certificate_id', label: 'Certificate ID', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1.5, right: 1.5, bottom: 1.5, left: 1.5 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1.5, right: 1.5, bottom: 1.5, left: 1.5 },
+    },
   },
   {
     name: 'Training Needs Assessment',
@@ -422,12 +535,21 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'completed_by', label: 'Completed By', type: 'text', required: true },
       { key: 'skill_gaps', label: 'Skill Gaps', type: 'textarea', required: true },
       { key: 'business_alignment', label: 'Business Alignment', type: 'textarea', required: true },
-      { key: 'recommended_methods', label: 'Recommended Methods', type: 'textarea', required: true },
+      {
+        key: 'recommended_methods',
+        label: 'Recommended Methods',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'timeline', label: 'Timeline', type: 'textarea', required: true },
       { key: 'total_budget', label: 'Total Budget', type: 'currency', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Mentorship Program Agreement',
@@ -442,7 +564,10 @@ export const HR_TRAINING_TEMPLATES = [
       ops: [
         { insert: 'Mentorship Program Agreement', attributes: { header: 1 } },
         { insert: '\n\n' },
-        { insert: 'This agreement establishes a mentoring relationship between the following parties:\n\n' },
+        {
+          insert:
+            'This agreement establishes a mentoring relationship between the following parties:\n\n',
+        },
         { insert: 'Mentor Information', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: 'Name: ' },
@@ -481,11 +606,20 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: '{{goals}}' },
         { insert: '\n\n' },
         { insert: 'Mentor Responsibilities', attributes: { header: 2 } },
-        { insert: '\n• Provide guidance and share knowledge\n• Be available for scheduled meetings\n• Offer constructive feedback\n• Support mentee\'s professional development\n• Maintain confidentiality\n\n' },
+        {
+          insert:
+            "\n• Provide guidance and share knowledge\n• Be available for scheduled meetings\n• Offer constructive feedback\n• Support mentee's professional development\n• Maintain confidentiality\n\n",
+        },
         { insert: 'Mentee Responsibilities', attributes: { header: 2 } },
-        { insert: '\n• Come prepared to meetings\n• Be open to feedback\n• Take initiative in own development\n• Respect mentor\'s time\n• Maintain confidentiality\n\n' },
+        {
+          insert:
+            "\n• Come prepared to meetings\n• Be open to feedback\n• Take initiative in own development\n• Respect mentor's time\n• Maintain confidentiality\n\n",
+        },
         { insert: 'Confidentiality', attributes: { header: 2 } },
-        { insert: '\nBoth parties agree to keep discussions confidential unless otherwise agreed upon.\n\n' },
+        {
+          insert:
+            '\nBoth parties agree to keep discussions confidential unless otherwise agreed upon.\n\n',
+        },
         { insert: 'Agreement Signatures', attributes: { header: 2 } },
         { insert: '\n\nMentor Signature: _________________ Date: _________\n\n' },
         { insert: 'Mentee Signature: _________________ Date: _________\n' },
@@ -503,11 +637,21 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'duration', label: 'Program Duration', type: 'text', required: true },
       { key: 'start_date', label: 'Start Date', type: 'date', required: true },
       { key: 'end_date', label: 'End Date', type: 'date', required: true },
-      { key: 'meeting_frequency', label: 'Meeting Frequency', type: 'select', required: true, options: ['Weekly', 'Bi-weekly', 'Monthly'] },
+      {
+        key: 'meeting_frequency',
+        label: 'Meeting Frequency',
+        type: 'select',
+        required: true,
+        options: ['Weekly', 'Bi-weekly', 'Monthly'],
+      },
       { key: 'goals', label: 'Goals and Objectives', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Skills Matrix',
@@ -531,11 +675,19 @@ export const HR_TRAINING_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Skill Levels Legend', attributes: { header: 2 } },
         { insert: '\n' },
-        { insert: '1 = No Knowledge | 2 = Basic | 3 = Intermediate | 4 = Advanced | 5 = Expert\n\n' },
+        {
+          insert: '1 = No Knowledge | 2 = Basic | 3 = Intermediate | 4 = Advanced | 5 = Expert\n\n',
+        },
         { insert: 'Skills Assessment', attributes: { header: 2 } },
         { insert: '\n' },
-        { insert: '| Employee | {{skill_1}} | {{skill_2}} | {{skill_3}} | {{skill_4}} | {{skill_5}} |\n' },
-        { insert: '|----------|-------------|-------------|-------------|-------------|-------------|\n' },
+        {
+          insert:
+            '| Employee | {{skill_1}} | {{skill_2}} | {{skill_3}} | {{skill_4}} | {{skill_5}} |\n',
+        },
+        {
+          insert:
+            '|----------|-------------|-------------|-------------|-------------|-------------|\n',
+        },
         { insert: '| {{emp_1}} | ___ | ___ | ___ | ___ | ___ |\n' },
         { insert: '| {{emp_2}} | ___ | ___ | ___ | ___ | ___ |\n' },
         { insert: '| {{emp_3}} | ___ | ___ | ___ | ___ | ___ |\n' },
@@ -563,9 +715,18 @@ export const HR_TRAINING_TEMPLATES = [
       { key: 'skill_4', label: 'Skill 4', type: 'text', required: true },
       { key: 'skill_5', label: 'Skill 5', type: 'text', required: true },
       { key: 'gap_analysis', label: 'Gap Analysis', type: 'textarea', required: true },
-      { key: 'training_recommendations', label: 'Training Recommendations', type: 'textarea', required: true },
+      {
+        key: 'training_recommendations',
+        label: 'Training Recommendations',
+        type: 'textarea',
+        required: true,
+      },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

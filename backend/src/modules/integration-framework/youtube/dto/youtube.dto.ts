@@ -60,7 +60,10 @@ export class SearchVideosDto {
   @IsNumber()
   limit?: number;
 
-  @ApiPropertyOptional({ description: 'Order results by', enum: ['date', 'rating', 'relevance', 'title', 'viewCount'] })
+  @ApiPropertyOptional({
+    description: 'Order results by',
+    enum: ['date', 'rating', 'relevance', 'title', 'viewCount'],
+  })
   @IsOptional()
   @IsString()
   order?: string;

@@ -21,9 +21,10 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
 
     // Log token info (first and last 10 chars for security)
-    const tokenPreview = token.length > 20
-      ? `${token.substring(0, 10)}...${token.substring(token.length - 10)}`
-      : 'SHORT_TOKEN';
+    const tokenPreview =
+      token.length > 20
+        ? `${token.substring(0, 10)}...${token.substring(token.length - 10)}`
+        : 'SHORT_TOKEN';
     this.logger.debug(`[JWT Guard] Processing token for path: ${path} - token: ${tokenPreview}`);
 
     try {
@@ -39,7 +40,9 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
 
       // Check if token is expired
       if (payload.exp && payload.exp * 1000 < Date.now()) {
-        this.logger.warn(`[JWT Guard] Token expired - path: ${path}, exp: ${new Date(payload.exp * 1000).toISOString()}`);
+        this.logger.warn(
+          `[JWT Guard] Token expired - path: ${path}, exp: ${new Date(payload.exp * 1000).toISOString()}`,
+        );
         throw new UnauthorizedException('Token expired');
       }
 

@@ -32,37 +32,95 @@ interface EmailForExtraction {
 // Known event-related keywords and patterns
 const EVENT_KEYWORDS = [
   // Travel
-  'flight', 'booking', 'reservation', 'itinerary', 'confirmation', 'e-ticket',
-  'boarding pass', 'check-in', 'departure', 'arrival', 'airline',
+  'flight',
+  'booking',
+  'reservation',
+  'itinerary',
+  'confirmation',
+  'e-ticket',
+  'boarding pass',
+  'check-in',
+  'departure',
+  'arrival',
+  'airline',
   // Hotels
-  'hotel', 'check-out', 'room reservation', 'stay', 'accommodation',
+  'hotel',
+  'check-out',
+  'room reservation',
+  'stay',
+  'accommodation',
   // Tickets
-  'ticket', 'concert', 'event', 'show', 'performance', 'admission', 'entry',
+  'ticket',
+  'concert',
+  'event',
+  'show',
+  'performance',
+  'admission',
+  'entry',
   // Appointments
-  'appointment', 'scheduled', 'meeting', 'consultation', 'session',
+  'appointment',
+  'scheduled',
+  'meeting',
+  'consultation',
+  'session',
   // Restaurants
-  'restaurant', 'table reservation', 'dining', 'dinner reservation',
+  'restaurant',
+  'table reservation',
+  'dining',
+  'dinner reservation',
   // Delivery
-  'delivery', 'arriving', 'shipment', 'package', 'estimated delivery',
+  'delivery',
+  'arriving',
+  'shipment',
+  'package',
+  'estimated delivery',
   // General
-  'reminder', 'upcoming', 'scheduled for', 'on the date', 'at the time',
+  'reminder',
+  'upcoming',
+  'scheduled for',
+  'on the date',
+  'at the time',
 ];
 
 // Known event sender patterns (domains)
 const EVENT_SENDER_PATTERNS = [
   // Airlines
-  'airline', 'airways', 'air.com', 'united.com', 'delta.com', 'emirates.com',
-  'booking.com', 'expedia.com', 'kayak.com', 'skyscanner.com',
+  'airline',
+  'airways',
+  'air.com',
+  'united.com',
+  'delta.com',
+  'emirates.com',
+  'booking.com',
+  'expedia.com',
+  'kayak.com',
+  'skyscanner.com',
   // Hotels
-  'hotels.com', 'marriott.com', 'hilton.com', 'airbnb.com', 'vrbo.com',
+  'hotels.com',
+  'marriott.com',
+  'hilton.com',
+  'airbnb.com',
+  'vrbo.com',
   // Tickets
-  'ticketmaster.com', 'eventbrite.com', 'stubhub.com', 'livenation.com',
+  'ticketmaster.com',
+  'eventbrite.com',
+  'stubhub.com',
+  'livenation.com',
   // Restaurants
-  'opentable.com', 'resy.com', 'yelp.com',
+  'opentable.com',
+  'resy.com',
+  'yelp.com',
   // Delivery
-  'fedex.com', 'ups.com', 'dhl.com', 'usps.com', 'amazon.com',
+  'fedex.com',
+  'ups.com',
+  'dhl.com',
+  'usps.com',
+  'amazon.com',
   // Calendar
-  'calendar', 'google.com', 'outlook.com', 'microsoft.com',
+  'calendar',
+  'google.com',
+  'outlook.com',
+  'microsoft.com',
 ];
 
 @Injectable()
@@ -151,8 +209,12 @@ export class EmailEventExtractorService {
             const event: ExtractedEvent = {
               title: component.summary || 'Untitled Event',
               description: component.description,
-              startTime: component.start ? new Date(component.start).toISOString() : new Date().toISOString(),
-              endTime: component.end ? new Date(component.end).toISOString() : new Date(Date.now() + 3600000).toISOString(),
+              startTime: component.start
+                ? new Date(component.start).toISOString()
+                : new Date().toISOString(),
+              endTime: component.end
+                ? new Date(component.end).toISOString()
+                : new Date(Date.now() + 3600000).toISOString(),
               location: component.location,
               isAllDay: component.datetype === 'date',
               source: 'ics',

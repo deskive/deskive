@@ -35,24 +35,14 @@ export class SlugService {
     const baseSlug = SlugUtils.generateSlug(title);
 
     // Check if slug is unique
-    const isUnique = await this.isSlugUnique(
-      baseSlug,
-      tableName,
-      columnName,
-      excludeId,
-    );
+    const isUnique = await this.isSlugUnique(baseSlug, tableName, columnName, excludeId);
 
     if (isUnique) {
       return baseSlug;
     }
 
     // If not unique, append number
-    return await this.generateNumberedSlug(
-      baseSlug,
-      tableName,
-      columnName,
-      excludeId,
-    );
+    return await this.generateNumberedSlug(baseSlug, tableName, columnName, excludeId);
   }
 
   /**
@@ -71,10 +61,7 @@ export class SlugService {
     excludeId?: string,
   ): Promise<boolean> {
     try {
-      let query = this.db
-        .table(tableName)
-        .select('id')
-        .where(columnName, '=', slug);
+      let query = this.db.table(tableName).select('id').where(columnName, '=', slug);
 
       // Exclude specific ID if provided (for updates)
       if (excludeId) {
@@ -111,9 +98,7 @@ export class SlugService {
     let slug = `${baseSlug}-${counter}`;
 
     // Keep trying until we find a unique slug
-    while (
-      !(await this.isSlugUnique(slug, tableName, columnName, excludeId))
-    ) {
+    while (!(await this.isSlugUnique(slug, tableName, columnName, excludeId))) {
       counter++;
       slug = `${baseSlug}-${counter}`;
 
@@ -159,24 +144,14 @@ export class SlugService {
     const sanitized = SlugUtils.sanitizeSlug(slug);
 
     // Check if unique
-    const isUnique = await this.isSlugUnique(
-      sanitized,
-      tableName,
-      columnName,
-      excludeId,
-    );
+    const isUnique = await this.isSlugUnique(sanitized, tableName, columnName, excludeId);
 
     if (isUnique) {
       return sanitized;
     }
 
     // Generate numbered version
-    return await this.generateNumberedSlug(
-      sanitized,
-      tableName,
-      columnName,
-      excludeId,
-    );
+    return await this.generateNumberedSlug(sanitized, tableName, columnName, excludeId);
   }
 
   /**

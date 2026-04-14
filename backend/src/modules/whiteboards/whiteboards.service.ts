@@ -1,4 +1,11 @@
-import { Injectable, NotFoundException, ForbiddenException, Logger, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+  Logger,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { AppGateway } from '../../common/gateways/app.gateway';
 import {
@@ -74,21 +81,34 @@ export class WhiteboardsService {
       });
   }
 
-  private async getUserInfo(userId: string | undefined): Promise<{ name: string; avatar?: string } | null> {
+  private async getUserInfo(
+    userId: string | undefined,
+  ): Promise<{ name: string; avatar?: string } | null> {
     if (!userId) {
       return null;
     }
     try {
       const user = await this.db.getUserById(userId);
-      return user ? { name: user.name || (user as any).fullName || user.email || 'Unknown', avatar: (user as any).avatarUrl } : null;
+      return user
+        ? {
+            name: user.name || (user as any).fullName || user.email || 'Unknown',
+            avatar: (user as any).avatarUrl,
+          }
+        : null;
     } catch (error) {
       this.logger.warn(`getUserById error: ${error}`);
       return null;
     }
   }
 
-  private async hasAccess(whiteboardId: string, userId: string, requiredPermission: 'view' | 'edit' | 'admin' = 'view'): Promise<boolean> {
-    this.logger.log(`hasAccess check: whiteboardId=${whiteboardId}, userId=${userId}, requiredPermission=${requiredPermission}`);
+  private async hasAccess(
+    whiteboardId: string,
+    userId: string,
+    requiredPermission: 'view' | 'edit' | 'admin' = 'view',
+  ): Promise<boolean> {
+    this.logger.log(
+      `hasAccess check: whiteboardId=${whiteboardId}, userId=${userId}, requiredPermission=${requiredPermission}`,
+    );
 
     // Check if user is the creator
     const whiteboardResult = await this.db
@@ -104,7 +124,9 @@ export class WhiteboardsService {
     }
 
     const whiteboard = whiteboards[0];
-    this.logger.log(`hasAccess: whiteboard.created_by=${whiteboard.created_by}, match=${whiteboard.created_by === userId}`);
+    this.logger.log(
+      `hasAccess: whiteboard.created_by=${whiteboard.created_by}, match=${whiteboard.created_by === userId}`,
+    );
 
     // Creator always has full access
     if (whiteboard.created_by === userId) return true;
@@ -282,7 +304,7 @@ export class WhiteboardsService {
     }
 
     // Get user info for all creators
-    const userIds = [...new Set(accessibleWhiteboards.map(w => w.created_by))];
+    const userIds = [...new Set(accessibleWhiteboards.map((w) => w.created_by))];
     const userInfoMap = new Map<string, { name: string; avatar?: string }>();
 
     for (const uid of userIds) {
@@ -290,13 +312,19 @@ export class WhiteboardsService {
       if (info) userInfoMap.set(uid, info);
     }
 
-    return accessibleWhiteboards.map(w => this.mapWhiteboardListItem({
-      ...w,
-      created_by_name: userInfoMap.get(w.created_by)?.name,
-    }));
+    return accessibleWhiteboards.map((w) =>
+      this.mapWhiteboardListItem({
+        ...w,
+        created_by_name: userInfoMap.get(w.created_by)?.name,
+      }),
+    );
   }
 
-  async getWhiteboard(workspaceId: string, whiteboardId: string, userId: string): Promise<WhiteboardResponseDto> {
+  async getWhiteboard(
+    workspaceId: string,
+    whiteboardId: string,
+    userId: string,
+  ): Promise<WhiteboardResponseDto> {
     const result = await this.db
       .table('whiteboards')
       .select('*')
@@ -341,7 +369,9 @@ export class WhiteboardsService {
 
     const exists = (existsResult.data || []).length > 0;
     if (!exists) {
-      this.logger.log(`updateWhiteboard: whiteboard ${whiteboardId} not found in workspace ${workspaceId}`);
+      this.logger.log(
+        `updateWhiteboard: whiteboard ${whiteboardId} not found in workspace ${workspaceId}`,
+      );
       throw new NotFoundException(`Whiteboard with ID ${whiteboardId} not found`);
     }
 
@@ -362,7 +392,9 @@ export class WhiteboardsService {
     if (dto.files !== undefined) updateData.files = JSON.stringify(dto.files);
     if (dto.isPublic !== undefined) updateData.is_public = dto.isPublic;
 
-    this.logger.log(`Updating whiteboard ${whiteboardId} with elements count: ${dto.elements?.length || 0}`);
+    this.logger.log(
+      `Updating whiteboard ${whiteboardId} with elements count: ${dto.elements?.length || 0}`,
+    );
     this.logger.log(`Stringified elements: ${updateData.elements?.substring(0, 200)}...`);
 
     await this.db.update('whiteboards', whiteboardId, updateData);
@@ -375,7 +407,9 @@ export class WhiteboardsService {
       .execute();
 
     const result = (fetchResult.data || [])[0];
-    this.logger.log(`Fetched result elements type: ${typeof result?.elements}, value: ${JSON.stringify(result?.elements)?.substring(0, 200)}...`);
+    this.logger.log(
+      `Fetched result elements type: ${typeof result?.elements}, value: ${JSON.stringify(result?.elements)?.substring(0, 200)}...`,
+    );
 
     // Emit WebSocket event for real-time updates
     this.emitWhiteboardUpdate(workspaceId, whiteboardId, userId, dto);
@@ -530,7 +564,11 @@ export class WhiteboardsService {
     await this.db.delete('whiteboard_collaborators', collabResult.data[0].id);
   }
 
-  async getCollaborators(workspaceId: string, whiteboardId: string, userId: string): Promise<CollaboratorResponseDto[]> {
+  async getCollaborators(
+    workspaceId: string,
+    whiteboardId: string,
+    userId: string,
+  ): Promise<CollaboratorResponseDto[]> {
     // Check access
     const hasAccess = await this.hasAccess(whiteboardId, userId, 'view');
     if (!hasAccess) {
@@ -550,11 +588,13 @@ export class WhiteboardsService {
     const enrichedCollaborators: CollaboratorResponseDto[] = [];
     for (const collab of collaborators) {
       const userInfo = await this.getUserInfo(collab.user_id);
-      enrichedCollaborators.push(this.mapCollaborator({
-        ...collab,
-        user_name: userInfo?.name,
-        user_avatar: userInfo?.avatar,
-      }));
+      enrichedCollaborators.push(
+        this.mapCollaborator({
+          ...collab,
+          user_name: userInfo?.name,
+          user_avatar: userInfo?.avatar,
+        }),
+      );
     }
 
     return enrichedCollaborators;
@@ -566,7 +606,9 @@ export class WhiteboardsService {
    * Get whiteboard session data for collaboration service
    * This fetches whiteboard data without access control (for internal use)
    */
-  async getWhiteboardSession(sessionId: string): Promise<{ elements: any[]; appState: any } | null> {
+  async getWhiteboardSession(
+    sessionId: string,
+  ): Promise<{ elements: any[]; appState: any } | null> {
     try {
       const result = await this.db
         .table('whiteboards')
@@ -637,7 +679,9 @@ export class WhiteboardsService {
       }
 
       await this.db.update('whiteboards', sessionId, updateData);
-      this.logger.log(`Collaboration service updated whiteboard ${sessionId} with ${data.elements?.length || 0} elements`);
+      this.logger.log(
+        `Collaboration service updated whiteboard ${sessionId} with ${data.elements?.length || 0} elements`,
+      );
     } catch (error) {
       this.logger.error(`Error updating whiteboard session ${sessionId}:`, error);
       throw error;
@@ -661,7 +705,11 @@ export class WhiteboardsService {
     });
   }
 
-  emitUserJoined(workspaceId: string, whiteboardId: string, user: { id: string; name: string; color: string }): void {
+  emitUserJoined(
+    workspaceId: string,
+    whiteboardId: string,
+    user: { id: string; name: string; color: string },
+  ): void {
     this.appGateway.server.to(`workspace:${workspaceId}`).emit('whiteboard:user_joined', {
       whiteboardId,
       ...user,

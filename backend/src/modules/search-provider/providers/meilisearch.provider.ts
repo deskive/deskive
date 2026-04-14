@@ -38,9 +38,7 @@ export class MeilisearchProvider implements SearchProvider {
     if (this.isAvailable()) {
       this.logger.log(`Meilisearch provider configured (${this.url})`);
     } else {
-      this.logger.warn(
-        'Meilisearch provider selected but MEILI_URL / MEILI_MASTER_KEY missing',
-      );
+      this.logger.warn('Meilisearch provider selected but MEILI_URL / MEILI_MASTER_KEY missing');
     }
   }
 
@@ -54,10 +52,10 @@ export class MeilisearchProvider implements SearchProvider {
     body?: any,
   ): Promise<any> {
     if (!this.isAvailable()) {
-      throw new SearchProviderNotConfiguredError('meilisearch', [
-        !this.url ? 'MEILI_URL' : '',
-        !this.masterKey ? 'MEILI_MASTER_KEY' : '',
-      ].filter(Boolean));
+      throw new SearchProviderNotConfiguredError(
+        'meilisearch',
+        [!this.url ? 'MEILI_URL' : '', !this.masterKey ? 'MEILI_MASTER_KEY' : ''].filter(Boolean),
+      );
     }
     const res = await fetch(`${this.url}${path}`, {
       method,
@@ -69,34 +67,23 @@ export class MeilisearchProvider implements SearchProvider {
     });
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(
-        `Meilisearch API ${method} ${path} failed: ${res.status} ${text}`,
-      );
+      throw new Error(`Meilisearch API ${method} ${path} failed: ${res.status} ${text}`);
     }
     if (res.status === 204) return null;
     return res.json();
   }
 
-  async indexDocument(
-    collection: string,
-    document: SearchableDocument,
-  ): Promise<void> {
+  async indexDocument(collection: string, document: SearchableDocument): Promise<void> {
     await this.meiliApi('POST', `/indexes/${collection}/documents`, [document]);
   }
 
-  async indexBatch(
-    collection: string,
-    documents: SearchableDocument[],
-  ): Promise<void> {
+  async indexBatch(collection: string, documents: SearchableDocument[]): Promise<void> {
     if (documents.length === 0) return;
     await this.meiliApi('POST', `/indexes/${collection}/documents`, documents);
   }
 
   async deleteDocument(collection: string, id: string): Promise<void> {
-    await this.meiliApi(
-      'DELETE',
-      `/indexes/${collection}/documents/${encodeURIComponent(id)}`,
-    );
+    await this.meiliApi('DELETE', `/indexes/${collection}/documents/${encodeURIComponent(id)}`);
   }
 
   async search<T = SearchableDocument>(
@@ -134,11 +121,7 @@ export class MeilisearchProvider implements SearchProvider {
     if (query.facets && query.facets.length > 0) payload.facets = query.facets;
     if (query.sort) payload.sort = [query.sort];
 
-    const res = await this.meiliApi(
-      'POST',
-      `/indexes/${collection}/search`,
-      payload,
-    );
+    const res = await this.meiliApi('POST', `/indexes/${collection}/search`, payload);
 
     const hits = (res.hits ?? []).map((doc: any) => ({
       document: doc as T,
@@ -155,10 +138,7 @@ export class MeilisearchProvider implements SearchProvider {
     };
   }
 
-  async reindex(
-    collection: string,
-    source: AsyncIterable<SearchableDocument>,
-  ): Promise<number> {
+  async reindex(collection: string, source: AsyncIterable<SearchableDocument>): Promise<number> {
     // Wipe and re-populate. Meili provides a "delete all documents"
     // endpoint; we batch the source in groups of 1000.
     await this.meiliApi('DELETE', `/indexes/${collection}/documents`);

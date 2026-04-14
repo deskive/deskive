@@ -54,7 +54,9 @@ export class AgentMemoryService {
       }
       return null;
     } catch (error) {
-      this.logger.warn(`[Memory] Could not load session ${sessionId} from database: ${error.message}`);
+      this.logger.warn(
+        `[Memory] Could not load session ${sessionId} from database: ${error.message}`,
+      );
       return null;
     }
   }
@@ -64,7 +66,9 @@ export class AgentMemoryService {
    */
   private async saveSessionToDb(sessionId: string, session: SessionData): Promise<void> {
     try {
-      const existingSession = await this.db.findOne('autopilot_sessions', { session_id: sessionId });
+      const existingSession = await this.db.findOne('autopilot_sessions', {
+        session_id: sessionId,
+      });
 
       const sessionData = {
         session_id: sessionId,
@@ -83,7 +87,9 @@ export class AgentMemoryService {
         });
       }
     } catch (error) {
-      this.logger.error(`[Memory] Failed to save session ${sessionId} to database: ${error.message}`);
+      this.logger.error(
+        `[Memory] Failed to save session ${sessionId} to database: ${error.message}`,
+      );
     }
   }
 
@@ -92,7 +98,7 @@ export class AgentMemoryService {
    */
   private async getSession(sessionId: string): Promise<SessionData | null> {
     // Check cache first
-    let session = this.sessionCache.get(sessionId);
+    const session = this.sessionCache.get(sessionId);
     if (session) return session;
 
     // Load from database
@@ -136,7 +142,9 @@ export class AgentMemoryService {
         messages: [],
       };
       this.sessionCache.set(sessionId, session);
-      this.logger.log(`[Memory] Auto-created new session: ${sessionId} for workspace: ${context?.workspaceId}, user: ${context?.userId}`);
+      this.logger.log(
+        `[Memory] Auto-created new session: ${sessionId} for workspace: ${context?.workspaceId}, user: ${context?.userId}`,
+      );
     }
 
     session.messages.push(message);
@@ -211,7 +219,9 @@ export class AgentMemoryService {
         await this.db.delete('autopilot_sessions', dbSession.id);
       }
     } catch (error) {
-      this.logger.warn(`[Memory] Failed to delete session ${sessionId} from database: ${error.message}`);
+      this.logger.warn(
+        `[Memory] Failed to delete session ${sessionId} from database: ${error.message}`,
+      );
     }
     this.logger.log(`[Memory] Deleted session: ${sessionId}`);
   }
@@ -248,7 +258,9 @@ export class AgentMemoryService {
       // Merge and deduplicate by id+type
       const mergedItems = [...existingItems];
       for (const newItem of newItems) {
-        const exists = mergedItems.some(item => item.id === newItem.id && item.type === newItem.type);
+        const exists = mergedItems.some(
+          (item) => item.id === newItem.id && item.type === newItem.type,
+        );
         if (!exists) {
           mergedItems.push(newItem);
         }
@@ -256,7 +268,9 @@ export class AgentMemoryService {
       session.metadata.referencedItems = mergedItems;
       this.sessionCache.set(sessionId, session);
       await this.saveSessionToDb(sessionId, session);
-      this.logger.debug(`[Memory] Updated referenced items for session ${sessionId}: ${mergedItems.length} items`);
+      this.logger.debug(
+        `[Memory] Updated referenced items for session ${sessionId}: ${mergedItems.length} items`,
+      );
     }
   }
 
@@ -288,11 +302,13 @@ export class AgentMemoryService {
 
     if (history.length === 0) return '';
 
-    const summary = history.map((msg) => {
-      const role = msg.role === 'user' ? 'User' : 'AutoPilot';
-      const content = msg.content.substring(0, 100);
-      return `${role}: ${content}${msg.content.length > 100 ? '...' : ''}`;
-    }).join('\n');
+    const summary = history
+      .map((msg) => {
+        const role = msg.role === 'user' ? 'User' : 'AutoPilot';
+        const content = msg.content.substring(0, 100);
+        return `${role}: ${content}${msg.content.length > 100 ? '...' : ''}`;
+      })
+      .join('\n');
 
     return `Recent conversation:\n${summary}`;
   }
@@ -358,16 +374,23 @@ export class AgentMemoryService {
    * Get all sessions for a user in a workspace
    * Returns sessions sorted by updated_at (most recent first)
    */
-  async getUserSessions(workspaceId: string, userId: string, limit: number = 20): Promise<{
-    id: string;
-    sessionId: string;
-    title: string;
-    messageCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }[]> {
+  async getUserSessions(
+    workspaceId: string,
+    userId: string,
+    limit: number = 20,
+  ): Promise<
+    {
+      id: string;
+      sessionId: string;
+      title: string;
+      messageCount: number;
+      createdAt: string;
+      updatedAt: string;
+    }[]
+  > {
     try {
-      const sessions = await this.db.table('autopilot_sessions')
+      const sessions = await this.db
+        .table('autopilot_sessions')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -379,7 +402,8 @@ export class AgentMemoryService {
           // Get title from first user message or default
           const firstUserMessage = messages.find((m: any) => m.role === 'user');
           const title = firstUserMessage
-            ? firstUserMessage.content.substring(0, 50) + (firstUserMessage.content.length > 50 ? '...' : '')
+            ? firstUserMessage.content.substring(0, 50) +
+              (firstUserMessage.content.length > 50 ? '...' : '')
             : 'New conversation';
 
           return {

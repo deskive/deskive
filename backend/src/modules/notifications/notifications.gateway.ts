@@ -1,4 +1,11 @@
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  OnModuleInit,
+  OnModuleDestroy,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationResponseDto } from './dto';
 import { AppGateway } from '../../common/gateways/app.gateway';
@@ -24,17 +31,19 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
 
   async onModuleInit() {
     this.logger.log('NotificationsGateway initialized');
-    
+
     // Realtime subscription management for production
     // For now using Socket.IO for real-time features as database realtime is optional
     // TODO: In future if possible - Re-enable when database realtime server is available and properly configured
-    this.logger.warn('Using Socket.IO for real-time notifications - Redis pub/sub can be added for cross-instance support');
+    this.logger.warn(
+      'Using Socket.IO for real-time notifications - Redis pub/sub can be added for cross-instance support',
+    );
     this.logger.log('Using Socket.IO for real-time notification delivery');
   }
 
   async onModuleDestroy() {
     this.logger.log('NotificationsGateway destroying subscriptions');
-    
+
     // Clean up all subscriptions
     for (const [key, subscription] of this.subscriptions.entries()) {
       try {
@@ -44,7 +53,7 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         this.logger.error(`Failed to unsubscribe from ${key}: ${error.message}`);
       }
     }
-    
+
     this.subscriptions.clear();
   }
 
@@ -55,7 +64,7 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
   private async handleNotificationTableChange(data: any): Promise<void> {
     try {
       const { eventType, new: newRecord, old: oldRecord } = data;
-      
+
       switch (eventType) {
         case 'INSERT':
           await this.handleNewNotification(newRecord);
@@ -90,7 +99,10 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  private async handleNotificationUpdate(newNotification: any, oldNotification: any): Promise<void> {
+  private async handleNotificationUpdate(
+    newNotification: any,
+    oldNotification: any,
+  ): Promise<void> {
     try {
       // Check if read status changed
       if (newNotification.is_read !== oldNotification.is_read) {
@@ -106,7 +118,9 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         };
 
         await this.emitToUser(newNotification.user_id, event);
-        this.logger.log(`Notification read status update emitted for user ${newNotification.user_id}`);
+        this.logger.log(
+          `Notification read status update emitted for user ${newNotification.user_id}`,
+        );
       }
 
       // Check if archived status changed
@@ -122,7 +136,9 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         };
 
         await this.emitToUser(newNotification.user_id, event);
-        this.logger.log(`Notification archive status update emitted for user ${newNotification.user_id}`);
+        this.logger.log(
+          `Notification archive status update emitted for user ${newNotification.user_id}`,
+        );
       }
     } catch (error) {
       this.logger.error(`Failed to handle notification update: ${error.message}`, error.stack);
@@ -151,7 +167,10 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
   // PUBLIC METHODS FOR SERVICE INTEGRATION
   // =============================================
 
-  async emitNotificationToUser(userId: string, notification: NotificationResponseDto): Promise<void> {
+  async emitNotificationToUser(
+    userId: string,
+    notification: NotificationResponseDto,
+  ): Promise<void> {
     try {
       const event: RealtimeNotificationEvent = {
         type: 'notification',
@@ -167,7 +186,12 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async emitNotificationReadToUser(userId: string, notificationId: string, isRead: boolean, readAt?: string): Promise<void> {
+  async emitNotificationReadToUser(
+    userId: string,
+    notificationId: string,
+    isRead: boolean,
+    readAt?: string,
+  ): Promise<void> {
     try {
       const event: RealtimeNotificationEvent = {
         type: 'notification_read',
@@ -251,7 +275,11 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
     }
   }
 
-  async emitBulkNotificationUpdate(userId: string, notificationIds: string[], updateType: 'read' | 'deleted'): Promise<void> {
+  async emitBulkNotificationUpdate(
+    userId: string,
+    notificationIds: string[],
+    updateType: 'read' | 'deleted',
+  ): Promise<void> {
     try {
       const event: RealtimeNotificationEvent = {
         type: updateType === 'read' ? 'notification_read' : 'notification_deleted',
@@ -283,7 +311,7 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         userId: event.user_id,
         timestamp: event.timestamp,
       } as NotificationEvent;
-      
+
       this.socketGateway.emitToUser(userId, 'notification:event', socketEvent);
 
       // Also emit to storage channel for backup/persistence (optional - don't fail if not connected)
@@ -292,7 +320,9 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         await /* TODO: use Socket.io */ this.db.publishToChannel(channel, event);
       } catch (realtimeError) {
         // database realtime is optional - just log the warning, don't throw
-        this.logger.warn(`Redis pub/sub not connected, skipping channel publish for user ${userId}`);
+        this.logger.warn(
+          `Redis pub/sub not connected, skipping channel publish for user ${userId}`,
+        );
       }
     } catch (error) {
       this.logger.error(`Failed to emit to user ${userId}: ${error.message}`, error.stack);
@@ -322,7 +352,9 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
   // ADMIN/SYSTEM METHODS
   // =============================================
 
-  async emitSystemWideNotification(event: Omit<RealtimeNotificationEvent, 'user_id'>): Promise<void> {
+  async emitSystemWideNotification(
+    event: Omit<RealtimeNotificationEvent, 'user_id'>,
+  ): Promise<void> {
     try {
       // This would emit to all connected users
       // For now, we'll just emit to a system channel
@@ -330,7 +362,7 @@ export class NotificationsGateway implements OnModuleInit, OnModuleDestroy {
         ...event,
         user_id: 'system',
       });
-      
+
       this.logger.log('System-wide notification emitted');
     } catch (error) {
       this.logger.error(`Failed to emit system-wide notification: ${error.message}`, error.stack);

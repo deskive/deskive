@@ -40,13 +40,9 @@ export class MailgunProvider implements EmailProvider {
     this.replyTo = config.get<string>('EMAIL_REPLY_TO');
 
     if (this.isAvailable()) {
-      this.logger.log(
-        `Mailgun provider configured (domain=${this.domain}, region=${this.region})`,
-      );
+      this.logger.log(`Mailgun provider configured (domain=${this.domain}, region=${this.region})`);
     } else {
-      this.logger.warn(
-        'Mailgun provider selected but MAILGUN_API_KEY or MAILGUN_DOMAIN missing',
-      );
+      this.logger.warn('Mailgun provider selected but MAILGUN_API_KEY or MAILGUN_DOMAIN missing');
     }
   }
 
@@ -62,10 +58,7 @@ export class MailgunProvider implements EmailProvider {
 
   async send(input: SendEmailInput): Promise<SendEmailResult> {
     if (!this.isAvailable()) {
-      throw new EmailProviderNotConfiguredError(
-        'mailgun',
-        this.missingVars(),
-      );
+      throw new EmailProviderNotConfiguredError('mailgun', this.missingVars());
     }
 
     // Mailgun /messages expects application/x-www-form-urlencoded for
@@ -73,18 +66,12 @@ export class MailgunProvider implements EmailProvider {
     // multipart so attachment support is uniform.
     const form = new FormData();
     form.append('from', input.from ?? this.from);
-    (Array.isArray(input.to) ? input.to : [input.to]).forEach((t) =>
-      form.append('to', t),
-    );
+    (Array.isArray(input.to) ? input.to : [input.to]).forEach((t) => form.append('to', t));
     if (input.cc) {
-      (Array.isArray(input.cc) ? input.cc : [input.cc]).forEach((c) =>
-        form.append('cc', c),
-      );
+      (Array.isArray(input.cc) ? input.cc : [input.cc]).forEach((c) => form.append('cc', c));
     }
     if (input.bcc) {
-      (Array.isArray(input.bcc) ? input.bcc : [input.bcc]).forEach((b) =>
-        form.append('bcc', b),
-      );
+      (Array.isArray(input.bcc) ? input.bcc : [input.bcc]).forEach((b) => form.append('bcc', b));
     }
     form.append('subject', input.subject);
     if (input.text) form.append('text', input.text);
@@ -118,17 +105,14 @@ export class MailgunProvider implements EmailProvider {
     const res = await fetch(`${this.baseUrl()}/messages`, {
       method: 'POST',
       headers: {
-        Authorization:
-          'Basic ' + Buffer.from(`api:${this.apiKey}`).toString('base64'),
+        Authorization: 'Basic ' + Buffer.from(`api:${this.apiKey}`).toString('base64'),
       },
       body: form,
     });
 
     const body = (await res.json()) as { id?: string };
     if (!res.ok) {
-      throw new Error(
-        `Mailgun API failed: ${res.status} ${JSON.stringify(body)}`,
-      );
+      throw new Error(`Mailgun API failed: ${res.status} ${JSON.stringify(body)}`);
     }
     return {
       messageId: body.id ?? `mailgun-${Date.now()}`,

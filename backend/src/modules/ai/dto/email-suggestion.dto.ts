@@ -52,13 +52,19 @@ export class GenerateEmailSuggestionsDto {
   @IsString()
   currentDraft?: string;
 
-  @ApiPropertyOptional({ description: 'Original email details (for replies)', type: OriginalEmailDto })
+  @ApiPropertyOptional({
+    description: 'Original email details (for replies)',
+    type: OriginalEmailDto,
+  })
   @IsOptional()
   @ValidateNested()
   @Type(() => OriginalEmailDto)
   replyTo?: OriginalEmailDto;
 
-  @ApiPropertyOptional({ description: 'Whether this is a reply to an existing email', default: false })
+  @ApiPropertyOptional({
+    description: 'Whether this is a reply to an existing email',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   isReply?: boolean;
@@ -66,7 +72,7 @@ export class GenerateEmailSuggestionsDto {
   @ApiPropertyOptional({
     description: 'Tone of the email',
     enum: EmailTone,
-    default: EmailTone.PROFESSIONAL
+    default: EmailTone.PROFESSIONAL,
   })
   @IsOptional()
   @IsEnum(EmailTone)
@@ -104,7 +110,7 @@ export class GenerateSmartRepliesDto {
   @ApiPropertyOptional({
     description: 'Tone of the replies',
     enum: EmailTone,
-    default: EmailTone.PROFESSIONAL
+    default: EmailTone.PROFESSIONAL,
   })
   @IsOptional()
   @IsEnum(EmailTone)

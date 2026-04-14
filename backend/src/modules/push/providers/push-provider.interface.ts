@@ -91,13 +91,7 @@ export interface PushBulkResult {
  */
 export interface PushProvider {
   /** Stable provider name for logging / clients. */
-  readonly name:
-    | 'webpush'
-    | 'fcm'
-    | 'onesignal'
-    | 'expo'
-    | 'apns'
-    | 'none';
+  readonly name: 'webpush' | 'fcm' | 'onesignal' | 'expo' | 'apns' | 'none';
 
   /** True if the provider has the credentials it needs. */
   isAvailable(): boolean;
@@ -113,10 +107,7 @@ export interface PushProvider {
    * Send the same message to many recipients. Providers with native
    * multicast (FCM, OneSignal) use it; others loop send().
    */
-  sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult>;
+  sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult>;
 
   /**
    * Frontend bootstrap — returns the public key(s) / app id / VAPID

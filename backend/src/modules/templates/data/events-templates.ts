@@ -51,8 +51,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Define event goals',
-              description:
-                'Set clear objectives and KPIs for the conference.',
+              description: 'Set clear objectives and KPIs for the conference.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -60,8 +59,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Determine format and agenda',
-              description:
-                'Design event format, tracks, and session types.',
+              description: 'Design event format, tracks, and session types.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -69,8 +67,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Set budget',
-              description:
-                'Create and approve event budget.',
+              description: 'Create and approve event budget.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -78,8 +75,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Select virtual platform',
-              description:
-                'Evaluate and select virtual event platform.',
+              description: 'Evaluate and select virtual event platform.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -87,8 +83,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Create project timeline',
-              description:
-                'Develop detailed project plan with milestones.',
+              description: 'Develop detailed project plan with milestones.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -102,8 +97,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Identify speakers',
-              description:
-                'Create speaker wish list and reach out.',
+              description: 'Create speaker wish list and reach out.',
               assigneeRole: 'lead',
               dueOffset: 20,
               priority: 'high',
@@ -111,8 +105,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Confirm speakers',
-              description:
-                'Secure speaker commitments and contracts.',
+              description: 'Secure speaker commitments and contracts.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -120,8 +113,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Collect speaker materials',
-              description:
-                'Gather bios, headshots, and session descriptions.',
+              description: 'Gather bios, headshots, and session descriptions.',
               assigneeRole: 'member',
               dueOffset: 50,
               priority: 'high',
@@ -129,8 +121,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Finalize agenda',
-              description:
-                'Lock in final schedule and session times.',
+              description: 'Lock in final schedule and session times.',
               assigneeRole: 'lead',
               dueOffset: 55,
               priority: 'high',
@@ -138,8 +129,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Speaker rehearsals',
-              description:
-                'Conduct tech checks and rehearsals.',
+              description: 'Conduct tech checks and rehearsals.',
               assigneeRole: 'member',
               dueOffset: 75,
               priority: 'high',
@@ -153,8 +143,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Create event branding',
-              description:
-                'Design event logo, graphics, and templates.',
+              description: 'Design event logo, graphics, and templates.',
               assigneeRole: 'member',
               dueOffset: 25,
               priority: 'high',
@@ -162,8 +151,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Build event website',
-              description:
-                'Create landing page and registration.',
+              description: 'Create landing page and registration.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -171,8 +159,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Launch registration',
-              description:
-                'Open registration and start promotion.',
+              description: 'Open registration and start promotion.',
               assigneeRole: 'lead',
               dueOffset: 35,
               priority: 'high',
@@ -180,8 +167,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Email campaign',
-              description:
-                'Create and send promotional email sequences.',
+              description: 'Create and send promotional email sequences.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -189,8 +175,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Social media promotion',
-              description:
-                'Run social media campaigns.',
+              description: 'Run social media campaigns.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'medium',
@@ -198,8 +183,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Attendee communications',
-              description:
-                'Send reminders and event info to registrants.',
+              description: 'Send reminders and event info to registrants.',
               assigneeRole: 'member',
               dueOffset: 70,
               priority: 'high',
@@ -213,8 +197,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Platform setup',
-              description:
-                'Configure virtual platform and test.',
+              description: 'Configure virtual platform and test.',
               assigneeRole: 'member',
               dueOffset: 70,
               priority: 'high',
@@ -222,8 +205,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Run event day 1',
-              description:
-                'Execute day 1 of conference.',
+              description: 'Execute day 1 of conference.',
               assigneeRole: 'lead',
               dueOffset: 80,
               priority: 'high',
@@ -231,8 +213,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Monitor chat and Q&A',
-              description:
-                'Manage attendee engagement.',
+              description: 'Manage attendee engagement.',
               assigneeRole: 'member',
               dueOffset: 80,
               priority: 'high',
@@ -240,8 +221,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Handle technical issues',
-              description:
-                'Troubleshoot any tech problems.',
+              description: 'Troubleshoot any tech problems.',
               assigneeRole: 'member',
               dueOffset: 80,
               priority: 'high',
@@ -255,8 +235,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Send thank you emails',
-              description:
-                'Thank attendees and speakers.',
+              description: 'Thank attendees and speakers.',
               assigneeRole: 'member',
               dueOffset: 82,
               priority: 'high',
@@ -264,8 +243,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Process recordings',
-              description:
-                'Edit and publish session recordings.',
+              description: 'Edit and publish session recordings.',
               assigneeRole: 'member',
               dueOffset: 90,
               priority: 'high',
@@ -273,8 +251,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Survey attendees',
-              description:
-                'Send post-event feedback survey.',
+              description: 'Send post-event feedback survey.',
               assigneeRole: 'member',
               dueOffset: 84,
               priority: 'high',
@@ -282,8 +259,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Analyze results',
-              description:
-                'Review metrics and create report.',
+              description: 'Review metrics and create report.',
               assigneeRole: 'lead',
               dueOffset: 95,
               priority: 'high',
@@ -291,8 +267,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Event retrospective',
-              description:
-                'Document learnings for future events.',
+              description: 'Document learnings for future events.',
               assigneeRole: 'lead',
               dueOffset: 95,
               priority: 'medium',
@@ -353,8 +328,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Define topic and goals',
-              description:
-                'Determine webinar topic, objectives, and audience.',
+              description: 'Determine webinar topic, objectives, and audience.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -362,8 +336,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Select date and time',
-              description:
-                'Choose optimal date and time for target audience.',
+              description: 'Choose optimal date and time for target audience.',
               assigneeRole: 'lead',
               dueOffset: 2,
               priority: 'high',
@@ -371,8 +344,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Confirm speakers',
-              description:
-                'Secure presenter(s) for the webinar.',
+              description: 'Secure presenter(s) for the webinar.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -380,8 +352,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Set up webinar platform',
-              description:
-                'Create webinar in platform and configure settings.',
+              description: 'Create webinar in platform and configure settings.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -395,8 +366,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Create presentation outline',
-              description:
-                'Develop outline and key talking points.',
+              description: 'Develop outline and key talking points.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -404,8 +374,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Design slides',
-              description:
-                'Create presentation slides.',
+              description: 'Create presentation slides.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -413,8 +382,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Prepare demo/examples',
-              description:
-                'Set up any demos or examples needed.',
+              description: 'Set up any demos or examples needed.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'medium',
@@ -422,8 +390,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Review and finalize content',
-              description:
-                'Final review and approval of materials.',
+              description: 'Final review and approval of materials.',
               assigneeRole: 'lead',
               dueOffset: 17,
               priority: 'high',
@@ -431,8 +398,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Rehearsal',
-              description:
-                'Practice run-through of full webinar.',
+              description: 'Practice run-through of full webinar.',
               assigneeRole: 'member',
               dueOffset: 19,
               priority: 'high',
@@ -446,8 +412,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Create registration page',
-              description:
-                'Set up landing page with registration form.',
+              description: 'Set up landing page with registration form.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -455,8 +420,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Write promotional copy',
-              description:
-                'Create copy for emails and social.',
+              description: 'Create copy for emails and social.',
               assigneeRole: 'member',
               dueOffset: 8,
               priority: 'high',
@@ -464,8 +428,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send email invitations',
-              description:
-                'Email invites to target audience.',
+              description: 'Email invites to target audience.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -473,8 +436,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Social media promotion',
-              description:
-                'Promote on social channels.',
+              description: 'Promote on social channels.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'medium',
@@ -482,8 +444,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send reminder emails',
-              description:
-                'Send reminders to registrants.',
+              description: 'Send reminders to registrants.',
               assigneeRole: 'member',
               dueOffset: 19,
               priority: 'high',
@@ -497,8 +458,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Final tech check',
-              description:
-                'Test audio, video, screen sharing.',
+              description: 'Test audio, video, screen sharing.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -506,8 +466,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Host webinar',
-              description:
-                'Run the live webinar.',
+              description: 'Run the live webinar.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -515,8 +474,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Manage Q&A',
-              description:
-                'Monitor and manage attendee questions.',
+              description: 'Monitor and manage attendee questions.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -530,8 +488,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Send follow-up emails',
-              description:
-                'Thank attendees and share recording.',
+              description: 'Thank attendees and share recording.',
               assigneeRole: 'member',
               dueOffset: 22,
               priority: 'high',
@@ -539,8 +496,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Process recording',
-              description:
-                'Edit and publish webinar recording.',
+              description: 'Edit and publish webinar recording.',
               assigneeRole: 'member',
               dueOffset: 24,
               priority: 'high',
@@ -548,8 +504,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Lead follow-up',
-              description:
-                'Pass qualified leads to sales.',
+              description: 'Pass qualified leads to sales.',
               assigneeRole: 'member',
               dueOffset: 23,
               priority: 'high',
@@ -557,8 +512,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Analyze performance',
-              description:
-                'Review attendance, engagement, and conversions.',
+              description: 'Review attendance, engagement, and conversions.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'medium',
@@ -619,8 +573,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Set meeting date and time',
-              description:
-                'Choose date considering all time zones.',
+              description: 'Choose date considering all time zones.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -628,8 +581,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Define agenda themes',
-              description:
-                'Identify key topics to cover.',
+              description: 'Identify key topics to cover.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -637,8 +589,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Identify presenters',
-              description:
-                'Determine who will present each section.',
+              description: 'Determine who will present each section.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -646,8 +597,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Book venue/platform',
-              description:
-                'Secure meeting space or virtual platform.',
+              description: 'Secure meeting space or virtual platform.',
               assigneeRole: 'member',
               dueOffset: 5,
               priority: 'high',
@@ -661,8 +611,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Gather department updates',
-              description:
-                'Collect updates from each department.',
+              description: 'Collect updates from each department.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -670,8 +619,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Prepare CEO remarks',
-              description:
-                'Draft key messages from leadership.',
+              description: 'Draft key messages from leadership.',
               assigneeRole: 'lead',
               dueOffset: 12,
               priority: 'high',
@@ -679,8 +627,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Create presentation deck',
-              description:
-                'Build unified presentation.',
+              description: 'Build unified presentation.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -688,8 +635,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Plan interactive elements',
-              description:
-                'Design Q&A, polls, or activities.',
+              description: 'Design Q&A, polls, or activities.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'medium',
@@ -697,8 +643,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Review and finalize content',
-              description:
-                'Final review with stakeholders.',
+              description: 'Final review with stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 17,
               priority: 'high',
@@ -712,8 +657,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Send calendar invite',
-              description:
-                'Send meeting invite to all employees.',
+              description: 'Send meeting invite to all employees.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -721,8 +665,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Presenter rehearsal',
-              description:
-                'Practice presentations with all speakers.',
+              description: 'Practice presentations with all speakers.',
               assigneeRole: 'lead',
               dueOffset: 19,
               priority: 'high',
@@ -730,8 +673,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Tech setup and testing',
-              description:
-                'Test A/V equipment and streaming.',
+              description: 'Test A/V equipment and streaming.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -739,8 +681,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send reminder',
-              description:
-                'Remind employees about meeting.',
+              description: 'Remind employees about meeting.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'medium',
@@ -754,8 +695,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Final tech check',
-              description:
-                'Last-minute technical verification.',
+              description: 'Last-minute technical verification.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -763,8 +703,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Run all-hands',
-              description:
-                'Execute the meeting.',
+              description: 'Execute the meeting.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -772,8 +711,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Manage Q&A',
-              description:
-                'Facilitate questions and answers.',
+              description: 'Facilitate questions and answers.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -781,8 +719,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Record meeting',
-              description:
-                'Ensure meeting is recorded.',
+              description: 'Ensure meeting is recorded.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -796,8 +733,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Share recording',
-              description:
-                'Distribute recording to employees.',
+              description: 'Distribute recording to employees.',
               assigneeRole: 'member',
               dueOffset: 22,
               priority: 'high',
@@ -805,8 +741,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send summary',
-              description:
-                'Share meeting highlights and key points.',
+              description: 'Share meeting highlights and key points.',
               assigneeRole: 'member',
               dueOffset: 22,
               priority: 'high',
@@ -814,8 +749,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Collect feedback',
-              description:
-                'Survey employees on meeting effectiveness.',
+              description: 'Survey employees on meeting effectiveness.',
               assigneeRole: 'member',
               dueOffset: 24,
               priority: 'medium',
@@ -876,8 +810,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Define goals',
-              description:
-                'Set objectives: leads, meetings, awareness.',
+              description: 'Set objectives: leads, meetings, awareness.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -885,8 +818,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Set budget',
-              description:
-                'Create comprehensive show budget.',
+              description: 'Create comprehensive show budget.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -894,8 +826,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Book booth space',
-              description:
-                'Reserve booth location and size.',
+              description: 'Reserve booth location and size.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -903,8 +834,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Register team',
-              description:
-                'Register all team members for event.',
+              description: 'Register all team members for event.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -918,8 +848,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Design booth',
-              description:
-                'Create booth design and layout.',
+              description: 'Create booth design and layout.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -927,8 +856,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Order booth materials',
-              description:
-                'Order signage, displays, and furniture.',
+              description: 'Order signage, displays, and furniture.',
               assigneeRole: 'member',
               dueOffset: 45,
               priority: 'high',
@@ -936,8 +864,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Create marketing collateral',
-              description:
-                'Design brochures, flyers, giveaways.',
+              description: 'Design brochures, flyers, giveaways.',
               assigneeRole: 'member',
               dueOffset: 50,
               priority: 'high',
@@ -945,8 +872,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Prepare demo',
-              description:
-                'Set up product demos for booth.',
+              description: 'Set up product demos for booth.',
               assigneeRole: 'member',
               dueOffset: 55,
               priority: 'high',
@@ -960,8 +886,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Book travel',
-              description:
-                'Arrange flights and transportation.',
+              description: 'Arrange flights and transportation.',
               assigneeRole: 'member',
               dueOffset: 50,
               priority: 'high',
@@ -969,8 +894,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Book accommodations',
-              description:
-                'Reserve hotel rooms for team.',
+              description: 'Reserve hotel rooms for team.',
               assigneeRole: 'member',
               dueOffset: 50,
               priority: 'high',
@@ -978,8 +902,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Ship booth materials',
-              description:
-                'Arrange shipping to venue.',
+              description: 'Arrange shipping to venue.',
               assigneeRole: 'member',
               dueOffset: 60,
               priority: 'high',
@@ -987,8 +910,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Schedule meetings',
-              description:
-                'Set up meetings with prospects/customers.',
+              description: 'Set up meetings with prospects/customers.',
               assigneeRole: 'member',
               dueOffset: 55,
               priority: 'high',
@@ -1002,8 +924,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Booth setup',
-              description:
-                'Set up and check booth.',
+              description: 'Set up and check booth.',
               assigneeRole: 'member',
               dueOffset: 70,
               priority: 'high',
@@ -1011,8 +932,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Staff booth',
-              description:
-                'Work the booth and engage visitors.',
+              description: 'Work the booth and engage visitors.',
               assigneeRole: 'member',
               dueOffset: 71,
               priority: 'high',
@@ -1020,8 +940,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Capture leads',
-              description:
-                'Scan badges and collect lead info.',
+              description: 'Scan badges and collect lead info.',
               assigneeRole: 'member',
               dueOffset: 71,
               priority: 'high',
@@ -1029,8 +948,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Attend sessions',
-              description:
-                'Attend relevant conference sessions.',
+              description: 'Attend relevant conference sessions.',
               assigneeRole: 'member',
               dueOffset: 71,
               priority: 'medium',
@@ -1038,8 +956,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Booth breakdown',
-              description:
-                'Pack up and ship materials back.',
+              description: 'Pack up and ship materials back.',
               assigneeRole: 'member',
               dueOffset: 74,
               priority: 'high',
@@ -1053,8 +970,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Process leads',
-              description:
-                'Input and qualify collected leads.',
+              description: 'Input and qualify collected leads.',
               assigneeRole: 'member',
               dueOffset: 76,
               priority: 'high',
@@ -1062,8 +978,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send follow-up emails',
-              description:
-                'Email all leads within 48 hours.',
+              description: 'Email all leads within 48 hours.',
               assigneeRole: 'member',
               dueOffset: 76,
               priority: 'high',
@@ -1071,8 +986,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Calculate ROI',
-              description:
-                'Analyze show performance and ROI.',
+              description: 'Analyze show performance and ROI.',
               assigneeRole: 'lead',
               dueOffset: 90,
               priority: 'medium',
@@ -1080,8 +994,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Debrief',
-              description:
-                'Document learnings for next time.',
+              description: 'Document learnings for next time.',
               assigneeRole: 'lead',
               dueOffset: 85,
               priority: 'medium',
@@ -1143,8 +1056,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Define learning objectives',
-              description:
-                'Set clear outcomes participants will achieve.',
+              description: 'Set clear outcomes participants will achieve.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -1152,8 +1064,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Design agenda',
-              description:
-                'Create detailed agenda with timing.',
+              description: 'Create detailed agenda with timing.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -1161,8 +1072,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Plan activities',
-              description:
-                'Design interactive exercises and activities.',
+              description: 'Design interactive exercises and activities.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -1170,8 +1080,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Identify facilitators',
-              description:
-                'Assign facilitators for each section.',
+              description: 'Assign facilitators for each section.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -1185,8 +1094,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Book venue/platform',
-              description:
-                'Secure workshop space or virtual setup.',
+              description: 'Secure workshop space or virtual setup.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -1194,8 +1102,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Invite participants',
-              description:
-                'Send invitations and gather RSVPs.',
+              description: 'Send invitations and gather RSVPs.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -1203,8 +1110,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Send pre-work',
-              description:
-                'Distribute any pre-workshop assignments.',
+              description: 'Distribute any pre-workshop assignments.',
               assigneeRole: 'member',
               dueOffset: 17,
               priority: 'medium',
@@ -1212,8 +1118,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Facilitator prep session',
-              description:
-                'Brief and align all facilitators.',
+              description: 'Brief and align all facilitators.',
               assigneeRole: 'lead',
               dueOffset: 19,
               priority: 'high',
@@ -1227,8 +1132,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Create presentation',
-              description:
-                'Build presentation and visual aids.',
+              description: 'Build presentation and visual aids.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -1236,8 +1140,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Prepare worksheets',
-              description:
-                'Create activity worksheets and templates.',
+              description: 'Create activity worksheets and templates.',
               assigneeRole: 'member',
               dueOffset: 16,
               priority: 'high',
@@ -1245,8 +1148,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Gather supplies',
-              description:
-                'Collect markers, sticky notes, supplies.',
+              description: 'Collect markers, sticky notes, supplies.',
               assigneeRole: 'member',
               dueOffset: 19,
               priority: 'medium',
@@ -1254,8 +1156,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Print materials',
-              description:
-                'Print handouts and workbooks.',
+              description: 'Print handouts and workbooks.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'medium',
@@ -1269,8 +1170,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Setup room/platform',
-              description:
-                'Arrange space and test technology.',
+              description: 'Arrange space and test technology.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -1278,8 +1178,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Facilitate workshop',
-              description:
-                'Run workshop sessions.',
+              description: 'Run workshop sessions.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -1287,8 +1186,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Capture outputs',
-              description:
-                'Document ideas, decisions, and outputs.',
+              description: 'Document ideas, decisions, and outputs.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -1302,8 +1200,7 @@ export const EVENTS_TEMPLATES = [
           tasks: [
             {
               title: 'Send summary',
-              description:
-                'Share workshop outputs and next steps.',
+              description: 'Share workshop outputs and next steps.',
               assigneeRole: 'lead',
               dueOffset: 23,
               priority: 'high',
@@ -1311,8 +1208,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Collect feedback',
-              description:
-                'Survey participants on workshop.',
+              description: 'Survey participants on workshop.',
               assigneeRole: 'member',
               dueOffset: 23,
               priority: 'medium',
@@ -1320,8 +1216,7 @@ export const EVENTS_TEMPLATES = [
             },
             {
               title: 'Track action items',
-              description:
-                'Follow up on workshop action items.',
+              description: 'Follow up on workshop action items.',
               assigneeRole: 'lead',
               dueOffset: 30,
               priority: 'high',
@@ -1588,8 +1483,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Trade Show Booth',
     slug: 'trade-show-booth',
-    description:
-      'Design and manage your trade show booth presence for maximum impact.',
+    description: 'Design and manage your trade show booth presence for maximum impact.',
     category: 'events',
     icon: 'Tent',
     color: '#F97316',
@@ -1764,8 +1658,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Product Launch Event',
     slug: 'product-launch-event',
-    description:
-      'Plan memorable product launch events that generate buzz and media coverage.',
+    description: 'Plan memorable product launch events that generate buzz and media coverage.',
     category: 'events',
     icon: 'Rocket',
     color: '#EF4444',
@@ -1977,8 +1870,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Press Conference',
     slug: 'press-conference',
-    description:
-      'Organize professional press conferences for major announcements.',
+    description: 'Organize professional press conferences for major announcements.',
     category: 'events',
     icon: 'Mic',
     color: '#64748B',
@@ -2152,8 +2044,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Webinar Series',
     slug: 'webinar-series',
-    description:
-      'Plan and manage a series of related webinars over multiple weeks or months.',
+    description: 'Plan and manage a series of related webinars over multiple weeks or months.',
     category: 'events',
     icon: 'Calendar',
     color: '#7C3AED',
@@ -2327,8 +2218,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Virtual Summit',
     slug: 'virtual-summit',
-    description:
-      'Organize large-scale virtual summits with multiple speakers and tracks.',
+    description: 'Organize large-scale virtual summits with multiple speakers and tracks.',
     category: 'events',
     icon: 'Globe',
     color: '#0EA5E9',
@@ -2531,8 +2421,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Hybrid Event',
     slug: 'hybrid-event',
-    description:
-      'Plan events with both in-person and virtual attendees seamlessly.',
+    description: 'Plan events with both in-person and virtual attendees seamlessly.',
     category: 'events',
     icon: 'Layers',
     color: '#14B8A6',
@@ -2735,8 +2624,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Training Session',
     slug: 'training-session',
-    description:
-      'Plan and deliver effective training sessions for skill development.',
+    description: 'Plan and deliver effective training sessions for skill development.',
     category: 'events',
     icon: 'GraduationCap',
     color: '#8B5CF6',
@@ -2910,8 +2798,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Team Building Event',
     slug: 'team-building-event',
-    description:
-      'Organize engaging team building activities to strengthen collaboration.',
+    description: 'Organize engaging team building activities to strengthen collaboration.',
     category: 'events',
     icon: 'Users',
     color: '#F59E0B',
@@ -3092,8 +2979,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Company Retreat',
     slug: 'company-retreat',
-    description:
-      'Plan memorable company retreats that inspire and align your team.',
+    description: 'Plan memorable company retreats that inspire and align your team.',
     category: 'events',
     icon: 'Mountain',
     color: '#059669',
@@ -3297,8 +3183,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Annual Meeting',
     slug: 'annual-meeting',
-    description:
-      'Organize annual shareholder or stakeholder meetings with proper governance.',
+    description: 'Organize annual shareholder or stakeholder meetings with proper governance.',
     category: 'events',
     icon: 'Landmark',
     color: '#1E3A8A',
@@ -3465,8 +3350,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Quarterly All-Hands',
     slug: 'quarterly-all-hands',
-    description:
-      'Run effective quarterly all-hands meetings to align and update the team.',
+    description: 'Run effective quarterly all-hands meetings to align and update the team.',
     category: 'events',
     icon: 'BarChart',
     color: '#0D9488',
@@ -3626,8 +3510,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Town Hall Meeting',
     slug: 'town-hall-meeting',
-    description:
-      'Organize open town hall meetings for transparent company communication.',
+    description: 'Organize open town hall meetings for transparent company communication.',
     category: 'events',
     icon: 'MessageSquare',
     color: '#6366F1',
@@ -3786,8 +3669,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Award Ceremony',
     slug: 'award-ceremony',
-    description:
-      'Plan memorable award ceremonies to recognize achievements and excellence.',
+    description: 'Plan memorable award ceremonies to recognize achievements and excellence.',
     category: 'events',
     icon: 'Award',
     color: '#EAB308',
@@ -3962,8 +3844,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Gala Dinner',
     slug: 'gala-dinner',
-    description:
-      'Organize elegant gala dinners for fundraising or celebration.',
+    description: 'Organize elegant gala dinners for fundraising or celebration.',
     category: 'events',
     icon: 'Wine',
     color: '#7C3AED',
@@ -4175,8 +4056,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Fundraising Event',
     slug: 'fundraising-event',
-    description:
-      'Plan and execute successful fundraising events for your cause.',
+    description: 'Plan and execute successful fundraising events for your cause.',
     category: 'events',
     icon: 'Heart',
     color: '#EC4899',
@@ -4357,8 +4237,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Charity Auction',
     slug: 'charity-auction',
-    description:
-      'Organize successful charity auctions to raise funds for your cause.',
+    description: 'Organize successful charity auctions to raise funds for your cause.',
     category: 'events',
     icon: 'Gavel',
     color: '#A855F7',
@@ -4540,8 +4419,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Golf Tournament',
     slug: 'golf-tournament',
-    description:
-      'Plan charity or corporate golf tournaments with all the details covered.',
+    description: 'Plan charity or corporate golf tournaments with all the details covered.',
     category: 'events',
     icon: 'Flag',
     color: '#22C55E',
@@ -4723,8 +4601,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Sports Event',
     slug: 'sports-event',
-    description:
-      'Organize sporting events, tournaments, and athletic competitions.',
+    description: 'Organize sporting events, tournaments, and athletic competitions.',
     category: 'events',
     icon: 'Trophy',
     color: '#F97316',
@@ -4897,8 +4774,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Marathon Run Event',
     slug: 'marathon-run-event',
-    description:
-      'Organize marathons, 5Ks, and running events from course to finish line.',
+    description: 'Organize marathons, 5Ks, and running events from course to finish line.',
     category: 'events',
     icon: 'Footprints',
     color: '#06B6D4',
@@ -5080,8 +4956,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Festival Planning',
     slug: 'festival-planning',
-    description:
-      'Plan and execute community festivals and large public events.',
+    description: 'Plan and execute community festivals and large public events.',
     category: 'events',
     icon: 'Sparkles',
     color: '#F472B6',
@@ -5270,8 +5145,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Music Concert',
     slug: 'music-concert',
-    description:
-      'Produce live music concerts and performances of any scale.',
+    description: 'Produce live music concerts and performances of any scale.',
     category: 'events',
     icon: 'Music',
     color: '#8B5CF6',
@@ -5460,8 +5334,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Art Exhibition',
     slug: 'art-exhibition',
-    description:
-      'Curate and organize art exhibitions and gallery shows.',
+    description: 'Curate and organize art exhibitions and gallery shows.',
     category: 'events',
     icon: 'Palette',
     color: '#F43F5E',
@@ -5628,8 +5501,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Film Screening',
     slug: 'film-screening',
-    description:
-      'Organize film screenings, premieres, and movie events.',
+    description: 'Organize film screenings, premieres, and movie events.',
     category: 'events',
     icon: 'Film',
     color: '#1E293B',
@@ -5787,8 +5659,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Book Launch',
     slug: 'book-launch',
-    description:
-      'Plan and execute successful book launch events for authors.',
+    description: 'Plan and execute successful book launch events for authors.',
     category: 'events',
     icon: 'BookOpen',
     color: '#854D0E',
@@ -5954,8 +5825,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Speaking Engagement',
     slug: 'speaking-engagement',
-    description:
-      'Prepare and deliver impactful speaking engagements and keynotes.',
+    description: 'Prepare and deliver impactful speaking engagements and keynotes.',
     category: 'events',
     icon: 'Mic2',
     color: '#0891B2',
@@ -6113,8 +5983,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Panel Discussion',
     slug: 'panel-discussion',
-    description:
-      'Organize and moderate engaging panel discussions.',
+    description: 'Organize and moderate engaging panel discussions.',
     category: 'events',
     icon: 'MessagesSquare',
     color: '#4F46E5',
@@ -6280,8 +6149,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Networking Event',
     slug: 'networking-event',
-    description:
-      'Create valuable networking opportunities for professionals.',
+    description: 'Create valuable networking opportunities for professionals.',
     category: 'events',
     icon: 'Network',
     color: '#0D9488',
@@ -6447,8 +6315,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Meetup Organization',
     slug: 'meetup-organization',
-    description:
-      'Plan and run community meetups and user group gatherings.',
+    description: 'Plan and run community meetups and user group gatherings.',
     category: 'events',
     icon: 'UserPlus',
     color: '#F43F5E',
@@ -6606,8 +6473,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Community Event',
     slug: 'community-event',
-    description:
-      'Organize events that bring your community together.',
+    description: 'Organize events that bring your community together.',
     category: 'events',
     icon: 'Home',
     color: '#84CC16',
@@ -6765,8 +6631,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Open House',
     slug: 'open-house',
-    description:
-      'Plan open house events to showcase your space or organization.',
+    description: 'Plan open house events to showcase your space or organization.',
     category: 'events',
     icon: 'DoorOpen',
     color: '#2563EB',
@@ -6932,8 +6797,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Grand Opening',
     slug: 'grand-opening',
-    description:
-      'Plan exciting grand opening events for new businesses or locations.',
+    description: 'Plan exciting grand opening events for new businesses or locations.',
     category: 'events',
     icon: 'Scissors',
     color: '#DC2626',
@@ -7099,8 +6963,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Anniversary Celebration',
     slug: 'anniversary-celebration',
-    description:
-      'Celebrate company or organization milestones and anniversaries.',
+    description: 'Celebrate company or organization milestones and anniversaries.',
     category: 'events',
     icon: 'Cake',
     color: '#D946EF',
@@ -7272,8 +7135,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Holiday Party',
     slug: 'holiday-party',
-    description:
-      'Plan festive holiday parties for your team or organization.',
+    description: 'Plan festive holiday parties for your team or organization.',
     category: 'events',
     icon: 'PartyPopper',
     color: '#16A34A',
@@ -7431,8 +7293,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Summer Party',
     slug: 'summer-party',
-    description:
-      'Plan fun summer events and outdoor gatherings.',
+    description: 'Plan fun summer events and outdoor gatherings.',
     category: 'events',
     icon: 'Sun',
     color: '#FBBF24',
@@ -7590,8 +7451,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Year-End Party',
     slug: 'year-end-party',
-    description:
-      'Celebrate the end of the year with your team and reflect on achievements.',
+    description: 'Celebrate the end of the year with your team and reflect on achievements.',
     category: 'events',
     icon: 'Sparkles',
     color: '#4338CA',
@@ -7749,8 +7609,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Birthday Celebration',
     slug: 'birthday-celebration',
-    description:
-      'Plan memorable birthday celebrations for team members or clients.',
+    description: 'Plan memorable birthday celebrations for team members or clients.',
     category: 'events',
     icon: 'Cake',
     color: '#F472B6',
@@ -7885,8 +7744,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Wedding Planning',
     slug: 'wedding-planning',
-    description:
-      'Comprehensive wedding planning template for the perfect day.',
+    description: 'Comprehensive wedding planning template for the perfect day.',
     category: 'events',
     icon: 'Heart',
     color: '#EC4899',
@@ -8067,8 +7925,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Graduation Ceremony',
     slug: 'graduation-ceremony',
-    description:
-      'Plan memorable graduation ceremonies and celebrations.',
+    description: 'Plan memorable graduation ceremonies and celebrations.',
     category: 'events',
     icon: 'GraduationCap',
     color: '#1D4ED8',
@@ -8226,8 +8083,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Retirement Party',
     slug: 'retirement-party',
-    description:
-      'Celebrate team members retiring with memorable send-off events.',
+    description: 'Celebrate team members retiring with memorable send-off events.',
     category: 'events',
     icon: 'Gift',
     color: '#7C3AED',
@@ -8362,8 +8218,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Baby Shower',
     slug: 'baby-shower',
-    description:
-      'Plan delightful baby showers for expecting parents.',
+    description: 'Plan delightful baby showers for expecting parents.',
     category: 'events',
     icon: 'Baby',
     color: '#F9A8D4',
@@ -8498,8 +8353,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Bridal Shower',
     slug: 'bridal-shower',
-    description:
-      'Plan beautiful bridal showers for brides-to-be.',
+    description: 'Plan beautiful bridal showers for brides-to-be.',
     category: 'events',
     icon: 'Flower2',
     color: '#FB7185',
@@ -8634,8 +8488,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Bachelor Bachelorette Party',
     slug: 'bachelor-bachelorette-party',
-    description:
-      'Plan exciting bachelor or bachelorette celebrations.',
+    description: 'Plan exciting bachelor or bachelorette celebrations.',
     category: 'events',
     icon: 'PartyPopper',
     color: '#A855F7',
@@ -8770,8 +8623,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Family Reunion',
     slug: 'family-reunion',
-    description:
-      'Organize memorable family reunions and gatherings.',
+    description: 'Organize memorable family reunions and gatherings.',
     category: 'events',
     icon: 'Users',
     color: '#059669',
@@ -8929,8 +8781,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Class Reunion',
     slug: 'class-reunion',
-    description:
-      'Plan class reunions for school or university alumni.',
+    description: 'Plan class reunions for school or university alumni.',
     category: 'events',
     icon: 'School',
     color: '#2563EB',
@@ -9094,8 +8945,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Alumni Event',
     slug: 'alumni-event',
-    description:
-      'Organize events for school or organization alumni networks.',
+    description: 'Organize events for school or organization alumni networks.',
     category: 'events',
     icon: 'Building2',
     color: '#1E40AF',
@@ -9253,8 +9103,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Student Orientation',
     slug: 'student-orientation',
-    description:
-      'Plan comprehensive orientation programs for new students.',
+    description: 'Plan comprehensive orientation programs for new students.',
     category: 'events',
     icon: 'GraduationCap',
     color: '#7C3AED',
@@ -9413,8 +9262,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Career Fair',
     slug: 'career-fair',
-    description:
-      'Organize career fairs connecting job seekers with employers.',
+    description: 'Organize career fairs connecting job seekers with employers.',
     category: 'events',
     icon: 'Briefcase',
     color: '#0891B2',
@@ -9572,8 +9420,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Job Fair',
     slug: 'job-fair',
-    description:
-      'Plan job fairs focused on specific industries or opportunities.',
+    description: 'Plan job fairs focused on specific industries or opportunities.',
     category: 'events',
     icon: 'Users',
     color: '#0D9488',
@@ -9731,8 +9578,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Hackathon Event',
     slug: 'hackathon-event',
-    description:
-      'Organize hackathons for innovation and collaboration.',
+    description: 'Organize hackathons for innovation and collaboration.',
     category: 'events',
     icon: 'Code',
     color: '#4F46E5',
@@ -9906,8 +9752,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Demo Day',
     slug: 'demo-day',
-    description:
-      'Organize demo days for startups to present to investors.',
+    description: 'Organize demo days for startups to present to investors.',
     category: 'events',
     icon: 'Presentation',
     color: '#F59E0B',
@@ -10065,8 +9910,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Pitch Competition',
     slug: 'pitch-competition',
-    description:
-      'Organize startup pitch competitions with judging and prizes.',
+    description: 'Organize startup pitch competitions with judging and prizes.',
     category: 'events',
     icon: 'Trophy',
     color: '#EF4444',
@@ -10230,8 +10074,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Investor Day',
     slug: 'investor-day',
-    description:
-      'Organize investor days for shareholder and analyst engagement.',
+    description: 'Organize investor days for shareholder and analyst engagement.',
     category: 'events',
     icon: 'TrendingUp',
     color: '#0D9488',
@@ -10389,8 +10232,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'Customer Advisory Board',
     slug: 'customer-advisory-board',
-    description:
-      'Plan customer advisory board meetings for strategic feedback.',
+    description: 'Plan customer advisory board meetings for strategic feedback.',
     category: 'events',
     icon: 'Users',
     color: '#6366F1',
@@ -10525,8 +10367,7 @@ export const EVENTS_TEMPLATES = [
   {
     name: 'User Conference',
     slug: 'user-conference',
-    description:
-      'Plan annual user conferences for customers and partners.',
+    description: 'Plan annual user conferences for customers and partners.',
     category: 'events',
     icon: 'Users',
     color: '#3B82F6',

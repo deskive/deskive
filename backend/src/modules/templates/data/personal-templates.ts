@@ -46,8 +46,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Define your main goal',
-              description:
-                'Write a clear, specific goal statement using SMART criteria.',
+              description: 'Write a clear, specific goal statement using SMART criteria.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -62,8 +61,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Identify your why',
-              description:
-                'Write down why this goal matters to you.',
+              description: 'Write down why this goal matters to you.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -71,8 +69,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Identify potential obstacles',
-              description:
-                'List challenges you might face and how to overcome them.',
+              description: 'List challenges you might face and how to overcome them.',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'medium',
@@ -80,8 +77,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Define success metrics',
-              description:
-                'How will you know when you have achieved the goal?',
+              description: 'How will you know when you have achieved the goal?',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'high',
@@ -95,8 +91,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Break goal into milestones',
-              description:
-                'Divide your goal into 3-5 major milestones.',
+              description: 'Divide your goal into 3-5 major milestones.',
               assigneeRole: 'owner',
               dueOffset: 2,
               priority: 'high',
@@ -104,8 +99,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Create action items for first milestone',
-              description:
-                'List specific tasks to reach first milestone.',
+              description: 'List specific tasks to reach first milestone.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -113,8 +107,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Schedule regular check-ins',
-              description:
-                'Set up weekly or bi-weekly review times.',
+              description: 'Set up weekly or bi-weekly review times.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'medium',
@@ -122,8 +115,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Identify resources needed',
-              description:
-                'List tools, support, or resources you need.',
+              description: 'List tools, support, or resources you need.',
               assigneeRole: 'owner',
               dueOffset: 4,
               priority: 'medium',
@@ -137,8 +129,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Complete Milestone 1 tasks',
-              description:
-                'Work through action items for first milestone.',
+              description: 'Work through action items for first milestone.',
               assigneeRole: 'owner',
               dueOffset: 30,
               priority: 'high',
@@ -146,8 +137,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Milestone 1 review',
-              description:
-                'Assess progress and adjust if needed.',
+              description: 'Assess progress and adjust if needed.',
               assigneeRole: 'owner',
               dueOffset: 32,
               priority: 'high',
@@ -161,8 +151,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Complete Milestone 2 tasks',
-              description:
-                'Work through action items for second milestone.',
+              description: 'Work through action items for second milestone.',
               assigneeRole: 'owner',
               dueOffset: 60,
               priority: 'high',
@@ -170,8 +159,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Milestone 2 review',
-              description:
-                'Assess progress and adjust if needed.',
+              description: 'Assess progress and adjust if needed.',
               assigneeRole: 'owner',
               dueOffset: 62,
               priority: 'high',
@@ -185,8 +173,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Final milestone tasks',
-              description:
-                'Complete remaining actions to achieve goal.',
+              description: 'Complete remaining actions to achieve goal.',
               assigneeRole: 'owner',
               dueOffset: 85,
               priority: 'high',
@@ -194,8 +181,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Final review',
-              description:
-                'Reflect on journey and achievements.',
+              description: 'Reflect on journey and achievements.',
               assigneeRole: 'owner',
               dueOffset: 90,
               priority: 'high',
@@ -262,8 +248,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Define learning goal',
-              description:
-                'What specifically do you want to learn and why?',
+              description: 'What specifically do you want to learn and why?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -271,8 +256,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Research learning resources',
-              description:
-                'Find courses, books, tutorials, and mentors.',
+              description: 'Find courses, books, tutorials, and mentors.',
               assigneeRole: 'owner',
               dueOffset: 2,
               priority: 'high',
@@ -280,8 +264,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Create learning schedule',
-              description:
-                'Block time in calendar for learning.',
+              description: 'Block time in calendar for learning.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -289,8 +272,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Setup learning environment',
-              description:
-                'Prepare tools, accounts, and workspace.',
+              description: 'Prepare tools, accounts, and workspace.',
               assigneeRole: 'owner',
               dueOffset: 4,
               priority: 'medium',
@@ -304,8 +286,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Complete intro materials',
-              description:
-                'Go through introductory content.',
+              description: 'Go through introductory content.',
               assigneeRole: 'owner',
               dueOffset: 14,
               priority: 'high',
@@ -313,8 +294,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Take notes on key concepts',
-              description:
-                'Document important concepts and insights.',
+              description: 'Document important concepts and insights.',
               assigneeRole: 'owner',
               dueOffset: 14,
               priority: 'medium',
@@ -322,8 +302,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Complete first practice exercise',
-              description:
-                'Apply basic concepts in practice.',
+              description: 'Apply basic concepts in practice.',
               assigneeRole: 'owner',
               dueOffset: 18,
               priority: 'high',
@@ -337,8 +316,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Complete main course/book',
-              description:
-                'Work through primary learning material.',
+              description: 'Work through primary learning material.',
               assigneeRole: 'owner',
               dueOffset: 45,
               priority: 'high',
@@ -346,8 +324,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Build practice project',
-              description:
-                'Create something to apply your learning.',
+              description: 'Create something to apply your learning.',
               assigneeRole: 'owner',
               dueOffset: 55,
               priority: 'high',
@@ -355,8 +332,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Review and fill gaps',
-              description:
-                'Identify and address weak areas.',
+              description: 'Identify and address weak areas.',
               assigneeRole: 'owner',
               dueOffset: 60,
               priority: 'medium',
@@ -370,8 +346,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Real-world application',
-              description:
-                'Use skills in real context.',
+              description: 'Use skills in real context.',
               assigneeRole: 'owner',
               dueOffset: 75,
               priority: 'high',
@@ -379,8 +354,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Teach someone else',
-              description:
-                'Solidify learning by teaching.',
+              description: 'Solidify learning by teaching.',
               assigneeRole: 'owner',
               dueOffset: 80,
               priority: 'medium',
@@ -388,8 +362,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Final assessment',
-              description:
-                'Test your knowledge and skills.',
+              description: 'Test your knowledge and skills.',
               assigneeRole: 'owner',
               dueOffset: 85,
               priority: 'high',
@@ -397,8 +370,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Plan continued learning',
-              description:
-                'Identify next steps in learning journey.',
+              description: 'Identify next steps in learning journey.',
               assigneeRole: 'owner',
               dueOffset: 90,
               priority: 'medium',
@@ -460,8 +432,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Choose one habit to build',
-              description:
-                'Select a single habit to focus on.',
+              description: 'Select a single habit to focus on.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -469,8 +440,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Define habit clearly',
-              description:
-                'Specify exactly what, when, and where.',
+              description: 'Specify exactly what, when, and where.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -478,8 +448,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Set up habit stack',
-              description:
-                'Attach new habit to existing routine.',
+              description: 'Attach new habit to existing routine.',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'high',
@@ -487,8 +456,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Design your environment',
-              description:
-                'Set up cues and remove friction.',
+              description: 'Set up cues and remove friction.',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'medium',
@@ -496,8 +464,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Choose reward',
-              description:
-                'Pick an immediate reward for completing habit.',
+              description: 'Pick an immediate reward for completing habit.',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'medium',
@@ -511,8 +478,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Start with 2-minute version',
-              description:
-                'Do smallest possible version of habit.',
+              description: 'Do smallest possible version of habit.',
               assigneeRole: 'owner',
               dueOffset: 7,
               priority: 'high',
@@ -520,8 +486,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Track daily completion',
-              description:
-                'Record whether you did habit each day.',
+              description: 'Record whether you did habit each day.',
               assigneeRole: 'owner',
               dueOffset: 7,
               priority: 'high',
@@ -529,8 +494,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Week 1 review',
-              description:
-                'Reflect on first week and adjust.',
+              description: 'Reflect on first week and adjust.',
               assigneeRole: 'owner',
               dueOffset: 8,
               priority: 'high',
@@ -544,8 +508,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Maintain streak',
-              description:
-                'Focus on not breaking the chain.',
+              description: 'Focus on not breaking the chain.',
               assigneeRole: 'owner',
               dueOffset: 28,
               priority: 'high',
@@ -553,8 +516,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Gradually increase',
-              description:
-                'Slowly expand habit duration/intensity.',
+              description: 'Slowly expand habit duration/intensity.',
               assigneeRole: 'owner',
               dueOffset: 21,
               priority: 'medium',
@@ -562,8 +524,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Handle missed days',
-              description:
-                'If you miss, get back immediately.',
+              description: 'If you miss, get back immediately.',
               assigneeRole: 'owner',
               dueOffset: 28,
               priority: 'high',
@@ -571,8 +532,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Month 1 review',
-              description:
-                'Assess progress after first month.',
+              description: 'Assess progress after first month.',
               assigneeRole: 'owner',
               dueOffset: 30,
               priority: 'high',
@@ -586,8 +546,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Continue daily practice',
-              description:
-                'Keep up consistency through month 2.',
+              description: 'Keep up consistency through month 2.',
               assigneeRole: 'owner',
               dueOffset: 60,
               priority: 'high',
@@ -595,8 +554,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Add variety if needed',
-              description:
-                'Introduce variations to maintain interest.',
+              description: 'Introduce variations to maintain interest.',
               assigneeRole: 'owner',
               dueOffset: 50,
               priority: 'low',
@@ -604,8 +562,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: '66-day check-in',
-              description:
-                'Assess automaticity at habit formation milestone.',
+              description: 'Assess automaticity at habit formation milestone.',
               assigneeRole: 'owner',
               dueOffset: 66,
               priority: 'high',
@@ -613,8 +570,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Plan next habit',
-              description:
-                'Once established, consider adding new habit.',
+              description: 'Once established, consider adding new habit.',
               assigneeRole: 'owner',
               dueOffset: 70,
               priority: 'medium',
@@ -675,8 +631,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Review last week accomplishments',
-              description:
-                'What did you achieve last week?',
+              description: 'What did you achieve last week?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -684,8 +639,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Review what didnt get done',
-              description:
-                'What got missed and why?',
+              description: 'What got missed and why?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'medium',
@@ -693,8 +647,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Capture lessons learned',
-              description:
-                'What would you do differently?',
+              description: 'What would you do differently?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'medium',
@@ -708,8 +661,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Define top 3 priorities',
-              description:
-                'What are the 3 most important outcomes this week?',
+              description: 'What are the 3 most important outcomes this week?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -717,8 +669,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Identify must-do tasks',
-              description:
-                'List tasks that absolutely must happen.',
+              description: 'List tasks that absolutely must happen.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -726,8 +677,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Review calendar',
-              description:
-                'Check meetings and commitments.',
+              description: 'Check meetings and commitments.',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -741,8 +691,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Monday tasks',
-              description:
-                'Plan Monday priorities.',
+              description: 'Plan Monday priorities.',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'high',
@@ -750,8 +699,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Tuesday tasks',
-              description:
-                'Plan Tuesday priorities.',
+              description: 'Plan Tuesday priorities.',
               assigneeRole: 'owner',
               dueOffset: 2,
               priority: 'high',
@@ -759,8 +707,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Wednesday tasks',
-              description:
-                'Plan Wednesday priorities.',
+              description: 'Plan Wednesday priorities.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -768,8 +715,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Thursday tasks',
-              description:
-                'Plan Thursday priorities.',
+              description: 'Plan Thursday priorities.',
               assigneeRole: 'owner',
               dueOffset: 4,
               priority: 'high',
@@ -777,8 +723,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Friday tasks',
-              description:
-                'Plan Friday priorities.',
+              description: 'Plan Friday priorities.',
               assigneeRole: 'owner',
               dueOffset: 5,
               priority: 'high',
@@ -792,8 +737,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Friday wrap-up',
-              description:
-                'Review week and tie up loose ends.',
+              description: 'Review week and tie up loose ends.',
               assigneeRole: 'owner',
               dueOffset: 5,
               priority: 'high',
@@ -801,8 +745,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Celebrate wins',
-              description:
-                'Acknowledge what you accomplished.',
+              description: 'Acknowledge what you accomplished.',
               assigneeRole: 'owner',
               dueOffset: 5,
               priority: 'medium',
@@ -864,8 +807,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Define project vision',
-              description:
-                'What is this project and what problem does it solve?',
+              description: 'What is this project and what problem does it solve?',
               assigneeRole: 'owner',
               dueOffset: 0,
               priority: 'high',
@@ -873,8 +815,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Identify target audience',
-              description:
-                'Who is this for?',
+              description: 'Who is this for?',
               assigneeRole: 'owner',
               dueOffset: 1,
               priority: 'high',
@@ -882,8 +823,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Define MVP scope',
-              description:
-                'What is the minimum viable version?',
+              description: 'What is the minimum viable version?',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -891,8 +831,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Research similar projects',
-              description:
-                'What already exists? How will yours be different?',
+              description: 'What already exists? How will yours be different?',
               assigneeRole: 'owner',
               dueOffset: 5,
               priority: 'medium',
@@ -906,8 +845,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Create project plan',
-              description:
-                'Break down into phases and milestones.',
+              description: 'Break down into phases and milestones.',
               assigneeRole: 'owner',
               dueOffset: 7,
               priority: 'high',
@@ -915,8 +853,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Set up project tools',
-              description:
-                'Create repos, domains, or other infrastructure.',
+              description: 'Create repos, domains, or other infrastructure.',
               assigneeRole: 'owner',
               dueOffset: 10,
               priority: 'high',
@@ -924,8 +861,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Schedule work time',
-              description:
-                'Block time in calendar for project work.',
+              description: 'Block time in calendar for project work.',
               assigneeRole: 'owner',
               dueOffset: 10,
               priority: 'high',
@@ -939,8 +875,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Build core functionality',
-              description:
-                'Create the main features.',
+              description: 'Create the main features.',
               assigneeRole: 'owner',
               dueOffset: 45,
               priority: 'high',
@@ -948,8 +883,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Get early feedback',
-              description:
-                'Show to friends or target users.',
+              description: 'Show to friends or target users.',
               assigneeRole: 'owner',
               dueOffset: 50,
               priority: 'high',
@@ -957,8 +891,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Iterate based on feedback',
-              description:
-                'Improve based on user input.',
+              description: 'Improve based on user input.',
               assigneeRole: 'owner',
               dueOffset: 60,
               priority: 'high',
@@ -972,8 +905,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Polish and bug fixes',
-              description:
-                'Clean up rough edges.',
+              description: 'Clean up rough edges.',
               assigneeRole: 'owner',
               dueOffset: 75,
               priority: 'high',
@@ -981,8 +913,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Create launch content',
-              description:
-                'Write description, screenshots, etc.',
+              description: 'Write description, screenshots, etc.',
               assigneeRole: 'owner',
               dueOffset: 80,
               priority: 'high',
@@ -990,8 +921,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Plan launch strategy',
-              description:
-                'Where and how will you share it?',
+              description: 'Where and how will you share it?',
               assigneeRole: 'owner',
               dueOffset: 82,
               priority: 'high',
@@ -999,8 +929,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Launch!',
-              description:
-                'Ship it and share with the world.',
+              description: 'Ship it and share with the world.',
               assigneeRole: 'owner',
               dueOffset: 85,
               priority: 'high',
@@ -1014,8 +943,7 @@ export const PERSONAL_TEMPLATES = [
           tasks: [
             {
               title: 'Monitor and respond',
-              description:
-                'Watch for feedback and issues.',
+              description: 'Watch for feedback and issues.',
               assigneeRole: 'owner',
               dueOffset: 90,
               priority: 'high',
@@ -1023,8 +951,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Celebrate launch',
-              description:
-                'Acknowledge your accomplishment!',
+              description: 'Acknowledge your accomplishment!',
               assigneeRole: 'owner',
               dueOffset: 90,
               priority: 'medium',
@@ -1032,8 +959,7 @@ export const PERSONAL_TEMPLATES = [
             },
             {
               title: 'Plan next iteration',
-              description:
-                'What will you add next?',
+              description: 'What will you add next?',
               assigneeRole: 'owner',
               dueOffset: 95,
               priority: 'medium',
@@ -1248,8 +1174,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Daily Routine',
     slug: 'daily-routine',
-    description:
-      'Design and optimize your daily routine for maximum productivity and well-being.',
+    description: 'Design and optimize your daily routine for maximum productivity and well-being.',
     category: 'personal',
     icon: 'Clock',
     color: '#3B82F6',
@@ -1416,8 +1341,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Morning Routine',
     slug: 'morning-routine',
-    description:
-      'Create a powerful morning routine to start each day with energy and intention.',
+    description: 'Create a powerful morning routine to start each day with energy and intention.',
     category: 'personal',
     icon: 'Sunrise',
     color: '#F59E0B',
@@ -1583,8 +1507,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Evening Routine',
     slug: 'evening-routine',
-    description:
-      'Design a calming evening routine for better sleep and next-day preparation.',
+    description: 'Design a calming evening routine for better sleep and next-day preparation.',
     category: 'personal',
     icon: 'Moon',
     color: '#6366F1',
@@ -1742,8 +1665,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Monthly Review',
     slug: 'monthly-review',
-    description:
-      'Conduct a thorough monthly review to reflect on progress and plan ahead.',
+    description: 'Conduct a thorough monthly review to reflect on progress and plan ahead.',
     category: 'personal',
     icon: 'CalendarDays',
     color: '#8B5CF6',
@@ -2311,7 +2233,16 @@ export const PERSONAL_TEMPLATES = [
         name: 'Category',
         type: 'select',
         description: 'Type of experience',
-        options: ['Travel', 'Adventure', 'Learning', 'Career', 'Relationships', 'Creative', 'Health', 'Other'],
+        options: [
+          'Travel',
+          'Adventure',
+          'Learning',
+          'Career',
+          'Relationships',
+          'Creative',
+          'Health',
+          'Other',
+        ],
         isRequired: false,
       },
       {
@@ -2454,8 +2385,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Travel Planning',
     slug: 'travel-planning',
-    description:
-      'Plan your perfect trip from destination research to packing lists and itinerary.',
+    description: 'Plan your perfect trip from destination research to packing lists and itinerary.',
     category: 'personal',
     icon: 'Plane',
     color: '#3B82F6',
@@ -2652,8 +2582,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Vacation Planning',
     slug: 'vacation-planning',
-    description:
-      'Plan a relaxing vacation with focus on rest, enjoyment, and creating memories.',
+    description: 'Plan a relaxing vacation with focus on rest, enjoyment, and creating memories.',
     category: 'personal',
     icon: 'Umbrella',
     color: '#10B981',
@@ -2829,8 +2758,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Trip Itinerary',
     slug: 'trip-itinerary',
-    description:
-      'Create a detailed day-by-day itinerary for your upcoming trip.',
+    description: 'Create a detailed day-by-day itinerary for your upcoming trip.',
     category: 'personal',
     icon: 'Map',
     color: '#6366F1',
@@ -3378,8 +3306,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Decluttering Project',
     slug: 'decluttering-project',
-    description:
-      'Systematic approach to decluttering your space using proven methods.',
+    description: 'Systematic approach to decluttering your space using proven methods.',
     category: 'personal',
     icon: 'Trash2',
     color: '#EF4444',
@@ -3568,8 +3495,7 @@ export const PERSONAL_TEMPLATES = [
   {
     name: 'Home Renovation',
     slug: 'home-renovation',
-    description:
-      'Plan and execute a home renovation project from design to completion.',
+    description: 'Plan and execute a home renovation project from design to completion.',
     category: 'personal',
     icon: 'Hammer',
     color: '#F59E0B',

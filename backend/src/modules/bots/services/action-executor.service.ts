@@ -129,7 +129,7 @@ export class ActionExecutorService {
     };
 
     let content = this.variablesService.interpolate(config.content, context);
-    let contentHtml = config.contentHtml
+    const contentHtml = config.contentHtml
       ? this.variablesService.interpolate(config.contentHtml, context)
       : undefined;
 
@@ -203,9 +203,10 @@ export class ActionExecutorService {
       saveToDatabase: false,
     });
 
-    const responseText = typeof aiResponse === 'string'
-      ? aiResponse
-      : aiResponse?.text || aiResponse?.content || JSON.stringify(aiResponse);
+    const responseText =
+      typeof aiResponse === 'string'
+        ? aiResponse
+        : aiResponse?.text || aiResponse?.content || JSON.stringify(aiResponse);
 
     // Send the AI response as a message
     return this.executeSendMessage(
@@ -364,10 +365,7 @@ export class ActionExecutorService {
   /**
    * Execute send_email action
    */
-  private async executeSendEmail(
-    action: BotAction,
-    context: ActionExecutionContext,
-  ): Promise<any> {
+  private async executeSendEmail(action: BotAction, context: ActionExecutionContext): Promise<any> {
     const config = action.actionConfig as {
       toTemplate: string;
       subjectTemplate: string;
@@ -409,13 +407,20 @@ export class ActionExecutorService {
 
     if (!commandText || commandText.trim() === '') {
       // If no command given, send help message
-      const helpResponse = await this.autoPilotService.executeCommand({
-        command: 'help',
-        workspaceId: context.workspaceId,
-        executeActions: false,
-      }, context.userId);
+      const helpResponse = await this.autoPilotService.executeCommand(
+        {
+          command: 'help',
+          workspaceId: context.workspaceId,
+          executeActions: false,
+        },
+        context.userId,
+      );
 
-      return this.sendBotAutopilotResponse(helpResponse.message, context, config.replyToTrigger !== false);
+      return this.sendBotAutopilotResponse(
+        helpResponse.message,
+        context,
+        config.replyToTrigger !== false,
+      );
     }
 
     // Build AutoPilot context
@@ -444,15 +449,18 @@ export class ActionExecutorService {
     }
 
     // Execute AutoPilot
-    const autoPilotResponse = await this.autoPilotService.executeCommand({
-      command: fullCommand,
-      workspaceId: context.workspaceId,
-      executeActions: config.allowActions !== false,
-      context: {
-        channelId: context.channelId,
-        conversationId: context.conversationId,
+    const autoPilotResponse = await this.autoPilotService.executeCommand(
+      {
+        command: fullCommand,
+        workspaceId: context.workspaceId,
+        executeActions: config.allowActions !== false,
+        context: {
+          channelId: context.channelId,
+          conversationId: context.conversationId,
+        },
       },
-    }, context.userId);
+      context.userId,
+    );
 
     if (!autoPilotResponse.success) {
       throw new Error(`AutoPilot execution failed: ${autoPilotResponse.error || 'Unknown error'}`);
@@ -479,9 +487,7 @@ export class ActionExecutorService {
     // Format response with actions if present
     let messageContent = responseText;
     if (actions && actions.length > 0) {
-      const actionSummary = actions
-        .map((a: any) => `✓ ${a.description || a.tool}`)
-        .join('\n');
+      const actionSummary = actions.map((a: any) => `✓ ${a.description || a.tool}`).join('\n');
       messageContent = `${responseText}\n\n**Actions taken:**\n${actionSummary}`;
     }
 

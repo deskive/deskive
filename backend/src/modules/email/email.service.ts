@@ -25,12 +25,7 @@
  */
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  createEmailProvider,
-  EmailProvider,
-  SendEmailInput,
-  SendEmailResult,
-} from './providers';
+import { createEmailProvider, EmailProvider, SendEmailInput, SendEmailResult } from './providers';
 
 @Injectable()
 export class EmailProviderService implements OnModuleInit {
@@ -64,9 +59,7 @@ export class EmailProviderService implements OnModuleInit {
 
   /** Send many emails. Providers with a native batch API override this. */
   async sendBulk(inputs: SendEmailInput[]): Promise<SendEmailResult[]> {
-    this.logger.log(
-      `sendBulk count=${inputs.length} via=${this.provider.name}`,
-    );
+    this.logger.log(`sendBulk count=${inputs.length} via=${this.provider.name}`);
     return this.provider.sendBulk(inputs);
   }
 

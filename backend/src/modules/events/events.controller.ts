@@ -9,13 +9,7 @@ import {
   Patch,
   Delete,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiParam,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { EventsService } from './events.service';
 import { CreateActivityEventDto, EventsQueryDto, ActivityFeedQueryDto } from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';

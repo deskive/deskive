@@ -20,7 +20,10 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\nPriority: ' },
         { insert: '{{priority}}', attributes: { bold: true } },
         { insert: '\n\nProblem Description\n', attributes: { bold: true } },
-        { insert: 'Source: {{source}}\nArea/Department: {{area}}\nProduct/Process: {{product_process}}\n\n' },
+        {
+          insert:
+            'Source: {{source}}\nArea/Department: {{area}}\nProduct/Process: {{product_process}}\n\n',
+        },
         { insert: 'Description of Problem\n', attributes: { bold: true } },
         { insert: '{{problem_description}}\n\n' },
         { insert: 'Immediate Containment Actions\n', attributes: { bold: true } },
@@ -31,7 +34,10 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '{{corrective_actions}}\n\n' },
         { insert: 'Verification of Effectiveness\n', attributes: { bold: true } },
         { insert: '{{verification}}\n\n' },
-        { insert: 'Target Completion Date: {{target_date}}\nActual Completion Date: {{actual_date}}\n\n' },
+        {
+          insert:
+            'Target Completion Date: {{target_date}}\nActual Completion Date: {{actual_date}}\n\n',
+        },
         { insert: 'Status: ' },
         { insert: '{{status}}', attributes: { bold: true } },
         { insert: '\n\n' },
@@ -43,26 +49,79 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
     placeholders: [
       { key: 'car_number', type: 'text', label: 'CAR Number', required: true },
       { key: 'date_initiated', type: 'date', label: 'Date Initiated', required: true },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
-      { key: 'source', type: 'select', label: 'Source', required: true, options: ['Customer Complaint', 'Internal Audit', 'NCR', 'Process Issue', 'Supplier Issue'] },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
+      {
+        key: 'source',
+        type: 'select',
+        label: 'Source',
+        required: true,
+        options: ['Customer Complaint', 'Internal Audit', 'NCR', 'Process Issue', 'Supplier Issue'],
+      },
       { key: 'area', type: 'text', label: 'Area/Department', required: true },
       { key: 'product_process', type: 'text', label: 'Product/Process', required: true },
-      { key: 'problem_description', type: 'textarea', label: 'Problem Description', required: true },
-      { key: 'containment_actions', type: 'textarea', label: 'Containment Actions', required: true },
-      { key: 'analysis_method', type: 'select', label: 'Analysis Method', required: true, options: ['5 Why', 'Fishbone', '8D', 'FMEA', 'Other'] },
+      {
+        key: 'problem_description',
+        type: 'textarea',
+        label: 'Problem Description',
+        required: true,
+      },
+      {
+        key: 'containment_actions',
+        type: 'textarea',
+        label: 'Containment Actions',
+        required: true,
+      },
+      {
+        key: 'analysis_method',
+        type: 'select',
+        label: 'Analysis Method',
+        required: true,
+        options: ['5 Why', 'Fishbone', '8D', 'FMEA', 'Other'],
+      },
       { key: 'root_cause', type: 'textarea', label: 'Root Cause', required: true },
       { key: 'corrective_actions', type: 'textarea', label: 'Corrective Actions', required: true },
       { key: 'verification', type: 'textarea', label: 'Verification', required: true },
       { key: 'target_date', type: 'date', label: 'Target Date', required: true },
       { key: 'actual_date', type: 'date', label: 'Actual Date', required: false },
-      { key: 'status', type: 'select', label: 'Status', required: true, options: ['Open', 'In Progress', 'Pending Verification', 'Closed'] },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Status',
+        required: true,
+        options: ['Open', 'In Progress', 'Pending Verification', 'Closed'],
+      },
     ],
     signatureFields: [
-      { id: 'initiated_by', label: 'Initiated By', required: true, position: { page: 1, x: 50, y: 680 } },
-      { id: 'responsible_manager', label: 'Responsible Manager', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'qa_verification', label: 'QA Verification', required: true, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'initiated_by',
+        label: 'Initiated By',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
+      {
+        id: 'responsible_manager',
+        label: 'Responsible Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 710 },
+      },
+      {
+        id: 'qa_verification',
+        label: 'QA Verification',
+        required: true,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Process Control Plan',
@@ -83,7 +142,10 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\nEffective Date: ' },
         { insert: '{{effective_date}}', attributes: { bold: true } },
         { insert: '\n\nProduct/Process Information\n', attributes: { bold: true } },
-        { insert: 'Product Name: {{product_name}}\nPart Number: {{part_number}}\nProcess Name: {{process_name}}\n\n' },
+        {
+          insert:
+            'Product Name: {{product_name}}\nPart Number: {{part_number}}\nProcess Name: {{process_name}}\n\n',
+        },
         { insert: 'Control Plan Type: ' },
         { insert: '{{plan_type}}', attributes: { bold: true } },
         { insert: '\n\nProcess Steps and Controls\n', attributes: { bold: true } },
@@ -106,18 +168,48 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'product_name', type: 'text', label: 'Product Name', required: true },
       { key: 'part_number', type: 'text', label: 'Part Number', required: true },
       { key: 'process_name', type: 'text', label: 'Process Name', required: true },
-      { key: 'plan_type', type: 'select', label: 'Plan Type', required: true, options: ['Prototype', 'Pre-Launch', 'Production'] },
+      {
+        key: 'plan_type',
+        type: 'select',
+        label: 'Plan Type',
+        required: true,
+        options: ['Prototype', 'Pre-Launch', 'Production'],
+      },
       { key: 'process_controls', type: 'textarea', label: 'Process Controls', required: true },
-      { key: 'critical_characteristics', type: 'textarea', label: 'Critical Characteristics', required: true },
-      { key: 'measurement_methods', type: 'textarea', label: 'Measurement Methods', required: true },
+      {
+        key: 'critical_characteristics',
+        type: 'textarea',
+        label: 'Critical Characteristics',
+        required: true,
+      },
+      {
+        key: 'measurement_methods',
+        type: 'textarea',
+        label: 'Measurement Methods',
+        required: true,
+      },
       { key: 'reaction_plan', type: 'textarea', label: 'Reaction Plan', required: true },
     ],
     signatureFields: [
-      { id: 'prepared_by', label: 'Prepared By', required: true, position: { page: 1, x: 50, y: 680 } },
-      { id: 'engineering', label: 'Engineering', required: true, position: { page: 1, x: 50, y: 710 } },
+      {
+        id: 'prepared_by',
+        label: 'Prepared By',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
+      {
+        id: 'engineering',
+        label: 'Engineering',
+        required: true,
+        position: { page: 1, x: 50, y: 710 },
+      },
       { id: 'quality', label: 'Quality', required: true, position: { page: 1, x: 50, y: 740 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'landscape', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'landscape',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Measurement System Analysis',
@@ -136,15 +228,24 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nMeasurement System Information\n', attributes: { bold: true } },
-        { insert: 'Equipment Name: {{equipment_name}}\nEquipment ID: {{equipment_id}}\nCharacteristic Measured: {{characteristic}}\nSpecification: {{specification}}\n\n' },
+        {
+          insert:
+            'Equipment Name: {{equipment_name}}\nEquipment ID: {{equipment_id}}\nCharacteristic Measured: {{characteristic}}\nSpecification: {{specification}}\n\n',
+        },
         { insert: 'Study Type: ' },
         { insert: '{{study_type}}', attributes: { bold: true } },
         { insert: '\n\nStudy Parameters\n', attributes: { bold: true } },
-        { insert: 'Number of Appraisers: {{num_appraisers}}\nNumber of Parts: {{num_parts}}\nNumber of Trials: {{num_trials}}\n\n' },
+        {
+          insert:
+            'Number of Appraisers: {{num_appraisers}}\nNumber of Parts: {{num_parts}}\nNumber of Trials: {{num_trials}}\n\n',
+        },
         { insert: 'Results\n', attributes: { bold: true } },
         { insert: '{{results}}\n\n' },
         { insert: 'Analysis\n', attributes: { bold: true } },
-        { insert: '%GRR: {{grr_percent}}\n%AV: {{av_percent}}\n%EV: {{ev_percent}}\nNumber of Distinct Categories: {{ndc}}\n\n' },
+        {
+          insert:
+            '%GRR: {{grr_percent}}\n%AV: {{av_percent}}\n%EV: {{ev_percent}}\nNumber of Distinct Categories: {{ndc}}\n\n',
+        },
         { insert: 'Conclusion: ' },
         { insert: '{{conclusion}}', attributes: { bold: true } },
         { insert: '\n\nRecommendations\n', attributes: { bold: true } },
@@ -160,7 +261,13 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'equipment_id', type: 'text', label: 'Equipment ID', required: true },
       { key: 'characteristic', type: 'text', label: 'Characteristic', required: true },
       { key: 'specification', type: 'text', label: 'Specification', required: true },
-      { key: 'study_type', type: 'select', label: 'Study Type', required: true, options: ['Gage R&R', 'Bias Study', 'Linearity Study', 'Stability Study'] },
+      {
+        key: 'study_type',
+        type: 'select',
+        label: 'Study Type',
+        required: true,
+        options: ['Gage R&R', 'Bias Study', 'Linearity Study', 'Stability Study'],
+      },
       { key: 'num_appraisers', type: 'number', label: 'Number of Appraisers', required: true },
       { key: 'num_parts', type: 'number', label: 'Number of Parts', required: true },
       { key: 'num_trials', type: 'number', label: 'Number of Trials', required: true },
@@ -169,14 +276,29 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'av_percent', type: 'text', label: '%AV', required: false },
       { key: 'ev_percent', type: 'text', label: '%EV', required: false },
       { key: 'ndc', type: 'number', label: 'NDC', required: false },
-      { key: 'conclusion', type: 'select', label: 'Conclusion', required: true, options: ['Acceptable', 'Marginal', 'Unacceptable'] },
+      {
+        key: 'conclusion',
+        type: 'select',
+        label: 'Conclusion',
+        required: true,
+        options: ['Acceptable', 'Marginal', 'Unacceptable'],
+      },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: false },
     ],
     signatureFields: [
       { id: 'analyst', label: 'Analyst', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'quality_manager', label: 'Quality Manager', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'quality_manager',
+        label: 'Quality Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Scrap/Rework Authorization',
@@ -197,14 +319,20 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\n\nAction Required: ' },
         { insert: '{{action_type}}', attributes: { bold: true } },
         { insert: '\n\nMaterial Information\n', attributes: { bold: true } },
-        { insert: 'Part Number: {{part_number}}\nPart Name: {{part_name}}\nQuantity: {{quantity}}\nLot/Batch: {{lot_batch}}\nWork Order: {{work_order}}\n\n' },
+        {
+          insert:
+            'Part Number: {{part_number}}\nPart Name: {{part_name}}\nQuantity: {{quantity}}\nLot/Batch: {{lot_batch}}\nWork Order: {{work_order}}\n\n',
+        },
         { insert: 'Reason for Scrap/Rework\n', attributes: { bold: true } },
         { insert: '{{reason}}\n\n' },
         { insert: 'NCR Reference: {{ncr_reference}}\n\n' },
         { insert: 'Rework Instructions (if applicable)\n', attributes: { bold: true } },
         { insert: '{{rework_instructions}}\n\n' },
         { insert: 'Cost Impact\n', attributes: { bold: true } },
-        { insert: 'Material Cost: {{material_cost}}\nLabor Cost: {{labor_cost}}\nTotal Cost: {{total_cost}}\n\n' },
+        {
+          insert:
+            'Material Cost: {{material_cost}}\nLabor Cost: {{labor_cost}}\nTotal Cost: {{total_cost}}\n\n',
+        },
         { insert: 'Disposal Method (if scrap)\n', attributes: { bold: true } },
         { insert: '{{disposal_method}}\n\n' },
         { insert: '\nRequested By: _______________________  Date: ____________\n' },
@@ -215,7 +343,13 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
     placeholders: [
       { key: 'authorization_number', type: 'text', label: 'Authorization Number', required: true },
       { key: 'date', type: 'date', label: 'Date', required: true },
-      { key: 'action_type', type: 'select', label: 'Action Type', required: true, options: ['Scrap', 'Rework', 'Repair'] },
+      {
+        key: 'action_type',
+        type: 'select',
+        label: 'Action Type',
+        required: true,
+        options: ['Scrap', 'Rework', 'Repair'],
+      },
       { key: 'part_number', type: 'text', label: 'Part Number', required: true },
       { key: 'part_name', type: 'text', label: 'Part Name', required: true },
       { key: 'quantity', type: 'number', label: 'Quantity', required: true },
@@ -223,18 +357,42 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'work_order', type: 'text', label: 'Work Order', required: false },
       { key: 'reason', type: 'textarea', label: 'Reason', required: true },
       { key: 'ncr_reference', type: 'text', label: 'NCR Reference', required: false },
-      { key: 'rework_instructions', type: 'textarea', label: 'Rework Instructions', required: false },
+      {
+        key: 'rework_instructions',
+        type: 'textarea',
+        label: 'Rework Instructions',
+        required: false,
+      },
       { key: 'material_cost', type: 'text', label: 'Material Cost', required: false },
       { key: 'labor_cost', type: 'text', label: 'Labor Cost', required: false },
       { key: 'total_cost', type: 'text', label: 'Total Cost', required: false },
       { key: 'disposal_method', type: 'textarea', label: 'Disposal Method', required: false },
     ],
     signatureFields: [
-      { id: 'requested_by', label: 'Requested By', required: true, position: { page: 1, x: 50, y: 680 } },
-      { id: 'quality', label: 'Quality Approval', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'management', label: 'Management', required: true, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'requested_by',
+        label: 'Requested By',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
+      {
+        id: 'quality',
+        label: 'Quality Approval',
+        required: true,
+        position: { page: 1, x: 50, y: 710 },
+      },
+      {
+        id: 'management',
+        label: 'Management',
+        required: true,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Process Capability Study',
@@ -253,11 +411,20 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProcess Information\n', attributes: { bold: true } },
-        { insert: 'Process Name: {{process_name}}\nPart Number: {{part_number}}\nCharacteristic: {{characteristic}}\nSpecification: {{specification}}\n\n' },
+        {
+          insert:
+            'Process Name: {{process_name}}\nPart Number: {{part_number}}\nCharacteristic: {{characteristic}}\nSpecification: {{specification}}\n\n',
+        },
         { insert: 'Study Parameters\n', attributes: { bold: true } },
-        { insert: 'Sample Size: {{sample_size}}\nSubgroup Size: {{subgroup_size}}\nMeasurement Method: {{measurement_method}}\n\n' },
+        {
+          insert:
+            'Sample Size: {{sample_size}}\nSubgroup Size: {{subgroup_size}}\nMeasurement Method: {{measurement_method}}\n\n',
+        },
         { insert: 'Statistical Results\n', attributes: { bold: true } },
-        { insert: 'Mean (X-bar): {{mean}}\nStandard Deviation: {{std_dev}}\nCp: {{cp}}\nCpk: {{cpk}}\nPp: {{pp}}\nPpk: {{ppk}}\n\n' },
+        {
+          insert:
+            'Mean (X-bar): {{mean}}\nStandard Deviation: {{std_dev}}\nCp: {{cp}}\nCpk: {{cpk}}\nPp: {{pp}}\nPpk: {{ppk}}\n\n',
+        },
         { insert: 'Normality Test\n', attributes: { bold: true } },
         { insert: '{{normality_results}}\n\n' },
         { insert: 'Conclusions\n', attributes: { bold: true } },
@@ -292,7 +459,11 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { id: 'analyst', label: 'Analyst', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'quality', label: 'Quality', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Product Release Certificate',
@@ -311,9 +482,15 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProduct Information\n', attributes: { bold: true } },
-        { insert: 'Product Name: {{product_name}}\nProduct Code: {{product_code}}\nBatch/Lot Number: {{batch_lot}}\nQuantity: {{quantity}}\nManufacturing Date: {{manufacturing_date}}\n\n' },
+        {
+          insert:
+            'Product Name: {{product_name}}\nProduct Code: {{product_code}}\nBatch/Lot Number: {{batch_lot}}\nQuantity: {{quantity}}\nManufacturing Date: {{manufacturing_date}}\n\n',
+        },
         { insert: 'Quality Verification\n', attributes: { bold: true } },
-        { insert: '☐ All specifications met\n☐ QC inspection passed\n☐ Documentation complete\n☐ No open NCRs\n☐ Traceability verified\n\n' },
+        {
+          insert:
+            '☐ All specifications met\n☐ QC inspection passed\n☐ Documentation complete\n☐ No open NCRs\n☐ Traceability verified\n\n',
+        },
         { insert: 'Test Results Summary\n', attributes: { bold: true } },
         { insert: '{{test_results}}\n\n' },
         { insert: 'Certifications/Compliance\n', attributes: { bold: true } },
@@ -336,14 +513,34 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'manufacturing_date', type: 'date', label: 'Manufacturing Date', required: true },
       { key: 'test_results', type: 'textarea', label: 'Test Results', required: true },
       { key: 'certifications', type: 'textarea', label: 'Certifications', required: false },
-      { key: 'release_decision', type: 'select', label: 'Release Decision', required: true, options: ['Released', 'Conditional Release', 'Rejected'] },
+      {
+        key: 'release_decision',
+        type: 'select',
+        label: 'Release Decision',
+        required: true,
+        options: ['Released', 'Conditional Release', 'Rejected'],
+      },
       { key: 'restrictions', type: 'textarea', label: 'Restrictions', required: false },
     ],
     signatureFields: [
-      { id: 'qa_release', label: 'QA Release', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'production_manager', label: 'Production Manager', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'qa_release',
+        label: 'QA Release',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'production_manager',
+        label: 'Production Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Supplier Audit Checklist',
@@ -358,13 +555,25 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       ops: [
         { insert: 'SUPPLIER AUDIT CHECKLIST', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nAudit Information\n', attributes: { bold: true } },
-        { insert: 'Audit Date: {{audit_date}}\nSupplier Name: {{supplier_name}}\nAuditor(s): {{auditors}}\nAudit Type: {{audit_type}}\n\n' },
+        {
+          insert:
+            'Audit Date: {{audit_date}}\nSupplier Name: {{supplier_name}}\nAuditor(s): {{auditors}}\nAudit Type: {{audit_type}}\n\n',
+        },
         { insert: 'Quality Management System\n', attributes: { bold: true } },
-        { insert: '☐ Quality policy defined\n☐ Quality objectives established\n☐ Management commitment evident\n☐ Document control in place\n☐ Record retention adequate\n\n' },
+        {
+          insert:
+            '☐ Quality policy defined\n☐ Quality objectives established\n☐ Management commitment evident\n☐ Document control in place\n☐ Record retention adequate\n\n',
+        },
         { insert: 'Production/Process Control\n', attributes: { bold: true } },
-        { insert: '☐ Process documentation available\n☐ Work instructions at stations\n☐ Process controls in place\n☐ Equipment maintained\n☐ Calibration current\n\n' },
+        {
+          insert:
+            '☐ Process documentation available\n☐ Work instructions at stations\n☐ Process controls in place\n☐ Equipment maintained\n☐ Calibration current\n\n',
+        },
         { insert: 'Quality Control\n', attributes: { bold: true } },
-        { insert: '☐ Inspection procedures defined\n☐ Inspection equipment adequate\n☐ Non-conformance process\n☐ Corrective action system\n☐ Root cause analysis used\n\n' },
+        {
+          insert:
+            '☐ Inspection procedures defined\n☐ Inspection equipment adequate\n☐ Non-conformance process\n☐ Corrective action system\n☐ Root cause analysis used\n\n',
+        },
         { insert: 'Findings\n', attributes: { bold: true } },
         { insert: '{{findings}}\n\n' },
         { insert: 'Non-Conformances\n', attributes: { bold: true } },
@@ -382,16 +591,42 @@ export const MANUFACTURING_QUALITY_TEMPLATES = [
       { key: 'audit_date', type: 'date', label: 'Audit Date', required: true },
       { key: 'supplier_name', type: 'text', label: 'Supplier Name', required: true },
       { key: 'auditors', type: 'text', label: 'Auditors', required: true },
-      { key: 'audit_type', type: 'select', label: 'Audit Type', required: true, options: ['Initial', 'Periodic', 'Follow-up', 'Special'] },
+      {
+        key: 'audit_type',
+        type: 'select',
+        label: 'Audit Type',
+        required: true,
+        options: ['Initial', 'Periodic', 'Follow-up', 'Special'],
+      },
       { key: 'findings', type: 'textarea', label: 'Findings', required: true },
       { key: 'non_conformances', type: 'textarea', label: 'Non-Conformances', required: false },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: false },
-      { key: 'rating', type: 'select', label: 'Rating', required: true, options: ['Approved', 'Conditionally Approved', 'Not Approved', 'Re-audit Required'] },
+      {
+        key: 'rating',
+        type: 'select',
+        label: 'Rating',
+        required: true,
+        options: ['Approved', 'Conditionally Approved', 'Not Approved', 'Re-audit Required'],
+      },
     ],
     signatureFields: [
-      { id: 'lead_auditor', label: 'Lead Auditor', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'supplier_rep', label: 'Supplier Rep', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'lead_auditor',
+        label: 'Lead Auditor',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'supplier_rep',
+        label: 'Supplier Rep',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

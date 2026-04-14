@@ -75,7 +75,9 @@ export class ImapService {
 
       imap.once('error', (err: Error) => {
         clearTimeout(timeout);
-        this.logger.warn(`IMAP connection test failed for ${config.host}:${config.port}: ${err.message}`);
+        this.logger.warn(
+          `IMAP connection test failed for ${config.host}:${config.port}: ${err.message}`,
+        );
         resolve({ success: false, message: `IMAP connection failed: ${err.message}` });
       });
 
@@ -149,25 +151,25 @@ export class ImapService {
   private getStandardLabelId(name: string, fullName: string): string {
     const upperName = name.toUpperCase();
     const standardNames: Record<string, string> = {
-      'INBOX': 'INBOX',
-      'SENT': 'SENT',
+      INBOX: 'INBOX',
+      SENT: 'SENT',
       'SENT MAIL': 'SENT',
       'SENT ITEMS': 'SENT',
       '[GMAIL]/SENT MAIL': 'SENT',
-      'DRAFTS': 'DRAFT',
-      'DRAFT': 'DRAFT',
+      DRAFTS: 'DRAFT',
+      DRAFT: 'DRAFT',
       '[GMAIL]/DRAFTS': 'DRAFT',
-      'TRASH': 'TRASH',
-      'DELETED': 'TRASH',
+      TRASH: 'TRASH',
+      DELETED: 'TRASH',
       'DELETED ITEMS': 'TRASH',
       '[GMAIL]/TRASH': 'TRASH',
-      'SPAM': 'SPAM',
-      'JUNK': 'SPAM',
+      SPAM: 'SPAM',
+      JUNK: 'SPAM',
       'JUNK E-MAIL': 'SPAM',
       '[GMAIL]/SPAM': 'SPAM',
-      'STARRED': 'STARRED',
+      STARRED: 'STARRED',
       '[GMAIL]/STARRED': 'STARRED',
-      'IMPORTANT': 'IMPORTANT',
+      IMPORTANT: 'IMPORTANT',
       '[GMAIL]/IMPORTANT': 'IMPORTANT',
     };
 
@@ -180,13 +182,13 @@ export class ImapService {
    */
   private getPossibleMailboxNames(standardLabel: string): string[] {
     const mappings: Record<string, string[]> = {
-      'INBOX': ['INBOX'],
-      'SENT': ['Sent', 'SENT', 'Sent Mail', 'Sent Items', '[Gmail]/Sent Mail'],
-      'DRAFT': ['Drafts', 'DRAFTS', 'Draft', '[Gmail]/Drafts'],
-      'TRASH': ['Trash', 'TRASH', 'Deleted', 'Deleted Items', '[Gmail]/Trash'],
-      'SPAM': ['Spam', 'SPAM', 'Junk', 'Junk E-mail', '[Gmail]/Spam'],
-      'STARRED': ['Starred', 'STARRED', '[Gmail]/Starred'],
-      'IMPORTANT': ['Important', 'IMPORTANT', '[Gmail]/Important'],
+      INBOX: ['INBOX'],
+      SENT: ['Sent', 'SENT', 'Sent Mail', 'Sent Items', '[Gmail]/Sent Mail'],
+      DRAFT: ['Drafts', 'DRAFTS', 'Draft', '[Gmail]/Drafts'],
+      TRASH: ['Trash', 'TRASH', 'Deleted', 'Deleted Items', '[Gmail]/Trash'],
+      SPAM: ['Spam', 'SPAM', 'Junk', 'Junk E-mail', '[Gmail]/Spam'],
+      STARRED: ['Starred', 'STARRED', '[Gmail]/Starred'],
+      IMPORTANT: ['Important', 'IMPORTANT', '[Gmail]/Important'],
     };
 
     return mappings[standardLabel.toUpperCase()] || [standardLabel];
@@ -208,8 +210,9 @@ export class ImapService {
     // Find a matching mailbox
     for (const possibleName of possibleNames) {
       const found = mailboxes.find(
-        (m) => m.name.toLowerCase() === possibleName.toLowerCase() ||
-               m.id.toLowerCase() === possibleName.toLowerCase()
+        (m) =>
+          m.name.toLowerCase() === possibleName.toLowerCase() ||
+          m.id.toLowerCase() === possibleName.toLowerCase(),
       );
       if (found) {
         return found.name;
@@ -225,7 +228,19 @@ export class ImapService {
    * Check if mailbox is a system mailbox
    */
   private isSystemMailbox(name: string): boolean {
-    const systemNames = ['INBOX', 'SENT', 'SENT MAIL', 'DRAFTS', 'DRAFT', 'TRASH', 'DELETED', 'SPAM', 'JUNK', 'STARRED', 'IMPORTANT'];
+    const systemNames = [
+      'INBOX',
+      'SENT',
+      'SENT MAIL',
+      'DRAFTS',
+      'DRAFT',
+      'TRASH',
+      'DELETED',
+      'SPAM',
+      'JUNK',
+      'STARRED',
+      'IMPORTANT',
+    ];
     return systemNames.includes(name.toUpperCase());
   }
 
@@ -277,7 +292,9 @@ export class ImapService {
           let searchCriteria: any[] = ['ALL'];
           if (search) {
             // Use nested OR: OR(OR(SUBJECT, FROM), BODY) to search in subject, from, and body
-            searchCriteria = [['OR', ['OR', ['SUBJECT', search], ['FROM', search]], ['BODY', search]]];
+            searchCriteria = [
+              ['OR', ['OR', ['SUBJECT', search], ['FROM', search]], ['BODY', search]],
+            ];
           }
 
           imap.search(searchCriteria, (searchErr, results) => {
@@ -406,7 +423,9 @@ export class ImapService {
             return;
           }
 
-          this.logger.log(`Mailbox opened: ${mailbox}, total messages: ${box.messages.total}, uidvalidity: ${box.uidvalidity}`);
+          this.logger.log(
+            `Mailbox opened: ${mailbox}, total messages: ${box.messages.total}, uidvalidity: ${box.uidvalidity}`,
+          );
 
           // imap.fetch() uses UIDs by default (sends UID FETCH command)
           // Fetch the message directly by UID
@@ -435,7 +454,9 @@ export class ImapService {
 
             msg.once('attributes', (attrs) => {
               attributes = attrs;
-              this.logger.log(`Message attributes: uid=${attrs.uid}, flags=${attrs.flags?.join(',')}`);
+              this.logger.log(
+                `Message attributes: uid=${attrs.uid}, flags=${attrs.flags?.join(',')}`,
+              );
             });
 
             msg.once('end', () => {
@@ -528,7 +549,9 @@ export class ImapService {
     }
     const attachmentIndex = parseInt(attMatch[1], 10);
 
-    this.logger.log(`Fetching attachment: messageId=${messageId}, attachmentId=${attachmentId}, index=${attachmentIndex}`);
+    this.logger.log(
+      `Fetching attachment: messageId=${messageId}, attachmentId=${attachmentId}, index=${attachmentIndex}`,
+    );
 
     return new Promise((resolve, reject) => {
       const imap = new Imap(this.createImapConfig(config));

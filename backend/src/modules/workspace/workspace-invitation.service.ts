@@ -1,4 +1,12 @@
-import { Injectable, BadRequestException, NotFoundException, ConflictException, Logger, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+  ConflictException,
+  Logger,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { v4 as uuidv4 } from 'uuid';
 import * as crypto from 'crypto';
@@ -17,18 +25,16 @@ export interface AcceptInvitationDto {
 export class WorkspaceInvitationService {
   private readonly logger = new Logger(WorkspaceInvitationService.name);
 
-  constructor(
-    private readonly db: DatabaseService,
-  ) {}
+  constructor(private readonly db: DatabaseService) {}
 
   /**
    * Send workspace invitation using database
    * This handles both registered and unregistered users
    */
   async inviteToWorkspace(
-    workspaceId: string, 
+    workspaceId: string,
     inviteDto: InviteWorkspaceMemberDto,
-    invitedBy: string
+    invitedBy: string,
   ) {
     try {
       // Check if workspace exists
@@ -44,7 +50,8 @@ export class WorkspaceInvitationService {
       await this.checkMemberLimit(workspaceId, invitedBy);
 
       // Check if user is already a member
-      const existingMember = await this.db.table('workspace_members')
+      const existingMember = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', inviteDto.email) // Check by email first
@@ -56,7 +63,8 @@ export class WorkspaceInvitationService {
       }
 
       // Check if there's already a pending invitation
-      const existingInvite = await this.db.table('workspace_invites')
+      const existingInvite = await this.db
+        .table('workspace_invites')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('email', '=', inviteDto.email)
@@ -80,7 +88,7 @@ export class WorkspaceInvitationService {
         invited_by: invitedBy,
         token,
         expires_at: expiresAt.toISOString(),
-        status: 'pending'
+        status: 'pending',
       });
 
       // Send invitation email
@@ -98,8 +106,12 @@ export class WorkspaceInvitationService {
       };
     } catch (error) {
       this.logger.error('Failed to send workspace invitation', error);
-      
-      if (error instanceof ConflictException || error instanceof NotFoundException || error instanceof BadRequestException) {
+
+      if (
+        error instanceof ConflictException ||
+        error instanceof NotFoundException ||
+        error instanceof BadRequestException
+      ) {
         throw error;
       }
 
@@ -115,7 +127,8 @@ export class WorkspaceInvitationService {
       // Verify user has permission to view invitations
       await this.verifyWorkspaceAdmin(workspaceId, userId);
 
-      const invitations = await this.db.table('workspace_invites')
+      const invitations = await this.db
+        .table('workspace_invites')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '=', 'pending')
@@ -142,12 +155,12 @@ export class WorkspaceInvitationService {
             invitedAt: invite.created_at,
             expiresAt: invite.expires_at,
           };
-        })
+        }),
       );
 
       return {
         success: true,
-        invitations: invitationsWithDetails
+        invitations: invitationsWithDetails,
       };
     } catch (error) {
       this.logger.error('Failed to list invitations', error);
@@ -162,7 +175,8 @@ export class WorkspaceInvitationService {
   async getInvitationByToken(token: string) {
     try {
       // Find the invitation by token
-      const invitationResult = await this.db.table('workspace_invites')
+      const invitationResult = await this.db
+        .table('workspace_invites')
         .select('*')
         .where('token', '=', token)
         .execute();
@@ -227,7 +241,8 @@ export class WorkspaceInvitationService {
   async declineInvitation(token: string) {
     try {
       // Find the invitation by token
-      const invitationResult = await this.db.table('workspace_invites')
+      const invitationResult = await this.db
+        .table('workspace_invites')
         .select('*')
         .where('token', '=', token)
         .execute();
@@ -241,7 +256,7 @@ export class WorkspaceInvitationService {
       await this.db.update('workspace_invites', invitation.id, {
         status: 'declined',
         declined_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
 
       return {
@@ -266,7 +281,8 @@ export class WorkspaceInvitationService {
   async acceptInvitation(invitationToken: string, userId: string) {
     try {
       // Find the invitation by token
-      const invitationResult = await this.db.table('workspace_invites')
+      const invitationResult = await this.db
+        .table('workspace_invites')
         .select('*')
         .where('token', '=', invitationToken)
         .execute();
@@ -287,7 +303,8 @@ export class WorkspaceInvitationService {
       }
 
       // Check if user is already a member
-      const existingMember = await this.db.table('workspace_members')
+      const existingMember = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', invitation.workspace_id)
         .where('user_id', '=', userId)
@@ -298,9 +315,9 @@ export class WorkspaceInvitationService {
         // Update invitation status
         await this.db.update('workspace_invites', invitation.id, {
           status: 'accepted',
-          accepted_at: new Date().toISOString()
+          accepted_at: new Date().toISOString(),
         });
-        
+
         throw new ConflictException('You are already a member of this workspace');
       }
 
@@ -313,13 +330,13 @@ export class WorkspaceInvitationService {
         joined_at: new Date().toISOString(),
         invited_at: invitation.created_at,
         invited_by: invitation.invited_by,
-        is_active: true
+        is_active: true,
       });
 
       // Update invitation status
       await this.db.update('workspace_invites', invitation.id, {
         status: 'accepted',
-        accepted_at: new Date().toISOString()
+        accepted_at: new Date().toISOString(),
       });
 
       this.logger.log(`User ${userId} accepted invitation to workspace ${invitation.workspace_id}`);
@@ -332,8 +349,12 @@ export class WorkspaceInvitationService {
       };
     } catch (error) {
       this.logger.error('Failed to accept invitation', error);
-      
-      if (error instanceof BadRequestException || error instanceof NotFoundException || error instanceof ConflictException) {
+
+      if (
+        error instanceof BadRequestException ||
+        error instanceof NotFoundException ||
+        error instanceof ConflictException
+      ) {
         throw error;
       }
 
@@ -352,7 +373,7 @@ export class WorkspaceInvitationService {
       // Check if invitation exists and belongs to this workspace
       const invitation = await this.db.findOne('workspace_invites', {
         id: invitationId,
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
 
       if (!invitation) {
@@ -366,7 +387,7 @@ export class WorkspaceInvitationService {
       // Update invitation status
       await this.db.update('workspace_invites', invitationId, {
         status: 'cancelled',
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
 
       return {
@@ -375,11 +396,11 @@ export class WorkspaceInvitationService {
       };
     } catch (error) {
       this.logger.error('Failed to cancel invitation', error);
-      
+
       if (error instanceof BadRequestException || error instanceof NotFoundException) {
         throw error;
       }
-      
+
       throw new BadRequestException('Failed to cancel invitation');
     }
   }
@@ -395,13 +416,13 @@ export class WorkspaceInvitationService {
       // Get the invitation details
       const invitation = await this.db.findOne('workspace_invites', {
         id: invitationId,
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
-      
+
       if (!invitation) {
         throw new NotFoundException('Invitation not found');
       }
-      
+
       if (invitation.status !== 'pending') {
         throw new BadRequestException('Can only resend pending invitations');
       }
@@ -415,7 +436,7 @@ export class WorkspaceInvitationService {
       await this.db.update('workspace_invites', invitationId, {
         token: newToken,
         expires_at: newExpiresAt.toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
 
       // Get workspace details for email
@@ -423,14 +444,14 @@ export class WorkspaceInvitationService {
 
       // Resend invitation email
       await this.sendInvitationEmail(
-        invitation.email, 
-        newToken, 
-        workspace.name, 
-        'This is a resent invitation to join our workspace on Deskive'
+        invitation.email,
+        newToken,
+        workspace.name,
+        'This is a resent invitation to join our workspace on Deskive',
       );
-      
+
       this.logger.log(`Resent invitation to ${invitation.email} for workspace ${workspaceId}`);
-      
+
       return {
         success: true,
         invitationId: invitation.id,
@@ -438,11 +459,11 @@ export class WorkspaceInvitationService {
       };
     } catch (error) {
       this.logger.error('Failed to resend invitation', error);
-      
+
       if (error instanceof BadRequestException || error instanceof NotFoundException) {
         throw error;
       }
-      
+
       throw new BadRequestException('Failed to resend invitation');
     }
   }
@@ -460,7 +481,8 @@ export class WorkspaceInvitationService {
    */
   private async validateMemberCount(workspaceId: string, maxMembers: number): Promise<void> {
     // Get current active members count
-    const activeMembersResult = await this.db.table('workspace_members')
+    const activeMembersResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('is_active', '=', true)
@@ -469,7 +491,8 @@ export class WorkspaceInvitationService {
     const currentMemberCount = activeMembersResult.data?.length || 0;
 
     // Get pending invitations count
-    const pendingInvitesResult = await this.db.table('workspace_invites')
+    const pendingInvitesResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('status', '=', 'pending')
@@ -481,14 +504,14 @@ export class WorkspaceInvitationService {
     const totalMembers = currentMemberCount + pendingInvitesCount;
 
     this.logger.log(
-      `Workspace ${workspaceId} member check: ${currentMemberCount} active + ${pendingInvitesCount} pending = ${totalMembers}/${maxMembers} limit`
+      `Workspace ${workspaceId} member check: ${currentMemberCount} active + ${pendingInvitesCount} pending = ${totalMembers}/${maxMembers} limit`,
     );
 
     if (totalMembers >= maxMembers) {
       throw new BadRequestException(
         `Workspace member limit reached. Your current plan allows ${maxMembers} member${maxMembers === 1 ? '' : 's'}. ` +
-        `You currently have ${currentMemberCount} active member${currentMemberCount === 1 ? '' : 's'} and ${pendingInvitesCount} pending invitation${pendingInvitesCount === 1 ? '' : 's'}. ` +
-        `Please upgrade your plan to invite more members.`
+          `You currently have ${currentMemberCount} active member${currentMemberCount === 1 ? '' : 's'} and ${pendingInvitesCount} pending invitation${pendingInvitesCount === 1 ? '' : 's'}. ` +
+          `Please upgrade your plan to invite more members.`,
       );
     }
   }
@@ -497,7 +520,8 @@ export class WorkspaceInvitationService {
    * Verify user is admin of workspace
    */
   private async verifyWorkspaceAdmin(workspaceId: string, userId: string): Promise<void> {
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -513,11 +537,16 @@ export class WorkspaceInvitationService {
   /**
    * Send invitation email
    */
-  private async sendInvitationEmail(email: string, token: string, workspaceName: string, message?: string) {
+  private async sendInvitationEmail(
+    email: string,
+    token: string,
+    workspaceName: string,
+    message?: string,
+  ) {
     try {
       // TODO: Replace with your actual frontend URL
       const inviteUrl = `${process.env.FRONTEND_URL || 'https://deskive.com'}/invite/${token}`;
-      
+
       const emailHtml = `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <h2>You've been invited to join ${workspaceName} on Deskive</h2>
@@ -535,7 +564,7 @@ export class WorkspaceInvitationService {
         email,
         `Invitation to join ${workspaceName} on Deskive`,
         emailHtml,
-        `You've been invited to join ${workspaceName} on Deskive. Accept invitation: ${inviteUrl}`
+        `You've been invited to join ${workspaceName} on Deskive. Accept invitation: ${inviteUrl}`,
       );
     } catch (error) {
       this.logger.error('Failed to send invitation email', error);
@@ -560,7 +589,7 @@ export class WorkspaceInvitationService {
           description: 'Can manage workspace settings and invite members',
           isBuiltIn: true,
           hierarchy: 2,
-          permissions: ['invite', 'manage_settings', 'manage_members']
+          permissions: ['invite', 'manage_settings', 'manage_members'],
         },
         {
           name: 'member',
@@ -568,13 +597,13 @@ export class WorkspaceInvitationService {
           description: 'Regular workspace member with standard access',
           isBuiltIn: true,
           hierarchy: 1,
-          permissions: ['access_workspace']
-        }
+          permissions: ['access_workspace'],
+        },
       ];
 
       return {
         success: true,
-        roles
+        roles,
       };
     } catch (error) {
       this.logger.error('Failed to get available roles', error);
@@ -589,7 +618,7 @@ export class WorkspaceInvitationService {
     workspaceId: string,
     memberId: string,
     newRole: 'admin' | 'member',
-    userId: string
+    userId: string,
   ) {
     try {
       // Verify user has permission to change roles
@@ -598,7 +627,7 @@ export class WorkspaceInvitationService {
       // Check if member exists
       const member = await this.db.findOne('workspace_members', {
         id: memberId,
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
 
       if (!member) {
@@ -612,11 +641,11 @@ export class WorkspaceInvitationService {
 
       // Update member role
       const permissions = newRole === 'admin' ? ['manage_members', 'manage_settings'] : [];
-      
+
       await this.db.update('workspace_members', memberId, {
         role: newRole,
         permissions,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
 
       this.logger.log(`Updated member ${memberId} role to ${newRole} in workspace ${workspaceId}`);
@@ -627,7 +656,7 @@ export class WorkspaceInvitationService {
       };
     } catch (error) {
       this.logger.error('Failed to update member role', error);
-      
+
       if (error instanceof BadRequestException || error instanceof NotFoundException) {
         throw error;
       }
@@ -645,11 +674,12 @@ export class WorkspaceInvitationService {
     action: string,
     resource: string,
     userId: string,
-    context?: any
+    context?: any,
   ) {
     try {
       // Get user's membership details
-      const membershipResult = await this.db.table('workspace_members')
+      const membershipResult = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)

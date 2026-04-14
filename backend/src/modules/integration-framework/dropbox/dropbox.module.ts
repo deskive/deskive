@@ -6,18 +6,9 @@ import { DropboxOAuthService } from './dropbox-oauth.service';
 import { AuthModule } from '../../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [DropboxController, DropboxCallbackController],
-  providers: [
-    DropboxService,
-    DropboxOAuthService,
-  ],
-  exports: [
-    DropboxService,
-    DropboxOAuthService,
-  ],
+  providers: [DropboxService, DropboxOAuthService],
+  exports: [DropboxService, DropboxOAuthService],
 })
 export class DropboxModule {}

@@ -82,35 +82,35 @@ export class NotificationTypePreferences {
 }
 
 export class QuietHours {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Start time for quiet hours (24-hour format)',
-    example: '22:00'
+    example: '22:00',
   })
   @IsOptional()
   @IsString()
   start?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'End time for quiet hours (24-hour format)',
-    example: '08:00'
+    example: '08:00',
   })
   @IsOptional()
   @IsString()
   end?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Days when quiet hours apply',
     type: [String],
-    example: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+    example: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
   })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   days?: string[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Timezone for quiet hours',
-    example: 'America/New_York'
+    example: 'America/New_York',
   })
   @IsOptional()
   @IsString()
@@ -118,61 +118,61 @@ export class QuietHours {
 }
 
 export class UpdatePreferencesDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Global notification preferences',
     example: {
       push: true,
       email: false,
-      in_app: true
-    }
+      in_app: true,
+    },
   })
   @IsOptional()
   @IsObject()
   global?: NotificationChannelPreferences;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Preferences by notification type',
   })
   @IsOptional()
   @IsObject()
   types?: NotificationTypePreferences;
 
-  @ApiPropertyOptional({ 
-    description: 'Quiet hours configuration'
+  @ApiPropertyOptional({
+    description: 'Quiet hours configuration',
   })
   @IsOptional()
   @IsObject()
   quiet_hours?: QuietHours;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Maximum notifications per day',
-    example: 50
+    example: 50,
   })
   @IsOptional()
   daily_limit?: number;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Notification grouping preferences',
     example: {
       group_similar: true,
       group_by_type: true,
-      max_group_size: 5
-    }
+      max_group_size: 5,
+    },
   })
   @IsOptional()
   @IsObject()
   grouping?: Record<string, any>;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Language preference for notifications',
-    example: 'en'
+    example: 'en',
   })
   @IsOptional()
   @IsString()
   language?: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Additional preferences metadata'
+  @ApiPropertyOptional({
+    description: 'Additional preferences metadata',
   })
   @IsOptional()
   @IsObject()

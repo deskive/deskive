@@ -90,7 +90,12 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'valid_until', label: 'Valid Until', type: 'date', required: true },
       { key: 'executive_summary', label: 'Executive Summary', type: 'textarea', required: true },
       { key: 'challenges', label: 'Client Challenges', type: 'textarea', required: true },
-      { key: 'solution_description', label: 'Solution Description', type: 'textarea', required: true },
+      {
+        key: 'solution_description',
+        label: 'Solution Description',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'key_benefits', label: 'Key Benefits', type: 'textarea', required: true },
       { key: 'subtotal', label: 'Subtotal', type: 'currency', required: true },
       { key: 'discount', label: 'Discount', type: 'currency', required: false },
@@ -104,7 +109,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'sales_rep_phone', label: 'Sales Rep Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Product Quote',
@@ -138,14 +147,32 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| SKU | Product | Description | Qty | Unit Price | Total |\n' },
         { insert: '|-----|---------|-------------|-----|------------|-------|\n' },
-        { insert: '| {{sku_1}} | {{product_1}} | {{desc_1}} | {{qty_1}} | {{price_1}} | {{total_1}} |\n' },
-        { insert: '| {{sku_2}} | {{product_2}} | {{desc_2}} | {{qty_2}} | {{price_2}} | {{total_2}} |\n' },
-        { insert: '| {{sku_3}} | {{product_3}} | {{desc_3}} | {{qty_3}} | {{price_3}} | {{total_3}} |\n' },
-        { insert: '| {{sku_4}} | {{product_4}} | {{desc_4}} | {{qty_4}} | {{price_4}} | {{total_4}} |\n' },
+        {
+          insert:
+            '| {{sku_1}} | {{product_1}} | {{desc_1}} | {{qty_1}} | {{price_1}} | {{total_1}} |\n',
+        },
+        {
+          insert:
+            '| {{sku_2}} | {{product_2}} | {{desc_2}} | {{qty_2}} | {{price_2}} | {{total_2}} |\n',
+        },
+        {
+          insert:
+            '| {{sku_3}} | {{product_3}} | {{desc_3}} | {{qty_3}} | {{price_3}} | {{total_3}} |\n',
+        },
+        {
+          insert:
+            '| {{sku_4}} | {{product_4}} | {{desc_4}} | {{qty_4}} | {{price_4}} | {{total_4}} |\n',
+        },
         { insert: '\n' },
-        { insert: '                                    Subtotal: ', attributes: { align: 'right' } },
+        {
+          insert: '                                    Subtotal: ',
+          attributes: { align: 'right' },
+        },
         { insert: '{{subtotal}}\n', attributes: { bold: true } },
-        { insert: '                                    Shipping: ', attributes: { align: 'right' } },
+        {
+          insert: '                                    Shipping: ',
+          attributes: { align: 'right' },
+        },
         { insert: '{{shipping}}\n', attributes: { bold: true } },
         { insert: '                                    Tax: ', attributes: { align: 'right' } },
         { insert: '{{tax}}\n', attributes: { bold: true } },
@@ -183,12 +210,22 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'tax', label: 'Tax', type: 'currency', required: true },
       { key: 'grand_total', label: 'Grand Total', type: 'currency', required: true },
       { key: 'notes', label: 'Notes', type: 'textarea', required: false },
-      { key: 'payment_terms', label: 'Payment Terms', type: 'select', required: true, options: ['Net 30', 'Net 60', 'Due on Receipt', '50% Deposit Required'] },
+      {
+        key: 'payment_terms',
+        label: 'Payment Terms',
+        type: 'select',
+        required: true,
+        options: ['Net 30', 'Net 60', 'Due on Receipt', '50% Deposit Required'],
+      },
       { key: 'delivery_terms', label: 'Delivery Terms', type: 'text', required: true },
       { key: 'warranty', label: 'Warranty', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Service Quote',
@@ -263,7 +300,12 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'client_company', label: 'Client Company', type: 'text', required: true },
       { key: 'client_address', label: 'Client Address', type: 'textarea', required: true },
       { key: 'project_name', label: 'Project Name', type: 'text', required: true },
-      { key: 'project_description', label: 'Project Description', type: 'textarea', required: true },
+      {
+        key: 'project_description',
+        label: 'Project Description',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'scope_of_services', label: 'Scope of Services', type: 'textarea', required: true },
       { key: 'total_amount', label: 'Total Amount', type: 'currency', required: true },
       { key: 'start_date', label: 'Start Date', type: 'date', required: true },
@@ -271,7 +313,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'terms_conditions', label: 'Terms & Conditions', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Request for Quote Response',
@@ -304,7 +350,10 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: 'Dear ' },
         { insert: '{{client_contact}}', attributes: { bold: true } },
         { insert: ',\n\n' },
-        { insert: 'Thank you for the opportunity to submit our quote in response to your RFQ. We are pleased to provide the following proposal:\n\n' },
+        {
+          insert:
+            'Thank you for the opportunity to submit our quote in response to your RFQ. We are pleased to provide the following proposal:\n\n',
+        },
         { insert: 'Company Overview', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{company_overview}}' },
@@ -317,9 +366,18 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Line Item | Description | Unit | Qty | Unit Price | Extended Price |\n' },
         { insert: '|-----------|-------------|------|-----|------------|----------------|\n' },
-        { insert: '| {{line_1}} | {{desc_1}} | {{unit_1}} | {{qty_1}} | {{uprice_1}} | {{eprice_1}} |\n' },
-        { insert: '| {{line_2}} | {{desc_2}} | {{unit_2}} | {{qty_2}} | {{uprice_2}} | {{eprice_2}} |\n' },
-        { insert: '| {{line_3}} | {{desc_3}} | {{unit_3}} | {{qty_3}} | {{uprice_3}} | {{eprice_3}} |\n' },
+        {
+          insert:
+            '| {{line_1}} | {{desc_1}} | {{unit_1}} | {{qty_1}} | {{uprice_1}} | {{eprice_1}} |\n',
+        },
+        {
+          insert:
+            '| {{line_2}} | {{desc_2}} | {{unit_2}} | {{qty_2}} | {{uprice_2}} | {{eprice_2}} |\n',
+        },
+        {
+          insert:
+            '| {{line_3}} | {{desc_3}} | {{unit_3}} | {{qty_3}} | {{uprice_3}} | {{eprice_3}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Total Quote Value: ', attributes: { bold: true } },
         { insert: '{{total_value}}\n\n' },
@@ -335,7 +393,10 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '\n' },
         { insert: '{{terms}}' },
         { insert: '\n\n' },
-        { insert: 'We appreciate your consideration and look forward to the opportunity to serve you.\n\n' },
+        {
+          insert:
+            'We appreciate your consideration and look forward to the opportunity to serve you.\n\n',
+        },
         { insert: 'Sincerely,\n\n' },
         { insert: '{{authorized_name}}\n' },
         { insert: '{{authorized_title}}\n' },
@@ -361,7 +422,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'authorized_title', label: 'Authorized Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Sales Pitch Deck Outline',
@@ -379,7 +444,9 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '{{company_name}}', attributes: { bold: true } },
         { insert: '\n\n' },
         { insert: 'Slide 1: Title', attributes: { header: 2 } },
-        { insert: '\n• Company logo\n• Tagline: "{{tagline}}"\n• Presenter: {{presenter_name}}\n\n' },
+        {
+          insert: '\n• Company logo\n• Tagline: "{{tagline}}"\n• Presenter: {{presenter_name}}\n\n',
+        },
         { insert: 'Slide 2: The Problem', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{problem_statement}}' },
@@ -431,7 +498,12 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'features_benefits', label: 'Features & Benefits', type: 'textarea', required: true },
       { key: 'how_it_works', label: 'How It Works', type: 'textarea', required: true },
       { key: 'case_studies', label: 'Case Studies', type: 'textarea', required: true },
-      { key: 'competitive_advantage', label: 'Competitive Advantage', type: 'textarea', required: true },
+      {
+        key: 'competitive_advantage',
+        label: 'Competitive Advantage',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'pricing_overview', label: 'Pricing Overview', type: 'textarea', required: true },
       { key: 'call_to_action', label: 'Call to Action', type: 'textarea', required: true },
       { key: 'contact_name', label: 'Contact Name', type: 'text', required: true },
@@ -440,7 +512,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'contact_phone', label: 'Contact Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Partnership Proposal',
@@ -508,13 +584,33 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'company_name', label: 'Your Company', type: 'text', required: true },
       { key: 'date', label: 'Date', type: 'date', required: true },
       { key: 'executive_summary', label: 'Executive Summary', type: 'textarea', required: true },
-      { key: 'company_description', label: 'Company Description', type: 'textarea', required: true },
-      { key: 'partnership_opportunity', label: 'Partnership Opportunity', type: 'textarea', required: true },
+      {
+        key: 'company_description',
+        label: 'Company Description',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        key: 'partnership_opportunity',
+        label: 'Partnership Opportunity',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'partner_benefits', label: 'Partner Benefits', type: 'textarea', required: true },
       { key: 'our_benefits', label: 'Our Benefits', type: 'textarea', required: true },
-      { key: 'partnership_structure', label: 'Partnership Structure', type: 'textarea', required: true },
+      {
+        key: 'partnership_structure',
+        label: 'Partnership Structure',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'revenue_model', label: 'Revenue Model', type: 'textarea', required: true },
-      { key: 'implementation_plan', label: 'Implementation Plan', type: 'textarea', required: true },
+      {
+        key: 'implementation_plan',
+        label: 'Implementation Plan',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'next_steps', label: 'Next Steps', type: 'textarea', required: true },
       { key: 'contact_name', label: 'Contact Name', type: 'text', required: true },
       { key: 'contact_title', label: 'Contact Title', type: 'text', required: true },
@@ -522,7 +618,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'contact_phone', label: 'Contact Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Sponsorship Proposal',
@@ -616,7 +716,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'contact_phone', label: 'Contact Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Vendor Proposal',
@@ -700,7 +804,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'contact_phone', label: 'Contact Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Price List',
@@ -741,7 +849,10 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '{{volume_discounts}}' },
         { insert: '\n\n' },
         { insert: 'Terms & Conditions', attributes: { header: 2 } },
-        { insert: '\n• Prices are subject to change without notice\n• Minimum order quantity may apply\n• Shipping and taxes not included unless specified\n• Payment terms: ' },
+        {
+          insert:
+            '\n• Prices are subject to change without notice\n• Minimum order quantity may apply\n• Shipping and taxes not included unless specified\n• Payment terms: ',
+        },
         { insert: '{{payment_terms}}\n\n', attributes: { bold: true } },
         { insert: 'For orders or inquiries, contact:\n' },
         { insert: '{{contact_info}}\n' },
@@ -750,7 +861,13 @@ export const SALES_PROPOSALS_TEMPLATES = [
     placeholders: [
       { key: 'company_name', label: 'Company Name', type: 'text', required: true },
       { key: 'effective_date', label: 'Effective Date', type: 'date', required: true },
-      { key: 'currency', label: 'Currency', type: 'select', required: true, options: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'] },
+      {
+        key: 'currency',
+        label: 'Currency',
+        type: 'select',
+        required: true,
+        options: ['USD', 'EUR', 'GBP', 'CAD', 'AUD'],
+      },
       { key: 'category_1', label: 'Category 1', type: 'text', required: true },
       { key: 'category_2', label: 'Category 2', type: 'text', required: true },
       { key: 'volume_discounts', label: 'Volume Discounts', type: 'textarea', required: true },
@@ -758,7 +875,11 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'contact_info', label: 'Contact Info', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Sales Order Form',
@@ -782,7 +903,9 @@ export const SALES_PROPOSALS_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Bill To:', attributes: { header: 2 } },
         { insert: '\n' },
-        { insert: '{{bill_to_name}}\n{{bill_to_address}}\n{{bill_to_phone}}\n{{bill_to_email}}\n\n' },
+        {
+          insert: '{{bill_to_name}}\n{{bill_to_address}}\n{{bill_to_phone}}\n{{bill_to_email}}\n\n',
+        },
         { insert: 'Ship To:', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{ship_to_name}}\n{{ship_to_address}}\n{{ship_to_phone}}\n\n' },
@@ -839,13 +962,34 @@ export const SALES_PROPOSALS_TEMPLATES = [
       { key: 'shipping', label: 'Shipping', type: 'currency', required: true },
       { key: 'tax', label: 'Tax', type: 'currency', required: true },
       { key: 'grand_total', label: 'Grand Total', type: 'currency', required: true },
-      { key: 'shipping_method', label: 'Shipping Method', type: 'select', required: true, options: ['Standard', 'Express', 'Overnight', 'Pickup'] },
+      {
+        key: 'shipping_method',
+        label: 'Shipping Method',
+        type: 'select',
+        required: true,
+        options: ['Standard', 'Express', 'Overnight', 'Pickup'],
+      },
       { key: 'delivery_date', label: 'Delivery Date', type: 'date', required: true },
-      { key: 'payment_method', label: 'Payment Method', type: 'select', required: true, options: ['Credit Card', 'Bank Transfer', 'Check', 'Net 30'] },
+      {
+        key: 'payment_method',
+        label: 'Payment Method',
+        type: 'select',
+        required: true,
+        options: ['Credit Card', 'Bank Transfer', 'Check', 'Net 30'],
+      },
       { key: 'po_number', label: 'PO Number', type: 'text', required: false },
-      { key: 'special_instructions', label: 'Special Instructions', type: 'textarea', required: false },
+      {
+        key: 'special_instructions',
+        label: 'Special Instructions',
+        type: 'textarea',
+        required: false,
+      },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

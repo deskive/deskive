@@ -1,4 +1,18 @@
-import { Controller, Post, Get, Body, Query, Res, Headers, HttpStatus, Logger, Req, UseGuards, Inject, forwardRef } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Query,
+  Res,
+  Headers,
+  HttpStatus,
+  Logger,
+  Req,
+  UseGuards,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { SlackWhiteboardService } from './slack-whiteboard.service';
@@ -35,10 +49,10 @@ export class SlackWhiteboardController {
       const clientId = process.env.SLACK_WHITEBOARD_CLIENT_ID;
       const redirectUri = encodeURIComponent(
         process.env.SLACK_REDIRECT_URI ||
-        'https://api.deskive.com/api/v1/slack/whiteboard/oauth/callback'
+          'https://api.deskive.com/api/v1/slack/whiteboard/oauth/callback',
       );
       const scopes = encodeURIComponent(
-        'app_mentions:read,channels:join,channels:read,chat:write,commands,im:read,im:write,users:read,users:read.email,chat:write.public,groups:read,groups:write'
+        'app_mentions:read,channels:join,channels:read,chat:write,commands,im:read,im:write,users:read,users:read.email,chat:write.public,groups:read,groups:write',
       );
 
       const oauthUrl = `https://slack.com/oauth/v2/authorize?client_id=${clientId}&scope=${scopes}&redirect_uri=${redirectUri}`;
@@ -85,7 +99,9 @@ export class SlackWhiteboardController {
     } catch (error) {
       this.logger.error('OAuth callback error:', error);
       const frontendUrl = process.env.FRONTEND_URL || 'https://deskive.com';
-      return res.redirect(`${frontendUrl}/slack/error?reason=oauth_failed&message=${encodeURIComponent(error.message)}`);
+      return res.redirect(
+        `${frontendUrl}/slack/error?reason=oauth_failed&message=${encodeURIComponent(error.message)}`,
+      );
     }
   }
 
@@ -97,10 +113,7 @@ export class SlackWhiteboardController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Complete Slack setup after authentication' })
-  async completeSetup(
-    @Req() req: Request,
-    @Body() body: { setupToken: string }
-  ) {
+  async completeSetup(@Req() req: Request, @Body() body: { setupToken: string }) {
     try {
       const userId = req.user['sub'] || req.user['userId'];
 
@@ -146,11 +159,12 @@ export class SlackWhiteboardController {
   @ApiOperation({ summary: 'Send Slack notification after project creation' })
   async notifyProjectCreation(
     @Req() req: Request,
-    @Body() body: {
+    @Body()
+    body: {
       projectId: string;
       slackTeamId: string;
       slackUserId: string;
-    }
+    },
   ) {
     try {
       this.logger.log('📨 [Notify Project] Sending notification for project:', body.projectId);
@@ -191,11 +205,12 @@ export class SlackWhiteboardController {
   @ApiOperation({ summary: 'Send Slack notification after task creation' })
   async notifyTaskCreation(
     @Req() req: Request,
-    @Body() body: {
+    @Body()
+    body: {
       taskId: string;
       slackTeamId: string;
       slackUserId: string;
-    }
+    },
   ) {
     try {
       this.logger.log('📨 [Notify Task] Sending notification for task:', body.taskId);
@@ -381,7 +396,12 @@ export class SlackWhiteboardController {
     // Check action_id for button clicks
     if (payload.type === 'block_actions' && payload.actions?.length > 0) {
       const actionId = payload.actions[0].action_id || '';
-      return actionId.includes('project') || actionId.includes('task') || actionId.includes('add_task') || actionId.includes('share_project');
+      return (
+        actionId.includes('project') ||
+        actionId.includes('task') ||
+        actionId.includes('add_task') ||
+        actionId.includes('share_project')
+      );
     }
 
     return false;
@@ -400,7 +420,9 @@ export class SlackWhiteboardController {
     // Check action_id for button clicks
     if (payload.type === 'block_actions' && payload.actions?.length > 0) {
       const actionId = payload.actions[0].action_id || '';
-      return actionId.includes('calendar') || actionId.includes('event') || actionId.includes('rsvp');
+      return (
+        actionId.includes('calendar') || actionId.includes('event') || actionId.includes('rsvp')
+      );
     }
 
     return false;
@@ -435,8 +457,7 @@ export class SlackWhiteboardController {
     const bodyString = typeof body === 'string' ? body : JSON.stringify(body);
     const signatureBaseString = `v0:${timestamp}:${bodyString}`;
     const mySignature =
-      'v0=' +
-      crypto.createHmac('sha256', signingSecret).update(signatureBaseString).digest('hex');
+      'v0=' + crypto.createHmac('sha256', signingSecret).update(signatureBaseString).digest('hex');
 
     // Compare signatures (timing-safe)
     try {

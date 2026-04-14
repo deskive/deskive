@@ -45,10 +45,7 @@ import {
 } from './search-provider.interface';
 
 /** (sql, params) → rows[] — the minimum surface of a pg client the provider needs. */
-export type PgQueryFn = (
-  sql: string,
-  params?: any[],
-) => Promise<{ rows: any[] }>;
+export type PgQueryFn = (sql: string, params?: any[]) => Promise<{ rows: any[] }>;
 
 interface CollectionMap {
   table: string;
@@ -157,10 +154,7 @@ export class PgTrgmProvider implements SearchProvider {
     // the moment the app's main write path writes it.
   }
 
-  async indexBatch(
-    _collection: string,
-    _documents: SearchableDocument[],
-  ): Promise<void> {
+  async indexBatch(_collection: string, _documents: SearchableDocument[]): Promise<void> {
     // No-op, same reason.
   }
 
@@ -232,15 +226,12 @@ export class PgTrgmProvider implements SearchProvider {
       }
     }
 
-    const whereSql =
-      whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
+    const whereSql = whereClauses.length > 0 ? `WHERE ${whereClauses.join(' AND ')}` : '';
 
     // Score: similarity of the primary search column (first in the list)
     // to the query, or 0 if no text query.
     const primaryCol = map.searchColumns[0];
-    const scoreSql = query.q
-      ? `similarity(${primaryCol}, $1)`
-      : '0';
+    const scoreSql = query.q ? `similarity(${primaryCol}, $1)` : '0';
 
     const sql = `
       SELECT
@@ -274,10 +265,7 @@ export class PgTrgmProvider implements SearchProvider {
     };
   }
 
-  async reindex(
-    _collection: string,
-    _source: AsyncIterable<SearchableDocument>,
-  ): Promise<number> {
+  async reindex(_collection: string, _source: AsyncIterable<SearchableDocument>): Promise<number> {
     // No-op — Postgres is the source of truth. We could re-run
     // ensureReady() to rebuild the GIN indexes, but REINDEX is an
     // expensive operation and not typically needed. Callers that

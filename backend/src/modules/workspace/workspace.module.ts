@@ -8,15 +8,8 @@ import { AuthModule } from '../auth/auth.module';
 import { WebSocketModule } from '../../common/gateways/websocket.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    WebSocketModule,
-  ],
-  controllers: [
-    WorkspaceController,
-    WorkspaceInvitationController,
-    InvitationPublicController,
-  ],
+  imports: [AuthModule, WebSocketModule],
+  controllers: [WorkspaceController, WorkspaceInvitationController, InvitationPublicController],
   providers: [WorkspaceService, WorkspaceInvitationService],
   exports: [WorkspaceService, WorkspaceInvitationService],
 })

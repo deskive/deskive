@@ -20,7 +20,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '{{company_name}}', attributes: { bold: true } },
         { insert: '\n{{company_address}}\n{{company_phone}} | {{company_email}}\n\n' },
         { insert: '{{date}}\n\n' },
-        { insert: '{{recipient_name}}\n{{recipient_title}}\n{{recipient_company}}\n{{recipient_address}}\n\n' },
+        {
+          insert:
+            '{{recipient_name}}\n{{recipient_title}}\n{{recipient_company}}\n{{recipient_address}}\n\n',
+        },
         { insert: 'Dear ' },
         { insert: '{{recipient_name}}', attributes: { bold: true } },
         { insert: ',\n\n' },
@@ -62,7 +65,12 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'recipient_title', label: 'Recipient Title', type: 'text', required: true },
       { key: 'recipient_company', label: 'Recipient Company', type: 'text', required: true },
       { key: 'recipient_address', label: 'Recipient Address', type: 'textarea', required: true },
-      { key: 'company_description', label: 'Company Description', type: 'textarea', required: true },
+      {
+        key: 'company_description',
+        label: 'Company Description',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'key_offerings', label: 'Key Offerings', type: 'textarea', required: true },
       { key: 'value_proposition', label: 'Value Proposition', type: 'textarea', required: true },
       { key: 'contact_phone', label: 'Contact Phone', type: 'tel', required: true },
@@ -71,7 +79,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_title', label: 'Sender Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Follow-Up Letter',
@@ -106,7 +118,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: 'The next steps we agreed upon:\n' },
         { insert: '{{next_steps}}' },
         { insert: '\n\n' },
-        { insert: 'Please don\'t hesitate to reach out if you have any questions or need additional information. I look forward to ' },
+        {
+          insert:
+            "Please don't hesitate to reach out if you have any questions or need additional information. I look forward to ",
+        },
         { insert: '{{future_action}}', attributes: { bold: true } },
         { insert: '.\n\n' },
         { insert: 'Best regards,\n\n\n' },
@@ -134,7 +149,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_phone', label: 'Sender Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Thank You Letter',
@@ -166,7 +185,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '.\n\n' },
         { insert: '{{additional_message}}' },
         { insert: '\n\n' },
-        { insert: 'If there is anything we can do to enhance your experience, please don\'t hesitate to contact me directly.\n\n' },
+        {
+          insert:
+            "If there is anything we can do to enhance your experience, please don't hesitate to contact me directly.\n\n",
+        },
         { insert: 'With appreciation,\n\n\n' },
         { insert: '{{sender_name}}\n' },
         { insert: '{{sender_title}}\n' },
@@ -182,7 +204,12 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'customer_company', label: 'Customer Company', type: 'text', required: false },
       { key: 'customer_address', label: 'Customer Address', type: 'textarea', required: true },
       { key: 'thank_you_reason', label: 'Thank You Reason', type: 'text', required: true },
-      { key: 'appreciation_message', label: 'Appreciation Message', type: 'textarea', required: true },
+      {
+        key: 'appreciation_message',
+        label: 'Appreciation Message',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'commitment', label: 'Our Commitment', type: 'textarea', required: true },
       { key: 'additional_message', label: 'Additional Message', type: 'textarea', required: false },
       { key: 'sender_name', label: 'Sender Name', type: 'text', required: true },
@@ -191,7 +218,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_phone', label: 'Sender Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Price Increase Notice',
@@ -209,7 +240,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '{{date}}\n\n' },
         { insert: '{{customer_name}}\n{{customer_company}}\n{{customer_address}}\n\n' },
         { insert: 'Dear Valued Customer,\n\n' },
-        { insert: 'We are writing to inform you of upcoming changes to our pricing structure, effective ' },
+        {
+          insert:
+            'We are writing to inform you of upcoming changes to our pricing structure, effective ',
+        },
         { insert: '{{effective_date}}', attributes: { bold: true } },
         { insert: '.\n\n' },
         { insert: 'Reason for Adjustment', attributes: { header: 2 } },
@@ -232,7 +266,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '\n' },
         { insert: '{{commitment}}' },
         { insert: '\n\n' },
-        { insert: 'We understand that price changes can be challenging, and we are committed to continuing to deliver exceptional value. If you have any questions or concerns, please contact ' },
+        {
+          insert:
+            'We understand that price changes can be challenging, and we are committed to continuing to deliver exceptional value. If you have any questions or concerns, please contact ',
+        },
         { insert: '{{contact_name}}', attributes: { bold: true } },
         { insert: ' at ' },
         { insert: '{{contact_email}}', attributes: { bold: true } },
@@ -265,7 +302,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_title', label: 'Sender Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Customer Win-Back Letter',
@@ -285,21 +326,30 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: 'Dear ' },
         { insert: '{{customer_name}}', attributes: { bold: true } },
         { insert: ',\n\n' },
-        { insert: 'We\'ve missed you! It\'s been a while since we\'ve had the pleasure of serving ' },
+        { insert: "We've missed you! It's been a while since we've had the pleasure of serving " },
         { insert: '{{customer_company}}', attributes: { bold: true } },
         { insert: ', and we wanted to reach out personally.\n\n' },
-        { insert: 'Since we last worked together, we\'ve made significant improvements:\n' },
+        { insert: "Since we last worked together, we've made significant improvements:\n" },
         { insert: '{{improvements}}' },
         { insert: '\n\n' },
         { insert: 'We Value Your Feedback', attributes: { header: 2 } },
-        { insert: '\nIf there was anything about your previous experience that didn\'t meet your expectations, we\'d love to hear about it. Your feedback helps us improve.\n\n' },
+        {
+          insert:
+            "\nIf there was anything about your previous experience that didn't meet your expectations, we'd love to hear about it. Your feedback helps us improve.\n\n",
+        },
         { insert: 'Special Offer for You', attributes: { header: 2 } },
-        { insert: '\nAs a gesture of our appreciation for your past business, we\'d like to offer you:\n' },
+        {
+          insert:
+            "\nAs a gesture of our appreciation for your past business, we'd like to offer you:\n",
+        },
         { insert: '{{special_offer}}', attributes: { bold: true } },
         { insert: '\n\nThis offer is valid until ' },
         { insert: '{{offer_expiry}}', attributes: { bold: true } },
         { insert: '.\n\n' },
-        { insert: 'We would love the opportunity to earn your business again. Please contact me directly if you have any questions or would like to discuss how we can help.\n\n' },
+        {
+          insert:
+            'We would love the opportunity to earn your business again. Please contact me directly if you have any questions or would like to discuss how we can help.\n\n',
+        },
         { insert: 'Looking forward to reconnecting,\n\n\n' },
         { insert: '{{sender_name}}\n' },
         { insert: '{{sender_title}}\n' },
@@ -323,7 +373,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_phone', label: 'Sender Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Product Announcement',
@@ -370,9 +424,12 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '\n' },
         { insert: '{{learn_more}}' },
         { insert: '\n\n' },
-        { insert: 'We\'re confident that ' },
+        { insert: "We're confident that " },
         { insert: '{{product_name}}', attributes: { bold: true } },
-        { insert: ' will exceed your expectations. Contact us today to learn more or place an order.\n\n' },
+        {
+          insert:
+            ' will exceed your expectations. Contact us today to learn more or place an order.\n\n',
+        },
         { insert: 'Sincerely,\n\n\n' },
         { insert: '{{sender_name}}\n' },
         { insert: '{{sender_title}}\n' },
@@ -396,7 +453,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_title', label: 'Sender Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Customer Feedback Request',
@@ -420,16 +481,22 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '{{company_name}}', attributes: { bold: true } },
         { insert: ' for ' },
         { insert: '{{product_service}}', attributes: { bold: true } },
-        { insert: '. We hope you\'ve had a positive experience!\n\n' },
-        { insert: 'Your opinion matters to us, and we would greatly appreciate a few minutes of your time to share your feedback.\n\n' },
+        { insert: ". We hope you've had a positive experience!\n\n" },
+        {
+          insert:
+            'Your opinion matters to us, and we would greatly appreciate a few minutes of your time to share your feedback.\n\n',
+        },
         { insert: 'How to Share Your Feedback', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{feedback_method}}' },
         { insert: '\n\n' },
         { insert: 'Why Your Feedback Matters', attributes: { header: 2 } },
-        { insert: '\n• Helps us improve our products and services\n• Guides our future development priorities\n• Helps other customers make informed decisions\n\n' },
+        {
+          insert:
+            '\n• Helps us improve our products and services\n• Guides our future development priorities\n• Helps other customers make informed decisions\n\n',
+        },
         { insert: 'As a Thank You', attributes: { header: 2 } },
-        { insert: '\nFor completing our feedback survey, you\'ll receive:\n' },
+        { insert: "\nFor completing our feedback survey, you'll receive:\n" },
         { insert: '{{incentive}}', attributes: { bold: true } },
         { insert: '\n\n' },
         { insert: 'Questions? Contact us at ' },
@@ -459,7 +526,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'sender_title', label: 'Sender Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Warranty Confirmation',
@@ -481,7 +552,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: 'Dear ' },
         { insert: '{{customer_name}}', attributes: { bold: true } },
         { insert: ',\n\n' },
-        { insert: 'Thank you for your purchase! This letter confirms your warranty coverage for:\n\n' },
+        {
+          insert:
+            'Thank you for your purchase! This letter confirms your warranty coverage for:\n\n',
+        },
         { insert: 'Product Information', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: 'Product: ' },
@@ -534,7 +608,13 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'model_sku', label: 'Model/SKU', type: 'text', required: true },
       { key: 'serial_number', label: 'Serial Number', type: 'text', required: true },
       { key: 'purchase_date', label: 'Purchase Date', type: 'date', required: true },
-      { key: 'warranty_type', label: 'Warranty Type', type: 'select', required: true, options: ['Standard', 'Extended', 'Limited', 'Lifetime'] },
+      {
+        key: 'warranty_type',
+        label: 'Warranty Type',
+        type: 'select',
+        required: true,
+        options: ['Standard', 'Extended', 'Limited', 'Lifetime'],
+      },
       { key: 'warranty_period', label: 'Warranty Period', type: 'text', required: true },
       { key: 'expiration_date', label: 'Expiration Date', type: 'date', required: true },
       { key: 'coverage_includes', label: 'Coverage Includes', type: 'textarea', required: true },
@@ -544,7 +624,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'support_phone', label: 'Support Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Order Confirmation',
@@ -569,7 +653,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: 'Dear ' },
         { insert: '{{customer_name}}', attributes: { bold: true } },
         { insert: ',\n\n' },
-        { insert: 'Thank you for your order! This letter confirms that we have received your order and it is being processed.\n\n' },
+        {
+          insert:
+            'Thank you for your order! This letter confirms that we have received your order and it is being processed.\n\n',
+        },
         { insert: 'Order Details', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '| Item | Quantity | Price | Total |\n' },
@@ -621,7 +708,11 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'support_phone', label: 'Support Phone', type: 'tel', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Credit Application',
@@ -695,12 +786,24 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Company | Contact | Phone | Account # |\n' },
         { insert: '|---------|---------|-------|-----------|\n' },
-        { insert: '| {{ref_1_company}} | {{ref_1_contact}} | {{ref_1_phone}} | {{ref_1_account}} |\n' },
-        { insert: '| {{ref_2_company}} | {{ref_2_contact}} | {{ref_2_phone}} | {{ref_2_account}} |\n' },
-        { insert: '| {{ref_3_company}} | {{ref_3_contact}} | {{ref_3_phone}} | {{ref_3_account}} |\n' },
+        {
+          insert:
+            '| {{ref_1_company}} | {{ref_1_contact}} | {{ref_1_phone}} | {{ref_1_account}} |\n',
+        },
+        {
+          insert:
+            '| {{ref_2_company}} | {{ref_2_contact}} | {{ref_2_phone}} | {{ref_2_account}} |\n',
+        },
+        {
+          insert:
+            '| {{ref_3_company}} | {{ref_3_contact}} | {{ref_3_phone}} | {{ref_3_account}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Authorization', attributes: { header: 2 } },
-        { insert: '\nI certify that the information provided is true and accurate. I authorize the company to obtain credit information and make inquiries as necessary.\n\n' },
+        {
+          insert:
+            '\nI certify that the information provided is true and accurate. I authorize the company to obtain credit information and make inquiries as necessary.\n\n',
+        },
         { insert: 'Authorized Signature: _________________ Date: _________\n' },
         { insert: 'Print Name: ' },
         { insert: '{{authorized_name}}', attributes: { bold: true } },
@@ -716,13 +819,25 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'phone', label: 'Phone', type: 'tel', required: true },
       { key: 'email', label: 'Email', type: 'email', required: true },
       { key: 'website', label: 'Website', type: 'text', required: false },
-      { key: 'business_type', label: 'Business Type', type: 'select', required: true, options: ['Corporation', 'LLC', 'Partnership', 'Sole Proprietorship'] },
+      {
+        key: 'business_type',
+        label: 'Business Type',
+        type: 'select',
+        required: true,
+        options: ['Corporation', 'LLC', 'Partnership', 'Sole Proprietorship'],
+      },
       { key: 'years_in_business', label: 'Years in Business', type: 'number', required: true },
       { key: 'tax_id', label: 'Tax ID/EIN', type: 'text', required: true },
       { key: 'duns', label: 'DUNS Number', type: 'text', required: false },
       { key: 'annual_revenue', label: 'Annual Revenue', type: 'currency', required: true },
       { key: 'credit_requested', label: 'Credit Requested', type: 'currency', required: true },
-      { key: 'payment_terms', label: 'Payment Terms', type: 'select', required: true, options: ['Net 30', 'Net 45', 'Net 60'] },
+      {
+        key: 'payment_terms',
+        label: 'Payment Terms',
+        type: 'select',
+        required: true,
+        options: ['Net 30', 'Net 45', 'Net 60'],
+      },
       { key: 'principal_name', label: 'Principal Name', type: 'text', required: true },
       { key: 'principal_title', label: 'Principal Title', type: 'text', required: true },
       { key: 'ownership_percent', label: 'Ownership %', type: 'number', required: true },
@@ -734,6 +849,10 @@ export const SALES_COMMUNICATIONS_TEMPLATES = [
       { key: 'authorized_title', label: 'Authorized Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

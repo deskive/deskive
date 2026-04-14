@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const HEALTHCARE_ADMIN_TEMPLATES = [
   {
@@ -18,13 +15,25 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: 'INSURANCE VERIFICATION FORM\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nDate: {{verification_date}}\nVerified By: {{verified_by}}\n\n' },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nPhone: {{patient_phone}}\nScheduled Procedure/Visit: {{scheduled_service}}\nDate of Service: {{service_date}}\n\n' },
+        {
+          insert:
+            'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nPhone: {{patient_phone}}\nScheduled Procedure/Visit: {{scheduled_service}}\nDate of Service: {{service_date}}\n\n',
+        },
         { insert: 'PRIMARY INSURANCE\n', attributes: { bold: true } },
-        { insert: 'Insurance Company: {{insurance_company}}\nPhone: {{insurance_phone}}\nPolicy Number: {{policy_number}}\nGroup Number: {{group_number}}\nSubscriber Name: {{subscriber_name}}\nSubscriber ID: {{subscriber_id}}\nRelationship: {{relationship}}\n\n' },
+        {
+          insert:
+            'Insurance Company: {{insurance_company}}\nPhone: {{insurance_phone}}\nPolicy Number: {{policy_number}}\nGroup Number: {{group_number}}\nSubscriber Name: {{subscriber_name}}\nSubscriber ID: {{subscriber_id}}\nRelationship: {{relationship}}\n\n',
+        },
         { insert: 'VERIFICATION DETAILS\n', attributes: { bold: true } },
-        { insert: 'Reference Number: {{reference_number}}\nRep Name: {{rep_name}}\nVerification Date: {{call_date}}\n\n' },
+        {
+          insert:
+            'Reference Number: {{reference_number}}\nRep Name: {{rep_name}}\nVerification Date: {{call_date}}\n\n',
+        },
         { insert: 'COVERAGE STATUS\n', attributes: { bold: true } },
-        { insert: 'Policy Status: {{policy_status}}\nEffective Date: {{effective_date}}\nTermination Date: {{termination_date}}\n\n' },
+        {
+          insert:
+            'Policy Status: {{policy_status}}\nEffective Date: {{effective_date}}\nTermination Date: {{termination_date}}\n\n',
+        },
         { insert: 'BENEFITS\n', attributes: { bold: true } },
         { insert: 'Plan Type: {{plan_type}}\nNetwork Status: {{network_status}}\n\n' },
         { insert: 'Deductible:\n' },
@@ -60,34 +69,89 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'group_number', type: 'text', label: 'Group Number', required: false },
       { key: 'subscriber_name', type: 'text', label: 'Subscriber Name', required: true },
       { key: 'subscriber_id', type: 'text', label: 'Subscriber ID', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship to Subscriber', required: true, options: ['Self', 'Spouse', 'Child', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship to Subscriber',
+        required: true,
+        options: ['Self', 'Spouse', 'Child', 'Other'],
+      },
       { key: 'reference_number', type: 'text', label: 'Reference Number', required: true },
       { key: 'rep_name', type: 'text', label: 'Insurance Rep Name', required: false },
       { key: 'call_date', type: 'date', label: 'Call Date', required: true },
-      { key: 'policy_status', type: 'select', label: 'Policy Status', required: true, options: ['Active', 'Inactive', 'Pending'] },
+      {
+        key: 'policy_status',
+        type: 'select',
+        label: 'Policy Status',
+        required: true,
+        options: ['Active', 'Inactive', 'Pending'],
+      },
       { key: 'effective_date', type: 'date', label: 'Effective Date', required: true },
       { key: 'termination_date', type: 'date', label: 'Termination Date', required: false },
-      { key: 'plan_type', type: 'select', label: 'Plan Type', required: true, options: ['PPO', 'HMO', 'EPO', 'POS', 'HDHP', 'Medicare', 'Medicaid', 'Other'] },
-      { key: 'network_status', type: 'select', label: 'Network Status', required: true, options: ['In-Network', 'Out-of-Network'] },
-      { key: 'deductible_individual', type: 'currency', label: 'Individual Deductible', required: true },
-      { key: 'deductible_met_individual', type: 'currency', label: 'Individual Deductible Met', required: true },
+      {
+        key: 'plan_type',
+        type: 'select',
+        label: 'Plan Type',
+        required: true,
+        options: ['PPO', 'HMO', 'EPO', 'POS', 'HDHP', 'Medicare', 'Medicaid', 'Other'],
+      },
+      {
+        key: 'network_status',
+        type: 'select',
+        label: 'Network Status',
+        required: true,
+        options: ['In-Network', 'Out-of-Network'],
+      },
+      {
+        key: 'deductible_individual',
+        type: 'currency',
+        label: 'Individual Deductible',
+        required: true,
+      },
+      {
+        key: 'deductible_met_individual',
+        type: 'currency',
+        label: 'Individual Deductible Met',
+        required: true,
+      },
       { key: 'deductible_family', type: 'currency', label: 'Family Deductible', required: false },
-      { key: 'deductible_met_family', type: 'currency', label: 'Family Deductible Met', required: false },
+      {
+        key: 'deductible_met_family',
+        type: 'currency',
+        label: 'Family Deductible Met',
+        required: false,
+      },
       { key: 'oop_max_individual', type: 'currency', label: 'Individual OOP Max', required: true },
       { key: 'oop_met_individual', type: 'currency', label: 'Individual OOP Met', required: true },
       { key: 'oop_max_family', type: 'currency', label: 'Family OOP Max', required: false },
       { key: 'oop_met_family', type: 'currency', label: 'Family OOP Met', required: false },
-      { key: 'service_covered', type: 'select', label: 'Service Covered', required: true, options: ['Yes', 'No', 'Partial'] },
+      {
+        key: 'service_covered',
+        type: 'select',
+        label: 'Service Covered',
+        required: true,
+        options: ['Yes', 'No', 'Partial'],
+      },
       { key: 'copay', type: 'currency', label: 'Copay', required: false },
       { key: 'coinsurance', type: 'text', label: 'Coinsurance %', required: false },
-      { key: 'prior_auth_required', type: 'select', label: 'Prior Auth Required', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'prior_auth_required',
+        type: 'select',
+        label: 'Prior Auth Required',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'auth_number', type: 'text', label: 'Authorization Number', required: false },
       { key: 'auth_valid_through', type: 'date', label: 'Auth Valid Through', required: false },
       { key: 'estimated_cost', type: 'currency', label: 'Estimated Patient Cost', required: false },
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Medical Records Request',
@@ -104,11 +168,20 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: '\n{{facility_name}}\n\n' },
         { insert: 'Date: {{request_date}}\n\n' },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nAddress: {{patient_address}}\nPhone: {{patient_phone}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nAddress: {{patient_address}}\nPhone: {{patient_phone}}\n\n',
+        },
         { insert: 'RECORDS REQUESTED FROM\n', attributes: { bold: true } },
-        { insert: 'Facility/Provider Name: {{from_facility}}\nAddress: {{from_address}}\nPhone: {{from_phone}}\nFax: {{from_fax}}\n\n' },
+        {
+          insert:
+            'Facility/Provider Name: {{from_facility}}\nAddress: {{from_address}}\nPhone: {{from_phone}}\nFax: {{from_fax}}\n\n',
+        },
         { insert: 'SEND RECORDS TO\n', attributes: { bold: true } },
-        { insert: 'Facility/Provider Name: {{to_facility}}\nAttention: {{attention}}\nAddress: {{to_address}}\nPhone: {{to_phone}}\nFax: {{to_fax}}\n\n' },
+        {
+          insert:
+            'Facility/Provider Name: {{to_facility}}\nAttention: {{attention}}\nAddress: {{to_address}}\nPhone: {{to_phone}}\nFax: {{to_fax}}\n\n',
+        },
         { insert: 'RECORDS REQUESTED\n', attributes: { bold: true } },
         { insert: '{{records_type}}\n\n' },
         { insert: 'Date Range: {{date_from}} to {{date_to}}\n\n' },
@@ -117,7 +190,10 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: 'DELIVERY METHOD\n', attributes: { bold: true } },
         { insert: '{{delivery_method}}\n\n' },
         { insert: 'AUTHORIZATION\n', attributes: { bold: true } },
-        { insert: 'I authorize the release of my medical records as specified above. I understand that I may revoke this authorization at any time in writing. This authorization expires on {{expiration_date}} or upon fulfillment of the request.\n\n' },
+        {
+          insert:
+            'I authorize the release of my medical records as specified above. I understand that I may revoke this authorization at any time in writing. This authorization expires on {{expiration_date}} or upon fulfillment of the request.\n\n',
+        },
         { insert: '_______________________________________________\n' },
         { insert: 'Patient/Legal Representative Signature\n\n' },
         { insert: 'Printed Name: {{printed_name}}\n' },
@@ -149,17 +225,52 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'records_type', type: 'textarea', label: 'Type of Records Requested', required: true },
       { key: 'date_from', type: 'date', label: 'Records From Date', required: false },
       { key: 'date_to', type: 'date', label: 'Records To Date', required: false },
-      { key: 'purpose', type: 'select', label: 'Purpose of Request', required: true, options: ['Continuity of Care', 'Second Opinion', 'Insurance Claim', 'Legal', 'Personal Copy', 'Disability Determination', 'Other'] },
-      { key: 'delivery_method', type: 'select', label: 'Delivery Method', required: true, options: ['Mail', 'Fax', 'Email (Secure)', 'Pick Up', 'Patient Portal'] },
+      {
+        key: 'purpose',
+        type: 'select',
+        label: 'Purpose of Request',
+        required: true,
+        options: [
+          'Continuity of Care',
+          'Second Opinion',
+          'Insurance Claim',
+          'Legal',
+          'Personal Copy',
+          'Disability Determination',
+          'Other',
+        ],
+      },
+      {
+        key: 'delivery_method',
+        type: 'select',
+        label: 'Delivery Method',
+        required: true,
+        options: ['Mail', 'Fax', 'Email (Secure)', 'Pick Up', 'Patient Portal'],
+      },
       { key: 'expiration_date', type: 'date', label: 'Authorization Expiration', required: true },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 600 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Superbill/Encounter Form',
@@ -173,10 +284,16 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
     content: {
       ops: [
         { insert: 'SUPERBILL / ENCOUNTER FORM\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\n{{practice_name}}\n{{practice_address}}\nPhone: {{practice_phone}} Tax ID: {{tax_id}} NPI: {{npi}}\n\n' },
+        {
+          insert:
+            '\n{{practice_name}}\n{{practice_address}}\nPhone: {{practice_phone}} Tax ID: {{tax_id}} NPI: {{npi}}\n\n',
+        },
         { insert: 'Date of Service: {{date_of_service}}\n\n' },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nAccount #: {{account_number}}\nInsurance: {{insurance}}\nCopay: {{copay}} Payment: {{payment}}\n\n' },
+        {
+          insert:
+            'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nAccount #: {{account_number}}\nInsurance: {{insurance}}\nCopay: {{copay}} Payment: {{payment}}\n\n',
+        },
         { insert: 'PROVIDER: {{provider_name}}\n\n', attributes: { bold: true } },
         { insert: 'DIAGNOSIS CODES (ICD-10)\n', attributes: { bold: true } },
         { insert: 'Primary: {{primary_dx}}\n' },
@@ -220,10 +337,25 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'primary_dx', type: 'text', label: 'Primary Diagnosis Code', required: true },
       { key: 'secondary_dx', type: 'text', label: 'Secondary Diagnosis Code', required: false },
       { key: 'additional_dx', type: 'text', label: 'Additional Diagnosis Codes', required: false },
-      { key: 'new_patient_codes', type: 'textarea', label: 'New Patient Visit Codes', required: false },
-      { key: 'established_patient_codes', type: 'textarea', label: 'Established Patient Codes', required: false },
+      {
+        key: 'new_patient_codes',
+        type: 'textarea',
+        label: 'New Patient Visit Codes',
+        required: false,
+      },
+      {
+        key: 'established_patient_codes',
+        type: 'textarea',
+        label: 'Established Patient Codes',
+        required: false,
+      },
       { key: 'procedure_codes', type: 'textarea', label: 'Procedure Codes', required: false },
-      { key: 'injection_codes', type: 'textarea', label: 'Injection/Immunization Codes', required: false },
+      {
+        key: 'injection_codes',
+        type: 'textarea',
+        label: 'Injection/Immunization Codes',
+        required: false,
+      },
       { key: 'lab_codes', type: 'textarea', label: 'Lab Test Codes', required: false },
       { key: 'other_services', type: 'textarea', label: 'Other Services', required: false },
       { key: 'supplies', type: 'textarea', label: 'Supplies', required: false },
@@ -232,9 +364,18 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'referral', type: 'text', label: 'Referral To', required: false },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Prior Authorization Request',
@@ -250,15 +391,30 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: 'PRIOR AUTHORIZATION REQUEST\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nDate: {{request_date}}\nUrgent: {{is_urgent}}\n\n' },
         { insert: 'PROVIDER INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Practice Name: {{practice_name}}\nProvider Name: {{provider_name}}\nNPI: {{npi}}\nPhone: {{provider_phone}}\nFax: {{provider_fax}}\nContact Person: {{contact_person}}\n\n' },
+        {
+          insert:
+            'Practice Name: {{practice_name}}\nProvider Name: {{provider_name}}\nNPI: {{npi}}\nPhone: {{provider_phone}}\nFax: {{provider_fax}}\nContact Person: {{contact_person}}\n\n',
+        },
         { insert: 'PATIENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMember ID: {{member_id}}\nGroup Number: {{group_number}}\nPhone: {{patient_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMember ID: {{member_id}}\nGroup Number: {{group_number}}\nPhone: {{patient_phone}}\n\n',
+        },
         { insert: 'INSURANCE INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Insurance Company: {{insurance_company}}\nPlan Type: {{plan_type}}\nPhone: {{insurance_phone}}\nFax: {{insurance_fax}}\n\n' },
+        {
+          insert:
+            'Insurance Company: {{insurance_company}}\nPlan Type: {{plan_type}}\nPhone: {{insurance_phone}}\nFax: {{insurance_fax}}\n\n',
+        },
         { insert: 'SERVICE/PROCEDURE REQUESTED\n', attributes: { bold: true } },
-        { insert: 'Service/Procedure: {{procedure_requested}}\nCPT Code(s): {{cpt_codes}}\nHCPCS Code(s): {{hcpcs_codes}}\nPlace of Service: {{place_of_service}}\nRequested Date(s): {{requested_dates}}\nNumber of Units/Visits: {{units_requested}}\n\n' },
+        {
+          insert:
+            'Service/Procedure: {{procedure_requested}}\nCPT Code(s): {{cpt_codes}}\nHCPCS Code(s): {{hcpcs_codes}}\nPlace of Service: {{place_of_service}}\nRequested Date(s): {{requested_dates}}\nNumber of Units/Visits: {{units_requested}}\n\n',
+        },
         { insert: 'DIAGNOSIS\n', attributes: { bold: true } },
-        { insert: 'Primary Diagnosis: {{primary_diagnosis}}\nICD-10 Code: {{icd10_primary}}\nSecondary Diagnosis: {{secondary_diagnosis}}\nICD-10 Code: {{icd10_secondary}}\n\n' },
+        {
+          insert:
+            'Primary Diagnosis: {{primary_diagnosis}}\nICD-10 Code: {{icd10_primary}}\nSecondary Diagnosis: {{secondary_diagnosis}}\nICD-10 Code: {{icd10_secondary}}\n\n',
+        },
         { insert: 'CLINICAL INFORMATION\n', attributes: { bold: true } },
         { insert: 'Medical Necessity/Justification:\n{{medical_necessity}}\n\n' },
         { insert: 'Relevant History:\n{{relevant_history}}\n\n' },
@@ -266,15 +422,27 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: 'SUPPORTING DOCUMENTATION ATTACHED\n', attributes: { bold: true } },
         { insert: '{{attached_documents}}\n\n' },
         { insert: 'PROVIDER CERTIFICATION\n', attributes: { bold: true } },
-        { insert: 'I certify that the information provided is accurate and that the requested service is medically necessary.\n\n' },
+        {
+          insert:
+            'I certify that the information provided is accurate and that the requested service is medically necessary.\n\n',
+        },
         { insert: 'Provider Signature: _________________________ Date: {{signature_date}}\n\n' },
         { insert: 'FOR INSURANCE USE ONLY\n', attributes: { bold: true } },
-        { insert: 'Auth Number: _____________\nApproved/Denied: _____________\nEffective Dates: _____________\nUnits Approved: _____________\n' },
+        {
+          insert:
+            'Auth Number: _____________\nApproved/Denied: _____________\nEffective Dates: _____________\nUnits Approved: _____________\n',
+        },
       ],
     },
     placeholders: [
       { key: 'request_date', type: 'date', label: 'Request Date', required: true },
-      { key: 'is_urgent', type: 'select', label: 'Urgent Request', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'is_urgent',
+        type: 'select',
+        label: 'Urgent Request',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'practice_name', type: 'text', label: 'Practice Name', required: true },
       { key: 'provider_name', type: 'text', label: 'Provider Name', required: true },
       { key: 'npi', type: 'text', label: 'NPI', required: true },
@@ -290,10 +458,28 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'plan_type', type: 'text', label: 'Plan Type', required: true },
       { key: 'insurance_phone', type: 'text', label: 'Insurance Phone', required: true },
       { key: 'insurance_fax', type: 'text', label: 'Insurance Fax', required: true },
-      { key: 'procedure_requested', type: 'textarea', label: 'Procedure Requested', required: true },
+      {
+        key: 'procedure_requested',
+        type: 'textarea',
+        label: 'Procedure Requested',
+        required: true,
+      },
       { key: 'cpt_codes', type: 'text', label: 'CPT Code(s)', required: true },
       { key: 'hcpcs_codes', type: 'text', label: 'HCPCS Code(s)', required: false },
-      { key: 'place_of_service', type: 'select', label: 'Place of Service', required: true, options: ['Office', 'Hospital Inpatient', 'Hospital Outpatient', 'Ambulatory Surgery Center', 'Home', 'Other'] },
+      {
+        key: 'place_of_service',
+        type: 'select',
+        label: 'Place of Service',
+        required: true,
+        options: [
+          'Office',
+          'Hospital Inpatient',
+          'Hospital Outpatient',
+          'Ambulatory Surgery Center',
+          'Home',
+          'Other',
+        ],
+      },
       { key: 'requested_dates', type: 'text', label: 'Requested Date(s)', required: true },
       { key: 'units_requested', type: 'number', label: 'Units/Visits Requested', required: true },
       { key: 'primary_diagnosis', type: 'text', label: 'Primary Diagnosis', required: true },
@@ -302,14 +488,28 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'icd10_secondary', type: 'text', label: 'ICD-10 Secondary Code', required: false },
       { key: 'medical_necessity', type: 'textarea', label: 'Medical Necessity', required: true },
       { key: 'relevant_history', type: 'textarea', label: 'Relevant History', required: true },
-      { key: 'previous_treatments', type: 'textarea', label: 'Previous Treatments', required: false },
+      {
+        key: 'previous_treatments',
+        type: 'textarea',
+        label: 'Previous Treatments',
+        required: false,
+      },
       { key: 'attached_documents', type: 'textarea', label: 'Attached Documents', required: false },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Patient Financial Agreement',
@@ -324,29 +524,59 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       ops: [
         { insert: 'PATIENT FINANCIAL AGREEMENT\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{practice_name}}\n{{practice_address}}\nPhone: {{practice_phone}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nAccount Number: {{account_number}}\nDate: {{agreement_date}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nAccount Number: {{account_number}}\nDate: {{agreement_date}}\n\n',
+        },
         { insert: 'FINANCIAL RESPONSIBILITY\n', attributes: { bold: true } },
         { insert: 'I understand and agree to the following:\n\n' },
         { insert: '1. PAYMENT FOR SERVICES\n', attributes: { bold: true } },
-        { insert: 'I understand that payment for services is expected at the time of service unless other arrangements have been made. I agree to pay all applicable copayments, deductibles, and coinsurance amounts.\n\n' },
+        {
+          insert:
+            'I understand that payment for services is expected at the time of service unless other arrangements have been made. I agree to pay all applicable copayments, deductibles, and coinsurance amounts.\n\n',
+        },
         { insert: '2. INSURANCE COVERAGE\n', attributes: { bold: true } },
-        { insert: 'I understand that I am responsible for knowing my insurance benefits. Filing an insurance claim is a courtesy provided by this practice. If my insurance does not pay within {{insurance_days}} days, I agree to pay the balance.\n\n' },
+        {
+          insert:
+            'I understand that I am responsible for knowing my insurance benefits. Filing an insurance claim is a courtesy provided by this practice. If my insurance does not pay within {{insurance_days}} days, I agree to pay the balance.\n\n',
+        },
         { insert: '3. UNINSURED/SELF-PAY\n', attributes: { bold: true } },
-        { insert: 'If I am uninsured or choose to pay out-of-pocket, I understand payment is due at the time of service.\n\n' },
+        {
+          insert:
+            'If I am uninsured or choose to pay out-of-pocket, I understand payment is due at the time of service.\n\n',
+        },
         { insert: '4. INSURANCE CHANGES\n', attributes: { bold: true } },
-        { insert: 'I agree to notify the practice immediately of any changes to my insurance coverage.\n\n' },
+        {
+          insert:
+            'I agree to notify the practice immediately of any changes to my insurance coverage.\n\n',
+        },
         { insert: '5. PAST DUE ACCOUNTS\n', attributes: { bold: true } },
-        { insert: 'I understand that accounts past due {{past_due_days}} days may be subject to late fees, referred to a collection agency, and/or legal action. I agree to pay all collection costs and reasonable attorney fees.\n\n' },
+        {
+          insert:
+            'I understand that accounts past due {{past_due_days}} days may be subject to late fees, referred to a collection agency, and/or legal action. I agree to pay all collection costs and reasonable attorney fees.\n\n',
+        },
         { insert: '6. RETURNED CHECKS\n', attributes: { bold: true } },
         { insert: 'A fee of {{returned_check_fee}} will be charged for returned checks.\n\n' },
         { insert: '7. MISSED APPOINTMENTS\n', attributes: { bold: true } },
-        { insert: 'I understand that a {{missed_appointment_fee}} fee may be charged for appointments canceled with less than {{cancellation_notice}} hours notice or for no-shows.\n\n' },
+        {
+          insert:
+            'I understand that a {{missed_appointment_fee}} fee may be charged for appointments canceled with less than {{cancellation_notice}} hours notice or for no-shows.\n\n',
+        },
         { insert: '8. PAYMENT PLANS\n', attributes: { bold: true } },
-        { insert: 'I understand that payment plans may be available and must be arranged in advance with the billing department.\n\n' },
+        {
+          insert:
+            'I understand that payment plans may be available and must be arranged in advance with the billing department.\n\n',
+        },
         { insert: '9. AUTHORIZATION TO RELEASE INFORMATION\n', attributes: { bold: true } },
-        { insert: 'I authorize the release of medical information necessary to process insurance claims.\n\n' },
+        {
+          insert:
+            'I authorize the release of medical information necessary to process insurance claims.\n\n',
+        },
         { insert: '10. ASSIGNMENT OF BENEFITS\n', attributes: { bold: true } },
-        { insert: 'I authorize payment of medical benefits directly to the healthcare provider.\n\n' },
+        {
+          insert:
+            'I authorize payment of medical benefits directly to the healthcare provider.\n\n',
+        },
         { insert: 'I have read and understand this financial agreement.\n\n' },
         { insert: '_______________________________________________\n' },
         { insert: 'Patient/Responsible Party Signature\n\n' },
@@ -366,16 +596,41 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'insurance_days', type: 'number', label: 'Insurance Payment Days', required: true },
       { key: 'past_due_days', type: 'number', label: 'Past Due Days', required: true },
       { key: 'returned_check_fee', type: 'currency', label: 'Returned Check Fee', required: true },
-      { key: 'missed_appointment_fee', type: 'currency', label: 'Missed Appointment Fee', required: true },
-      { key: 'cancellation_notice', type: 'number', label: 'Cancellation Notice Hours', required: true },
+      {
+        key: 'missed_appointment_fee',
+        type: 'currency',
+        label: 'Missed Appointment Fee',
+        required: true,
+      },
+      {
+        key: 'cancellation_notice',
+        type: 'number',
+        label: 'Cancellation Notice Hours',
+        required: true,
+      },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Other'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Responsible Party Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Responsible Party Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Medical Clearance Letter',
@@ -391,9 +646,15 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: '{{practice_name}}\n', attributes: { bold: true, size: 'large' } },
         { insert: '{{practice_address}}\nPhone: {{practice_phone}} Fax: {{practice_fax}}\n\n' },
         { insert: '{{letter_date}}\n\n' },
-        { insert: 'To: {{recipient}}\nRe: Medical Clearance for {{patient_name}}\nDOB: {{date_of_birth}}\n\n' },
+        {
+          insert:
+            'To: {{recipient}}\nRe: Medical Clearance for {{patient_name}}\nDOB: {{date_of_birth}}\n\n',
+        },
         { insert: 'MEDICAL CLEARANCE\n', attributes: { bold: true } },
-        { insert: '\n{{patient_name}} was evaluated in my office on {{evaluation_date}} for medical clearance.\n\n' },
+        {
+          insert:
+            '\n{{patient_name}} was evaluated in my office on {{evaluation_date}} for medical clearance.\n\n',
+        },
         { insert: 'CLEARANCE FOR:\n', attributes: { bold: true } },
         { insert: '{{clearance_purpose}}\n\n' },
         { insert: 'CLINICAL SUMMARY\n', attributes: { bold: true } },
@@ -412,7 +673,10 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: '{{restrictions}}\n\n' },
         { insert: 'RECOMMENDATIONS\n', attributes: { bold: true } },
         { insert: '{{recommendations}}\n\n' },
-        { insert: 'Please contact my office if you have any questions or require additional information.\n\n' },
+        {
+          insert:
+            'Please contact my office if you have any questions or require additional information.\n\n',
+        },
         { insert: 'Sincerely,\n\n' },
         { insert: '_______________________________________________\n' },
         { insert: '{{provider_name}}, {{credentials}}\n' },
@@ -429,24 +693,64 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
       { key: 'evaluation_date', type: 'date', label: 'Evaluation Date', required: true },
-      { key: 'clearance_purpose', type: 'select', label: 'Clearance Purpose', required: true, options: ['Surgery', 'Anesthesia', 'Sports Participation', 'Employment', 'School', 'Travel', 'Exercise Program', 'Other'] },
+      {
+        key: 'clearance_purpose',
+        type: 'select',
+        label: 'Clearance Purpose',
+        required: true,
+        options: [
+          'Surgery',
+          'Anesthesia',
+          'Sports Participation',
+          'Employment',
+          'School',
+          'Travel',
+          'Exercise Program',
+          'Other',
+        ],
+      },
       { key: 'clinical_summary', type: 'textarea', label: 'Clinical Summary', required: true },
       { key: 'blood_pressure', type: 'text', label: 'Blood Pressure', required: true },
       { key: 'heart_rate', type: 'text', label: 'Heart Rate', required: true },
       { key: 'weight', type: 'text', label: 'Weight', required: false },
-      { key: 'medical_history', type: 'textarea', label: 'Relevant Medical History', required: true },
+      {
+        key: 'medical_history',
+        type: 'textarea',
+        label: 'Relevant Medical History',
+        required: true,
+      },
       { key: 'medications', type: 'textarea', label: 'Current Medications', required: true },
       { key: 'diagnostic_results', type: 'textarea', label: 'Diagnostic Results', required: false },
-      { key: 'clearance_status', type: 'select', label: 'Clearance Status', required: true, options: ['Cleared without restrictions', 'Cleared with restrictions', 'Conditionally cleared', 'Not cleared'] },
+      {
+        key: 'clearance_status',
+        type: 'select',
+        label: 'Clearance Status',
+        required: true,
+        options: [
+          'Cleared without restrictions',
+          'Cleared with restrictions',
+          'Conditionally cleared',
+          'Not cleared',
+        ],
+      },
       { key: 'restrictions', type: 'textarea', label: 'Restrictions/Precautions', required: false },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: false },
       { key: 'provider_name', type: 'text', label: 'Provider Name', required: true },
       { key: 'credentials', type: 'text', label: 'Credentials', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 650 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Incident Report',
@@ -463,9 +767,15 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: '\n{{facility_name}}\nCONFIDENTIAL - FOR INTERNAL USE ONLY\n\n' },
         { insert: 'Report Date: {{report_date}}\nReport Number: {{report_number}}\n\n' },
         { insert: 'INCIDENT DETAILS\n', attributes: { bold: true } },
-        { insert: 'Date of Incident: {{incident_date}}\nTime of Incident: {{incident_time}}\nLocation: {{incident_location}}\nDepartment: {{department}}\n\n' },
+        {
+          insert:
+            'Date of Incident: {{incident_date}}\nTime of Incident: {{incident_time}}\nLocation: {{incident_location}}\nDepartment: {{department}}\n\n',
+        },
         { insert: 'PERSONS INVOLVED\n', attributes: { bold: true } },
-        { insert: 'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\n\n',
+        },
         { insert: 'Staff Involved:\n{{staff_involved}}\n\n' },
         { insert: 'Witnesses:\n{{witnesses}}\n\n' },
         { insert: 'INCIDENT CLASSIFICATION\n', attributes: { bold: true } },
@@ -474,15 +784,24 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
         { insert: 'What happened:\n{{incident_description}}\n\n' },
         { insert: 'Contributing factors:\n{{contributing_factors}}\n\n' },
         { insert: 'PATIENT CONDITION\n', attributes: { bold: true } },
-        { insert: 'Condition Before: {{condition_before}}\nCondition After: {{condition_after}}\nInjuries: {{injuries}}\n\n' },
+        {
+          insert:
+            'Condition Before: {{condition_before}}\nCondition After: {{condition_after}}\nInjuries: {{injuries}}\n\n',
+        },
         { insert: 'IMMEDIATE ACTIONS TAKEN\n', attributes: { bold: true } },
         { insert: '{{immediate_actions}}\n\n' },
         { insert: 'NOTIFICATIONS\n', attributes: { bold: true } },
-        { insert: 'Physician Notified: {{physician_notified}} Time: {{physician_time}}\nFamily Notified: {{family_notified}} Time: {{family_time}}\nRisk Management: {{risk_management_notified}}\nOther: {{other_notifications}}\n\n' },
+        {
+          insert:
+            'Physician Notified: {{physician_notified}} Time: {{physician_time}}\nFamily Notified: {{family_notified}} Time: {{family_time}}\nRisk Management: {{risk_management_notified}}\nOther: {{other_notifications}}\n\n',
+        },
         { insert: 'EQUIPMENT INVOLVED\n', attributes: { bold: true } },
         { insert: '{{equipment_involved}}\n\n' },
         { insert: 'REPORTER INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{reporter_name}}\nTitle: {{reporter_title}}\nDepartment: {{reporter_department}}\nPhone: {{reporter_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{reporter_name}}\nTitle: {{reporter_title}}\nDepartment: {{reporter_department}}\nPhone: {{reporter_phone}}\n\n',
+        },
         { insert: 'FOLLOW-UP ACTIONS RECOMMENDED\n', attributes: { bold: true } },
         { insert: '{{follow_up_actions}}\n\n' },
         { insert: 'Reporter Signature: _________________________ Date: {{signature_date}}\n\n' },
@@ -505,20 +824,78 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'room_number', type: 'text', label: 'Room Number', required: false },
       { key: 'staff_involved', type: 'textarea', label: 'Staff Involved', required: true },
       { key: 'witnesses', type: 'textarea', label: 'Witnesses', required: false },
-      { key: 'incident_type', type: 'select', label: 'Incident Type', required: true, options: ['Fall', 'Medication Error', 'Equipment Failure', 'Treatment Complication', 'Security', 'Behavioral', 'Other'] },
-      { key: 'severity', type: 'select', label: 'Severity', required: true, options: ['No Harm', 'Temporary Harm', 'Permanent Harm', 'Death', 'Near Miss'] },
-      { key: 'incident_description', type: 'textarea', label: 'Incident Description', required: true },
-      { key: 'contributing_factors', type: 'textarea', label: 'Contributing Factors', required: false },
+      {
+        key: 'incident_type',
+        type: 'select',
+        label: 'Incident Type',
+        required: true,
+        options: [
+          'Fall',
+          'Medication Error',
+          'Equipment Failure',
+          'Treatment Complication',
+          'Security',
+          'Behavioral',
+          'Other',
+        ],
+      },
+      {
+        key: 'severity',
+        type: 'select',
+        label: 'Severity',
+        required: true,
+        options: ['No Harm', 'Temporary Harm', 'Permanent Harm', 'Death', 'Near Miss'],
+      },
+      {
+        key: 'incident_description',
+        type: 'textarea',
+        label: 'Incident Description',
+        required: true,
+      },
+      {
+        key: 'contributing_factors',
+        type: 'textarea',
+        label: 'Contributing Factors',
+        required: false,
+      },
       { key: 'condition_before', type: 'text', label: 'Condition Before', required: false },
       { key: 'condition_after', type: 'text', label: 'Condition After', required: false },
       { key: 'injuries', type: 'textarea', label: 'Injuries', required: false },
       { key: 'immediate_actions', type: 'textarea', label: 'Immediate Actions', required: true },
-      { key: 'physician_notified', type: 'select', label: 'Physician Notified', required: true, options: ['Yes', 'No', 'N/A'] },
-      { key: 'physician_time', type: 'text', label: 'Physician Notification Time', required: false },
-      { key: 'family_notified', type: 'select', label: 'Family Notified', required: true, options: ['Yes', 'No', 'N/A'] },
+      {
+        key: 'physician_notified',
+        type: 'select',
+        label: 'Physician Notified',
+        required: true,
+        options: ['Yes', 'No', 'N/A'],
+      },
+      {
+        key: 'physician_time',
+        type: 'text',
+        label: 'Physician Notification Time',
+        required: false,
+      },
+      {
+        key: 'family_notified',
+        type: 'select',
+        label: 'Family Notified',
+        required: true,
+        options: ['Yes', 'No', 'N/A'],
+      },
       { key: 'family_time', type: 'text', label: 'Family Notification Time', required: false },
-      { key: 'risk_management_notified', type: 'select', label: 'Risk Management Notified', required: true, options: ['Yes', 'No'] },
-      { key: 'other_notifications', type: 'textarea', label: 'Other Notifications', required: false },
+      {
+        key: 'risk_management_notified',
+        type: 'select',
+        label: 'Risk Management Notified',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'other_notifications',
+        type: 'textarea',
+        label: 'Other Notifications',
+        required: false,
+      },
       { key: 'equipment_involved', type: 'textarea', label: 'Equipment Involved', required: false },
       { key: 'reporter_name', type: 'text', label: 'Reporter Name', required: true },
       { key: 'reporter_title', type: 'text', label: 'Reporter Title', required: true },
@@ -526,12 +903,31 @@ export const HEALTHCARE_ADMIN_TEMPLATES = [
       { key: 'reporter_phone', type: 'text', label: 'Reporter Phone', required: true },
       { key: 'follow_up_actions', type: 'textarea', label: 'Follow-up Actions', required: true },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
-      { key: 'supervisor_comments', type: 'textarea', label: 'Supervisor Comments', required: false },
+      {
+        key: 'supervisor_comments',
+        type: 'textarea',
+        label: 'Supervisor Comments',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'reporter_signature', label: 'Reporter Signature', required: true, position: { page: 1, x: 100, y: 640 } },
-      { id: 'supervisor_signature', label: 'Supervisor Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'reporter_signature',
+        label: 'Reporter Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 640 },
+      },
+      {
+        id: 'supervisor_signature',
+        label: 'Supervisor Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

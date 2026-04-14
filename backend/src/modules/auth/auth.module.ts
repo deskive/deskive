@@ -6,7 +6,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { SsoController } from './sso/sso.controller';
 import { SsoRegistryService } from './sso/sso-registry.service';
-import { MagicLinkService, MAGIC_LINK_EMAIL_SENDER, MagicLinkEmailSender } from './sso/magic-link.service';
+import {
+  MagicLinkService,
+  MAGIC_LINK_EMAIL_SENDER,
+  MagicLinkEmailSender,
+} from './sso/magic-link.service';
 import { getEmailConfig, sendEmailFn } from '../database/email-helpers';
 
 /**
@@ -19,13 +23,7 @@ const magicLinkEmailSenderProvider = {
   useFactory: (config: ConfigService): MagicLinkEmailSender => ({
     async sendEmail(to, subject, html, text) {
       const cfg = getEmailConfig((k, d) => config.get(k, d));
-      const result = await sendEmailFn(
-        cfg,
-        to,
-        subject,
-        html,
-        text,
-      );
+      const result = await sendEmailFn(cfg, to, subject, html, text);
       if (!result.success) {
         throw new Error(result.error || 'unknown SMTP failure');
       }

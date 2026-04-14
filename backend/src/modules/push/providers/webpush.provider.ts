@@ -47,10 +47,7 @@ export class WebPushProvider implements PushProvider {
   constructor(config: ConfigService) {
     this.publicKey = config.get<string>('VAPID_PUBLIC_KEY', '');
     this.privateKey = config.get<string>('VAPID_PRIVATE_KEY', '');
-    this.subject = config.get<string>(
-      'VAPID_SUBJECT',
-      'mailto:admin@example.com',
-    );
+    this.subject = config.get<string>('VAPID_SUBJECT', 'mailto:admin@example.com');
 
     if (this.isAvailable()) {
       this.logger.log('Web Push provider configured (VAPID)');
@@ -68,19 +65,18 @@ export class WebPushProvider implements PushProvider {
   private loadSdk() {
     if (this.sdkLoaded) return;
     if (!this.isAvailable()) {
-      throw new PushProviderNotConfiguredError('webpush', [
-        !this.publicKey ? 'VAPID_PUBLIC_KEY' : '',
-        !this.privateKey ? 'VAPID_PRIVATE_KEY' : '',
-      ].filter(Boolean));
+      throw new PushProviderNotConfiguredError(
+        'webpush',
+        [
+          !this.publicKey ? 'VAPID_PUBLIC_KEY' : '',
+          !this.privateKey ? 'VAPID_PRIVATE_KEY' : '',
+        ].filter(Boolean),
+      );
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       this.webpush = require('web-push');
-      this.webpush.setVapidDetails(
-        this.subject,
-        this.publicKey,
-        this.privateKey,
-      );
+      this.webpush.setVapidDetails(this.subject, this.publicKey, this.privateKey);
       this.sdkLoaded = true;
       this.logger.log('web-push package loaded');
     } catch (e: any) {
@@ -101,10 +97,7 @@ export class WebPushProvider implements PushProvider {
     }
   }
 
-  async send(
-    recipient: PushRecipient,
-    message: PushMessage,
-  ): Promise<PushResult> {
+  async send(recipient: PushRecipient, message: PushMessage): Promise<PushResult> {
     this.loadSdk();
 
     // Keep parse + send under the same try/catch so malformed tokens
@@ -141,10 +134,7 @@ export class WebPushProvider implements PushProvider {
     }
   }
 
-  async sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult> {
     const results: PushResult[] = [];
     let accepted = 0;
     let failed = 0;

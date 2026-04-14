@@ -59,7 +59,13 @@ export async function sendEmailFn(
   subject: string,
   html: string,
   text?: string,
-  options?: { from?: string; replyTo?: string; attachments?: any[]; cc?: string | string[]; bcc?: string | string[] },
+  options?: {
+    from?: string;
+    replyTo?: string;
+    attachments?: any[];
+    cc?: string | string[];
+    bcc?: string | string[];
+  },
 ): Promise<{ success: boolean; messageId?: string; error?: string }> {
   if (!cfg.host) {
     return { success: false, error: 'SMTP_HOST not configured' };

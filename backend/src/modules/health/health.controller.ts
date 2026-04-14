@@ -1,9 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags, ApiOperation } from '@nestjs/swagger';
-import {
-  ProviderHealth,
-  ProvidersHealthService,
-} from './providers-health.service';
+import { ProviderHealth, ProvidersHealthService } from './providers-health.service';
 
 /**
  * Provider health endpoints.

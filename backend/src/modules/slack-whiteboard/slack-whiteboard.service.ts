@@ -96,7 +96,8 @@ export class SlackWhiteboardService {
 
       // Store in database temporarily (or use Redis/cache)
       const setupToken = randomBytes(32).toString('hex');
-      await this.db.table('slack_setup_sessions')
+      await this.db
+        .table('slack_setup_sessions')
         .insert({
           setup_token: setupToken,
           slack_data: JSON.stringify(slackSetupData),
@@ -108,7 +109,8 @@ export class SlackWhiteboardService {
       this.logger.log('Slack setup session created:', setupToken);
 
       // Store installation data (we'll update it after user completes auth)
-      const existingInstallation = await this.db.table('slack_whiteboard_installations')
+      const existingInstallation = await this.db
+        .table('slack_whiteboard_installations')
         .select('*')
         .where('team_id', '=', result.team.id)
         .execute();
@@ -127,7 +129,8 @@ export class SlackWhiteboardService {
 
       if (existingInstallation.data && existingInstallation.data.length > 0) {
         // Update existing installation
-        await this.db.table('slack_whiteboard_installations')
+        await this.db
+          .table('slack_whiteboard_installations')
           .update(installationData)
           .where('team_id', '=', result.team.id)
           .execute();
@@ -135,7 +138,8 @@ export class SlackWhiteboardService {
         this.logger.log('Updated existing installation for team:', result.team.id);
       } else {
         // Create new installation
-        await this.db.table('slack_whiteboard_installations')
+        await this.db
+          .table('slack_whiteboard_installations')
           .insert({
             ...installationData,
             created_at: new Date().toISOString(),
@@ -226,7 +230,7 @@ export class SlackWhiteboardService {
 
       // Get or create a default workspace for Slack whiteboards
       // This workspace acts as a container for Slack-created whiteboards
-      let workspaceId = await this.getOrCreateSlackWorkspace(teamId, installation.team_name);
+      const workspaceId = await this.getOrCreateSlackWorkspace(teamId, installation.team_name);
 
       // Get Deskive user ID from Slack user ID mapping
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
@@ -235,16 +239,18 @@ export class SlackWhiteboardService {
         this.logger.error('Cannot find Deskive user for Slack user:', slackUserId);
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
       this.logger.log(`Using Deskive user ID: ${deskiveUserId} for Slack user: ${slackUserId}`);
 
       // Create whiteboard with Deskive user ID
-      const whiteboardResult = await this.db.table('whiteboards')
+      const whiteboardResult = await this.db
+        .table('whiteboards')
         .insert({
           workspace_id: workspaceId,
           name: whiteboardName,
@@ -265,7 +271,8 @@ export class SlackWhiteboardService {
       this.logger.log(`Whiteboard created: ${whiteboard.id}`);
 
       // Link whiteboard to Slack
-      await this.db.table('slack_whiteboard_links')
+      await this.db
+        .table('slack_whiteboard_links')
         .insert({
           whiteboard_id: whiteboard.id,
           team_id: teamId,
@@ -367,7 +374,8 @@ export class SlackWhiteboardService {
       this.logger.log(`Listing whiteboards for team ${teamId}, user ${slackUserId}`);
 
       // Get user's whiteboards from Slack links
-      const linksResult = await this.db.table('slack_whiteboard_links')
+      const linksResult = await this.db
+        .table('slack_whiteboard_links')
         .select('whiteboard_id', 'created_at', 'channel_id')
         .where('team_id', '=', teamId)
         .where('creator_slack_user_id', '=', slackUserId)
@@ -386,7 +394,8 @@ export class SlackWhiteboardService {
 
       // Get whiteboard details including workspace_id
       const whiteboardIds = links.map((l) => l.whiteboard_id);
-      const whiteboardsResult = await this.db.table('whiteboards')
+      const whiteboardsResult = await this.db
+        .table('whiteboards')
         .select('id', 'name', 'workspace_id', 'created_at')
         .whereIn('id', whiteboardIds)
         .execute();
@@ -445,7 +454,11 @@ export class SlackWhiteboardService {
   /**
    * Open project creation in Deskive web UI
    */
-  private async openProjectCreationInBrowser(teamId: string, slackUserId: string, projectName?: string) {
+  private async openProjectCreationInBrowser(
+    teamId: string,
+    slackUserId: string,
+    projectName?: string,
+  ) {
     try {
       // Get Deskive user ID
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
@@ -453,9 +466,10 @@ export class SlackWhiteboardService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
@@ -539,8 +553,9 @@ export class SlackWhiteboardService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email.',
         };
       }
 
@@ -549,7 +564,8 @@ export class SlackWhiteboardService {
       const workspaceId = await this.getOrCreateSlackWorkspace(teamId, installation.team_name);
 
       // Get user's projects
-      const projectsResult = await this.db.table('projects')
+      const projectsResult = await this.db
+        .table('projects')
         .select('id', 'name', 'description', 'status', 'priority', 'created_at')
         .where('workspace_id', '=', workspaceId)
         .orderBy('created_at', 'DESC')
@@ -580,18 +596,20 @@ export class SlackWhiteboardService {
       const appUrl = this.configService.get('FRONTEND_URL') || 'http://localhost:5173';
 
       projects.forEach((project, index) => {
-        const statusEmoji = {
-          planning: '📋',
-          in_progress: '🚀',
-          on_hold: '⏸️',
-          completed: '✅',
-        }[project.status] || '📋';
+        const statusEmoji =
+          {
+            planning: '📋',
+            in_progress: '🚀',
+            on_hold: '⏸️',
+            completed: '✅',
+          }[project.status] || '📋';
 
-        const priorityEmoji = {
-          high: '🔴',
-          medium: '🟡',
-          low: '🟢',
-        }[project.priority] || '🟡';
+        const priorityEmoji =
+          {
+            high: '🔴',
+            medium: '🟡',
+            low: '🟢',
+          }[project.priority] || '🟡';
 
         const url = `${appUrl}/workspaces/${workspaceId}/projects/${project.id}`;
 
@@ -629,7 +647,11 @@ export class SlackWhiteboardService {
   /**
    * Generate temporary auth token for browser access
    */
-  private async generateTempAuthToken(deskiveUserId: string, slackTeamId: string, slackUserId: string): Promise<string> {
+  private async generateTempAuthToken(
+    deskiveUserId: string,
+    slackTeamId: string,
+    slackUserId: string,
+  ): Promise<string> {
     try {
       // Create a temporary auth token (valid for 1 hour)
       const payload = {
@@ -775,7 +797,8 @@ export class SlackWhiteboardService {
       this.logger.log('App uninstalled for team:', teamId);
 
       // Mark installation as inactive
-      await this.db.table('slack_whiteboard_installations')
+      await this.db
+        .table('slack_whiteboard_installations')
         .update({
           is_active: false,
           uninstalled_at: new Date().toISOString(),
@@ -785,7 +808,8 @@ export class SlackWhiteboardService {
         .execute();
 
       // Mark all user mappings as inactive for this team
-      await this.db.table('slack_user_mappings')
+      await this.db
+        .table('slack_user_mappings')
         .update({
           is_active: false,
           updated_at: new Date().toISOString(),
@@ -794,7 +818,8 @@ export class SlackWhiteboardService {
         .execute();
 
       // Mark all channel links as inactive
-      await this.db.table('slack_calendar_channel_links')
+      await this.db
+        .table('slack_calendar_channel_links')
         .update({
           is_active: false,
           updated_at: new Date().toISOString(),
@@ -802,7 +827,10 @@ export class SlackWhiteboardService {
         .where('team_id', '=', teamId)
         .execute();
 
-      this.logger.log('Successfully marked installation and related data as inactive for team:', teamId);
+      this.logger.log(
+        'Successfully marked installation and related data as inactive for team:',
+        teamId,
+      );
     } catch (error) {
       this.logger.error('Error handling app uninstallation:', error);
     }
@@ -843,13 +871,19 @@ export class SlackWhiteboardService {
   /**
    * Open modal to share whiteboard with Deskive users
    */
-  private async openShareModal(teamId: string, slackUserId: string, whiteboardId: string, triggerId: string) {
+  private async openShareModal(
+    teamId: string,
+    slackUserId: string,
+    whiteboardId: string,
+    triggerId: string,
+  ) {
     try {
       const installation = await this.getInstallation(teamId);
       const slackClient = new WebClient(installation.bot_token);
 
       // Get whiteboard details
-      const whiteboardResult = await this.db.table('whiteboards')
+      const whiteboardResult = await this.db
+        .table('whiteboards')
         .select('id', 'name', 'workspace_id')
         .where('id', '=', whiteboardId)
         .execute();
@@ -865,7 +899,8 @@ export class SlackWhiteboardService {
       const currentDeskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
 
       // Get all workspace members
-      const workspaceMembersResult = await this.db.table('workspace_members')
+      const workspaceMembersResult = await this.db
+        .table('workspace_members')
         .select('user_id')
         .where('workspace_id', '=', whiteboard.workspace_id)
         .where('is_active', '=', true)
@@ -884,7 +919,12 @@ export class SlackWhiteboardService {
           const userProfile = await this.db.getUserById(member.user_id);
           if (userProfile) {
             const metadata = userProfile.metadata || {};
-            const userName = metadata.name || (userProfile as any).fullName || userProfile.name || userProfile.email || 'Unknown User';
+            const userName =
+              metadata.name ||
+              (userProfile as any).fullName ||
+              userProfile.name ||
+              userProfile.email ||
+              'Unknown User';
             userOptions.push({
               text: { type: 'plain_text' as const, text: userName },
               value: member.user_id,
@@ -912,7 +952,11 @@ export class SlackWhiteboardService {
         view: {
           type: 'modal',
           callback_id: 'share_whiteboard_modal',
-          private_metadata: JSON.stringify({ whiteboardId, workspaceId: whiteboard.workspace_id, teamId }),
+          private_metadata: JSON.stringify({
+            whiteboardId,
+            workspaceId: whiteboard.workspace_id,
+            teamId,
+          }),
           title: {
             type: 'plain_text',
             text: 'Share Whiteboard',
@@ -999,7 +1043,9 @@ export class SlackWhiteboardService {
       const { whiteboardId, workspaceId, teamId } = metadata;
 
       // Get selected Deskive users from modal (now using multi_static_select)
-      const selectedDeskiveUsers = view.state.values.users_select.selected_users.selected_options?.map(opt => opt.value) || [];
+      const selectedDeskiveUsers =
+        view.state.values.users_select.selected_users.selected_options?.map((opt) => opt.value) ||
+        [];
       const customMessage = view.state.values.message_input?.share_message?.value || '';
 
       this.logger.log('Share submission:', { whiteboardId, selectedDeskiveUsers, customMessage });
@@ -1012,7 +1058,8 @@ export class SlackWhiteboardService {
       // Add selected users as collaborators
       const sharePromises = selectedDeskiveUsers.map(async (userId) => {
         try {
-          await this.db.table('whiteboard_collaborators')
+          await this.db
+            .table('whiteboard_collaborators')
             .insert({
               whiteboard_id: whiteboardId,
               user_id: userId,
@@ -1067,7 +1114,8 @@ export class SlackWhiteboardService {
       // Get workspace member count
       let memberCount = 0;
       if (workspaceId) {
-        const membersResult = await this.db.table('workspace_members')
+        const membersResult = await this.db
+          .table('workspace_members')
           .select('id')
           .where('workspace_id', '=', workspaceId)
           .where('is_active', '=', true)
@@ -1078,14 +1126,16 @@ export class SlackWhiteboardService {
       // Get stats for all three features
       const [whiteboardsResult, projectsResult, eventsResult] = await Promise.all([
         // Whiteboard count
-        this.db.table('slack_whiteboard_links')
+        this.db
+          .table('slack_whiteboard_links')
           .select('*')
           .where('team_id', '=', teamId)
           .where('creator_slack_user_id', '=', userId)
           .execute(),
         // Projects count (if user is linked)
         deskiveUserId
-          ? this.db.table('projects')
+          ? this.db
+              .table('projects')
               .select('*')
               .where('owner_id', '=', deskiveUserId)
               .where('status', '=', 'active')
@@ -1093,11 +1143,16 @@ export class SlackWhiteboardService {
           : Promise.resolve({ data: [] }),
         // Upcoming events count (next 7 days)
         deskiveUserId
-          ? this.db.table('calendar_events')
+          ? this.db
+              .table('calendar_events')
               .select('*')
               .where('organizer_id', '=', deskiveUserId)
               .where('start_time', '>=', new Date().toISOString())
-              .where('start_time', '<=', new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString())
+              .where(
+                'start_time',
+                '<=',
+                new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+              )
               .execute()
           : Promise.resolve({ data: [] }),
       ]);
@@ -1126,7 +1181,7 @@ export class SlackWhiteboardService {
             text: '_Your all-in-one workspace for whiteboards, calendars, and projects - right inside Slack!_',
           },
         },
-        { type: 'divider' }
+        { type: 'divider' },
       );
 
       // Setup Status Section (for admins/reviewers)
@@ -1159,7 +1214,7 @@ export class SlackWhiteboardService {
             },
           ],
         },
-        { type: 'divider' }
+        { type: 'divider' },
       );
 
       // Getting Started Guide (especially for Slack reviewers)
@@ -1169,42 +1224,45 @@ export class SlackWhiteboardService {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: '*📖 Getting Started Guide*\n\n' +
-                    'Follow these steps to set up and test Deskive:',
+              text:
+                '*📖 Getting Started Guide*\n\n' + 'Follow these steps to set up and test Deskive:',
             },
           },
           {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: '*Step 1️⃣: Add Team Members*\n' +
-                    '├ Go to <https://deskive.com|Deskive Dashboard>\n' +
-                    '├ Navigate to Workspace Settings → Members\n' +
-                    '├ Click "Invite Member"\n' +
-                    '├ Enter their email (must match Slack email!)\n' +
-                    '└ Team member will receive invitation via email',
+              text:
+                '*Step 1️⃣: Add Team Members*\n' +
+                '├ Go to <https://deskive.com|Deskive Dashboard>\n' +
+                '├ Navigate to Workspace Settings → Members\n' +
+                '├ Click "Invite Member"\n' +
+                '├ Enter their email (must match Slack email!)\n' +
+                '└ Team member will receive invitation via email',
             },
           },
           {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: '*Step 2️⃣: Member Accepts Invitation*\n' +
-                    '├ Team member checks their email\n' +
-                    '├ Clicks invitation link\n' +
-                    '├ Creates Deskive account or logs in\n' +
-                    '└ Now they can use Slack commands!',
+              text:
+                '*Step 2️⃣: Member Accepts Invitation*\n' +
+                '├ Team member checks their email\n' +
+                '├ Clicks invitation link\n' +
+                '├ Creates Deskive account or logs in\n' +
+                '└ Now they can use Slack commands!',
             },
           },
           {
             type: 'section',
             text: {
               type: 'mrkdwn',
-              text: '*Step 3️⃣: Test Commands*\n' +
-                    '├ Any team member can type `/project list`\n' +
-                    '├ First use automatically links their account\n' +
-                    '├ Commands work instantly after linking\n' +
-                    '└ All members collaborate in same workspace',
+              text:
+                '*Step 3️⃣: Test Commands*\n' +
+                '├ Any team member can type `/project list`\n' +
+                '├ First use automatically links their account\n' +
+                '├ Commands work instantly after linking\n' +
+                '└ All members collaborate in same workspace',
             },
           },
           {
@@ -1216,7 +1274,7 @@ export class SlackWhiteboardService {
               },
             ],
           },
-          { type: 'divider' }
+          { type: 'divider' },
         );
       }
 
@@ -1250,7 +1308,7 @@ export class SlackWhiteboardService {
             },
           ],
         },
-        { type: 'divider' }
+        { type: 'divider' },
       );
 
       await slackClient.views.publish({
@@ -1265,7 +1323,8 @@ export class SlackWhiteboardService {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: '*🎨 Whiteboards* - _Visual collaboration made simple_\n' +
+                text:
+                  '*🎨 Whiteboards* - _Visual collaboration made simple_\n' +
                   '├ `/whiteboard new` - Create a whiteboard\n' +
                   '├ `/whiteboard list` - View your whiteboards\n' +
                   '└ `/whiteboard help` - Get help',
@@ -1283,9 +1342,10 @@ export class SlackWhiteboardService {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: '*📅 Calendar* - _Schedule and manage events effortlessly_\n' +
+                text:
+                  '*📅 Calendar* - _Schedule and manage events effortlessly_\n' +
                   '├ `/calendar new <event>` - Quick event creation\n' +
-                  '├ `/calendar today` - Today\'s schedule\n' +
+                  "├ `/calendar today` - Today's schedule\n" +
                   '├ `/calendar list` - Upcoming events\n' +
                   '└ `/calendar help` - Get help',
               },
@@ -1302,7 +1362,8 @@ export class SlackWhiteboardService {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: '*📋 Projects* - _Track tasks and deliver on time_\n' +
+                text:
+                  '*📋 Projects* - _Track tasks and deliver on time_\n' +
                   '├ `/project new <name>` - Create a project\n' +
                   '├ `/project list` - View all projects\n' +
                   '└ `/project help` - Get help',
@@ -1321,7 +1382,8 @@ export class SlackWhiteboardService {
               type: 'section',
               text: {
                 type: 'mrkdwn',
-                text: '*💡 Pro Tips*\n' +
+                text:
+                  '*💡 Pro Tips*\n' +
                   '• Use `/whiteboard new` in any channel to start collaborating instantly\n' +
                   '• Create events with natural language: `/calendar new Team lunch tomorrow at noon`\n' +
                   '• Mention `@Deskive help` anywhere for quick assistance',
@@ -1363,7 +1425,10 @@ export class SlackWhiteboardService {
                   style: 'danger',
                   confirm: {
                     title: { type: 'plain_text', text: 'Disconnect Deskive?' },
-                    text: { type: 'mrkdwn', text: 'Are you sure you want to disconnect Deskive from this workspace?\n\n⚠️ This will:\n• Stop all notifications\n• Disable slash commands\n• Remove bot access\n\nYour data in Deskive will remain safe and accessible.' },
+                    text: {
+                      type: 'mrkdwn',
+                      text: 'Are you sure you want to disconnect Deskive from this workspace?\n\n⚠️ This will:\n• Stop all notifications\n• Disable slash commands\n• Remove bot access\n\nYour data in Deskive will remain safe and accessible.',
+                    },
                     confirm: { type: 'plain_text', text: 'Yes, Disconnect' },
                     deny: { type: 'plain_text', text: 'Cancel' },
                   },
@@ -1400,7 +1465,7 @@ export class SlackWhiteboardService {
           '• `/whiteboard list` - View your whiteboards\n\n' +
           '*📅 Calendar*\n' +
           '• `/calendar new <event>` - Create an event\n' +
-          '• `/calendar today` - View today\'s events\n' +
+          "• `/calendar today` - View today's events\n" +
           '• `/calendar list` - View upcoming events\n\n' +
           '*📋 Projects*\n' +
           '• `/project new` - Create a project\n' +
@@ -1408,7 +1473,7 @@ export class SlackWhiteboardService {
           'Need more help? Visit <https://deskive.com/tutorial|our documentation>';
       } else {
         responseText +=
-          "I can help you with Whiteboards, Calendar, and Projects! 🎨📅📋\n\n" +
+          'I can help you with Whiteboards, Calendar, and Projects! 🎨📅📋\n\n' +
           'Try typing `/whiteboard new` to create your first whiteboard!';
       }
 
@@ -1454,7 +1519,7 @@ export class SlackWhiteboardService {
                 '• `/whiteboard list` - View your whiteboards\n\n' +
                 '*📅 Calendar Commands*\n' +
                 '• `/calendar new <event>` - Create an event\n' +
-                '• `/calendar today` - View today\'s events\n' +
+                "• `/calendar today` - View today's events\n" +
                 '• `/calendar list` - View upcoming events\n\n' +
                 '*📋 Project Commands*\n' +
                 '• `/project new` - Create a project\n' +
@@ -1486,7 +1551,8 @@ export class SlackWhiteboardService {
    */
   private async getOrCreateSlackWorkspace(teamId: string, teamName: string): Promise<string> {
     // Check if workspace exists for this Slack team (by metadata, not name)
-    const existingWorkspace = await this.db.table('workspaces')
+    const existingWorkspace = await this.db
+      .table('workspaces')
       .select('*')
       .where('metadata', '@>', JSON.stringify({ slack_team_id: teamId }))
       .execute();
@@ -1497,7 +1563,8 @@ export class SlackWhiteboardService {
     }
 
     // Create new workspace for this Slack team
-    const newWorkspace = await this.db.table('workspaces')
+    const newWorkspace = await this.db
+      .table('workspaces')
       .insert({
         name: `${teamName}`,
         description: `Workspace for Slack team: ${teamName}`,
@@ -1519,10 +1586,15 @@ export class SlackWhiteboardService {
   /**
    * Helper: Ensure user is a member of the workspace
    */
-  private async ensureUserInWorkspace(workspaceId: string, userId: string, isOwner: boolean = false) {
+  private async ensureUserInWorkspace(
+    workspaceId: string,
+    userId: string,
+    isOwner: boolean = false,
+  ) {
     try {
       // Check if user is already a member
-      const existingMember = await this.db.table('workspace_members')
+      const existingMember = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -1534,7 +1606,8 @@ export class SlackWhiteboardService {
       }
 
       // Add user as member
-      await this.db.table('workspace_members')
+      await this.db
+        .table('workspace_members')
         .insert({
           workspace_id: workspaceId,
           user_id: userId,
@@ -1546,11 +1619,16 @@ export class SlackWhiteboardService {
         })
         .execute();
 
-      this.logger.log('Added user to workspace:', { workspaceId, userId, role: isOwner ? 'owner' : 'member' });
+      this.logger.log('Added user to workspace:', {
+        workspaceId,
+        userId,
+        role: isOwner ? 'owner' : 'member',
+      });
 
       // If this is the first real user (new user), update workspace owner
       if (isOwner) {
-        await this.db.table('workspaces')
+        await this.db
+          .table('workspaces')
           .update({
             owner_id: userId,
             updated_at: new Date().toISOString(),
@@ -1570,10 +1648,14 @@ export class SlackWhiteboardService {
    * Helper: Get Deskive user ID from Slack user ID
    * If no mapping exists, creates one for users already in the workspace
    */
-  private async getDeskiveUserIdFromSlack(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async getDeskiveUserIdFromSlack(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Check for existing mapping
-      const mappingResult = await this.db.table('slack_user_mappings')
+      const mappingResult = await this.db
+        .table('slack_user_mappings')
         .select('deskive_user_id')
         .where('slack_user_id', '=', slackUserId)
         .where('slack_team_id', '=', slackTeamId)
@@ -1585,7 +1667,9 @@ export class SlackWhiteboardService {
       }
 
       // 2. No mapping found - try to create one for existing workspace members
-      this.logger.log(`[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`);
+      this.logger.log(
+        `[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`,
+      );
       return await this.createMappingForExistingUser(slackUserId, slackTeamId);
     } catch (error) {
       this.logger.error('Error getting Deskive user ID:', error);
@@ -1596,7 +1680,10 @@ export class SlackWhiteboardService {
   /**
    * Create mapping for a user who's already in the workspace (invited via Deskive)
    */
-  private async createMappingForExistingUser(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async createMappingForExistingUser(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Get Slack user email
       const slackUserInfo = await this.getSlackUserInfo(slackUserId, slackTeamId);
@@ -1626,7 +1713,9 @@ export class SlackWhiteboardService {
       // 4. Check if user is a member of the workspace
       const isMember = await this.isUserInWorkspace(workspaceId, deskiveUserId);
       if (!isMember) {
-        this.logger.log(`[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`);
+        this.logger.log(
+          `[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`,
+        );
         return null;
       }
 
@@ -1635,7 +1724,9 @@ export class SlackWhiteboardService {
       // 5. Create the mapping
       await this.createUserMapping(deskiveUserId, slackUserId, slackTeamId, email, name, avatar);
 
-      this.logger.log(`[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`);
+      this.logger.log(
+        `[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`,
+      );
       return deskiveUserId;
     } catch (error) {
       this.logger.error('[Mapping] Error creating mapping for existing user:', error);
@@ -1646,7 +1737,10 @@ export class SlackWhiteboardService {
   /**
    * Get Slack user information (email, name, avatar)
    */
-  private async getSlackUserInfo(slackUserId: string, slackTeamId: string): Promise<{ email: string; name: string; avatar: string } | null> {
+  private async getSlackUserInfo(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<{ email: string; name: string; avatar: string } | null> {
     try {
       const installation = await this.getInstallation(slackTeamId);
       const slackClient = new WebClient(installation.bot_token);
@@ -1674,7 +1768,8 @@ export class SlackWhiteboardService {
   private async findDeskiveUserByEmail(email: string): Promise<string | null> {
     try {
       // Query users table directly using database query builder
-      const result = await this.db.table('users')
+      const result = await this.db
+        .table('users')
         .select('id')
         .where('email', '=', email)
         .limit(1)
@@ -1692,7 +1787,8 @@ export class SlackWhiteboardService {
    */
   private async getSlackWorkspaceId(teamId: string): Promise<string | null> {
     try {
-      const result = await this.db.table('workspaces')
+      const result = await this.db
+        .table('workspaces')
         .select('id')
         .where('metadata', '@>', JSON.stringify({ slack_team_id: teamId }))
         .execute();
@@ -1709,7 +1805,8 @@ export class SlackWhiteboardService {
    */
   private async isUserInWorkspace(workspaceId: string, userId: string): Promise<boolean> {
     try {
-      const result = await this.db.table('workspace_members')
+      const result = await this.db
+        .table('workspace_members')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -1732,7 +1829,7 @@ export class SlackWhiteboardService {
     slackTeamId: string,
     slackEmail: string,
     slackName: string,
-    slackAvatar: string
+    slackAvatar: string,
   ): Promise<void> {
     try {
       const mappingData = {
@@ -1746,12 +1843,10 @@ export class SlackWhiteboardService {
         onboarding_completed: true,
         is_active: true,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
-      await this.db.table('slack_user_mappings')
-        .insert(mappingData)
-        .execute();
+      await this.db.table('slack_user_mappings').insert(mappingData).execute();
 
       this.logger.log(`Created user mapping: ${slackUserId} → ${deskiveUserId}`);
     } catch (error) {
@@ -1769,7 +1864,8 @@ export class SlackWhiteboardService {
    * Helper: Get Slack installation
    */
   private async getInstallation(teamId: string) {
-    const result = await this.db.table('slack_whiteboard_installations')
+    const result = await this.db
+      .table('slack_whiteboard_installations')
       .select('*')
       .where('team_id', '=', teamId)
       .where('is_active', '=', true)
@@ -1798,7 +1894,7 @@ export class SlackWhiteboardService {
 
       if (result && result.users && result.users.length > 0) {
         // Find user with EXACT email match (searchUsers does fuzzy search)
-        const user = result.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+        const user = result.users.find((u) => u.email.toLowerCase() === email.toLowerCase());
 
         if (!user) {
           this.logger.log('No exact email match found for:', email);
@@ -1812,7 +1908,11 @@ export class SlackWhiteboardService {
         }
 
         // Check if email_verified exists and is not null (active user)
-        this.logger.log('User found:', { id: user.id, email: user.email, emailVerified: (user as any).emailVerified });
+        this.logger.log('User found:', {
+          id: user.id,
+          email: user.email,
+          emailVerified: (user as any).emailVerified,
+        });
         return user;
       }
 
@@ -1891,7 +1991,8 @@ export class SlackWhiteboardService {
       this.logger.log('Sending Slack notification for project:', projectId);
 
       // Get project details
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .select('*')
         .where('id', '=', projectId)
         .execute();
@@ -1903,7 +2004,8 @@ export class SlackWhiteboardService {
       const project = projectResult.data[0];
 
       // Get workspace details
-      const workspaceResult = await this.db.table('workspaces')
+      const workspaceResult = await this.db
+        .table('workspaces')
         .select('id', 'name')
         .where('id', '=', project.workspace_id)
         .execute();
@@ -1915,7 +2017,8 @@ export class SlackWhiteboardService {
       const slackClient = new WebClient(installation.bot_token);
 
       // Get project members count
-      const membersResult = await this.db.table('project_members')
+      const membersResult = await this.db
+        .table('project_members')
         .select('user_id')
         .where('project_id', '=', projectId)
         .execute();
@@ -1927,18 +2030,20 @@ export class SlackWhiteboardService {
       const projectUrl = `${appUrl}/workspaces/${project.workspace_id}/projects/${projectId}`;
 
       // Format status and priority with emojis
-      const statusEmoji = {
-        planning: '📋',
-        in_progress: '🚀',
-        on_hold: '⏸️',
-        completed: '✅',
-      }[project.status] || '📋';
+      const statusEmoji =
+        {
+          planning: '📋',
+          in_progress: '🚀',
+          on_hold: '⏸️',
+          completed: '✅',
+        }[project.status] || '📋';
 
-      const priorityEmoji = {
-        high: '🔴',
-        medium: '🟡',
-        low: '🟢',
-      }[project.priority] || '🟡';
+      const priorityEmoji =
+        {
+          high: '🔴',
+          medium: '🟡',
+          low: '🟢',
+        }[project.priority] || '🟡';
 
       // Send message to Slack user (DM)
       await slackClient.chat.postMessage({
@@ -1994,8 +2099,9 @@ export class SlackWhiteboardService {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `⏰ *Deadline:* ${new Date(project.deadline).toLocaleDateString()}\n` +
-                  `👥 *Team Members:* ${memberCount} assigned`,
+            text:
+              `⏰ *Deadline:* ${new Date(project.deadline).toLocaleDateString()}\n` +
+              `👥 *Team Members:* ${memberCount} assigned`,
           },
         });
       } else if (memberCount > 0) {
@@ -2047,16 +2153,13 @@ export class SlackWhiteboardService {
   /**
    * Send notification to Slack after task is created in web UI
    */
-  async notifySlackAfterTaskCreation(
-    taskId: string,
-    slackTeamId: string,
-    slackUserId: string,
-  ) {
+  async notifySlackAfterTaskCreation(taskId: string, slackTeamId: string, slackUserId: string) {
     try {
       this.logger.log('Sending Slack notification for task:', taskId);
 
       // Get task details
-      const taskResult = await this.db.table('tasks')
+      const taskResult = await this.db
+        .table('tasks')
         .select('*')
         .where('id', '=', taskId)
         .execute();
@@ -2070,7 +2173,8 @@ export class SlackWhiteboardService {
       // Get project details
       let projectName = 'No Project';
       if (task.project_id) {
-        const projectResult = await this.db.table('projects')
+        const projectResult = await this.db
+          .table('projects')
           .select('name', 'workspace_id')
           .where('id', '=', task.project_id)
           .execute();
@@ -2091,19 +2195,21 @@ export class SlackWhiteboardService {
         : `${appUrl}/workspaces/${task.workspace_id}/tasks/${taskId}`;
 
       // Format status and priority with emojis
-      const statusEmoji = {
-        todo: '⬜',
-        in_progress: '🔵',
-        in_review: '🟡',
-        done: '✅',
-        blocked: '🔴',
-      }[task.status] || '⬜';
+      const statusEmoji =
+        {
+          todo: '⬜',
+          in_progress: '🔵',
+          in_review: '🟡',
+          done: '✅',
+          blocked: '🔴',
+        }[task.status] || '⬜';
 
-      const priorityEmoji = {
-        high: '🔴',
-        medium: '🟡',
-        low: '🟢',
-      }[task.priority] || '🟡';
+      const priorityEmoji =
+        {
+          high: '🔴',
+          medium: '🟡',
+          low: '🟢',
+        }[task.priority] || '🟡';
 
       // Send message to Slack user
       await slackClient.chat.postMessage({
@@ -2204,7 +2310,8 @@ export class SlackWhiteboardService {
     this.logger.log('🔗 [Slack Setup] Starting for user:', userId, 'with token:', setupToken);
 
     // Get setup session
-    const sessionResult = await this.db.table('slack_setup_sessions')
+    const sessionResult = await this.db
+      .table('slack_setup_sessions')
       .select('*')
       .where('setup_token', '=', setupToken)
       .where('completed', '=', false)
@@ -2230,7 +2337,10 @@ export class SlackWhiteboardService {
 
     // Create or get workspace for Slack team
     this.logger.log('🏢 [Slack Setup] Creating/getting workspace...');
-    const workspaceId = await this.getOrCreateSlackWorkspace(slackData.slack_team_id, slackData.slack_team_name);
+    const workspaceId = await this.getOrCreateSlackWorkspace(
+      slackData.slack_team_id,
+      slackData.slack_team_name,
+    );
     this.logger.log('✅ [Slack Setup] Workspace ID:', workspaceId);
 
     // Add user to workspace as owner (first user from this Slack team)
@@ -2248,12 +2358,13 @@ export class SlackWhiteboardService {
       slackData.slack_name,
       slackData.slack_avatar,
       slackData.user_access_token,
-      true // mark onboarding as complete
+      true, // mark onboarding as complete
     );
     this.logger.log('✅ [Slack Setup] User mapping created');
 
     // Mark session as completed
-    await this.db.table('slack_setup_sessions')
+    await this.db
+      .table('slack_setup_sessions')
       .update({
         completed: true,
       })
@@ -2286,7 +2397,7 @@ export class SlackWhiteboardService {
     slackName: string,
     slackAvatar: string,
     userAccessToken: string | null,
-    onboardingCompleted: boolean
+    onboardingCompleted: boolean,
   ) {
     const mappingData = {
       deskive_user_id: deskiveUserId,
@@ -2302,7 +2413,8 @@ export class SlackWhiteboardService {
     };
 
     // Check if mapping exists
-    const existingMapping = await this.db.table('slack_user_mappings')
+    const existingMapping = await this.db
+      .table('slack_user_mappings')
       .select('*')
       .where('slack_user_id', '=', slackUserId)
       .where('slack_team_id', '=', slackTeamId)
@@ -2310,7 +2422,8 @@ export class SlackWhiteboardService {
 
     if (existingMapping.data && existingMapping.data.length > 0) {
       // Update existing mapping
-      await this.db.table('slack_user_mappings')
+      await this.db
+        .table('slack_user_mappings')
         .update(mappingData)
         .where('slack_user_id', '=', slackUserId)
         .where('slack_team_id', '=', slackTeamId)
@@ -2319,7 +2432,8 @@ export class SlackWhiteboardService {
       this.logger.log('Updated Slack user mapping:', slackUserId);
     } else {
       // Create new mapping
-      await this.db.table('slack_user_mappings')
+      await this.db
+        .table('slack_user_mappings')
         .insert({
           ...mappingData,
           created_at: new Date().toISOString(),
@@ -2329,5 +2443,4 @@ export class SlackWhiteboardService {
       this.logger.log('Created new Slack user mapping:', slackUserId);
     }
   }
-
 }

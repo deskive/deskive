@@ -251,7 +251,10 @@ export class DropboxShareFileDto {
   @IsString()
   path: string;
 
-  @ApiPropertyOptional({ description: 'Requested visibility (public or team_only)', default: 'public' })
+  @ApiPropertyOptional({
+    description: 'Requested visibility (public or team_only)',
+    default: 'public',
+  })
   @IsOptional()
   @IsString()
   requestedVisibility?: 'public' | 'team_only' | 'password';

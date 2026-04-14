@@ -20,9 +20,12 @@ export class TwitterService {
   private readonly twitterApiUrl = 'https://api.twitter.com/2';
 
   // Default fields to request
-  private readonly tweetFields = 'id,text,author_id,created_at,public_metrics,conversation_id,in_reply_to_user_id,referenced_tweets,attachments';
-  private readonly userFields = 'id,name,username,profile_image_url,verified,public_metrics,description,location,url,created_at,protected';
-  private readonly mediaFields = 'media_key,type,url,preview_image_url,width,height,alt_text,duration_ms';
+  private readonly tweetFields =
+    'id,text,author_id,created_at,public_metrics,conversation_id,in_reply_to_user_id,referenced_tweets,attachments';
+  private readonly userFields =
+    'id,name,username,profile_image_url,verified,public_metrics,description,location,url,created_at,protected';
+  private readonly mediaFields =
+    'media_key,type,url,preview_image_url,width,height,alt_text,duration_ms';
   private readonly expansions = 'author_id,attachments.media_keys,referenced_tweets.id';
 
   constructor(
@@ -215,11 +218,7 @@ export class TwitterService {
     if (query.excludeRetweets) excludes.push('retweets');
     if (excludes.length > 0) params.exclude = excludes.join(',');
 
-    const response = await this.twitterApi(
-      accessToken,
-      `users/${twitterUserId}/tweets`,
-      params,
-    );
+    const response = await this.twitterApi(accessToken, `users/${twitterUserId}/tweets`, params);
 
     return {
       tweets: this.mapTweets(response.data || [], response.includes),
@@ -231,23 +230,15 @@ export class TwitterService {
   /**
    * Get a single tweet
    */
-  async getTweet(
-    workspaceId: string,
-    userId: string,
-    tweetId: string,
-  ): Promise<TweetDto> {
+  async getTweet(workspaceId: string, userId: string, tweetId: string): Promise<TweetDto> {
     const accessToken = await this.getValidAccessToken(workspaceId, userId);
 
-    const response = await this.twitterApi(
-      accessToken,
-      `tweets/${tweetId}`,
-      {
-        'tweet.fields': this.tweetFields,
-        'user.fields': this.userFields,
-        'media.fields': this.mediaFields,
-        expansions: this.expansions,
-      },
-    );
+    const response = await this.twitterApi(accessToken, `tweets/${tweetId}`, {
+      'tweet.fields': this.tweetFields,
+      'user.fields': this.userFields,
+      'media.fields': this.mediaFields,
+      expansions: this.expansions,
+    });
 
     const tweets = this.mapTweets([response.data], response.includes);
     return tweets[0];
@@ -443,11 +434,9 @@ export class TwitterService {
   ): Promise<TwitterUserDto> {
     const accessToken = await this.getValidAccessToken(workspaceId, userId);
 
-    const response = await this.twitterApi(
-      accessToken,
-      `users/by/username/${username}`,
-      { 'user.fields': this.userFields },
-    );
+    const response = await this.twitterApi(accessToken, `users/by/username/${username}`, {
+      'user.fields': this.userFields,
+    });
 
     return this.mapUser(response.data);
   }
@@ -462,11 +451,9 @@ export class TwitterService {
   ): Promise<TwitterUserDto> {
     const accessToken = await this.getValidAccessToken(workspaceId, userId);
 
-    const response = await this.twitterApi(
-      accessToken,
-      `users/${twitterUserId}`,
-      { 'user.fields': this.userFields },
-    );
+    const response = await this.twitterApi(accessToken, `users/${twitterUserId}`, {
+      'user.fields': this.userFields,
+    });
 
     return this.mapUser(response.data);
   }
@@ -490,11 +477,7 @@ export class TwitterService {
 
     if (paginationToken) params.pagination_token = paginationToken;
 
-    const response = await this.twitterApi(
-      accessToken,
-      `users/${twitterUserId}/followers`,
-      params,
-    );
+    const response = await this.twitterApi(accessToken, `users/${twitterUserId}/followers`, params);
 
     return {
       users: (response.data || []).map((user: any) => this.mapUser(user)),
@@ -522,11 +505,7 @@ export class TwitterService {
 
     if (paginationToken) params.pagination_token = paginationToken;
 
-    const response = await this.twitterApi(
-      accessToken,
-      `users/${twitterUserId}/following`,
-      params,
-    );
+    const response = await this.twitterApi(accessToken, `users/${twitterUserId}/following`, params);
 
     return {
       users: (response.data || []).map((user: any) => this.mapUser(user)),
@@ -686,7 +665,9 @@ export class TwitterService {
   private async getValidAccessToken(workspaceId: string, userId: string): Promise<string> {
     const connection = await this.getConnectionRecord(workspaceId, userId);
     if (!connection) {
-      throw new NotFoundException('No Twitter connection found. Please connect your Twitter account first.');
+      throw new NotFoundException(
+        'No Twitter connection found. Please connect your Twitter account first.',
+      );
     }
 
     // Check if token is expired or about to expire (within 5 minutes)
@@ -697,7 +678,9 @@ export class TwitterService {
     if (expiresAt.getTime() - now.getTime() < fiveMinutes && connection.refresh_token) {
       // Refresh the token
       try {
-        const newTokens = await this.twitterOAuthService.refreshAccessToken(connection.refresh_token);
+        const newTokens = await this.twitterOAuthService.refreshAccessToken(
+          connection.refresh_token,
+        );
         const newExpiresAt = new Date(Date.now() + newTokens.expires_in * 1000);
 
         await this.db.update('twitter_connections', connection.id, {
@@ -729,7 +712,10 @@ export class TwitterService {
       return response.data;
     } catch (error) {
       this.logger.error(`Twitter API error (GET ${endpoint}):`, error?.response?.data || error);
-      const errorDetail = error?.response?.data?.detail || error?.response?.data?.errors?.[0]?.message || 'Unknown error';
+      const errorDetail =
+        error?.response?.data?.detail ||
+        error?.response?.data?.errors?.[0]?.message ||
+        'Unknown error';
       throw new BadRequestException(`Twitter API error: ${errorDetail}`);
     }
   }
@@ -746,7 +732,10 @@ export class TwitterService {
       return response.data;
     } catch (error) {
       this.logger.error(`Twitter API error (POST ${endpoint}):`, error?.response?.data || error);
-      const errorDetail = error?.response?.data?.detail || error?.response?.data?.errors?.[0]?.message || 'Unknown error';
+      const errorDetail =
+        error?.response?.data?.detail ||
+        error?.response?.data?.errors?.[0]?.message ||
+        'Unknown error';
       throw new BadRequestException(`Twitter API error: ${errorDetail}`);
     }
   }
@@ -762,7 +751,10 @@ export class TwitterService {
       return response.data;
     } catch (error) {
       this.logger.error(`Twitter API error (DELETE ${endpoint}):`, error?.response?.data || error);
-      const errorDetail = error?.response?.data?.detail || error?.response?.data?.errors?.[0]?.message || 'Unknown error';
+      const errorDetail =
+        error?.response?.data?.detail ||
+        error?.response?.data?.errors?.[0]?.message ||
+        'Unknown error';
       throw new BadRequestException(`Twitter API error: ${errorDetail}`);
     }
   }
@@ -799,19 +791,23 @@ export class TwitterService {
 
     return tweets.map((tweet) => {
       const author = users.get(tweet.author_id);
-      const tweetMedia = tweet.attachments?.media_keys?.map((key: string) => {
-        const m = media.get(key);
-        return m ? {
-          mediaKey: m.media_key,
-          type: m.type,
-          url: m.url,
-          previewImageUrl: m.preview_image_url,
-          width: m.width,
-          height: m.height,
-          altText: m.alt_text,
-          durationMs: m.duration_ms,
-        } : null;
-      }).filter(Boolean);
+      const tweetMedia = tweet.attachments?.media_keys
+        ?.map((key: string) => {
+          const m = media.get(key);
+          return m
+            ? {
+                mediaKey: m.media_key,
+                type: m.type,
+                url: m.url,
+                previewImageUrl: m.preview_image_url,
+                width: m.width,
+                height: m.height,
+                altText: m.alt_text,
+                durationMs: m.duration_ms,
+              }
+            : null;
+        })
+        .filter(Boolean);
 
       return {
         id: tweet.id,
@@ -821,14 +817,16 @@ export class TwitterService {
         authorName: author?.name,
         authorProfileImage: author?.profile_image_url,
         createdAt: tweet.created_at,
-        publicMetrics: tweet.public_metrics ? {
-          retweetCount: tweet.public_metrics.retweet_count,
-          replyCount: tweet.public_metrics.reply_count,
-          likeCount: tweet.public_metrics.like_count,
-          quoteCount: tweet.public_metrics.quote_count,
-          bookmarkCount: tweet.public_metrics.bookmark_count,
-          impressionCount: tweet.public_metrics.impression_count,
-        } : undefined,
+        publicMetrics: tweet.public_metrics
+          ? {
+              retweetCount: tweet.public_metrics.retweet_count,
+              replyCount: tweet.public_metrics.reply_count,
+              likeCount: tweet.public_metrics.like_count,
+              quoteCount: tweet.public_metrics.quote_count,
+              bookmarkCount: tweet.public_metrics.bookmark_count,
+              impressionCount: tweet.public_metrics.impression_count,
+            }
+          : undefined,
         media: tweetMedia,
         referencedTweets: tweet.referenced_tweets,
         conversationId: tweet.conversation_id,
@@ -848,12 +846,14 @@ export class TwitterService {
       url: user.url,
       verified: user.verified,
       protected: user.protected,
-      publicMetrics: user.public_metrics ? {
-        followersCount: user.public_metrics.followers_count,
-        followingCount: user.public_metrics.following_count,
-        tweetCount: user.public_metrics.tweet_count,
-        listedCount: user.public_metrics.listed_count,
-      } : undefined,
+      publicMetrics: user.public_metrics
+        ? {
+            followersCount: user.public_metrics.followers_count,
+            followingCount: user.public_metrics.following_count,
+            tweetCount: user.public_metrics.tweet_count,
+            listedCount: user.public_metrics.listed_count,
+          }
+        : undefined,
       createdAt: user.created_at,
     };
   }

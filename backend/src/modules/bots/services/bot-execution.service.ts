@@ -4,8 +4,16 @@ import { BotsService, Bot } from './bots.service';
 import { BotTriggersService, BotTrigger } from './bot-triggers.service';
 import { BotActionsService, BotAction } from './bot-actions.service';
 import { BotInstallationsService, BotInstallation } from './bot-installations.service';
-import { TriggerEvaluatorService, TriggerEvaluationContext, TriggerMatch } from './trigger-evaluator.service';
-import { ActionExecutorService, ActionExecutionResult, ActionExecutionContext } from './action-executor.service';
+import {
+  TriggerEvaluatorService,
+  TriggerEvaluationContext,
+  TriggerMatch,
+} from './trigger-evaluator.service';
+import {
+  ActionExecutorService,
+  ActionExecutionResult,
+  ActionExecutionContext,
+} from './action-executor.service';
 import { BotVariablesService } from './bot-variables.service';
 import { FailurePolicy } from '../dto/create-action.dto';
 import { SharedExecutionLoggerService, AutomationType } from '../../automation-core';
@@ -86,7 +94,9 @@ export class BotExecutionService {
     try {
       console.log(`\n========== BOT EXECUTION DEBUG ==========`);
       console.log(`[BotExecution] 🔍 Processing message: "${input.messageContent}"`);
-      console.log(`[BotExecution] 📍 Location: channelId=${input.channelId}, conversationId=${input.conversationId}`);
+      console.log(
+        `[BotExecution] 📍 Location: channelId=${input.channelId}, conversationId=${input.conversationId}`,
+      );
       console.log(`[BotExecution] 🏢 Workspace: ${input.workspaceId}`);
       console.log(`[BotExecution] 👤 User: ${input.userId}`);
 
@@ -99,12 +109,16 @@ export class BotExecutionService {
 
       if (bots.length === 0) {
         console.log(`[BotExecution] ❌ No active bots found for this location`);
-        console.log(`[BotExecution] 💡 Check: 1) Bot status='active', 2) Bot installed in channel with is_active=true`);
+        console.log(
+          `[BotExecution] 💡 Check: 1) Bot status='active', 2) Bot installed in channel with is_active=true`,
+        );
         console.log(`==========================================\n`);
         return;
       }
 
-      console.log(`[BotExecution] ✅ Found ${bots.length} active bot(s): ${bots.map(b => `${b.name} (${b.status})`).join(', ')}`);
+      console.log(
+        `[BotExecution] ✅ Found ${bots.length} active bot(s): ${bots.map((b) => `${b.name} (${b.status})`).join(', ')}`,
+      );
 
       // Process each bot
       for (const bot of bots) {
@@ -143,7 +157,9 @@ export class BotExecutionService {
       return;
     }
 
-    console.log(`[BotExecution] 📋 Found ${triggers.length} active trigger(s): ${triggers.map(t => `${t.name} (${t.triggerType})`).join(', ')}`);
+    console.log(
+      `[BotExecution] 📋 Found ${triggers.length} active trigger(s): ${triggers.map((t) => `${t.name} (${t.triggerType})`).join(', ')}`,
+    );
 
     // Build evaluation context
     const evalContext: TriggerEvaluationContext = {
@@ -179,7 +195,9 @@ export class BotExecutionService {
         );
 
         if (inCooldown) {
-          console.log(`[BotExecution] ⏳ User ${input.userId} is in cooldown for trigger ${trigger.id}`);
+          console.log(
+            `[BotExecution] ⏳ User ${input.userId} is in cooldown for trigger ${trigger.id}`,
+          );
           continue;
         }
 
@@ -200,7 +218,9 @@ export class BotExecutionService {
         // Only process first matching trigger per bot (can be configured)
         break;
       } else {
-        console.log(`[BotExecution] ❌ Trigger not matched: ${trigger.name} - Reason: ${match.reason || 'No match'}`);
+        console.log(
+          `[BotExecution] ❌ Trigger not matched: ${trigger.name} - Reason: ${match.reason || 'No match'}`,
+        );
       }
     }
 
@@ -224,11 +244,15 @@ export class BotExecutionService {
     const actions = await this.actionsService.getActionsForTrigger(bot.id, trigger.id);
     if (actions.length === 0) {
       console.log(`[BotExecution] ⚠️ No actions configured for trigger ${trigger.name}`);
-      console.log(`[BotExecution] 💡 Create actions and link them to this trigger (or make them global)`);
+      console.log(
+        `[BotExecution] 💡 Create actions and link them to this trigger (or make them global)`,
+      );
       return;
     }
 
-    console.log(`[BotExecution] 📝 Found ${actions.length} action(s): ${actions.map(a => `${a.name} (${a.actionType})`).join(', ')}`);
+    console.log(
+      `[BotExecution] 📝 Found ${actions.length} action(s): ${actions.map((a) => `${a.name} (${a.actionType})`).join(', ')}`,
+    );
 
     // Build execution context
     const execContext: ActionExecutionContext = this.variablesService.buildContext({
@@ -257,7 +281,7 @@ export class BotExecutionService {
     const installations = input.channelId
       ? await this.installationsService.getInstallationsForChannel(input.channelId)
       : await this.installationsService.getInstallationsForConversation(input.conversationId!);
-    const installation = installations.find(i => i.botId === bot.id);
+    const installation = installations.find((i) => i.botId === bot.id);
 
     // Execute actions in order
     for (const action of actions) {
@@ -285,8 +309,12 @@ export class BotExecutionService {
       const result = await this.actionExecutor.execute(action, execContext);
 
       if (result.success) {
-        console.log(`[BotExecution] ✅ Action completed successfully in ${result.executionTimeMs}ms`);
-        console.log(`[BotExecution]    Output: ${JSON.stringify(result.output)?.substring(0, 200)}`);
+        console.log(
+          `[BotExecution] ✅ Action completed successfully in ${result.executionTimeMs}ms`,
+        );
+        console.log(
+          `[BotExecution]    Output: ${JSON.stringify(result.output)?.substring(0, 200)}`,
+        );
       } else {
         console.log(`[BotExecution] ❌ Action FAILED: ${result.error}`);
       }
@@ -302,7 +330,9 @@ export class BotExecutionService {
       // Handle failure policy
       if (!result.success) {
         if (action.failurePolicy === FailurePolicy.STOP) {
-          this.logger.warn(`[BotExecution] Action ${action.id} failed with STOP policy, halting execution`);
+          this.logger.warn(
+            `[BotExecution] Action ${action.id} failed with STOP policy, halting execution`,
+          );
           break;
         } else if (action.failurePolicy === FailurePolicy.RETRY) {
           // Simple retry once
@@ -317,7 +347,7 @@ export class BotExecutionService {
       // Apply response delay if configured
       const responseDelay = bot.settings?.responseDelay || 0;
       if (responseDelay > 0) {
-        await new Promise(resolve => setTimeout(resolve, responseDelay));
+        await new Promise((resolve) => setTimeout(resolve, responseDelay));
       }
     }
   }
@@ -398,9 +428,7 @@ export class BotExecutionService {
       offset?: number;
     },
   ): Promise<BotExecutionLog[]> {
-    let query = this.db.table('bot_execution_logs')
-      .select('*')
-      .where('bot_id', '=', botId);
+    let query = this.db.table('bot_execution_logs').select('*').where('bot_id', '=', botId);
 
     if (options?.triggerId) {
       query = query.where('trigger_id', '=', options.triggerId);
@@ -422,8 +450,9 @@ export class BotExecutionService {
 
     return (result.data || [])
       .map((log: any) => this.transformToLog(log))
-      .sort((a: BotExecutionLog, b: BotExecutionLog) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      .sort(
+        (a: BotExecutionLog, b: BotExecutionLog) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
       )
       .slice(options?.offset || 0, (options?.offset || 0) + (options?.limit || 50));
   }

@@ -48,9 +48,7 @@ export class SmtpProvider implements EmailProvider {
     this.port = parseInt(config.get<string>('SMTP_PORT', '587'), 10);
     this.user = config.get<string>('SMTP_USER', '');
     this.password = config.get<string>('SMTP_PASSWORD', '');
-    this.secure =
-      String(config.get<string>('SMTP_SECURE', 'false')).toLowerCase() ===
-      'true';
+    this.secure = String(config.get<string>('SMTP_SECURE', 'false')).toLowerCase() === 'true';
     this.from = config.get<string>('EMAIL_FROM', 'noreply@example.com');
     this.replyTo = config.get<string>('EMAIL_REPLY_TO');
 
@@ -74,9 +72,7 @@ export class SmtpProvider implements EmailProvider {
       host: this.host,
       port: this.port,
       secure: this.secure,
-      auth: this.user
-        ? { user: this.user, pass: this.password }
-        : undefined,
+      auth: this.user ? { user: this.user, pass: this.password } : undefined,
     });
     return this.transporter;
   }

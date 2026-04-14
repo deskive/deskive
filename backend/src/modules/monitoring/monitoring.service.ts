@@ -78,20 +78,20 @@ export class MonitoringService {
       },
     ];
 
-    const overallStatus = healthChecks.every(check => check.status === 'healthy') 
-      ? 'healthy' 
-      : healthChecks.some(check => check.status === 'unhealthy')
-      ? 'unhealthy'
-      : 'degraded';
+    const overallStatus = healthChecks.every((check) => check.status === 'healthy')
+      ? 'healthy'
+      : healthChecks.some((check) => check.status === 'unhealthy')
+        ? 'unhealthy'
+        : 'degraded';
 
     return {
       overall: {
         status: overallStatus,
         timestamp: currentTime,
         services: healthChecks.length,
-        healthy: healthChecks.filter(check => check.status === 'healthy').length,
-        unhealthy: healthChecks.filter(check => check.status === 'unhealthy').length,
-        degraded: healthChecks.filter(check => check.status === 'degraded').length,
+        healthy: healthChecks.filter((check) => check.status === 'healthy').length,
+        unhealthy: healthChecks.filter((check) => check.status === 'unhealthy').length,
+        degraded: healthChecks.filter((check) => check.status === 'degraded').length,
       },
       checks: healthChecks,
     };
@@ -102,7 +102,8 @@ export class MonitoringService {
     const endTime = query.endTime || new Date().toISOString();
 
     // Get performance data from monitoring logs
-    const metricsResult = await this.db.table('system_metrics')
+    const metricsResult = await this.db
+      .table('system_metrics')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('timestamp', '>=', startTime)
@@ -130,7 +131,10 @@ export class MonitoringService {
         avgCpuUsage: this.calculateAverage(performanceData.cpu, 'value'),
         avgMemoryUsage: this.calculateAverage(performanceData.memory, 'value'),
         maxResponseTime: this.calculateMax(performanceData.responseTime, 'value'),
-        totalRequests: performanceData.throughput.reduce((sum, point) => sum + (point.value || 0), 0),
+        totalRequests: performanceData.throughput.reduce(
+          (sum, point) => sum + (point.value || 0),
+          0,
+        ),
         overallErrorRate: this.calculateAverage(performanceData.errorRate, 'value'),
       },
     };
@@ -138,9 +142,7 @@ export class MonitoringService {
 
   async getSystemLogs(workspaceId: string, query: LogQueryDto) {
     // Build query for system logs
-    let logQuery = this.db.table('system_logs')
-      .select('*')
-      .where('workspace_id', '=', workspaceId);
+    let logQuery = this.db.table('system_logs').select('*').where('workspace_id', '=', workspaceId);
 
     if (query.level) {
       logQuery = logQuery.where('level', '=', query.level);
@@ -175,10 +177,15 @@ export class MonitoringService {
     const logs = logsResult.data || [];
 
     // Get log level distribution
-    const levelDistributionResult = await this.db.table('system_logs')
+    const levelDistributionResult = await this.db
+      .table('system_logs')
       .select('level')
       .where('workspace_id', '=', workspaceId)
-      .where('timestamp', '>=', query.startTime || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+      .where(
+        'timestamp',
+        '>=',
+        query.startTime || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+      )
       .where('timestamp', '<=', query.endTime || new Date().toISOString())
       .groupBy('level')
       .execute();
@@ -186,14 +193,19 @@ export class MonitoringService {
     const levelDistribution = levelDistributionResult.data || [];
     const levelDistributionCounts = await Promise.all(
       levelDistribution.map(async (item) => {
-        const count = await this.db.table('system_logs')
+        const count = await this.db
+          .table('system_logs')
           .where('workspace_id', '=', workspaceId)
           .where('level', '=', item.level)
-          .where('timestamp', '>=', query.startTime || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString())
+          .where(
+            'timestamp',
+            '>=',
+            query.startTime || new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+          )
           .where('timestamp', '<=', query.endTime || new Date().toISOString())
           .count();
         return { ...item, count };
-      })
+      }),
     );
 
     return {
@@ -213,7 +225,12 @@ export class MonitoringService {
     };
   }
 
-  private async getSystemMetrics(workspaceId: string, startTime: string, endTime: string, interval: number = 5) {
+  private async getSystemMetrics(
+    workspaceId: string,
+    startTime: string,
+    endTime: string,
+    interval: number = 5,
+  ) {
     // Simulate system metrics - in real implementation, this would come from monitoring agents
     const now = new Date();
     const start = new Date(startTime);
@@ -221,7 +238,8 @@ export class MonitoringService {
 
     const generateMetricPoints = (baseValue: number, variance: number) => {
       const data = [];
-      for (let i = 0; i < Math.min(points, 288); i++) { // Limit to 288 points (24 hours at 5-min intervals)
+      for (let i = 0; i < Math.min(points, 288); i++) {
+        // Limit to 288 points (24 hours at 5-min intervals)
         const timestamp = new Date(start.getTime() + i * interval * 60 * 1000).toISOString();
         const value = Math.max(0, Math.min(100, baseValue + (Math.random() - 0.5) * variance));
         data.push({ timestamp, value: parseFloat(value.toFixed(2)) });
@@ -240,9 +258,15 @@ export class MonitoringService {
     };
   }
 
-  private async getAPIMetrics(workspaceId: string, startTime: string, endTime: string, interval: number = 5) {
+  private async getAPIMetrics(
+    workspaceId: string,
+    startTime: string,
+    endTime: string,
+    interval: number = 5,
+  ) {
     // Get API request logs
-    const apiLogsResult = await this.db.table('api_request_logs')
+    const apiLogsResult = await this.db
+      .table('api_request_logs')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('timestamp', '>=', startTime)
@@ -253,16 +277,17 @@ export class MonitoringService {
 
     // Process API metrics
     const totalRequests = apiLogs.length;
-    const errorRequests = apiLogs.filter(log => log.status_code >= 400).length;
+    const errorRequests = apiLogs.filter((log) => log.status_code >= 400).length;
     const errorRate = totalRequests > 0 ? (errorRequests / totalRequests) * 100 : 0;
-    
+
     const responseTimes = apiLogs
-      .filter(log => log.response_time)
-      .map(log => parseFloat(log.response_time));
-    
-    const avgResponseTime = responseTimes.length > 0 
-      ? responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length
-      : 0;
+      .filter((log) => log.response_time)
+      .map((log) => parseFloat(log.response_time));
+
+    const avgResponseTime =
+      responseTimes.length > 0
+        ? responseTimes.reduce((sum, time) => sum + time, 0) / responseTimes.length
+        : 0;
 
     return {
       totalRequests,
@@ -325,7 +350,7 @@ export class MonitoringService {
   private calculateOverallStatus(systemMetrics: any, apiMetrics: any): string {
     const avgCpu = this.calculateAverage(systemMetrics.cpu, 'value');
     const avgMemory = this.calculateAverage(systemMetrics.memory, 'value');
-    
+
     if (avgCpu > 90 || avgMemory > 90 || apiMetrics.errorRate > 10) {
       return 'critical';
     } else if (avgCpu > 70 || avgMemory > 70 || apiMetrics.errorRate > 5) {
@@ -356,9 +381,12 @@ export class MonitoringService {
 
     for (const [timestamp, groupMetrics] of Object.entries(timeGroups)) {
       for (const metric of Object.keys(aggregated)) {
-        const values = groupMetrics.filter(m => m.metric_type === metric).map(m => parseFloat(m.value));
-        const avgValue = values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0;
-        
+        const values = groupMetrics
+          .filter((m) => m.metric_type === metric)
+          .map((m) => parseFloat(m.value));
+        const avgValue =
+          values.length > 0 ? values.reduce((sum, val) => sum + val, 0) / values.length : 0;
+
         aggregated[metric].push({
           timestamp,
           value: parseFloat(avgValue.toFixed(2)),
@@ -371,7 +399,7 @@ export class MonitoringService {
 
   private groupByTimeInterval(metrics: any[], intervalMinutes: number): { [key: string]: any[] } {
     const groups = {};
-    
+
     for (const metric of metrics) {
       const timestamp = new Date(metric.timestamp);
       const intervalStart = new Date(
@@ -379,22 +407,22 @@ export class MonitoringService {
         timestamp.getMonth(),
         timestamp.getDate(),
         timestamp.getHours(),
-        Math.floor(timestamp.getMinutes() / intervalMinutes) * intervalMinutes
+        Math.floor(timestamp.getMinutes() / intervalMinutes) * intervalMinutes,
       );
-      
+
       const key = intervalStart.toISOString();
       if (!groups[key]) {
         groups[key] = [];
       }
       groups[key].push(metric);
     }
-    
+
     return groups;
   }
 
   private aggregateByInterval(logs: any[], intervalMinutes: number, timeField: string) {
     const groups = {};
-    
+
     for (const log of logs) {
       const timestamp = new Date(log[timeField]);
       const intervalStart = new Date(
@@ -402,13 +430,13 @@ export class MonitoringService {
         timestamp.getMonth(),
         timestamp.getDate(),
         timestamp.getHours(),
-        Math.floor(timestamp.getMinutes() / intervalMinutes) * intervalMinutes
+        Math.floor(timestamp.getMinutes() / intervalMinutes) * intervalMinutes,
       );
-      
+
       const key = intervalStart.toISOString();
       groups[key] = (groups[key] || 0) + 1;
     }
-    
+
     return Object.entries(groups).map(([timestamp, count]) => ({
       timestamp,
       value: count,
@@ -423,6 +451,6 @@ export class MonitoringService {
 
   private calculateMax(data: any[], field: string): number {
     if (!data || data.length === 0) return 0;
-    return Math.max(...data.map(item => parseFloat(item[field]) || 0));
+    return Math.max(...data.map((item) => parseFloat(item[field]) || 0));
   }
 }

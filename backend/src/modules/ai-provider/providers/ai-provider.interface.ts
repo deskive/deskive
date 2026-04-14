@@ -95,13 +95,7 @@ export interface GenerateEmbeddingResult {
  */
 export interface AiProvider {
   /** Stable provider name for logging / clients. */
-  readonly name:
-    | 'openai'
-    | 'anthropic'
-    | 'gemini'
-    | 'ollama'
-    | 'groq'
-    | 'none';
+  readonly name: 'openai' | 'anthropic' | 'gemini' | 'ollama' | 'groq' | 'none';
 
   /** True if the provider has the credentials/infra it needs. */
   isAvailable(): boolean;

@@ -1,5 +1,15 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsBoolean, IsObject, IsArray, MaxLength, MinLength, Matches } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsBoolean,
+  IsObject,
+  IsArray,
+  MaxLength,
+  MinLength,
+  Matches,
+} from 'class-validator';
 
 export enum BotStatus {
   DRAFT = 'draft',
@@ -33,7 +43,9 @@ export class CreateBotDto {
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @Matches(/^[a-z0-9-]+$/, { message: 'Name must contain only lowercase letters, numbers, and hyphens' })
+  @Matches(/^[a-z0-9-]+$/, {
+    message: 'Name must contain only lowercase letters, numbers, and hyphens',
+  })
   name: string;
 
   @ApiProperty({ description: 'Bot display name', example: 'FAQ Bot' })
@@ -68,13 +80,19 @@ export class CreateBotDto {
   @IsObject()
   settings?: BotSettingsDto;
 
-  @ApiPropertyOptional({ description: 'Allowed action types', example: ['send_message', 'create_task'] })
+  @ApiPropertyOptional({
+    description: 'Allowed action types',
+    example: ['send_message', 'create_task'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   permissions?: string[];
 
-  @ApiPropertyOptional({ description: 'Whether bot is shareable across workspaces', default: false })
+  @ApiPropertyOptional({
+    description: 'Whether bot is shareable across workspaces',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   isPublic?: boolean;

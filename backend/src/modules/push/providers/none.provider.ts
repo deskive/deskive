@@ -35,17 +35,11 @@ export class NonePushProvider implements PushProvider {
     ]);
   }
 
-  async send(
-    _recipient: PushRecipient,
-    _message: PushMessage,
-  ): Promise<PushResult> {
+  async send(_recipient: PushRecipient, _message: PushMessage): Promise<PushResult> {
     return this.fail('send');
   }
 
-  async sendBulk(
-    _recipients: PushRecipient[],
-    _message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(_recipients: PushRecipient[], _message: PushMessage): Promise<PushBulkResult> {
     return this.fail('sendBulk');
   }
 

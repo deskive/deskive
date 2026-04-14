@@ -66,7 +66,10 @@ export const MOCK_CREDENTIALS: Record<string, any> = {
     region: 'us-east-1',
   },
   google_drive: { accessToken: 'mock-google-drive-token' },
-  dropbox: { accessToken: 'sl.mock-dropbox-access-token', refreshToken: 'mock-dropbox-refresh-token' },
+  dropbox: {
+    accessToken: 'sl.mock-dropbox-access-token',
+    refreshToken: 'mock-dropbox-refresh-token',
+  },
 
   // Marketing - Google Ads
   google_ads: {

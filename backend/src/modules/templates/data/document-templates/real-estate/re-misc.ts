@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const RE_MISC_TEMPLATES = [
   {
@@ -32,7 +29,10 @@ export const RE_MISC_TEMPLATES = [
         { insert: '3. TYPE OF LISTING\n', attributes: { bold: true } },
         { insert: '{{listing_type}}\n\n' },
         { insert: '4. COMMISSION\n', attributes: { bold: true } },
-        { insert: 'Total Commission: {{commission_rate}}%\nListing Broker: {{listing_commission}}%\nSelling Broker: {{selling_commission}}%\n\n' },
+        {
+          insert:
+            'Total Commission: {{commission_rate}}%\nListing Broker: {{listing_commission}}%\nSelling Broker: {{selling_commission}}%\n\n',
+        },
         { insert: '5. BROKER DUTIES\n', attributes: { bold: true } },
         { insert: '{{broker_duties}}\n\n' },
         { insert: '6. SELLER DUTIES\n', attributes: { bold: true } },
@@ -57,20 +57,51 @@ export const RE_MISC_TEMPLATES = [
       { key: 'list_price', type: 'currency', label: 'List Price', required: true },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'expiration_date', type: 'date', label: 'Expiration Date', required: true },
-      { key: 'listing_type', type: 'select', label: 'Listing Type', required: true, options: ['Exclusive Right to Sell', 'Exclusive Agency', 'Open Listing'] },
+      {
+        key: 'listing_type',
+        type: 'select',
+        label: 'Listing Type',
+        required: true,
+        options: ['Exclusive Right to Sell', 'Exclusive Agency', 'Open Listing'],
+      },
       { key: 'commission_rate', type: 'number', label: 'Total Commission Rate', required: true },
       { key: 'listing_commission', type: 'number', label: 'Listing Commission', required: true },
       { key: 'selling_commission', type: 'number', label: 'Selling Commission', required: true },
       { key: 'broker_duties', type: 'textarea', label: 'Broker Duties', required: true },
       { key: 'seller_duties', type: 'textarea', label: 'Seller Duties', required: true },
-      { key: 'mls_authorization', type: 'select', label: 'MLS Authorization', required: true, options: ['Yes', 'No'] },
-      { key: 'marketing_authorization', type: 'textarea', label: 'Marketing Authorization', required: true },
+      {
+        key: 'mls_authorization',
+        type: 'select',
+        label: 'MLS Authorization',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'marketing_authorization',
+        type: 'textarea',
+        label: 'Marketing Authorization',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'broker_signature', label: 'Broker Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'broker_signature',
+        label: 'Broker Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Buyer Representation Agreement',
@@ -92,7 +123,10 @@ export const RE_MISC_TEMPLATES = [
         { insert: 'BROKER/AGENT:\n', attributes: { bold: true } },
         { insert: '{{broker_name}}\n{{broker_address}}\nLicense #: {{broker_license}}\n\n' },
         { insert: '1. PROPERTY CRITERIA\n', attributes: { bold: true } },
-        { insert: 'Type: {{property_type}}\nLocation: {{desired_location}}\nPrice Range: {{price_range}}\nFeatures: {{desired_features}}\n\n' },
+        {
+          insert:
+            'Type: {{property_type}}\nLocation: {{desired_location}}\nPrice Range: {{price_range}}\nFeatures: {{desired_features}}\n\n',
+        },
         { insert: '2. TERM\n', attributes: { bold: true } },
         { insert: 'Start Date: {{start_date}}\nEnd Date: {{end_date}}\n\n' },
         { insert: '3. BROKER COMPENSATION\n', attributes: { bold: true } },
@@ -127,10 +161,24 @@ export const RE_MISC_TEMPLATES = [
       { key: 'agency_disclosure', type: 'textarea', label: 'Agency Disclosure', required: true },
     ],
     signatureFields: [
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'broker_signature', label: 'Broker Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'broker_signature',
+        label: 'Broker Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Lead-Based Paint Disclosure',
@@ -152,7 +200,10 @@ export const RE_MISC_TEMPLATES = [
         { insert: '[ ] Seller/Landlord has no knowledge of lead-based paint\n\n' },
         { insert: '(b) Records and Reports:\n' },
         { insert: '[ ] Seller/Landlord has provided available records and reports\n' },
-        { insert: '[ ] Seller/Landlord has no reports or records pertaining to lead-based paint\n\n' },
+        {
+          insert:
+            '[ ] Seller/Landlord has no reports or records pertaining to lead-based paint\n\n',
+        },
         { insert: 'Details: {{lead_paint_details}}\n\n' },
         { insert: 'BUYER/TENANT ACKNOWLEDGMENT:\n', attributes: { bold: true } },
         { insert: '\n(c) Buyer/Tenant has received:\n' },
@@ -162,10 +213,17 @@ export const RE_MISC_TEMPLATES = [
         { insert: '[ ] Buyer/Tenant has received a {{inspection_period}}-day opportunity\n' },
         { insert: '[ ] Buyer/Tenant has waived the opportunity\n\n' },
         { insert: 'AGENT ACKNOWLEDGMENT:\n', attributes: { bold: true } },
-        { insert: '\n(e) Agent has informed the Seller/Landlord of obligations under 42 U.S.C. 4852(d) and is aware of Agent\'s responsibility to ensure compliance.\n\n' },
+        {
+          insert:
+            "\n(e) Agent has informed the Seller/Landlord of obligations under 42 U.S.C. 4852(d) and is aware of Agent's responsibility to ensure compliance.\n\n",
+        },
         { insert: 'CERTIFICATION OF ACCURACY:\n', attributes: { bold: true } },
         { insert: 'The parties certify that the information provided is true and accurate.\n\n' },
-        { insert: 'WARNING: It is a violation of Federal law for a person to sell or lease housing built before 1978 without providing the required disclosures.\n\n', attributes: { bold: true, color: 'red' } },
+        {
+          insert:
+            'WARNING: It is a violation of Federal law for a person to sell or lease housing built before 1978 without providing the required disclosures.\n\n',
+          attributes: { bold: true, color: 'red' },
+        },
         { insert: 'SELLER/LANDLORD: _________________________ Date: _____________\n' },
         { insert: 'BUYER/TENANT: _________________________ Date: _____________\n' },
         { insert: 'AGENT: _________________________ Date: _____________\n' },
@@ -174,14 +232,38 @@ export const RE_MISC_TEMPLATES = [
     placeholders: [
       { key: 'property_address', type: 'text', label: 'Property Address', required: true },
       { key: 'lead_paint_details', type: 'textarea', label: 'Lead Paint Details', required: false },
-      { key: 'inspection_period', type: 'number', label: 'Inspection Period (Days)', required: true },
+      {
+        key: 'inspection_period',
+        type: 'number',
+        label: 'Inspection Period (Days)',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller/Landlord Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'buyer_signature', label: 'Buyer/Tenant Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'agent_signature', label: 'Agent Signature', required: false, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller/Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer/Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'agent_signature',
+        label: 'Agent Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Home Inspection Report',
@@ -195,7 +277,10 @@ export const RE_MISC_TEMPLATES = [
     content: {
       ops: [
         { insert: 'HOME INSPECTION REPORT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProperty: {{property_address}}\nInspection Date: {{inspection_date}}\nInspector: {{inspector_name}}\nLicense #: {{inspector_license}}\n\n' },
+        {
+          insert:
+            '\nProperty: {{property_address}}\nInspection Date: {{inspection_date}}\nInspector: {{inspector_name}}\nLicense #: {{inspector_license}}\n\n',
+        },
         { insert: 'CLIENT: {{client_name}}\n\n' },
         { insert: 'EXECUTIVE SUMMARY\n', attributes: { bold: true } },
         { insert: '{{executive_summary}}\n\n' },
@@ -204,24 +289,47 @@ export const RE_MISC_TEMPLATES = [
         { insert: 'SAFETY ISSUES:\n', attributes: { bold: true } },
         { insert: '{{safety_issues}}\n\n' },
         { insert: 'STRUCTURAL SYSTEMS\n', attributes: { bold: true } },
-        { insert: 'Foundation: {{foundation}}\nFraming: {{framing}}\nRoof Structure: {{roof_structure}}\n\n' },
+        {
+          insert:
+            'Foundation: {{foundation}}\nFraming: {{framing}}\nRoof Structure: {{roof_structure}}\n\n',
+        },
         { insert: 'EXTERIOR\n', attributes: { bold: true } },
-        { insert: 'Siding: {{siding}}\nWindows: {{windows}}\nDoors: {{doors}}\nDriveway/Walkways: {{driveway}}\n\n' },
+        {
+          insert:
+            'Siding: {{siding}}\nWindows: {{windows}}\nDoors: {{doors}}\nDriveway/Walkways: {{driveway}}\n\n',
+        },
         { insert: 'ROOFING\n', attributes: { bold: true } },
-        { insert: 'Material: {{roof_material}}\nCondition: {{roof_condition}}\nEstimated Age: {{roof_age}}\nGutters: {{gutters}}\n\n' },
+        {
+          insert:
+            'Material: {{roof_material}}\nCondition: {{roof_condition}}\nEstimated Age: {{roof_age}}\nGutters: {{gutters}}\n\n',
+        },
         { insert: 'PLUMBING\n', attributes: { bold: true } },
-        { insert: 'Water Supply: {{water_supply}}\nDrain System: {{drain_system}}\nWater Heater: {{water_heater}}\nFixtures: {{fixtures}}\n\n' },
+        {
+          insert:
+            'Water Supply: {{water_supply}}\nDrain System: {{drain_system}}\nWater Heater: {{water_heater}}\nFixtures: {{fixtures}}\n\n',
+        },
         { insert: 'ELECTRICAL\n', attributes: { bold: true } },
-        { insert: 'Service: {{electrical_service}}\nPanel: {{electrical_panel}}\nWiring: {{wiring}}\nGFCI/AFCI: {{gfci}}\n\n' },
+        {
+          insert:
+            'Service: {{electrical_service}}\nPanel: {{electrical_panel}}\nWiring: {{wiring}}\nGFCI/AFCI: {{gfci}}\n\n',
+        },
         { insert: 'HVAC\n', attributes: { bold: true } },
-        { insert: 'Heating: {{heating_system}}\nCooling: {{cooling_system}}\nDucts: {{ductwork}}\n\n' },
+        {
+          insert:
+            'Heating: {{heating_system}}\nCooling: {{cooling_system}}\nDucts: {{ductwork}}\n\n',
+        },
         { insert: 'INTERIOR\n', attributes: { bold: true } },
-        { insert: 'Walls/Ceilings: {{walls_ceilings}}\nFloors: {{floors}}\nStairs: {{stairs}}\n\n' },
+        {
+          insert: 'Walls/Ceilings: {{walls_ceilings}}\nFloors: {{floors}}\nStairs: {{stairs}}\n\n',
+        },
         { insert: 'INSULATION/VENTILATION\n', attributes: { bold: true } },
         { insert: '{{insulation}}\n\n' },
         { insert: 'ADDITIONAL COMMENTS\n', attributes: { bold: true } },
         { insert: '{{additional_comments}}\n\n' },
-        { insert: 'DISCLAIMER: This inspection is a visual assessment only and does not guarantee the absence of defects.\n\n' },
+        {
+          insert:
+            'DISCLAIMER: This inspection is a visual assessment only and does not guarantee the absence of defects.\n\n',
+        },
         { insert: 'Inspector Signature: _________________________\nDate: {{inspection_date}}\n' },
       ],
     },
@@ -260,12 +368,26 @@ export const RE_MISC_TEMPLATES = [
       { key: 'floors', type: 'text', label: 'Floors', required: true },
       { key: 'stairs', type: 'text', label: 'Stairs', required: true },
       { key: 'insulation', type: 'textarea', label: 'Insulation/Ventilation', required: true },
-      { key: 'additional_comments', type: 'textarea', label: 'Additional Comments', required: false },
+      {
+        key: 'additional_comments',
+        type: 'textarea',
+        label: 'Additional Comments',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'inspector_signature', label: 'Inspector Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'inspector_signature',
+        label: 'Inspector Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Pet Addendum',
@@ -279,14 +401,29 @@ export const RE_MISC_TEMPLATES = [
     content: {
       ops: [
         { insert: 'PET ADDENDUM\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nThis Pet Addendum is attached to the Lease Agreement dated {{lease_date}} for:\n\n' },
-        { insert: 'Property: {{property_address}}\nTenant: {{tenant_name}}\nLandlord: {{landlord_name}}\n\n' },
+        {
+          insert:
+            '\nThis Pet Addendum is attached to the Lease Agreement dated {{lease_date}} for:\n\n',
+        },
+        {
+          insert:
+            'Property: {{property_address}}\nTenant: {{tenant_name}}\nLandlord: {{landlord_name}}\n\n',
+        },
         { insert: 'PET INFORMATION:\n', attributes: { bold: true } },
-        { insert: 'Pet Name: {{pet_name}}\nSpecies: {{pet_species}}\nBreed: {{pet_breed}}\nWeight: {{pet_weight}} lbs\nAge: {{pet_age}}\nColor: {{pet_color}}\nVaccinations Current: {{vaccinations}}\nLicense #: {{pet_license}}\n\n' },
+        {
+          insert:
+            'Pet Name: {{pet_name}}\nSpecies: {{pet_species}}\nBreed: {{pet_breed}}\nWeight: {{pet_weight}} lbs\nAge: {{pet_age}}\nColor: {{pet_color}}\nVaccinations Current: {{vaccinations}}\nLicense #: {{pet_license}}\n\n',
+        },
         { insert: 'PET FEES AND DEPOSITS:\n', attributes: { bold: true } },
-        { insert: 'Pet Deposit: {{pet_deposit}} (Refundable/Non-Refundable)\nMonthly Pet Rent: {{pet_rent}}\nPet Fee: {{pet_fee}} (One-Time)\n\n' },
+        {
+          insert:
+            'Pet Deposit: {{pet_deposit}} (Refundable/Non-Refundable)\nMonthly Pet Rent: {{pet_rent}}\nPet Fee: {{pet_fee}} (One-Time)\n\n',
+        },
         { insert: 'TENANT AGREES TO:\n', attributes: { bold: true } },
-        { insert: '1. Keep pet under control at all times\n2. Clean up after pet immediately\n3. Prevent excessive noise from pet\n4. Not leave pet unattended for extended periods\n5. Provide current vaccination records annually\n6. Maintain renter\'s insurance with pet liability coverage\n7. Be responsible for all damages caused by pet\n\n' },
+        {
+          insert:
+            "1. Keep pet under control at all times\n2. Clean up after pet immediately\n3. Prevent excessive noise from pet\n4. Not leave pet unattended for extended periods\n5. Provide current vaccination records annually\n6. Maintain renter's insurance with pet liability coverage\n7. Be responsible for all damages caused by pet\n\n",
+        },
         { insert: 'RESTRICTIONS:\n', attributes: { bold: true } },
         { insert: '{{pet_restrictions}}\n\n' },
         { insert: 'VIOLATIONS:\n', attributes: { bold: true } },
@@ -307,19 +444,44 @@ export const RE_MISC_TEMPLATES = [
       { key: 'pet_weight', type: 'number', label: 'Pet Weight (lbs)', required: true },
       { key: 'pet_age', type: 'text', label: 'Pet Age', required: true },
       { key: 'pet_color', type: 'text', label: 'Pet Color', required: true },
-      { key: 'vaccinations', type: 'select', label: 'Vaccinations Current', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'vaccinations',
+        type: 'select',
+        label: 'Vaccinations Current',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'pet_license', type: 'text', label: 'Pet License #', required: false },
       { key: 'pet_deposit', type: 'currency', label: 'Pet Deposit', required: true },
       { key: 'pet_rent', type: 'currency', label: 'Monthly Pet Rent', required: false },
       { key: 'pet_fee', type: 'currency', label: 'One-Time Pet Fee', required: false },
       { key: 'pet_restrictions', type: 'textarea', label: 'Pet Restrictions', required: true },
-      { key: 'violation_consequences', type: 'textarea', label: 'Violation Consequences', required: true },
+      {
+        key: 'violation_consequences',
+        type: 'textarea',
+        label: 'Violation Consequences',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Parking Space Agreement',
@@ -341,13 +503,19 @@ export const RE_MISC_TEMPLATES = [
         { insert: 'RENTER: ', attributes: { bold: true } },
         { insert: '{{renter_name}}\n\n' },
         { insert: 'PARKING SPACE:\n', attributes: { bold: true } },
-        { insert: 'Location: {{parking_location}}\nSpace Number: {{space_number}}\nType: {{space_type}}\n\n' },
+        {
+          insert:
+            'Location: {{parking_location}}\nSpace Number: {{space_number}}\nType: {{space_type}}\n\n',
+        },
         { insert: '1. TERM\n', attributes: { bold: true } },
         { insert: 'Start Date: {{start_date}}\nEnd Date: {{end_date}}\n\n' },
         { insert: '2. RENT\n', attributes: { bold: true } },
         { insert: 'Monthly Rent: {{monthly_rent}}\nDue Date: {{due_date}}\n\n' },
         { insert: '3. VEHICLE INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Make: {{vehicle_make}}\nModel: {{vehicle_model}}\nYear: {{vehicle_year}}\nColor: {{vehicle_color}}\nLicense Plate: {{license_plate}}\n\n' },
+        {
+          insert:
+            'Make: {{vehicle_make}}\nModel: {{vehicle_model}}\nYear: {{vehicle_year}}\nColor: {{vehicle_color}}\nLicense Plate: {{license_plate}}\n\n',
+        },
         { insert: '4. RULES\n', attributes: { bold: true } },
         { insert: '{{parking_rules}}\n\n' },
         { insert: '5. LIABILITY\n', attributes: { bold: true } },
@@ -363,7 +531,13 @@ export const RE_MISC_TEMPLATES = [
       { key: 'renter_name', type: 'text', label: 'Renter Name', required: true },
       { key: 'parking_location', type: 'text', label: 'Parking Location', required: true },
       { key: 'space_number', type: 'text', label: 'Space Number', required: true },
-      { key: 'space_type', type: 'select', label: 'Space Type', required: true, options: ['Covered', 'Uncovered', 'Garage', 'Carport'] },
+      {
+        key: 'space_type',
+        type: 'select',
+        label: 'Space Type',
+        required: true,
+        options: ['Covered', 'Uncovered', 'Garage', 'Carport'],
+      },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'end_date', type: 'date', label: 'End Date', required: false },
       { key: 'monthly_rent', type: 'currency', label: 'Monthly Rent', required: true },
@@ -376,10 +550,24 @@ export const RE_MISC_TEMPLATES = [
       { key: 'parking_rules', type: 'textarea', label: 'Parking Rules', required: true },
     ],
     signatureFields: [
-      { id: 'owner_signature', label: 'Owner Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'renter_signature', label: 'Renter Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'owner_signature',
+        label: 'Owner Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'renter_signature',
+        label: 'Renter Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Tenant Welcome Letter',
@@ -395,15 +583,24 @@ export const RE_MISC_TEMPLATES = [
         { insert: 'WELCOME TO YOUR NEW HOME\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nDate: {{letter_date}}\n\n' },
         { insert: 'Dear {{tenant_name}},\n\n' },
-        { insert: 'Welcome to {{property_address}}! We are pleased to have you as a tenant and want to help make your move-in as smooth as possible.\n\n' },
+        {
+          insert:
+            'Welcome to {{property_address}}! We are pleased to have you as a tenant and want to help make your move-in as smooth as possible.\n\n',
+        },
         { insert: 'IMPORTANT CONTACTS:\n', attributes: { bold: true } },
-        { insert: 'Landlord/Property Manager: {{manager_name}}\nPhone: {{manager_phone}}\nEmail: {{manager_email}}\nEmergency Contact: {{emergency_contact}}\n\n' },
+        {
+          insert:
+            'Landlord/Property Manager: {{manager_name}}\nPhone: {{manager_phone}}\nEmail: {{manager_email}}\nEmergency Contact: {{emergency_contact}}\n\n',
+        },
         { insert: 'MOVE-IN INFORMATION:\n', attributes: { bold: true } },
         { insert: 'Move-In Date: {{move_in_date}}\nKey Pickup: {{key_pickup}}\n\n' },
         { insert: 'UTILITIES:\n', attributes: { bold: true } },
         { insert: '{{utilities_info}}\n\n' },
         { insert: 'GARBAGE/RECYCLING:\n', attributes: { bold: true } },
-        { insert: 'Trash Day: {{trash_day}}\nRecycling Day: {{recycling_day}}\n{{garbage_notes}}\n\n' },
+        {
+          insert:
+            'Trash Day: {{trash_day}}\nRecycling Day: {{recycling_day}}\n{{garbage_notes}}\n\n',
+        },
         { insert: 'PARKING:\n', attributes: { bold: true } },
         { insert: '{{parking_info}}\n\n' },
         { insert: 'LAUNDRY:\n', attributes: { bold: true } },
@@ -416,7 +613,10 @@ export const RE_MISC_TEMPLATES = [
         { insert: '{{community_rules}}\n\n' },
         { insert: 'LOCAL INFORMATION:\n', attributes: { bold: true } },
         { insert: '{{local_info}}\n\n' },
-        { insert: 'We hope you enjoy your new home. Please don\'t hesitate to reach out with any questions.\n\n' },
+        {
+          insert:
+            "We hope you enjoy your new home. Please don't hesitate to reach out with any questions.\n\n",
+        },
         { insert: 'Best regards,\n\n{{manager_name}}\n' },
       ],
     },
@@ -437,12 +637,21 @@ export const RE_MISC_TEMPLATES = [
       { key: 'parking_info', type: 'textarea', label: 'Parking Information', required: true },
       { key: 'laundry_info', type: 'textarea', label: 'Laundry Information', required: false },
       { key: 'mail_info', type: 'textarea', label: 'Mail Information', required: true },
-      { key: 'maintenance_process', type: 'textarea', label: 'Maintenance Process', required: true },
+      {
+        key: 'maintenance_process',
+        type: 'textarea',
+        label: 'Maintenance Process',
+        required: true,
+      },
       { key: 'community_rules', type: 'textarea', label: 'Community Rules', required: false },
       { key: 'local_info', type: 'textarea', label: 'Local Information', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Maintenance Request Form',
@@ -458,18 +667,30 @@ export const RE_MISC_TEMPLATES = [
         { insert: 'MAINTENANCE REQUEST\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nDate: {{request_date}}\nRequest #: {{request_number}}\n\n' },
         { insert: 'TENANT INFORMATION:\n', attributes: { bold: true } },
-        { insert: 'Name: {{tenant_name}}\nProperty: {{property_address}}\nUnit #: {{unit_number}}\nPhone: {{tenant_phone}}\nEmail: {{tenant_email}}\n\n' },
+        {
+          insert:
+            'Name: {{tenant_name}}\nProperty: {{property_address}}\nUnit #: {{unit_number}}\nPhone: {{tenant_phone}}\nEmail: {{tenant_email}}\n\n',
+        },
         { insert: 'ISSUE DETAILS:\n', attributes: { bold: true } },
-        { insert: 'Category: {{issue_category}}\nPriority: {{priority}}\nLocation in Unit: {{issue_location}}\n\n' },
+        {
+          insert:
+            'Category: {{issue_category}}\nPriority: {{priority}}\nLocation in Unit: {{issue_location}}\n\n',
+        },
         { insert: 'Description:\n{{issue_description}}\n\n' },
         { insert: 'When did the issue start? {{issue_start}}\n\n' },
         { insert: 'PERMISSION TO ENTER:\n', attributes: { bold: true } },
-        { insert: 'Permission to enter if tenant is absent: {{permission_to_enter}}\nPreferred Times: {{preferred_times}}\nPets in unit: {{pets}}\n\n' },
+        {
+          insert:
+            'Permission to enter if tenant is absent: {{permission_to_enter}}\nPreferred Times: {{preferred_times}}\nPets in unit: {{pets}}\n\n',
+        },
         { insert: 'PREVIOUS ATTEMPTS TO REPAIR:\n', attributes: { bold: true } },
         { insert: '{{previous_repairs}}\n\n' },
         { insert: 'Tenant Signature: _________________________\nDate: {{request_date}}\n\n' },
         { insert: '--- FOR OFFICE USE ONLY ---\n\n', attributes: { bold: true } },
-        { insert: 'Received By: {{received_by}}\nAssigned To: {{assigned_to}}\nScheduled Date: {{scheduled_date}}\nWork Completed: {{completed_date}}\nNotes: {{office_notes}}\n' },
+        {
+          insert:
+            'Received By: {{received_by}}\nAssigned To: {{assigned_to}}\nScheduled Date: {{scheduled_date}}\nWork Completed: {{completed_date}}\nNotes: {{office_notes}}\n',
+        },
       ],
     },
     placeholders: [
@@ -480,15 +701,53 @@ export const RE_MISC_TEMPLATES = [
       { key: 'unit_number', type: 'text', label: 'Unit Number', required: false },
       { key: 'tenant_phone', type: 'text', label: 'Tenant Phone', required: true },
       { key: 'tenant_email', type: 'email', label: 'Tenant Email', required: true },
-      { key: 'issue_category', type: 'select', label: 'Issue Category', required: true, options: ['Plumbing', 'Electrical', 'HVAC', 'Appliance', 'Structural', 'Pest Control', 'Exterior', 'Other'] },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Emergency', 'Urgent', 'Normal', 'Low'] },
+      {
+        key: 'issue_category',
+        type: 'select',
+        label: 'Issue Category',
+        required: true,
+        options: [
+          'Plumbing',
+          'Electrical',
+          'HVAC',
+          'Appliance',
+          'Structural',
+          'Pest Control',
+          'Exterior',
+          'Other',
+        ],
+      },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Emergency', 'Urgent', 'Normal', 'Low'],
+      },
       { key: 'issue_location', type: 'text', label: 'Location in Unit', required: true },
       { key: 'issue_description', type: 'textarea', label: 'Issue Description', required: true },
       { key: 'issue_start', type: 'text', label: 'When Issue Started', required: true },
-      { key: 'permission_to_enter', type: 'select', label: 'Permission to Enter', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'permission_to_enter',
+        type: 'select',
+        label: 'Permission to Enter',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'preferred_times', type: 'text', label: 'Preferred Times', required: false },
-      { key: 'pets', type: 'select', label: 'Pets in Unit', required: true, options: ['Yes', 'No'] },
-      { key: 'previous_repairs', type: 'textarea', label: 'Previous Repair Attempts', required: false },
+      {
+        key: 'pets',
+        type: 'select',
+        label: 'Pets in Unit',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'previous_repairs',
+        type: 'textarea',
+        label: 'Previous Repair Attempts',
+        required: false,
+      },
       { key: 'received_by', type: 'text', label: 'Received By', required: false },
       { key: 'assigned_to', type: 'text', label: 'Assigned To', required: false },
       { key: 'scheduled_date', type: 'date', label: 'Scheduled Date', required: false },
@@ -496,8 +755,17 @@ export const RE_MISC_TEMPLATES = [
       { key: 'office_notes', type: 'textarea', label: 'Office Notes', required: false },
     ],
     signatureFields: [
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 580 } },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 580 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

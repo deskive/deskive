@@ -34,12 +34,8 @@ export interface SearchProviderFactoryDeps {
   pgQuery: PgQueryFn;
 }
 
-export function createSearchProvider(
-  deps: SearchProviderFactoryDeps,
-): SearchProvider {
-  const choice = (deps.config.get<string>('SEARCH_PROVIDER') || 'none')
-    .toLowerCase()
-    .trim();
+export function createSearchProvider(deps: SearchProviderFactoryDeps): SearchProvider {
+  const choice = (deps.config.get<string>('SEARCH_PROVIDER') || 'none').toLowerCase().trim();
 
   switch (choice) {
     case 'pg-trgm':
@@ -53,16 +49,12 @@ export function createSearchProvider(
     case 'meilisearch':
     case 'meili': {
       const p = new MeilisearchProvider(deps.config);
-      log.log(
-        `Selected search provider: meilisearch (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected search provider: meilisearch (available=${p.isAvailable()})`);
       return p;
     }
     case 'typesense': {
       const p = new TypesenseProvider(deps.config);
-      log.log(
-        `Selected search provider: typesense (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected search provider: typesense (available=${p.isAvailable()})`);
       return p;
     }
     case 'qdrant':

@@ -6,10 +6,7 @@ import { TwitterService } from './twitter.service';
 import { TwitterOAuthService } from './twitter-oauth.service';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [TwitterController, TwitterCallbackController],
   providers: [TwitterService, TwitterOAuthService],
   exports: [TwitterService, TwitterOAuthService],

@@ -43,7 +43,9 @@ export class BotMessageHandlerService {
     content: string,
   ): Promise<void> {
     try {
-      this.logger.log(`[BotMessageHandler] Processing message ${messageId} from user ${userId} in conversation ${conversationId}`);
+      this.logger.log(
+        `[BotMessageHandler] Processing message ${messageId} from user ${userId} in conversation ${conversationId}`,
+      );
 
       // Get conversation details
       const conversation = await this.db.findOne('conversations', {
@@ -57,11 +59,14 @@ export class BotMessageHandlerService {
       }
 
       // Parse participants (handle both JSON string and array)
-      const participants = typeof conversation.participants === 'string'
-        ? JSON.parse(conversation.participants)
-        : conversation.participants || [];
+      const participants =
+        typeof conversation.participants === 'string'
+          ? JSON.parse(conversation.participants)
+          : conversation.participants || [];
 
-      this.logger.debug(`[BotMessageHandler] Conversation participants: ${JSON.stringify(participants)}`);
+      this.logger.debug(
+        `[BotMessageHandler] Conversation participants: ${JSON.stringify(participants)}`,
+      );
 
       // Find if any bot is in this conversation
       const botParticipant = await this.findBotInConversation(participants);
@@ -79,7 +84,9 @@ export class BotMessageHandlerService {
         return;
       }
 
-      this.logger.log(`[BotMessageHandler] Bot "${botParticipant.name}" (${botParticipant.display_name}) will process message from user ${userId}`);
+      this.logger.log(
+        `[BotMessageHandler] Bot "${botParticipant.name}" (${botParticipant.display_name}) will process message from user ${userId}`,
+      );
 
       // Process the message based on bot type
       if (botParticipant.name === 'calendar-event-bot') {
@@ -94,7 +101,10 @@ export class BotMessageHandlerService {
         this.logger.warn(`[BotMessageHandler] Unknown bot type: ${botParticipant.name}`);
       }
     } catch (error) {
-      this.logger.error(`[BotMessageHandler] Error processing bot message: ${error.message}`, error.stack);
+      this.logger.error(
+        `[BotMessageHandler] Error processing bot message: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
@@ -109,9 +119,7 @@ export class BotMessageHandlerService {
 
       // Bot participants are prefixed with "bot:" in conversation participants
       // We need to strip this prefix to query the bots table
-      const botId = participantId.startsWith('bot:')
-        ? participantId.substring(4)
-        : participantId;
+      const botId = participantId.startsWith('bot:') ? participantId.substring(4) : participantId;
 
       this.logger.debug(`[BotMessageHandler] Extracted bot ID: ${botId}`);
 
@@ -183,30 +191,38 @@ export class BotMessageHandlerService {
     );
 
     // Extract assignment context from vector DB
-    const assignmentContext = relevantHistory.filter(msg =>
-      msg.action === 'event_assigned' || msg.action === 'project_assigned'
+    const assignmentContext = relevantHistory.filter(
+      (msg) => msg.action === 'event_assigned' || msg.action === 'project_assigned',
     );
     if (assignmentContext.length > 0) {
-      this.logger.log(`[CalendarBot] Found ${assignmentContext.length} assignment contexts in vector DB`);
-      assignmentContext.forEach(ctx => {
-        this.logger.debug(`[CalendarBot] Assignment: ${ctx.metadata?.event_title || ctx.metadata?.project_name}`);
+      this.logger.log(
+        `[CalendarBot] Found ${assignmentContext.length} assignment contexts in vector DB`,
+      );
+      assignmentContext.forEach((ctx) => {
+        this.logger.debug(
+          `[CalendarBot] Assignment: ${ctx.metadata?.event_title || ctx.metadata?.project_name}`,
+        );
       });
     }
 
     // Check if bot recently asked for clarification
-    const recentClarification = relevantHistory.find(msg =>
-      msg.action === 'low_confidence' && msg.metadata?.awaiting_clarification === true
+    const recentClarification = relevantHistory.find(
+      (msg) => msg.action === 'low_confidence' && msg.metadata?.awaiting_clarification === true,
     );
 
     if (recentClarification) {
-      this.logger.log(`[CalendarBot] User is responding to clarification request about: "${recentClarification.metadata.original_message}"`);
+      this.logger.log(
+        `[CalendarBot] User is responding to clarification request about: "${recentClarification.metadata.original_message}"`,
+      );
       // Append context to help classifier understand
       content = `${content} (user previously said: "${recentClarification.metadata.original_message}")`;
     }
 
     // Check what events and projects this bot is assigned to (database IDs)
     const assignedContext = await this.getBotAssignedContext(workspaceId, userId, botId);
-    this.logger.debug(`[CalendarBot] Bot context - Events: ${assignedContext.eventIds.length}, Projects: ${assignedContext.projectIds.length}`);
+    this.logger.debug(
+      `[CalendarBot] Bot context - Events: ${assignedContext.eventIds.length}, Projects: ${assignedContext.projectIds.length}`,
+    );
 
     // 3. Use conversation history to detect user preferences and patterns
     const userPreferences = this.extractUserPreferences(relevantHistory);
@@ -224,7 +240,9 @@ export class BotMessageHandlerService {
     // LOW CONFIDENCE = ASK FOR CLARIFICATION
     // ========================================
     if (intent.confidence < 0.7) {
-      this.logger.warn(`[CalendarBot] Low confidence (${intent.confidence}), asking for clarification`);
+      this.logger.warn(
+        `[CalendarBot] Low confidence (${intent.confidence}), asking for clarification`,
+      );
 
       // Generate smart clarifying question based on the ambiguous message
       responseText = await this.generateClarifyingQuestion(content, intent, assignmentContext);
@@ -283,13 +301,28 @@ export class BotMessageHandlerService {
         responseText = await this.getMyProjects(workspaceId, userId, assignedContext.projectIds);
         break;
       case 'show_project_details':
-        responseText = await this.getProjectDetails(workspaceId, userId, intent.entities.projectName || content, assignedContext.projectIds);
+        responseText = await this.getProjectDetails(
+          workspaceId,
+          userId,
+          intent.entities.projectName || content,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_project_members':
-        responseText = await this.getProjectMembers(workspaceId, userId, intent.entities.projectName || content, assignedContext.projectIds);
+        responseText = await this.getProjectMembers(
+          workspaceId,
+          userId,
+          intent.entities.projectName || content,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_project_tasks':
-        responseText = await this.getProjectTasks(workspaceId, userId, intent.entities.projectName || content, assignedContext.projectIds);
+        responseText = await this.getProjectTasks(
+          workspaceId,
+          userId,
+          intent.entities.projectName || content,
+          assignedContext.projectIds,
+        );
         break;
       case 'create_project':
         responseText = await this.createProject(workspaceId, userId, intent.entities);
@@ -301,7 +334,12 @@ export class BotMessageHandlerService {
         responseText = await this.deleteProject(workspaceId, userId, intent.entities);
         break;
       case 'search_projects':
-        responseText = await this.searchProjects(workspaceId, userId, content, assignedContext.projectIds);
+        responseText = await this.searchProjects(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.projectIds,
+        );
         break;
       case 'add_project_member':
         responseText = await this.addProjectMember(workspaceId, userId, intent.entities);
@@ -322,28 +360,56 @@ export class BotMessageHandlerService {
         responseText = await this.getMyTasks(workspaceId, userId, assignedContext.projectIds);
         break;
       case 'show_task_details':
-        responseText = await this.getTaskDetails(workspaceId, userId, intent.entities.taskName || content, assignedContext.projectIds);
+        responseText = await this.getTaskDetails(
+          workspaceId,
+          userId,
+          intent.entities.taskName || content,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_completed_tasks':
-        responseText = await this.getCompletedTasks(workspaceId, userId, assignedContext.projectIds);
+        responseText = await this.getCompletedTasks(
+          workspaceId,
+          userId,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_overdue_tasks':
         responseText = await this.getOverdueTasks(workspaceId, userId, assignedContext.projectIds);
         break;
       case 'show_tasks_by_priority':
-        responseText = await this.getTasksByPriority(workspaceId, userId, intent.entities.priority, assignedContext.projectIds);
+        responseText = await this.getTasksByPriority(
+          workspaceId,
+          userId,
+          intent.entities.priority,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_tasks_by_status':
-        responseText = await this.getTasksByStatus(workspaceId, userId, intent.entities.status, assignedContext.projectIds);
+        responseText = await this.getTasksByStatus(
+          workspaceId,
+          userId,
+          intent.entities.status,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_tasks_due_today':
         responseText = await this.getTasksDueToday(workspaceId, userId, assignedContext.projectIds);
         break;
       case 'show_tasks_due_this_week':
-        responseText = await this.getTasksDueThisWeek(workspaceId, userId, assignedContext.projectIds);
+        responseText = await this.getTasksDueThisWeek(
+          workspaceId,
+          userId,
+          assignedContext.projectIds,
+        );
         break;
       case 'show_subtasks':
-        responseText = await this.getSubtasks(workspaceId, userId, intent.entities.taskName, assignedContext.projectIds);
+        responseText = await this.getSubtasks(
+          workspaceId,
+          userId,
+          intent.entities.taskName,
+          assignedContext.projectIds,
+        );
         break;
       case 'create_task':
         responseText = await this.createTask(workspaceId, userId, intent.entities);
@@ -352,11 +418,21 @@ export class BotMessageHandlerService {
         responseText = await this.createSubtask(workspaceId, userId, intent.entities);
         break;
       case 'update_task':
-        responseText = await this.updateTask(workspaceId, userId, content, assignedContext.projectIds);
+        responseText = await this.updateTask(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.projectIds,
+        );
         break;
       case 'update_task_status':
       case 'complete_task':
-        responseText = await this.updateTaskStatus(workspaceId, userId, content, assignedContext.projectIds);
+        responseText = await this.updateTaskStatus(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.projectIds,
+        );
         break;
       case 'update_task_assignee':
       case 'assign_task':
@@ -384,7 +460,12 @@ export class BotMessageHandlerService {
         responseText = await this.addTaskComment(workspaceId, userId, intent.entities);
         break;
       case 'search_tasks':
-        responseText = await this.searchTasks(workspaceId, userId, content, assignedContext.projectIds);
+        responseText = await this.searchTasks(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.projectIds,
+        );
         break;
 
       // ========== EVENT INTENTS ==========
@@ -408,16 +489,31 @@ export class BotMessageHandlerService {
         responseText = await this.getPastEvents(workspaceId, userId, assignedContext.eventIds);
         break;
       case 'show_event_details':
-        responseText = await this.getEventDetails(workspaceId, userId, intent.entities.eventName || content, assignedContext.eventIds);
+        responseText = await this.getEventDetails(
+          workspaceId,
+          userId,
+          intent.entities.eventName || content,
+          assignedContext.eventIds,
+        );
         break;
       case 'show_event_participants':
-        responseText = await this.getEventParticipants(workspaceId, userId, intent.entities.eventName || content, assignedContext.eventIds);
+        responseText = await this.getEventParticipants(
+          workspaceId,
+          userId,
+          intent.entities.eventName || content,
+          assignedContext.eventIds,
+        );
         break;
       case 'create_event':
         responseText = await this.createEvent(workspaceId, userId, intent.entities);
         break;
       case 'update_event':
-        responseText = await this.updateEventDetails(workspaceId, userId, content, assignedContext.eventIds);
+        responseText = await this.updateEventDetails(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.eventIds,
+        );
         break;
       case 'update_event_time':
       case 'reschedule_event':
@@ -437,7 +533,12 @@ export class BotMessageHandlerService {
         responseText = await this.removeEventParticipant(workspaceId, userId, intent.entities);
         break;
       case 'search_events':
-        responseText = await this.searchEvents(workspaceId, userId, content, assignedContext.eventIds);
+        responseText = await this.searchEvents(
+          workspaceId,
+          userId,
+          content,
+          assignedContext.eventIds,
+        );
         break;
       case 'duplicate_event':
         responseText = await this.duplicateEvent(workspaceId, userId, intent.entities);
@@ -445,50 +546,86 @@ export class BotMessageHandlerService {
 
       // ========== MESSAGING & COMMUNICATION ==========
       case 'send_message_to_assignee':
-        responseText = await this.sendMessageToAssignee(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.sendMessageToAssignee(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
       case 'send_message_to_participant':
-        responseText = await this.sendMessageToParticipant(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.sendMessageToParticipant(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
       case 'send_message_to_member':
-        responseText = await this.sendMessageToMember(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.sendMessageToMember(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
       case 'send_message_to_user':
-        responseText = await this.sendMessageToUser(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.sendMessageToUser(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
       case 'message_project_team':
-        responseText = await this.messageProjectTeam(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.messageProjectTeam(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
       case 'message_event_participants':
-        responseText = await this.messageEventParticipants(workspaceId, userId, botId, content, intent.entities);
+        responseText = await this.messageEventParticipants(
+          workspaceId,
+          userId,
+          botId,
+          content,
+          intent.entities,
+        );
         break;
 
       // ========== FALLBACK ==========
       case 'unknown':
       default:
-        responseText = "I'm not quite sure what you're asking, but I'm here to help! 🤖\n\n" +
-          "I can assist you with:\n\n" +
-          "**Projects** 📁\n" +
-          "• \"Show my projects\"\n" +
-          "• \"Create project called X\"\n" +
-          "• \"Who's in [project name]?\"\n\n" +
-          "**Tasks** ✅\n" +
-          "• \"Show my tasks\"\n" +
-          "• \"What's due today?\"\n" +
-          "• \"Create task called X\"\n" +
-          "• \"Mark [task] as complete\"\n\n" +
-          "**Events** 📅\n" +
-          "• \"What's today?\"\n" +
-          "• \"Show this week's events\"\n" +
-          "• \"Create meeting tomorrow at 2pm\"\n\n" +
-          "**Messaging** 💬\n" +
-          "• \"Message the assignee of [task]\"\n" +
-          "• \"Send [person] a message\"\n" +
-          "• \"Tell the team about [something]\"\n\n" +
+        responseText =
+          "I'm not quite sure what you're asking, but I'm here to help! 🤖\n\n" +
+          'I can assist you with:\n\n' +
+          '**Projects** 📁\n' +
+          '• "Show my projects"\n' +
+          '• "Create project called X"\n' +
+          '• "Who\'s in [project name]?"\n\n' +
+          '**Tasks** ✅\n' +
+          '• "Show my tasks"\n' +
+          '• "What\'s due today?"\n' +
+          '• "Create task called X"\n' +
+          '• "Mark [task] as complete"\n\n' +
+          '**Events** 📅\n' +
+          '• "What\'s today?"\n' +
+          '• "Show this week\'s events"\n' +
+          '• "Create meeting tomorrow at 2pm"\n\n' +
+          '**Messaging** 💬\n' +
+          '• "Message the assignee of [task]"\n' +
+          '• "Send [person] a message"\n' +
+          '• "Tell the team about [something]"\n\n' +
           "Type **'help'** to see all my capabilities! 💡";
         break;
     }
-
 
     // 4. Send bot response
     this.logger.log(`[CalendarBot] Response text length: ${responseText.length} characters`);
@@ -504,17 +641,25 @@ export class BotMessageHandlerService {
       entities: intent.entities,
     };
 
-    if (intent.intent === 'show_events' || intent.intent === 'show_today_events' || intent.intent === 'show_tomorrow_events') {
+    if (
+      intent.intent === 'show_events' ||
+      intent.intent === 'show_today_events' ||
+      intent.intent === 'show_tomorrow_events'
+    ) {
       // Extract event titles from response (format: "1. **Event Title**")
       const titleMatches = responseText.match(/\d+\.\s+\*\*(.+?)\*\*/g);
       if (titleMatches) {
-        const eventTitles = titleMatches.map(match => {
-          const titleMatch = match.match(/\*\*(.+?)\*\*/);
-          return titleMatch ? titleMatch[1] : '';
-        }).filter(Boolean);
+        const eventTitles = titleMatches
+          .map((match) => {
+            const titleMatch = match.match(/\*\*(.+?)\*\*/);
+            return titleMatch ? titleMatch[1] : '';
+          })
+          .filter(Boolean);
 
         metadata.event_titles = eventTitles;
-        this.logger.log(`[CalendarBot] Extracted ${eventTitles.length} event titles for context: ${eventTitles.join(', ')}`);
+        this.logger.log(
+          `[CalendarBot] Extracted ${eventTitles.length} event titles for context: ${eventTitles.join(', ')}`,
+        );
       }
     }
 
@@ -522,34 +667,44 @@ export class BotMessageHandlerService {
       // Extract task titles from response (format: "1. **Task Title**")
       const titleMatches = responseText.match(/\d+\.\s+\*\*(.+?)\*\*/g);
       if (titleMatches) {
-        const taskTitles = titleMatches.map(match => {
-          const titleMatch = match.match(/\*\*(.+?)\*\*/);
-          return titleMatch ? titleMatch[1] : '';
-        }).filter(Boolean);
+        const taskTitles = titleMatches
+          .map((match) => {
+            const titleMatch = match.match(/\*\*(.+?)\*\*/);
+            return titleMatch ? titleMatch[1] : '';
+          })
+          .filter(Boolean);
 
         metadata.task_titles = taskTitles;
-        this.logger.log(`[CalendarBot] Extracted ${taskTitles.length} task titles for context: ${taskTitles.join(', ')}`);
+        this.logger.log(
+          `[CalendarBot] Extracted ${taskTitles.length} task titles for context: ${taskTitles.join(', ')}`,
+        );
       }
     }
 
     if (intent.intent === 'show_bot_projects' || intent.intent === 'show_projects') {
-      this.logger.log(`[CalendarBot] Intent is ${intent.intent}, extracting project names from response (length: ${responseText.length})`);
+      this.logger.log(
+        `[CalendarBot] Intent is ${intent.intent}, extracting project names from response (length: ${responseText.length})`,
+      );
 
       // Extract project names from response (same approach as events)
       // For show_projects: "1. **Project Name**"
       // For show_bot_projects: "**Project Name**" (first bold text after separator)
 
       // Try numbered format first (show_projects)
-      let projectMatches = responseText.match(/\d+\.\s+\*\*(.+?)\*\*/g);
+      const projectMatches = responseText.match(/\d+\.\s+\*\*(.+?)\*\*/g);
 
       if (projectMatches) {
-        const projectNames = projectMatches.map(match => {
-          const nameMatch = match.match(/\*\*(.+?)\*\*/);
-          return nameMatch ? nameMatch[1] : '';
-        }).filter(Boolean);
+        const projectNames = projectMatches
+          .map((match) => {
+            const nameMatch = match.match(/\*\*(.+?)\*\*/);
+            return nameMatch ? nameMatch[1] : '';
+          })
+          .filter(Boolean);
 
         metadata.project_names = projectNames;
-        this.logger.log(`[CalendarBot] Extracted ${projectNames.length} project names for context: ${projectNames.join(', ')}`);
+        this.logger.log(
+          `[CalendarBot] Extracted ${projectNames.length} project names for context: ${projectNames.join(', ')}`,
+        );
       } else {
         this.logger.log(`[CalendarBot] Numbered format didn't match, trying separator format`);
 
@@ -560,11 +715,15 @@ export class BotMessageHandlerService {
         this.logger.log(`[CalendarBot] Separator pattern found ${matches.length} matches`);
 
         if (matches.length > 0) {
-          const projectNames = matches.map(match => match[1].trim()).filter(Boolean);
+          const projectNames = matches.map((match) => match[1].trim()).filter(Boolean);
           metadata.project_names = projectNames;
-          this.logger.log(`[CalendarBot] Extracted ${projectNames.length} project names (separator format) for context: ${projectNames.join(', ')}`);
+          this.logger.log(
+            `[CalendarBot] Extracted ${projectNames.length} project names (separator format) for context: ${projectNames.join(', ')}`,
+          );
         } else {
-          this.logger.warn(`[CalendarBot] Could not extract project names from response. First 200 chars: ${responseText.substring(0, 200)}`);
+          this.logger.warn(
+            `[CalendarBot] Could not extract project names from response. First 200 chars: ${responseText.substring(0, 200)}`,
+          );
         }
       }
     }
@@ -601,8 +760,8 @@ export class BotMessageHandlerService {
 
       const eventData = Array.isArray(eventAssignments)
         ? eventAssignments
-        : (eventAssignments.data || []);
-      const eventIds = eventData.map(a => a.event_id);
+        : eventAssignments.data || [];
+      const eventIds = eventData.map((a) => a.event_id);
 
       // Get assigned projects
       const projectAssignments = await this.db
@@ -616,8 +775,8 @@ export class BotMessageHandlerService {
 
       const projectData = Array.isArray(projectAssignments)
         ? projectAssignments
-        : (projectAssignments.data || []);
-      const projectIds = projectData.map(a => a.project_id);
+        : projectAssignments.data || [];
+      const projectIds = projectData.map((a) => a.project_id);
 
       return { eventIds, projectIds };
     } catch (error) {
@@ -632,14 +791,18 @@ export class BotMessageHandlerService {
   private async getUpcomingEvents(
     workspaceId: string,
     userId: string,
-    assignedEventIds?: string[]
+    assignedEventIds?: string[],
   ): Promise<string> {
     try {
       const now = new Date();
       const oneWeekLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
-      this.logger.debug(`[CalendarBot] Searching events for user ${userId} in workspace ${workspaceId}`);
-      this.logger.debug(`[CalendarBot] Date range: ${now.toISOString()} to ${oneWeekLater.toISOString()}`);
+      this.logger.debug(
+        `[CalendarBot] Searching events for user ${userId} in workspace ${workspaceId}`,
+      );
+      this.logger.debug(
+        `[CalendarBot] Date range: ${now.toISOString()} to ${oneWeekLater.toISOString()}`,
+      );
 
       // Query for events where user is either user_id OR organizer_id
       // Since query builder doesn't support OR, we make two queries and merge
@@ -663,19 +826,19 @@ export class BotMessageHandlerService {
         .orderBy('start_time', 'ASC')
         .execute();
 
-      const events1 = Array.isArray(result1) ? result1 : (result1.data || []);
-      const events2 = Array.isArray(result2) ? result2 : (result2.data || []);
+      const events1 = Array.isArray(result1) ? result1 : result1.data || [];
+      const events2 = Array.isArray(result2) ? result2 : result2.data || [];
 
       // Merge and deduplicate by id
       const eventMap = new Map();
-      [...events1, ...events2].forEach(event => eventMap.set(event.id, event));
-      let events = Array.from(eventMap.values()).sort((a, b) =>
-        new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+      [...events1, ...events2].forEach((event) => eventMap.set(event.id, event));
+      let events = Array.from(eventMap.values()).sort(
+        (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime(),
       );
 
       // Filter by assigned events if bot is assigned to specific events
       if (assignedEventIds && assignedEventIds.length > 0) {
-        events = events.filter(event => assignedEventIds.includes(event.id));
+        events = events.filter((event) => assignedEventIds.includes(event.id));
         this.logger.debug(`[CalendarBot] Filtered to ${events.length} assigned events`);
       }
 
@@ -703,14 +866,14 @@ export class BotMessageHandlerService {
           .limit(5)
           .execute();
 
-        const allEvents1 = Array.isArray(allResult1) ? allResult1 : (allResult1.data || []);
-        const allEvents2 = Array.isArray(allResult2) ? allResult2 : (allResult2.data || []);
+        const allEvents1 = Array.isArray(allResult1) ? allResult1 : allResult1.data || [];
+        const allEvents2 = Array.isArray(allResult2) ? allResult2 : allResult2.data || [];
 
         const allEventMap = new Map();
-        [...allEvents1, ...allEvents2].forEach(event => allEventMap.set(event.id, event));
-        const allEvents = Array.from(allEventMap.values()).sort((a, b) =>
-          new Date(b.start_time).getTime() - new Date(a.start_time).getTime()
-        ).slice(0, 5);
+        [...allEvents1, ...allEvents2].forEach((event) => allEventMap.set(event.id, event));
+        const allEvents = Array.from(allEventMap.values())
+          .sort((a, b) => new Date(b.start_time).getTime() - new Date(a.start_time).getTime())
+          .slice(0, 5);
 
         this.logger.debug(`[CalendarBot] User has ${allEvents.length} total events`);
 
@@ -718,7 +881,8 @@ export class BotMessageHandlerService {
           return "You don't have any calendar events yet. Create your first event to get started!";
         } else {
           // Show their most recent events instead
-          let response = "You don't have any upcoming events in the next 7 days, but here are your most recent events:\n\n";
+          let response =
+            "You don't have any upcoming events in the next 7 days, but here are your most recent events:\n\n";
           allEvents.forEach((event: any, index: number) => {
             const startTime = new Date(event.start_time);
             const dateStr = startTime.toLocaleDateString('en-US', {
@@ -773,19 +937,12 @@ export class BotMessageHandlerService {
   private async getTodayEvents(
     workspaceId: string,
     userId: string,
-    assignedEventIds?: string[]
+    assignedEventIds?: string[],
   ): Promise<string> {
     try {
       const now = new Date();
       const startOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const endOfDay = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate(),
-        23,
-        59,
-        59,
-      );
+      const endOfDay = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59);
 
       const result1 = await this.db
         .table('calendar_events')
@@ -807,18 +964,18 @@ export class BotMessageHandlerService {
         .orderBy('start_time', 'ASC')
         .execute();
 
-      const events1 = Array.isArray(result1) ? result1 : (result1.data || []);
-      const events2 = Array.isArray(result2) ? result2 : (result2.data || []);
+      const events1 = Array.isArray(result1) ? result1 : result1.data || [];
+      const events2 = Array.isArray(result2) ? result2 : result2.data || [];
 
       const eventMap = new Map();
-      [...events1, ...events2].forEach(event => eventMap.set(event.id, event));
-      let events = Array.from(eventMap.values()).sort((a, b) =>
-        new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+      [...events1, ...events2].forEach((event) => eventMap.set(event.id, event));
+      let events = Array.from(eventMap.values()).sort(
+        (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime(),
       );
 
       // Filter by assigned events if bot is assigned to specific events
       if (assignedEventIds && assignedEventIds.length > 0) {
-        events = events.filter(event => assignedEventIds.includes(event.id));
+        events = events.filter((event) => assignedEventIds.includes(event.id));
       }
 
       if (events.length === 0) {
@@ -856,16 +1013,12 @@ export class BotMessageHandlerService {
   private async getTomorrowEvents(
     workspaceId: string,
     userId: string,
-    assignedEventIds?: string[]
+    assignedEventIds?: string[],
   ): Promise<string> {
     try {
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
-      const startOfDay = new Date(
-        tomorrow.getFullYear(),
-        tomorrow.getMonth(),
-        tomorrow.getDate(),
-      );
+      const startOfDay = new Date(tomorrow.getFullYear(), tomorrow.getMonth(), tomorrow.getDate());
       const endOfDay = new Date(
         tomorrow.getFullYear(),
         tomorrow.getMonth(),
@@ -895,18 +1048,18 @@ export class BotMessageHandlerService {
         .orderBy('start_time', 'ASC')
         .execute();
 
-      const events1 = Array.isArray(result1) ? result1 : (result1.data || []);
-      const events2 = Array.isArray(result2) ? result2 : (result2.data || []);
+      const events1 = Array.isArray(result1) ? result1 : result1.data || [];
+      const events2 = Array.isArray(result2) ? result2 : result2.data || [];
 
       const eventMap = new Map();
-      [...events1, ...events2].forEach(event => eventMap.set(event.id, event));
-      let events = Array.from(eventMap.values()).sort((a, b) =>
-        new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+      [...events1, ...events2].forEach((event) => eventMap.set(event.id, event));
+      let events = Array.from(eventMap.values()).sort(
+        (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime(),
       );
 
       // Filter by assigned events if bot is assigned to specific events
       if (assignedEventIds && assignedEventIds.length > 0) {
-        events = events.filter(event => assignedEventIds.includes(event.id));
+        events = events.filter((event) => assignedEventIds.includes(event.id));
       }
 
       if (events.length === 0) {
@@ -967,8 +1120,8 @@ export class BotMessageHandlerService {
 
       const projectData = Array.isArray(projectAssignments)
         ? projectAssignments
-        : (projectAssignments.data || []);
-      const projectIds = projectData.map(a => a.project_id);
+        : projectAssignments.data || [];
+      const projectIds = projectData.map((a) => a.project_id);
 
       // Check if bot has any assignments
       if (eventAssignments.length === 0 && projectIds.length === 0) {
@@ -981,7 +1134,7 @@ export class BotMessageHandlerService {
       const eventContextMap = new Map();
       const projectContextMap = new Map();
 
-      assignmentContext.forEach(ctx => {
+      assignmentContext.forEach((ctx) => {
         if (ctx.action === 'event_assigned' && ctx.metadata?.event_id) {
           eventContextMap.set(ctx.metadata.event_id, {
             title: ctx.metadata.event_title,
@@ -1007,8 +1160,10 @@ export class BotMessageHandlerService {
           .where('workspace_id', '=', workspaceId)
           .execute();
 
-        const allProjects = Array.isArray(projectsResult) ? projectsResult : (projectsResult.data || []);
-        const assignedProjects = allProjects.filter(p => projectIds.includes(p.id));
+        const allProjects = Array.isArray(projectsResult)
+          ? projectsResult
+          : projectsResult.data || [];
+        const assignedProjects = allProjects.filter((p) => projectIds.includes(p.id));
 
         for (const project of assignedProjects) {
           response += `\n• **${project.name}**\n`;
@@ -1024,8 +1179,10 @@ export class BotMessageHandlerService {
             .where('project_id', '=', project.id)
             .execute();
 
-          const tasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
-          const pending = tasks.filter(t => t.status !== 'done' && t.status !== 'completed').length;
+          const tasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
+          const pending = tasks.filter(
+            (t) => t.status !== 'done' && t.status !== 'completed',
+          ).length;
           const total = tasks.length;
 
           response += `  📊 Tasks: ${pending} pending / ${total} total\n`;
@@ -1116,8 +1273,8 @@ export class BotMessageHandlerService {
 
       const projectData = Array.isArray(projectAssignments)
         ? projectAssignments
-        : (projectAssignments.data || []);
-      const projectIds = projectData.map(a => a.project_id);
+        : projectAssignments.data || [];
+      const projectIds = projectData.map((a) => a.project_id);
 
       // Check if bot has any project assignments
       if (projectIds.length === 0) {
@@ -1133,8 +1290,10 @@ export class BotMessageHandlerService {
         .where('workspace_id', '=', workspaceId)
         .execute();
 
-      const allProjects = Array.isArray(projectsResult) ? projectsResult : (projectsResult.data || []);
-      const assignedProjects = allProjects.filter(p => projectIds.includes(p.id));
+      const allProjects = Array.isArray(projectsResult)
+        ? projectsResult
+        : projectsResult.data || [];
+      const assignedProjects = allProjects.filter((p) => projectIds.includes(p.id));
 
       for (const project of assignedProjects) {
         response += `━━━━━━━━━━━━━━━━━━━━━━\n`;
@@ -1151,9 +1310,11 @@ export class BotMessageHandlerService {
           .where('project_id', '=', project.id)
           .execute();
 
-        const tasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
+        const tasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
         const total = tasks.length;
-        const completed = tasks.filter(t => t.status === 'done' || t.status === 'completed').length;
+        const completed = tasks.filter(
+          (t) => t.status === 'done' || t.status === 'completed',
+        ).length;
         const pending = total - completed;
 
         // Calculate progress percentage
@@ -1185,11 +1346,10 @@ export class BotMessageHandlerService {
 
         // Get all unique assignees from tasks
         const assigneeSet = new Set<string>();
-        tasks.forEach(task => {
+        tasks.forEach((task) => {
           if (task.assignees) {
-            const assignees = typeof task.assignees === 'string'
-              ? JSON.parse(task.assignees)
-              : task.assignees;
+            const assignees =
+              typeof task.assignees === 'string' ? JSON.parse(task.assignees) : task.assignees;
 
             if (Array.isArray(assignees)) {
               assignees.forEach((assignee: any) => {
@@ -1207,7 +1367,8 @@ export class BotMessageHandlerService {
 
           // Fetch user details for each assignee
           const assigneeNames: string[] = [];
-          for (const assigneeId of assigneeIds.slice(0, 10)) { // Limit to first 10
+          for (const assigneeId of assigneeIds.slice(0, 10)) {
+            // Limit to first 10
             try {
               const user = await this.db.getUserById(assigneeId);
               if (user) {
@@ -1219,7 +1380,7 @@ export class BotMessageHandlerService {
           }
 
           if (assigneeNames.length > 0) {
-            assigneeNames.forEach(name => {
+            assigneeNames.forEach((name) => {
               response += `   • ${name}\n`;
             });
             if (assigneeSet.size > 10) {
@@ -1280,7 +1441,7 @@ export class BotMessageHandlerService {
 
       // Use vector DB context when available
       const eventContextMap = new Map();
-      assignmentContext.forEach(ctx => {
+      assignmentContext.forEach((ctx) => {
         if (ctx.action === 'event_assigned' && ctx.metadata?.event_id) {
           eventContextMap.set(ctx.metadata.event_id, {
             title: ctx.metadata.event_title,
@@ -1352,7 +1513,7 @@ export class BotMessageHandlerService {
     workspaceId: string,
     userId: string,
     content: string,
-    assignedEventIds?: string[]
+    assignedEventIds?: string[],
   ): Promise<string> {
     try {
       // Try to extract event title from the message
@@ -1380,7 +1541,9 @@ export class BotMessageHandlerService {
           const singleEvent = await this.db.findOne('calendar_events', { id: singleEventId });
 
           if (singleEvent) {
-            this.logger.log(`[CalendarBot] Auto-showing participants for bot's only assigned event: ${singleEvent.title}`);
+            this.logger.log(
+              `[CalendarBot] Auto-showing participants for bot's only assigned event: ${singleEvent.title}`,
+            );
             const attendees = singleEvent.attendees || [];
 
             const startTime = new Date(singleEvent.start_time);
@@ -1437,21 +1600,21 @@ export class BotMessageHandlerService {
         .limit(10)
         .execute();
 
-      const searchEvents1 = Array.isArray(searchResult1) ? searchResult1 : (searchResult1.data || []);
-      const searchEvents2 = Array.isArray(searchResult2) ? searchResult2 : (searchResult2.data || []);
+      const searchEvents1 = Array.isArray(searchResult1) ? searchResult1 : searchResult1.data || [];
+      const searchEvents2 = Array.isArray(searchResult2) ? searchResult2 : searchResult2.data || [];
 
       // Merge, deduplicate, and filter by title
       const searchMap = new Map();
-      [...searchEvents1, ...searchEvents2].forEach(event => searchMap.set(event.id, event));
+      [...searchEvents1, ...searchEvents2].forEach((event) => searchMap.set(event.id, event));
       let events = Array.from(searchMap.values());
 
       // Filter by assigned events if bot is assigned to specific events
       if (assignedEventIds && assignedEventIds.length > 0) {
-        events = events.filter(event => assignedEventIds.includes(event.id));
+        events = events.filter((event) => assignedEventIds.includes(event.id));
       }
 
       events = events
-        .filter(event => event.title.toLowerCase().includes(eventTitle.toLowerCase()))
+        .filter((event) => event.title.toLowerCase().includes(eventTitle.toLowerCase()))
         .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime())
         .slice(0, 5);
 
@@ -1519,7 +1682,7 @@ export class BotMessageHandlerService {
     workspaceId: string,
     userId: string,
     content: string,
-    assignedEventIds?: string[]
+    assignedEventIds?: string[],
   ): Promise<string> {
     try {
       // 1. Get recent conversation context to find events user just viewed
@@ -1532,16 +1695,19 @@ export class BotMessageHandlerService {
 
       this.logger.debug(`[UpdateEvent] Recent history (${recentHistory.length} messages):`);
       recentHistory.forEach((msg, idx) => {
-        this.logger.debug(`  ${idx + 1}. action=${msg.action}, has_event_titles=${!!msg.metadata?.event_titles}`);
+        this.logger.debug(
+          `  ${idx + 1}. action=${msg.action}, has_event_titles=${!!msg.metadata?.event_titles}`,
+        );
       });
 
       // Extract events from recent "show_events" responses
       const recentEvents: Array<{ title: string; id?: string }> = [];
       for (const msg of recentHistory) {
         // Check for all event-showing actions
-        const isEventAction = msg.action === 'show_events' ||
-                             msg.action === 'show_today_events' ||
-                             msg.action === 'show_tomorrow_events';
+        const isEventAction =
+          msg.action === 'show_events' ||
+          msg.action === 'show_today_events' ||
+          msg.action === 'show_tomorrow_events';
 
         if (isEventAction && msg.metadata?.event_titles) {
           const titles = msg.metadata.event_titles;
@@ -1553,17 +1719,22 @@ export class BotMessageHandlerService {
 
       this.logger.log(`[UpdateEvent] Found ${recentEvents.length} events in recent context`);
       if (recentEvents.length > 0) {
-        this.logger.log(`[UpdateEvent] Recent events: ${recentEvents.map(e => e.title).join(', ')}`);
+        this.logger.log(
+          `[UpdateEvent] Recent events: ${recentEvents.map((e) => e.title).join(', ')}`,
+        );
       }
 
       // 2. Use OpenAI to parse the update command naturally
       const parseResult = await this.parseUpdateCommand(content, recentEvents);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `To update an event, try:\n• "Change time to jan 15, 3pm"\n• "Update location to Conference Room A"\n• "Change title to New Meeting"\n\nI'll use context from our conversation to figure out which event you mean! 💡`;
+        return (
+          parseResult.errorMessage ||
+          `To update an event, try:\n• "Change time to jan 15, 3pm"\n• "Update location to Conference Room A"\n• "Change title to New Meeting"\n\nI'll use context from our conversation to figure out which event you mean! 💡`
+        );
       }
 
-      let eventTitle = parseResult.eventTitle || '';
+      const eventTitle = parseResult.eventTitle || '';
       const field = parseResult.field || '';
       const newValue = parseResult.value || '';
 
@@ -1586,21 +1757,21 @@ export class BotMessageHandlerService {
         .limit(10)
         .execute();
 
-      const updateEvents1 = Array.isArray(updateResult1) ? updateResult1 : (updateResult1.data || []);
-      const updateEvents2 = Array.isArray(updateResult2) ? updateResult2 : (updateResult2.data || []);
+      const updateEvents1 = Array.isArray(updateResult1) ? updateResult1 : updateResult1.data || [];
+      const updateEvents2 = Array.isArray(updateResult2) ? updateResult2 : updateResult2.data || [];
 
       // Merge, deduplicate, and filter by title
       const updateMap = new Map();
-      [...updateEvents1, ...updateEvents2].forEach(event => updateMap.set(event.id, event));
+      [...updateEvents1, ...updateEvents2].forEach((event) => updateMap.set(event.id, event));
       let events = Array.from(updateMap.values());
 
       // Filter by assigned events if bot is assigned to specific events
       if (assignedEventIds && assignedEventIds.length > 0) {
-        events = events.filter(event => assignedEventIds.includes(event.id));
+        events = events.filter((event) => assignedEventIds.includes(event.id));
       }
 
       events = events
-        .filter(event => event.title.toLowerCase().includes(eventTitle.toLowerCase()))
+        .filter((event) => event.title.toLowerCase().includes(eventTitle.toLowerCase()))
         .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime())
         .slice(0, 5);
 
@@ -1648,7 +1819,8 @@ export class BotMessageHandlerService {
 
               // Preserve event duration if possible
               if (event.end_time && event.start_time) {
-                const duration = new Date(event.end_time).getTime() - new Date(event.start_time).getTime();
+                const duration =
+                  new Date(event.end_time).getTime() - new Date(event.start_time).getTime();
                 updateData.end_time = new Date(parsedDate.getTime() + duration).toISOString();
               }
 
@@ -1703,9 +1875,8 @@ export class BotMessageHandlerService {
     errorMessage?: string;
   }> {
     try {
-      const recentEventsList = recentEvents.length > 0
-        ? recentEvents.map(e => `"${e.title}"`).join(', ')
-        : 'None';
+      const recentEventsList =
+        recentEvents.length > 0 ? recentEvents.map((e) => `"${e.title}"`).join(', ') : 'None';
 
       const prompt = `You are helping parse an event update command. The user recently viewed these events: ${recentEventsList}
 
@@ -1732,7 +1903,8 @@ Return JSON ONLY:
 }`;
 
       const response = await this.intentClassifier['openai'].invoke(prompt);
-      const content = typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+      const content =
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
 
       // Extract JSON from response
       const jsonMatch = content.match(/\{[\s\S]*\}/);
@@ -1779,9 +1951,8 @@ Return JSON ONLY:
     errorMessage?: string;
   }> {
     try {
-      const recentTasksList = recentTasks.length > 0
-        ? recentTasks.map(t => `"${t.title}"`).join(', ')
-        : 'None';
+      const recentTasksList =
+        recentTasks.length > 0 ? recentTasks.map((t) => `"${t.title}"`).join(', ') : 'None';
 
       const prompt = `You are helping parse a task status update command. The user recently viewed these tasks: ${recentTasksList}
 
@@ -1806,7 +1977,8 @@ Return JSON ONLY:
 }`;
 
       const response = await this.intentClassifier['openai'].invoke(prompt);
-      const content = typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+      const content =
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
 
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       if (!jsonMatch) {
@@ -1852,9 +2024,8 @@ Return JSON ONLY:
     errorMessage?: string;
   }> {
     try {
-      const recentTasksList = recentTasks.length > 0
-        ? recentTasks.map(t => `"${t.title}"`).join(', ')
-        : 'None';
+      const recentTasksList =
+        recentTasks.length > 0 ? recentTasks.map((t) => `"${t.title}"`).join(', ') : 'None';
 
       const prompt = `You are helping parse a task update command. The user recently viewed these tasks: ${recentTasksList}
 
@@ -1881,7 +2052,8 @@ Return JSON ONLY:
 }`;
 
       const response = await this.intentClassifier['openai'].invoke(prompt);
-      const content = typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+      const content =
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
 
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       if (!jsonMatch) {
@@ -1927,9 +2099,8 @@ Return JSON ONLY:
     errorMessage?: string;
   }> {
     try {
-      const recentProjectsList = recentProjects.length > 0
-        ? recentProjects.map(p => `"${p.name}"`).join(', ')
-        : 'None';
+      const recentProjectsList =
+        recentProjects.length > 0 ? recentProjects.map((p) => `"${p.name}"`).join(', ') : 'None';
 
       const prompt = `You are helping parse a request to view project tasks. The user recently viewed these projects: ${recentProjectsList}
 
@@ -1959,7 +2130,8 @@ OR if error:
 }`;
 
       const response = await this.intentClassifier['openai'].invoke(prompt);
-      const content = typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+      const content =
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
       const jsonMatch = content.match(/\{[\s\S]*\}/);
 
       if (!jsonMatch) {
@@ -1999,24 +2171,26 @@ OR if error:
     const greetings = [
       "Hello! 👋 I'm your Productivity Assistant. How can I help you today?",
       "Hi there! 😊 I'm here to help manage your events and projects. What do you need?",
-      "Hey! 🤖 Ready to help with your calendar and tasks. What can I do for you?",
+      'Hey! 🤖 Ready to help with your calendar and tasks. What can I do for you?',
       "Hello! ✨ I'm your assistant for events and projects. Ask me anything!",
     ];
 
-    let greeting = greetings[Math.floor(Math.random() * greetings.length)];
+    const greeting = greetings[Math.floor(Math.random() * greetings.length)];
 
     // Personalize suggestions based on user preferences
-    let suggestions = "\n\nTry asking:\n";
+    let suggestions = '\n\nTry asking:\n';
 
     if (preferences.includes('event_focused')) {
-      suggestions += "• \"Show my events\" (your favorite!)\n• \"What's today?\"\n• \"Tomorrow's schedule\"";
+      suggestions +=
+        '• "Show my events" (your favorite!)\n• "What\'s today?"\n• "Tomorrow\'s schedule"';
     } else if (preferences.includes('project_focused')) {
-      suggestions += "• \"My tasks\" (you ask this often!)\n• \"Show my projects\"\n• \"Tasks in [project name]\"";
+      suggestions +=
+        '• "My tasks" (you ask this often!)\n• "Show my projects"\n• "Tasks in [project name]"';
     } else if (preferences.includes('prefers_time_specific_queries')) {
-      suggestions += "• \"What's today?\" (as usual!)\n• \"Tomorrow's events\"\n• \"Show my schedule\"";
+      suggestions += '• "What\'s today?" (as usual!)\n• "Tomorrow\'s events"\n• "Show my schedule"';
     } else {
       // Default suggestions
-      suggestions += "• \"Show my events\"\n• \"What's today?\"\n• \"My tasks\"";
+      suggestions += '• "Show my events"\n• "What\'s today?"\n• "My tasks"';
     }
 
     suggestions += "\n• Type 'help' for all commands";
@@ -2054,9 +2228,15 @@ OR if error:
   /**
    * Clear bot's conversation memory
    */
-  private async clearBotMemory(workspaceId: string, userId: string, botId: string): Promise<string> {
+  private async clearBotMemory(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+  ): Promise<string> {
     try {
-      this.logger.log(`[BotHandler] Clearing conversation memory for user ${userId} in workspace ${workspaceId}`);
+      this.logger.log(
+        `[BotHandler] Clearing conversation memory for user ${userId} in workspace ${workspaceId}`,
+      );
 
       // Delete all conversation history for this user in this workspace
       const success = await this.conversationMemory.deleteUserHistory(workspaceId, userId);
@@ -2064,11 +2244,11 @@ OR if error:
       if (success) {
         return "✅ **Memory Cleared!**\n\nI've cleared my conversation history with you. I've forgotten all previous context about projects, tasks, and events we discussed.\n\n💡 **What this means:**\n• I won't reference old/deleted projects anymore\n• You can start fresh with new assignments\n• I'll need context for new questions\n\n🔄 **Ready for a fresh start!** What would you like to work on?";
       } else {
-        return "I tried to clear my memory, but something went wrong. Please try again or contact support if the issue persists.";
+        return 'I tried to clear my memory, but something went wrong. Please try again or contact support if the issue persists.';
       }
     } catch (error) {
       this.logger.error(`[BotHandler] Error clearing memory: ${error.message}`);
-      return "Sorry, I encountered an error while trying to clear my memory. Please try again later.";
+      return 'Sorry, I encountered an error while trying to clear my memory. Please try again later.';
     }
   }
 
@@ -2189,11 +2369,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
         updated_at: new Date().toISOString(),
       };
 
-      const result = await this.db
-        .table('messages')
-        .insert(messageData)
-        .returning('*')
-        .execute();
+      const result = await this.db.table('messages').insert(messageData).returning('*').execute();
 
       const message = Array.isArray(result.data) ? result.data[0] : result.data;
 
@@ -2214,24 +2390,35 @@ Ask me anything about projects, tasks, or events! 🚀`;
           message: messagePayload,
           conversation_id: conversationId,
         });
-        this.logger.debug(`[BotHandler] Emitted message:new to conversation room ${conversationId}`);
+        this.logger.debug(
+          `[BotHandler] Emitted message:new to conversation room ${conversationId}`,
+        );
 
         // 2. Get conversation participants to emit workspace notifications
         try {
           const membersResult = await this.db.findMany('conversation_members', {
-            conversation_id: conversationId
+            conversation_id: conversationId,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const participantIds = members.map(m => m.user_id).filter(id => !id.startsWith('bot:'));
+          const participantIds = members
+            .map((m) => m.user_id)
+            .filter((id) => !id.startsWith('bot:'));
 
           // Emit to each participant's workspace+user room (same as person-to-person)
           if (participantIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'message:new:workspace', {
-              message: messagePayload,
-              conversation_id: conversationId,
-              type: 'conversation',
-            });
-            this.logger.debug(`[BotHandler] Emitted workspace notifications to ${participantIds.length} participants`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              participantIds,
+              'message:new:workspace',
+              {
+                message: messagePayload,
+                conversation_id: conversationId,
+                type: 'conversation',
+              },
+            );
+            this.logger.debug(
+              `[BotHandler] Emitted workspace notifications to ${participantIds.length} participants`,
+            );
           }
         } catch (error) {
           this.logger.error(`Failed to emit workspace notifications: ${error.message}`);
@@ -2259,7 +2446,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
   private async getMyProjects(
     workspaceId: string,
     userId: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // Get projects where user is owner or member
@@ -2280,10 +2467,10 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .where('is_active', '=', true)
         .execute();
 
-      const memberProjects = Array.isArray(memberResult) ? memberResult : (memberResult.data || []);
-      const memberProjectIds = memberProjects.map(m => m.project_id);
+      const memberProjects = Array.isArray(memberResult) ? memberResult : memberResult.data || [];
+      const memberProjectIds = memberProjects.map((m) => m.project_id);
 
-      let allProjects = Array.isArray(ownedResult) ? ownedResult : (ownedResult.data || []);
+      let allProjects = Array.isArray(ownedResult) ? ownedResult : ownedResult.data || [];
 
       if (memberProjectIds.length > 0) {
         const memberProjectsResult = await this.db
@@ -2295,17 +2482,19 @@ Ask me anything about projects, tasks, or events! 🚀`;
           .limit(20)
           .execute();
 
-        const memberProjs = Array.isArray(memberProjectsResult) ? memberProjectsResult : (memberProjectsResult.data || []);
-        const filtered = memberProjs.filter(p => memberProjectIds.includes(p.id));
+        const memberProjs = Array.isArray(memberProjectsResult)
+          ? memberProjectsResult
+          : memberProjectsResult.data || [];
+        const filtered = memberProjs.filter((p) => memberProjectIds.includes(p.id));
 
         const projectMap = new Map();
-        [...allProjects, ...filtered].forEach(p => projectMap.set(p.id, p));
+        [...allProjects, ...filtered].forEach((p) => projectMap.set(p.id, p));
         allProjects = Array.from(projectMap.values());
       }
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
-        allProjects = allProjects.filter(p => assignedProjectIds.includes(p.id));
+        allProjects = allProjects.filter((p) => assignedProjectIds.includes(p.id));
       }
 
       if (allProjects.length === 0) {
@@ -2337,7 +2526,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
   private async getMyTasks(
     workspaceId: string,
     userId: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       const result = await this.db
@@ -2347,7 +2536,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .limit(50)
         .execute();
 
-      const allTasks = Array.isArray(result) ? result : (result.data || []);
+      const allTasks = Array.isArray(result) ? result : result.data || [];
 
       // Filter tasks assigned to this user
       const myTasks = allTasks.filter((task: any) => {
@@ -2356,7 +2545,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
       });
 
       // Filter by workspace through projects
-      const projectIds = myTasks.map(t => t.project_id);
+      const projectIds = myTasks.map((t) => t.project_id);
       if (projectIds.length === 0) {
         return "You don't have any tasks assigned to you.";
       }
@@ -2367,14 +2556,14 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .where('workspace_id', '=', workspaceId)
         .execute();
 
-      const projects = Array.isArray(projectsResult) ? projectsResult : (projectsResult.data || []);
-      const validProjectIds = new Set(projects.map(p => p.id));
+      const projects = Array.isArray(projectsResult) ? projectsResult : projectsResult.data || [];
+      const validProjectIds = new Set(projects.map((p) => p.id));
 
-      let workspaceTasks = myTasks.filter(t => validProjectIds.has(t.project_id));
+      let workspaceTasks = myTasks.filter((t) => validProjectIds.has(t.project_id));
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
-        workspaceTasks = workspaceTasks.filter(t => assignedProjectIds.includes(t.project_id));
+        workspaceTasks = workspaceTasks.filter((t) => assignedProjectIds.includes(t.project_id));
       }
 
       if (workspaceTasks.length === 0) {
@@ -2385,8 +2574,10 @@ Ask me anything about projects, tasks, or events! 🚀`;
 
       let response = `✅ **Your Tasks (${workspaceTasks.length}):**\n\n`;
 
-      const pending = workspaceTasks.filter(t => t.status !== 'done' && t.status !== 'completed');
-      const completed = workspaceTasks.filter(t => t.status === 'done' || t.status === 'completed');
+      const pending = workspaceTasks.filter((t) => t.status !== 'done' && t.status !== 'completed');
+      const completed = workspaceTasks.filter(
+        (t) => t.status === 'done' || t.status === 'completed',
+      );
 
       if (pending.length > 0) {
         response += `**Pending (${pending.length}):**\n`;
@@ -2422,7 +2613,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
     workspaceId: string,
     userId: string,
     content: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // 1. Get recent conversation context to find projects user just viewed
@@ -2435,9 +2626,12 @@ Ask me anything about projects, tasks, or events! 🚀`;
       // Extract projects from recent "show_bot_projects" or "show_projects" responses
       const recentProjects: Array<{ name: string }> = [];
       for (const msg of recentHistory) {
-        this.logger.debug(`[Bot] Checking message with action: ${msg.action}, has metadata: ${!!msg.metadata}, has project_names: ${!!msg.metadata?.project_names}`);
+        this.logger.debug(
+          `[Bot] Checking message with action: ${msg.action}, has metadata: ${!!msg.metadata}, has project_names: ${!!msg.metadata?.project_names}`,
+        );
 
-        const isProjectAction = msg.action === 'show_bot_projects' || msg.action === 'show_projects';
+        const isProjectAction =
+          msg.action === 'show_bot_projects' || msg.action === 'show_projects';
         if (isProjectAction && msg.metadata?.project_names) {
           const names = msg.metadata.project_names;
           if (Array.isArray(names)) {
@@ -2446,19 +2640,26 @@ Ask me anything about projects, tasks, or events! 🚀`;
         }
       }
 
-      this.logger.log(`[Bot] Found ${recentProjects.length} projects in recent context: ${recentProjects.map(p => p.name).join(', ')}`);
+      this.logger.log(
+        `[Bot] Found ${recentProjects.length} projects in recent context: ${recentProjects.map((p) => p.name).join(', ')}`,
+      );
 
       // 2. Use OpenAI to parse the request with context
       const parseResult = await this.parseProjectTasksCommand(content, recentProjects);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `Please specify the project name. For example: "tasks in Mobile App Design"`;
+        return (
+          parseResult.errorMessage ||
+          `Please specify the project name. For example: "tasks in Mobile App Design"`
+        );
       }
 
       const projectName = parseResult.projectName;
       const limit = parseResult.limit;
 
-      this.logger.log(`[Bot] Looking for tasks in project: "${projectName}", limit: ${limit || 'all'}`);
+      this.logger.log(
+        `[Bot] Looking for tasks in project: "${projectName}", limit: ${limit || 'all'}`,
+      );
 
       // Find the project
       const projectResult = await this.db
@@ -2468,14 +2669,16 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .where('status', '=', 'active')
         .execute();
 
-      let projects = Array.isArray(projectResult) ? projectResult : (projectResult.data || []);
+      let projects = Array.isArray(projectResult) ? projectResult : projectResult.data || [];
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
-        projects = projects.filter(p => assignedProjectIds.includes(p.id));
+        projects = projects.filter((p) => assignedProjectIds.includes(p.id));
       }
 
-      const project = projects.find(p => p.name.toLowerCase().includes(projectName.toLowerCase()));
+      const project = projects.find((p) =>
+        p.name.toLowerCase().includes(projectName.toLowerCase()),
+      );
 
       if (!project) {
         return assignedProjectIds && assignedProjectIds.length > 0
@@ -2491,7 +2694,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .orderBy('created_at', 'DESC')
         .execute();
 
-      const tasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
+      const tasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
 
       if (tasks.length === 0) {
         return `Project "${project.name}" has no tasks yet.`;
@@ -2527,7 +2730,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
         byStatus[task.status].push(task);
       });
 
-      Object.keys(byStatus).forEach(status => {
+      Object.keys(byStatus).forEach((status) => {
         const statusTasks = byStatus[status];
         response += `**${status.toUpperCase()} (${statusTasks.length}):**\n`;
         statusTasks.slice(0, 5).forEach((task: any, index: number) => {
@@ -2556,15 +2759,11 @@ Ask me anything about projects, tasks, or events! 🚀`;
     workspaceId: string,
     userId: string,
     content: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // 1. Get recent conversation context to find tasks user just viewed
-      const recentHistory = await this.conversationMemory.getRecentHistory(
-        workspaceId,
-        userId,
-        10,
-      );
+      const recentHistory = await this.conversationMemory.getRecentHistory(workspaceId, userId, 10);
 
       // Extract tasks from recent "show_tasks" or "show_project_tasks" responses
       const recentTasks: Array<{ title: string }> = [];
@@ -2578,13 +2777,18 @@ Ask me anything about projects, tasks, or events! 🚀`;
         }
       }
 
-      this.logger.log(`[Bot] Found ${recentTasks.length} tasks in recent context for details query`);
+      this.logger.log(
+        `[Bot] Found ${recentTasks.length} tasks in recent context for details query`,
+      );
 
       // 2. Use OpenAI to parse which task they want details for
       const parseResult = await this.parseTaskDetailsCommand(content, recentTasks);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `Please specify the task name. For example: "show details of Design Homepage"`;
+        return (
+          parseResult.errorMessage ||
+          `Please specify the task name. For example: "show details of Design Homepage"`
+        );
       }
 
       const taskName = parseResult.taskName;
@@ -2598,14 +2802,14 @@ Ask me anything about projects, tasks, or events! 🚀`;
         .where('workspace_id', '=', workspaceId)
         .execute();
 
-      let allTasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
+      let allTasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
 
       // Filter by assigned projects if bot has project scope
       if (assignedProjectIds && assignedProjectIds.length > 0) {
-        allTasks = allTasks.filter(t => assignedProjectIds.includes(t.project_id));
+        allTasks = allTasks.filter((t) => assignedProjectIds.includes(t.project_id));
       }
 
-      const task = allTasks.find(t => t.title.toLowerCase().includes(taskName.toLowerCase()));
+      const task = allTasks.find((t) => t.title.toLowerCase().includes(taskName.toLowerCase()));
 
       if (!task) {
         return `I couldn't find a task matching "${taskName}".`;
@@ -2626,7 +2830,8 @@ Ask me anything about projects, tasks, or events! 🚀`;
       response += `📊 **Status:** ${task.status}\n`;
 
       // Priority
-      const priorityEmoji = task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
+      const priorityEmoji =
+        task.priority === 'high' ? '🔴' : task.priority === 'medium' ? '🟡' : '🟢';
       response += `${priorityEmoji} **Priority:** ${task.priority || 'normal'}\n\n`;
 
       // Progress percentage (based on status and kanban stages)
@@ -2640,12 +2845,12 @@ Ask me anything about projects, tasks, or events! 🚀`;
       } else {
         // Fallback: basic calculation
         const statusProgress: any = {
-          'todo': 0,
-          'in_progress': 50,
-          'review': 75,
-          'testing': 85,
-          'done': 100,
-          'completed': 100,
+          todo: 0,
+          in_progress: 50,
+          review: 75,
+          testing: 85,
+          done: 100,
+          completed: 100,
         };
         progressPercentage = statusProgress[task.status.toLowerCase()] || 0;
       }
@@ -2661,9 +2866,8 @@ Ask me anything about projects, tasks, or events! 🚀`;
 
       // Assignees
       if (task.assignees) {
-        const assignees = typeof task.assignees === 'string'
-          ? JSON.parse(task.assignees)
-          : task.assignees;
+        const assignees =
+          typeof task.assignees === 'string' ? JSON.parse(task.assignees) : task.assignees;
 
         if (Array.isArray(assignees) && assignees.length > 0) {
           response += `👥 **Assigned to (${assignees.length}):**\n`;
@@ -2701,7 +2905,7 @@ Ask me anything about projects, tasks, or events! 🚀`;
         response += `📅 **Due Date:** ${dueDate.toLocaleDateString('en-US', {
           month: 'short',
           day: 'numeric',
-          year: 'numeric'
+          year: 'numeric',
         })}`;
 
         if (daysUntil < 0) {
@@ -2744,9 +2948,8 @@ Ask me anything about projects, tasks, or events! 🚀`;
     errorMessage?: string;
   }> {
     try {
-      const recentTasksList = recentTasks.length > 0
-        ? recentTasks.map(t => `"${t.title}"`).join(', ')
-        : 'None';
+      const recentTasksList =
+        recentTasks.length > 0 ? recentTasks.map((t) => `"${t.title}"`).join(', ') : 'None';
 
       const prompt = `You are helping parse a request to view task details. The user recently viewed these tasks: ${recentTasksList}
 
@@ -2773,7 +2976,8 @@ OR if error:
 }`;
 
       const response = await this.intentClassifier['openai'].invoke(prompt);
-      const content = typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
+      const content =
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
       const jsonMatch = content.match(/\{[\s\S]*\}/);
 
       if (!jsonMatch) {
@@ -2812,15 +3016,11 @@ OR if error:
     workspaceId: string,
     userId: string,
     content: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // Get recent conversation context to find tasks user just viewed
-      const recentHistory = await this.conversationMemory.getRecentHistory(
-        workspaceId,
-        userId,
-        10,
-      );
+      const recentHistory = await this.conversationMemory.getRecentHistory(workspaceId, userId, 10);
 
       // Extract tasks from recent "show_tasks" responses
       const recentTasks: Array<{ title: string; id?: string }> = [];
@@ -2840,7 +3040,10 @@ OR if error:
       const parseResult = await this.parseTaskStatusCommand(content, recentTasks);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `To update task status, try:\n• "Mark task as done"\n• "Set task status to in progress"\n• "Complete task"\n\nI'll use context from our conversation to figure out which task you mean!`;
+        return (
+          parseResult.errorMessage ||
+          `To update task status, try:\n• "Mark task as done"\n• "Set task status to in progress"\n• "Complete task"\n\nI'll use context from our conversation to figure out which task you mean!`
+        );
       }
 
       const taskTitle = parseResult.taskTitle || '';
@@ -2854,14 +3057,16 @@ OR if error:
         .limit(50)
         .execute();
 
-      let allTasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
+      let allTasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
         allTasks = allTasks.filter((t: any) => assignedProjectIds.includes(t.project_id));
       }
 
-      const task = allTasks.find((t: any) => t.title.toLowerCase().includes(taskTitle.toLowerCase()));
+      const task = allTasks.find((t: any) =>
+        t.title.toLowerCase().includes(taskTitle.toLowerCase()),
+      );
 
       if (!task) {
         return assignedProjectIds && assignedProjectIds.length > 0
@@ -2881,11 +3086,7 @@ OR if error:
         updateData.completed_by = userId;
       }
 
-      await this.db
-        .table('tasks')
-        .where('id', '=', task.id)
-        .update(updateData)
-        .execute();
+      await this.db.table('tasks').where('id', '=', task.id).update(updateData).execute();
 
       return `✅ **Task Updated!**\n\n"${task.title}" is now marked as **${updateData.status}**`;
     } catch (error) {
@@ -2901,15 +3102,11 @@ OR if error:
     workspaceId: string,
     userId: string,
     content: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // Get recent conversation context to find tasks user just viewed
-      const recentHistory = await this.conversationMemory.getRecentHistory(
-        workspaceId,
-        userId,
-        10,
-      );
+      const recentHistory = await this.conversationMemory.getRecentHistory(workspaceId, userId, 10);
 
       // Extract tasks from recent "show_tasks" responses
       const recentTasks: Array<{ title: string; id?: string }> = [];
@@ -2929,7 +3126,10 @@ OR if error:
       const parseResult = await this.parseTaskUpdateCommand(content, recentTasks);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `To update a task, try:\n• "Change priority to high"\n• "Update title to new name"\n• "Set due date to tomorrow"\n\nI'll use context from our conversation to figure out which task you mean!`;
+        return (
+          parseResult.errorMessage ||
+          `To update a task, try:\n• "Change priority to high"\n• "Update title to new name"\n• "Set due date to tomorrow"\n\nI'll use context from our conversation to figure out which task you mean!`
+        );
       }
 
       const taskTitle = parseResult.taskTitle || '';
@@ -2944,14 +3144,16 @@ OR if error:
         .limit(50)
         .execute();
 
-      let allTasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
+      let allTasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
         allTasks = allTasks.filter((t: any) => assignedProjectIds.includes(t.project_id));
       }
 
-      const task = allTasks.find((t: any) => t.title.toLowerCase().includes(taskTitle.toLowerCase()));
+      const task = allTasks.find((t: any) =>
+        t.title.toLowerCase().includes(taskTitle.toLowerCase()),
+      );
 
       if (!task) {
         return assignedProjectIds && assignedProjectIds.length > 0
@@ -2972,11 +3174,7 @@ OR if error:
         updateData.due_date = new Date(newValue).toISOString();
       }
 
-      await this.db
-        .table('tasks')
-        .where('id', '=', task.id)
-        .update(updateData)
-        .execute();
+      await this.db.table('tasks').where('id', '=', task.id).update(updateData).execute();
 
       return `✅ **Task Updated!**\n\n"${task.title}"\n${field} updated to: **${newValue}**`;
     } catch (error) {
@@ -2992,7 +3190,7 @@ OR if error:
     workspaceId: string,
     userId: string,
     content: string,
-    assignedProjectIds?: string[]
+    assignedProjectIds?: string[],
   ): Promise<string> {
     try {
       // 1. Get recent conversation context to find projects user just viewed
@@ -3005,7 +3203,8 @@ OR if error:
       // Extract projects from recent "show_bot_projects" or "show_projects" responses
       const recentProjects: Array<{ name: string }> = [];
       for (const msg of recentHistory) {
-        const isProjectAction = msg.action === 'show_bot_projects' || msg.action === 'show_projects';
+        const isProjectAction =
+          msg.action === 'show_bot_projects' || msg.action === 'show_projects';
         if (isProjectAction && msg.metadata?.project_names) {
           const names = msg.metadata.project_names;
           if (Array.isArray(names)) {
@@ -3014,13 +3213,18 @@ OR if error:
         }
       }
 
-      this.logger.log(`[Bot] Found ${recentProjects.length} projects in recent context for members query`);
+      this.logger.log(
+        `[Bot] Found ${recentProjects.length} projects in recent context for members query`,
+      );
 
       // 2. Use OpenAI to parse the request with context (reusing same parser)
       const parseResult = await this.parseProjectTasksCommand(content, recentProjects);
 
       if (!parseResult.success) {
-        return parseResult.errorMessage || `Please specify the project name. For example: "members of Mobile App Design"`;
+        return (
+          parseResult.errorMessage ||
+          `Please specify the project name. For example: "members of Mobile App Design"`
+        );
       }
 
       const projectName = parseResult.projectName;
@@ -3033,14 +3237,16 @@ OR if error:
         .where('workspace_id', '=', workspaceId)
         .execute();
 
-      let projects = Array.isArray(projectResult) ? projectResult : (projectResult.data || []);
+      let projects = Array.isArray(projectResult) ? projectResult : projectResult.data || [];
 
       // Filter by assigned projects if bot is assigned to specific projects
       if (assignedProjectIds && assignedProjectIds.length > 0) {
-        projects = projects.filter(p => assignedProjectIds.includes(p.id));
+        projects = projects.filter((p) => assignedProjectIds.includes(p.id));
       }
 
-      const project = projects.find(p => p.name.toLowerCase().includes(projectName.toLowerCase()));
+      const project = projects.find((p) =>
+        p.name.toLowerCase().includes(projectName.toLowerCase()),
+      );
 
       if (!project) {
         return assignedProjectIds && assignedProjectIds.length > 0
@@ -3055,7 +3261,7 @@ OR if error:
         .where('is_active', '=', true)
         .execute();
 
-      const members = Array.isArray(membersResult) ? membersResult : (membersResult.data || []);
+      const members = Array.isArray(membersResult) ? membersResult : membersResult.data || [];
 
       if (members.length === 0) {
         return `Project "${project.name}" has no members yet.`;
@@ -3079,7 +3285,9 @@ OR if error:
             response += `${index + 1}. User ${member.user_id.substring(0, 8)}... (${member.role})\n`;
           }
         } catch (error) {
-          this.logger.warn(`Could not fetch member details for ${member.user_id}: ${error.message}`);
+          this.logger.warn(
+            `Could not fetch member details for ${member.user_id}: ${error.message}`,
+          );
           response += `${index + 1}. User ${member.user_id.substring(0, 8)}... (${member.role})\n`;
         }
       }
@@ -3103,7 +3311,7 @@ OR if error:
     try {
       // Build context about bot's assignments
       const assignments = assignmentContext
-        .map(ctx => {
+        .map((ctx) => {
           if (ctx.action === 'event_assigned') {
             return `- Event: "${ctx.metadata?.event_title}"`;
           }
@@ -3115,9 +3323,10 @@ OR if error:
         .filter(Boolean)
         .join('\n');
 
-      const contextInfo = assignments.length > 0
-        ? `\nI'm currently managing:\n${assignments}`
-        : `\nI'm not assigned to any events or projects yet.`;
+      const contextInfo =
+        assignments.length > 0
+          ? `\nI'm currently managing:\n${assignments}`
+          : `\nI'm not assigned to any events or projects yet.`;
 
       // Provide options based on best guess
       const suggestions = this.getSuggestionsForIntent(intent.intent);
@@ -3196,7 +3405,7 @@ What would you like to do?`;
 
     // Detect time-based patterns
     const timeSensitiveIntents = history.filter(
-      (msg) => msg.action === 'show_today_events' || msg.action === 'show_tomorrow_events'
+      (msg) => msg.action === 'show_today_events' || msg.action === 'show_tomorrow_events',
     );
     if (timeSensitiveIntents.length >= 2) {
       preferences.push('prefers_time_specific_queries');
@@ -3204,7 +3413,7 @@ What would you like to do?`;
 
     // Detect project-focused user
     const projectRequests = history.filter(
-      (msg) => msg.action?.includes('project') || msg.action?.includes('task')
+      (msg) => msg.action?.includes('project') || msg.action?.includes('task'),
     );
     if (projectRequests.length >= 3) {
       preferences.push('project_focused');
@@ -3212,7 +3421,7 @@ What would you like to do?`;
 
     // Detect event-focused user
     const eventRequests = history.filter(
-      (msg) => msg.action?.includes('event') || msg.action === 'show_events'
+      (msg) => msg.action?.includes('event') || msg.action === 'show_events',
     );
     if (eventRequests.length >= 3) {
       preferences.push('event_focused');
@@ -3249,7 +3458,11 @@ What would you like to do?`;
   /**
    * Get completed tasks
    */
-  private async getCompletedTasks(workspaceId: string, userId: string, projectIds: string[]): Promise<string> {
+  private async getCompletedTasks(
+    workspaceId: string,
+    userId: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const query: any = {
         workspace_id: workspaceId,
@@ -3260,7 +3473,8 @@ What would you like to do?`;
         query.project_id = projectIds;
       }
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '=', 'done')
@@ -3294,11 +3508,16 @@ What would you like to do?`;
   /**
    * Get overdue tasks
    */
-  private async getOverdueTasks(workspaceId: string, userId: string, projectIds: string[]): Promise<string> {
+  private async getOverdueTasks(
+    workspaceId: string,
+    userId: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const now = new Date().toISOString();
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '!=', 'done')
@@ -3309,7 +3528,7 @@ What would you like to do?`;
       const tasks = Array.isArray(result.data) ? result.data : [];
 
       if (tasks.length === 0) {
-        return "Great news! You have no overdue tasks. 🎉";
+        return 'Great news! You have no overdue tasks. 🎉';
       }
 
       let response = `⚠️ **Overdue Tasks** (${tasks.length})\n\n`;
@@ -3336,11 +3555,17 @@ What would you like to do?`;
   /**
    * Get tasks by priority
    */
-  private async getTasksByPriority(workspaceId: string, userId: string, priority: string | undefined, projectIds: string[]): Promise<string> {
+  private async getTasksByPriority(
+    workspaceId: string,
+    userId: string,
+    priority: string | undefined,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const targetPriority = priority?.toLowerCase() || 'high';
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('priority', '=', targetPriority)
@@ -3354,8 +3579,12 @@ What would you like to do?`;
         return `No ${targetPriority} priority tasks found.`;
       }
 
-      const priorityEmoji = targetPriority === 'highest' || targetPriority === 'high' ? '🔴' :
-                            targetPriority === 'medium' ? '🟡' : '🟢';
+      const priorityEmoji =
+        targetPriority === 'highest' || targetPriority === 'high'
+          ? '🔴'
+          : targetPriority === 'medium'
+            ? '🟡'
+            : '🟢';
 
       let response = `${priorityEmoji} **${targetPriority.toUpperCase()} Priority Tasks** (${tasks.length})\n\n`;
       tasks.forEach((task, index) => {
@@ -3377,11 +3606,17 @@ What would you like to do?`;
   /**
    * Get tasks by status
    */
-  private async getTasksByStatus(workspaceId: string, userId: string, status: string | undefined, projectIds: string[]): Promise<string> {
+  private async getTasksByStatus(
+    workspaceId: string,
+    userId: string,
+    status: string | undefined,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const targetStatus = status?.toLowerCase() || 'in_progress';
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '=', targetStatus)
@@ -3414,14 +3649,19 @@ What would you like to do?`;
   /**
    * Get tasks due today
    */
-  private async getTasksDueToday(workspaceId: string, userId: string, projectIds: string[]): Promise<string> {
+  private async getTasksDueToday(
+    workspaceId: string,
+    userId: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '!=', 'done')
@@ -3433,7 +3673,7 @@ What would you like to do?`;
       const tasks = Array.isArray(result.data) ? result.data : [];
 
       if (tasks.length === 0) {
-        return "You have no tasks due today! 🎉";
+        return 'You have no tasks due today! 🎉';
       }
 
       let response = `📅 **Tasks Due Today** (${tasks.length})\n\n`;
@@ -3454,14 +3694,19 @@ What would you like to do?`;
   /**
    * Get tasks due this week
    */
-  private async getTasksDueThisWeek(workspaceId: string, userId: string, projectIds: string[]): Promise<string> {
+  private async getTasksDueThisWeek(
+    workspaceId: string,
+    userId: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const weekEnd = new Date(today);
       weekEnd.setDate(weekEnd.getDate() + 7);
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '!=', 'done')
@@ -3473,7 +3718,7 @@ What would you like to do?`;
       const tasks = Array.isArray(result.data) ? result.data : [];
 
       if (tasks.length === 0) {
-        return "You have no tasks due this week! 🎯";
+        return 'You have no tasks due this week! 🎯';
       }
 
       let response = `📆 **Tasks Due This Week** (${tasks.length})\n\n`;
@@ -3497,14 +3742,20 @@ What would you like to do?`;
   /**
    * Get subtasks
    */
-  private async getSubtasks(workspaceId: string, userId: string, taskName: string | undefined, projectIds: string[]): Promise<string> {
+  private async getSubtasks(
+    workspaceId: string,
+    userId: string,
+    taskName: string | undefined,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       if (!taskName) {
-        return "Which task would you like to see subtasks for?";
+        return 'Which task would you like to see subtasks for?';
       }
 
       // Find parent task
-      const parentResult = await this.db.table('tasks')
+      const parentResult = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('title', 'LIKE', `%${taskName}%`)
@@ -3519,7 +3770,8 @@ What would you like to do?`;
       const parentTask = parentTasks[0];
 
       // Get subtasks
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('parent_task_id', '=', parentTask.id)
@@ -3551,14 +3803,19 @@ What would you like to do?`;
   /**
    * Get week events
    */
-  private async getWeekEvents(workspaceId: string, userId: string, eventIds: string[]): Promise<string> {
+  private async getWeekEvents(
+    workspaceId: string,
+    userId: string,
+    eventIds: string[],
+  ): Promise<string> {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const weekEnd = new Date(today);
       weekEnd.setDate(weekEnd.getDate() + 7);
 
-      const result = await this.db.table('events')
+      const result = await this.db
+        .table('events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', today.toISOString())
@@ -3569,7 +3826,7 @@ What would you like to do?`;
       const events = Array.isArray(result.data) ? result.data : [];
 
       if (events.length === 0) {
-        return "You have no events scheduled this week! 📅";
+        return 'You have no events scheduled this week! 📅';
       }
 
       let response = `📆 **This Week's Events** (${events.length})\n\n`;
@@ -3591,13 +3848,18 @@ What would you like to do?`;
   /**
    * Get month events
    */
-  private async getMonthEvents(workspaceId: string, userId: string, eventIds: string[]): Promise<string> {
+  private async getMonthEvents(
+    workspaceId: string,
+    userId: string,
+    eventIds: string[],
+  ): Promise<string> {
     try {
       const today = new Date();
       const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
       const monthEnd = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
-      const result = await this.db.table('events')
+      const result = await this.db
+        .table('events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', monthStart.toISOString())
@@ -3608,7 +3870,7 @@ What would you like to do?`;
       const events = Array.isArray(result.data) ? result.data : [];
 
       if (events.length === 0) {
-        return "You have no events scheduled this month! 📅";
+        return 'You have no events scheduled this month! 📅';
       }
 
       let response = `📆 **This Month's Events** (${events.length})\n\n`;
@@ -3630,11 +3892,16 @@ What would you like to do?`;
   /**
    * Get past events
    */
-  private async getPastEvents(workspaceId: string, userId: string, eventIds: string[]): Promise<string> {
+  private async getPastEvents(
+    workspaceId: string,
+    userId: string,
+    eventIds: string[],
+  ): Promise<string> {
     try {
       const now = new Date().toISOString();
 
-      const result = await this.db.table('events')
+      const result = await this.db
+        .table('events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('end_time', '<', now)
@@ -3645,7 +3912,7 @@ What would you like to do?`;
       const events = Array.isArray(result.data) ? result.data : [];
 
       if (events.length === 0) {
-        return "No past events found.";
+        return 'No past events found.';
       }
 
       let response = `📜 **Past Events** (showing recent ${events.length})\n\n`;
@@ -3667,13 +3934,19 @@ What would you like to do?`;
   /**
    * Get event details
    */
-  private async getEventDetails(workspaceId: string, userId: string, eventName: string, eventIds: string[]): Promise<string> {
+  private async getEventDetails(
+    workspaceId: string,
+    userId: string,
+    eventName: string,
+    eventIds: string[],
+  ): Promise<string> {
     try {
       if (!eventName) {
-        return "Which event would you like details for?";
+        return 'Which event would you like details for?';
       }
 
-      const result = await this.db.table('events')
+      const result = await this.db
+        .table('events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('title', 'LIKE', `%${eventName}%`)
@@ -3715,13 +3988,19 @@ What would you like to do?`;
   /**
    * Get project details
    */
-  private async getProjectDetails(workspaceId: string, userId: string, projectName: string, projectIds: string[]): Promise<string> {
+  private async getProjectDetails(
+    workspaceId: string,
+    userId: string,
+    projectName: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
       if (!projectName) {
-        return "Which project would you like details for?";
+        return 'Which project would you like details for?';
       }
 
-      const result = await this.db.table('projects')
+      const result = await this.db
+        .table('projects')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('name', 'LIKE', `%${projectName}%`)
@@ -3736,7 +4015,8 @@ What would you like to do?`;
       const project = projects[0];
 
       // Get task count
-      const taskResult = await this.db.table('tasks')
+      const taskResult = await this.db
+        .table('tasks')
         .select('*')
         .where('project_id', '=', project.id)
         .execute();
@@ -3760,9 +4040,15 @@ What would you like to do?`;
   /**
    * Search projects
    */
-  private async searchProjects(workspaceId: string, userId: string, query: string, projectIds: string[]): Promise<string> {
+  private async searchProjects(
+    workspaceId: string,
+    userId: string,
+    query: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
-      const result = await this.db.table('projects')
+      const result = await this.db
+        .table('projects')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('name', 'LIKE', `%${query}%`)
@@ -3791,9 +4077,15 @@ What would you like to do?`;
   /**
    * Search tasks
    */
-  private async searchTasks(workspaceId: string, userId: string, query: string, projectIds: string[]): Promise<string> {
+  private async searchTasks(
+    workspaceId: string,
+    userId: string,
+    query: string,
+    projectIds: string[],
+  ): Promise<string> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('title', 'LIKE', `%${query}%`)
@@ -3824,9 +4116,15 @@ What would you like to do?`;
   /**
    * Search events
    */
-  private async searchEvents(workspaceId: string, userId: string, query: string, eventIds: string[]): Promise<string> {
+  private async searchEvents(
+    workspaceId: string,
+    userId: string,
+    query: string,
+    eventIds: string[],
+  ): Promise<string> {
     try {
-      const result = await this.db.table('events')
+      const result = await this.db
+        .table('events')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('title', 'LIKE', `%${query}%`)
@@ -3861,7 +4159,11 @@ What would you like to do?`;
   /**
    * Route complex operations to Autopilot for natural language processing
    */
-  private async routeToAutopilot(workspaceId: string, userId: string, command: string): Promise<string> {
+  private async routeToAutopilot(
+    workspaceId: string,
+    userId: string,
+    command: string,
+  ): Promise<string> {
     try {
       this.logger.log(`[BotHandler] Routing to Autopilot: "${command.substring(0, 50)}..."`);
 
@@ -3886,39 +4188,79 @@ What would you like to do?`;
   private async createProject(workspaceId: string, userId: string, entities: any): Promise<string> {
     const projectName = entities.projectName || entities.description;
     if (!projectName) {
-      return "What would you like to name the project?";
+      return 'What would you like to name the project?';
     }
     return this.routeToAutopilot(workspaceId, userId, `Create a project called "${projectName}"`);
   }
 
   private async updateProject(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Update project ${entities.projectName || ''} with ${entities.value || ''}`);
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Update project ${entities.projectName || ''} with ${entities.value || ''}`,
+    );
   }
 
   private async deleteProject(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Delete project ${entities.projectName || ''}`);
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Delete project ${entities.projectName || ''}`,
+    );
   }
 
-  private async addProjectMember(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Add ${entities.memberName || ''} to project ${entities.projectName || ''}`);
+  private async addProjectMember(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Add ${entities.memberName || ''} to project ${entities.projectName || ''}`,
+    );
   }
 
-  private async removeProjectMember(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Remove ${entities.memberName || ''} from project ${entities.projectName || ''}`);
+  private async removeProjectMember(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Remove ${entities.memberName || ''} from project ${entities.projectName || ''}`,
+    );
   }
 
-  private async updateProjectStatus(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Update project ${entities.projectName || ''} status to ${entities.status || ''}`);
+  private async updateProjectStatus(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Update project ${entities.projectName || ''} status to ${entities.status || ''}`,
+    );
   }
 
-  private async duplicateProject(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Duplicate project ${entities.projectName || ''}`);
+  private async duplicateProject(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Duplicate project ${entities.projectName || ''}`,
+    );
   }
 
   private async createTask(workspaceId: string, userId: string, entities: any): Promise<string> {
     const taskName = entities.taskName || entities.description;
     if (!taskName) {
-      return "What would you like to call the task?";
+      return 'What would you like to call the task?';
     }
     let command = `Create a task called "${taskName}"`;
     if (entities.projectName) command += ` in project ${entities.projectName}`;
@@ -3928,27 +4270,59 @@ What would you like to do?`;
   }
 
   private async createSubtask(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Create subtask "${entities.taskName || ''}" under ${entities.value || 'parent task'}`);
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Create subtask "${entities.taskName || ''}" under ${entities.value || 'parent task'}`,
+    );
   }
 
   private async assignTask(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Assign task ${entities.taskName || ''} to ${entities.assignee || ''}`);
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Assign task ${entities.taskName || ''} to ${entities.assignee || ''}`,
+    );
   }
 
   private async unassignTask(workspaceId: string, userId: string, entities: any): Promise<string> {
     return this.routeToAutopilot(workspaceId, userId, `Unassign task ${entities.taskName || ''}`);
   }
 
-  private async updateTaskDescription(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Update task ${entities.taskName || ''} description to ${entities.description || ''}`);
+  private async updateTaskDescription(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Update task ${entities.taskName || ''} description to ${entities.description || ''}`,
+    );
   }
 
-  private async setTaskPriority(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Set task ${entities.taskName || ''} priority to ${entities.priority || ''}`);
+  private async setTaskPriority(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Set task ${entities.taskName || ''} priority to ${entities.priority || ''}`,
+    );
   }
 
-  private async setTaskDueDate(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Set task ${entities.taskName || ''} due date to ${entities.dueDate || ''}`);
+  private async setTaskDueDate(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Set task ${entities.taskName || ''} due date to ${entities.dueDate || ''}`,
+    );
   }
 
   private async deleteTask(workspaceId: string, userId: string, entities: any): Promise<string> {
@@ -3959,14 +4333,22 @@ What would you like to do?`;
     return this.routeToAutopilot(workspaceId, userId, `Reopen task ${entities.taskName || ''}`);
   }
 
-  private async addTaskComment(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Add comment to task ${entities.taskName || ''}: ${entities.comment || ''}`);
+  private async addTaskComment(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Add comment to task ${entities.taskName || ''}: ${entities.comment || ''}`,
+    );
   }
 
   private async createEvent(workspaceId: string, userId: string, entities: any): Promise<string> {
     const eventName = entities.eventName || entities.description;
     if (!eventName) {
-      return "What would you like to call the event?";
+      return 'What would you like to call the event?';
     }
     let command = `Create event "${eventName}"`;
     if (entities.date) command += ` on ${entities.date}`;
@@ -3976,31 +4358,67 @@ What would you like to do?`;
     return this.routeToAutopilot(workspaceId, userId, command);
   }
 
-  private async rescheduleEvent(workspaceId: string, userId: string, entities: any): Promise<string> {
+  private async rescheduleEvent(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
     let command = `Reschedule event ${entities.eventName || ''}`;
     if (entities.date) command += ` to ${entities.date}`;
     if (entities.time) command += ` at ${entities.time}`;
     return this.routeToAutopilot(workspaceId, userId, command);
   }
 
-  private async updateEventLocation(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Update event ${entities.eventName || ''} location to ${entities.location || ''}`);
+  private async updateEventLocation(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Update event ${entities.eventName || ''} location to ${entities.location || ''}`,
+    );
   }
 
   private async cancelEvent(workspaceId: string, userId: string, entities: any): Promise<string> {
     return this.routeToAutopilot(workspaceId, userId, `Cancel event ${entities.eventName || ''}`);
   }
 
-  private async addEventParticipant(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Add ${entities.participant || ''} to event ${entities.eventName || ''}`);
+  private async addEventParticipant(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Add ${entities.participant || ''} to event ${entities.eventName || ''}`,
+    );
   }
 
-  private async removeEventParticipant(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Remove ${entities.participant || ''} from event ${entities.eventName || ''}`);
+  private async removeEventParticipant(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Remove ${entities.participant || ''} from event ${entities.eventName || ''}`,
+    );
   }
 
-  private async duplicateEvent(workspaceId: string, userId: string, entities: any): Promise<string> {
-    return this.routeToAutopilot(workspaceId, userId, `Duplicate event ${entities.eventName || ''}`);
+  private async duplicateEvent(
+    workspaceId: string,
+    userId: string,
+    entities: any,
+  ): Promise<string> {
+    return this.routeToAutopilot(
+      workspaceId,
+      userId,
+      `Duplicate event ${entities.eventName || ''}`,
+    );
   }
 
   // ========================================
@@ -4013,7 +4431,7 @@ What would you like to do?`;
   private async getOrCreateBotDMConversation(
     workspaceId: string,
     botId: string,
-    targetUserId: string
+    targetUserId: string,
   ): Promise<any> {
     try {
       const botUserId = `bot:${botId}`;
@@ -4027,7 +4445,7 @@ What would you like to do?`;
 
       const existingConversations = Array.isArray(existingConversationsResult)
         ? existingConversationsResult
-        : (existingConversationsResult.data || []);
+        : existingConversationsResult.data || [];
 
       this.logger.debug(`[BotDM] Found ${existingConversations.length} conversations in workspace`);
 
@@ -4035,9 +4453,10 @@ What would you like to do?`;
       const expectedParticipants = [botUserId, targetUserId].sort();
 
       for (const conv of existingConversations) {
-        const participants = typeof conv.participants === 'string'
-          ? JSON.parse(conv.participants)
-          : (conv.participants || []);
+        const participants =
+          typeof conv.participants === 'string'
+            ? JSON.parse(conv.participants)
+            : conv.participants || [];
 
         const sortedParticipants = [...participants].sort();
 
@@ -4053,7 +4472,7 @@ What would you like to do?`;
       const conversation = await this.chatService.createConversation(
         workspaceId,
         { participants: [targetUserId] }, // Other participant
-        botUserId // Bot is the creator
+        botUserId, // Bot is the creator
       );
 
       this.logger.debug(`[BotDM] Created new conversation ${conversation.id}`);
@@ -4071,13 +4490,17 @@ What would you like to do?`;
     workspaceId: string,
     botId: string,
     targetUserId: string,
-    messageContent: string
+    messageContent: string,
   ): Promise<{ success: boolean; conversationId?: string; error?: string }> {
     try {
       const botUserId = `bot:${botId}`;
 
       // Get or create DM conversation between bot and target user
-      const conversation = await this.getOrCreateBotDMConversation(workspaceId, botId, targetUserId);
+      const conversation = await this.getOrCreateBotDMConversation(
+        workspaceId,
+        botId,
+        targetUserId,
+      );
 
       if (!conversation || !conversation.id) {
         return { success: false, error: 'Failed to create conversation' };
@@ -4090,7 +4513,7 @@ What would you like to do?`;
           content: messageContent,
           content_html: this.convertMarkdownToHtml(messageContent),
         },
-        botUserId // Bot is the sender
+        botUserId, // Bot is the sender
       );
 
       // Note: chatService.sendMessage already emits WebSocket events via AppGateway
@@ -4109,21 +4532,30 @@ What would you like to do?`;
           message: messagePayload,
           conversation_id: conversation.id,
         });
-        this.logger.debug(`[BotHandler] Emitted message:new to conversation room ${conversation.id}`);
+        this.logger.debug(
+          `[BotHandler] Emitted message:new to conversation room ${conversation.id}`,
+        );
 
         // 2. Get conversation participants to emit workspace notifications
         try {
           const participants = conversation.participants || [];
-          const participantIds = participants.filter(id => !id.startsWith('bot:'));
+          const participantIds = participants.filter((id) => !id.startsWith('bot:'));
 
           // Emit to each participant's workspace+user room (same as person-to-person)
           if (participantIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'message:new:workspace', {
-              message: messagePayload,
-              conversation_id: conversation.id,
-              type: 'conversation',
-            });
-            this.logger.debug(`[BotHandler] Emitted workspace notifications to ${participantIds.length} participants`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              participantIds,
+              'message:new:workspace',
+              {
+                message: messagePayload,
+                conversation_id: conversation.id,
+                type: 'conversation',
+              },
+            );
+            this.logger.debug(
+              `[BotHandler] Emitted workspace notifications to ${participantIds.length} participants`,
+            );
           }
         } catch (error) {
           this.logger.error(`Failed to emit workspace notifications: ${error.message}`);
@@ -4148,7 +4580,13 @@ What would you like to do?`;
   /**
    * Send message to task or project assignee (chained operation)
    */
-  private async sendMessageToAssignee(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async sendMessageToAssignee(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const entityName = entities.taskName || entities.projectName;
     const entityType = entities.taskName ? 'task' : 'project';
     let messageContent = entities.messageContent || entities.comment || '';
@@ -4184,14 +4622,12 @@ What would you like to do?`;
 
       if (entityType === 'task') {
         // Find task and get assignees
-        const tasksResult = await this.db
-          .table('tasks')
-          .select('*')
-          .limit(50)
-          .execute();
+        const tasksResult = await this.db.table('tasks').select('*').limit(50).execute();
 
-        const tasks = Array.isArray(tasksResult) ? tasksResult : (tasksResult.data || []);
-        const task = tasks.find((t: any) => t.title?.toLowerCase().includes(entityName.toLowerCase()));
+        const tasks = Array.isArray(tasksResult) ? tasksResult : tasksResult.data || [];
+        const task = tasks.find((t: any) =>
+          t.title?.toLowerCase().includes(entityName.toLowerCase()),
+        );
 
         if (!task) {
           return `I couldn't find a task named "${entityName}". Please check the task name and try again.`;
@@ -4211,8 +4647,10 @@ What would you like to do?`;
           .where('workspace_id', '=', workspaceId)
           .execute();
 
-        const projects = Array.isArray(projectsResult) ? projectsResult : (projectsResult.data || []);
-        const project = projects.find((p: any) => p.name?.toLowerCase().includes(entityName.toLowerCase()));
+        const projects = Array.isArray(projectsResult) ? projectsResult : projectsResult.data || [];
+        const project = projects.find((p: any) =>
+          p.name?.toLowerCase().includes(entityName.toLowerCase()),
+        );
 
         if (!project) {
           return `I couldn't find a project named "${entityName}". Please check the project name and try again.`;
@@ -4231,7 +4669,12 @@ What would you like to do?`;
       const errors: string[] = [];
 
       for (const assigneeId of assigneeIds) {
-        const result = await this.sendBotDirectMessage(workspaceId, botId, assigneeId, messageContent);
+        const result = await this.sendBotDirectMessage(
+          workspaceId,
+          botId,
+          assigneeId,
+          messageContent,
+        );
         if (result.success) {
           successCount++;
         } else {
@@ -4240,7 +4683,8 @@ What would you like to do?`;
       }
 
       if (successCount === assigneeIds.length) {
-        const recipientText = assigneeIds.length === 1 ? 'the assignee' : `${assigneeIds.length} assignees`;
+        const recipientText =
+          assigneeIds.length === 1 ? 'the assignee' : `${assigneeIds.length} assignees`;
         return `✅ **Message sent!**\n\nI've sent a direct message to ${recipientText} of ${entityType} "${entityName}":\n\n"${messageContent}"\n\nThey can check their DMs to see it.`;
       } else if (successCount > 0) {
         return `⚠️ **Partially sent**\n\nI sent the message to ${successCount} out of ${assigneeIds.length} assignees. Some messages failed to send.`;
@@ -4256,7 +4700,13 @@ What would you like to do?`;
   /**
    * Send message to event participant (chained operation)
    */
-  private async sendMessageToParticipant(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async sendMessageToParticipant(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const eventName = entities.eventName;
     const participantName = entities.participant || entities.recipientName;
     const messageContent = entities.messageContent || entities.comment || '';
@@ -4284,7 +4734,13 @@ What would you like to do?`;
   /**
    * Send message to project member (chained operation)
    */
-  private async sendMessageToMember(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async sendMessageToMember(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const projectName = entities.projectName;
     const memberName = entities.memberName || entities.recipientName;
     const messageContent = entities.messageContent || entities.comment || '';
@@ -4312,12 +4768,18 @@ What would you like to do?`;
   /**
    * Send direct message to specific user by name/email
    */
-  private async sendMessageToUser(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async sendMessageToUser(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const recipientName = entities.recipientName || entities.assignee || entities.memberName;
     let messageContent = entities.messageContent || entities.comment || '';
 
     if (!recipientName) {
-      return "Who would you like to send a message to?";
+      return 'Who would you like to send a message to?';
     }
 
     // If no explicit message content, extract it from the original message
@@ -4338,7 +4800,7 @@ What would you like to do?`;
       }
 
       if (!messageContent) {
-        messageContent = "You have a message from the productivity assistant.";
+        messageContent = 'You have a message from the productivity assistant.';
       }
     }
 
@@ -4350,7 +4812,9 @@ What would you like to do?`;
         .where('workspace_id', '=', workspaceId)
         .execute();
 
-      const members = Array.isArray(workspaceMembersResult) ? workspaceMembersResult : (workspaceMembersResult.data || []);
+      const members = Array.isArray(workspaceMembersResult)
+        ? workspaceMembersResult
+        : workspaceMembersResult.data || [];
 
       let targetUserId: string | null = null;
 
@@ -4361,7 +4825,9 @@ What would you like to do?`;
           if (user) {
             const nameMatch = user.name?.toLowerCase().includes(recipientName.toLowerCase());
             const emailMatch = user.email?.toLowerCase().includes(recipientName.toLowerCase());
-            const usernameMatch = user.username?.toLowerCase().includes(recipientName.toLowerCase());
+            const usernameMatch = user.username
+              ?.toLowerCase()
+              .includes(recipientName.toLowerCase());
 
             if (nameMatch || emailMatch || usernameMatch) {
               targetUserId = member.user_id;
@@ -4378,7 +4844,12 @@ What would you like to do?`;
       }
 
       // Send DM as bot
-      const result = await this.sendBotDirectMessage(workspaceId, botId, targetUserId, messageContent);
+      const result = await this.sendBotDirectMessage(
+        workspaceId,
+        botId,
+        targetUserId,
+        messageContent,
+      );
 
       if (result.success) {
         return `✅ **Message sent!**\n\nI've sent a direct message to ${recipientName}:\n\n"${messageContent}"\n\nThey can check their DMs to see it.`;
@@ -4394,12 +4865,18 @@ What would you like to do?`;
   /**
    * Send message to all project team members
    */
-  private async messageProjectTeam(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async messageProjectTeam(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const projectName = entities.projectName;
     const messageContent = entities.messageContent || entities.comment || '';
 
     if (!projectName) {
-      return "Which project team would you like to message?";
+      return 'Which project team would you like to message?';
     }
 
     let command = `Send a message to all members of project "${projectName}"`;
@@ -4415,7 +4892,13 @@ What would you like to do?`;
   /**
    * Send message to all event participants
    */
-  private async messageEventParticipants(workspaceId: string, userId: string, botId: string, originalMessage: string, entities: any): Promise<string> {
+  private async messageEventParticipants(
+    workspaceId: string,
+    userId: string,
+    botId: string,
+    originalMessage: string,
+    entities: any,
+  ): Promise<string> {
     const eventName = entities.eventName;
     const messageContent = entities.messageContent || entities.comment || '';
 

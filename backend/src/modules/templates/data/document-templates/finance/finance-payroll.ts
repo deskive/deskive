@@ -3,10 +3,7 @@
  * Payroll processing, tax documents, and compensation records
  */
 
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const FINANCE_PAYROLL_TEMPLATES = [
   {
@@ -110,7 +107,12 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'futa', type: 'currency', label: 'FUTA', required: true },
       { key: 'suta', type: 'currency', label: 'SUTA', required: true },
       { key: 'workers_comp', type: 'currency', label: 'Workers Comp', required: false },
-      { key: 'total_employer_cost', type: 'currency', label: 'Total Employer Cost', required: true },
+      {
+        key: 'total_employer_cost',
+        type: 'currency',
+        label: 'Total Employer Cost',
+        required: true,
+      },
     ],
     signatureFields: [],
     settings: {
@@ -146,8 +148,14 @@ export const FINANCE_PAYROLL_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Description | Hours | Rate | Current | YTD |' },
         { insert: '\n|-------------|-------|------|---------|-----|' },
-        { insert: '\n| Regular | {{regular_hours}} | {{hourly_rate}} | {{regular_current}} | {{regular_ytd}} |' },
-        { insert: '\n| Overtime | {{overtime_hours}} | {{overtime_rate}} | {{overtime_current}} | {{overtime_ytd}} |' },
+        {
+          insert:
+            '\n| Regular | {{regular_hours}} | {{hourly_rate}} | {{regular_current}} | {{regular_ytd}} |',
+        },
+        {
+          insert:
+            '\n| Overtime | {{overtime_hours}} | {{overtime_rate}} | {{overtime_current}} | {{overtime_ytd}} |',
+        },
         { insert: '\n| Bonus | - | - | {{bonus_current}} | {{bonus_ytd}} |' },
         { insert: '\n| ' },
         { insert: 'Gross Pay', attributes: { bold: true } },
@@ -201,7 +209,12 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'bonus_ytd', type: 'currency', label: 'Bonus YTD', required: false },
       { key: 'gross_current', type: 'currency', label: 'Gross Current', required: true },
       { key: 'gross_ytd', type: 'currency', label: 'Gross YTD', required: true },
-      { key: 'federal_tax_current', type: 'currency', label: 'Federal Tax Current', required: true },
+      {
+        key: 'federal_tax_current',
+        type: 'currency',
+        label: 'Federal Tax Current',
+        required: true,
+      },
       { key: 'federal_tax_ytd', type: 'currency', label: 'Federal Tax YTD', required: true },
       { key: 'state_tax_current', type: 'currency', label: 'State Tax Current', required: true },
       { key: 'state_tax_ytd', type: 'currency', label: 'State Tax YTD', required: true },
@@ -209,14 +222,30 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'ss_ytd', type: 'currency', label: 'Social Security YTD', required: true },
       { key: 'medicare_current', type: 'currency', label: 'Medicare Current', required: true },
       { key: 'medicare_ytd', type: 'currency', label: 'Medicare YTD', required: true },
-      { key: 'health_current', type: 'currency', label: 'Health Insurance Current', required: false },
+      {
+        key: 'health_current',
+        type: 'currency',
+        label: 'Health Insurance Current',
+        required: false,
+      },
       { key: 'health_ytd', type: 'currency', label: 'Health Insurance YTD', required: false },
       { key: '401k_current', type: 'currency', label: '401(k) Current', required: false },
       { key: '401k_ytd', type: 'currency', label: '401(k) YTD', required: false },
-      { key: 'deductions_current', type: 'currency', label: 'Total Deductions Current', required: true },
+      {
+        key: 'deductions_current',
+        type: 'currency',
+        label: 'Total Deductions Current',
+        required: true,
+      },
       { key: 'deductions_ytd', type: 'currency', label: 'Total Deductions YTD', required: true },
       { key: 'net_pay', type: 'currency', label: 'Net Pay', required: true },
-      { key: 'payment_method', type: 'select', label: 'Payment Method', required: true, options: ['Direct Deposit', 'Check'] },
+      {
+        key: 'payment_method',
+        type: 'select',
+        label: 'Payment Method',
+        required: true,
+        options: ['Direct Deposit', 'Check'],
+      },
     ],
     signatureFields: [],
     settings: {
@@ -262,10 +291,16 @@ export const FINANCE_PAYROLL_TEMPLATES = [
         { insert: '\nDeposit Amount/Percentage: {{deposit_2}}' },
         { insert: '\n\nAuthorization' },
         { insert: '\n', attributes: { header: 2 } },
-        { insert: '\nI hereby authorize {{company_name}} to deposit my pay electronically to the account(s) listed above. I also authorize the company to make deductions for any amounts deposited in error. This authorization will remain in effect until I provide written notice of cancellation.' },
+        {
+          insert:
+            '\nI hereby authorize {{company_name}} to deposit my pay electronically to the account(s) listed above. I also authorize the company to make deductions for any amounts deposited in error. This authorization will remain in effect until I provide written notice of cancellation.',
+        },
         { insert: '\n\nEmployee Signature: _____________________ Date: {{signature_date}}' },
         { insert: '\n\n' },
-        { insert: 'Please attach a voided check or bank letter for each account.', attributes: { italic: true } },
+        {
+          insert: 'Please attach a voided check or bank letter for each account.',
+          attributes: { italic: true },
+        },
         { insert: '\n\nFor Payroll Use Only' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\nReceived By: _______________' },
@@ -282,18 +317,35 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'bank_name_1', type: 'text', label: 'Bank Name (Primary)', required: true },
       { key: 'routing_1', type: 'text', label: 'Routing Number (Primary)', required: true },
       { key: 'account_1', type: 'text', label: 'Account Number (Primary)', required: true },
-      { key: 'account_type_1', type: 'select', label: 'Account Type (Primary)', required: true, options: ['Checking', 'Savings'] },
+      {
+        key: 'account_type_1',
+        type: 'select',
+        label: 'Account Type (Primary)',
+        required: true,
+        options: ['Checking', 'Savings'],
+      },
       { key: 'deposit_1', type: 'text', label: 'Deposit Amount (Primary)', required: true },
       { key: 'bank_name_2', type: 'text', label: 'Bank Name (Secondary)', required: false },
       { key: 'routing_2', type: 'text', label: 'Routing Number (Secondary)', required: false },
       { key: 'account_2', type: 'text', label: 'Account Number (Secondary)', required: false },
-      { key: 'account_type_2', type: 'select', label: 'Account Type (Secondary)', required: false, options: ['Checking', 'Savings'] },
+      {
+        key: 'account_type_2',
+        type: 'select',
+        label: 'Account Type (Secondary)',
+        required: false,
+        options: ['Checking', 'Savings'],
+      },
       { key: 'deposit_2', type: 'text', label: 'Deposit Amount (Secondary)', required: false },
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'employee_signature', label: 'Employee Signature', required: true, position: { x: 100, y: 650 } },
+      {
+        id: 'employee_signature',
+        label: 'Employee Signature',
+        required: true,
+        position: { x: 100, y: 650 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -357,7 +409,20 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'pay_period_start', type: 'date', label: 'Pay Period Start', required: true },
       { key: 'pay_period_end', type: 'date', label: 'Pay Period End', required: true },
       { key: 'pay_date', type: 'date', label: 'Pay Date', required: true },
-      { key: 'adjustment_type', type: 'select', label: 'Adjustment Type', required: true, options: ['Hours Correction', 'Rate Correction', 'Bonus Adjustment', 'Deduction Correction', 'Retroactive Pay', 'Other'] },
+      {
+        key: 'adjustment_type',
+        type: 'select',
+        label: 'Adjustment Type',
+        required: true,
+        options: [
+          'Hours Correction',
+          'Rate Correction',
+          'Bonus Adjustment',
+          'Deduction Correction',
+          'Retroactive Pay',
+          'Other',
+        ],
+      },
       { key: 'item_1', type: 'text', label: 'Item 1', required: true },
       { key: 'original_1', type: 'currency', label: 'Original 1', required: true },
       { key: 'corrected_1', type: 'currency', label: 'Corrected 1', required: true },
@@ -367,12 +432,32 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'corrected_2', type: 'currency', label: 'Corrected 2', required: false },
       { key: 'diff_2', type: 'currency', label: 'Difference 2', required: false },
       { key: 'net_adjustment', type: 'currency', label: 'Net Adjustment Amount', required: true },
-      { key: 'adjustment_reason', type: 'textarea', label: 'Reason for Adjustment', required: true },
+      {
+        key: 'adjustment_reason',
+        type: 'textarea',
+        label: 'Reason for Adjustment',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 650 } },
-      { id: 'manager_signature', label: 'Manager Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'payroll_signature', label: 'Payroll Signature', required: true, position: { x: 100, y: 750 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 650 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Manager Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'payroll_signature',
+        label: 'Payroll Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -401,13 +486,34 @@ export const FINANCE_PAYROLL_TEMPLATES = [
         { insert: '\nPeriod: {{commission_period}}' },
         { insert: '\n\nSales Summary' },
         { insert: '\n', attributes: { header: 2 } },
-        { insert: '\n| Date | Customer | Product/Service | Sale Amount | Commission Rate | Commission |' },
-        { insert: '\n|------|----------|-----------------|-------------|-----------------|------------|' },
-        { insert: '\n| {{date_1}} | {{customer_1}} | {{product_1}} | {{sale_1}} | {{rate_1}} | {{comm_1}} |' },
-        { insert: '\n| {{date_2}} | {{customer_2}} | {{product_2}} | {{sale_2}} | {{rate_2}} | {{comm_2}} |' },
-        { insert: '\n| {{date_3}} | {{customer_3}} | {{product_3}} | {{sale_3}} | {{rate_3}} | {{comm_3}} |' },
-        { insert: '\n| {{date_4}} | {{customer_4}} | {{product_4}} | {{sale_4}} | {{rate_4}} | {{comm_4}} |' },
-        { insert: '\n| {{date_5}} | {{customer_5}} | {{product_5}} | {{sale_5}} | {{rate_5}} | {{comm_5}} |' },
+        {
+          insert:
+            '\n| Date | Customer | Product/Service | Sale Amount | Commission Rate | Commission |',
+        },
+        {
+          insert:
+            '\n|------|----------|-----------------|-------------|-----------------|------------|',
+        },
+        {
+          insert:
+            '\n| {{date_1}} | {{customer_1}} | {{product_1}} | {{sale_1}} | {{rate_1}} | {{comm_1}} |',
+        },
+        {
+          insert:
+            '\n| {{date_2}} | {{customer_2}} | {{product_2}} | {{sale_2}} | {{rate_2}} | {{comm_2}} |',
+        },
+        {
+          insert:
+            '\n| {{date_3}} | {{customer_3}} | {{product_3}} | {{sale_3}} | {{rate_3}} | {{comm_3}} |',
+        },
+        {
+          insert:
+            '\n| {{date_4}} | {{customer_4}} | {{product_4}} | {{sale_4}} | {{rate_4}} | {{comm_4}} |',
+        },
+        {
+          insert:
+            '\n| {{date_5}} | {{customer_5}} | {{product_5}} | {{sale_5}} | {{rate_5}} | {{comm_5}} |',
+        },
         { insert: '\n\nCommission Summary' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\nTotal Sales: {{total_sales}}' },
@@ -492,16 +598,40 @@ export const FINANCE_PAYROLL_TEMPLATES = [
         { insert: '\nPay Period: {{pay_period_start}} - {{pay_period_end}}' },
         { insert: '\nPay Date: {{pay_date}}' },
         { insert: '\nPage: {{page_number}} of {{total_pages}}' },
-        { insert: '\n\n| Emp ID | Employee Name | Dept | Gross Pay | Fed Tax | State Tax | SS | Medicare | Other Ded | Net Pay |' },
-        { insert: '\n|--------|---------------|------|-----------|---------|-----------|-----|----------|-----------|---------|' },
-        { insert: '\n| {{id_1}} | {{name_1}} | {{dept_1}} | {{gross_1}} | {{fed_1}} | {{state_1}} | {{ss_1}} | {{med_1}} | {{other_1}} | {{net_1}} |' },
-        { insert: '\n| {{id_2}} | {{name_2}} | {{dept_2}} | {{gross_2}} | {{fed_2}} | {{state_2}} | {{ss_2}} | {{med_2}} | {{other_2}} | {{net_2}} |' },
-        { insert: '\n| {{id_3}} | {{name_3}} | {{dept_3}} | {{gross_3}} | {{fed_3}} | {{state_3}} | {{ss_3}} | {{med_3}} | {{other_3}} | {{net_3}} |' },
-        { insert: '\n| {{id_4}} | {{name_4}} | {{dept_4}} | {{gross_4}} | {{fed_4}} | {{state_4}} | {{ss_4}} | {{med_4}} | {{other_4}} | {{net_4}} |' },
-        { insert: '\n| {{id_5}} | {{name_5}} | {{dept_5}} | {{gross_5}} | {{fed_5}} | {{state_5}} | {{ss_5}} | {{med_5}} | {{other_5}} | {{net_5}} |' },
+        {
+          insert:
+            '\n\n| Emp ID | Employee Name | Dept | Gross Pay | Fed Tax | State Tax | SS | Medicare | Other Ded | Net Pay |',
+        },
+        {
+          insert:
+            '\n|--------|---------------|------|-----------|---------|-----------|-----|----------|-----------|---------|',
+        },
+        {
+          insert:
+            '\n| {{id_1}} | {{name_1}} | {{dept_1}} | {{gross_1}} | {{fed_1}} | {{state_1}} | {{ss_1}} | {{med_1}} | {{other_1}} | {{net_1}} |',
+        },
+        {
+          insert:
+            '\n| {{id_2}} | {{name_2}} | {{dept_2}} | {{gross_2}} | {{fed_2}} | {{state_2}} | {{ss_2}} | {{med_2}} | {{other_2}} | {{net_2}} |',
+        },
+        {
+          insert:
+            '\n| {{id_3}} | {{name_3}} | {{dept_3}} | {{gross_3}} | {{fed_3}} | {{state_3}} | {{ss_3}} | {{med_3}} | {{other_3}} | {{net_3}} |',
+        },
+        {
+          insert:
+            '\n| {{id_4}} | {{name_4}} | {{dept_4}} | {{gross_4}} | {{fed_4}} | {{state_4}} | {{ss_4}} | {{med_4}} | {{other_4}} | {{net_4}} |',
+        },
+        {
+          insert:
+            '\n| {{id_5}} | {{name_5}} | {{dept_5}} | {{gross_5}} | {{fed_5}} | {{state_5}} | {{ss_5}} | {{med_5}} | {{other_5}} | {{net_5}} |',
+        },
         { insert: '\n\n' },
         { insert: 'TOTALS', attributes: { bold: true } },
-        { insert: '\n| - | - | - | {{total_gross}} | {{total_fed}} | {{total_state}} | {{total_ss}} | {{total_med}} | {{total_other}} | {{total_net}} |' },
+        {
+          insert:
+            '\n| - | - | - | {{total_gross}} | {{total_fed}} | {{total_state}} | {{total_ss}} | {{total_med}} | {{total_other}} | {{total_net}} |',
+        },
         { insert: '\n\nTotal Employees: {{total_employees}}' },
         { insert: '\nTotal Payroll Cost (including employer taxes): {{total_payroll_cost}}' },
         { insert: '\n\nPrepared By: {{prepared_by}}' },
@@ -580,7 +710,12 @@ export const FINANCE_PAYROLL_TEMPLATES = [
       { key: 'prepared_date', type: 'date', label: 'Prepared Date', required: true },
     ],
     signatureFields: [
-      { id: 'approver_signature', label: 'Approver Signature', required: true, position: { x: 100, y: 750 } },
+      {
+        id: 'approver_signature',
+        label: 'Approver Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
     ],
     settings: {
       paperSize: 'A4',

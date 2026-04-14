@@ -56,10 +56,7 @@ export interface AuthProviderInfo {
  * Static metadata about each provider. Kept separate from runtime
  * enablement so new-provider PRs only need to edit this table.
  */
-const PROVIDER_CATALOG: Record<
-  AuthProviderKey,
-  Omit<AuthProviderInfo, 'enabled'>
-> = {
+const PROVIDER_CATALOG: Record<AuthProviderKey, Omit<AuthProviderInfo, 'enabled'>> = {
   local: {
     key: 'local',
     displayName: 'Email & Password',
@@ -157,9 +154,7 @@ export class SsoRegistryService implements OnModuleInit {
       enabled: true,
     }));
 
-    this.logger.log(
-      `SSO registry initialized: ${this.enabled.map((p) => p.key).join(', ')}`,
-    );
+    this.logger.log(`SSO registry initialized: ${this.enabled.map((p) => p.key).join(', ')}`);
   }
 
   /**

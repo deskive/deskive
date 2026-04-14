@@ -5,10 +5,7 @@ import { SendGridService } from './sendgrid.service';
 import { AuthModule } from '../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [SendGridController],
   providers: [SendGridService],
   exports: [SendGridService],

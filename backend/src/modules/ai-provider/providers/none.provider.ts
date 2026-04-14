@@ -45,9 +45,7 @@ export class NoneAiProvider implements AiProvider {
     return this.fail('analyzeImage');
   }
 
-  async generateEmbedding(
-    _input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(_input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     return this.fail('generateEmbedding');
   }
 }

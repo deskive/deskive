@@ -11,7 +11,7 @@ import {
   ProjectAnalyticsData,
   Suggestion,
   SuggestionsResponse,
-  TaskDistributionMember
+  TaskDistributionMember,
 } from './dto';
 import { LangChainSuggestionsService, UserContextData } from './langchain-suggestions.service';
 
@@ -22,7 +22,7 @@ export class DashboardService {
   constructor(
     private readonly db: DatabaseService,
     private langchainSuggestionsService: LangChainSuggestionsService,
-  ) { }
+  ) {}
 
   // Legacy alias for the AI provider - delegates to db.getAI() until a real
   // AIProviderService is wired in.
@@ -30,28 +30,29 @@ export class DashboardService {
     return this.db.getAI();
   }
 
-  async getDashboardData(workspaceId: string, userId: string, query: GetDashboardDto): Promise<DashboardResponse> {
+  async getDashboardData(
+    workspaceId: string,
+    userId: string,
+    query: GetDashboardDto,
+  ): Promise<DashboardResponse> {
     // Verify user has access to this workspace
     await this.verifyWorkspaceAccess(workspaceId, userId);
 
     const now = new Date();
-    const startDate = query.startDate ? new Date(query.startDate) : new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
+    const startDate = query.startDate
+      ? new Date(query.startDate)
+      : new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000); // 30 days ago
     const endDate = query.endDate ? new Date(query.endDate) : now;
 
     // Fetch all dashboard data in parallel
-    const [
-      metrics,
-      recentActivity,
-      activityTrend,
-      teamProductivity,
-      projectAnalytics
-    ] = await Promise.all([
-      this.getMetrics(workspaceId, startDate, endDate),
-      this.getRecentActivity(workspaceId, query.limit || 10, startDate, endDate),
-      this.getActivityTrend(workspaceId, startDate, endDate),
-      this.getTeamProductivity(workspaceId, startDate, endDate),
-      this.getProjectAnalytics(workspaceId, startDate, endDate)
-    ]);
+    const [metrics, recentActivity, activityTrend, teamProductivity, projectAnalytics] =
+      await Promise.all([
+        this.getMetrics(workspaceId, startDate, endDate),
+        this.getRecentActivity(workspaceId, query.limit || 10, startDate, endDate),
+        this.getActivityTrend(workspaceId, startDate, endDate),
+        this.getTeamProductivity(workspaceId, startDate, endDate),
+        this.getProjectAnalytics(workspaceId, startDate, endDate),
+      ]);
 
     return {
       metrics,
@@ -61,8 +62,8 @@ export class DashboardService {
       projectAnalytics,
       dateRange: {
         startDate: startDate.toISOString(),
-        endDate: endDate.toISOString()
-      }
+        endDate: endDate.toISOString(),
+      },
     };
   }
 
@@ -70,7 +71,7 @@ export class DashboardService {
     const membershipResult = await this.db.findOne('workspace_members', {
       workspace_id: workspaceId,
       user_id: userId,
-      is_active: true
+      is_active: true,
     });
 
     if (!membershipResult) {
@@ -92,7 +93,7 @@ export class DashboardService {
     const membershipResult = await this.db.findOne('workspace_members', {
       workspace_id: workspaceId,
       user_id: userId,
-      is_active: true
+      is_active: true,
     });
 
     if (membershipResult) {
@@ -103,11 +104,16 @@ export class DashboardService {
     return false;
   }
 
-  private async getMetrics(workspaceId: string, startDate: Date, endDate: Date): Promise<DashboardMetrics> {
+  private async getMetrics(
+    workspaceId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<DashboardMetrics> {
     try {
       // Get total counts from all relevant tables
       // First get channels for this workspace to query messages
-      const channelsResult = await this.db.table('channels')
+      const channelsResult = await this.db
+        .table('channels')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .execute()
@@ -123,50 +129,62 @@ export class DashboardService {
       const projectIds = projects.map((p: any) => p.id);
 
       // Now fetch all other data in parallel
-      const [tasksResult, membersResult, filesResult, notesResult, messagesResult, eventsResult, videoCallsResult] = await Promise.all([
+      const [
+        tasksResult,
+        membersResult,
+        filesResult,
+        notesResult,
+        messagesResult,
+        eventsResult,
+        videoCallsResult,
+      ] = await Promise.all([
         // Tasks: get by project IDs (tasks don't have workspace_id, they have project_id)
         projectIds.length > 0
-          ? this.db.table('tasks')
-            .select('*')
-            .execute()
-            .then(result => {
-              const allTasks = Array.isArray(result.data) ? result.data : [];
-              return { data: allTasks.filter(t => projectIds.includes(t.project_id)) };
-            })
-            .catch(() => ({ data: [] }))
+          ? this.db
+              .table('tasks')
+              .select('*')
+              .execute()
+              .then((result) => {
+                const allTasks = Array.isArray(result.data) ? result.data : [];
+                return { data: allTasks.filter((t) => projectIds.includes(t.project_id)) };
+              })
+              .catch(() => ({ data: [] }))
           : Promise.resolve({ data: [] }),
         this.db.findMany('workspace_members', { workspace_id: workspaceId, is_active: true }),
         this.db.findMany('files', { workspace_id: workspaceId }),
         this.db.findMany('notes', { workspace_id: workspaceId }),
         // Messages: query by channel IDs
         channelIds.length > 0
-          ? this.db.table('messages')
-            .select('*')
-            .execute()
-            .then(result => {
-              const allMessages = Array.isArray(result.data) ? result.data : [];
-              return { data: allMessages.filter(m => channelIds.includes(m.channel_id)) };
-            })
-            .catch(() => ({ data: [] }))
+          ? this.db
+              .table('messages')
+              .select('*')
+              .execute()
+              .then((result) => {
+                const allMessages = Array.isArray(result.data) ? result.data : [];
+                return { data: allMessages.filter((m) => channelIds.includes(m.channel_id)) };
+              })
+              .catch(() => ({ data: [] }))
           : Promise.resolve({ data: [] }),
         // Events: query all and filter by workspace (or skip if table doesn't exist)
-        this.db.table('calendar_events')
+        this.db
+          .table('calendar_events')
           .select('*')
           .execute()
-          .then(result => {
+          .then((result) => {
             const allEvents = Array.isArray(result.data) ? result.data : [];
-            return { data: allEvents.filter(e => e.workspace_id === workspaceId) };
+            return { data: allEvents.filter((e) => e.workspace_id === workspaceId) };
           })
           .catch(() => ({ data: [] })),
         // Video calls: query all and filter by workspace (or skip if table doesn't exist)
-        this.db.table('video_calls')
+        this.db
+          .table('video_calls')
           .select('*')
           .execute()
-          .then(result => {
+          .then((result) => {
             const allCalls = Array.isArray(result.data) ? result.data : [];
-            return { data: allCalls.filter(vc => vc.workspace_id === workspaceId) };
+            return { data: allCalls.filter((vc) => vc.workspace_id === workspaceId) };
           })
-          .catch(() => ({ data: [] }))
+          .catch(() => ({ data: [] })),
       ]);
 
       // projects is already defined earlier
@@ -178,8 +196,8 @@ export class DashboardService {
       const events = eventsResult.data || [];
       const videoCalls = videoCallsResult.data || [];
 
-      const activeProjects = projects.filter(p => p.status === 'active' || !p.status).length;
-      const completedTasks = tasks.filter(task => task.status === 'completed').length;
+      const activeProjects = projects.filter((p) => p.status === 'active' || !p.status).length;
+      const completedTasks = tasks.filter((task) => task.status === 'completed').length;
       const totalTasks = tasks.length;
       const completionRate = totalTasks > 0 ? (completedTasks / totalTasks) * 100 : 0;
 
@@ -191,44 +209,44 @@ export class DashboardService {
       const weekAgo = new Date(todayDate.getTime() - 7 * 24 * 60 * 60 * 1000);
       const monthAgo = new Date(todayDate.getTime() - 30 * 24 * 60 * 60 * 1000);
 
-      const tasksCompletedToday = tasks.filter(task => {
+      const tasksCompletedToday = tasks.filter((task) => {
         if (task.status !== 'completed' || !task.completed_at) return false;
         const completedDate = new Date(task.completed_at);
         return completedDate.toDateString() === todayDate.toDateString();
       }).length;
 
-      const tasksCompletedThisWeek = tasks.filter(task => {
+      const tasksCompletedThisWeek = tasks.filter((task) => {
         if (task.status !== 'completed' || !task.completed_at) return false;
         const completedDate = new Date(task.completed_at);
         return completedDate >= weekAgo;
       }).length;
 
-      const tasksCompletedThisMonth = tasks.filter(task => {
+      const tasksCompletedThisMonth = tasks.filter((task) => {
         if (task.status !== 'completed' || !task.completed_at) return false;
         const completedDate = new Date(task.completed_at);
         return completedDate >= monthAgo;
       }).length;
 
       // Calculate pending tasks
-      const pendingTasks = tasks.filter(task =>
-        task.status !== 'completed' && task.status !== 'cancelled'
+      const pendingTasks = tasks.filter(
+        (task) => task.status !== 'completed' && task.status !== 'cancelled',
       ).length;
 
       // Calculate today's stats
       const today = new Date();
       today.setHours(0, 0, 0, 0);
 
-      const messagesToday = messages.filter(msg => {
+      const messagesToday = messages.filter((msg) => {
         const msgDate = new Date(msg.created_at);
         return msgDate >= today;
       }).length;
 
-      const filesUploadedToday = files.filter(file => {
+      const filesUploadedToday = files.filter((file) => {
         const fileDate = new Date(file.created_at);
         return fileDate >= today;
       }).length;
 
-      const videoCallsToday = videoCalls.filter(call => {
+      const videoCallsToday = videoCalls.filter((call) => {
         const callDate = new Date(call.created_at);
         return callDate >= today;
       }).length;
@@ -248,33 +266,33 @@ export class DashboardService {
           totalFiles: files.length,
           totalVideoCalls: videoCalls.length,
           storageUsed: files.reduce((total, file) => total + (parseInt(file.size) || 0), 0),
-          integrations: 0 // Will be implemented when we have integrations
+          integrations: 0, // Will be implemented when we have integrations
         },
         today: {
           messagesCount: messagesToday,
           filesUploaded: filesUploadedToday,
           tasksCompleted: tasksCompletedToday,
-          videoCallsCount: videoCallsToday
+          videoCallsCount: videoCallsToday,
         },
         productivity: {
           tasksCompletedToday: tasksCompletedToday,
           tasksCompletedThisWeek: tasksCompletedThisWeek,
           tasksCompletedThisMonth: tasksCompletedThisMonth,
           averageTaskCompletionTime: 24.5, // Mock value for now
-          projectCompletionRate: completionRate
+          projectCompletionRate: completionRate,
         },
         engagement: {
           messagesPerDay: 0, // Will be implemented
           filesSharedPerDay: files.length > 0 ? Math.round((files.length / 30) * 100) / 100 : 0,
           activeUsersToday: Math.min(members.length, 5), // Mock value
           activeUsersThisWeek: activeMembers,
-          meetingsScheduled: 0 // Will be implemented
+          meetingsScheduled: 0, // Will be implemented
         },
         trends: {
           taskCompletionTrend: 12.5, // Mock positive trend
           teamEngagementTrend: 8.3, // Mock positive trend
-          projectProgressTrend: 15.2 // Mock positive trend
-        }
+          projectProgressTrend: 15.2, // Mock positive trend
+        },
       };
     } catch (error) {
       console.error('Error fetching dashboard metrics:', error);
@@ -293,38 +311,43 @@ export class DashboardService {
           totalFiles: 0,
           totalVideoCalls: 0,
           storageUsed: 0,
-          integrations: 0
+          integrations: 0,
         },
         today: {
           messagesCount: 0,
           filesUploaded: 0,
           tasksCompleted: 0,
-          videoCallsCount: 0
+          videoCallsCount: 0,
         },
         productivity: {
           tasksCompletedToday: 0,
           tasksCompletedThisWeek: 0,
           tasksCompletedThisMonth: 0,
           averageTaskCompletionTime: 0,
-          projectCompletionRate: 0
+          projectCompletionRate: 0,
         },
         engagement: {
           messagesPerDay: 0,
           filesSharedPerDay: 0,
           activeUsersToday: 0,
           activeUsersThisWeek: 0,
-          meetingsScheduled: 0
+          meetingsScheduled: 0,
         },
         trends: {
           taskCompletionTrend: 0,
           teamEngagementTrend: 0,
-          projectProgressTrend: 0
-        }
+          projectProgressTrend: 0,
+        },
       };
     }
   }
 
-  private async getRecentActivity(workspaceId: string, limit: number, startDate: Date, endDate: Date): Promise<any> {
+  private async getRecentActivity(
+    workspaceId: string,
+    limit: number,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<any> {
     try {
       // For now, return mock data in the format expected by the frontend
       // The frontend expects { activities: ActivityItem[], total: number, hasMore: boolean }
@@ -339,7 +362,7 @@ export class DashboardService {
           userAvatar: '',
           workspaceId: workspaceId,
           timestamp: new Date().toISOString(),
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         },
         {
           id: '2',
@@ -351,7 +374,7 @@ export class DashboardService {
           userAvatar: '',
           workspaceId: workspaceId,
           timestamp: new Date(Date.now() - 3600000).toISOString(),
-          createdAt: new Date(Date.now() - 3600000).toISOString()
+          createdAt: new Date(Date.now() - 3600000).toISOString(),
         },
         {
           id: '3',
@@ -363,26 +386,30 @@ export class DashboardService {
           userAvatar: '',
           workspaceId: workspaceId,
           timestamp: new Date(Date.now() - 7200000).toISOString(),
-          createdAt: new Date(Date.now() - 7200000).toISOString()
-        }
+          createdAt: new Date(Date.now() - 7200000).toISOString(),
+        },
       ];
 
       return {
         activities: mockActivities.slice(0, limit),
         total: mockActivities.length,
-        hasMore: mockActivities.length > limit
+        hasMore: mockActivities.length > limit,
       };
     } catch (error) {
       console.error('Error fetching recent activity:', error);
       return {
         activities: [],
         total: 0,
-        hasMore: false
+        hasMore: false,
       };
     }
   }
 
-  private async getActivityTrend(workspaceId: string, startDate: Date, endDate: Date): Promise<any> {
+  private async getActivityTrend(
+    workspaceId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<any> {
     try {
       // Generate sample trend data for the last 7 days
       // The frontend expects { data: ActivityTrendData[], period: string, summary: {...} }
@@ -399,34 +426,37 @@ export class DashboardService {
           files: Math.floor(Math.random() * 8) + 2,
           meetings: Math.floor(Math.random() * 3),
           notes: Math.floor(Math.random() * 10) + 3,
-          activeUsers: Math.floor(Math.random() * 10) + 3
+          activeUsers: Math.floor(Math.random() * 10) + 3,
         });
       }
 
       // Calculate summary
-      const summary = trendData.reduce((acc, day) => ({
-        totalTasks: acc.totalTasks + day.tasks,
-        totalMessages: acc.totalMessages + day.messages,
-        totalFiles: acc.totalFiles + day.files,
-        totalMeetings: acc.totalMeetings + day.meetings,
-        totalNotes: acc.totalNotes + day.notes,
-        averageActiveUsers: acc.averageActiveUsers + day.activeUsers / days
-      }), {
-        totalTasks: 0,
-        totalMessages: 0,
-        totalFiles: 0,
-        totalMeetings: 0,
-        totalNotes: 0,
-        averageActiveUsers: 0
-      });
+      const summary = trendData.reduce(
+        (acc, day) => ({
+          totalTasks: acc.totalTasks + day.tasks,
+          totalMessages: acc.totalMessages + day.messages,
+          totalFiles: acc.totalFiles + day.files,
+          totalMeetings: acc.totalMeetings + day.meetings,
+          totalNotes: acc.totalNotes + day.notes,
+          averageActiveUsers: acc.averageActiveUsers + day.activeUsers / days,
+        }),
+        {
+          totalTasks: 0,
+          totalMessages: 0,
+          totalFiles: 0,
+          totalMeetings: 0,
+          totalNotes: 0,
+          averageActiveUsers: 0,
+        },
+      );
 
       return {
         data: trendData,
         period: 'week',
         summary: {
           ...summary,
-          averageActiveUsers: Math.round(summary.averageActiveUsers)
-        }
+          averageActiveUsers: Math.round(summary.averageActiveUsers),
+        },
       };
     } catch (error) {
       console.error('Error fetching activity trend:', error);
@@ -439,17 +469,21 @@ export class DashboardService {
           totalFiles: 0,
           totalMeetings: 0,
           totalNotes: 0,
-          averageActiveUsers: 0
-        }
+          averageActiveUsers: 0,
+        },
       };
     }
   }
 
-  private async getTeamProductivity(workspaceId: string, startDate: Date, endDate: Date): Promise<any> {
+  private async getTeamProductivity(
+    workspaceId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<any> {
     try {
       const membersResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
 
       const members = membersResult.data || [];
@@ -480,16 +514,18 @@ export class DashboardService {
           messagesCount: Math.floor(Math.random() * 100) + 20,
           filesShared: Math.floor(Math.random() * 20) + 5,
           lastActive: new Date().toISOString(),
-          productivityScore: Math.floor(Math.random() * 30) + 70 // 70-100
+          productivityScore: Math.floor(Math.random() * 30) + 70, // 70-100
         });
       }
 
       // Calculate team stats
       const totalMembers = memberProductivity.length;
-      const activeMembers = memberProductivity.filter(m => m.productivityScore > 50).length;
+      const activeMembers = memberProductivity.filter((m) => m.productivityScore > 50).length;
       const totalTasksCompleted = memberProductivity.reduce((sum, m) => sum + m.tasksCompleted, 0);
-      const avgProductivityScore = memberProductivity.reduce((sum, m) => sum + m.productivityScore, 0) / totalMembers;
-      const teamCompletionRate = memberProductivity.reduce((sum, m) => sum + m.completionRate, 0) / totalMembers;
+      const avgProductivityScore =
+        memberProductivity.reduce((sum, m) => sum + m.productivityScore, 0) / totalMembers;
+      const teamCompletionRate =
+        memberProductivity.reduce((sum, m) => sum + m.completionRate, 0) / totalMembers;
 
       // Get top performers
       const topPerformers = [...memberProductivity]
@@ -503,9 +539,9 @@ export class DashboardService {
           activeMembers: activeMembers,
           averageProductivityScore: Math.round(avgProductivityScore),
           totalTasksCompleted: totalTasksCompleted,
-          teamCompletionRate: Math.round(teamCompletionRate)
+          teamCompletionRate: Math.round(teamCompletionRate),
         },
-        topPerformers: topPerformers
+        topPerformers: topPerformers,
       };
     } catch (error) {
       console.error('Error fetching team productivity:', error);
@@ -516,17 +552,21 @@ export class DashboardService {
           activeMembers: 0,
           averageProductivityScore: 0,
           totalTasksCompleted: 0,
-          teamCompletionRate: 0
+          teamCompletionRate: 0,
         },
-        topPerformers: []
+        topPerformers: [],
       };
     }
   }
 
-  private async getProjectAnalytics(workspaceId: string, startDate: Date, endDate: Date): Promise<any> {
+  private async getProjectAnalytics(
+    workspaceId: string,
+    startDate: Date,
+    endDate: Date,
+  ): Promise<any> {
     try {
       const projectsResult = await this.db.findMany('projects', {
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
 
       const projects = projectsResult.data || [];
@@ -536,11 +576,14 @@ export class DashboardService {
       const projectMetrics = [];
 
       // If no projects, create some mock data
-      const projectsToProcess = projects.length > 0 ? projects : [
-        { id: '1', name: 'Website Redesign', status: 'ACTIVE', created_at: new Date() },
-        { id: '2', name: 'Mobile App', status: 'ACTIVE', created_at: new Date() },
-        { id: '3', name: 'API Development', status: 'COMPLETED', created_at: new Date() }
-      ];
+      const projectsToProcess =
+        projects.length > 0
+          ? projects
+          : [
+              { id: '1', name: 'Website Redesign', status: 'ACTIVE', created_at: new Date() },
+              { id: '2', name: 'Mobile App', status: 'ACTIVE', created_at: new Date() },
+              { id: '3', name: 'API Development', status: 'COMPLETED', created_at: new Date() },
+            ];
 
       let activeCount = 0;
       let completedCount = 0;
@@ -576,13 +619,14 @@ export class DashboardService {
           completionRate: progress,
           averageTaskCompletionTime: Math.round((Math.random() * 48 + 12) * 10) / 10,
           riskLevel: riskLevel,
-          lastActivity: new Date().toISOString()
+          lastActivity: new Date().toISOString(),
         });
       }
 
       const totalProjects = projectMetrics.length;
       const averageProgress = totalProjects > 0 ? totalProgress / totalProjects : 0;
-      const averageCompletionRate = projectMetrics.reduce((sum, p) => sum + p.completionRate, 0) / (totalProjects || 1);
+      const averageCompletionRate =
+        projectMetrics.reduce((sum, p) => sum + p.completionRate, 0) / (totalProjects || 1);
 
       return {
         projects: projectMetrics,
@@ -594,13 +638,13 @@ export class DashboardService {
           cancelledProjects: cancelledCount,
           averageProgress: Math.round(averageProgress),
           averageCompletionRate: Math.round(averageCompletionRate),
-          projectsAtRisk: projectsAtRisk
+          projectsAtRisk: projectsAtRisk,
         },
         trends: {
           projectCompletionTrend: 15.2, // Mock positive trend
           averageTaskTimeTrend: -5.3, // Mock improvement (negative is good)
-          teamProductivityTrend: 8.7 // Mock positive trend
-        }
+          teamProductivityTrend: 8.7, // Mock positive trend
+        },
       };
     } catch (error) {
       console.error('Error fetching project analytics:', error);
@@ -614,13 +658,13 @@ export class DashboardService {
           cancelledProjects: 0,
           averageProgress: 0,
           averageCompletionRate: 0,
-          projectsAtRisk: 0
+          projectsAtRisk: 0,
         },
         trends: {
           projectCompletionTrend: 0,
           averageTaskTimeTrend: 0,
-          teamProductivityTrend: 0
-        }
+          teamProductivityTrend: 0,
+        },
       };
     }
   }
@@ -640,7 +684,11 @@ export class DashboardService {
    * - Projects: At-risk projects, milestone deadlines, inactive projects
    * - Team: Inactive members, engagement drops, celebrations
    */
-  async getSuggestions(workspaceId: string, userId: string, userLanguage: string = 'en'): Promise<SuggestionsResponse> {
+  async getSuggestions(
+    workspaceId: string,
+    userId: string,
+    userLanguage: string = 'en',
+  ): Promise<SuggestionsResponse> {
     // Verify user has access to this workspace
     await this.verifyWorkspaceAccess(workspaceId, userId);
 
@@ -655,16 +703,25 @@ export class DashboardService {
 
     // Generate AI-powered suggestions using LangChain with OpenAI
     try {
-      this.logger.log(`[Dashboard] Generating LangChain AI suggestions for user ${userId} in ${userLanguage}`);
-      const langchainResult = await this.langchainSuggestionsService.generateSmartSuggestions(contextData, userLanguage);
+      this.logger.log(
+        `[Dashboard] Generating LangChain AI suggestions for user ${userId} in ${userLanguage}`,
+      );
+      const langchainResult = await this.langchainSuggestionsService.generateSmartSuggestions(
+        contextData,
+        userLanguage,
+      );
 
       if (langchainResult.suggestions.length > 0) {
-        this.logger.log(`[Dashboard] LangChain generated ${langchainResult.suggestions.length} AI suggestions`);
+        this.logger.log(
+          `[Dashboard] LangChain generated ${langchainResult.suggestions.length} AI suggestions`,
+        );
         // Add AI-generated suggestions first (they are already prioritized)
         suggestions.push(...langchainResult.suggestions);
       }
     } catch (error) {
-      this.logger.warn(`[Dashboard] LangChain suggestions failed, falling back to rule-based: ${error.message}`);
+      this.logger.warn(
+        `[Dashboard] LangChain suggestions failed, falling back to rule-based: ${error.message}`,
+      );
     }
 
     // Fetch rule-based suggestion types in parallel as fallback/supplement
@@ -684,7 +741,7 @@ export class DashboardService {
       analyticsSuggestions,
       // Owner/Admin only suggestions
       teamSuggestions,
-      billingSuggestions
+      billingSuggestions,
     ] = await Promise.all([
       // Core (all users)
       this.getTaskBalanceSuggestions(workspaceId),
@@ -701,11 +758,11 @@ export class DashboardService {
       this.getAnalyticsSuggestions(workspaceId, userId),
       // Owner/Admin only - pass userId to exclude self from inactive member suggestions
       isOwnerOrAdmin ? this.getTeamSuggestions(workspaceId, userId) : Promise.resolve([]),
-      isOwnerOrAdmin ? this.getBillingSuggestions(workspaceId, userId) : Promise.resolve([])
+      isOwnerOrAdmin ? this.getBillingSuggestions(workspaceId, userId) : Promise.resolve([]),
     ]);
 
     // Get existing AI suggestion IDs to avoid duplicates
-    const aiSuggestionTypes = new Set(suggestions.map(s => s.type));
+    const aiSuggestionTypes = new Set(suggestions.map((s) => s.type));
 
     // Aggregate rule-based suggestions (skip types already covered by AI)
     if (!aiSuggestionTypes.has('task_balance')) suggestions.push(...taskBalanceSuggestions);
@@ -729,7 +786,7 @@ export class DashboardService {
     return {
       suggestions,
       totalCount: suggestions.length,
-      generatedAt: now.toISOString()
+      generatedAt: now.toISOString(),
     };
   }
 
@@ -739,7 +796,7 @@ export class DashboardService {
   private async gatherUserContext(
     workspaceId: string,
     userId: string,
-    isOwnerOrAdmin: boolean
+    isOwnerOrAdmin: boolean,
   ): Promise<UserContextData> {
     const now = new Date();
     const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
@@ -762,26 +819,33 @@ export class DashboardService {
       let assignedTasks: any[] = [];
 
       if (projectIds.length > 0) {
-        const tasksResult = await this.db.table('tasks')
+        const tasksResult = await this.db
+          .table('tasks')
           .select('*')
           .execute()
           .catch(() => ({ data: [] }));
         const allTasks = Array.isArray(tasksResult.data) ? tasksResult.data : [];
         const projectTasks = allTasks.filter((t: any) => projectIds.includes(t.project_id));
 
-        overdueTasks = projectTasks.filter((t: any) =>
-          t.due_date && new Date(t.due_date) < now && t.status !== 'done'
+        overdueTasks = projectTasks.filter(
+          (t: any) => t.due_date && new Date(t.due_date) < now && t.status !== 'done',
         );
-        dueSoonTasks = projectTasks.filter((t: any) =>
-          t.due_date && new Date(t.due_date) >= now && new Date(t.due_date) <= threeDaysFromNow && t.status !== 'done'
+        dueSoonTasks = projectTasks.filter(
+          (t: any) =>
+            t.due_date &&
+            new Date(t.due_date) >= now &&
+            new Date(t.due_date) <= threeDaysFromNow &&
+            t.status !== 'done',
         );
-        assignedTasks = projectTasks.filter((t: any) =>
-          t.assigned_to && Array.isArray(t.assigned_to) && t.assigned_to.includes(userId)
+        assignedTasks = projectTasks.filter(
+          (t: any) =>
+            t.assigned_to && Array.isArray(t.assigned_to) && t.assigned_to.includes(userId),
         );
       }
 
       // Get meetings
-      const callsResult = await this.db.table('video_calls')
+      const callsResult = await this.db
+        .table('video_calls')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
@@ -789,11 +853,12 @@ export class DashboardService {
       const workspaceCalls = allCalls.filter((c: any) => c.workspace_id === workspaceId);
 
       const activeMeetings = workspaceCalls.filter((c: any) => c.status === 'active');
-      const upcomingMeetings = workspaceCalls.filter((c: any) =>
-        c.status === 'scheduled' &&
-        c.scheduled_start_time &&
-        new Date(c.scheduled_start_time) <= thirtyMinutesFromNow &&
-        new Date(c.scheduled_start_time) >= now
+      const upcomingMeetings = workspaceCalls.filter(
+        (c: any) =>
+          c.status === 'scheduled' &&
+          c.scheduled_start_time &&
+          new Date(c.scheduled_start_time) <= thirtyMinutesFromNow &&
+          new Date(c.scheduled_start_time) >= now,
       );
 
       // Get unread messages (simplified)
@@ -803,7 +868,7 @@ export class DashboardService {
       // Get team members
       const membersResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
       const members = membersResult.data || [];
 
@@ -817,35 +882,35 @@ export class DashboardService {
           overdue: overdueTasks.slice(0, 10),
           dueSoon: dueSoonTasks.slice(0, 10),
           assigned: assignedTasks.slice(0, 10),
-          created: []
+          created: [],
         },
         meetings: {
           active: activeMeetings,
           upcoming: upcomingMeetings,
-          missed: []
+          missed: [],
         },
         messages: {
           unread: unreadMessages,
-          mentions: mentions
+          mentions: mentions,
         },
         calendar: {
           conflicts: [],
-          upcoming: []
+          upcoming: [],
         },
         projects: {
           atRisk: projects.filter((p: any) => p.status === 'at_risk'),
           inactive: [],
-          memberships: projects
+          memberships: projects,
         },
         team: {
           members: members,
-          inactiveMembers: isOwnerOrAdmin ? inactiveMembers : []
+          inactiveMembers: isOwnerOrAdmin ? inactiveMembers : [],
         },
         userProfile: {
           name: metadata.name || profileData?.full_name || profileData?.email || 'User',
           role: isOwnerOrAdmin ? 'Admin' : 'Member',
-          recentActivity: []
-        }
+          recentActivity: [],
+        },
       };
     } catch (error) {
       this.logger.error(`[Dashboard] Failed to gather user context: ${error.message}`);
@@ -859,7 +924,7 @@ export class DashboardService {
         calendar: { conflicts: [], upcoming: [] },
         projects: { atRisk: [], inactive: [], memberships: [] },
         team: { members: [], inactiveMembers: [] },
-        userProfile: { name: 'User', role: 'Member', recentActivity: [] }
+        userProfile: { name: 'User', role: 'Member', recentActivity: [] },
       };
     }
   }
@@ -881,7 +946,7 @@ export class DashboardService {
         // Get project members (not workspace members)
         const projectMembersResult = await this.db.findMany('project_members', {
           project_id: project.id,
-          is_active: true
+          is_active: true,
         });
         const projectMembers = projectMembersResult.data || [];
 
@@ -895,12 +960,13 @@ export class DashboardService {
         }
 
         // Get tasks for this project (only non-completed tasks)
-        const tasksResult = await this.db.table('tasks')
+        const tasksResult = await this.db
+          .table('tasks')
           .select('*')
           .where('project_id', '=', project.id)
           .execute()
           .catch(() => ({ data: [] }));
-        console.log("taskresult",tasksResult)
+        console.log('taskresult', tasksResult);
         const allTasks = Array.isArray(tasksResult.data) ? tasksResult.data : [];
 
         // Get project's kanban stages to determine which stage is the "done" stage (last stage by order)
@@ -909,19 +975,21 @@ export class DashboardService {
 
         if (kanbanStages.length > 0) {
           // Sort stages by order and get the last one (done stage)
-          const sortedStages = [...kanbanStages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+          const sortedStages = [...kanbanStages].sort(
+            (a: any, b: any) => (a.order || 0) - (b.order || 0),
+          );
           const lastStage = sortedStages[sortedStages.length - 1];
           doneStageId = lastStage?.id;
         }
 
         // Filter out tasks in the done stage (last stage)
-        const activeTasks = allTasks.filter(t => {
+        const activeTasks = allTasks.filter((t) => {
           if (doneStageId === null) return true; // No stages defined, include all tasks
           const taskStatus = t.status;
           // Compare as both original type and string for flexibility
           return taskStatus !== doneStageId && String(taskStatus) !== String(doneStageId);
         });
-        console.log("activetasks",activeTasks)
+        console.log('activetasks', activeTasks);
         // Skip if no active tasks
         if (activeTasks.length === 0) continue;
 
@@ -964,16 +1032,16 @@ export class DashboardService {
         // Calculate if there's a significant imbalance
         // Imbalance exists if: difference > 1 AND (overloaded has 50% more than ideal OR underloaded has 50% less than ideal)
         const taskDifference = mostOverloaded.count - leastLoaded.count;
-        const isSignificantImbalance = taskDifference >= 2 && (
-          mostOverloaded.count > idealTasksPerMember * 1.5 ||
-          (leastLoaded.count < idealTasksPerMember * 0.5 && idealTasksPerMember >= 1)
-        );
+        const isSignificantImbalance =
+          taskDifference >= 2 &&
+          (mostOverloaded.count > idealTasksPerMember * 1.5 ||
+            (leastLoaded.count < idealTasksPerMember * 0.5 && idealTasksPerMember >= 1));
 
         if (isSignificantImbalance) {
           // Fetch user details using database
           const [overloadedUserProfile, underloadedUserProfile] = await Promise.all([
             this.db.getUserById(mostOverloaded.userId),
-            this.db.getUserById(leastLoaded.userId)
+            this.db.getUserById(leastLoaded.userId),
           ]);
 
           // Extract user name and avatar from profile
@@ -982,7 +1050,8 @@ export class DashboardService {
           if (overloadedUserProfile) {
             const profile = overloadedUserProfile as any;
             const metadata = profile.metadata || {};
-            overloadedName = metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
+            overloadedName =
+              metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
             overloadedAvatar = profile.avatar_url || null;
           }
 
@@ -991,7 +1060,8 @@ export class DashboardService {
           if (underloadedUserProfile) {
             const profile = underloadedUserProfile as any;
             const metadata = profile.metadata || {};
-            underloadedName = metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
+            underloadedName =
+              metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
             underloadedAvatar = profile.avatar_url || null;
           }
 
@@ -1013,7 +1083,7 @@ export class DashboardService {
             underloadedTaskCount: leastLoaded.count,
             idealTasksPerMember: Math.round(idealTasksPerMember),
             totalTasks: activeTasks.length,
-            totalMembers: projectMembers.length
+            totalMembers: projectMembers.length,
           });
 
           suggestions.push({
@@ -1021,7 +1091,9 @@ export class DashboardService {
             type: 'task_balance',
             priority,
             title: aiSuggestion?.title || `Task Imbalance in ${project.name}`,
-            description: aiSuggestion?.description || `${overloadedName} has ${mostOverloaded.count} tasks while ${underloadedName} has ${leastLoaded.count}. Ideal is ~${Math.round(idealTasksPerMember)} tasks per member.`,
+            description:
+              aiSuggestion?.description ||
+              `${overloadedName} has ${mostOverloaded.count} tasks while ${underloadedName} has ${leastLoaded.count}. Ideal is ~${Math.round(idealTasksPerMember)} tasks per member.`,
             actionLabel: aiSuggestion?.actionLabel || 'View Project',
             actionUrl: `/projects/${project.id}`,
             metadata: {
@@ -1034,17 +1106,17 @@ export class DashboardService {
                 userId: mostOverloaded.userId,
                 userName: overloadedName,
                 userAvatar: overloadedAvatar,
-                taskCount: mostOverloaded.count
+                taskCount: mostOverloaded.count,
               },
               underloaded: {
                 userId: leastLoaded.userId,
                 userName: underloadedName,
                 userAvatar: underloadedAvatar,
-                taskCount: leastLoaded.count
+                taskCount: leastLoaded.count,
               },
-              aiRecommendation: aiSuggestion?.recommendation
+              aiRecommendation: aiSuggestion?.recommendation,
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -1075,7 +1147,12 @@ export class DashboardService {
     minutesUntilStart?: number;
     unreadCount?: number;
     channelName?: string;
-  }): Promise<{ title: string; description: string; actionLabel: string; recommendation?: string } | null> {
+  }): Promise<{
+    title: string;
+    description: string;
+    actionLabel: string;
+    recommendation?: string;
+  } | null> {
     try {
       let prompt = '';
 
@@ -1119,7 +1196,7 @@ Respond with ONLY valid JSON:
       }
 
       const response = await this.aiProvider.generateText(prompt, {
-        saveToDatabase: false
+        saveToDatabase: false,
       });
 
       // Parse the AI response
@@ -1147,7 +1224,7 @@ Respond with ONLY valid JSON:
         title: parsed.title || null,
         description: parsed.description || null,
         actionLabel: parsed.actionLabel || null,
-        recommendation: parsed.recommendation || null
+        recommendation: parsed.recommendation || null,
       };
     } catch (error) {
       console.error('Error generating AI suggestion:', error);
@@ -1163,13 +1240,14 @@ Respond with ONLY valid JSON:
 
     try {
       // Get video calls for this workspace
-      const callsResult = await this.db.table('video_calls')
+      const callsResult = await this.db
+        .table('video_calls')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
 
       const allCalls = Array.isArray(callsResult.data) ? callsResult.data : [];
-      const workspaceCalls = allCalls.filter(call => call.workspace_id === workspaceId);
+      const workspaceCalls = allCalls.filter((call) => call.workspace_id === workspaceId);
 
       const now = new Date();
       const fifteenMinutesLater = new Date(now.getTime() + 15 * 60 * 1000);
@@ -1192,10 +1270,10 @@ Respond with ONLY valid JSON:
                 status: call.status,
                 callType: call.call_type || 'video',
                 scheduledStartTime: call.scheduled_start_time,
-                scheduledEndTime: call.scheduled_end_time
-              }
+                scheduledEndTime: call.scheduled_end_time,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
 
@@ -1221,10 +1299,10 @@ Respond with ONLY valid JSON:
                   callType: call.call_type || 'video',
                   scheduledStartTime: call.scheduled_start_time,
                   scheduledEndTime: call.scheduled_end_time,
-                  minutesUntilStart: Math.ceil(minutesUntilStart)
-                }
+                  minutesUntilStart: Math.ceil(minutesUntilStart),
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -1239,19 +1317,23 @@ Respond with ONLY valid JSON:
   /**
    * Get unread message suggestions for channels and conversations
    */
-  private async getUnreadMessageSuggestions(workspaceId: string, userId: string): Promise<Suggestion[]> {
+  private async getUnreadMessageSuggestions(
+    workspaceId: string,
+    userId: string,
+  ): Promise<Suggestion[]> {
     const suggestions: Suggestion[] = [];
 
     try {
       // Get channels for this workspace (exclude archived channels)
       const channelsResult = await this.db.findMany('channels', {
         workspace_id: workspaceId,
-        is_archived: false
+        is_archived: false,
       });
       const channels = channelsResult.data || [];
 
       // Get channel memberships for this user (this contains last_read_at)
-      const membershipResult = await this.db.table('channel_members')
+      const membershipResult = await this.db
+        .table('channel_members')
         .select('*')
         .where('user_id', '=', userId)
         .where('is_active', '=', true)
@@ -1270,17 +1352,20 @@ Respond with ONLY valid JSON:
         // Skip channels where user is not a member
         if (!membership) continue;
 
-        const lastReadAt = membership.last_read_at ? new Date(membership.last_read_at) : new Date(0);
+        const lastReadAt = membership.last_read_at
+          ? new Date(membership.last_read_at)
+          : new Date(0);
 
         // Count messages after last read
-        const messagesResult = await this.db.table('messages')
+        const messagesResult = await this.db
+          .table('messages')
           .select('*')
           .where('channel_id', '=', channel.id)
           .execute()
           .catch(() => ({ data: [] }));
 
         const messages = Array.isArray(messagesResult.data) ? messagesResult.data : [];
-        const unreadMessages = messages.filter(msg => {
+        const unreadMessages = messages.filter((msg) => {
           const msgDate = new Date(msg.created_at);
           return msgDate > lastReadAt && msg.user_id !== userId;
         });
@@ -1289,7 +1374,8 @@ Respond with ONLY valid JSON:
           suggestions.push({
             id: `unread-channel-${channel.id}`,
             type: 'unread_message',
-            priority: unreadMessages.length > 10 ? 'high' : unreadMessages.length > 5 ? 'medium' : 'low',
+            priority:
+              unreadMessages.length > 10 ? 'high' : unreadMessages.length > 5 ? 'medium' : 'low',
             title: `Unread messages in #${channel.name}`,
             description: `${unreadMessages.length} unread ${unreadMessages.length === 1 ? 'message' : 'messages'}`,
             actionLabel: 'View Messages',
@@ -1300,46 +1386,53 @@ Respond with ONLY valid JSON:
                 name: channel.name,
                 type: 'channel' as const,
                 unreadCount: unreadMessages.length,
-                isPrivate: channel.is_private
-              }
+                isPrivate: channel.is_private,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
 
       // Get conversation memberships for this user (this contains last_read_at)
-      const convMembershipResult = await this.db.table('conversation_members')
+      const convMembershipResult = await this.db
+        .table('conversation_members')
         .select('*')
         .where('user_id', '=', userId)
         .execute()
         .catch(() => ({ data: [] }));
 
-      const convMemberships = Array.isArray(convMembershipResult.data) ? convMembershipResult.data : [];
+      const convMemberships = Array.isArray(convMembershipResult.data)
+        ? convMembershipResult.data
+        : [];
       const convMembershipMap = new Map<string, any>();
       for (const membership of convMemberships) {
         convMembershipMap.set(membership.conversation_id, membership);
       }
 
       // Get conversations (DMs) that user is a member of
-      const conversationsResult = await this.db.table('conversations')
+      const conversationsResult = await this.db
+        .table('conversations')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
 
-      const allConversations = Array.isArray(conversationsResult.data) ? conversationsResult.data : [];
+      const allConversations = Array.isArray(conversationsResult.data)
+        ? conversationsResult.data
+        : [];
       // Filter conversations: must be in workspace, user must be participant, and must be active (not deleted/archived)
-      const userConversations = allConversations.filter(conv =>
-        conv.workspace_id === workspaceId &&
-        convMembershipMap.has(conv.id) && // User must be a member
-        conv.is_active !== false &&
-        conv.is_archived !== true
+      const userConversations = allConversations.filter(
+        (conv) =>
+          conv.workspace_id === workspaceId &&
+          convMembershipMap.has(conv.id) && // User must be a member
+          conv.is_active !== false &&
+          conv.is_archived !== true,
       );
 
       // Get workspace members for name lookup
       const membersResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
       const members = membersResult.data || [];
       const memberMap = new Map<string, any>();
@@ -1351,7 +1444,8 @@ Respond with ONLY valid JSON:
         const convMembership = convMembershipMap.get(conversation.id);
 
         // Get unread count for this conversation
-        const convMessagesResult = await this.db.table('conversation_messages')
+        const convMessagesResult = await this.db
+          .table('conversation_messages')
           .select('*')
           .where('conversation_id', '=', conversation.id)
           .execute()
@@ -1359,16 +1453,19 @@ Respond with ONLY valid JSON:
 
         const convMessages = Array.isArray(convMessagesResult.data) ? convMessagesResult.data : [];
         // Use membership last_read_at instead of conversation last_read_at
-        const lastRead = convMembership?.last_read_at ? new Date(convMembership.last_read_at) : new Date(0);
+        const lastRead = convMembership?.last_read_at
+          ? new Date(convMembership.last_read_at)
+          : new Date(0);
 
-        const unreadCount = convMessages.filter(msg => {
+        const unreadCount = convMessages.filter((msg) => {
           const msgDate = new Date(msg.created_at);
           return msgDate > lastRead && msg.sender_id !== userId;
         }).length;
 
         if (unreadCount > 0) {
           // Find the other participant's name
-          const otherUserId = conversation.participants?.find((id: string) => id !== userId) ||
+          const otherUserId =
+            conversation.participants?.find((id: string) => id !== userId) ||
             (conversation.user_id !== userId ? conversation.user_id : conversation.other_user_id);
           const otherMember = memberMap.get(otherUserId);
           const otherName = otherMember?.user?.name || otherMember?.name || 'Direct Message';
@@ -1386,10 +1483,10 @@ Respond with ONLY valid JSON:
                 id: conversation.id,
                 name: otherName,
                 type: 'conversation' as const,
-                unreadCount
-              }
+                unreadCount,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -1421,13 +1518,14 @@ Respond with ONLY valid JSON:
       if (projectIds.length === 0) return suggestions;
 
       // Get all tasks
-      const tasksResult = await this.db.table('tasks')
+      const tasksResult = await this.db
+        .table('tasks')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
 
       const allTasks = Array.isArray(tasksResult.data) ? tasksResult.data : [];
-      const workspaceTasks = allTasks.filter(t => projectIds.includes(t.project_id));
+      const workspaceTasks = allTasks.filter((t) => projectIds.includes(t.project_id));
 
       // Build a map of project done stage IDs (last stage by order is done)
       const projectDoneStageMap = new Map<string, string | number | null>();
@@ -1435,7 +1533,9 @@ Respond with ONLY valid JSON:
         const kanbanStages = project.kanban_stages || [];
         let doneStageId: string | number | null = null;
         if (kanbanStages.length > 0) {
-          const sortedStages = [...kanbanStages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+          const sortedStages = [...kanbanStages].sort(
+            (a: any, b: any) => (a.order || 0) - (b.order || 0),
+          );
           const lastStage = sortedStages[sortedStages.length - 1];
           doneStageId = lastStage?.id;
         }
@@ -1447,7 +1547,10 @@ Respond with ONLY valid JSON:
       for (const task of workspaceTasks) {
         // Skip tasks in the done stage (last stage of their project)
         const doneStageId = projectDoneStageMap.get(task.project_id);
-        if (doneStageId !== null && (task.status === doneStageId || String(task.status) === String(doneStageId))) {
+        if (
+          doneStageId !== null &&
+          (task.status === doneStageId || String(task.status) === String(doneStageId))
+        ) {
           continue;
         }
 
@@ -1455,7 +1558,9 @@ Respond with ONLY valid JSON:
         if (task.due_date) {
           const dueDate = new Date(task.due_date);
           if (dueDate < now) {
-            const daysOverdue = Math.ceil((now.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24));
+            const daysOverdue = Math.ceil(
+              (now.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24),
+            );
             const project = projectMap.get(task.project_id);
 
             // Generate AI-powered suggestion for high-priority overdue tasks
@@ -1465,7 +1570,7 @@ Respond with ONLY valid JSON:
                 type: 'overdue_task',
                 taskTitle: task.title,
                 daysOverdue,
-                projectName: project?.name
+                projectName: project?.name,
               });
             }
 
@@ -1474,7 +1579,9 @@ Respond with ONLY valid JSON:
               type: 'overdue_task',
               priority: daysOverdue > 7 ? 'high' : daysOverdue > 3 ? 'medium' : 'low',
               title: aiSuggestion?.title || `Overdue: ${task.title}`,
-              description: aiSuggestion?.description || `This task was due ${daysOverdue} ${daysOverdue === 1 ? 'day' : 'days'} ago in ${project?.name || 'project'}`,
+              description:
+                aiSuggestion?.description ||
+                `This task was due ${daysOverdue} ${daysOverdue === 1 ? 'day' : 'days'} ago in ${project?.name || 'project'}`,
               actionLabel: aiSuggestion?.actionLabel || 'View Task',
               actionUrl: `/projects/${task.project_id}/tasks/${task.id}`,
               metadata: {
@@ -1484,9 +1591,9 @@ Respond with ONLY valid JSON:
                 projectName: project?.name,
                 dueDate: task.due_date,
                 daysOverdue,
-                aiRecommendation: aiSuggestion?.recommendation
+                aiRecommendation: aiSuggestion?.recommendation,
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -1515,14 +1622,14 @@ Respond with ONLY valid JSON:
       // Get all files for this workspace
       const filesResult = await this.db.findMany('files', {
         workspace_id: workspaceId,
-        is_deleted: false
+        is_deleted: false,
       });
       const files = filesResult.data || [];
 
       // Get all folders for this workspace
       const foldersResult = await this.db.findMany('folders', {
         workspace_id: workspaceId,
-        is_deleted: false
+        is_deleted: false,
       });
       const folders = foldersResult.data || [];
 
@@ -1537,7 +1644,8 @@ Respond with ONLY valid JSON:
       const usagePercentage = (totalStorageUsed / storageLimit) * 100;
 
       if (usagePercentage >= 20) {
-        const priority: 'high' | 'medium' | 'low' = usagePercentage >= 80 ? 'high' : usagePercentage >= 50 ? 'medium' : 'low';
+        const priority: 'high' | 'medium' | 'low' =
+          usagePercentage >= 80 ? 'high' : usagePercentage >= 50 ? 'medium' : 'low';
         suggestions.push({
           id: `storage-warning-${workspaceId}`,
           type: 'storage_warning',
@@ -1551,17 +1659,19 @@ Respond with ONLY valid JSON:
               storageUsed: totalStorageUsed,
               storageLimit,
               usagePercentage: Math.round(usagePercentage),
-              fileCount: files.length
-            }
+              fileCount: files.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 2. Large files - files over 100MB
-      const largeFiles = files.filter(file => (parseInt(file.size) || 0) > 100 * 1024 * 1024);
+      const largeFiles = files.filter((file) => (parseInt(file.size) || 0) > 100 * 1024 * 1024);
       if (largeFiles.length > 0) {
-        const largestFile = largeFiles.sort((a, b) => (parseInt(b.size) || 0) - (parseInt(a.size) || 0))[0];
+        const largestFile = largeFiles.sort(
+          (a, b) => (parseInt(b.size) || 0) - (parseInt(a.size) || 0),
+        )[0];
         suggestions.push({
           id: `large-files-${workspaceId}`,
           type: 'large_files',
@@ -1575,15 +1685,15 @@ Respond with ONLY valid JSON:
               fileId: largestFile.id,
               fileName: largestFile.name,
               fileSize: parseInt(largestFile.size),
-              fileCount: largeFiles.length
-            }
+              fileCount: largeFiles.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 3. Orphaned files - files not in any folder (root-level clutter)
-      const rootFiles = files.filter(file => !file.folder_id);
+      const rootFiles = files.filter((file) => !file.folder_id);
       if (rootFiles.length > 20) {
         suggestions.push({
           id: `orphaned-files-${workspaceId}`,
@@ -1595,15 +1705,15 @@ Respond with ONLY valid JSON:
           actionUrl: '/files',
           metadata: {
             file: {
-              fileCount: rootFiles.length
-            }
+              fileCount: rootFiles.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 4. Files not shared - important files that could be shared
-      const unsharedFiles = files.filter(file => !file.is_shared && file.size > 1024 * 1024); // >1MB and not shared
+      const unsharedFiles = files.filter((file) => !file.is_shared && file.size > 1024 * 1024); // >1MB and not shared
       if (unsharedFiles.length > 10) {
         suggestions.push({
           id: `file-sharing-${workspaceId}`,
@@ -1615,10 +1725,10 @@ Respond with ONLY valid JSON:
           actionUrl: '/files',
           metadata: {
             file: {
-              fileCount: unsharedFiles.length
-            }
+              fileCount: unsharedFiles.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
     } catch (error) {
@@ -1651,13 +1761,16 @@ Respond with ONLY valid JSON:
 
     try {
       // Get calendar events for this workspace
-      const eventsResult = await this.db.table('calendar_events')
+      const eventsResult = await this.db
+        .table('calendar_events')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
 
       const allEvents = Array.isArray(eventsResult.data) ? eventsResult.data : [];
-      const workspaceEvents = allEvents.filter(e => e.workspace_id === workspaceId && !e.is_deleted);
+      const workspaceEvents = allEvents.filter(
+        (e) => e.workspace_id === workspaceId && !e.is_deleted,
+      );
 
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -1665,17 +1778,22 @@ Respond with ONLY valid JSON:
       const nextWeek = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
 
       // Get user's events (as attendee or organizer)
-      const userEvents = workspaceEvents.filter(event => {
-        return event.organizer_id === userId ||
-          (event.attendees && event.attendees.some((a: any) => a.user_id === userId || a.userId === userId));
+      const userEvents = workspaceEvents.filter((event) => {
+        return (
+          event.organizer_id === userId ||
+          (event.attendees &&
+            event.attendees.some((a: any) => a.user_id === userId || a.userId === userId))
+        );
       });
 
       // 1. Upcoming events in next 24 hours
-      const upcomingEvents = userEvents.filter(event => {
-        if (!event.start_time) return false;
-        const startTime = new Date(event.start_time);
-        return startTime >= now && startTime < tomorrow;
-      }).sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
+      const upcomingEvents = userEvents
+        .filter((event) => {
+          if (!event.start_time) return false;
+          const startTime = new Date(event.start_time);
+          return startTime >= now && startTime < tomorrow;
+        })
+        .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
 
       for (const event of upcomingEvents.slice(0, 3)) {
         const startTime = new Date(event.start_time);
@@ -1698,17 +1816,17 @@ Respond with ONLY valid JSON:
                 endTime: event.end_time,
                 location: event.location,
                 minutesUntilStart,
-                isRecurring: !!event.recurrence_rule
-              }
+                isRecurring: !!event.recurrence_rule,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
 
       // 2. Calendar conflicts detection
       const futureEvents = userEvents
-        .filter(event => event.start_time && new Date(event.start_time) >= now)
+        .filter((event) => event.start_time && new Date(event.start_time) >= now)
         .sort((a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime());
 
       for (let i = 0; i < futureEvents.length - 1; i++) {
@@ -1735,10 +1853,10 @@ Respond with ONLY valid JSON:
                 startTime: currentEvent.start_time,
                 endTime: currentEvent.end_time,
                 conflictingEventId: nextEvent.id,
-                conflictingEventTitle: nextEvent.title
-              }
+                conflictingEventTitle: nextEvent.title,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
           break; // Only report first conflict to avoid spam
         }
@@ -1746,10 +1864,15 @@ Respond with ONLY valid JSON:
 
       // 3. Missed events (past events user didn't attend - within last 24 hours)
       const yesterday = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-      const missedEvents = userEvents.filter(event => {
+      const missedEvents = userEvents.filter((event) => {
         if (!event.start_time) return false;
         const startTime = new Date(event.start_time);
-        return startTime >= yesterday && startTime < now && event.status !== 'completed' && event.status !== 'cancelled';
+        return (
+          startTime >= yesterday &&
+          startTime < now &&
+          event.status !== 'completed' &&
+          event.status !== 'cancelled'
+        );
       });
 
       if (missedEvents.length > 0) {
@@ -1766,15 +1889,15 @@ Respond with ONLY valid JSON:
             calendar: {
               eventId: mostRecent.id,
               eventTitle: mostRecent.title,
-              startTime: mostRecent.start_time
-            }
+              startTime: mostRecent.start_time,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 4. Event reminders for events this week
-      const thisWeekEvents = userEvents.filter(event => {
+      const thisWeekEvents = userEvents.filter((event) => {
         if (!event.start_time) return false;
         const startTime = new Date(event.start_time);
         return startTime >= tomorrow && startTime < nextWeek;
@@ -1791,10 +1914,10 @@ Respond with ONLY valid JSON:
           actionUrl: '/calendar',
           metadata: {
             calendar: {
-              attendeeCount: thisWeekEvents.length
-            }
+              attendeeCount: thisWeekEvents.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
     } catch (error) {
@@ -1817,7 +1940,7 @@ Respond with ONLY valid JSON:
     try {
       // Get all notes for this workspace
       const notesResult = await this.db.findMany('notes', {
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
       const notes = (notesResult.data || []).filter((n: any) => !n.is_deleted && !n.is_archived);
 
@@ -1826,7 +1949,9 @@ Respond with ONLY valid JSON:
       const ninetyDaysAgo = new Date(now.getTime() - 90 * 24 * 60 * 60 * 1000);
 
       // Get user's notes
-      const userNotes = notes.filter((note: any) => note.user_id === userId || note.created_by === userId);
+      const userNotes = notes.filter(
+        (note: any) => note.user_id === userId || note.created_by === userId,
+      );
 
       // 1. Stale notes - notes not updated in 90+ days
       const staleNotes = userNotes.filter((note: any) => {
@@ -1835,10 +1960,15 @@ Respond with ONLY valid JSON:
       });
 
       if (staleNotes.length > 0) {
-        const oldestNote = staleNotes.sort((a: any, b: any) =>
-          new Date(a.updated_at || a.created_at).getTime() - new Date(b.updated_at || b.created_at).getTime()
+        const oldestNote = staleNotes.sort(
+          (a: any, b: any) =>
+            new Date(a.updated_at || a.created_at).getTime() -
+            new Date(b.updated_at || b.created_at).getTime(),
         )[0];
-        const daysSinceUpdate = Math.floor((now.getTime() - new Date(oldestNote.updated_at || oldestNote.created_at).getTime()) / (24 * 60 * 60 * 1000));
+        const daysSinceUpdate = Math.floor(
+          (now.getTime() - new Date(oldestNote.updated_at || oldestNote.created_at).getTime()) /
+            (24 * 60 * 60 * 1000),
+        );
 
         suggestions.push({
           id: `stale-notes-${workspaceId}`,
@@ -1854,10 +1984,10 @@ Respond with ONLY valid JSON:
               noteTitle: oldestNote.title || 'Untitled',
               lastModified: oldestNote.updated_at || oldestNote.created_at,
               daysSinceUpdate,
-              noteCount: staleNotes.length
-            }
+              noteCount: staleNotes.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
@@ -1875,10 +2005,10 @@ Respond with ONLY valid JSON:
           metadata: {
             note: {
               unorganizedCount: rootNotes.length,
-              noteCount: userNotes.length
-            }
+              noteCount: userNotes.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
@@ -1890,7 +2020,7 @@ Respond with ONLY valid JSON:
 
       // Get templates
       const templatesResult = await this.db.findMany('note_templates', {
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
       const templates = templatesResult.data || [];
 
@@ -1905,10 +2035,10 @@ Respond with ONLY valid JSON:
           actionUrl: '/notes/templates',
           metadata: {
             note: {
-              noteCount: recentNotes.length
-            }
+              noteCount: recentNotes.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
     } catch (error) {
@@ -1940,7 +2070,8 @@ Respond with ONLY valid JSON:
         const projectId = project.id;
 
         // Get tasks for this project
-        const tasksResult = await this.db.table('tasks')
+        const tasksResult = await this.db
+          .table('tasks')
           .select('*')
           .where('project_id', '=', projectId)
           .execute()
@@ -1952,39 +2083,44 @@ Respond with ONLY valid JSON:
         const kanbanStages = project.kanban_stages || [];
         let doneStageId: string | number | null = null;
         if (kanbanStages.length > 0) {
-          const sortedStages = [...kanbanStages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+          const sortedStages = [...kanbanStages].sort(
+            (a: any, b: any) => (a.order || 0) - (b.order || 0),
+          );
           doneStageId = sortedStages[sortedStages.length - 1]?.id;
         }
 
         // Filter active tasks (not in done stage)
-        const activeTasks = allTasks.filter(t => {
+        const activeTasks = allTasks.filter((t) => {
           if (doneStageId === null) return t.status !== 'completed';
           return t.status !== doneStageId && String(t.status) !== String(doneStageId);
         });
 
-        const completedTasks = allTasks.filter(t => {
+        const completedTasks = allTasks.filter((t) => {
           if (doneStageId === null) return t.status === 'completed';
           return t.status === doneStageId || String(t.status) === String(doneStageId);
         });
 
         // 1. Projects at risk - high % of overdue tasks
-        const overdueTasks = activeTasks.filter(t => {
+        const overdueTasks = activeTasks.filter((t) => {
           if (!t.due_date) return false;
           return new Date(t.due_date) < now;
         });
 
-        const overduePercentage = activeTasks.length > 0 ? (overdueTasks.length / activeTasks.length) * 100 : 0;
+        const overduePercentage =
+          activeTasks.length > 0 ? (overdueTasks.length / activeTasks.length) * 100 : 0;
 
         if (overduePercentage >= 30 && overdueTasks.length >= 3) {
-          const riskLevel = overduePercentage >= 60 ? 'critical' : overduePercentage >= 45 ? 'high' : 'medium';
-          const priority = riskLevel === 'critical' ? 'high' : riskLevel === 'high' ? 'medium' : 'low';
+          const riskLevel =
+            overduePercentage >= 60 ? 'critical' : overduePercentage >= 45 ? 'high' : 'medium';
+          const priority =
+            riskLevel === 'critical' ? 'high' : riskLevel === 'high' ? 'medium' : 'low';
 
           // Generate AI suggestion for at-risk projects
           const aiSuggestion = await this.generateAISuggestion({
             type: 'task_balance', // Reuse for project risk
             projectName: project.name,
             totalTasks: activeTasks.length,
-            overloadedTaskCount: overdueTasks.length
+            overloadedTaskCount: overdueTasks.length,
           } as any);
 
           suggestions.push({
@@ -1992,7 +2128,9 @@ Respond with ONLY valid JSON:
             type: 'project_at_risk',
             priority: priority as 'high' | 'medium' | 'low',
             title: aiSuggestion?.title || `Project "${project.name}" at Risk`,
-            description: aiSuggestion?.description || `${overdueTasks.length} of ${activeTasks.length} tasks are overdue (${Math.round(overduePercentage)}%)`,
+            description:
+              aiSuggestion?.description ||
+              `${overdueTasks.length} of ${activeTasks.length} tasks are overdue (${Math.round(overduePercentage)}%)`,
             actionLabel: aiSuggestion?.actionLabel || 'Review Project',
             actionUrl: `/projects/${projectId}`,
             metadata: {
@@ -2003,18 +2141,23 @@ Respond with ONLY valid JSON:
                 totalTasks: activeTasks.length,
                 completedTasks: completedTasks.length,
                 riskLevel,
-                progress: allTasks.length > 0 ? Math.round((completedTasks.length / allTasks.length) * 100) : 0
+                progress:
+                  allTasks.length > 0
+                    ? Math.round((completedTasks.length / allTasks.length) * 100)
+                    : 0,
               },
-              aiRecommendation: aiSuggestion?.recommendation
+              aiRecommendation: aiSuggestion?.recommendation,
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
 
         // 2. Milestone deadlines - projects with due dates approaching
         if (project.due_date) {
           const dueDate = new Date(project.due_date);
-          const daysUntilDue = Math.ceil((dueDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+          const daysUntilDue = Math.ceil(
+            (dueDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000),
+          );
 
           if (daysUntilDue > 0 && daysUntilDue <= 7) {
             suggestions.push({
@@ -2033,10 +2176,13 @@ Respond with ONLY valid JSON:
                   daysUntilDue,
                   completedTasks: completedTasks.length,
                   totalTasks: allTasks.length,
-                  progress: allTasks.length > 0 ? Math.round((completedTasks.length / allTasks.length) * 100) : 0
-                }
+                  progress:
+                    allTasks.length > 0
+                      ? Math.round((completedTasks.length / allTasks.length) * 100)
+                      : 0,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           } else if (daysUntilDue < 0) {
             const daysOverdue = Math.abs(daysUntilDue);
@@ -2055,10 +2201,10 @@ Respond with ONLY valid JSON:
                   dueDate: project.due_date,
                   daysOverdue,
                   completedTasks: completedTasks.length,
-                  totalTasks: allTasks.length
-                }
+                  totalTasks: allTasks.length,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -2067,8 +2213,15 @@ Respond with ONLY valid JSON:
         const lastActivity = project.updated_at || project.created_at;
         const lastActivityDate = new Date(lastActivity);
 
-        if (lastActivityDate < twoWeeksAgo && activeTasks.length > 0 && project.status !== 'completed' && project.status !== 'archived') {
-          const daysSinceActivity = Math.floor((now.getTime() - lastActivityDate.getTime()) / (24 * 60 * 60 * 1000));
+        if (
+          lastActivityDate < twoWeeksAgo &&
+          activeTasks.length > 0 &&
+          project.status !== 'completed' &&
+          project.status !== 'archived'
+        ) {
+          const daysSinceActivity = Math.floor(
+            (now.getTime() - lastActivityDate.getTime()) / (24 * 60 * 60 * 1000),
+          );
 
           suggestions.push({
             id: `inactive-project-${projectId}`,
@@ -2084,22 +2237,30 @@ Respond with ONLY valid JSON:
                 projectName: project.name,
                 lastActivity,
                 daysSinceActivity,
-                totalTasks: activeTasks.length
-              }
+                totalTasks: activeTasks.length,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
 
         // 4. Project completion celebration
-        if (allTasks.length >= 5 && completedTasks.length === allTasks.length && activeTasks.length === 0) {
+        if (
+          allTasks.length >= 5 &&
+          completedTasks.length === allTasks.length &&
+          activeTasks.length === 0
+        ) {
           // Check if completed recently (within last 24 hours)
-          const lastCompletedTask = completedTasks.sort((a, b) =>
-            new Date(b.completed_at || b.updated_at).getTime() - new Date(a.completed_at || a.updated_at).getTime()
+          const lastCompletedTask = completedTasks.sort(
+            (a, b) =>
+              new Date(b.completed_at || b.updated_at).getTime() -
+              new Date(a.completed_at || a.updated_at).getTime(),
           )[0];
 
           if (lastCompletedTask) {
-            const completedAt = new Date(lastCompletedTask.completed_at || lastCompletedTask.updated_at);
+            const completedAt = new Date(
+              lastCompletedTask.completed_at || lastCompletedTask.updated_at,
+            );
             const hoursSinceCompletion = (now.getTime() - completedAt.getTime()) / (60 * 60 * 1000);
 
             if (hoursSinceCompletion <= 24) {
@@ -2117,10 +2278,10 @@ Respond with ONLY valid JSON:
                     projectName: project.name,
                     completedTasks: completedTasks.length,
                     totalTasks: allTasks.length,
-                    progress: 100
-                  }
+                    progress: 100,
+                  },
                 },
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
               });
             }
           }
@@ -2146,14 +2307,17 @@ Respond with ONLY valid JSON:
    * @param workspaceId - Workspace ID
    * @param requestingUserId - The user requesting suggestions (to exclude from suggestions about themselves)
    */
-  private async getTeamSuggestions(workspaceId: string, requestingUserId: string): Promise<Suggestion[]> {
+  private async getTeamSuggestions(
+    workspaceId: string,
+    requestingUserId: string,
+  ): Promise<Suggestion[]> {
     const suggestions: Suggestion[] = [];
 
     try {
       // Get workspace members
       const membersResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
       const members = membersResult.data || [];
 
@@ -2169,12 +2333,13 @@ Respond with ONLY valid JSON:
       const projectIds = projects.map((p: any) => p.id);
 
       // Get all tasks
-      const tasksResult = await this.db.table('tasks')
+      const tasksResult = await this.db
+        .table('tasks')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
       const allTasks = Array.isArray(tasksResult.data) ? tasksResult.data : [];
-      const workspaceTasks = allTasks.filter(t => projectIds.includes(t.project_id));
+      const workspaceTasks = allTasks.filter((t) => projectIds.includes(t.project_id));
 
       // Analyze each member (exclude the requesting user from analysis for inactive/engagement suggestions)
       const memberStats: Array<{
@@ -2195,18 +2360,19 @@ Respond with ONLY valid JSON:
         if (userProfile) {
           const profile = userProfile as any;
           const metadata = profile.metadata || {};
-          userName = metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
+          userName =
+            metadata.name || profile.full_name || profile.name || profile.email || 'Team member';
           userAvatar = profile.avatar_url || null;
         }
 
         // Calculate last activity
-        const memberTasks = workspaceTasks.filter(t => {
+        const memberTasks = workspaceTasks.filter((t) => {
           const assignees = t.assigned_to || [];
           return assignees.includes(member.user_id);
         });
 
         const recentActivity = memberTasks
-          .filter(t => t.updated_at)
+          .filter((t) => t.updated_at)
           .sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())[0];
 
         const lastActive = recentActivity
@@ -2214,13 +2380,13 @@ Respond with ONLY valid JSON:
           : new Date(member.joined_at || member.created_at);
 
         // Count tasks completed this week vs last week
-        const tasksCompletedThisWeek = memberTasks.filter(t => {
+        const tasksCompletedThisWeek = memberTasks.filter((t) => {
           if (t.status !== 'completed' && !t.completed_at) return false;
           const completedAt = new Date(t.completed_at || t.updated_at);
           return completedAt >= sevenDaysAgo;
         }).length;
 
-        const tasksCompletedLastWeek = memberTasks.filter(t => {
+        const tasksCompletedLastWeek = memberTasks.filter((t) => {
           if (t.status !== 'completed' && !t.completed_at) return false;
           const completedAt = new Date(t.completed_at || t.updated_at);
           return completedAt >= fourteenDaysAgo && completedAt < sevenDaysAgo;
@@ -2232,18 +2398,22 @@ Respond with ONLY valid JSON:
           userAvatar,
           lastActive,
           tasksCompletedThisWeek,
-          tasksCompletedLastWeek
+          tasksCompletedLastWeek,
         });
       }
 
       // 1. Inactive members - no activity in 14+ days
       // IMPORTANT: Exclude the requesting user - they should never see a suggestion about themselves
-      const inactiveMembers = memberStats.filter(m =>
-        m.lastActive < fourteenDaysAgo && m.userId !== requestingUserId
+      const inactiveMembers = memberStats.filter(
+        (m) => m.lastActive < fourteenDaysAgo && m.userId !== requestingUserId,
       );
       if (inactiveMembers.length > 0 && inactiveMembers.length < members.length) {
-        const mostInactive = inactiveMembers.sort((a, b) => a.lastActive.getTime() - b.lastActive.getTime())[0];
-        const daysSinceActive = Math.floor((now.getTime() - mostInactive.lastActive.getTime()) / (24 * 60 * 60 * 1000));
+        const mostInactive = inactiveMembers.sort(
+          (a, b) => a.lastActive.getTime() - b.lastActive.getTime(),
+        )[0];
+        const daysSinceActive = Math.floor(
+          (now.getTime() - mostInactive.lastActive.getTime()) / (24 * 60 * 60 * 1000),
+        );
 
         suggestions.push({
           id: `inactive-member-${mostInactive.userId}`,
@@ -2259,25 +2429,28 @@ Respond with ONLY valid JSON:
               userName: mostInactive.userName,
               userAvatar: mostInactive.userAvatar,
               lastActive: mostInactive.lastActive.toISOString(),
-              daysSinceActive
-            }
+              daysSinceActive,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 2. Engagement drops - members who completed fewer tasks this week
       // IMPORTANT: Exclude the requesting user - they should never see a suggestion about themselves
-      const engagementDrops = memberStats.filter(m =>
-        m.userId !== requestingUserId &&
-        m.tasksCompletedLastWeek >= 3 &&
-        m.tasksCompletedThisWeek < m.tasksCompletedLastWeek * 0.5
+      const engagementDrops = memberStats.filter(
+        (m) =>
+          m.userId !== requestingUserId &&
+          m.tasksCompletedLastWeek >= 3 &&
+          m.tasksCompletedThisWeek < m.tasksCompletedLastWeek * 0.5,
       );
 
       if (engagementDrops.length > 0) {
-        const biggestDrop = engagementDrops.sort((a, b) =>
-          (b.tasksCompletedLastWeek - b.tasksCompletedThisWeek) -
-          (a.tasksCompletedLastWeek - a.tasksCompletedThisWeek)
+        const biggestDrop = engagementDrops.sort(
+          (a, b) =>
+            b.tasksCompletedLastWeek -
+            b.tasksCompletedThisWeek -
+            (a.tasksCompletedLastWeek - a.tasksCompletedThisWeek),
         )[0];
 
         suggestions.push({
@@ -2294,17 +2467,19 @@ Respond with ONLY valid JSON:
               userName: biggestDrop.userName,
               userAvatar: biggestDrop.userAvatar,
               tasksCompleted: biggestDrop.tasksCompletedThisWeek,
-              previousTasksCompleted: biggestDrop.tasksCompletedLastWeek
-            }
+              previousTasksCompleted: biggestDrop.tasksCompletedLastWeek,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 3. Team celebration - high performers this week (can include requesting user - positive feedback is ok)
-      const highPerformers = memberStats.filter(m => m.tasksCompletedThisWeek >= 10);
+      const highPerformers = memberStats.filter((m) => m.tasksCompletedThisWeek >= 10);
       if (highPerformers.length > 0) {
-        const topPerformer = highPerformers.sort((a, b) => b.tasksCompletedThisWeek - a.tasksCompletedThisWeek)[0];
+        const topPerformer = highPerformers.sort(
+          (a, b) => b.tasksCompletedThisWeek - a.tasksCompletedThisWeek,
+        )[0];
 
         suggestions.push({
           id: `team-celebration-${topPerformer.userId}`,
@@ -2320,10 +2495,10 @@ Respond with ONLY valid JSON:
               userName: topPerformer.userName,
               userAvatar: topPerformer.userAvatar,
               tasksCompleted: topPerformer.tasksCompletedThisWeek,
-              celebrationReason: 'high_productivity'
-            }
+              celebrationReason: 'high_productivity',
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
     } catch (error) {
@@ -2352,7 +2527,8 @@ Respond with ONLY valid JSON:
 
       for (const project of projects) {
         // Get sprints for this project
-        const sprintsResult = await this.db.table('sprints')
+        const sprintsResult = await this.db
+          .table('sprints')
           .select('*')
           .where('project_id', '=', project.id)
           .execute()
@@ -2365,7 +2541,8 @@ Respond with ONLY valid JSON:
 
         if (activeSprint) {
           // Get tasks for this sprint
-          const tasksResult = await this.db.table('tasks')
+          const tasksResult = await this.db
+            .table('tasks')
             .select('*')
             .where('sprint_id', '=', activeSprint.id)
             .execute()
@@ -2377,24 +2554,29 @@ Respond with ONLY valid JSON:
           const kanbanStages = project.kanban_stages || [];
           let doneStageId: string | number | null = null;
           if (kanbanStages.length > 0) {
-            const sortedStages = [...kanbanStages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+            const sortedStages = [...kanbanStages].sort(
+              (a: any, b: any) => (a.order || 0) - (b.order || 0),
+            );
             doneStageId = sortedStages[sortedStages.length - 1]?.id;
           }
 
-          const completedTasks = sprintTasks.filter(t => {
+          const completedTasks = sprintTasks.filter((t) => {
             if (doneStageId === null) return t.status === 'completed';
             return t.status === doneStageId || String(t.status) === String(doneStageId);
           });
 
           const incompleteTasks = sprintTasks.length - completedTasks.length;
-          const completionPercentage = sprintTasks.length > 0
-            ? Math.round((completedTasks.length / sprintTasks.length) * 100)
-            : 0;
+          const completionPercentage =
+            sprintTasks.length > 0
+              ? Math.round((completedTasks.length / sprintTasks.length) * 100)
+              : 0;
 
           // 1. Sprint ending soon
           if (activeSprint.end_date) {
             const endDate = new Date(activeSprint.end_date);
-            const daysRemaining = Math.ceil((endDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+            const daysRemaining = Math.ceil(
+              (endDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000),
+            );
 
             if (daysRemaining > 0 && daysRemaining <= 3 && incompleteTasks > 0) {
               suggestions.push({
@@ -2416,10 +2598,10 @@ Respond with ONLY valid JSON:
                     totalTasks: sprintTasks.length,
                     completedTasks: completedTasks.length,
                     incompleteTasks,
-                    completionPercentage
-                  }
+                    completionPercentage,
+                  },
                 },
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
               });
             }
 
@@ -2445,10 +2627,10 @@ Respond with ONLY valid JSON:
                     totalTasks: sprintTasks.length,
                     completedTasks: completedTasks.length,
                     incompleteTasks,
-                    completionPercentage
-                  }
+                    completionPercentage,
+                  },
                 },
-                createdAt: new Date().toISOString()
+                createdAt: new Date().toISOString(),
               });
             }
           }
@@ -2469,10 +2651,10 @@ Respond with ONLY valid JSON:
                   sprintName: activeSprint.name,
                   projectId: project.id,
                   projectName: project.name,
-                  totalTasks: 0
-                }
+                  totalTasks: 0,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -2481,7 +2663,8 @@ Respond with ONLY valid JSON:
         const recentlyCompletedSprints = sprints.filter((s: any) => {
           if (s.status !== 'completed' && !s.completed_at) return false;
           const completedAt = new Date(s.completed_at || s.updated_at);
-          const daysSinceCompletion = (now.getTime() - completedAt.getTime()) / (24 * 60 * 60 * 1000);
+          const daysSinceCompletion =
+            (now.getTime() - completedAt.getTime()) / (24 * 60 * 60 * 1000);
           return daysSinceCompletion <= 3 && !s.retrospective_completed;
         });
 
@@ -2499,23 +2682,24 @@ Respond with ONLY valid JSON:
                 sprintId: sprint.id,
                 sprintName: sprint.name,
                 projectId: project.id,
-                projectName: project.name
-              }
+                projectName: project.name,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
 
         // 4. Backlog grooming needed
-        const backlogTasks = await this.db.table('tasks')
+        const backlogTasks = await this.db
+          .table('tasks')
           .select('*')
           .where('project_id', '=', project.id)
           .execute()
           .catch(() => ({ data: [] }));
 
         const allProjectTasks = Array.isArray(backlogTasks.data) ? backlogTasks.data : [];
-        const unassignedBacklogItems = allProjectTasks.filter(t =>
-          !t.sprint_id && (!t.assigned_to || t.assigned_to.length === 0)
+        const unassignedBacklogItems = allProjectTasks.filter(
+          (t) => !t.sprint_id && (!t.assigned_to || t.assigned_to.length === 0),
         );
 
         if (unassignedBacklogItems.length >= 10) {
@@ -2531,10 +2715,10 @@ Respond with ONLY valid JSON:
               sprint: {
                 projectId: project.id,
                 projectName: project.name,
-                backlogItemCount: unassignedBacklogItems.length
-              }
+                backlogItemCount: unassignedBacklogItems.length,
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -2567,7 +2751,8 @@ Respond with ONLY valid JSON:
       const now = new Date();
 
       // Get subscription data (if exists)
-      const subscriptionResult = await this.db.table('subscriptions')
+      const subscriptionResult = await this.db
+        .table('subscriptions')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('status', '=', 'active')
@@ -2582,7 +2767,9 @@ Respond with ONLY valid JSON:
         // 1. Subscription expiring soon
         if (subscription.current_period_end) {
           const expiryDate = new Date(subscription.current_period_end);
-          const daysUntilExpiry = Math.ceil((expiryDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000));
+          const daysUntilExpiry = Math.ceil(
+            (expiryDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000),
+          );
 
           if (daysUntilExpiry > 0 && daysUntilExpiry <= 7 && !subscription.cancel_at_period_end) {
             suggestions.push({
@@ -2599,10 +2786,10 @@ Respond with ONLY valid JSON:
                   planName: subscription.plan_name,
                   planTier: subscription.plan_tier,
                   expiryDate: subscription.current_period_end,
-                  daysUntilExpiry
-                }
+                  daysUntilExpiry,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
 
@@ -2621,10 +2808,10 @@ Respond with ONLY valid JSON:
                   subscriptionId: subscription.id,
                   planName: subscription.plan_name,
                   expiryDate: subscription.current_period_end,
-                  daysUntilExpiry
-                }
+                  daysUntilExpiry,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -2651,10 +2838,10 @@ Respond with ONLY valid JSON:
                 currentUsage: currentUsage.storage_bytes,
                 usageLimit: usageLimits.storage_bytes,
                 usagePercentage: Math.round(usagePercentage),
-                usageType: 'storage'
-              }
+                usageType: 'storage',
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -2676,10 +2863,10 @@ Respond with ONLY valid JSON:
                 currentUsage: currentUsage.ai_credits,
                 usageLimit: usageLimits.ai_credits,
                 usagePercentage: Math.round(usagePercentage),
-                usageType: 'ai_credits'
-              }
+                usageType: 'ai_credits',
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -2688,7 +2875,7 @@ Respond with ONLY valid JSON:
       if (usageLimits.team_seats) {
         const membersResult = await this.db.findMany('workspace_members', {
           workspace_id: workspaceId,
-          is_active: true
+          is_active: true,
         });
         const memberCount = (membersResult.data || []).length;
         const usagePercentage = (memberCount / usageLimits.team_seats) * 100;
@@ -2698,7 +2885,10 @@ Respond with ONLY valid JSON:
             id: `usage-seats-${workspaceId}`,
             type: 'usage_limit_approaching',
             priority: memberCount >= usageLimits.team_seats ? 'high' : 'medium',
-            title: memberCount >= usageLimits.team_seats ? 'Team Seat Limit Reached' : 'Team Seats Almost Full',
+            title:
+              memberCount >= usageLimits.team_seats
+                ? 'Team Seat Limit Reached'
+                : 'Team Seats Almost Full',
             description: `${memberCount}/${usageLimits.team_seats} seats used`,
             actionLabel: 'Upgrade Plan',
             actionUrl: '/settings/billing',
@@ -2707,20 +2897,24 @@ Respond with ONLY valid JSON:
                 currentUsage: memberCount,
                 usageLimit: usageLimits.team_seats,
                 usagePercentage: Math.round(usagePercentage),
-                usageType: 'seats'
-              }
+                usageType: 'seats',
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
 
       // 3. Upgrade recommendation based on usage patterns
-      if (!subscription || subscription.plan_tier === 'free' || subscription.plan_tier === 'starter') {
+      if (
+        !subscription ||
+        subscription.plan_tier === 'free' ||
+        subscription.plan_tier === 'starter'
+      ) {
         // Check if workspace would benefit from upgrade
         const membersResult = await this.db.findMany('workspace_members', {
           workspace_id: workspaceId,
-          is_active: true
+          is_active: true,
         });
         const memberCount = (membersResult.data || []).length;
 
@@ -2740,10 +2934,10 @@ Respond with ONLY valid JSON:
             metadata: {
               billing: {
                 planTier: subscription?.plan_tier || 'free',
-                recommendedPlan: memberCount >= 10 ? 'business' : 'pro'
-              }
+                recommendedPlan: memberCount >= 10 ? 'business' : 'pro',
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -2761,7 +2955,10 @@ Respond with ONLY valid JSON:
   /**
    * Get chat mention suggestions (unanswered mentions, pending DMs, inactive channels)
    */
-  private async getChatMentionSuggestions(workspaceId: string, userId: string): Promise<Suggestion[]> {
+  private async getChatMentionSuggestions(
+    workspaceId: string,
+    userId: string,
+  ): Promise<Suggestion[]> {
     const suggestions: Suggestion[] = [];
 
     try {
@@ -2771,7 +2968,8 @@ Respond with ONLY valid JSON:
       const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
       // Get channels user is a member of
-      const membershipResult = await this.db.table('channel_members')
+      const membershipResult = await this.db
+        .table('channel_members')
         .select('*')
         .where('user_id', '=', userId)
         .where('is_active', '=', true)
@@ -2779,11 +2977,12 @@ Respond with ONLY valid JSON:
         .catch(() => ({ data: [] }));
 
       const memberships = Array.isArray(membershipResult.data) ? membershipResult.data : [];
-      const channelIds = memberships.map(m => m.channel_id);
+      const channelIds = memberships.map((m) => m.channel_id);
 
       // 1. Unanswered mentions in channels
       for (const channelId of channelIds.slice(0, 10)) {
-        const messagesResult = await this.db.table('messages')
+        const messagesResult = await this.db
+          .table('messages')
           .select('*')
           .where('channel_id', '=', channelId)
           .execute()
@@ -2792,27 +2991,29 @@ Respond with ONLY valid JSON:
         const messages = Array.isArray(messagesResult.data) ? messagesResult.data : [];
 
         // Find messages that mention this user
-        const mentionedMessages = messages.filter(msg => {
+        const mentionedMessages = messages.filter((msg) => {
           if (msg.user_id === userId) return false; // Don't include own messages
           const msgDate = new Date(msg.created_at);
           if (msgDate < twentyFourHoursAgo) return false; // Only recent mentions
 
           // Check for @mention in content
           const mentions = msg.mentions || [];
-          const contentMention = msg.content?.includes(`@${userId}`) || msg.content?.includes(`<@${userId}>`);
+          const contentMention =
+            msg.content?.includes(`@${userId}`) || msg.content?.includes(`<@${userId}>`);
           return mentions.includes(userId) || contentMention;
         });
 
         // Check if user has replied after being mentioned
         for (const mention of mentionedMessages.slice(0, 3)) {
           const mentionTime = new Date(mention.created_at);
-          const userReplied = messages.some(msg =>
-            msg.user_id === userId &&
-            new Date(msg.created_at) > mentionTime
+          const userReplied = messages.some(
+            (msg) => msg.user_id === userId && new Date(msg.created_at) > mentionTime,
           );
 
           if (!userReplied) {
-            const hoursSinceMention = Math.round((now.getTime() - mentionTime.getTime()) / (60 * 60 * 1000));
+            const hoursSinceMention = Math.round(
+              (now.getTime() - mentionTime.getTime()) / (60 * 60 * 1000),
+            );
 
             // Get channel info
             const channelResult = await this.db.findOne('channels', { id: channelId });
@@ -2847,10 +3048,10 @@ Respond with ONLY valid JSON:
                   senderAvatar,
                   messagePreview: mention.content?.substring(0, 100),
                   mentionedAt: mention.created_at,
-                  hoursSinceMention
-                }
+                  hoursSinceMention,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
             break; // Only one suggestion per channel
           }
@@ -2858,16 +3059,20 @@ Respond with ONLY valid JSON:
       }
 
       // 2. Pending DM responses
-      const convMembershipResult = await this.db.table('conversation_members')
+      const convMembershipResult = await this.db
+        .table('conversation_members')
         .select('*')
         .where('user_id', '=', userId)
         .execute()
         .catch(() => ({ data: [] }));
 
-      const convMemberships = Array.isArray(convMembershipResult.data) ? convMembershipResult.data : [];
+      const convMemberships = Array.isArray(convMembershipResult.data)
+        ? convMembershipResult.data
+        : [];
 
       for (const convMembership of convMemberships.slice(0, 5)) {
-        const convMessagesResult = await this.db.table('conversation_messages')
+        const convMessagesResult = await this.db
+          .table('conversation_messages')
           .select('*')
           .where('conversation_id', '=', convMembership.conversation_id)
           .execute()
@@ -2876,13 +3081,17 @@ Respond with ONLY valid JSON:
         const convMessages = Array.isArray(convMessagesResult.data) ? convMessagesResult.data : [];
 
         // Sort by date descending
-        convMessages.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+        convMessages.sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+        );
 
         // Check if last message is from someone else and user hasn't replied
         const lastMessage = convMessages[0];
         if (lastMessage && lastMessage.sender_id !== userId) {
           const lastMsgTime = new Date(lastMessage.created_at);
-          const hoursSinceMessage = Math.round((now.getTime() - lastMsgTime.getTime()) / (60 * 60 * 1000));
+          const hoursSinceMessage = Math.round(
+            (now.getTime() - lastMsgTime.getTime()) / (60 * 60 * 1000),
+          );
 
           // Only if recent (within 24h) and user hasn't replied
           if (hoursSinceMessage <= 24 && hoursSinceMessage >= 2) {
@@ -2912,10 +3121,10 @@ Respond with ONLY valid JSON:
                   senderName,
                   senderAvatar,
                   messagePreview: lastMessage.content?.substring(0, 100),
-                  hoursSinceMention: hoursSinceMessage
-                }
+                  hoursSinceMention: hoursSinceMessage,
+                },
               },
-              createdAt: new Date().toISOString()
+              createdAt: new Date().toISOString(),
             });
           }
         }
@@ -2924,22 +3133,23 @@ Respond with ONLY valid JSON:
       // 3. Inactive channels suggestion
       const channelsResult = await this.db.findMany('channels', {
         workspace_id: workspaceId,
-        is_archived: false
+        is_archived: false,
       });
       const channels = channelsResult.data || [];
 
       // Check which channels have had no activity
       const inactiveChannels: any[] = [];
       for (const channel of channels) {
-        const messagesResult = await this.db.table('messages')
+        const messagesResult = await this.db
+          .table('messages')
           .select('created_at')
           .where('channel_id', '=', channel.id)
           .execute()
           .catch(() => ({ data: [] }));
 
         const messages = Array.isArray(messagesResult.data) ? messagesResult.data : [];
-        const lastMessage = messages.sort((a, b) =>
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        const lastMessage = messages.sort(
+          (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
         )[0];
 
         const lastActivityDate = lastMessage
@@ -2947,14 +3157,16 @@ Respond with ONLY valid JSON:
           : new Date(channel.created_at);
 
         if (lastActivityDate < thirtyDaysAgo) {
-          const daysSinceActivity = Math.floor((now.getTime() - lastActivityDate.getTime()) / (24 * 60 * 60 * 1000));
+          const daysSinceActivity = Math.floor(
+            (now.getTime() - lastActivityDate.getTime()) / (24 * 60 * 60 * 1000),
+          );
           inactiveChannels.push({ ...channel, lastActivityDate, daysSinceActivity });
         }
       }
 
       if (inactiveChannels.length >= 3) {
-        const oldestChannel = inactiveChannels.sort((a, b) =>
-          a.lastActivityDate.getTime() - b.lastActivityDate.getTime()
+        const oldestChannel = inactiveChannels.sort(
+          (a, b) => a.lastActivityDate.getTime() - b.lastActivityDate.getTime(),
         )[0];
 
         suggestions.push({
@@ -2970,10 +3182,10 @@ Respond with ONLY valid JSON:
               channelId: oldestChannel.id,
               channelName: oldestChannel.name,
               lastActivityDate: oldestChannel.lastActivityDate.toISOString(),
-              daysSinceActivity: oldestChannel.daysSinceActivity
-            }
+              daysSinceActivity: oldestChannel.daysSinceActivity,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
@@ -2992,7 +3204,10 @@ Respond with ONLY valid JSON:
   /**
    * Get analytics-related suggestions (weekly reports, productivity milestones, trends)
    */
-  private async getAnalyticsSuggestions(workspaceId: string, userId: string): Promise<Suggestion[]> {
+  private async getAnalyticsSuggestions(
+    workspaceId: string,
+    userId: string,
+  ): Promise<Suggestion[]> {
     const suggestions: Suggestion[] = [];
 
     try {
@@ -3003,7 +3218,7 @@ Respond with ONLY valid JSON:
       // Get workspace members
       const membersResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
       const members = membersResult.data || [];
 
@@ -3013,13 +3228,14 @@ Respond with ONLY valid JSON:
       const projectIds = projects.map((p: any) => p.id);
 
       // Get all tasks
-      const tasksResult = await this.db.table('tasks')
+      const tasksResult = await this.db
+        .table('tasks')
         .select('*')
         .execute()
         .catch(() => ({ data: [] }));
 
       const allTasks = Array.isArray(tasksResult.data) ? tasksResult.data : [];
-      const workspaceTasks = allTasks.filter(t => projectIds.includes(t.project_id));
+      const workspaceTasks = allTasks.filter((t) => projectIds.includes(t.project_id));
 
       // Build a map of project done stage IDs
       const projectDoneStageMap = new Map<string, string | number | null>();
@@ -3027,29 +3243,33 @@ Respond with ONLY valid JSON:
         const kanbanStages = project.kanban_stages || [];
         let doneStageId: string | number | null = null;
         if (kanbanStages.length > 0) {
-          const sortedStages = [...kanbanStages].sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+          const sortedStages = [...kanbanStages].sort(
+            (a: any, b: any) => (a.order || 0) - (b.order || 0),
+          );
           doneStageId = sortedStages[sortedStages.length - 1]?.id;
         }
         projectDoneStageMap.set(project.id, doneStageId);
       }
 
       // Calculate tasks completed this week vs last week
-      const tasksCompletedThisWeek = workspaceTasks.filter(t => {
+      const tasksCompletedThisWeek = workspaceTasks.filter((t) => {
         const doneStageId = projectDoneStageMap.get(t.project_id);
-        const isCompleted = doneStageId !== null
-          ? (t.status === doneStageId || String(t.status) === String(doneStageId))
-          : t.status === 'completed';
+        const isCompleted =
+          doneStageId !== null
+            ? t.status === doneStageId || String(t.status) === String(doneStageId)
+            : t.status === 'completed';
         if (!isCompleted) return false;
 
         const completedAt = new Date(t.completed_at || t.updated_at);
         return completedAt >= sevenDaysAgo;
       }).length;
 
-      const tasksCompletedLastWeek = workspaceTasks.filter(t => {
+      const tasksCompletedLastWeek = workspaceTasks.filter((t) => {
         const doneStageId = projectDoneStageMap.get(t.project_id);
-        const isCompleted = doneStageId !== null
-          ? (t.status === doneStageId || String(t.status) === String(doneStageId))
-          : t.status === 'completed';
+        const isCompleted =
+          doneStageId !== null
+            ? t.status === doneStageId || String(t.status) === String(doneStageId)
+            : t.status === 'completed';
         if (!isCompleted) return false;
 
         const completedAt = new Date(t.completed_at || t.updated_at);
@@ -3058,7 +3278,8 @@ Respond with ONLY valid JSON:
 
       // 1. Weekly report ready (on Mondays)
       const dayOfWeek = now.getDay();
-      if (dayOfWeek === 1 && members.length >= 2) { // Monday
+      if (dayOfWeek === 1 && members.length >= 2) {
+        // Monday
         suggestions.push({
           id: `weekly-report-${workspaceId}`,
           type: 'weekly_report_ready',
@@ -3072,27 +3293,31 @@ Respond with ONLY valid JSON:
               reportType: 'weekly',
               reportPeriod: sevenDaysAgo.toISOString(),
               currentValue: tasksCompletedLastWeek,
-              teamSize: members.length
-            }
+              teamSize: members.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 2. Productivity milestone
-      const totalCompletedTasks = workspaceTasks.filter(t => {
+      const totalCompletedTasks = workspaceTasks.filter((t) => {
         const doneStageId = projectDoneStageMap.get(t.project_id);
         return doneStageId !== null
-          ? (t.status === doneStageId || String(t.status) === String(doneStageId))
+          ? t.status === doneStageId || String(t.status) === String(doneStageId)
           : t.status === 'completed';
       }).length;
 
       const milestones = [10, 25, 50, 100, 250, 500, 1000];
-      const nextMilestone = milestones.find(m => m > totalCompletedTasks);
-      const reachedMilestone = milestones.filter(m => m <= totalCompletedTasks).pop();
+      const nextMilestone = milestones.find((m) => m > totalCompletedTasks);
+      const reachedMilestone = milestones.filter((m) => m <= totalCompletedTasks).pop();
 
       // Check if milestone was just reached (within last 24 hours)
-      if (reachedMilestone && totalCompletedTasks >= reachedMilestone && totalCompletedTasks < reachedMilestone + 5) {
+      if (
+        reachedMilestone &&
+        totalCompletedTasks >= reachedMilestone &&
+        totalCompletedTasks < reachedMilestone + 5
+      ) {
         suggestions.push({
           id: `milestone-${reachedMilestone}-${workspaceId}`,
           type: 'productivity_milestone',
@@ -3106,18 +3331,19 @@ Respond with ONLY valid JSON:
               milestoneType: 'tasks_completed',
               milestoneValue: reachedMilestone,
               currentValue: totalCompletedTasks,
-              teamSize: members.length
-            }
+              teamSize: members.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
 
       // 3. Productivity trend down
       if (tasksCompletedLastWeek >= 5) {
-        const changePercentage = tasksCompletedLastWeek > 0
-          ? ((tasksCompletedThisWeek - tasksCompletedLastWeek) / tasksCompletedLastWeek) * 100
-          : 0;
+        const changePercentage =
+          tasksCompletedLastWeek > 0
+            ? ((tasksCompletedThisWeek - tasksCompletedLastWeek) / tasksCompletedLastWeek) * 100
+            : 0;
 
         if (changePercentage <= -30) {
           suggestions.push({
@@ -3134,10 +3360,10 @@ Respond with ONLY valid JSON:
                 currentValue: tasksCompletedThisWeek,
                 previousValue: tasksCompletedLastWeek,
                 changePercentage: Math.round(changePercentage),
-                trend: 'down'
-              }
+                trend: 'down',
+              },
             },
-            createdAt: new Date().toISOString()
+            createdAt: new Date().toISOString(),
           });
         }
       }
@@ -3158,10 +3384,10 @@ Respond with ONLY valid JSON:
               achievementDescription: 'Outstanding weekly performance',
               currentValue: tasksCompletedThisWeek,
               previousValue: tasksCompletedLastWeek,
-              teamSize: members.length
-            }
+              teamSize: members.length,
+            },
           },
-          createdAt: new Date().toISOString()
+          createdAt: new Date().toISOString(),
         });
       }
     } catch (error) {

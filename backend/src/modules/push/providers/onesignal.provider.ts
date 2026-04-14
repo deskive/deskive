@@ -50,16 +50,14 @@ export class OneSignalProvider implements PushProvider {
     return !!(this.appId && this.apiKey);
   }
 
-  private async oneSignalApi(
-    method: 'POST',
-    path: string,
-    body: any,
-  ): Promise<any> {
+  private async oneSignalApi(method: 'POST', path: string, body: any): Promise<any> {
     if (!this.isAvailable()) {
-      throw new PushProviderNotConfiguredError('onesignal', [
-        !this.appId ? 'ONESIGNAL_APP_ID' : '',
-        !this.apiKey ? 'ONESIGNAL_API_KEY' : '',
-      ].filter(Boolean));
+      throw new PushProviderNotConfiguredError(
+        'onesignal',
+        [!this.appId ? 'ONESIGNAL_APP_ID' : '', !this.apiKey ? 'ONESIGNAL_API_KEY' : ''].filter(
+          Boolean,
+        ),
+      );
     }
     const res = await fetch(`${ONESIGNAL_API_BASE}${path}`, {
       method,
@@ -71,17 +69,12 @@ export class OneSignalProvider implements PushProvider {
     });
     const json = (await res.json()) as any;
     if (!res.ok) {
-      throw new Error(
-        `OneSignal API ${path} failed: ${res.status} ${JSON.stringify(json)}`,
-      );
+      throw new Error(`OneSignal API ${path} failed: ${res.status} ${JSON.stringify(json)}`);
     }
     return json;
   }
 
-  private buildPayload(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): any {
+  private buildPayload(recipients: PushRecipient[], message: PushMessage): any {
     // OneSignal supports addressing by "player id" (their term for a
     // subscription id) via include_player_ids or include_subscription_ids.
     // We use include_player_ids since that's backwards-compatible.
@@ -102,10 +95,7 @@ export class OneSignalProvider implements PushProvider {
     };
   }
 
-  async send(
-    recipient: PushRecipient,
-    message: PushMessage,
-  ): Promise<PushResult> {
+  async send(recipient: PushRecipient, message: PushMessage): Promise<PushResult> {
     try {
       const res = await this.oneSignalApi('POST', '/notifications', {
         ...this.buildPayload([recipient], message),
@@ -124,10 +114,7 @@ export class OneSignalProvider implements PushProvider {
     }
   }
 
-  async sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult> {
     // OneSignal accepts up to 2000 player ids per request via
     // include_player_ids. Chunk if needed.
     const results: PushResult[] = [];

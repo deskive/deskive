@@ -67,7 +67,10 @@ export const FINANCE_INVOICES_TEMPLATES = [
         { insert: '{{business_purpose}}' },
         { insert: '\n\n' },
         { insert: 'Certification', attributes: { header: 2 } },
-        { insert: '\nI certify that these expenses were incurred for legitimate business purposes.\n\n' },
+        {
+          insert:
+            '\nI certify that these expenses were incurred for legitimate business purposes.\n\n',
+        },
         { insert: 'Employee Signature: _________________ Date: _________\n\n' },
         { insert: 'Manager Approval: _________________ Date: _________\n\n' },
         { insert: 'Finance Approval: _________________ Date: _________\n' },
@@ -90,7 +93,11 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'business_purpose', label: 'Business Purpose', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Credit Note',
@@ -155,7 +162,11 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'total_credit', label: 'Total Credit', type: 'currency', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Debit Note',
@@ -219,7 +230,11 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'due_date', label: 'Due Date', type: 'date', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Payment Receipt',
@@ -273,14 +288,24 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'customer_name', label: 'Customer Name', type: 'text', required: true },
       { key: 'customer_address', label: 'Customer Address', type: 'textarea', required: true },
       { key: 'amount', label: 'Amount', type: 'currency', required: true },
-      { key: 'payment_method', label: 'Payment Method', type: 'select', required: true, options: ['Cash', 'Check', 'Credit Card', 'Wire Transfer', 'ACH'] },
+      {
+        key: 'payment_method',
+        label: 'Payment Method',
+        type: 'select',
+        required: true,
+        options: ['Cash', 'Check', 'Credit Card', 'Wire Transfer', 'ACH'],
+      },
       { key: 'reference_number', label: 'Reference Number', type: 'text', required: true },
       { key: 'payment_for', label: 'Payment For', type: 'text', required: true },
       { key: 'invoice_numbers', label: 'Invoice Numbers', type: 'text', required: true },
       { key: 'amount_words', label: 'Amount in Words', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Pro Forma Invoice',
@@ -336,7 +361,10 @@ export const FINANCE_INVOICES_TEMPLATES = [
         { insert: '{{delivery}}', attributes: { bold: true } },
         { insert: '\n\n' },
         { insert: 'Notes:', attributes: { bold: true } },
-        { insert: '\nThis is a pro forma invoice and not a demand for payment. Final invoice will be issued upon shipment.\n\n' },
+        {
+          insert:
+            '\nThis is a pro forma invoice and not a demand for payment. Final invoice will be issued upon shipment.\n\n',
+        },
         { insert: '{{additional_notes}}' },
         { insert: '\n' },
       ],
@@ -362,7 +390,11 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'additional_notes', label: 'Additional Notes', type: 'textarea', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Recurring Invoice Template',
@@ -433,11 +465,21 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'previous_balance', label: 'Previous Balance', type: 'currency', required: true },
       { key: 'total_due', label: 'Total Due', type: 'currency', required: true },
       { key: 'payment_info', label: 'Payment Info', type: 'textarea', required: true },
-      { key: 'autopay_status', label: 'Auto-Pay Status', type: 'select', required: true, options: ['Enabled', 'Disabled'] },
+      {
+        key: 'autopay_status',
+        label: 'Auto-Pay Status',
+        type: 'select',
+        required: true,
+        options: ['Enabled', 'Disabled'],
+      },
       { key: 'next_invoice_date', label: 'Next Invoice Date', type: 'date', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Collection Letter',
@@ -460,7 +502,9 @@ export const FINANCE_INVOICES_TEMPLATES = [
         { insert: 'Dear ' },
         { insert: '{{customer_name}}', attributes: { bold: true } },
         { insert: ',\n\n' },
-        { insert: 'Our records indicate that your account has an outstanding balance that is now ' },
+        {
+          insert: 'Our records indicate that your account has an outstanding balance that is now ',
+        },
         { insert: '{{days_past_due}}', attributes: { bold: true } },
         { insert: ' days past due.\n\n' },
         { insert: 'Account Summary:', attributes: { header: 2 } },
@@ -482,7 +526,10 @@ export const FINANCE_INVOICES_TEMPLATES = [
         { insert: 'Payment Options:', attributes: { bold: true } },
         { insert: '\n{{payment_options}}' },
         { insert: '\n\n' },
-        { insert: 'If you have already made payment, please disregard this notice. If you have questions or wish to discuss payment arrangements, please contact us at ' },
+        {
+          insert:
+            'If you have already made payment, please disregard this notice. If you have questions or wish to discuss payment arrangements, please contact us at ',
+        },
         { insert: '{{contact_phone}}', attributes: { bold: true } },
         { insert: ' or ' },
         { insert: '{{contact_email}}', attributes: { bold: true } },
@@ -513,7 +560,11 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'sender_name', label: 'Sender Name', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Statement of Account',
@@ -555,9 +606,18 @@ export const FINANCE_INVOICES_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Date | Description | Reference | Debit | Credit | Balance |\n' },
         { insert: '|------|-------------|-----------|-------|--------|----------|\n' },
-        { insert: '| {{trans_date_1}} | {{trans_desc_1}} | {{trans_ref_1}} | {{trans_debit_1}} | {{trans_credit_1}} | {{trans_bal_1}} |\n' },
-        { insert: '| {{trans_date_2}} | {{trans_desc_2}} | {{trans_ref_2}} | {{trans_debit_2}} | {{trans_credit_2}} | {{trans_bal_2}} |\n' },
-        { insert: '| {{trans_date_3}} | {{trans_desc_3}} | {{trans_ref_3}} | {{trans_debit_3}} | {{trans_credit_3}} | {{trans_bal_3}} |\n' },
+        {
+          insert:
+            '| {{trans_date_1}} | {{trans_desc_1}} | {{trans_ref_1}} | {{trans_debit_1}} | {{trans_credit_1}} | {{trans_bal_1}} |\n',
+        },
+        {
+          insert:
+            '| {{trans_date_2}} | {{trans_desc_2}} | {{trans_ref_2}} | {{trans_debit_2}} | {{trans_credit_2}} | {{trans_bal_2}} |\n',
+        },
+        {
+          insert:
+            '| {{trans_date_3}} | {{trans_desc_3}} | {{trans_ref_3}} | {{trans_debit_3}} | {{trans_credit_3}} | {{trans_bal_3}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Aging Summary', attributes: { header: 2 } },
         { insert: '\n' },
@@ -599,6 +659,10 @@ export const FINANCE_INVOICES_TEMPLATES = [
       { key: 'contact_info', label: 'Contact Info', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

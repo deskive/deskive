@@ -75,14 +75,7 @@ export interface SendEmailResult {
  */
 export interface EmailProvider {
   /** Stable provider name for logging / clients. */
-  readonly name:
-    | 'smtp'
-    | 'resend'
-    | 'sendgrid'
-    | 'postmark'
-    | 'ses'
-    | 'mailgun'
-    | 'none';
+  readonly name: 'smtp' | 'resend' | 'sendgrid' | 'postmark' | 'ses' | 'mailgun' | 'none';
 
   /** True if the provider has the credentials it needs to function. */
   isAvailable(): boolean;

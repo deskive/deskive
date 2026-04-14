@@ -29,9 +29,7 @@ import { NonePushProvider } from './none.provider';
 const log = new Logger('PushProviderFactory');
 
 export function createPushProvider(config: ConfigService): PushProvider {
-  const choice = (config.get<string>('PUSH_PROVIDER') || 'none')
-    .toLowerCase()
-    .trim();
+  const choice = (config.get<string>('PUSH_PROVIDER') || 'none').toLowerCase().trim();
 
   switch (choice) {
     case 'webpush':
@@ -50,9 +48,7 @@ export function createPushProvider(config: ConfigService): PushProvider {
     case 'onesignal':
     case 'one-signal': {
       const p = new OneSignalProvider(config);
-      log.log(
-        `Selected push provider: onesignal (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected push provider: onesignal (available=${p.isAvailable()})`);
       return p;
     }
     case 'expo': {

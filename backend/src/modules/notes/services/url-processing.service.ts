@@ -27,8 +27,9 @@ export class UrlProcessingService {
       // Fetch the URL content
       const response = await fetch(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+          'User-Agent':
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
           'Accept-Language': 'en-US,en;q=0.5',
         },
       });
@@ -47,7 +48,9 @@ export class UrlProcessingService {
 
       // Extract metadata
       const metadata = this.extractMetadata(document, url);
-      this.logger.log(`Extracted metadata: title="${metadata.title}", siteName="${metadata.siteName}"`);
+      this.logger.log(
+        `Extracted metadata: title="${metadata.title}", siteName="${metadata.siteName}"`,
+      );
 
       // Use Readability to extract main content
       const reader = new Readability(document);
@@ -59,7 +62,9 @@ export class UrlProcessingService {
         return this.fallbackExtraction(html, url, metadata);
       }
 
-      this.logger.log(`Readability extracted: title="${article.title}", content length=${article.content?.length || 0}`);
+      this.logger.log(
+        `Readability extracted: title="${article.title}", content length=${article.content?.length || 0}`,
+      );
       this.logger.log(`Readability textContent length: ${article.textContent?.length || 0}`);
 
       // Convert HTML content to Markdown
@@ -82,16 +87,23 @@ export class UrlProcessingService {
         imageUrl: metadata.imageUrl,
       };
 
-      this.logger.log(`URL processing complete: title="${result.title}", htmlLength=${result.html.length}, excerptLength=${result.excerpt?.length || 0}`);
+      this.logger.log(
+        `URL processing complete: title="${result.title}", htmlLength=${result.html.length}, excerptLength=${result.excerpt?.length || 0}`,
+      );
 
       return result;
     } catch (error) {
       this.logger.error('Failed to process URL:', error);
-      throw new Error(`Failed to process URL: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to process URL: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      );
     }
   }
 
-  private extractMetadata(document: Document, url: string): {
+  private extractMetadata(
+    document: Document,
+    url: string,
+  ): {
     title: string;
     description?: string;
     siteName?: string;
@@ -116,7 +128,9 @@ export class UrlProcessingService {
     const $ = cheerio.load(html);
 
     // Remove unwanted elements
-    $('script, style, nav, header, footer, aside, .sidebar, .advertisement, .ads, #comments').remove();
+    $(
+      'script, style, nav, header, footer, aside, .sidebar, .advertisement, .ads, #comments',
+    ).remove();
 
     // Try to find main content
     const mainContent = $('main, article, .content, .post, .entry-content, #content').first();
@@ -126,13 +140,13 @@ export class UrlProcessingService {
     const text = content.text().replace(/\s+/g, ' ').trim();
 
     // Create basic HTML
-    const paragraphs = text.split(/\.\s+/).filter(p => p.length > 50);
-    const basicHtml = paragraphs.map(p => `<p>${p}.</p>`).join('\n');
+    const paragraphs = text.split(/\.\s+/).filter((p) => p.length > 50);
+    const basicHtml = paragraphs.map((p) => `<p>${p}.</p>`).join('\n');
 
     return {
       title: metadata.title || 'Untitled',
       content: text,
-      markdown: paragraphs.map(p => p + '.').join('\n\n'),
+      markdown: paragraphs.map((p) => p + '.').join('\n\n'),
       html: this.createCleanHtml({ content: basicHtml, title: metadata.title }, metadata, url),
       excerpt: metadata.description,
       siteName: metadata.siteName,
@@ -144,11 +158,15 @@ export class UrlProcessingService {
     const parts: string[] = [];
 
     // Add source info
-    parts.push(`<p><em>Imported from: <a href="${url}" target="_blank">${metadata.siteName || new URL(url).hostname}</a></em></p>`);
+    parts.push(
+      `<p><em>Imported from: <a href="${url}" target="_blank">${metadata.siteName || new URL(url).hostname}</a></em></p>`,
+    );
 
     // Add featured image if available
     if (metadata.imageUrl) {
-      parts.push(`<p><img src="${metadata.imageUrl}" alt="${article.title || 'Featured image'}"></p>`);
+      parts.push(
+        `<p><img src="${metadata.imageUrl}" alt="${article.title || 'Featured image'}"></p>`,
+      );
     }
 
     // Add byline/author if available
@@ -181,7 +199,7 @@ export class UrlProcessingService {
    */
   private convertToEditorHtml(html: string): string {
     // First, strip any outer html/body tags by extracting just the content
-    let cleanHtml = html
+    const cleanHtml = html
       .replace(/<html[^>]*>/gi, '')
       .replace(/<\/html>/gi, '')
       .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '')
@@ -191,7 +209,9 @@ export class UrlProcessingService {
     const $ = cheerio.load(cleanHtml);
 
     // Remove script, style, and other non-content elements
-    $('script, style, noscript, iframe, form, input, button, nav, aside, footer, header, svg, canvas').remove();
+    $(
+      'script, style, noscript, iframe, form, input, button, nav, aside, footer, header, svg, canvas',
+    ).remove();
 
     // Convert figure/figcaption to simple img with caption as paragraph
     $('figure').each((_, el) => {
@@ -272,8 +292,14 @@ export class UrlProcessingService {
     $('*').each((_, el) => {
       const $el = $(el);
       const attributes = (el as any).attribs || {};
-      Object.keys(attributes).forEach(attr => {
-        if (attr.startsWith('aria-') || attr.startsWith('data-') || attr === 'class' || attr === 'id' || attr === 'style') {
+      Object.keys(attributes).forEach((attr) => {
+        if (
+          attr.startsWith('aria-') ||
+          attr.startsWith('data-') ||
+          attr === 'class' ||
+          attr === 'id' ||
+          attr === 'style'
+        ) {
           $el.removeAttr(attr);
         }
       });
@@ -310,9 +336,7 @@ export class UrlProcessingService {
       .replace(/<head[^>]*>[\s\S]*?<\/head>/gi, '');
 
     // Clean up whitespace
-    result = result
-      .replace(/\n\s*\n/g, '\n')
-      .trim();
+    result = result.replace(/\n\s*\n/g, '\n').trim();
 
     return result || '<p></p>';
   }
@@ -331,7 +355,7 @@ export class UrlProcessingService {
       }
 
       const children = $node.contents().toArray();
-      const childContent = children.map(child => processNode(child)).join('');
+      const childContent = children.map((child) => processNode(child)).join('');
 
       switch (tagName) {
         case 'h1':
@@ -362,20 +386,34 @@ export class UrlProcessingService {
           const alt = $node.attr('alt') || 'image';
           return src ? `\n![${alt}](${src})\n` : '';
         case 'ul':
-          return '\n' + children.map(child => {
-            if ((child as Element).tagName?.toLowerCase() === 'li') {
-              return `- ${processNode(child).trim()}`;
-            }
-            return '';
-          }).filter(Boolean).join('\n') + '\n\n';
+          return (
+            '\n' +
+            children
+              .map((child) => {
+                if ((child as Element).tagName?.toLowerCase() === 'li') {
+                  return `- ${processNode(child).trim()}`;
+                }
+                return '';
+              })
+              .filter(Boolean)
+              .join('\n') +
+            '\n\n'
+          );
         case 'ol':
           let counter = 1;
-          return '\n' + children.map(child => {
-            if ((child as Element).tagName?.toLowerCase() === 'li') {
-              return `${counter++}. ${processNode(child).trim()}`;
-            }
-            return '';
-          }).filter(Boolean).join('\n') + '\n\n';
+          return (
+            '\n' +
+            children
+              .map((child) => {
+                if ((child as Element).tagName?.toLowerCase() === 'li') {
+                  return `${counter++}. ${processNode(child).trim()}`;
+                }
+                return '';
+              })
+              .filter(Boolean)
+              .join('\n') +
+            '\n\n'
+          );
         case 'li':
           return childContent;
         case 'blockquote':
@@ -395,9 +433,11 @@ export class UrlProcessingService {
       }
     };
 
-    $('body').contents().each((_, el) => {
-      markdown += processNode(el);
-    });
+    $('body')
+      .contents()
+      .each((_, el) => {
+        markdown += processNode(el);
+      });
 
     // Clean up excessive newlines
     return markdown.replace(/\n{3,}/g, '\n\n').trim();
@@ -409,9 +449,11 @@ export class UrlProcessingService {
 
     $('tr').each((_, tr) => {
       const row: string[] = [];
-      $(tr).find('th, td').each((_, cell) => {
-        row.push($(cell).text().trim());
-      });
+      $(tr)
+        .find('th, td')
+        .each((_, cell) => {
+          row.push($(cell).text().trim());
+        });
       if (row.length > 0) {
         rows.push(row);
       }
@@ -420,7 +462,7 @@ export class UrlProcessingService {
     if (rows.length === 0) return '';
 
     const lines: string[] = [];
-    const maxCols = Math.max(...rows.map(r => r.length));
+    const maxCols = Math.max(...rows.map((r) => r.length));
 
     // Header row
     const header = rows[0];

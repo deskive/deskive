@@ -43,7 +43,11 @@ export class AnalyticsService {
   }
 
   async getWorkspaceAnalytics(workspaceId: string, query: AnalyticsQueryDto) {
-    const { startDate, endDate } = this.getDateRange(query.timeRange, query.startDate, query.endDate);
+    const { startDate, endDate } = this.getDateRange(
+      query.timeRange,
+      query.startDate,
+      query.endDate,
+    );
 
     // Get overview metrics
     const [users, projects, tasks, activities] = await Promise.all([
@@ -78,10 +82,15 @@ export class AnalyticsService {
   }
 
   async getUserAnalytics(workspaceId: string, query: AnalyticsQueryDto) {
-    const { startDate, endDate } = this.getDateRange(query.timeRange, query.startDate, query.endDate);
+    const { startDate, endDate } = this.getDateRange(
+      query.timeRange,
+      query.startDate,
+      query.endDate,
+    );
 
     // Get user activities
-    const activitiesResult = await this.db.table('activity_logs')
+    const activitiesResult = await this.db
+      .table('activity_logs')
       .select('user_id', 'action', 'created_at')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -91,7 +100,8 @@ export class AnalyticsService {
     const activities = activitiesResult.data || [];
 
     // Get workspace members
-    const membersResult = await this.db.table('workspace_members')
+    const membersResult = await this.db
+      .table('workspace_members')
       .select('user_id', 'role', 'joined_at', 'last_active_at')
       .where('workspace_id', '=', workspaceId)
       .where('is_active', '=', true)
@@ -101,7 +111,7 @@ export class AnalyticsService {
 
     // Process user activity data
     const userActivityMap = new Map();
-    activities.forEach(activity => {
+    activities.forEach((activity) => {
       const userId = activity.user_id;
       if (!userActivityMap.has(userId)) {
         userActivityMap.set(userId, {
@@ -114,7 +124,10 @@ export class AnalyticsService {
       const userActivity = userActivityMap.get(userId);
       userActivity.totalActions++;
       userActivity.actions[activity.action] = (userActivity.actions[activity.action] || 0) + 1;
-      if (!userActivity.lastActivity || new Date(activity.created_at) > new Date(userActivity.lastActivity)) {
+      if (
+        !userActivity.lastActivity ||
+        new Date(activity.created_at) > new Date(userActivity.lastActivity)
+      ) {
         userActivity.lastActivity = activity.created_at;
       }
     });
@@ -131,10 +144,15 @@ export class AnalyticsService {
   }
 
   async getProjectAnalytics(workspaceId: string, query: AnalyticsQueryDto) {
-    const { startDate, endDate } = this.getDateRange(query.timeRange, query.startDate, query.endDate);
+    const { startDate, endDate } = this.getDateRange(
+      query.timeRange,
+      query.startDate,
+      query.endDate,
+    );
 
     // Get projects data
-    const projectsResult = await this.db.table('projects')
+    const projectsResult = await this.db
+      .table('projects')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -142,7 +160,8 @@ export class AnalyticsService {
     const projects = projectsResult.data || [];
 
     // Get tasks for projects
-    const tasksResult = await this.db.table('tasks')
+    const tasksResult = await this.db
+      .table('tasks')
       .select('project_id', 'status', 'priority', 'created_at', 'due_date', 'completed_at')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -152,11 +171,12 @@ export class AnalyticsService {
     const tasks = tasksResult.data || [];
 
     // Process project statistics
-    const projectStats = projects.map(project => {
-      const projectTasks = tasks.filter(task => task.project_id === project.id);
-      const completedTasks = projectTasks.filter(task => task.status === 'completed');
-      const overdueTasks = projectTasks.filter(task => 
-        task.due_date && new Date(task.due_date) < new Date() && task.status !== 'completed'
+    const projectStats = projects.map((project) => {
+      const projectTasks = tasks.filter((task) => task.project_id === project.id);
+      const completedTasks = projectTasks.filter((task) => task.status === 'completed');
+      const overdueTasks = projectTasks.filter(
+        (task) =>
+          task.due_date && new Date(task.due_date) < new Date() && task.status !== 'completed',
       );
 
       return {
@@ -165,7 +185,8 @@ export class AnalyticsService {
         totalTasks: projectTasks.length,
         completedTasks: completedTasks.length,
         overdueTasks: overdueTasks.length,
-        completionRate: projectTasks.length > 0 ? (completedTasks.length / projectTasks.length) * 100 : 0,
+        completionRate:
+          projectTasks.length > 0 ? (completedTasks.length / projectTasks.length) * 100 : 0,
         status: project.status,
         priority: project.priority,
       };
@@ -173,18 +194,24 @@ export class AnalyticsService {
 
     return {
       totalProjects: projects.length,
-      activeProjects: projects.filter(p => p.status === 'active').length,
-      completedProjects: projects.filter(p => p.status === 'completed').length,
+      activeProjects: projects.filter((p) => p.status === 'active').length,
+      completedProjects: projects.filter((p) => p.status === 'completed').length,
       projectStats,
-      averageCompletionRate: projectStats.reduce((acc, p) => acc + p.completionRate, 0) / projectStats.length || 0,
+      averageCompletionRate:
+        projectStats.reduce((acc, p) => acc + p.completionRate, 0) / projectStats.length || 0,
     };
   }
 
   async getTaskAnalytics(workspaceId: string, query: AnalyticsQueryDto) {
-    const { startDate, endDate } = this.getDateRange(query.timeRange, query.startDate, query.endDate);
+    const { startDate, endDate } = this.getDateRange(
+      query.timeRange,
+      query.startDate,
+      query.endDate,
+    );
 
     // Get tasks data
-    const tasksResult = await this.db.table('tasks')
+    const tasksResult = await this.db
+      .table('tasks')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -204,19 +231,22 @@ export class AnalyticsService {
       return acc;
     }, {});
 
-    const completedTasks = tasks.filter(task => task.status === 'completed');
-    const overdueTasks = tasks.filter(task => 
-      task.due_date && new Date(task.due_date) < new Date() && task.status !== 'completed'
+    const completedTasks = tasks.filter((task) => task.status === 'completed');
+    const overdueTasks = tasks.filter(
+      (task) =>
+        task.due_date && new Date(task.due_date) < new Date() && task.status !== 'completed',
     );
 
     // Calculate average completion time
-    const averageCompletionTime = completedTasks.reduce((acc, task) => {
-      if (task.completed_at && task.created_at) {
-        const completionTime = new Date(task.completed_at).getTime() - new Date(task.created_at).getTime();
-        return acc + completionTime;
-      }
-      return acc;
-    }, 0) / completedTasks.length || 0;
+    const averageCompletionTime =
+      completedTasks.reduce((acc, task) => {
+        if (task.completed_at && task.created_at) {
+          const completionTime =
+            new Date(task.completed_at).getTime() - new Date(task.created_at).getTime();
+          return acc + completionTime;
+        }
+        return acc;
+      }, 0) / completedTasks.length || 0;
 
     return {
       totalTasks: tasks.length,
@@ -231,10 +261,15 @@ export class AnalyticsService {
   }
 
   async getActivityAnalytics(workspaceId: string, query: AnalyticsQueryDto) {
-    const { startDate, endDate } = this.getDateRange(query.timeRange, query.startDate, query.endDate);
+    const { startDate, endDate } = this.getDateRange(
+      query.timeRange,
+      query.startDate,
+      query.endDate,
+    );
 
     // Get activity logs
-    const activitiesResult = await this.db.table('activity_logs')
+    const activitiesResult = await this.db
+      .table('activity_logs')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -267,23 +302,26 @@ export class AnalyticsService {
       hourlyDistribution: hourlyActivity,
       dailyDistribution: dailyActivity,
       mostActiveHours: Object.entries(hourlyActivity)
-        .sort(([,a], [,b]) => (b as number) - (a as number))
+        .sort(([, a], [, b]) => (b as number) - (a as number))
         .slice(0, 3)
         .map(([hour, count]) => ({ hour: parseInt(hour), count })),
-      peakActivityDay: Object.entries(dailyActivity)
-        .sort(([,a], [,b]) => (b as number) - (a as number))[0] || null,
+      peakActivityDay:
+        Object.entries(dailyActivity).sort(([, a], [, b]) => (b as number) - (a as number))[0] ||
+        null,
     };
   }
 
   private async getUserStats(workspaceId: string, startDate: string, endDate: string) {
-    const membersResult = await this.db.table('workspace_members')
+    const membersResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('is_active', '=', true)
       .execute();
 
     const members = membersResult.data || [];
-    const activeMembersResult = await this.db.table('activity_logs')
+    const activeMembersResult = await this.db
+      .table('activity_logs')
       .select('user_id')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -301,13 +339,14 @@ export class AnalyticsService {
   }
 
   private async getProjectStats(workspaceId: string, startDate: string, endDate: string) {
-    const projectsResult = await this.db.table('projects')
+    const projectsResult = await this.db
+      .table('projects')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
 
     const projects = projectsResult.data || [];
-    const activeProjects = projects.filter(p => p.status === 'active');
+    const activeProjects = projects.filter((p) => p.status === 'active');
 
     return {
       total: projects.length,
@@ -317,7 +356,8 @@ export class AnalyticsService {
   }
 
   private async getTaskStats(workspaceId: string, startDate: string, endDate: string) {
-    const tasksResult = await this.db.table('tasks')
+    const tasksResult = await this.db
+      .table('tasks')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)
@@ -325,7 +365,7 @@ export class AnalyticsService {
       .execute();
 
     const tasks = tasksResult.data || [];
-    const completedTasks = tasks.filter(t => t.status === 'completed');
+    const completedTasks = tasks.filter((t) => t.status === 'completed');
 
     return {
       total: tasks.length,
@@ -335,7 +375,8 @@ export class AnalyticsService {
   }
 
   private async getActivityStats(workspaceId: string, startDate: string, endDate: string) {
-    const activitiesResult = await this.db.table('activity_logs')
+    const activitiesResult = await this.db
+      .table('activity_logs')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('created_at', '>=', startDate)

@@ -1,6 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { SemanticSearchService, IndexContentOptions, IndexableContentType } from './semantic-search.service';
+import {
+  SemanticSearchService,
+  IndexContentOptions,
+  IndexableContentType,
+} from './semantic-search.service';
 
 /**
  * Service for automatically indexing content for semantic search
@@ -285,7 +289,7 @@ export class ContentIndexerService {
       });
       const notes = notesResult.data || [];
       for (const note of notes) {
-        if (!note.deleted_at && await this.indexNote(note.id)) {
+        if (!note.deleted_at && (await this.indexNote(note.id))) {
           stats.notes++;
         }
       }
@@ -359,7 +363,11 @@ export class ContentIndexerService {
         const messages = messagesResult.data || [];
         // Only index messages with substantial content
         for (const message of messages) {
-          if (message.content && message.content.length > 20 && await this.indexMessage(message.id)) {
+          if (
+            message.content &&
+            message.content.length > 20 &&
+            (await this.indexMessage(message.id))
+          ) {
             stats.messages++;
           }
         }

@@ -53,7 +53,9 @@ export class DeadlineAlertService {
 
       // Get high-priority tasks due in 3 days
       const highPriority3dTasks = await this.getHighPriorityTasksDueBetween(in24Hours, in3Days);
-      this.logger.log(`[DeadlineAlert] Found ${highPriority3dTasks.length} high-priority tasks due in 3 days`);
+      this.logger.log(
+        `[DeadlineAlert] Found ${highPriority3dTasks.length} high-priority tasks due in 3 days`,
+      );
 
       // Get overdue tasks
       const overdueTasks = await this.getOverdueTasks();
@@ -75,7 +77,8 @@ export class DeadlineAlertService {
    */
   private async getTasksDueBetween(start: Date, end: Date): Promise<DeadlineTask[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('due_date', '>=', start.toISOString())
         .where('due_date', '<=', end.toISOString())
@@ -103,7 +106,8 @@ export class DeadlineAlertService {
    */
   private async getHighPriorityTasksDueBetween(start: Date, end: Date): Promise<DeadlineTask[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('due_date', '>=', start.toISOString())
         .where('due_date', '<=', end.toISOString())
@@ -112,8 +116,8 @@ export class DeadlineAlertService {
 
       const tasks = Array.isArray(result) ? result : [];
       // Filter high priority tasks (high, urgent)
-      const highPriorityTasks = tasks.filter((t: any) =>
-        t.priority === 'high' || t.priority === 'urgent'
+      const highPriorityTasks = tasks.filter(
+        (t: any) => t.priority === 'high' || t.priority === 'urgent',
       );
 
       return highPriorityTasks.map((t: any) => ({
@@ -138,7 +142,8 @@ export class DeadlineAlertService {
     try {
       const now = new Date();
 
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('*')
         .where('due_date', '<', now.toISOString())
         .where('status', '!=', 'done')
@@ -180,7 +185,7 @@ export class DeadlineAlertService {
       try {
         // Check if alert was already sent today for these tasks
         const alreadyAlerted = await this.checkExistingAlerts(userId, userTasks, alertType);
-        const newAlerts = userTasks.filter(t => !alreadyAlerted.includes(t.id));
+        const newAlerts = userTasks.filter((t) => !alreadyAlerted.includes(t.id));
 
         if (newAlerts.length === 0) continue;
 
@@ -192,7 +197,9 @@ export class DeadlineAlertService {
         // Send grouped notification
         await this.sendGroupedNotification(userId, newAlerts, alertType);
       } catch (error) {
-        this.logger.error(`[DeadlineAlert] Error processing alerts for user ${userId}: ${error.message}`);
+        this.logger.error(
+          `[DeadlineAlert] Error processing alerts for user ${userId}: ${error.message}`,
+        );
       }
     }
   }
@@ -200,14 +207,19 @@ export class DeadlineAlertService {
   /**
    * Check for existing alerts today
    */
-  private async checkExistingAlerts(userId: string, tasks: DeadlineTask[], alertType: AlertType): Promise<string[]> {
+  private async checkExistingAlerts(
+    userId: string,
+    tasks: DeadlineTask[],
+    alertType: AlertType,
+  ): Promise<string[]> {
     try {
       const todayStart = new Date();
       todayStart.setHours(0, 0, 0, 0);
 
-      const taskIds = tasks.map(t => t.id);
+      const taskIds = tasks.map((t) => t.id);
 
-      const result = await this.db.table('autopilot_alerts')
+      const result = await this.db
+        .table('autopilot_alerts')
         .select('entity_id')
         .where('user_id', '=', userId)
         .where('alert_type', '=', alertType)
@@ -227,7 +239,11 @@ export class DeadlineAlertService {
   /**
    * Create an alert record
    */
-  private async createAlert(userId: string, task: DeadlineTask, alertType: AlertType): Promise<void> {
+  private async createAlert(
+    userId: string,
+    task: DeadlineTask,
+    alertType: AlertType,
+  ): Promise<void> {
     try {
       const message = this.generateAlertMessage(task, alertType);
 
@@ -267,7 +283,11 @@ export class DeadlineAlertService {
   /**
    * Send grouped notification to user
    */
-  private async sendGroupedNotification(userId: string, tasks: DeadlineTask[], alertType: AlertType): Promise<void> {
+  private async sendGroupedNotification(
+    userId: string,
+    tasks: DeadlineTask[],
+    alertType: AlertType,
+  ): Promise<void> {
     try {
       const workspaceId = tasks[0]?.workspaceId;
       if (!workspaceId) return;
@@ -278,21 +298,24 @@ export class DeadlineAlertService {
       switch (alertType) {
         case AlertType.DEADLINE_24H:
           title = 'Urgent: Tasks Due Soon';
-          body = tasks.length === 1
-            ? `"${tasks[0].title}" is due in less than 24 hours`
-            : `You have ${tasks.length} tasks due in less than 24 hours`;
+          body =
+            tasks.length === 1
+              ? `"${tasks[0].title}" is due in less than 24 hours`
+              : `You have ${tasks.length} tasks due in less than 24 hours`;
           break;
         case AlertType.DEADLINE_3D:
           title = 'Upcoming High-Priority Deadlines';
-          body = tasks.length === 1
-            ? `"${tasks[0].title}" is due in 3 days`
-            : `You have ${tasks.length} high-priority tasks due in 3 days`;
+          body =
+            tasks.length === 1
+              ? `"${tasks[0].title}" is due in 3 days`
+              : `You have ${tasks.length} high-priority tasks due in 3 days`;
           break;
         case AlertType.OVERDUE:
           title = 'Overdue Tasks';
-          body = tasks.length === 1
-            ? `"${tasks[0].title}" is overdue`
-            : `You have ${tasks.length} overdue tasks`;
+          body =
+            tasks.length === 1
+              ? `"${tasks[0].title}" is overdue`
+              : `You have ${tasks.length} overdue tasks`;
           break;
         default:
           title = 'Task Alert';
@@ -308,7 +331,7 @@ export class DeadlineAlertService {
         data: {
           workspaceId,
           alertType,
-          tasks: tasks.map(t => ({ id: t.id, title: t.title, dueDate: t.dueDate })),
+          tasks: tasks.map((t) => ({ id: t.id, title: t.title, dueDate: t.dueDate })),
         },
       });
 
@@ -317,7 +340,7 @@ export class DeadlineAlertService {
         alertType,
         title,
         body,
-        tasks: tasks.map(t => ({
+        tasks: tasks.map((t) => ({
           id: t.id,
           title: t.title,
           dueDate: t.dueDate,
@@ -325,7 +348,9 @@ export class DeadlineAlertService {
         })),
       });
 
-      this.logger.log(`[DeadlineAlert] Sent ${alertType} notification to user ${userId} for ${tasks.length} tasks`);
+      this.logger.log(
+        `[DeadlineAlert] Sent ${alertType} notification to user ${userId} for ${tasks.length} tasks`,
+      );
     } catch (error) {
       this.logger.error(`[DeadlineAlert] Error sending notification: ${error.message}`);
     }
@@ -336,7 +361,8 @@ export class DeadlineAlertService {
    */
   async getPendingAlerts(userId: string, workspaceId: string): Promise<any[]> {
     try {
-      const result = await this.db.table('autopilot_alerts')
+      const result = await this.db
+        .table('autopilot_alerts')
         .select('*')
         .where('user_id', '=', userId)
         .where('workspace_id', '=', workspaceId)
@@ -355,7 +381,8 @@ export class DeadlineAlertService {
    */
   async dismissAlert(alertId: string, userId: string): Promise<boolean> {
     try {
-      await this.db.table('autopilot_alerts')
+      await this.db
+        .table('autopilot_alerts')
         .update({ is_dismissed: true })
         .where('id', '=', alertId)
         .where('user_id', '=', userId)

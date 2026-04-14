@@ -42,17 +42,11 @@ export class PushService implements OnModuleInit {
     return !!this.provider && this.provider.isAvailable();
   }
 
-  async send(
-    recipient: PushRecipient,
-    message: PushMessage,
-  ): Promise<PushResult> {
+  async send(recipient: PushRecipient, message: PushMessage): Promise<PushResult> {
     return this.provider.send(recipient, message);
   }
 
-  async sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult> {
     return this.provider.sendBulk(recipients, message);
   }
 

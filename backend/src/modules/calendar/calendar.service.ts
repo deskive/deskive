@@ -1,4 +1,14 @@
-import { Injectable, NotFoundException, BadRequestException, ConflictException, InternalServerErrorException, Logger, Inject, forwardRef, Optional } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+  InternalServerErrorException,
+  Logger,
+  Inject,
+  forwardRef,
+  Optional,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { AiProviderService } from '../ai-provider/ai-provider.service';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -6,7 +16,21 @@ import { NotificationType } from '../notifications/dto';
 import { NotificationSchedulerService } from '../scheduler/notification-scheduler.service';
 import { EventBotReminderService } from './event-bot-reminder.service';
 import { EntityEventIntegrationService } from '../workflows/entity-event-integration.service';
-import { CreateEventDto, UpdateEventDto, CreateMeetingRoomDto, CreateEventCategoryDto, UpdateEventCategoryDto, AISchedulingRequestDto, AISchedulingResponseDto, TimeSlotSuggestion, SmartAISchedulingRequestDto, SmartAISchedulingResponseDto, ParsedSchedulingInfo, SmartTimeSlotSuggestion, CalendarDashboardStatsDto } from './dto';
+import {
+  CreateEventDto,
+  UpdateEventDto,
+  CreateMeetingRoomDto,
+  CreateEventCategoryDto,
+  UpdateEventCategoryDto,
+  AISchedulingRequestDto,
+  AISchedulingResponseDto,
+  TimeSlotSuggestion,
+  SmartAISchedulingRequestDto,
+  SmartAISchedulingResponseDto,
+  ParsedSchedulingInfo,
+  SmartTimeSlotSuggestion,
+  CalendarDashboardStatsDto,
+} from './dto';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
@@ -19,15 +43,21 @@ export class CalendarService {
     private notificationSchedulerService: NotificationSchedulerService,
     @Inject(forwardRef(() => EventBotReminderService))
     private eventBotReminderService: EventBotReminderService,
-    @Optional() @Inject(forwardRef(() => EntityEventIntegrationService))
+    @Optional()
+    @Inject(forwardRef(() => EntityEventIntegrationService))
     private entityEventIntegration?: EntityEventIntegrationService,
-  ) { }
+  ) {}
 
   // ============================================
   // EVENT OPERATIONS
   // ============================================
 
-  async createEvent(workspaceId: string, createEventDto: CreateEventDto, userId: string, files?: Express.Multer.File[]) {
+  async createEvent(
+    workspaceId: string,
+    createEventDto: CreateEventDto,
+    userId: string,
+    files?: Express.Multer.File[],
+  ) {
     // Validate that start time is not in the past
     const now = new Date();
     const startTime = new Date(createEventDto.start_time);
@@ -35,15 +65,23 @@ export class CalendarService {
     // For all-day events, compare only the date (not time)
     if (createEventDto.all_day) {
       const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      const eventDateStart = new Date(startTime.getFullYear(), startTime.getMonth(), startTime.getDate());
+      const eventDateStart = new Date(
+        startTime.getFullYear(),
+        startTime.getMonth(),
+        startTime.getDate(),
+      );
       if (eventDateStart.getTime() < todayStart.getTime()) {
-        throw new BadRequestException('Cannot create an event in the past. Please select a future date.');
+        throw new BadRequestException(
+          'Cannot create an event in the past. Please select a future date.',
+        );
       }
     } else {
       // For timed events, allow a small buffer (1 minute) to account for request processing time
       const bufferMs = 60 * 1000;
       if (startTime.getTime() < now.getTime() - bufferMs) {
-        throw new BadRequestException('Cannot create an event in the past. Please select a future date and time.');
+        throw new BadRequestException(
+          'Cannot create an event in the past. Please select a future date and time.',
+        );
       }
     }
 
@@ -55,13 +93,17 @@ export class CalendarService {
     // Check room availability if room is specified
     if (createEventDto.room_id) {
       try {
-        await this.checkRoomAvailability(createEventDto.room_id, createEventDto.start_time, createEventDto.end_time);
+        await this.checkRoomAvailability(
+          createEventDto.room_id,
+          createEventDto.start_time,
+          createEventDto.end_time,
+        );
       } catch (error) {
         console.log('Room availability check failed:', {
           room_id: createEventDto.room_id,
           start_time: createEventDto.start_time,
           end_time: createEventDto.end_time,
-          error: error.message
+          error: error.message,
         });
         throw error;
       }
@@ -75,12 +117,9 @@ export class CalendarService {
 
     // Build attachments object (without drive_attachment - that's a separate column now)
     const attachments = {
-      file_attachment: [
-        ...(createEventDto.attachments?.file_attachment || []),
-        ...uploadedFileIds
-      ],
+      file_attachment: [...(createEventDto.attachments?.file_attachment || []), ...uploadedFileIds],
       note_attachment: createEventDto.attachments?.note_attachment || [],
-      event_attachment: createEventDto.attachments?.event_attachment || []
+      event_attachment: createEventDto.attachments?.event_attachment || [],
     };
 
     // Drive attachments are stored in a separate column
@@ -125,7 +164,7 @@ export class CalendarService {
       is_recurring: createEventDto.is_recurring || false,
       recurrence_rule: createEventDto.recurrence_rule,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Debug logging
@@ -133,7 +172,7 @@ export class CalendarService {
       category_id: eventData.category_id,
       room_id: eventData.room_id,
       priority: eventData.priority,
-      status: eventData.status
+      status: eventData.status,
     });
 
     const event = await this.db.insert('calendar_events', eventData);
@@ -145,23 +184,25 @@ export class CalendarService {
 
     // Add reminders and schedule notifications for attendees
     if (createEventDto.reminders && createEventDto.reminders.length > 0) {
-      await this.addEventReminders(
-        event.id,
-        createEventDto.reminders,
-        {
-          eventTitle: createEventDto.title,
-          startTime: createEventDto.start_time,
-          endTime: createEventDto.end_time,
-          organizerId: userId,
-          attendeeEmails: createEventDto.attendees || [],
-          workspaceId: workspaceId,
-        }
-      );
+      await this.addEventReminders(event.id, createEventDto.reminders, {
+        eventTitle: createEventDto.title,
+        startTime: createEventDto.start_time,
+        endTime: createEventDto.end_time,
+        organizerId: userId,
+        attendeeEmails: createEventDto.attendees || [],
+        workspaceId: workspaceId,
+      });
     }
 
     // Book the room if specified
     if (createEventDto.room_id) {
-      await this.bookRoom(createEventDto.room_id, event.id, createEventDto.start_time, createEventDto.end_time, userId);
+      await this.bookRoom(
+        createEventDto.room_id,
+        event.id,
+        createEventDto.start_time,
+        createEventDto.end_time,
+        userId,
+      );
     }
 
     // Send notifications to attendees (exclude the organizer)
@@ -170,12 +211,12 @@ export class CalendarService {
       const eventTime = new Date(createEventDto.start_time).toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
       });
       const eventDateFormatted = new Date(createEventDto.start_time).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       });
 
       for (const attendeeEmail of createEventDto.attendees) {
@@ -184,7 +225,7 @@ export class CalendarService {
           const attendeeUser = await this.db.searchUsers(attendeeEmail, { limit: 100 });
           if (attendeeUser && attendeeUser.users && attendeeUser.users.length > 0) {
             // Find the exact email match from the search results
-            const attendee = attendeeUser.users.find(u => u.email === attendeeEmail);
+            const attendee = attendeeUser.users.find((u) => u.email === attendeeEmail);
             if (attendee && attendee.id !== userId) {
               await this.notificationsService.sendNotification({
                 user_id: attendee.id,
@@ -203,7 +244,7 @@ export class CalendarService {
                   event_title: createEventDto.title,
                   event_start_time: createEventDto.start_time,
                   event_end_time: createEventDto.end_time,
-                }
+                },
               });
             }
           }
@@ -229,19 +270,25 @@ export class CalendarService {
     return event;
   }
 
-  async getEvents(workspaceId: string, startDate?: string, endDate?: string, userId?: string, filters?: any) {
+  async getEvents(
+    workspaceId: string,
+    startDate?: string,
+    endDate?: string,
+    userId?: string,
+    filters?: any,
+  ) {
     // Using workaround pattern for complex queries
     const allEventsResult = await this.db.find('calendar_events', {});
     const allEventsData = Array.isArray(allEventsResult.data) ? allEventsResult.data : [];
 
-    let events = allEventsData.filter(e => e.workspace_id === workspaceId);
+    let events = allEventsData.filter((e) => e.workspace_id === workspaceId);
 
     // Filter by date range
     if (startDate) {
-      events = events.filter(e => new Date(e.end_time) >= new Date(startDate));
+      events = events.filter((e) => new Date(e.end_time) >= new Date(startDate));
     }
     if (endDate) {
-      events = events.filter(e => new Date(e.start_time) <= new Date(endDate));
+      events = events.filter((e) => new Date(e.start_time) <= new Date(endDate));
     }
 
     // Apply search and filters
@@ -261,9 +308,10 @@ export class CalendarService {
       }
 
       // Filter events: organizer OR attendee (by email in attendees array)
-      events = events.filter(e => {
+      events = events.filter((e) => {
         const isOrganizer = e.organizer_id === userId;
-        const isAttendeeByEmail = userEmail && Array.isArray(e.attendees) && e.attendees.includes(userEmail);
+        const isAttendeeByEmail =
+          userEmail && Array.isArray(e.attendees) && e.attendees.includes(userEmail);
 
         return isOrganizer || isAttendeeByEmail;
       });
@@ -280,7 +328,7 @@ export class CalendarService {
         const occurrences = this.generateOccurrencesForDateRange(
           event,
           new Date(startDate),
-          new Date(endDate)
+          new Date(endDate),
         );
         eventsWithOccurrences.push(...occurrences);
       } else {
@@ -319,16 +367,16 @@ export class CalendarService {
         // Merge drive_attachment back into attachments for frontend compatibility
         const mergedAttachments = {
           ...enrichedAttachments,
-          drive_attachment: event.drive_attachment || []
+          drive_attachment: event.drive_attachment || [],
         };
 
         return {
           ...event,
           attendees: attendees,
           reminders: reminders,
-          attachments: mergedAttachments
+          attachments: mergedAttachments,
         };
-      })
+      }),
     );
 
     return enrichedEvents;
@@ -342,64 +390,63 @@ export class CalendarService {
     // Search filter - search in title, description
     if (filters.search) {
       const searchTerm = filters.search.toLowerCase();
-      filteredEvents = filteredEvents.filter(event =>
-        event.title?.toLowerCase().includes(searchTerm) ||
-        event.description?.toLowerCase().includes(searchTerm)
+      filteredEvents = filteredEvents.filter(
+        (event) =>
+          event.title?.toLowerCase().includes(searchTerm) ||
+          event.description?.toLowerCase().includes(searchTerm),
       );
     }
 
     // Category filter
     if (filters.categories && filters.categories.length > 0) {
-      filteredEvents = filteredEvents.filter(event =>
-        filters.categories.includes(event.category_id)
+      filteredEvents = filteredEvents.filter((event) =>
+        filters.categories.includes(event.category_id),
       );
     }
 
     // Priority filter
     if (filters.priorities && filters.priorities.length > 0) {
-      filteredEvents = filteredEvents.filter(event =>
-        filters.priorities.includes(event.priority)
+      filteredEvents = filteredEvents.filter((event) =>
+        filters.priorities.includes(event.priority),
       );
     }
 
     // Status filter
     if (filters.statuses && filters.statuses.length > 0) {
-      filteredEvents = filteredEvents.filter(event =>
-        filters.statuses.includes(event.status)
-      );
+      filteredEvents = filteredEvents.filter((event) => filters.statuses.includes(event.status));
     }
 
     // Tags filter (assuming tags are stored as array in JSONB)
     if (filters.tags && filters.tags.length > 0) {
-      filteredEvents = filteredEvents.filter(event => {
+      filteredEvents = filteredEvents.filter((event) => {
         const eventTags = event.tags || [];
-        return filters.tags.some(tag => eventTags.includes(tag));
+        return filters.tags.some((tag) => eventTags.includes(tag));
       });
     }
 
     // Attendees filter
     if (filters.attendees && filters.attendees.length > 0) {
-      filteredEvents = filteredEvents.filter(event => {
+      filteredEvents = filteredEvents.filter((event) => {
         const eventAttendees = event.attendees || [];
-        return filters.attendees.some(email =>
-          eventAttendees.some(attendee =>
-            typeof attendee === 'string' ? attendee === email : attendee.email === email
-          )
+        return filters.attendees.some((email) =>
+          eventAttendees.some((attendee) =>
+            typeof attendee === 'string' ? attendee === email : attendee.email === email,
+          ),
         );
       });
     }
 
     // Visibility filters
     if (filters.showDeclined === false) {
-      filteredEvents = filteredEvents.filter(event => event.status !== 'declined');
+      filteredEvents = filteredEvents.filter((event) => event.status !== 'declined');
     }
 
     if (filters.showCancelled === false) {
-      filteredEvents = filteredEvents.filter(event => event.status !== 'cancelled');
+      filteredEvents = filteredEvents.filter((event) => event.status !== 'cancelled');
     }
 
     if (filters.showPrivate === false) {
-      filteredEvents = filteredEvents.filter(event => event.visibility !== 'private');
+      filteredEvents = filteredEvents.filter((event) => event.visibility !== 'private');
     }
 
     return filteredEvents;
@@ -413,21 +460,22 @@ export class CalendarService {
       return {
         file_attachment: [],
         note_attachment: [],
-        event_attachment: []
+        event_attachment: [],
       };
     }
 
     const enriched: any = {
       file_attachment: [],
       note_attachment: [],
-      event_attachment: []
+      event_attachment: [],
     };
 
     // Enrich file attachments
     if (attachments.file_attachment && Array.isArray(attachments.file_attachment)) {
       for (const fileId of attachments.file_attachment) {
         try {
-          const fileQuery = await this.db.table('files')
+          const fileQuery = await this.db
+            .table('files')
             .select('id, name, mime_type, size, url')
             .where('id', '=', fileId)
             .limit(1)
@@ -440,14 +488,17 @@ export class CalendarService {
               name: fileData.name || 'Unknown file',
               type: fileData.mime_type,
               size: fileData.size,
-              url: fileData.url
+              url: fileData.url,
             });
           } else {
             console.warn(`[CalendarService] File attachment not found: ${fileId}`);
             enriched.file_attachment.push({ id: fileId, name: 'Unknown file' });
           }
         } catch (error) {
-          console.warn(`[CalendarService] Could not fetch file attachment ${fileId}:`, error.message);
+          console.warn(
+            `[CalendarService] Could not fetch file attachment ${fileId}:`,
+            error.message,
+          );
           enriched.file_attachment.push({ id: fileId, name: 'Unknown file' });
         }
       }
@@ -457,7 +508,8 @@ export class CalendarService {
     if (attachments.note_attachment && Array.isArray(attachments.note_attachment)) {
       for (const linkedNoteId of attachments.note_attachment) {
         try {
-          const noteQuery = await this.db.table('notes')
+          const noteQuery = await this.db
+            .table('notes')
             .select('id, title, icon, updated_at')
             .where('id', '=', linkedNoteId)
             .where('workspace_id', '=', workspaceId)
@@ -471,14 +523,17 @@ export class CalendarService {
               id: noteData.id,
               title: noteData.title || 'Untitled Note',
               icon: noteData.icon || '📝',
-              updated_at: noteData.updated_at
+              updated_at: noteData.updated_at,
             });
           } else {
             console.warn(`[CalendarService] Note attachment not found: ${linkedNoteId}`);
             enriched.note_attachment.push({ id: linkedNoteId, title: 'Unknown note', icon: '📝' });
           }
         } catch (error) {
-          console.warn(`[CalendarService] Could not fetch note attachment ${linkedNoteId}:`, error.message);
+          console.warn(
+            `[CalendarService] Could not fetch note attachment ${linkedNoteId}:`,
+            error.message,
+          );
           enriched.note_attachment.push({ id: linkedNoteId, title: 'Unknown note', icon: '📝' });
         }
       }
@@ -488,7 +543,8 @@ export class CalendarService {
     if (attachments.event_attachment && Array.isArray(attachments.event_attachment)) {
       for (const eventId of attachments.event_attachment) {
         try {
-          const eventQuery = await this.db.table('calendar_events')
+          const eventQuery = await this.db
+            .table('calendar_events')
             .select('id, title, start_time, end_time, location')
             .where('id', '=', eventId)
             .where('workspace_id', '=', workspaceId)
@@ -502,14 +558,17 @@ export class CalendarService {
               title: eventData.title || 'Untitled Event',
               start_time: eventData.start_time,
               end_time: eventData.end_time,
-              location: eventData.location
+              location: eventData.location,
             });
           } else {
             console.warn(`[CalendarService] Event attachment not found: ${eventId}`);
             enriched.event_attachment.push({ id: eventId, title: 'Unknown event' });
           }
         } catch (error) {
-          console.warn(`[CalendarService] Could not fetch event attachment ${eventId}:`, error.message);
+          console.warn(
+            `[CalendarService] Could not fetch event attachment ${eventId}:`,
+            error.message,
+          );
           enriched.event_attachment.push({ id: eventId, title: 'Unknown event' });
         }
       }
@@ -518,11 +577,18 @@ export class CalendarService {
     return enriched;
   }
 
-  async searchEvents(workspaceId: string, query: string, startDate?: string, endDate?: string, filters?: any, userId?: string) {
+  async searchEvents(
+    workspaceId: string,
+    query: string,
+    startDate?: string,
+    endDate?: string,
+    filters?: any,
+    userId?: string,
+  ) {
     // Using workaround pattern for complex queries
     const allEventsResult = await this.db.find('calendar_events', {});
     const allEventsData = Array.isArray(allEventsResult.data) ? allEventsResult.data : [];
-    let events = allEventsData.filter(e => e.workspace_id === workspaceId);
+    let events = allEventsData.filter((e) => e.workspace_id === workspaceId);
 
     // Filter by user (only events they're invited to or organizing)
     if (userId) {
@@ -538,9 +604,10 @@ export class CalendarService {
       }
 
       // Filter events: organizer OR attendee (by email in attendees array)
-      events = events.filter(e => {
+      events = events.filter((e) => {
         const isOrganizer = e.organizer_id === userId;
-        const isAttendeeByEmail = userEmail && Array.isArray(e.attendees) && e.attendees.includes(userEmail);
+        const isAttendeeByEmail =
+          userEmail && Array.isArray(e.attendees) && e.attendees.includes(userEmail);
 
         return isOrganizer || isAttendeeByEmail;
       });
@@ -548,10 +615,11 @@ export class CalendarService {
 
     // Apply search query
     const searchTerm = query.toLowerCase();
-    events = events.filter(event =>
-      event.title?.toLowerCase().includes(searchTerm) ||
-      event.description?.toLowerCase().includes(searchTerm) ||
-      event.location?.toLowerCase().includes(searchTerm)
+    events = events.filter(
+      (event) =>
+        event.title?.toLowerCase().includes(searchTerm) ||
+        event.description?.toLowerCase().includes(searchTerm) ||
+        event.location?.toLowerCase().includes(searchTerm),
     );
 
     // Apply additional filters
@@ -559,10 +627,10 @@ export class CalendarService {
 
     // Filter by date range if provided
     if (startDate) {
-      events = events.filter(e => new Date(e.end_time) >= new Date(startDate));
+      events = events.filter((e) => new Date(e.end_time) >= new Date(startDate));
     }
     if (endDate) {
-      events = events.filter(e => new Date(e.start_time) <= new Date(endDate));
+      events = events.filter((e) => new Date(e.start_time) <= new Date(endDate));
     }
 
     // Sort by relevance (events with title matches first, then description matches)
@@ -583,17 +651,21 @@ export class CalendarService {
       events.map(async (event) => {
         // Merge drive_attachment back into attachments for frontend compatibility
         const mergedAttachments = {
-          ...(event.attachments || { file_attachment: [], note_attachment: [], event_attachment: [] }),
-          drive_attachment: event.drive_attachment || []
+          ...(event.attachments || {
+            file_attachment: [],
+            note_attachment: [],
+            event_attachment: [],
+          }),
+          drive_attachment: event.drive_attachment || [],
         };
 
         return {
           ...event,
           attendees: await this.getEventAttendees(event.id),
           reminders: await this.getEventReminders(event.id),
-          attachments: mergedAttachments
+          attachments: mergedAttachments,
         };
-      })
+      }),
     );
 
     return enrichedEvents;
@@ -602,7 +674,7 @@ export class CalendarService {
   async getEvent(eventId: string, workspaceId: string, userId: string) {
     const eventQueryResult = await this.db.find('calendar_events', {
       id: eventId,
-      workspace_id: workspaceId
+      workspace_id: workspaceId,
     });
 
     const eventData = Array.isArray(eventQueryResult.data) ? eventQueryResult.data : [];
@@ -613,9 +685,11 @@ export class CalendarService {
     const event = eventData[0];
 
     // Check if user has access to this event
-    if (event.visibility === 'private' &&
+    if (
+      event.visibility === 'private' &&
       event.organizer_id !== userId &&
-      !event.attendees.includes(userId)) {
+      !event.attendees.includes(userId)
+    ) {
       throw new NotFoundException('Event not found');
     }
 
@@ -626,18 +700,24 @@ export class CalendarService {
     // Merge drive_attachment back into attachments for frontend compatibility
     const mergedAttachments = {
       ...(event.attachments || { file_attachment: [], note_attachment: [], event_attachment: [] }),
-      drive_attachment: event.drive_attachment || []
+      drive_attachment: event.drive_attachment || [],
     };
 
     return {
       ...event,
       attendees,
       reminders,
-      attachments: mergedAttachments
+      attachments: mergedAttachments,
     };
   }
 
-  async updateEvent(eventId: string, workspaceId: string, updateEventDto: UpdateEventDto, userId: string, files?: Express.Multer.File[]) {
+  async updateEvent(
+    eventId: string,
+    workspaceId: string,
+    updateEventDto: UpdateEventDto,
+    userId: string,
+    files?: Express.Multer.File[],
+  ) {
     const event = await this.getEventWithAccess(eventId, workspaceId, userId);
 
     // Extract master event ID for database operations
@@ -656,7 +736,9 @@ export class CalendarService {
       // Allow a small buffer (1 minute) to account for request processing time
       const bufferMs = 60 * 1000;
       if (startTime.getTime() < now.getTime() - bufferMs) {
-        throw new BadRequestException('Cannot update event to a past date and time. Please select a future date and time.');
+        throw new BadRequestException(
+          'Cannot update event to a past date and time. Please select a future date and time.',
+        );
       }
     }
 
@@ -674,26 +756,38 @@ export class CalendarService {
     }
 
     // Remove fields that are not columns in calendar_events table
-    const { reminders, attendees, attachments: inputAttachments, ...eventUpdateData } = updateEventDto;
+    const {
+      reminders,
+      attendees,
+      attachments: inputAttachments,
+      ...eventUpdateData
+    } = updateEventDto;
 
     // Handle attachments - combine existing with new uploads (without drive_attachment - that's a separate column)
     let updatedAttachments = inputAttachments;
     let updatedDriveAttachment = inputAttachments?.drive_attachment;
     if (uploadedFileIds.length > 0 || inputAttachments) {
       // Get existing attachments from event
-      const existingAttachments = event.attachments || { file_attachment: [], note_attachment: [], event_attachment: [] };
+      const existingAttachments = event.attachments || {
+        file_attachment: [],
+        note_attachment: [],
+        event_attachment: [],
+      };
       const existingDriveAttachment = event.drive_attachment || [];
       updatedAttachments = {
         file_attachment: [
           ...(inputAttachments?.file_attachment || existingAttachments.file_attachment || []),
-          ...uploadedFileIds
+          ...uploadedFileIds,
         ],
-        note_attachment: inputAttachments?.note_attachment || existingAttachments.note_attachment || [],
-        event_attachment: inputAttachments?.event_attachment || existingAttachments.event_attachment || []
+        note_attachment:
+          inputAttachments?.note_attachment || existingAttachments.note_attachment || [],
+        event_attachment:
+          inputAttachments?.event_attachment || existingAttachments.event_attachment || [],
       };
-      updatedDriveAttachment = inputAttachments?.drive_attachment !== undefined
-        ? inputAttachments.drive_attachment
-        : existingDriveAttachment;
+      updatedDriveAttachment =
+        inputAttachments?.drive_attachment !== undefined
+          ? inputAttachments.drive_attachment
+          : existingDriveAttachment;
     }
 
     const updateData = {
@@ -705,7 +799,7 @@ export class CalendarService {
       // Drive attachment is a separate column
       drive_attachment: updatedDriveAttachment !== undefined ? updatedDriveAttachment : undefined,
       last_modified_by: userId,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Debug logging
@@ -715,7 +809,7 @@ export class CalendarService {
       category_id: updateData.category_id,
       room_id: updateData.room_id,
       priority: updateData.priority,
-      status: updateData.status
+      status: updateData.status,
     });
 
     // Detect changes before updating
@@ -723,7 +817,10 @@ export class CalendarService {
     if (updateEventDto.title && updateEventDto.title !== event.title) {
       changes.push('title');
     }
-    if (updateEventDto.description !== undefined && updateEventDto.description !== event.description) {
+    if (
+      updateEventDto.description !== undefined &&
+      updateEventDto.description !== event.description
+    ) {
       changes.push('description');
     }
     if (updateEventDto.start_time && updateEventDto.start_time !== event.start_time) {
@@ -750,7 +847,7 @@ export class CalendarService {
 
     // Get all attendees for notifications
     const existingAttendees = await this.getEventAttendees(masterEventId);
-    const existingEmails = existingAttendees.map(a => a.email);
+    const existingEmails = existingAttendees.map((a) => a.email);
     let newAttendees: string[] = [];
     let removedAttendees: string[] = [];
     let allCurrentAttendees: string[] = existingEmails;
@@ -758,8 +855,8 @@ export class CalendarService {
     // Update attendees in event_attendees table if provided (use master event ID)
     if (attendees !== undefined) {
       // Identify new and removed attendees
-      newAttendees = attendees.filter(email => !existingEmails.includes(email));
-      removedAttendees = existingEmails.filter(email => !attendees.includes(email));
+      newAttendees = attendees.filter((email) => !existingEmails.includes(email));
+      removedAttendees = existingEmails.filter((email) => !attendees.includes(email));
       allCurrentAttendees = attendees;
 
       await this.updateEventAttendees(masterEventId, attendees);
@@ -777,12 +874,12 @@ export class CalendarService {
       const eventDateFormatted = new Date(eventStartTime).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       });
       const eventTime = new Date(eventStartTime).toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
       });
 
       // Generate notification message based on changes
@@ -798,15 +895,18 @@ export class CalendarService {
         notificationMessage = `The title of the event has been changed to "${eventTitle}" on ${eventDateFormatted} at ${eventTime}`;
       } else if (changes.includes('time')) {
         notificationTitle = 'Event Time Changed';
-        const oldStartTime = new Date(event.start_time).toLocaleDateString('en-US', {
-          month: 'short',
-          day: 'numeric',
-          year: 'numeric'
-        }) + ' at ' + new Date(event.start_time).toLocaleTimeString('en-US', {
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: true
-        });
+        const oldStartTime =
+          new Date(event.start_time).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          }) +
+          ' at ' +
+          new Date(event.start_time).toLocaleTimeString('en-US', {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+          });
         notificationMessage = `"${eventTitle}" has been rescheduled from ${oldStartTime} to ${eventDateFormatted} at ${eventTime}`;
       } else if (changes.includes('location')) {
         notificationTitle = 'Event Location Changed';
@@ -835,17 +935,19 @@ export class CalendarService {
         try {
           const attendeeUser = await this.db.searchUsers(attendeeEmail, { limit: 100 });
           if (attendeeUser && attendeeUser.users && attendeeUser.users.length > 0) {
-            const attendee = attendeeUser.users.find(u => u.email === attendeeEmail);
+            const attendee = attendeeUser.users.find((u) => u.email === attendeeEmail);
             if (attendee && attendee.id !== userId) {
               await this.notificationsService.sendNotification({
                 user_id: attendee.id,
                 type: NotificationType.CALENDAR,
-                title: newAttendees.length > 0 && changes.length === 1 && changes[0] === 'attendees'
-                  ? 'Added to Calendar Event'
-                  : notificationTitle,
-                message: newAttendees.length > 0 && changes.length === 1 && changes[0] === 'attendees'
-                  ? `You've been added to "${eventTitle}" on ${eventDateFormatted} at ${eventTime}`
-                  : notificationMessage,
+                title:
+                  newAttendees.length > 0 && changes.length === 1 && changes[0] === 'attendees'
+                    ? 'Added to Calendar Event'
+                    : notificationTitle,
+                message:
+                  newAttendees.length > 0 && changes.length === 1 && changes[0] === 'attendees'
+                    ? `You've been added to "${eventTitle}" on ${eventDateFormatted} at ${eventTime}`
+                    : notificationMessage,
                 action_url: `/workspaces/${workspaceId}/calendar?date=${eventDate}&eventId=${masterEventId}`,
                 priority: 'normal' as any,
                 send_push: true, // Enable FCM push notification for mobile users
@@ -858,12 +960,15 @@ export class CalendarService {
                   event_title: eventTitle,
                   event_start_time: eventStartTime,
                   changes: changes,
-                }
+                },
               });
             }
           }
         } catch (error) {
-          console.error(`Failed to send event update notification to attendee ${attendeeEmail}:`, error);
+          console.error(
+            `Failed to send event update notification to attendee ${attendeeEmail}:`,
+            error,
+          );
         }
       }
 
@@ -872,7 +977,7 @@ export class CalendarService {
         try {
           const attendeeUser = await this.db.searchUsers(attendeeEmail, { limit: 100 });
           if (attendeeUser && attendeeUser.users && attendeeUser.users.length > 0) {
-            const attendee = attendeeUser.users.find(u => u.email === attendeeEmail);
+            const attendee = attendeeUser.users.find((u) => u.email === attendeeEmail);
             if (attendee && attendee.id !== userId) {
               await this.notificationsService.sendNotification({
                 user_id: attendee.id,
@@ -891,25 +996,28 @@ export class CalendarService {
                   event_title: eventTitle,
                   event_start_time: eventStartTime,
                   removed: true,
-                }
+                },
               });
             }
           }
         } catch (error) {
-          console.error(`Failed to send event removal notification to attendee ${attendeeEmail}:`, error);
+          console.error(
+            `Failed to send event removal notification to attendee ${attendeeEmail}:`,
+            error,
+          );
         }
       }
 
       // Send notifications to existing attendees (excluding newly added/removed and the organizer)
       const existingUnchangedAttendees = allCurrentAttendees.filter(
-        email => !newAttendees.includes(email) && !removedAttendees.includes(email)
+        (email) => !newAttendees.includes(email) && !removedAttendees.includes(email),
       );
 
       for (const attendeeEmail of existingUnchangedAttendees) {
         try {
           const attendeeUser = await this.db.searchUsers(attendeeEmail, { limit: 100 });
           if (attendeeUser && attendeeUser.users && attendeeUser.users.length > 0) {
-            const attendee = attendeeUser.users.find(u => u.email === attendeeEmail);
+            const attendee = attendeeUser.users.find((u) => u.email === attendeeEmail);
             if (attendee && attendee.id !== userId) {
               await this.notificationsService.sendNotification({
                 user_id: attendee.id,
@@ -928,12 +1036,15 @@ export class CalendarService {
                   event_title: eventTitle,
                   event_start_time: eventStartTime,
                   changes: changes,
-                }
+                },
               });
             }
           }
         } catch (error) {
-          console.error(`Failed to send event update notification to attendee ${attendeeEmail}:`, error);
+          console.error(
+            `Failed to send event update notification to attendee ${attendeeEmail}:`,
+            error,
+          );
         }
       }
     }
@@ -944,20 +1055,16 @@ export class CalendarService {
       const finalStartTime = updateEventDto.start_time || event.start_time;
       const finalEndTime = updateEventDto.end_time || event.end_time;
       const finalTitle = updateEventDto.title || event.title;
-      const finalAttendees = attendees !== undefined ? attendees : (event.attendees || []);
+      const finalAttendees = attendees !== undefined ? attendees : event.attendees || [];
 
-      await this.updateEventReminders(
-        masterEventId,
-        updateEventDto.reminders,
-        {
-          eventTitle: finalTitle,
-          startTime: finalStartTime,
-          endTime: finalEndTime,
-          organizerId: userId,
-          attendeeEmails: finalAttendees,
-          workspaceId: workspaceId,
-        }
-      );
+      await this.updateEventReminders(masterEventId, updateEventDto.reminders, {
+        eventTitle: finalTitle,
+        startTime: finalStartTime,
+        endTime: finalEndTime,
+        organizerId: userId,
+        attendeeEmails: finalAttendees,
+        workspaceId: workspaceId,
+      });
     }
 
     // Send bot notifications for event updates
@@ -1018,18 +1125,18 @@ export class CalendarService {
 
     // Get attendees before deletion to send notifications
     const attendees = await this.getEventAttendees(masterEventId);
-    console.log('deletion attendes',attendees)
+    console.log('deletion attendes', attendees);
     // Send deletion notifications to all attendees (except the organizer)
     if (attendees && attendees.length > 0) {
       const eventTime = new Date(event.start_time).toLocaleTimeString('en-US', {
         hour: 'numeric',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
       });
       const eventDateFormatted = new Date(event.start_time).toLocaleDateString('en-US', {
         month: 'short',
         day: 'numeric',
-        year: 'numeric'
+        year: 'numeric',
       });
 
       for (const attendee of attendees) {
@@ -1050,11 +1157,14 @@ export class CalendarService {
                 workspace_id: workspaceId,
                 event_title: event.title,
                 event_start_time: event.start_time,
-                action: 'deleted'
-              }
+                action: 'deleted',
+              },
             });
           } catch (error) {
-            console.error(`Failed to send event deletion notification to user ${attendee.user_id}:`, error);
+            console.error(
+              `Failed to send event deletion notification to user ${attendee.user_id}:`,
+              error,
+            );
           }
         }
       }
@@ -1091,16 +1201,22 @@ export class CalendarService {
   // MEETING ROOM OPERATIONS
   // ============================================
 
-  async createMeetingRoom(workspaceId: string, createMeetingRoomDto: CreateMeetingRoomDto, userId: string) {
+  async createMeetingRoom(
+    workspaceId: string,
+    createMeetingRoomDto: CreateMeetingRoomDto,
+    userId: string,
+  ) {
     // Check if room code already exists
     if (createMeetingRoomDto.room_code) {
       const existingRoomResult = await this.db.find('meeting_rooms', {
         workspace_id: workspaceId,
         room_code: createMeetingRoomDto.room_code,
-        is_active: true
+        is_active: true,
       });
 
-      const existingRoomData = Array.isArray(existingRoomResult.data) ? existingRoomResult.data : [];
+      const existingRoomData = Array.isArray(existingRoomResult.data)
+        ? existingRoomResult.data
+        : [];
       if (existingRoomData.length > 0) {
         throw new ConflictException('Room code already exists');
       }
@@ -1113,28 +1229,32 @@ export class CalendarService {
       status: 'available',
       is_active: true,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.insert('meeting_rooms', roomData);
   }
 
   async getMeetingRooms(workspaceId: string, available_only = false, capacity?: number) {
-    const roomsQuery = await this.db.find('meeting_rooms', {
-      workspace_id: workspaceId,
-      is_active: true
-    }, { orderBy: 'name', order: 'asc' });
+    const roomsQuery = await this.db.find(
+      'meeting_rooms',
+      {
+        workspace_id: workspaceId,
+        is_active: true,
+      },
+      { orderBy: 'name', order: 'asc' },
+    );
 
     let rooms = Array.isArray(roomsQuery.data) ? roomsQuery.data : [];
 
     // Filter by availability
     if (available_only) {
-      rooms = rooms.filter(room => room.status === 'available');
+      rooms = rooms.filter((room) => room.status === 'available');
     }
 
     // Filter by minimum capacity
     if (capacity) {
-      rooms = rooms.filter(room => room.capacity >= capacity);
+      rooms = rooms.filter((room) => room.capacity >= capacity);
     }
 
     return rooms;
@@ -1144,7 +1264,7 @@ export class CalendarService {
     const roomQueryResult = await this.db.find('meeting_rooms', {
       id: roomId,
       workspace_id: workspaceId,
-      is_active: true
+      is_active: true,
     });
 
     const roomData = Array.isArray(roomQueryResult.data) ? roomQueryResult.data : [];
@@ -1159,16 +1279,21 @@ export class CalendarService {
 
     return {
       ...room,
-      bookings
+      bookings,
     };
   }
 
-  async updateMeetingRoom(roomId: string, workspaceId: string, updateData: Partial<CreateMeetingRoomDto>, userId: string) {
+  async updateMeetingRoom(
+    roomId: string,
+    workspaceId: string,
+    updateData: Partial<CreateMeetingRoomDto>,
+    userId: string,
+  ) {
     const room = await this.getMeetingRoom(roomId, workspaceId);
 
     const updatedData = {
       ...updateData,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.update('meeting_rooms', roomId, updatedData);
@@ -1180,16 +1305,14 @@ export class CalendarService {
     // Check for active bookings
     const allBookingsResult = await this.db.find('room_bookings', {
       room_id: roomId,
-      status: 'confirmed'
+      status: 'confirmed',
     });
 
     const allBookingsData = Array.isArray(allBookingsResult.data) ? allBookingsResult.data : [];
 
     // Filter for future bookings
     const now = new Date().toISOString();
-    const activeBookingsData = allBookingsData.filter(booking =>
-      booking.start_time >= now
-    );
+    const activeBookingsData = allBookingsData.filter((booking) => booking.start_time >= now);
 
     if (activeBookingsData.length > 0) {
       throw new BadRequestException('Cannot delete room with active bookings');
@@ -1198,7 +1321,7 @@ export class CalendarService {
     // Soft delete the room
     return await this.db.update('meeting_rooms', roomId, {
       is_active: false,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
   }
 
@@ -1206,7 +1329,13 @@ export class CalendarService {
   // ROOM BOOKING OPERATIONS
   // ============================================
 
-  async bookRoom(roomId: string, eventId: string, startTime: string, endTime: string, userId: string) {
+  async bookRoom(
+    roomId: string,
+    eventId: string,
+    startTime: string,
+    endTime: string,
+    userId: string,
+  ) {
     const bookingData = {
       room_id: roomId,
       event_id: eventId,
@@ -1215,7 +1344,7 @@ export class CalendarService {
       end_time: endTime,
       status: 'confirmed',
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.insert('room_bookings', bookingData);
@@ -1224,7 +1353,7 @@ export class CalendarService {
   async cancelRoomBooking(roomId: string, eventId: string) {
     const bookingQueryResult = await this.db.find('room_bookings', {
       room_id: roomId,
-      event_id: eventId
+      event_id: eventId,
     });
 
     const bookingData = Array.isArray(bookingQueryResult.data) ? bookingQueryResult.data : [];
@@ -1232,7 +1361,7 @@ export class CalendarService {
       const booking = bookingData[0];
       await this.db.update('room_bookings', booking.id, {
         status: 'cancelled',
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
     }
   }
@@ -1241,17 +1370,14 @@ export class CalendarService {
     // Using workaround pattern
     const allBookingsResult = await this.db.find('room_bookings', {});
     const allBookingsData = Array.isArray(allBookingsResult.data) ? allBookingsResult.data : [];
-    let bookings = allBookingsData.filter(b =>
-      b.room_id === roomId &&
-      b.status !== 'cancelled'
-    );
+    let bookings = allBookingsData.filter((b) => b.room_id === roomId && b.status !== 'cancelled');
 
     // Filter by date range
     if (startDate) {
-      bookings = bookings.filter(b => new Date(b.end_time) >= new Date(startDate));
+      bookings = bookings.filter((b) => new Date(b.end_time) >= new Date(startDate));
     }
     if (endDate) {
-      bookings = bookings.filter(b => new Date(b.start_time) <= new Date(endDate));
+      bookings = bookings.filter((b) => new Date(b.start_time) <= new Date(endDate));
     }
 
     // Sort by start time
@@ -1260,22 +1386,29 @@ export class CalendarService {
     return bookings;
   }
 
-  async checkRoomAvailability(roomId: string, startTime: string, endTime: string, excludeEventId?: string) {
+  async checkRoomAvailability(
+    roomId: string,
+    startTime: string,
+    endTime: string,
+    excludeEventId?: string,
+  ) {
     const conflictingBookingsResult = await this.db.find('room_bookings', {
       room_id: roomId,
-      status: 'confirmed'
+      status: 'confirmed',
     });
 
-    const conflictingBookingsData = Array.isArray(conflictingBookingsResult.data) ? conflictingBookingsResult.data : [];
+    const conflictingBookingsData = Array.isArray(conflictingBookingsResult.data)
+      ? conflictingBookingsResult.data
+      : [];
 
     console.log('Checking room availability:', {
       roomId,
       requestedStart: startTime,
       requestedEnd: endTime,
-      existingBookings: conflictingBookingsData.length
+      existingBookings: conflictingBookingsData.length,
     });
 
-    const conflicts = conflictingBookingsData.filter(booking => {
+    const conflicts = conflictingBookingsData.filter((booking) => {
       if (excludeEventId && booking.event_id === excludeEventId) {
         return false; // Skip current event when updating
       }
@@ -1286,19 +1419,19 @@ export class CalendarService {
       const requestEnd = new Date(endTime);
 
       // Check for time overlap
-      const hasConflict = (requestStart < bookingEnd && requestEnd > bookingStart);
+      const hasConflict = requestStart < bookingEnd && requestEnd > bookingStart;
 
       if (hasConflict) {
         console.log('Conflict found:', {
           existingBooking: {
             event_id: booking.event_id,
             start: booking.start_time,
-            end: booking.end_time
+            end: booking.end_time,
           },
           requested: {
             start: startTime,
-            end: endTime
-          }
+            end: endTime,
+          },
         });
       }
 
@@ -1326,7 +1459,7 @@ export class CalendarService {
         const searchResult = await this.db.searchUsers(email, { limit: 100 });
         if (searchResult && searchResult.users && searchResult.users.length > 0) {
           // Find the exact email match from the search results
-          const user = searchResult.users.find(u => u.email === email);
+          const user = searchResult.users.find((u) => u.email === email);
           if (user) {
             userId = user.id;
             userName = (user as any).fullName || user.name;
@@ -1343,7 +1476,7 @@ export class CalendarService {
         email: email, // Always store the provided email
         name: userName, // Will be null if user not found
         status: 'pending',
-        created_at: new Date().toISOString()
+        created_at: new Date().toISOString(),
       });
     });
 
@@ -1352,7 +1485,7 @@ export class CalendarService {
 
   private async getEventAttendees(eventId: string) {
     const attendeesQueryResult = await this.db.find('event_attendees', {
-      event_id: eventId
+      event_id: eventId,
     });
 
     const attendeesData = Array.isArray(attendeesQueryResult.data) ? attendeesQueryResult.data : [];
@@ -1372,20 +1505,27 @@ export class CalendarService {
             if (userResult) {
               return {
                 ...attendee,
-                name: (userResult as any).fullName || (userResult as any).full_name || userResult.name || userResult.email
+                name:
+                  (userResult as any).fullName ||
+                  (userResult as any).full_name ||
+                  userResult.name ||
+                  userResult.email,
               };
             }
           } catch (error) {
-            console.warn(`Failed to fetch user name for attendee ${attendee.user_id}:`, error.message);
+            console.warn(
+              `Failed to fetch user name for attendee ${attendee.user_id}:`,
+              error.message,
+            );
           }
         }
 
         // Fallback to email if no name found
         return {
           ...attendee,
-          name: attendee.email || attendee.user_id
+          name: attendee.email || attendee.user_id,
         };
-      })
+      }),
     );
 
     return enrichedAttendees;
@@ -1403,12 +1543,12 @@ export class CalendarService {
 
   private async deleteEventAttendees(eventId: string) {
     const attendeesQueryResult = await this.db.find('event_attendees', {
-      event_id: eventId
+      event_id: eventId,
     });
 
     const attendeesData = Array.isArray(attendeesQueryResult.data) ? attendeesQueryResult.data : [];
-    const deletePromises = attendeesData.map(attendee =>
-      this.db.delete('event_attendees', attendee.id)
+    const deletePromises = attendeesData.map((attendee) =>
+      this.db.delete('event_attendees', attendee.id),
     );
 
     await Promise.all(deletePromises);
@@ -1428,11 +1568,11 @@ export class CalendarService {
       organizerId: string;
       attendeeEmails: string[];
       workspaceId: string;
-    }
+    },
   ) {
     // Normalize and validate reminderMinutes to ensure all values are integers
     const validReminderMinutes = reminderMinutes
-      .map(minutes => {
+      .map((minutes) => {
         // Handle various input types
         if (typeof minutes === 'number') {
           return Math.floor(minutes);
@@ -1456,13 +1596,13 @@ export class CalendarService {
       .filter((m): m is number => m !== null && m >= 0);
 
     // Insert reminders into event_reminders table
-    const reminderPromises = validReminderMinutes.map(minutes =>
+    const reminderPromises = validReminderMinutes.map((minutes) =>
       this.db.insert('event_reminders', {
         event_id: eventId,
         reminder_time: minutes,
         notification_type: 'email',
-        created_at: new Date().toISOString()
-      })
+        created_at: new Date().toISOString(),
+      }),
     );
 
     await Promise.all(reminderPromises);
@@ -1493,9 +1633,10 @@ export class CalendarService {
       organizerId: string;
       attendeeEmails: string[];
       workspaceId: string;
-    }
+    },
   ) {
-    const { eventTitle, startTime, endTime, organizerId, attendeeEmails, workspaceId } = eventDetails;
+    const { eventTitle, startTime, endTime, organizerId, attendeeEmails, workspaceId } =
+      eventDetails;
     const eventStartTime = new Date(startTime);
 
     // Collect all user IDs to notify (organizer + attendees)
@@ -1506,37 +1647,41 @@ export class CalendarService {
       try {
         const searchResult = await this.db.searchUsers(attendeeEmail, { limit: 100 });
         if (searchResult && searchResult.users && searchResult.users.length > 0) {
-          const attendee = searchResult.users.find(u => u.email === attendeeEmail);
+          const attendee = searchResult.users.find((u) => u.email === attendeeEmail);
           if (attendee && attendee.id !== organizerId) {
             userIdsToNotify.push(attendee.id);
           }
         }
       } catch (error) {
-        this.logger.warn(`Failed to resolve attendee email ${attendeeEmail} to user ID: ${error.message}`);
+        this.logger.warn(
+          `Failed to resolve attendee email ${attendeeEmail} to user ID: ${error.message}`,
+        );
       }
     }
 
     // Remove duplicates
     const uniqueUserIds = [...new Set(userIdsToNotify)];
 
-    this.logger.log(`[Calendar Reminders] Scheduling ${reminderMinutes.length} reminder(s) for ${uniqueUserIds.length} user(s) for event "${eventTitle}"`);
+    this.logger.log(
+      `[Calendar Reminders] Scheduling ${reminderMinutes.length} reminder(s) for ${uniqueUserIds.length} user(s) for event "${eventTitle}"`,
+    );
 
     // Format event time for display
     const eventTimeFormatted = eventStartTime.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: '2-digit',
-      hour12: true
+      hour12: true,
     });
     const eventDateFormatted = eventStartTime.toLocaleDateString('en-US', {
       month: 'short',
       day: 'numeric',
-      year: 'numeric'
+      year: 'numeric',
     });
 
     // Schedule notifications for each reminder time and each user
     for (const minutes of reminderMinutes) {
       // Calculate the scheduled_at time (event start time - reminder minutes)
-      const scheduledAt = new Date(eventStartTime.getTime() - (minutes * 60 * 1000));
+      const scheduledAt = new Date(eventStartTime.getTime() - minutes * 60 * 1000);
       const now = new Date();
 
       // Add minimum 1 minute buffer to prevent immediate notifications
@@ -1544,7 +1689,9 @@ export class CalendarService {
 
       // Skip if the scheduled time is in the past or too close to now
       if (scheduledAt <= minimumScheduleTime) {
-        this.logger.warn(`[Calendar Reminders] Skipping ${minutes}-minute reminder for event "${eventTitle}" - scheduled time (${scheduledAt.toISOString()}) is in the past or too close to now (${now.toISOString()}). Event starts at: ${eventStartTime.toISOString()}`);
+        this.logger.warn(
+          `[Calendar Reminders] Skipping ${minutes}-minute reminder for event "${eventTitle}" - scheduled time (${scheduledAt.toISOString()}) is in the past or too close to now (${now.toISOString()}). Event starts at: ${eventStartTime.toISOString()}`,
+        );
         continue;
       }
 
@@ -1578,14 +1725,20 @@ export class CalendarService {
             },
           });
 
-          this.logger.debug(`[Calendar Reminders] Scheduled ${minutes}-minute reminder for user ${userId} at ${scheduledAt.toISOString()}`);
+          this.logger.debug(
+            `[Calendar Reminders] Scheduled ${minutes}-minute reminder for user ${userId} at ${scheduledAt.toISOString()}`,
+          );
         } catch (error) {
-          this.logger.error(`[Calendar Reminders] Failed to schedule reminder for user ${userId}: ${error.message}`);
+          this.logger.error(
+            `[Calendar Reminders] Failed to schedule reminder for user ${userId}: ${error.message}`,
+          );
         }
       }
     }
 
-    this.logger.log(`[Calendar Reminders] Successfully scheduled reminders for event "${eventTitle}"`);
+    this.logger.log(
+      `[Calendar Reminders] Successfully scheduled reminders for event "${eventTitle}"`,
+    );
   }
 
   /**
@@ -1613,7 +1766,7 @@ export class CalendarService {
 
   private async getEventReminders(eventId: string) {
     const remindersQueryResult = await this.db.find('event_reminders', {
-      event_id: eventId
+      event_id: eventId,
     });
 
     return Array.isArray(remindersQueryResult.data) ? remindersQueryResult.data : [];
@@ -1629,7 +1782,7 @@ export class CalendarService {
       organizerId: string;
       attendeeEmails: string[];
       workspaceId: string;
-    }
+    },
   ) {
     // Remove existing reminders from event_reminders table
     await this.deleteEventReminders(eventId);
@@ -1660,11 +1813,15 @@ export class CalendarService {
       const notifications = Array.isArray(result.data) ? result.data : [];
 
       if (notifications.length === 0) {
-        this.logger.debug(`[Calendar Reminders] No scheduled notifications to cancel for event ${eventId}`);
+        this.logger.debug(
+          `[Calendar Reminders] No scheduled notifications to cancel for event ${eventId}`,
+        );
         return;
       }
 
-      this.logger.log(`[Calendar Reminders] Cancelling ${notifications.length} scheduled reminder(s) for event ${eventId}`);
+      this.logger.log(
+        `[Calendar Reminders] Cancelling ${notifications.length} scheduled reminder(s) for event ${eventId}`,
+      );
 
       // Update all notifications to cancelled status
       for (const notification of notifications) {
@@ -1674,20 +1831,24 @@ export class CalendarService {
         });
       }
 
-      this.logger.log(`[Calendar Reminders] Successfully cancelled ${notifications.length} scheduled reminder(s)`);
+      this.logger.log(
+        `[Calendar Reminders] Successfully cancelled ${notifications.length} scheduled reminder(s)`,
+      );
     } catch (error) {
-      this.logger.error(`[Calendar Reminders] Failed to cancel scheduled reminders for event ${eventId}: ${error.message}`);
+      this.logger.error(
+        `[Calendar Reminders] Failed to cancel scheduled reminders for event ${eventId}: ${error.message}`,
+      );
     }
   }
 
   private async deleteEventReminders(eventId: string) {
     const remindersQueryResult = await this.db.find('event_reminders', {
-      event_id: eventId
+      event_id: eventId,
     });
 
     const remindersData = Array.isArray(remindersQueryResult.data) ? remindersQueryResult.data : [];
-    const deletePromises = remindersData.map(reminder =>
-      this.db.delete('event_reminders', reminder.id)
+    const deletePromises = remindersData.map((reminder) =>
+      this.db.delete('event_reminders', reminder.id),
     );
 
     await Promise.all(deletePromises);
@@ -1709,7 +1870,7 @@ export class CalendarService {
     const duration = eventEndTime.getTime() - eventStartTime.getTime();
 
     // Start from the master event date
-    let currentDate = new Date(eventStartTime);
+    const currentDate = new Date(eventStartTime);
     let occurrenceCount = 0;
     const maxOccurrences = 100; // Safety limit to prevent infinite loops
 
@@ -1728,7 +1889,7 @@ export class CalendarService {
           start_time: new Date(currentDate).toISOString(),
           end_time: new Date(currentDate.getTime() + duration).toISOString(),
           parent_event_id: masterEvent.id,
-          is_occurrence: true
+          is_occurrence: true,
         };
         occurrences.push(occurrence);
       }
@@ -1739,7 +1900,7 @@ export class CalendarService {
           currentDate.setDate(currentDate.getDate() + interval);
           break;
         case 'weekly':
-          currentDate.setDate(currentDate.getDate() + (7 * interval));
+          currentDate.setDate(currentDate.getDate() + 7 * interval);
           break;
         case 'monthly':
           currentDate.setMonth(currentDate.getMonth() + interval);
@@ -1774,18 +1935,18 @@ export class CalendarService {
 
       switch (frequency) {
         case 'daily':
-          nextStart = new Date(startDate.getTime() + (i * interval * 24 * 60 * 60 * 1000));
+          nextStart = new Date(startDate.getTime() + i * interval * 24 * 60 * 60 * 1000);
           break;
         case 'weekly':
-          nextStart = new Date(startDate.getTime() + (i * interval * 7 * 24 * 60 * 60 * 1000));
+          nextStart = new Date(startDate.getTime() + i * interval * 7 * 24 * 60 * 60 * 1000);
           break;
         case 'monthly':
           nextStart = new Date(startDate);
-          nextStart.setMonth(startDate.getMonth() + (i * interval));
+          nextStart.setMonth(startDate.getMonth() + i * interval);
           break;
         case 'yearly':
           nextStart = new Date(startDate);
-          nextStart.setFullYear(startDate.getFullYear() + (i * interval));
+          nextStart.setFullYear(startDate.getFullYear() + i * interval);
           break;
         default:
           continue;
@@ -1806,7 +1967,7 @@ export class CalendarService {
         end_time: nextEnd.toISOString(),
         parent_event_id: parentEvent.id,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       const recurringEvent = await this.db.insert('calendar_events', recurringEventData);
@@ -1831,7 +1992,7 @@ export class CalendarService {
 
     const eventQueryResult = await this.db.find('calendar_events', {
       id: masterEventId,
-      workspace_id: workspaceId
+      workspace_id: workspaceId,
     });
 
     const eventData = Array.isArray(eventQueryResult.data) ? eventQueryResult.data : [];
@@ -1857,14 +2018,18 @@ export class CalendarService {
     return eventId;
   }
 
-  async respondToEvent(eventId: string, userId: string, response: 'accepted' | 'declined' | 'tentative') {
+  async respondToEvent(
+    eventId: string,
+    userId: string,
+    response: 'accepted' | 'declined' | 'tentative',
+  ) {
     // Extract master event ID for database operations
     const masterEventId = this.extractMasterEventId(eventId);
 
     // Find the attendee record (use master event ID)
     const attendeeQueryResult = await this.db.find('event_attendees', {
       event_id: masterEventId,
-      user_id: userId
+      user_id: userId,
     });
 
     const attendeeData = Array.isArray(attendeeQueryResult.data) ? attendeeQueryResult.data : [];
@@ -1877,7 +2042,7 @@ export class CalendarService {
     // Update the response
     return await this.db.update('event_attendees', attendee.id, {
       status: response,
-      response_at: new Date().toISOString()
+      response_at: new Date().toISOString(),
     });
   }
 
@@ -1885,9 +2050,14 @@ export class CalendarService {
   // EVENT CATEGORY OPERATIONS
   // ============================================
 
-  async createEventCategory(workspaceId: string, createEventCategoryDto: CreateEventCategoryDto, userId: string) {
+  async createEventCategory(
+    workspaceId: string,
+    createEventCategoryDto: CreateEventCategoryDto,
+    userId: string,
+  ) {
     // Check if category name already exists in workspace
-    const existingCategoryResult = await this.db.table('event_categories')
+    const existingCategoryResult = await this.db
+      .table('event_categories')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('name', '=', createEventCategoryDto.name)
@@ -1907,14 +2077,15 @@ export class CalendarService {
       description_file_ids: createEventCategoryDto.description_file_ids || [],
       created_by: userId,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.insert('event_categories', categoryData);
   }
 
   async getEventCategories(workspaceId: string) {
-    const categoriesResult = await this.db.table('event_categories')
+    const categoriesResult = await this.db
+      .table('event_categories')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -1923,7 +2094,8 @@ export class CalendarService {
   }
 
   async getEventCategory(categoryId: string, workspaceId: string) {
-    const categoryResult = await this.db.table('event_categories')
+    const categoryResult = await this.db
+      .table('event_categories')
       .select('*')
       .where('id', '=', categoryId)
       .where('workspace_id', '=', workspaceId)
@@ -1937,13 +2109,19 @@ export class CalendarService {
     return categories[0];
   }
 
-  async updateEventCategory(categoryId: string, workspaceId: string, updateEventCategoryDto: UpdateEventCategoryDto, userId: string) {
+  async updateEventCategory(
+    categoryId: string,
+    workspaceId: string,
+    updateEventCategoryDto: UpdateEventCategoryDto,
+    userId: string,
+  ) {
     // Check if category exists
     const category = await this.getEventCategory(categoryId, workspaceId);
 
     // If changing name, check for duplicates
     if (updateEventCategoryDto.name && updateEventCategoryDto.name !== category.name) {
-      const duplicateResult = await this.db.table('event_categories')
+      const duplicateResult = await this.db
+        .table('event_categories')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('name', '=', updateEventCategoryDto.name)
@@ -1958,7 +2136,7 @@ export class CalendarService {
 
     const updateData = {
       ...updateEventCategoryDto,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.update('event_categories', categoryId, updateData);
@@ -1966,7 +2144,8 @@ export class CalendarService {
 
   async deleteEventCategory(categoryId: string, workspaceId: string, userId: string) {
     // Check if category exists and belongs to workspace
-    const categoryResult = await this.db.table('event_categories')
+    const categoryResult = await this.db
+      .table('event_categories')
       .select('*')
       .where('id', '=', categoryId)
       .where('workspace_id', '=', workspaceId)
@@ -1999,7 +2178,11 @@ export class CalendarService {
    * @param userId User ID who is uploading
    * @returns Array of file URLs
    */
-  private async uploadEventFiles(files: Express.Multer.File[], workspaceId: string, userId: string): Promise<string[]> {
+  private async uploadEventFiles(
+    files: Express.Multer.File[],
+    workspaceId: string,
+    userId: string,
+  ): Promise<string[]> {
     const uploadPromises = files.map(async (file) => {
       try {
         // Generate unique file name with workspace and timestamp
@@ -2020,20 +2203,20 @@ export class CalendarService {
               uploadType: 'calendar-event-attachment',
               uploadedAt: new Date().toISOString(),
             },
-          }
+          },
         );
 
         console.log('Calendar event file uploaded successfully:', {
           originalName: file.originalname,
           fileName,
-          url: uploadResult.url
+          url: uploadResult.url,
         });
 
         return uploadResult.url;
       } catch (error) {
         console.error('Failed to upload calendar event file:', {
           fileName: file.originalname,
-          error: error.message
+          error: error.message,
         });
         throw new BadRequestException(`Failed to upload file: ${file.originalname}`);
       }
@@ -2067,7 +2250,7 @@ export class CalendarService {
         startDate.toISOString(),
         endDate.toISOString(),
         userId,
-        {}
+        {},
       );
 
       // Get available meeting rooms
@@ -2079,14 +2262,14 @@ export class CalendarService {
         endDate,
         requestDto.duration,
         includeWeekends,
-        requestDto.timePreference
+        requestDto.timePreference,
       );
 
       // Filter out conflicting time slots
       const availableSlots = this.filterAvailableSlots(
         timeSlots,
         existingEvents || [],
-        requestDto.attendees || []
+        requestDto.attendees || [],
       );
 
       // Prepare AI context for analysis
@@ -2094,22 +2277,19 @@ export class CalendarService {
         requestDto,
         existingEvents || [],
         availableRooms || [],
-        availableSlots
+        availableSlots,
       );
 
       // Call AI service for intelligent suggestions
-      const aiResponse = await this.aiProvider.generateText(
-        aiContext,
-        {
-          saveToDatabase: false
-        }
-      );
+      const aiResponse = await this.aiProvider.generateText(aiContext, {
+        saveToDatabase: false,
+      });
 
       // Parse AI response and generate structured suggestions
       const suggestions = this.parseAIResponse(
         aiResponse.text,
         availableSlots,
-        availableRooms || []
+        availableRooms || [],
       );
 
       return {
@@ -2118,9 +2298,8 @@ export class CalendarService {
         suggestions,
         insights: this.generateInsights(existingEvents || [], availableSlots, requestDto),
         constraints: this.identifyConstraints(existingEvents || [], availableSlots),
-        alternatives: this.generateAlternatives(requestDto, availableSlots)
+        alternatives: this.generateAlternatives(requestDto, availableSlots),
       };
-
     } catch (error) {
       console.error('AI Scheduling Assistant error:', error);
       throw new InternalServerErrorException('Failed to generate AI scheduling suggestions');
@@ -2132,14 +2311,16 @@ export class CalendarService {
     endDate: Date,
     duration: number,
     includeWeekends: boolean,
-    timePreference?: string
+    timePreference?: string,
   ): Array<{ startTime: Date; endTime: Date }> {
     const slots: Array<{ startTime: Date; endTime: Date }> = [];
     const current = new Date(startDate);
 
     // Business hours configuration
-    const businessStart = timePreference === 'morning' ? 9 : timePreference === 'afternoon' ? 13 : 9;
-    const businessEnd = timePreference === 'morning' ? 12 : timePreference === 'afternoon' ? 17 : 17;
+    const businessStart =
+      timePreference === 'morning' ? 9 : timePreference === 'afternoon' ? 13 : 9;
+    const businessEnd =
+      timePreference === 'morning' ? 12 : timePreference === 'afternoon' ? 17 : 17;
 
     while (current <= endDate) {
       const dayOfWeek = current.getDay();
@@ -2162,7 +2343,7 @@ export class CalendarService {
         if (slotEnd.getHours() <= businessEnd) {
           slots.push({
             startTime: new Date(slotStart),
-            endTime: new Date(slotEnd)
+            endTime: new Date(slotEnd),
           });
         }
       }
@@ -2176,16 +2357,16 @@ export class CalendarService {
   private filterAvailableSlots(
     timeSlots: Array<{ startTime: Date; endTime: Date }>,
     existingEvents: any[],
-    attendees: string[]
+    attendees: string[],
   ): Array<{ startTime: Date; endTime: Date }> {
-    return timeSlots.filter(slot => {
+    return timeSlots.filter((slot) => {
       // Check for conflicts with existing events
-      return !existingEvents.some(event => {
+      return !existingEvents.some((event) => {
         const eventStart = new Date(event.start_time);
         const eventEnd = new Date(event.end_time);
 
         // Check if slot overlaps with existing event
-        return (slot.startTime < eventEnd && slot.endTime > eventStart);
+        return slot.startTime < eventEnd && slot.endTime > eventStart;
       });
     });
   }
@@ -2194,7 +2375,7 @@ export class CalendarService {
     requestDto: AISchedulingRequestDto,
     existingEvents: any[],
     availableRooms: any[],
-    availableSlots: Array<{ startTime: Date; endTime: Date }>
+    availableSlots: Array<{ startTime: Date; endTime: Date }>,
   ): string {
     const context = `
 As an AI scheduling assistant, analyze the following information and provide intelligent scheduling recommendations:
@@ -2209,19 +2390,33 @@ EVENT REQUEST:
 - Location: ${requestDto.location || 'flexible'}
 
 EXISTING EVENTS THIS WEEK:
-${existingEvents.map(event =>
-      `- ${event.title}: ${new Date(event.start_time).toLocaleDateString()} ${new Date(event.start_time).toLocaleTimeString()} - ${new Date(event.end_time).toLocaleTimeString()}`
-    ).join('\n') || 'No existing events'}
+${
+  existingEvents
+    .map(
+      (event) =>
+        `- ${event.title}: ${new Date(event.start_time).toLocaleDateString()} ${new Date(event.start_time).toLocaleTimeString()} - ${new Date(event.end_time).toLocaleTimeString()}`,
+    )
+    .join('\n') || 'No existing events'
+}
 
 AVAILABLE MEETING ROOMS:
-${availableRooms.map(room =>
-      `- ${room.name} (${room.capacity} people, ${room.room_type}): ${room.equipment?.join(', ') || 'basic setup'}`
-    ).join('\n') || 'No meeting rooms available'}
+${
+  availableRooms
+    .map(
+      (room) =>
+        `- ${room.name} (${room.capacity} people, ${room.room_type}): ${room.equipment?.join(', ') || 'basic setup'}`,
+    )
+    .join('\n') || 'No meeting rooms available'
+}
 
 AVAILABLE TIME SLOTS:
-${availableSlots.slice(0, 10).map(slot =>
-      `- ${slot.startTime.toLocaleDateString()} ${slot.startTime.toLocaleTimeString()} - ${slot.endTime.toLocaleTimeString()}`
-    ).join('\n')}
+${availableSlots
+  .slice(0, 10)
+  .map(
+    (slot) =>
+      `- ${slot.startTime.toLocaleDateString()} ${slot.startTime.toLocaleTimeString()} - ${slot.endTime.toLocaleTimeString()}`,
+  )
+  .join('\n')}
 
 Please provide scheduling recommendations in the following JSON format:
 {
@@ -2252,7 +2447,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
   private parseAIResponse(
     aiResponse: string,
     availableSlots: Array<{ startTime: Date; endTime: Date }>,
-    availableRooms: any[]
+    availableRooms: any[],
   ): TimeSlotSuggestion[] {
     try {
       // Try to extract JSON from AI response
@@ -2268,19 +2463,20 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
       // If AI provided structured recommendations, use them
       if (aiData?.topRecommendations) {
         aiData.topRecommendations.forEach((rec: any, index: number) => {
-          if (index < 5) { // Limit to top 5
+          if (index < 5) {
+            // Limit to top 5
             suggestions.push({
               startTime: rec.startTime,
               endTime: rec.endTime,
               confidence: rec.confidence || 70,
               reason: rec.reason || 'AI recommended time slot',
               considerations: rec.considerations || [],
-              availableRooms: availableRooms.slice(0, 3).map(room => ({
+              availableRooms: availableRooms.slice(0, 3).map((room) => ({
                 id: room.id,
                 name: room.name,
                 capacity: room.capacity,
-                equipment: room.equipment || []
-              }))
+                equipment: room.equipment || [],
+              })),
             });
           }
         });
@@ -2292,21 +2488,20 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
           suggestions.push({
             startTime: slot.startTime.toISOString(),
             endTime: slot.endTime.toISOString(),
-            confidence: 80 - (index * 5), // Decreasing confidence
+            confidence: 80 - index * 5, // Decreasing confidence
             reason: `Available time slot with no conflicts`,
             considerations: index === 0 ? [] : [`${index + 1} other options available`],
-            availableRooms: availableRooms.slice(0, 2).map(room => ({
+            availableRooms: availableRooms.slice(0, 2).map((room) => ({
               id: room.id,
               name: room.name,
               capacity: room.capacity,
-              equipment: room.equipment || []
-            }))
+              equipment: room.equipment || [],
+            })),
           });
         });
       }
 
       return suggestions;
-
     } catch (error) {
       console.error('Error parsing AI response:', error);
 
@@ -2317,12 +2512,12 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         confidence: 75,
         reason: 'Available time slot based on calendar analysis',
         considerations: [],
-        availableRooms: availableRooms.slice(0, 2).map(room => ({
+        availableRooms: availableRooms.slice(0, 2).map((room) => ({
           id: room.id,
           name: room.name,
           capacity: room.capacity,
-          equipment: room.equipment || []
-        }))
+          equipment: room.equipment || [],
+        })),
       }));
     }
   }
@@ -2330,7 +2525,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
   private generateInsights(
     existingEvents: any[],
     availableSlots: Array<{ startTime: Date; endTime: Date }>,
-    requestDto: AISchedulingRequestDto
+    requestDto: AISchedulingRequestDto,
   ): string[] {
     const insights: string[] = [];
 
@@ -2361,7 +2556,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
 
   private identifyConstraints(
     existingEvents: any[],
-    availableSlots: Array<{ startTime: Date; endTime: Date }>
+    availableSlots: Array<{ startTime: Date; endTime: Date }>,
   ): string[] {
     const constraints: string[] = [];
 
@@ -2386,12 +2581,14 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
 
   private generateAlternatives(
     requestDto: AISchedulingRequestDto,
-    availableSlots: Array<{ startTime: Date; endTime: Date }>
+    availableSlots: Array<{ startTime: Date; endTime: Date }>,
   ): string[] {
     const alternatives: string[] = [];
 
     if (requestDto.duration > 60) {
-      alternatives.push(`Consider shortening to ${requestDto.duration - 30} minutes for more availability`);
+      alternatives.push(
+        `Consider shortening to ${requestDto.duration - 30} minutes for more availability`,
+      );
     }
 
     if (availableSlots.length < 5) {
@@ -2431,7 +2628,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         startDate.toISOString(),
         endDate.toISOString(),
         userId,
-        {}
+        {},
       );
 
       // Get available meeting rooms
@@ -2446,7 +2643,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         requestDto.context,
         requestDto.additionalNotes,
         workspaceMembers,
-        timezone
+        timezone,
       );
 
       // Phase 2: Generate time slots based on extracted information
@@ -2455,7 +2652,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         endDate,
         extractedInfo,
         includeWeekends,
-        timezone
+        timezone,
       );
 
       // Phase 3: Filter and rank suggestions
@@ -2464,7 +2661,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         extractedInfo,
         existingEvents || [],
         availableRooms || [],
-        requestDto.prompt
+        requestDto.prompt,
       );
 
       // Phase 4: Generate insights and recommendations
@@ -2472,7 +2669,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         requestDto.prompt,
         extractedInfo,
         smartSuggestions,
-        existingEvents || []
+        existingEvents || [],
       );
 
       return {
@@ -2484,9 +2681,8 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
         missingInfo: insights.missingInfo,
         clarifyingQuestions: insights.clarifyingQuestions,
         alternatives: insights.alternatives,
-        followUpSuggestions: insights.followUpSuggestions
+        followUpSuggestions: insights.followUpSuggestions,
       };
-
     } catch (error) {
       console.error('Smart AI Scheduling Assistant error:', error);
       throw new InternalServerErrorException('Failed to generate smart AI scheduling suggestions');
@@ -2498,7 +2694,7 @@ Focus on providing 3-5 high-quality recommendations with confidence scores based
     context?: string,
     additionalNotes?: string,
     workspaceMembers?: any[],
-    timezone?: string
+    timezone?: string,
   ): Promise<ParsedSchedulingInfo> {
     // Create AI prompt for intelligent parsing
     const parsePrompt = `
@@ -2509,7 +2705,7 @@ CONTEXT: ${context || 'Not specified'}
 ADDITIONAL NOTES: ${additionalNotes || 'None'}
 TIMEZONE: ${timezone}
 
-WORKSPACE MEMBERS: ${workspaceMembers?.map(m => `${m.name || m.email} (${m.email})`).join(', ') || 'None available'}
+WORKSPACE MEMBERS: ${workspaceMembers?.map((m) => `${m.name || m.email} (${m.email})`).join(', ') || 'None available'}
 
 Extract and infer the following information. Use intelligent reasoning to fill gaps:
 
@@ -2540,7 +2736,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
     try {
       const aiResponse = await this.aiProvider.generateText(parsePrompt, {
-        saveToDatabase: false
+        saveToDatabase: false,
       });
 
       // Parse AI response
@@ -2557,7 +2753,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
           timePreferences: parsed.timePreferences || [],
           requirements: parsed.requirements || [],
           constraints: parsed.constraints || [],
-          confidence: parsed.confidence || 70
+          confidence: parsed.confidence || 70,
         };
       }
     } catch (error) {
@@ -2587,7 +2783,8 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     // Basic priority inference
     let priority = 'normal';
     if (lowerPrompt.includes('urgent') || lowerPrompt.includes('asap')) priority = 'urgent';
-    else if (lowerPrompt.includes('important') || lowerPrompt.includes('critical')) priority = 'high';
+    else if (lowerPrompt.includes('important') || lowerPrompt.includes('critical'))
+      priority = 'high';
 
     // Extract potential attendees
     const attendees: string[] = [];
@@ -2599,9 +2796,10 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     const names: string[] = prompt.match(/\b[A-Z][a-z]+\b/g) || [];
     if (workspaceMembers) {
       names.forEach((name: string) => {
-        const member = workspaceMembers.find(m =>
-          m.name?.toLowerCase().includes(name.toLowerCase()) ||
-          m.email?.toLowerCase().includes(name.toLowerCase())
+        const member = workspaceMembers.find(
+          (m) =>
+            m.name?.toLowerCase().includes(name.toLowerCase()) ||
+            m.email?.toLowerCase().includes(name.toLowerCase()),
         );
         if (member && !attendees.includes(member.email)) {
           attendees.push(member.email);
@@ -2619,7 +2817,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       timePreferences: [],
       requirements: [],
       constraints: [],
-      confidence: 60
+      confidence: 60,
     };
   }
 
@@ -2628,7 +2826,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     endDate: Date,
     extractedInfo: ParsedSchedulingInfo,
     includeWeekends: boolean,
-    timezone: string
+    timezone: string,
   ): Promise<Array<{ startTime: Date; endTime: Date; score: number }>> {
     const slots: Array<{ startTime: Date; endTime: Date; score: number }> = [];
     const current = new Date(startDate);
@@ -2660,7 +2858,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
             slots.push({
               startTime: new Date(slotStart),
               endTime: new Date(slotEnd),
-              score
+              score,
             });
           }
         }
@@ -2673,16 +2871,18 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     return slots.sort((a, b) => b.score - a.score).slice(0, 20);
   }
 
-  private getPreferredHours(timePreferences: string[]): Array<{ start: number, end: number, weight: number }> {
+  private getPreferredHours(
+    timePreferences: string[],
+  ): Array<{ start: number; end: number; weight: number }> {
     const ranges = [];
 
-    if (timePreferences.some(p => p.includes('morning'))) {
+    if (timePreferences.some((p) => p.includes('morning'))) {
       ranges.push({ start: 9, end: 12, weight: 1.0 });
     }
-    if (timePreferences.some(p => p.includes('afternoon'))) {
+    if (timePreferences.some((p) => p.includes('afternoon'))) {
       ranges.push({ start: 13, end: 17, weight: 1.0 });
     }
-    if (timePreferences.some(p => p.includes('evening'))) {
+    if (timePreferences.some((p) => p.includes('evening'))) {
       ranges.push({ start: 17, end: 19, weight: 0.8 });
     }
 
@@ -2694,7 +2894,11 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     return ranges;
   }
 
-  private calculateTimeSlotScore(slotStart: Date, extractedInfo: ParsedSchedulingInfo, dayOfWeek: number): number {
+  private calculateTimeSlotScore(
+    slotStart: Date,
+    extractedInfo: ParsedSchedulingInfo,
+    dayOfWeek: number,
+  ): number {
     let score = 100;
 
     // Time of day preferences
@@ -2713,7 +2917,10 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     else if (extractedInfo.priority === 'high') score += 15;
 
     // Constraint penalties
-    if (extractedInfo.constraints.some(c => c.includes('Friday') || c.includes('friday')) && dayOfWeek === 5) {
+    if (
+      extractedInfo.constraints.some((c) => c.includes('Friday') || c.includes('friday')) &&
+      dayOfWeek === 5
+    ) {
       score -= 50;
     }
 
@@ -2725,16 +2932,16 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     extractedInfo: ParsedSchedulingInfo,
     existingEvents: any[],
     availableRooms: any[],
-    originalPrompt: string
+    originalPrompt: string,
   ): Promise<SmartTimeSlotSuggestion[]> {
     const suggestions: SmartTimeSlotSuggestion[] = [];
 
     // Filter out conflicting time slots
-    const availableSlots = timeSlots.filter(slot => {
-      return !existingEvents.some(event => {
+    const availableSlots = timeSlots.filter((slot) => {
+      return !existingEvents.some((event) => {
         const eventStart = new Date(event.start_time);
         const eventEnd = new Date(event.end_time);
-        return (slot.startTime < eventEnd && slot.endTime > eventStart);
+        return slot.startTime < eventEnd && slot.endTime > eventStart;
       });
     });
 
@@ -2753,7 +2960,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
         promptMatchScore: this.calculatePromptMatchScore(slot, extractedInfo, originalPrompt),
         considerations: this.generateConsiderations(slot, extractedInfo, existingEvents),
         recommendedRoom: roomRecommendation.best,
-        alternativeRooms: roomRecommendation.alternatives
+        alternativeRooms: roomRecommendation.alternatives,
       });
     }
 
@@ -2766,7 +2973,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     }
 
     // Score rooms based on requirements
-    const scoredRooms = availableRooms.map(room => {
+    const scoredRooms = availableRooms.map((room) => {
       let score = 50;
 
       // Capacity match
@@ -2776,15 +2983,17 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
       // Equipment match
       const requiredEquipment = extractedInfo.requirements;
-      requiredEquipment.forEach(req => {
+      requiredEquipment.forEach((req) => {
         if (room.equipment?.some((eq: string) => eq.toLowerCase().includes(req.toLowerCase()))) {
           score += 15;
         }
       });
 
       // Room type preference
-      if (extractedInfo.preferredLocation.includes('conference') && room.room_type === 'conference') score += 15;
-      if (extractedInfo.preferredLocation.includes('meeting') && room.room_type === 'meeting') score += 15;
+      if (extractedInfo.preferredLocation.includes('conference') && room.room_type === 'conference')
+        score += 15;
+      if (extractedInfo.preferredLocation.includes('meeting') && room.room_type === 'meeting')
+        score += 15;
 
       return { ...room, score };
     });
@@ -2795,27 +3004,29 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     const alternatives = scoredRooms.slice(1, 4);
 
     return {
-      best: best ? {
-        id: best.id,
-        name: best.name,
-        capacity: best.capacity,
-        equipment: best.equipment || [],
-        whyRecommended: `Best match for ${extractedInfo.attendees.length + 1} attendees with required equipment`
-      } : undefined,
-      alternatives: alternatives.map(room => ({
+      best: best
+        ? {
+            id: best.id,
+            name: best.name,
+            capacity: best.capacity,
+            equipment: best.equipment || [],
+            whyRecommended: `Best match for ${extractedInfo.attendees.length + 1} attendees with required equipment`,
+          }
+        : undefined,
+      alternatives: alternatives.map((room) => ({
         id: room.id,
         name: room.name,
         capacity: room.capacity,
         equipment: room.equipment || [],
-        note: `Alternative option${room.capacity < (extractedInfo.attendees.length + 1) ? ' (tight fit)' : ''}`
-      }))
+        note: `Alternative option${room.capacity < extractedInfo.attendees.length + 1 ? ' (tight fit)' : ''}`,
+      })),
     };
   }
 
   private async generateSlotReasoning(
     slot: { startTime: Date; endTime: Date; score: number },
     extractedInfo: ParsedSchedulingInfo,
-    originalPrompt: string
+    originalPrompt: string,
   ): Promise<string> {
     const reasons = [];
 
@@ -2831,8 +3042,10 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     }
 
     // Duration reasoning
-    if (extractedInfo.estimatedDuration <= 30) reasons.push('short duration allows for flexible scheduling');
-    else if (extractedInfo.estimatedDuration >= 90) reasons.push('adequate time allocated for comprehensive discussion');
+    if (extractedInfo.estimatedDuration <= 30)
+      reasons.push('short duration allows for flexible scheduling');
+    else if (extractedInfo.estimatedDuration >= 90)
+      reasons.push('adequate time allocated for comprehensive discussion');
 
     // Priority reasoning
     if (extractedInfo.priority === 'urgent') reasons.push('prioritized for urgent requirement');
@@ -2843,7 +3056,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
   private calculatePromptMatchScore(
     slot: { startTime: Date; endTime: Date; score: number },
     extractedInfo: ParsedSchedulingInfo,
-    originalPrompt: string
+    originalPrompt: string,
   ): number {
     let score = 70; // Base score
 
@@ -2865,13 +3078,13 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
   private generateConsiderations(
     slot: { startTime: Date; endTime: Date; score: number },
     extractedInfo: ParsedSchedulingInfo,
-    existingEvents: any[]
+    existingEvents: any[],
   ): string[] {
     const considerations = [];
 
     // Check for nearby events
     const bufferTime = 30 * 60 * 1000; // 30 minutes in ms
-    const nearbyEvents = existingEvents.filter(event => {
+    const nearbyEvents = existingEvents.filter((event) => {
       const eventStart = new Date(event.start_time);
       const eventEnd = new Date(event.end_time);
       return (
@@ -2881,14 +3094,15 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     });
 
     if (nearbyEvents.length > 0) {
-      considerations.push(`Nearby events: ${nearbyEvents.map(e => e.title).join(', ')}`);
+      considerations.push(`Nearby events: ${nearbyEvents.map((e) => e.title).join(', ')}`);
     }
 
     // Time-based considerations
     const hour = slot.startTime.getHours();
     if (hour === 12) considerations.push('Lunch time - may affect attendance');
     if (hour >= 17) considerations.push('End of day - consider attendee availability');
-    if (slot.startTime.getDay() === 5) considerations.push('Friday scheduling - confirm attendee preferences');
+    if (slot.startTime.getDay() === 5)
+      considerations.push('Friday scheduling - confirm attendee preferences');
 
     // Attendee considerations
     if (extractedInfo.attendees.length > 5) {
@@ -2902,7 +3116,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     originalPrompt: string,
     extractedInfo: ParsedSchedulingInfo,
     suggestions: SmartTimeSlotSuggestion[],
-    existingEvents: any[]
+    existingEvents: any[],
   ) {
     const insights = [];
     const missingInfo = [];
@@ -2925,7 +3139,9 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
     // Missing information detection
     if (extractedInfo.attendees.length === 0) {
-      missingInfo.push('No specific attendees mentioned - suggestions are based on general availability');
+      missingInfo.push(
+        'No specific attendees mentioned - suggestions are based on general availability',
+      );
     }
 
     if (!extractedInfo.timePreferences.length) {
@@ -2934,7 +3150,9 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
     // Clarifying questions
     if (extractedInfo.confidence < 70) {
-      clarifyingQuestions.push('Could you provide more specific details about the meeting purpose?');
+      clarifyingQuestions.push(
+        'Could you provide more specific details about the meeting purpose?',
+      );
     }
 
     if (extractedInfo.attendees.length === 0) {
@@ -2960,11 +3178,14 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       missingInfo,
       clarifyingQuestions,
       alternatives,
-      followUpSuggestions
+      followUpSuggestions,
     };
   }
 
-  private async generateInterpretation(prompt: string, extractedInfo: ParsedSchedulingInfo): Promise<string> {
+  private async generateInterpretation(
+    prompt: string,
+    extractedInfo: ParsedSchedulingInfo,
+  ): Promise<string> {
     const parts = [];
 
     parts.push(`I understand you want to schedule "${extractedInfo.title}"`);
@@ -2992,7 +3213,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     try {
       const membersQuery = await this.db.find('workspace_members', {
         workspace_id: workspaceId,
-        is_active: true
+        is_active: true,
       });
       return Array.isArray(membersQuery.data) ? membersQuery.data : [];
     } catch (error) {
@@ -3010,7 +3231,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     userId: string,
     startDate?: string,
     endDate?: string,
-    period: string = 'week'
+    period: string = 'week',
   ): Promise<CalendarDashboardStatsDto> {
     try {
       // Set default date range based on period
@@ -3022,7 +3243,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
         dateRange.startDate,
         dateRange.endDate,
         userId,
-        {}
+        {},
       );
 
       // Get event categories for categorization
@@ -3051,7 +3272,6 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
         },
         generatedAt: new Date().toISOString(),
       };
-
     } catch (error) {
       console.error('Error generating calendar dashboard stats:', error);
       throw new InternalServerErrorException('Failed to generate calendar dashboard statistics');
@@ -3119,7 +3339,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     let totalEventTime = 0;
 
     // Calculate total event time in hours
-    events.forEach(event => {
+    events.forEach((event) => {
       const start = new Date(event.start_time);
       const end = new Date(event.end_time);
       const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60); // Convert to hours
@@ -3132,7 +3352,8 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     const workDays = this.getWorkDaysBetween(startDate, endDate);
     const totalWorkHours = workDays * 8; // Assuming 8-hour work days
     const unscheduledTime = Math.max(0, totalWorkHours - totalEventTime);
-    const timeUtilization = totalWorkHours > 0 ? Math.round((totalEventTime / totalWorkHours) * 100) : 0;
+    const timeUtilization =
+      totalWorkHours > 0 ? Math.round((totalEventTime / totalWorkHours) * 100) : 0;
 
     // Generate period descriptions
     const periodDescription = this.getPeriodDescription(period);
@@ -3159,7 +3380,8 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
     while (current <= endDate) {
       const dayOfWeek = current.getDay();
-      if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Not Sunday (0) or Saturday (6)
+      if (dayOfWeek !== 0 && dayOfWeek !== 6) {
+        // Not Sunday (0) or Saturday (6)
         workDays++;
       }
       current.setDate(current.getDate() + 1);
@@ -3170,20 +3392,26 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
   private getPeriodDescription(period: string): string {
     switch (period) {
-      case 'today': return 'Today';
-      case 'week': return 'This Week';
-      case 'month': return 'This Month';
-      case 'last3months': return 'Last 3 Months';
-      case 'year': return 'This Year';
-      default: return 'This Week';
+      case 'today':
+        return 'Today';
+      case 'week':
+        return 'This Week';
+      case 'month':
+        return 'This Month';
+      case 'last3months':
+        return 'Last 3 Months';
+      case 'year':
+        return 'This Year';
+      default:
+        return 'This Week';
     }
   }
 
   private calculateWeeklyActivity(events: any[], dateRange: any) {
     const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const weeklyData = dayNames.map(day => ({ day, events: 0, hours: 0 }));
+    const weeklyData = dayNames.map((day) => ({ day, events: 0, hours: 0 }));
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const eventDate = new Date(event.start_time);
       const dayIndex = eventDate.getDay();
       const start = new Date(event.start_time);
@@ -3195,7 +3423,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     });
 
     // Round hours to 1 decimal place
-    weeklyData.forEach(day => {
+    weeklyData.forEach((day) => {
       day.hours = Math.round(day.hours * 10) / 10;
     });
 
@@ -3210,7 +3438,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       hourlyData[i] = 0;
     }
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const eventDate = new Date(event.start_time);
       const hour = eventDate.getHours();
       hourlyData[hour]++;
@@ -3231,7 +3459,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     let colorIndex = 0;
 
     // Create category mapping
-    categories.forEach(cat => {
+    categories.forEach((cat) => {
       categoryMap.set(cat.id, {
         name: cat.name,
         color: cat.color || defaultColors[colorIndex % defaultColors.length],
@@ -3251,12 +3479,12 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       });
     }
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const start = new Date(event.start_time);
       const end = new Date(event.end_time);
       const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60); // Hours
 
-      let categoryKey = event.category_id || 'work'; // Default to work if no category
+      const categoryKey = event.category_id || 'work'; // Default to work if no category
 
       // If category doesn't exist, create it
       if (!categoryMap.has(categoryKey)) {
@@ -3276,8 +3504,8 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     const totalTime = Array.from(categoryMap.values()).reduce((sum, cat) => sum + cat.totalTime, 0);
 
     return Array.from(categoryMap.values())
-      .filter(cat => cat.eventCount > 0)
-      .map(cat => ({
+      .filter((cat) => cat.eventCount > 0)
+      .map((cat) => ({
         name: cat.name,
         totalTime: Math.round(cat.totalTime * 10) / 10,
         eventCount: cat.eventCount,
@@ -3300,7 +3528,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       });
     });
 
-    events.forEach(event => {
+    events.forEach((event) => {
       const start = new Date(event.start_time);
       const end = new Date(event.end_time);
       const duration = (end.getTime() - start.getTime()) / (1000 * 60 * 60);
@@ -3315,7 +3543,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
 
     const totalEvents = events.length;
 
-    return Array.from(priorityMap.values()).map(priority => ({
+    return Array.from(priorityMap.values()).map((priority) => ({
       ...priority,
       totalTime: Math.round(priority.totalTime * 10) / 10,
       percentage: totalEvents > 0 ? Math.round((priority.eventCount / totalEvents) * 100) : 0,
@@ -3325,7 +3553,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
   private calculateCategoryBreakdown(events: any[], categories: any[]) {
     const categoryStats = this.calculateCategoryStats(events, categories);
 
-    return categoryStats.map(stat => ({
+    return categoryStats.map((stat) => ({
       category: stat.name,
       timeSpent: this.formatDuration(stat.totalTime),
       eventCount: stat.eventCount,
@@ -3350,20 +3578,20 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     // Calculate basic analytics first
     const hourlyDistribution = this.calculateHourlyDistribution(events);
     const peakHourData = hourlyDistribution.reduce((peak, current) =>
-      current.eventCount > peak.eventCount ? current : peak
+      current.eventCount > peak.eventCount ? current : peak,
     );
     const peakHour = `${peakHourData.hour}:00 - Most events scheduled`;
 
     const weeklyActivity = this.calculateWeeklyActivity(events, dateRange);
     const busiestDayData = weeklyActivity.reduce((busiest, current) =>
-      current.events > busiest.events ? current : busiest
+      current.events > busiest.events ? current : busiest,
     );
     const totalWeeklyEvents = weeklyActivity.reduce((sum, day) => sum + day.events, 0);
-    const busiestDayPercentage = totalWeeklyEvents > 0 ?
-      Math.round((busiestDayData.events / totalWeeklyEvents) * 100) : 0;
+    const busiestDayPercentage =
+      totalWeeklyEvents > 0 ? Math.round((busiestDayData.events / totalWeeklyEvents) * 100) : 0;
     const busiestDay = `${busiestDayData.day} - ${busiestDayPercentage}% of weekly events`;
 
-    const durations = events.map(event => {
+    const durations = events.map((event) => {
       const start = new Date(event.start_time);
       const end = new Date(event.end_time);
       return Math.round((end.getTime() - start.getTime()) / (1000 * 60)); // Minutes
@@ -3374,20 +3602,23 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       return acc;
     }, {});
 
-    const mostCommonDurationEntry = Object.entries(durationCounts).reduce((max, [duration, count]) =>
-      count > max[1] ? [duration, count] : max, ['60', 0]
+    const mostCommonDurationEntry = Object.entries(durationCounts).reduce(
+      (max, [duration, count]) => (count > max[1] ? [duration, count] : max),
+      ['60', 0],
     );
 
-    const commonDurationPercentage = events.length > 0 ?
-      Math.round((Number(mostCommonDurationEntry[1]) / events.length) * 100) : 0;
+    const commonDurationPercentage =
+      events.length > 0
+        ? Math.round((Number(mostCommonDurationEntry[1]) / events.length) * 100)
+        : 0;
     const commonDuration = `${mostCommonDurationEntry[0]} minutes - ${commonDurationPercentage}% of events`;
 
-    const afternoonEvents = events.filter(event => {
+    const afternoonEvents = events.filter((event) => {
       const hour = new Date(event.start_time).getHours();
       return hour >= 12;
     });
-    const afternoonPercentage = events.length > 0 ?
-      Math.round((afternoonEvents.length / events.length) * 100) : 0;
+    const afternoonPercentage =
+      events.length > 0 ? Math.round((afternoonEvents.length / events.length) * 100) : 0;
 
     let meetingPattern;
     if (afternoonPercentage > 60) {
@@ -3441,7 +3672,9 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
           // Remove markdown code blocks if present (```json ... ```)
           let cleanedResponse = responseText.trim();
           if (cleanedResponse.startsWith('```')) {
-            cleanedResponse = cleanedResponse.replace(/^```(?:json)?\n?/, '').replace(/\n?```$/, '');
+            cleanedResponse = cleanedResponse
+              .replace(/^```(?:json)?\n?/, '')
+              .replace(/\n?```$/, '');
           }
 
           const parsedInsights = JSON.parse(cleanedResponse);
@@ -3451,10 +3684,12 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
         } catch (parseError) {
           console.log('Failed to parse AI insights JSON, using raw response');
           // Fallback: treat response as a single insight
-          aiInsights = [{
-            type: 'suggestion',
-            message: responseText.substring(0, 100) + (responseText.length > 100 ? '...' : '')
-          }];
+          aiInsights = [
+            {
+              type: 'suggestion',
+              message: responseText.substring(0, 100) + (responseText.length > 100 ? '...' : ''),
+            },
+          ];
         }
       }
 
@@ -3486,13 +3721,12 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       if (tipText) {
         productivityTip = tipText.trim().substring(0, 100);
       }
-
     } catch (aiError) {
       console.error('AI insights generation failed:', aiError);
       // Fallback to rule-based insights
       aiInsights = this.generateFallbackInsights(events, afternoonPercentage);
 
-      const morningEvents = events.filter(event => {
+      const morningEvents = events.filter((event) => {
         const hour = new Date(event.start_time).getHours();
         return hour >= 6 && hour < 12;
       });
@@ -3540,20 +3774,29 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       return acc;
     }, {});
 
-    summary.push(`Event Categories: ${Object.entries(categories).map(([cat, count]) => `${cat}: ${count}`).join(', ')}`);
-    summary.push(`Event Priorities: ${Object.entries(priorities).map(([pri, count]) => `${pri}: ${count}`).join(', ')}`);
+    summary.push(
+      `Event Categories: ${Object.entries(categories)
+        .map(([cat, count]) => `${cat}: ${count}`)
+        .join(', ')}`,
+    );
+    summary.push(
+      `Event Priorities: ${Object.entries(priorities)
+        .map(([pri, count]) => `${pri}: ${count}`)
+        .join(', ')}`,
+    );
 
     // Time distribution
-    const morningEvents = events.filter(e => new Date(e.start_time).getHours() < 12).length;
-    const afternoonEvents = events.filter(e => new Date(e.start_time).getHours() >= 12).length;
+    const morningEvents = events.filter((e) => new Date(e.start_time).getHours() < 12).length;
+    const afternoonEvents = events.filter((e) => new Date(e.start_time).getHours() >= 12).length;
     summary.push(`Time Distribution: Morning: ${morningEvents}, Afternoon: ${afternoonEvents}`);
 
     // Meeting durations
-    const avgDuration = events.reduce((sum, event) => {
-      const start = new Date(event.start_time);
-      const end = new Date(event.end_time);
-      return sum + (end.getTime() - start.getTime()) / (1000 * 60);
-    }, 0) / events.length;
+    const avgDuration =
+      events.reduce((sum, event) => {
+        const start = new Date(event.start_time);
+        const end = new Date(event.end_time);
+        return sum + (end.getTime() - start.getTime()) / (1000 * 60);
+      }, 0) / events.length;
     summary.push(`Average Meeting Duration: ${Math.round(avgDuration)} minutes`);
 
     return summary.join('\n');
@@ -3563,7 +3806,10 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
     const insights = [];
 
     if (events.length === 0) {
-      insights.push({ type: 'observation', message: 'No meetings scheduled - perfect for deep work!' });
+      insights.push({
+        type: 'observation',
+        message: 'No meetings scheduled - perfect for deep work!',
+      });
       return insights;
     }
 
@@ -3576,7 +3822,7 @@ BE SMART: Fill in reasonable defaults and make intelligent assumptions.
       insights.push({ type: 'recommendation', message: 'Consider consolidating similar meetings' });
     }
 
-    const longMeetings = events.filter(event => {
+    const longMeetings = events.filter((event) => {
       const start = new Date(event.start_time);
       const end = new Date(event.end_time);
       return (end.getTime() - start.getTime()) / (1000 * 60) > 60;

@@ -43,14 +43,8 @@ export class GeminiProvider implements AiProvider {
   constructor(config: ConfigService) {
     this.apiKey = config.get<string>('GEMINI_API_KEY', '');
     this.defaultModel = config.get<string>('AI_MODEL', 'gemini-2.0-flash-exp');
-    this.defaultVisionModel = config.get<string>(
-      'AI_VISION_MODEL',
-      this.defaultModel,
-    );
-    this.defaultEmbeddingModel = config.get<string>(
-      'AI_EMBEDDING_MODEL',
-      'text-embedding-004',
-    );
+    this.defaultVisionModel = config.get<string>('AI_VISION_MODEL', this.defaultModel);
+    this.defaultEmbeddingModel = config.get<string>('AI_EMBEDDING_MODEL', 'text-embedding-004');
 
     if (this.isAvailable()) {
       this.logger.log(`Gemini provider configured (model=${this.defaultModel})`);
@@ -75,9 +69,7 @@ export class GeminiProvider implements AiProvider {
     });
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(
-        `Gemini API ${endpoint}(${model}) failed: ${res.status} ${text}`,
-      );
+      throw new Error(`Gemini API ${endpoint}(${model}) failed: ${res.status} ${text}`);
     }
     return res.json();
   }
@@ -102,10 +94,7 @@ export class GeminiProvider implements AiProvider {
       }
     }
     return {
-      system:
-        systems.length > 0
-          ? { parts: [{ text: systems.join('\n\n') }] }
-          : undefined,
+      system: systems.length > 0 ? { parts: [{ text: systems.join('\n\n') }] } : undefined,
       contents,
     };
   }
@@ -137,10 +126,7 @@ export class GeminiProvider implements AiProvider {
       };
     };
 
-    const text =
-      res.candidates?.[0]?.content?.parts
-        ?.map((p) => p.text ?? '')
-        .join('') ?? '';
+    const text = res.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
 
     return {
       text,
@@ -194,10 +180,7 @@ export class GeminiProvider implements AiProvider {
       candidates: Array<{ content: { parts: Array<{ text?: string }> } }>;
       usageMetadata?: any;
     };
-    const text =
-      res.candidates?.[0]?.content?.parts
-        ?.map((p) => p.text ?? '')
-        .join('') ?? '';
+    const text = res.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
 
     return {
       text,
@@ -213,9 +196,7 @@ export class GeminiProvider implements AiProvider {
     };
   }
 
-  async generateEmbedding(
-    input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     const model = input.model ?? this.defaultEmbeddingModel;
     const texts = Array.isArray(input.text) ? input.text : [input.text];
 

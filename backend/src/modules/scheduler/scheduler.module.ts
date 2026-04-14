@@ -16,7 +16,15 @@ import { ChatModule } from '../chat/chat.module';
     forwardRef(() => ChatModule),
   ],
   controllers: [SchedulerController],
-  providers: [NotificationSchedulerService, RecordingProcessorService, ScheduledMessageProcessorService],
-  exports: [NotificationSchedulerService, RecordingProcessorService, ScheduledMessageProcessorService],
+  providers: [
+    NotificationSchedulerService,
+    RecordingProcessorService,
+    ScheduledMessageProcessorService,
+  ],
+  exports: [
+    NotificationSchedulerService,
+    RecordingProcessorService,
+    ScheduledMessageProcessorService,
+  ],
 })
 export class SchedulerModule {}

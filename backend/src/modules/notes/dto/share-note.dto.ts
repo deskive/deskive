@@ -4,7 +4,7 @@ import { IsString, IsOptional, IsBoolean, IsEnum, IsArray } from 'class-validato
 export enum SharePermission {
   READ = 'read',
   WRITE = 'write',
-  ADMIN = 'admin'
+  ADMIN = 'admin',
 }
 
 export class ShareNoteDto {
@@ -12,7 +12,7 @@ export class ShareNoteDto {
     description: 'Array of user IDs to share with',
     example: ['user-uuid-1', 'user-uuid-2'],
     required: true,
-    type: [String]
+    type: [String],
   })
   @IsArray()
   @IsString({ each: true })
@@ -22,7 +22,7 @@ export class ShareNoteDto {
     description: 'Permission level for shared users',
     enum: SharePermission,
     example: SharePermission.READ,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(SharePermission)
@@ -30,7 +30,7 @@ export class ShareNoteDto {
 
   @ApiProperty({
     description: 'Whether to make note publicly accessible',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()

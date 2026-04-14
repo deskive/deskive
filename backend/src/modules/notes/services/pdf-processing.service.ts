@@ -77,7 +77,9 @@ export class PdfProcessingService {
       };
     } catch (error) {
       this.logger.error('Failed to process PDF:', error);
-      throw new Error(`Failed to process PDF: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to process PDF: ${error instanceof Error ? error.message : 'Unknown error'}`,
+      );
     }
   }
 
@@ -123,7 +125,7 @@ export class PdfProcessingService {
       }
 
       // Detect potential table rows (multiple spaces or tabs separating columns)
-      const potentialColumns = line.split(/\s{2,}|\t+/).filter(col => col.trim());
+      const potentialColumns = line.split(/\s{2,}|\t+/).filter((col) => col.trim());
 
       if (potentialColumns.length >= 2 && potentialColumns.length <= 10) {
         // Looks like a table row
@@ -141,7 +143,12 @@ export class PdfProcessingService {
       }
 
       // Detect headers (ALL CAPS lines that are short)
-      if (line === line.toUpperCase() && line.length < 100 && line.length > 2 && /[A-Z]/.test(line)) {
+      if (
+        line === line.toUpperCase() &&
+        line.length < 100 &&
+        line.length > 2 &&
+        /[A-Z]/.test(line)
+      ) {
         processedLines.push(`\n## ${line}\n`);
         continue;
       }
@@ -168,7 +175,7 @@ export class PdfProcessingService {
     }
 
     // Clean up excessive blank lines
-    let markdown = processedLines.join('\n').replace(/\n{3,}/g, '\n\n');
+    const markdown = processedLines.join('\n').replace(/\n{3,}/g, '\n\n');
 
     return { markdown, hasTable };
   }
@@ -179,8 +186,8 @@ export class PdfProcessingService {
     const lines: string[] = [];
 
     // Normalize column count
-    const maxCols = Math.max(...rows.map(row => row.length));
-    const normalizedRows = rows.map(row => {
+    const maxCols = Math.max(...rows.map((row) => row.length));
+    const normalizedRows = rows.map((row) => {
       const normalized = [...row];
       while (normalized.length < maxCols) {
         normalized.push('');
@@ -246,7 +253,7 @@ export class PdfProcessingService {
     // Convert remaining lines to paragraphs
     html = html
       .split('\n')
-      .map(line => {
+      .map((line) => {
         const trimmed = line.trim();
         if (!trimmed) return '';
         if (trimmed.startsWith('<')) return trimmed;
@@ -261,7 +268,10 @@ export class PdfProcessingService {
     const tableRegex = /(\|.+\|\n)+/g;
 
     return markdown.replace(tableRegex, (tableMatch) => {
-      const rows = tableMatch.trim().split('\n').filter(row => row.trim());
+      const rows = tableMatch
+        .trim()
+        .split('\n')
+        .filter((row) => row.trim());
 
       if (rows.length < 2) return tableMatch;
 
@@ -273,7 +283,7 @@ export class PdfProcessingService {
       let html = '<table style="border-collapse: collapse; width: 100%; margin: 16px 0;">\n';
 
       // Header row
-      const headerCells = rows[0].split('|').filter(cell => cell.trim());
+      const headerCells = rows[0].split('|').filter((cell) => cell.trim());
       html += '<thead><tr>';
       for (const cell of headerCells) {
         html += `<th style="border: 1px solid #ddd; padding: 12px; text-align: left; background-color: #f5f5f5; font-weight: 600;">${cell.trim()}</th>`;
@@ -283,7 +293,7 @@ export class PdfProcessingService {
       // Body rows
       html += '<tbody>';
       for (let i = 2; i < rows.length; i++) {
-        const cells = rows[i].split('|').filter(cell => cell.trim());
+        const cells = rows[i].split('|').filter((cell) => cell.trim());
         html += '<tr>';
         for (const cell of cells) {
           html += `<td style="border: 1px solid #ddd; padding: 12px;">${cell.trim()}</td>`;

@@ -35,18 +35,13 @@ export class TypesenseProvider implements SearchProvider {
   private readonly apiKey: string;
 
   constructor(config: ConfigService) {
-    this.url = (config.get<string>('TYPESENSE_URL', '') || '').replace(
-      /\/+$/,
-      '',
-    );
+    this.url = (config.get<string>('TYPESENSE_URL', '') || '').replace(/\/+$/, '');
     this.apiKey = config.get<string>('TYPESENSE_API_KEY', '');
 
     if (this.isAvailable()) {
       this.logger.log(`Typesense provider configured (${this.url})`);
     } else {
-      this.logger.warn(
-        'Typesense provider selected but TYPESENSE_URL / TYPESENSE_API_KEY missing',
-      );
+      this.logger.warn('Typesense provider selected but TYPESENSE_URL / TYPESENSE_API_KEY missing');
     }
   }
 
@@ -61,10 +56,10 @@ export class TypesenseProvider implements SearchProvider {
     contentType = 'application/json',
   ): Promise<any> {
     if (!this.isAvailable()) {
-      throw new SearchProviderNotConfiguredError('typesense', [
-        !this.url ? 'TYPESENSE_URL' : '',
-        !this.apiKey ? 'TYPESENSE_API_KEY' : '',
-      ].filter(Boolean));
+      throw new SearchProviderNotConfiguredError(
+        'typesense',
+        [!this.url ? 'TYPESENSE_URL' : '', !this.apiKey ? 'TYPESENSE_API_KEY' : ''].filter(Boolean),
+      );
     }
     const res = await fetch(`${this.url}${path}`, {
       method,
@@ -81,9 +76,7 @@ export class TypesenseProvider implements SearchProvider {
     });
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(
-        `Typesense API ${method} ${path} failed: ${res.status} ${text}`,
-      );
+      throw new Error(`Typesense API ${method} ${path} failed: ${res.status} ${text}`);
     }
     if (res.status === 204) return null;
     // Typesense's /documents/import returns JSONL, not JSON.
@@ -92,28 +85,16 @@ export class TypesenseProvider implements SearchProvider {
     return res.json();
   }
 
-  async indexDocument(
-    collection: string,
-    document: SearchableDocument,
-  ): Promise<void> {
+  async indexDocument(collection: string, document: SearchableDocument): Promise<void> {
     // Typesense expects `id` as a string field. Normalize.
     const doc = { ...document, id: String(document.id) };
-    await this.typesenseApi(
-      'POST',
-      `/collections/${collection}/documents?action=upsert`,
-      doc,
-    );
+    await this.typesenseApi('POST', `/collections/${collection}/documents?action=upsert`, doc);
   }
 
-  async indexBatch(
-    collection: string,
-    documents: SearchableDocument[],
-  ): Promise<void> {
+  async indexBatch(collection: string, documents: SearchableDocument[]): Promise<void> {
     if (documents.length === 0) return;
     // Typesense /documents/import expects JSONL with action=upsert.
-    const jsonl = documents
-      .map((d) => JSON.stringify({ ...d, id: String(d.id) }))
-      .join('\n');
+    const jsonl = documents.map((d) => JSON.stringify({ ...d, id: String(d.id) })).join('\n');
     await this.typesenseApi(
       'POST',
       `/collections/${collection}/documents/import?action=upsert`,
@@ -138,9 +119,7 @@ export class TypesenseProvider implements SearchProvider {
     const filterParts: string[] = [];
     if (query.filters) {
       for (const [field, value] of Object.entries(query.filters)) {
-        filterParts.push(
-          `${field}:=${typeof value === 'string' ? `\`${value}\`` : value}`,
-        );
+        filterParts.push(`${field}:=${typeof value === 'string' ? `\`${value}\`` : value}`);
       }
     }
     if (query.rangeFilters) {
@@ -174,9 +153,7 @@ export class TypesenseProvider implements SearchProvider {
       document: h.document as T,
       score: h.text_match ?? 1,
       highlights: h.highlights
-        ? Object.fromEntries(
-            h.highlights.map((hi: any) => [hi.field, hi.snippets ?? []]),
-          )
+        ? Object.fromEntries(h.highlights.map((hi: any) => [hi.field, hi.snippets ?? []]))
         : undefined,
     }));
 
@@ -195,10 +172,7 @@ export class TypesenseProvider implements SearchProvider {
     };
   }
 
-  async reindex(
-    collection: string,
-    source: AsyncIterable<SearchableDocument>,
-  ): Promise<number> {
+  async reindex(collection: string, source: AsyncIterable<SearchableDocument>): Promise<number> {
     // Typesense has no "delete all" endpoint — we delete the collection
     // and recreate it with a minimal schema, then import. If the caller
     // already created a proper schema, they should call indexBatch()

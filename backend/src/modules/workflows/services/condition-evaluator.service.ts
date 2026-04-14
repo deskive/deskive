@@ -1,8 +1,5 @@
 import { Injectable, Logger, Optional } from '@nestjs/common';
-import {
-  ConditionOperator,
-  ConditionGroupOperator,
-} from '../dto/workflow.dto';
+import { ConditionOperator, ConditionGroupOperator } from '../dto/workflow.dto';
 import {
   SharedConditionEvaluatorService,
   AutomationCondition,
@@ -33,9 +30,7 @@ export class ConditionEvaluatorService {
   private readonly logger = new Logger(ConditionEvaluatorService.name);
   private readonly sharedEvaluator: SharedConditionEvaluatorService;
 
-  constructor(
-    @Optional() sharedEvaluator?: SharedConditionEvaluatorService,
-  ) {
+  constructor(@Optional() sharedEvaluator?: SharedConditionEvaluatorService) {
     // Use injected service or create a standalone instance for backwards compatibility
     this.sharedEvaluator = sharedEvaluator || new SharedConditionEvaluatorService();
   }
@@ -44,10 +39,7 @@ export class ConditionEvaluatorService {
    * Evaluate a condition or condition group against a context
    * Delegates to SharedConditionEvaluatorService
    */
-  evaluate(
-    conditionOrGroup: Condition | ConditionGroup,
-    context: Record<string, any>,
-  ): boolean {
+  evaluate(conditionOrGroup: Condition | ConditionGroup, context: Record<string, any>): boolean {
     // Convert to shared interface and delegate
     return this.sharedEvaluator.evaluate(
       conditionOrGroup as unknown as AutomationCondition | AutomationConditionGroup,
@@ -117,10 +109,10 @@ export class ConditionEvaluatorService {
       uppercase: (str: string) => String(str).toUpperCase(),
       lowercase: (str: string) => String(str).toLowerCase(),
       trim: (str: string) => String(str).trim(),
-      length: (arr: any[]) => Array.isArray(arr) ? arr.length : 0,
-      first: (arr: any[]) => Array.isArray(arr) ? arr[0] : undefined,
-      last: (arr: any[]) => Array.isArray(arr) ? arr[arr.length - 1] : undefined,
-      join: (arr: any[], separator = ', ') => Array.isArray(arr) ? arr.join(separator) : '',
+      length: (arr: any[]) => (Array.isArray(arr) ? arr.length : 0),
+      first: (arr: any[]) => (Array.isArray(arr) ? arr[0] : undefined),
+      last: (arr: any[]) => (Array.isArray(arr) ? arr[arr.length - 1] : undefined),
+      join: (arr: any[], separator = ', ') => (Array.isArray(arr) ? arr.join(separator) : ''),
     };
   }
 }

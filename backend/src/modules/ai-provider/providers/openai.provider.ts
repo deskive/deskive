@@ -46,15 +46,10 @@ export class OpenAiProvider implements AiProvider {
     ).replace(/\/+$/, '');
     this.defaultModel = config.get<string>('AI_MODEL', 'gpt-4o-mini');
     this.defaultVisionModel = config.get<string>('AI_VISION_MODEL', 'gpt-4o');
-    this.defaultEmbeddingModel = config.get<string>(
-      'AI_EMBEDDING_MODEL',
-      'text-embedding-3-small',
-    );
+    this.defaultEmbeddingModel = config.get<string>('AI_EMBEDDING_MODEL', 'text-embedding-3-small');
 
     if (this.isAvailable()) {
-      this.logger.log(
-        `OpenAI provider configured (${this.baseUrl}, model=${this.defaultModel})`,
-      );
+      this.logger.log(`OpenAI provider configured (${this.baseUrl}, model=${this.defaultModel})`);
     } else {
       this.logger.warn('OpenAI provider selected but OPENAI_API_KEY missing');
     }
@@ -78,9 +73,7 @@ export class OpenAiProvider implements AiProvider {
     });
     if (!res.ok) {
       const text = await res.text();
-      throw new Error(
-        `${this.name} API ${path} failed: ${res.status} ${text}`,
-      );
+      throw new Error(`${this.name} API ${path} failed: ${res.status} ${text}`);
     }
     return res.json();
   }
@@ -159,9 +152,7 @@ export class OpenAiProvider implements AiProvider {
     };
   }
 
-  async generateEmbedding(
-    input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     const texts = Array.isArray(input.text) ? input.text : [input.text];
     const model = input.model ?? this.defaultEmbeddingModel;
     const res = (await this.api('/embeddings', {

@@ -21,13 +21,13 @@ export {
   VerifySharePasswordDto,
   ShareLinkResponseDto,
   PublicFileResponseDto,
-  AccessLevel
+  AccessLevel,
 } from './create-share-link.dto';
 export {
   CreateFileCommentDto,
   UpdateFileCommentDto,
   ResolveCommentDto,
-  FileCommentResponseDto
+  FileCommentResponseDto,
 } from './file-comment.dto';
 export {
   MarkFileOfflineDto,
@@ -36,5 +36,5 @@ export {
   OfflineFileResponseDto,
   CheckUpdateResponseDto,
   OfflineStorageStatsDto,
-  SyncStatus
+  SyncStatus,
 } from './offline-file.dto';

@@ -91,9 +91,7 @@ export async function downloadFileFn(
 ): Promise<Buffer> {
   const client = getStorageClient(cfg);
   const targetBucket = bucket || cfg.defaultBucket || 'uploads';
-  const result = await client.send(
-    new GetObjectCommand({ Bucket: targetBucket, Key: path }),
-  );
+  const result = await client.send(new GetObjectCommand({ Bucket: targetBucket, Key: path }));
   const stream = result.Body as Readable;
   const chunks: Buffer[] = [];
   for await (const chunk of stream) {
@@ -133,11 +131,9 @@ export async function createSignedUrlFn(
 ): Promise<string> {
   const client = getStorageClient(cfg);
   const targetBucket = bucket || cfg.defaultBucket || 'uploads';
-  return getSignedUrl(
-    client,
-    new GetObjectCommand({ Bucket: targetBucket, Key: path }),
-    { expiresIn },
-  );
+  return getSignedUrl(client, new GetObjectCommand({ Bucket: targetBucket, Key: path }), {
+    expiresIn,
+  });
 }
 
 export async function fileExistsFn(

@@ -36,9 +36,7 @@ export class ExpoProvider implements PushProvider {
     if (this.accessToken) {
       this.logger.log('Expo push provider configured (with access token)');
     } else {
-      this.logger.log(
-        'Expo push provider configured (unauthenticated — rate-limited)',
-      );
+      this.logger.log('Expo push provider configured (unauthenticated — rate-limited)');
     }
   }
 
@@ -78,17 +76,12 @@ export class ExpoProvider implements PushProvider {
     });
     const json = (await res.json()) as any;
     if (!res.ok) {
-      throw new Error(
-        `Expo push API failed: ${res.status} ${JSON.stringify(json)}`,
-      );
+      throw new Error(`Expo push API failed: ${res.status} ${JSON.stringify(json)}`);
     }
     return json;
   }
 
-  async send(
-    recipient: PushRecipient,
-    message: PushMessage,
-  ): Promise<PushResult> {
+  async send(recipient: PushRecipient, message: PushMessage): Promise<PushResult> {
     try {
       const res = await this.expoApi([this.buildMessage(recipient, message)]);
       const ticket = res.data?.[0];
@@ -113,10 +106,7 @@ export class ExpoProvider implements PushProvider {
     }
   }
 
-  async sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult> {
     // Expo recommends batches of up to 100.
     const results: PushResult[] = [];
     let accepted = 0;

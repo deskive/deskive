@@ -119,7 +119,7 @@ export class GoogleDriveService {
     userId: string,
     workspaceId: string,
     serverAuthCode: string,
-    userInfo: { email?: string; displayName?: string; photoUrl?: string }
+    userInfo: { email?: string; displayName?: string; photoUrl?: string },
   ): Promise<GoogleDriveConnectionDto> {
     // Exchange native auth code for tokens (no redirect_uri)
     const tokens = await this.oauthService.exchangeNativeCodeForTokens(serverAuthCode);
@@ -165,7 +165,9 @@ export class GoogleDriveService {
       connection = await this.db.insert('google_drive_connections', connectionData);
     }
 
-    this.logger.log(`Google Drive connected via native sign-in for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Google Drive connected via native sign-in for user ${userId} in workspace ${workspaceId}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -173,7 +175,10 @@ export class GoogleDriveService {
   /**
    * Get user's Google Drive connection in this workspace
    */
-  async getConnection(userId: string, workspaceId: string): Promise<GoogleDriveConnectionDto | null> {
+  async getConnection(
+    userId: string,
+    workspaceId: string,
+  ): Promise<GoogleDriveConnectionDto | null> {
     // User-specific connection
     const connection = await this.db.findOne('google_drive_connections', {
       workspace_id: workspaceId,
@@ -231,13 +236,20 @@ export class GoogleDriveService {
     });
 
     if (!connection) {
-      throw new NotFoundException('Google Drive not connected. Please connect your Google Drive first.');
+      throw new NotFoundException(
+        'Google Drive not connected. Please connect your Google Drive first.',
+      );
     }
 
     // Check if token is expired or about to expire
-    if (connection.expires_at && this.oauthService.isTokenExpired(new Date(connection.expires_at))) {
+    if (
+      connection.expires_at &&
+      this.oauthService.isTokenExpired(new Date(connection.expires_at))
+    ) {
       if (!connection.refresh_token) {
-        throw new BadRequestException('Access token expired and no refresh token available. Please reconnect Google Drive.');
+        throw new BadRequestException(
+          'Access token expired and no refresh token available. Please reconnect Google Drive.',
+        );
       }
 
       // Refresh the token
@@ -264,9 +276,7 @@ export class GoogleDriveService {
   async listDrives(userId: string, workspaceId: string): Promise<GoogleDriveDriveDto[]> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
-    const drives: GoogleDriveDriveDto[] = [
-      { id: 'root', name: 'My Drive', kind: 'drive#drive' },
-    ];
+    const drives: GoogleDriveDriveDto[] = [{ id: 'root', name: 'My Drive', kind: 'drive#drive' }];
 
     try {
       // Get shared drives
@@ -347,7 +357,7 @@ export class GoogleDriveService {
       pageSize?: number;
       includeTrashed?: boolean;
       view?: 'recent' | 'starred' | 'trash' | 'shared';
-    } = {}
+    } = {},
   ): Promise<ListFilesResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -412,7 +422,8 @@ export class GoogleDriveService {
 
     const params: Record<string, any> = {
       q: queryParts.join(' and '),
-      fields: 'nextPageToken, files(id, name, mimeType, size, createdTime, modifiedTime, webViewLink, webContentLink, thumbnailLink, iconLink, parents, starred, shared)',
+      fields:
+        'nextPageToken, files(id, name, mimeType, size, createdTime, modifiedTime, webViewLink, webContentLink, thumbnailLink, iconLink, parents, starred, shared)',
       pageSize: Math.min(pageSize, 100),
       orderBy,
       supportsAllDrives: true,
@@ -431,7 +442,7 @@ export class GoogleDriveService {
     const response = await this.makeRequest(accessToken, 'GET', '/files', { params });
 
     const files: GoogleDriveFileDto[] = (response.data.files || []).map((file: any) =>
-      this.transformFile(file)
+      this.transformFile(file),
     );
 
     return {
@@ -448,7 +459,8 @@ export class GoogleDriveService {
 
     const response = await this.makeRequest(accessToken, 'GET', `/files/${fileId}`, {
       params: {
-        fields: 'id, name, mimeType, size, createdTime, modifiedTime, webViewLink, webContentLink, thumbnailLink, iconLink, parents',
+        fields:
+          'id, name, mimeType, size, createdTime, modifiedTime, webViewLink, webContentLink, thumbnailLink, iconLink, parents',
         supportsAllDrives: true,
       },
     });
@@ -463,7 +475,7 @@ export class GoogleDriveService {
     userId: string,
     workspaceId: string,
     fileId: string,
-    convertTo?: string
+    convertTo?: string,
   ): Promise<{ buffer: Buffer; mimeType: string; fileName: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -516,7 +528,7 @@ export class GoogleDriveService {
     workspaceId: string,
     name: string,
     parentId?: string,
-    driveId?: string
+    driveId?: string,
   ): Promise<GoogleDriveFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -557,7 +569,7 @@ export class GoogleDriveService {
       parentId?: string;
       driveId?: string;
       description?: string;
-    } = {}
+    } = {},
   ): Promise<GoogleDriveFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -600,7 +612,7 @@ export class GoogleDriveService {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': `multipart/related; boundary=${boundary}`,
         },
-      }
+      },
     );
 
     return this.transformFile(response.data);
@@ -613,7 +625,7 @@ export class GoogleDriveService {
     userId: string,
     workspaceId: string,
     fileId: string,
-    permanent: boolean = false
+    permanent: boolean = false,
   ): Promise<void> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -641,7 +653,7 @@ export class GoogleDriveService {
     fileId: string,
     email: string,
     role: 'reader' | 'commenter' | 'writer',
-    sendNotification: boolean = true
+    sendNotification: boolean = true,
   ): Promise<{ shareLink: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -672,7 +684,7 @@ export class GoogleDriveService {
     workspaceId: string,
     fileId: string,
     targetFolderId?: string,
-    convertTo?: string
+    convertTo?: string,
   ): Promise<{
     success: boolean;
     deskiveFileId: string;
@@ -682,18 +694,28 @@ export class GoogleDriveService {
     url: string;
   }> {
     // Download the file from Google Drive
-    const { buffer, mimeType, fileName } = await this.downloadFile(userId, workspaceId, fileId, convertTo);
+    const { buffer, mimeType, fileName } = await this.downloadFile(
+      userId,
+      workspaceId,
+      fileId,
+      convertTo,
+    );
 
     // Upload to Deskive storage via database
     const storagePath = `workspaces/${workspaceId}/files/${targetFolderId || 'imports'}/${Date.now()}_${fileName}`;
-    const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile('deskive-files', buffer, storagePath, {
-      contentType: mimeType,
-      metadata: {
-        originalName: fileName,
-        importedFrom: 'google-drive',
-        googleDriveFileId: fileId,
+    const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile(
+      'deskive-files',
+      buffer,
+      storagePath,
+      {
+        contentType: mimeType,
+        metadata: {
+          originalName: fileName,
+          importedFrom: 'google-drive',
+          googleDriveFileId: fileId,
+        },
       },
-    });
+    );
 
     // Create file record in Deskive
     const fileRecord = await this.db.insert('files', {
@@ -754,10 +776,14 @@ export class GoogleDriveService {
     // Get file URL - use stored URL or generate from storage_path
     let fileUrl = fileRecord.url;
     if (!fileUrl && fileRecord.storage_path) {
-      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl('files', fileRecord.storage_path);
-      fileUrl = typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
-        ? publicUrlResult.publicUrl
-        : publicUrlResult;
+      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl(
+        'files',
+        fileRecord.storage_path,
+      );
+      fileUrl =
+        typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
+          ? publicUrlResult.publicUrl
+          : publicUrlResult;
     }
 
     if (!fileUrl) {
@@ -768,7 +794,7 @@ export class GoogleDriveService {
     let fileBuffer: Buffer;
     try {
       const response = await axios.get(fileUrl, {
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
       });
       fileBuffer = Buffer.from(response.data);
     } catch (error) {
@@ -788,7 +814,7 @@ export class GoogleDriveService {
       {
         parentId: targetFolderId,
         description: `Exported from Deskive on ${new Date().toISOString()}`,
-      }
+      },
     );
 
     this.logger.log(`Exported file "${fileRecord.name}" to Google Drive: ${uploadedFile.id}`);
@@ -808,7 +834,7 @@ export class GoogleDriveService {
     accessToken: string,
     method: string,
     endpoint: string,
-    config: AxiosRequestConfig = {}
+    config: AxiosRequestConfig = {},
   ): Promise<any> {
     const url = endpoint.startsWith('http') ? endpoint : `${this.DRIVE_API_BASE}${endpoint}`;
 
@@ -832,7 +858,9 @@ export class GoogleDriveService {
         throw new NotFoundException('File not found in Google Drive');
       }
       this.logger.error('Google Drive API error:', error.response?.data || error.message);
-      throw new BadRequestException(`Google Drive API error: ${error.response?.data?.error?.message || error.message}`);
+      throw new BadRequestException(
+        `Google Drive API error: ${error.response?.data?.error?.message || error.message}`,
+      );
     }
   }
 

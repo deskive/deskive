@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException, InternalServerErrorException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  InternalServerErrorException,
+  Logger,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { AiProviderService } from '../ai-provider/ai-provider.service';
 import { v4 as uuidv4 } from 'uuid';
@@ -104,7 +109,6 @@ export class AIService {
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Text generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate text content');
@@ -115,7 +119,10 @@ export class AIService {
    * Generate Email Suggestions
    * Returns multiple email body suggestions for composing or replying
    */
-  async generateEmailSuggestions(userId: string, dto: GenerateEmailSuggestionsDto): Promise<EmailSuggestionResponseDto> {
+  async generateEmailSuggestions(
+    userId: string,
+    dto: GenerateEmailSuggestionsDto,
+  ): Promise<EmailSuggestionResponseDto> {
     try {
       const requestId = uuidv4();
       const startTime = Date.now();
@@ -126,7 +133,8 @@ export class AIService {
       // Build the prompt based on whether it's a new email or a reply
       let prompt = '';
       if (isReply && dto.replyTo) {
-        const originalContent = dto.replyTo.bodyText || this.stripHtmlTags(dto.replyTo.bodyHtml || '');
+        const originalContent =
+          dto.replyTo.bodyText || this.stripHtmlTags(dto.replyTo.bodyHtml || '');
         prompt = `Generate ${count} professional email reply options for the following email.
 
 Original Email Subject: ${dto.replyTo.subject || '(no subject)'}
@@ -200,7 +208,10 @@ Generate ${count} different email body options that are ${tone}, clear, and appr
    * Generate Smart Replies
    * Returns short, one-line smart reply options for quick responses
    */
-  async generateSmartReplies(userId: string, dto: GenerateSmartRepliesDto): Promise<SmartReplyResponseDto> {
+  async generateSmartReplies(
+    userId: string,
+    dto: GenerateSmartRepliesDto,
+  ): Promise<SmartReplyResponseDto> {
     try {
       const requestId = uuidv4();
       const startTime = Date.now();
@@ -269,7 +280,10 @@ Generate ${count} different quick reply options. Separate each with "---".`;
    * Generate Description Suggestions (Unified for task, project, event, meeting)
    * Returns multiple description suggestions based on the type and title
    */
-  async generateDescriptionSuggestions(userId: string, dto: GenerateDescriptionSuggestionsDto): Promise<DescriptionSuggestionResponseDto> {
+  async generateDescriptionSuggestions(
+    userId: string,
+    dto: GenerateDescriptionSuggestionsDto,
+  ): Promise<DescriptionSuggestionResponseDto> {
     try {
       const requestId = uuidv4();
       const startTime = Date.now();
@@ -278,7 +292,14 @@ Generate ${count} different quick reply options. Separate each with "---".`;
       const length = dto.length || 'medium';
 
       // Build prompt based on type
-      const prompt = this.buildDescriptionPrompt(dto.type, dto.title, count, tone, length, dto.context);
+      const prompt = this.buildDescriptionPrompt(
+        dto.type,
+        dto.title,
+        count,
+        tone,
+        length,
+        dto.context,
+      );
 
       // Call database AI text generation
       const response = await this.aiProvider.generateText(prompt, {
@@ -371,7 +392,7 @@ Generate ${count} different quick reply options. Separate each with "---".`;
     const config = typeConfig[type];
     const lengthDesc = lengthGuide[length] || lengthGuide.medium;
 
-    let prompt = `Generate ${count} ${tone} description options for a ${config.label}.
+    const prompt = `Generate ${count} ${tone} description options for a ${config.label}.
 
 Title: ${title}
 ${context ? `Context: ${context}\n` : ''}
@@ -396,29 +417,45 @@ Separate each description with "---".`;
 
     // Try splitting by "---" first
     if (trimmedContent.includes('---')) {
-      suggestions = trimmedContent.split('---').map(s => s.trim()).filter(Boolean);
+      suggestions = trimmedContent
+        .split('---')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (trimmedContent.includes('\n\n')) {
       // Fallback to double newline
-      suggestions = trimmedContent.split('\n\n').map(s => s.trim()).filter(Boolean);
+      suggestions = trimmedContent
+        .split('\n\n')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (trimmedContent.includes('\n')) {
       // Fallback to single newline
-      suggestions = trimmedContent.split('\n').map(s => s.trim()).filter(Boolean);
+      suggestions = trimmedContent
+        .split('\n')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else {
       // Single suggestion
       suggestions = [trimmedContent];
     }
 
     // Clean up suggestions - remove any prefixes
-    suggestions = suggestions.map(s => {
-      return s
-        // Remove "Option 1:", "**Description 1:**", "**Task Description:**", etc.
-        .replace(/^\*{0,2}(Option|Draft|Description|Task\s+Description|Project\s+Description|Event\s+Description|Meeting\s+Description)\s*\d*\s*[:\-\*]*\s*/gi, '')
-        // Remove numbered prefixes like "1.", "1)", "1:"
-        .replace(/^\d+[.):\-\s]+/g, '')
-        // Remove bullet points
-        .replace(/^[-*]\s*/, '')
-        .trim();
-    }).filter(Boolean);
+    suggestions = suggestions
+      .map((s) => {
+        return (
+          s
+            // Remove "Option 1:", "**Description 1:**", "**Task Description:**", etc.
+            .replace(
+              /^\*{0,2}(Option|Draft|Description|Task\s+Description|Project\s+Description|Event\s+Description|Meeting\s+Description)\s*\d*\s*[:\-\*]*\s*/gi,
+              '',
+            )
+            // Remove numbered prefixes like "1.", "1)", "1:"
+            .replace(/^\d+[.):\-\s]+/g, '')
+            // Remove bullet points
+            .replace(/^[-*]\s*/, '')
+            .trim()
+        );
+      })
+      .filter(Boolean);
 
     // Limit to max count
     return suggestions.slice(0, maxCount);
@@ -433,24 +470,34 @@ Separate each description with "---".`;
 
     // Try splitting by "---" first
     if (trimmedContent.includes('---')) {
-      suggestions = trimmedContent.split('---').map(s => s.trim()).filter(Boolean);
+      suggestions = trimmedContent
+        .split('---')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (trimmedContent.includes('\n\n')) {
       // Fallback to double newline
-      suggestions = trimmedContent.split('\n\n').map(s => s.trim()).filter(Boolean);
+      suggestions = trimmedContent
+        .split('\n\n')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else {
       // Single suggestion
       suggestions = [trimmedContent];
     }
 
     // Clean up suggestions - remove option/draft/reply prefixes thoroughly
-    suggestions = suggestions.map(s => {
-      return s
-        // Remove "Option 1:", "**Option 1:**", "Option 1 -", etc.
-        .replace(/^\*{0,2}(Option|Draft|Reply|Email|Response)\s*\d*\s*[:\-\*]*\s*/gi, '')
-        // Remove numbered prefixes like "1.", "1)", "1:"
-        .replace(/^\d+[.):\-\s]+/g, '')
-        .trim();
-    }).filter(Boolean);
+    suggestions = suggestions
+      .map((s) => {
+        return (
+          s
+            // Remove "Option 1:", "**Option 1:**", "Option 1 -", etc.
+            .replace(/^\*{0,2}(Option|Draft|Reply|Email|Response)\s*\d*\s*[:\-\*]*\s*/gi, '')
+            // Remove numbered prefixes like "1.", "1)", "1:"
+            .replace(/^\d+[.):\-\s]+/g, '')
+            .trim()
+        );
+      })
+      .filter(Boolean);
 
     // Limit to max count
     return suggestions.slice(0, maxCount);
@@ -465,24 +512,34 @@ Separate each description with "---".`;
 
     // Try splitting by "---" first
     if (trimmedContent.includes('---')) {
-      replies = trimmedContent.split('---').map(s => s.trim()).filter(Boolean);
+      replies = trimmedContent
+        .split('---')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else if (trimmedContent.includes('\n')) {
       // Fallback to single newline for short replies
-      replies = trimmedContent.split('\n').map(s => s.trim()).filter(Boolean);
+      replies = trimmedContent
+        .split('\n')
+        .map((s) => s.trim())
+        .filter(Boolean);
     } else {
       // Single reply
       replies = [trimmedContent];
     }
 
     // Clean up replies - remove prefixes thoroughly
-    replies = replies.map(s => {
-      return s
-        // Remove "Option 1:", "**Reply 1:**", etc.
-        .replace(/^\*{0,2}(Option|Draft|Reply|Email|Response)\s*\d*\s*[:\-\*]*\s*/gi, '')
-        // Remove numbered prefixes like "1.", "1)", "1:"
-        .replace(/^\d+[.):\-\s]+/g, '')
-        .trim();
-    }).filter(Boolean);
+    replies = replies
+      .map((s) => {
+        return (
+          s
+            // Remove "Option 1:", "**Reply 1:**", etc.
+            .replace(/^\*{0,2}(Option|Draft|Reply|Email|Response)\s*\d*\s*[:\-\*]*\s*/gi, '')
+            // Remove numbered prefixes like "1.", "1)", "1:"
+            .replace(/^\d+[.):\-\s]+/g, '')
+            .trim()
+        );
+      })
+      .filter(Boolean);
 
     // Limit to max count
     return replies.slice(0, maxCount);
@@ -492,7 +549,10 @@ Separate each description with "---".`;
    * Strip HTML tags from content
    */
   private stripHtmlTags(html: string): string {
-    return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+    return html
+      .replace(/<[^>]*>/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   /**
@@ -544,7 +604,11 @@ Separate each description with "---".`;
           count: dto.count,
         },
         usage: {
-          images_generated: Array.isArray(imageUrlsData) ? imageUrlsData.filter((item: any) => typeof item === 'string' || (item && !item.queued)).length : 0,
+          images_generated: Array.isArray(imageUrlsData)
+            ? imageUrlsData.filter(
+                (item: any) => typeof item === 'string' || (item && !item.queued),
+              ).length
+            : 0,
           processing_time_ms: processingTime,
         },
       });
@@ -552,7 +616,10 @@ Separate each description with "---".`;
       // Update user usage statistics
       await this.updateUsageStats(userId, {
         total_requests: 1,
-        images_generated: Array.isArray(imageUrlsData) ? imageUrlsData.filter((item: any) => typeof item === 'string' || (item && !item.queued)).length : 0,
+        images_generated: Array.isArray(imageUrlsData)
+          ? imageUrlsData.filter((item: any) => typeof item === 'string' || (item && !item.queued))
+              .length
+          : 0,
       });
 
       return {
@@ -572,11 +639,14 @@ Separate each description with "---".`;
         timestamp: new Date().toISOString(),
         request_id: requestId,
         usage: {
-          images_generated: Array.isArray(imageUrlsData) ? imageUrlsData.filter((item: any) => typeof item === 'string' || (item && !item.queued)).length : 0,
+          images_generated: Array.isArray(imageUrlsData)
+            ? imageUrlsData.filter(
+                (item: any) => typeof item === 'string' || (item && !item.queued),
+              ).length
+            : 0,
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Image generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate image');
@@ -598,7 +668,7 @@ Separate each description with "---".`;
       const initialResponse = await this.aiProvider.generateVideo(enhancedPrompt, {
         duration: dto.duration || 4,
         aspectRatio: dto.aspect_ratio || '16:9',
-        frameRate: dto.frame_rate || 24
+        frameRate: dto.frame_rate || 24,
       });
 
       // Add debugging for response structure
@@ -618,11 +688,15 @@ Separate each description with "---".`;
       this.logger.log('=== END DEBUG ===');
 
       // Check if the response already contains a video URL (synchronous generation)
-      if (initialResponse.videoUrl && initialResponse.videoUrl !== '' && initialResponse.status === 'completed') {
+      if (
+        initialResponse.videoUrl &&
+        initialResponse.videoUrl !== '' &&
+        initialResponse.status === 'completed'
+      ) {
         this.logger.log('Video generation completed immediately (synchronous)');
         const processingTime = Date.now() - startTime;
         const videoUrl = this.extractVideoUrl(initialResponse);
-        
+
         // Save generation history for synchronous response
         await this.saveGenerationHistory(userId, {
           request_id: requestId,
@@ -670,14 +744,14 @@ Separate each description with "---".`;
       // Handle queued/processing status - poll by re-generating with same prompt
       if (initialResponse.status === 'queued' || initialResponse.status === 'processing') {
         this.logger.log(`Video generation status: ${initialResponse.status}, starting polling...`);
-        
+
         // Poll for completion using the same prompt
         const finalResponse = await this.pollVideoCompletionByPrompt(enhancedPrompt, {
           duration: dto.duration || 4,
           aspectRatio: dto.aspect_ratio || '16:9',
-          frameRate: dto.frame_rate || 24
+          frameRate: dto.frame_rate || 24,
         });
-        
+
         const processingTime = Date.now() - startTime;
         const videoUrl = this.extractVideoUrl(finalResponse);
 
@@ -728,7 +802,6 @@ Separate each description with "---".`;
       // If we get here, the response format is unexpected
       this.logger.error('Unexpected response format:', JSON.stringify(initialResponse, null, 2));
       throw new InternalServerErrorException('Unexpected video generation response format');
-
     } catch (error) {
       this.logger.error(`Video generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate video');
@@ -738,74 +811,89 @@ Separate each description with "---".`;
   /**
    * Helper method to poll video generation completion
    */
-  private async pollVideoCompletion(taskId: string, maxAttempts = 60, intervalMs = 5000): Promise<any> {
+  private async pollVideoCompletion(
+    taskId: string,
+    maxAttempts = 60,
+    intervalMs = 5000,
+  ): Promise<any> {
     let attempts = 0;
-    
+
     while (attempts < maxAttempts) {
       try {
         const status = await /* TODO: use LiveKit */ this.db.getVideoJobStatus(taskId);
-        
+
         if (status.status === 'completed') {
           return status;
         }
-        
+
         if (status.status === 'failed' || status.status === 'error') {
-          throw new InternalServerErrorException(`Video generation failed: ${status.error || 'Unknown error'}`);
+          throw new InternalServerErrorException(
+            `Video generation failed: ${status.error || 'Unknown error'}`,
+          );
         }
-        
+
         // Wait before next attempt
-        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
         attempts++;
-        
-        this.logger.debug(`Video generation polling attempt ${attempts}/${maxAttempts}, status: ${status.status}`);
-        
+
+        this.logger.debug(
+          `Video generation polling attempt ${attempts}/${maxAttempts}, status: ${status.status}`,
+        );
       } catch (error) {
         if (attempts >= maxAttempts - 1) {
           throw error;
         }
-        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
         attempts++;
       }
     }
-    
+
     throw new InternalServerErrorException('Video generation timeout - please try again later');
   }
 
   /**
    * Helper method to poll video generation completion by re-calling the same prompt
    */
-  private async pollVideoCompletionByPrompt(prompt: string, options: any, maxAttempts = 60, intervalMs = 5000): Promise<any> {
+  private async pollVideoCompletionByPrompt(
+    prompt: string,
+    options: any,
+    maxAttempts = 60,
+    intervalMs = 5000,
+  ): Promise<any> {
     let attempts = 0;
-    
+
     while (attempts < maxAttempts) {
       try {
         // Call the same generation request again to check status
         const status = await this.aiProvider.generateVideo(prompt, options);
-        
-        this.logger.debug(`Video polling attempt ${attempts + 1}/${maxAttempts}, status: ${status.status}, videoUrl: ${status.videoUrl ? 'present' : 'empty'}`);
-        
+
+        this.logger.debug(
+          `Video polling attempt ${attempts + 1}/${maxAttempts}, status: ${status.status}, videoUrl: ${status.videoUrl ? 'present' : 'empty'}`,
+        );
+
         if (status.status === 'completed' && status.videoUrl && status.videoUrl !== '') {
           this.logger.log('Video generation completed!');
           return status;
         }
-        
+
         if (status.status === 'failed' || status.status === 'error') {
-          throw new InternalServerErrorException(`Video generation failed: ${status.error || 'Unknown error'}`);
+          throw new InternalServerErrorException(
+            `Video generation failed: ${status.error || 'Unknown error'}`,
+          );
         }
-        
+
         // Wait before next attempt
-        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
         attempts++;
-        
       } catch (error) {
         if (attempts >= maxAttempts - 1) {
           throw error;
         }
-        await new Promise(resolve => setTimeout(resolve, intervalMs));
+        await new Promise((resolve) => setTimeout(resolve, intervalMs));
         attempts++;
       }
     }
-    
+
     throw new InternalServerErrorException('Video generation timeout - please try again later');
   }
 
@@ -821,15 +909,15 @@ Separate each description with "---".`;
     if (response.videoUrl) {
       return response.videoUrl;
     }
-    
+
     if (response.url) {
       return response.url;
     }
-    
+
     if (response.data?.videoUrl) {
       return response.data.videoUrl;
     }
-    
+
     throw new Error('Video URL not found in response');
   }
 
@@ -852,7 +940,8 @@ Separate each description with "---".`;
       const generatedContent = this.extractTextContent(response);
 
       // Extract code, explanation, and examples from the response
-      const { code, explanation, examples, dependencies } = this.parseCodeResponse(generatedContent);
+      const { code, explanation, examples, dependencies } =
+        this.parseCodeResponse(generatedContent);
 
       // Save generation history
       await this.saveGenerationHistory(userId, {
@@ -892,7 +981,6 @@ Separate each description with "---".`;
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Code generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate code');
@@ -952,7 +1040,6 @@ Separate each description with "---".`;
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Translation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to translate text');
@@ -978,9 +1065,12 @@ Separate each description with "---".`;
       const summary = this.extractTextContent(response);
 
       // Extract key points if bullet point format
-      const keyPoints = dto.summary_type === 'bullet_points' 
-        ? summary.split('\n').filter(line => line.trim().startsWith('•') || line.trim().startsWith('-'))
-        : undefined;
+      const keyPoints =
+        dto.summary_type === 'bullet_points'
+          ? summary
+              .split('\n')
+              .filter((line) => line.trim().startsWith('•') || line.trim().startsWith('-'))
+          : undefined;
 
       // Save generation history
       await this.saveGenerationHistory(userId, {
@@ -1020,7 +1110,6 @@ Separate each description with "---".`;
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Summarization failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to summarize content');
@@ -1047,15 +1136,12 @@ Separate each description with "---".`;
       const messages = [
         ...(dto.system_prompt ? [{ role: 'system', content: dto.system_prompt }] : []),
         ...conversationHistory,
-        { role: 'user', content: dto.message }
+        { role: 'user', content: dto.message },
       ];
 
-      const response = await this.aiProvider.generateText(
-        this.buildChatPrompt(dto, messages),
-        {
-          saveToDatabase: false,
-        }
-      );
+      const response = await this.aiProvider.generateText(this.buildChatPrompt(dto, messages), {
+        saveToDatabase: false,
+      });
 
       const processingTime = Date.now() - startTime;
       const aiResponse = this.extractTextContent(response);
@@ -1097,7 +1183,6 @@ Separate each description with "---".`;
           processing_time_ms: processingTime,
         },
       };
-
     } catch (error) {
       this.logger.error(`Chat generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate chat response');
@@ -1153,7 +1238,6 @@ Separate each description with "---".`;
         timestamp: new Date().toISOString(),
         request_id: requestId,
       };
-
     } catch (error) {
       this.logger.error(`Recipe generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate recipe');
@@ -1205,7 +1289,6 @@ Separate each description with "---".`;
       });
 
       return travelPlan;
-
     } catch (error) {
       this.logger.error(`Travel plan generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate travel plan');
@@ -1261,7 +1344,6 @@ Separate each description with "---".`;
         timestamp: new Date().toISOString(),
         request_id: requestId,
       };
-
     } catch (error) {
       this.logger.error(`Workout plan generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate workout plan');
@@ -1317,7 +1399,6 @@ Separate each description with "---".`;
         timestamp: new Date().toISOString(),
         request_id: requestId,
       };
-
     } catch (error) {
       this.logger.error(`Meal plan generation failed: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to generate meal plan');
@@ -1330,13 +1411,13 @@ Separate each description with "---".`;
   async getHistory(userId: string, query: AIQueryDto) {
     try {
       const offset = (query.page - 1) * query.limit;
-      
+
       const whereConditions: any = { user_id: userId };
-      
+
       if (query.service_type) {
         whereConditions.service_type = query.service_type;
       }
-      
+
       if (query.search) {
         // Simple search in prompt field
         whereConditions.prompt = query.search; // This would need to be enhanced for actual search
@@ -1346,14 +1427,12 @@ Separate each description with "---".`;
         // Add date range filtering logic
       }
 
-      let itemsQuery = this.db.table('ai_generations')
-        .select('*')
-        .where('user_id', '=', userId);
+      let itemsQuery = this.db.table('ai_generations').select('*').where('user_id', '=', userId);
 
       if (query.service_type) {
         itemsQuery = itemsQuery.where('service_type', '=', query.service_type);
       }
-      
+
       if (query.search) {
         itemsQuery = itemsQuery.where('prompt', 'like', `%${query.search}%`);
       }
@@ -1364,14 +1443,15 @@ Separate each description with "---".`;
         .offset(offset)
         .execute();
 
-      let totalQuery = this.db.table('ai_generations')
+      let totalQuery = this.db
+        .table('ai_generations')
         .select('COUNT(*) as total')
         .where('user_id', '=', userId);
 
       if (query.service_type) {
         totalQuery = totalQuery.where('service_type', '=', query.service_type);
       }
-      
+
       if (query.search) {
         totalQuery = totalQuery.where('prompt', 'like', `%${query.search}%`);
       }
@@ -1384,13 +1464,15 @@ Separate each description with "---".`;
       const totalPages = Math.ceil(total / query.limit);
 
       return {
-        items: (Array.isArray(items) ? items : []).map(item => ({
+        items: (Array.isArray(items) ? items : []).map((item) => ({
           id: item.id,
           type: item.service_type,
           prompt: item.prompt,
-          content_preview: query.include_preview ? 
-            (typeof item.response === 'string' ? item.response.substring(0, 200) : JSON.stringify(item.response).substring(0, 200)) : 
-            undefined,
+          content_preview: query.include_preview
+            ? typeof item.response === 'string'
+              ? item.response.substring(0, 200)
+              : JSON.stringify(item.response).substring(0, 200)
+            : undefined,
           created_at: item.created_at,
           usage: query.include_usage ? item.usage : undefined,
           metadata: query.include_metadata ? item.parameters : undefined,
@@ -1400,7 +1482,6 @@ Separate each description with "---".`;
         limit: query.limit,
         total_pages: totalPages,
       };
-
     } catch (error) {
       this.logger.error(`Failed to get AI history: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to retrieve AI generation history');
@@ -1413,12 +1494,13 @@ Separate each description with "---".`;
   async getUsageStats(userId: string, query: AIUsageQueryDto) {
     try {
       // This would need more sophisticated date range and aggregation logic
-      const statsResult = await this.db.table('ai_usage_stats')
+      const statsResult = await this.db
+        .table('ai_usage_stats')
         .select('*')
         .where('user_id', '=', userId)
         .limit(1)
         .execute();
-      
+
       const stats = statsResult.data?.[0] || {
         total_requests: 0,
         tokens_used: 0,
@@ -1438,7 +1520,6 @@ Separate each description with "---".`;
           images_per_month: 500,
         },
       };
-
     } catch (error) {
       this.logger.error(`Failed to get usage stats: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to retrieve usage statistics');
@@ -1449,7 +1530,7 @@ Separate each description with "---".`;
 
   private buildTextPrompt(dto: GenerateTextDto): string {
     let prompt = `Create ${dto.text_type} content about: ${dto.prompt}\n\n`;
-    
+
     if (dto.tone) prompt += `Tone: ${dto.tone}\n`;
     if (dto.target_audience) prompt += `Target audience: ${dto.target_audience}\n`;
     if (dto.word_count) prompt += `Target length: approximately ${dto.word_count} words\n`;
@@ -1458,15 +1539,15 @@ Separate each description with "---".`;
     if (dto.seo_optimized) prompt += `Optimize for SEO\n`;
     if (dto.include_cta) prompt += `Include a call-to-action\n`;
     if (dto.additional_context) prompt += `Additional context: ${dto.additional_context}\n`;
-    
+
     prompt += '\nPlease create engaging, high-quality content that meets these requirements.';
-    
+
     return prompt;
   }
 
   private buildImagePrompt(dto: GenerateImageDto): string {
     let prompt = dto.prompt;
-    
+
     if (dto.style) prompt += `, ${dto.style} style`;
     if (dto.color_palette?.length) prompt += `, ${dto.color_palette.join(' ')} colors`;
     if (dto.mood?.length) prompt += `, ${dto.mood.join(' ')} mood`;
@@ -1475,13 +1556,13 @@ Separate each description with "---".`;
     if (dto.medium) prompt += `, ${dto.medium}`;
     if (dto.artist_reference) prompt += `, ${dto.artist_reference}`;
     if (dto.negative_prompt) prompt += ` --no ${dto.negative_prompt}`;
-    
+
     return prompt;
   }
 
   private buildVideoPrompt(dto: GenerateVideoDto): string {
     let prompt = dto.prompt;
-    
+
     if (dto.style) prompt += `, ${dto.style} style`;
     if (dto.color_palette?.length) prompt += `, ${dto.color_palette.join(' ')} colors`;
     if (dto.mood?.length) prompt += `, ${dto.mood.join(' ')} mood`;
@@ -1491,20 +1572,21 @@ Separate each description with "---".`;
     if (dto.camera_movement) prompt += `, ${dto.camera_movement} camera movement`;
     if (dto.motion_intensity) prompt += `, motion intensity level ${dto.motion_intensity}/10`;
     if (dto.negative_prompt) prompt += ` --no ${dto.negative_prompt}`;
-    
+
     return prompt;
   }
 
   private buildCodePrompt(dto: GenerateCodeDto): string {
     let prompt = `Generate ${dto.language} code for: ${dto.prompt}\n\n`;
-    
+
     prompt += `Code type: ${dto.code_type}\n`;
     if (dto.framework) prompt += `Framework: ${dto.framework}\n`;
     if (dto.complexity) prompt += `Complexity level: ${dto.complexity}\n`;
     if (dto.requirements?.length) prompt += `Requirements: ${dto.requirements.join(', ')}\n`;
-    if (dto.dependencies?.length) prompt += `Use these dependencies: ${dto.dependencies.join(', ')}\n`;
+    if (dto.dependencies?.length)
+      prompt += `Use these dependencies: ${dto.dependencies.join(', ')}\n`;
     if (dto.style_guide) prompt += `Follow coding style: ${dto.style_guide}\n`;
-    
+
     prompt += '\nPlease provide:\n';
     prompt += '1. Clean, well-structured code\n';
     if (dto.include_comments) prompt += '2. Detailed comments explaining the code\n';
@@ -1512,7 +1594,7 @@ Separate each description with "---".`;
     if (dto.include_validation) prompt += '4. Input validation\n';
     if (dto.include_tests) prompt += '5. Basic unit tests\n';
     prompt += '6. Brief explanation of how it works\n';
-    
+
     return prompt;
   }
 
@@ -1527,18 +1609,19 @@ Separate each description with "---".`;
     if (dto.preserve_formatting) prompt += `Preserve any formatting in the original text\n`;
     if (dto.glossary?.length) {
       prompt += `Use these specific translations:\n`;
-      dto.glossary.forEach(term => prompt += `- "${term.source}" -> "${term.target}"\n`);
+      dto.glossary.forEach((term) => (prompt += `- "${term.source}" -> "${term.target}"\n`));
     }
     if (dto.notes) prompt += `Additional notes: ${dto.notes}\n`;
 
-    prompt += '\nIMPORTANT: Provide ONLY the translated text. Do NOT include quotation marks around the translation, do NOT include any explanations, labels, or preambles like "Translation:" or "Here is the translation:". Just output the pure translated text.';
+    prompt +=
+      '\nIMPORTANT: Provide ONLY the translated text. Do NOT include quotation marks around the translation, do NOT include any explanations, labels, or preambles like "Translation:" or "Here is the translation:". Just output the pure translated text.';
 
     return prompt;
   }
 
   private buildSummarizationPrompt(dto: SummarizeContentDto): string {
     let prompt = `Create a ${dto.summary_type} summary of the following content:\n\n${dto.content}\n\n`;
-    
+
     if (dto.length) prompt += `Length: ${dto.length}\n`;
     if (dto.word_count) prompt += `Target word count: ${dto.word_count} words\n`;
     if (dto.sentence_count) prompt += `Target sentence count: ${dto.sentence_count} sentences\n`;
@@ -1547,28 +1630,29 @@ Separate each description with "---".`;
     if (dto.include_statistics) prompt += `Include key statistics and numbers\n`;
     if (dto.include_quotes) prompt += `Include important quotes\n`;
     if (dto.include_action_items) prompt += `Extract action items\n`;
-    if (dto.additional_instructions) prompt += `Additional instructions: ${dto.additional_instructions}\n`;
-    
+    if (dto.additional_instructions)
+      prompt += `Additional instructions: ${dto.additional_instructions}\n`;
+
     return prompt;
   }
 
   private buildChatPrompt(dto: CreateChatDto, messages: any[]): string {
     let systemPrompt = '';
-    
+
     if (dto.personality) {
       systemPrompt += `You are an AI assistant with a ${dto.personality} personality. `;
     }
-    
+
     if (dto.context) {
       systemPrompt += `You specialize in ${dto.context}. `;
     }
-    
+
     systemPrompt += 'Provide helpful, accurate, and engaging responses.';
-    
+
     if (dto.response_format && dto.response_format !== 'text') {
       systemPrompt += ` Format your response as ${dto.response_format}.`;
     }
-    
+
     // Return the last user message with system context
     const lastUserMessage = messages[messages.length - 1];
     return `${systemPrompt}\n\nUser: ${lastUserMessage.content}`;
@@ -1576,16 +1660,18 @@ Separate each description with "---".`;
 
   private buildRecipePrompt(dto: GenerateRecipeDto): string {
     let prompt = `Create a detailed recipe for ${dto.recipe_request}.\n\n`;
-    
+
     if (dto.cuisine) prompt += `Cuisine: ${dto.cuisine}\n`;
     if (dto.meal_type) prompt += `Meal type: ${dto.meal_type}\n`;
     if (dto.servings) prompt += `Servings: ${dto.servings}\n`;
     if (dto.cooking_time) prompt += `Cooking time: ${dto.cooking_time} minutes\n`;
     if (dto.difficulty) prompt += `Difficulty: ${dto.difficulty}\n`;
-    if (dto.dietary_restrictions?.length) prompt += `Dietary restrictions: ${dto.dietary_restrictions.join(', ')}\n`;
-    if (dto.available_ingredients?.length) prompt += `Use these ingredients: ${dto.available_ingredients.join(', ')}\n`;
+    if (dto.dietary_restrictions?.length)
+      prompt += `Dietary restrictions: ${dto.dietary_restrictions.join(', ')}\n`;
+    if (dto.available_ingredients?.length)
+      prompt += `Use these ingredients: ${dto.available_ingredients.join(', ')}\n`;
     if (dto.avoid_ingredients?.length) prompt += `Avoid: ${dto.avoid_ingredients.join(', ')}\n`;
-    
+
     prompt += '\nPlease provide:\n';
     prompt += '1. Recipe title\n';
     prompt += '2. Brief description\n';
@@ -1595,7 +1681,7 @@ Separate each description with "---".`;
     if (dto.include_nutrition) prompt += '6. Nutritional information\n';
     if (dto.include_tips) prompt += '7. Cooking tips and tricks\n';
     if (dto.include_variations) prompt += '8. Variations or substitutions\n';
-    
+
     return prompt;
   }
 
@@ -1606,21 +1692,22 @@ Separate each description with "---".`;
     prompt += `Travel type: ${dto.travel_type}\n`;
     prompt += `Budget: ${dto.currency || 'USD'} ${dto.budget} (${dto.budget_range})\n`;
     prompt += `Travelers: ${dto.travelers_count}\n`;
-    
+
     if (dto.traveler_ages?.length) prompt += `Ages: ${dto.traveler_ages.join(', ')}\n`;
     if (dto.accommodation_preference) prompt += `Accommodation: ${dto.accommodation_preference}\n`;
-    if (dto.transportation_preference) prompt += `Transportation: ${dto.transportation_preference}\n`;
+    if (dto.transportation_preference)
+      prompt += `Transportation: ${dto.transportation_preference}\n`;
     if (dto.interests?.length) prompt += `Interests: ${dto.interests.join(', ')}\n`;
     if (dto.group_type) prompt += `Group type: ${dto.group_type}\n`;
     if (dto.departure_location) prompt += `Departing from: ${dto.departure_location}\n`;
-    
+
     prompt += '\nInclude:\n';
     if (dto.include_flights) prompt += '- Flight recommendations\n';
     if (dto.include_accommodation) prompt += '- Accommodation suggestions\n';
     if (dto.include_activities) prompt += '- Activity recommendations\n';
     if (dto.include_restaurants) prompt += '- Restaurant suggestions\n';
     if (dto.include_itinerary) prompt += '- Detailed day-by-day itinerary\n';
-    
+
     return prompt;
   }
 
@@ -1630,44 +1717,48 @@ Separate each description with "---".`;
     prompt += `Fitness level: ${dto.fitness_level}\n`;
     prompt += `Frequency: ${dto.days_per_week || 3} days per week\n`;
     prompt += `Session duration: ${dto.session_duration || 45} minutes\n`;
-    
+
     if (dto.age) prompt += `Age: ${dto.age}\n`;
-    if (dto.preferred_workouts?.length) prompt += `Preferred workouts: ${dto.preferred_workouts.join(', ')}\n`;
-    if (dto.available_equipment?.length) prompt += `Available equipment: ${dto.available_equipment.join(', ')}\n`;
+    if (dto.preferred_workouts?.length)
+      prompt += `Preferred workouts: ${dto.preferred_workouts.join(', ')}\n`;
+    if (dto.available_equipment?.length)
+      prompt += `Available equipment: ${dto.available_equipment.join(', ')}\n`;
     if (dto.focus_areas?.length) prompt += `Focus areas: ${dto.focus_areas.join(', ')}\n`;
     if (dto.limitations?.length) prompt += `Limitations: ${dto.limitations.join(', ')}\n`;
-    
+
     prompt += '\nProvide:\n';
     prompt += '1. Weekly schedule breakdown\n';
     prompt += '2. Specific exercises with sets, reps, and rest periods\n';
     prompt += '3. Exercise descriptions and form cues\n';
     if (dto.include_warmup_cooldown) prompt += '4. Warm-up and cool-down routines\n';
     if (dto.include_progression) prompt += '5. Progression guidelines for each week\n';
-    
+
     return prompt;
   }
 
   private buildMealPlanPrompt(dto: GenerateMealPlanDto): string {
     let prompt = `Create a ${dto.days || 7}-day meal plan with:\n`;
-    
+
     if (dto.daily_calories) prompt += `Daily calories: ${dto.daily_calories}\n`;
     prompt += `Meals per day: ${dto.meals_per_day || 3}\n`;
     if (dto.include_snacks) prompt += `Include snacks\n`;
-    if (dto.dietary_restrictions?.length) prompt += `Dietary restrictions: ${dto.dietary_restrictions.join(', ')}\n`;
-    if (dto.preferred_cuisines?.length) prompt += `Preferred cuisines: ${dto.preferred_cuisines.join(', ')}\n`;
+    if (dto.dietary_restrictions?.length)
+      prompt += `Dietary restrictions: ${dto.dietary_restrictions.join(', ')}\n`;
+    if (dto.preferred_cuisines?.length)
+      prompt += `Preferred cuisines: ${dto.preferred_cuisines.join(', ')}\n`;
     if (dto.foods_to_include?.length) prompt += `Include: ${dto.foods_to_include.join(', ')}\n`;
     if (dto.foods_to_avoid?.length) prompt += `Avoid: ${dto.foods_to_avoid.join(', ')}\n`;
     if (dto.cooking_skill) prompt += `Cooking skill: ${dto.cooking_skill}\n`;
     if (dto.max_prep_time) prompt += `Max prep time: ${dto.max_prep_time} minutes\n`;
     if (dto.daily_budget) prompt += `Daily budget: $${dto.daily_budget}\n`;
-    
+
     prompt += '\nProvide:\n';
     prompt += '1. Daily meal breakdown with recipes\n';
     prompt += '2. Ingredient lists for each recipe\n';
     prompt += '3. Simple cooking instructions\n';
     if (dto.include_grocery_list) prompt += '4. Consolidated grocery list\n';
     if (dto.include_nutrition) prompt += '5. Nutritional breakdown per meal and daily totals\n';
-    
+
     return prompt;
   }
 
@@ -1676,14 +1767,14 @@ Separate each description with "---".`;
     const lines = content.split('\n');
     let code = '';
     let explanation = '';
-    let examples: string[] = [];
-    let dependencies: string[] = [];
-    
+    const examples: string[] = [];
+    const dependencies: string[] = [];
+
     let currentSection = 'code';
-    
+
     for (const line of lines) {
       const lowerLine = line.toLowerCase();
-      
+
       if (lowerLine.includes('explanation') || lowerLine.includes('how it works')) {
         currentSection = 'explanation';
         continue;
@@ -1694,7 +1785,7 @@ Separate each description with "---".`;
         currentSection = 'dependencies';
         continue;
       }
-      
+
       switch (currentSection) {
         case 'code':
           if (!line.startsWith('#') && !lowerLine.includes('explanation')) {
@@ -1712,7 +1803,7 @@ Separate each description with "---".`;
           break;
       }
     }
-    
+
     return {
       code: code.trim(),
       explanation: explanation.trim(),
@@ -1723,8 +1814,8 @@ Separate each description with "---".`;
 
   private parseRecipeResponse(content: string, dto: GenerateRecipeDto) {
     // Simplified recipe parser - would need more sophisticated parsing
-    const lines = content.split('\n').filter(line => line.trim());
-    
+    const lines = content.split('\n').filter((line) => line.trim());
+
     return {
       title: dto.recipe_request,
       description: 'AI-generated recipe',
@@ -1756,7 +1847,10 @@ Separate each description with "---".`;
       destinations: dto.destinations,
       start_date: dto.start_date,
       end_date: dto.end_date,
-      duration_days: Math.ceil((new Date(dto.end_date).getTime() - new Date(dto.start_date).getTime()) / (1000 * 60 * 60 * 24)),
+      duration_days: Math.ceil(
+        (new Date(dto.end_date).getTime() - new Date(dto.start_date).getTime()) /
+          (1000 * 60 * 60 * 24),
+      ),
       travelers_count: dto.travelers_count,
       budget: {
         total: dto.budget,
@@ -1831,20 +1925,24 @@ Separate each description with "---".`;
               calories: dto.daily_calories ? Math.round(dto.daily_calories * 0.25) : undefined,
             },
           ],
-          daily_nutrition: dto.include_nutrition ? {
-            total_calories: dto.daily_calories || 2000,
-            protein: '20%',
-            carbs: '50%',
-            fat: '30%',
-          } : undefined,
+          daily_nutrition: dto.include_nutrition
+            ? {
+                total_calories: dto.daily_calories || 2000,
+                protein: '20%',
+                carbs: '50%',
+                fat: '30%',
+              }
+            : undefined,
         },
       ],
-      grocery_list: dto.include_grocery_list ? [
-        {
-          category: 'Dairy',
-          items: ['Milk', 'Eggs', 'Yogurt'],
-        },
-      ] : undefined,
+      grocery_list: dto.include_grocery_list
+        ? [
+            {
+              category: 'Dairy',
+              items: ['Milk', 'Eggs', 'Yogurt'],
+            },
+          ]
+        : undefined,
       metadata: {
         duration_days: dto.days || 7,
         daily_calories: dto.daily_calories,
@@ -1856,13 +1954,20 @@ Separate each description with "---".`;
 
   private calculateSummaryTokens(dto: SummarizeContentDto): number {
     switch (dto.length) {
-      case 'very_short': return 100;
-      case 'short': return 200;
-      case 'medium': return 400;
-      case 'long': return 600;
-      case 'detailed': return 1000;
-      case 'custom': return dto.word_count ? dto.word_count * 1.5 : 400;
-      default: return 400;
+      case 'very_short':
+        return 100;
+      case 'short':
+        return 200;
+      case 'medium':
+        return 400;
+      case 'long':
+        return 600;
+      case 'detailed':
+        return 1000;
+      case 'custom':
+        return dto.word_count ? dto.word_count * 1.5 : 400;
+      default:
+        return 400;
     }
   }
 
@@ -1885,20 +1990,22 @@ Separate each description with "---".`;
 
   private async updateUsageStats(userId: string, stats: any) {
     try {
-      const existingResult = await this.db.table('ai_usage_stats')
+      const existingResult = await this.db
+        .table('ai_usage_stats')
         .select('*')
         .where('user_id', '=', userId)
         .limit(1)
         .execute();
-      
+
       const existing = existingResult.data?.[0];
-      
+
       if (existing) {
         await this.db.update('ai_usage_stats', existing.id, {
           total_requests: (existing.total_requests || 0) + (stats.total_requests || 0),
           tokens_used: (existing.tokens_used || 0) + (stats.tokens_used || 0),
           images_generated: (existing.images_generated || 0) + (stats.images_generated || 0),
-          characters_translated: (existing.characters_translated || 0) + (stats.characters_translated || 0),
+          characters_translated:
+            (existing.characters_translated || 0) + (stats.characters_translated || 0),
           updated_at: new Date().toISOString(),
         });
       } else {
@@ -1920,13 +2027,14 @@ Separate each description with "---".`;
   private async saveChatMessage(userId: string, sessionId: string, message: any) {
     try {
       // First ensure chat session exists
-      const existingSessionResult = await this.db.table('chat_sessions')
+      const existingSessionResult = await this.db
+        .table('chat_sessions')
         .select('*')
         .where('id', '=', sessionId)
         .where('user_id', '=', userId)
         .limit(1)
         .execute();
-      
+
       const existingSession = existingSessionResult.data?.[0];
 
       if (!existingSession) {
@@ -1953,7 +2061,6 @@ Separate each description with "---".`;
       await this.db.update('chat_sessions', sessionId, {
         updated_at: new Date().toISOString(),
       });
-
     } catch (error) {
       this.logger.warn(`Failed to save chat message: ${error.message}`);
     }
@@ -1961,18 +2068,20 @@ Separate each description with "---".`;
 
   private async getChatSession(userId: string, sessionId: string) {
     try {
-      const sessionResult = await this.db.table('chat_sessions')
+      const sessionResult = await this.db
+        .table('chat_sessions')
         .select('*')
         .where('id', '=', sessionId)
         .where('user_id', '=', userId)
         .limit(1)
         .execute();
-      
+
       const session = sessionResult.data?.[0];
 
       if (!session) return null;
 
-      const messagesResult = await this.db.table('chat_messages')
+      const messagesResult = await this.db
+        .table('chat_messages')
         .select('*')
         .where('session_id', '=', sessionId)
         .orderBy('timestamp', 'asc')
@@ -1982,14 +2091,13 @@ Separate each description with "---".`;
 
       return {
         ...session,
-        messages: (Array.isArray(messages) ? messages : []).map(msg => ({
+        messages: (Array.isArray(messages) ? messages : []).map((msg) => ({
           role: msg.role,
           content: msg.content,
           timestamp: msg.timestamp,
           metadata: msg.metadata ? JSON.parse(msg.metadata) : undefined,
         })),
       };
-
     } catch (error) {
       this.logger.warn(`Failed to get chat session: ${error.message}`);
       return null;
@@ -2075,11 +2183,13 @@ Separate each description with "---".`;
 
     // If it's a queued job response, return queue info
     if (response.jobId || response.queueJobId || response.status === 'queued') {
-      return [{
-        url: response.url || '',
-        queueJobId: response.jobId || response.queueJobId,
-        queued: true
-      }];
+      return [
+        {
+          url: response.url || '',
+          queueJobId: response.jobId || response.queueJobId,
+          queued: true,
+        },
+      ];
     }
 
     return [];
@@ -2094,7 +2204,7 @@ Separate each description with "---".`;
 
     // Handle different possible response formats
     if (Array.isArray(response)) {
-      return response.map(item => item.url || item).filter(Boolean);
+      return response.map((item) => item.url || item).filter(Boolean);
     }
 
     // database response format (priority)
@@ -2125,20 +2235,22 @@ Separate each description with "---".`;
   private extractTokenUsage(response: any): number {
     // Handle different usage formats
     if (response.usage) {
-      return response.usage.total_tokens || 
-             response.usage.tokens || 
-             (response.usage.prompt_tokens || 0) + (response.usage.completion_tokens || 0) ||
-             0;
+      return (
+        response.usage.total_tokens ||
+        response.usage.tokens ||
+        (response.usage.prompt_tokens || 0) + (response.usage.completion_tokens || 0) ||
+        0
+      );
     }
-    
+
     if (response.tokens_used) {
       return response.tokens_used;
     }
-    
+
     if (response.token_count) {
       return response.token_count;
     }
-    
+
     return 0;
   }
 }

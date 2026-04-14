@@ -134,15 +134,10 @@ export class NotesAgentService {
    * Main entry point for the Notes AI Agent
    * Receives natural language prompt and executes the appropriate action
    */
-  async processCommand(
-    request: NoteAgentRequest,
-    userId: string,
-  ): Promise<NoteAgentResponse> {
+  async processCommand(request: NoteAgentRequest, userId: string): Promise<NoteAgentResponse> {
     const { prompt, workspaceId } = request;
 
-    this.logger.log(
-      `[NotesAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`,
-    );
+    this.logger.log(`[NotesAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`);
 
     try {
       // Step 1: Store user message in conversation memory (async, don't wait)
@@ -163,10 +158,7 @@ export class NotesAgentService {
       const existingNotes = await this.getExistingNotes(workspaceId, userId);
 
       // Step 4: Get workspace members for user ID resolution (for sharing)
-      const workspaceMembers = await this.getWorkspaceMembers(
-        workspaceId,
-        userId,
-      );
+      const workspaceMembers = await this.getWorkspaceMembers(workspaceId, userId);
 
       // Step 5: Use AI to parse the user's intent
       const parsedIntent = await this.parseIntentWithAI(
@@ -176,9 +168,7 @@ export class NotesAgentService {
         conversationHistory,
       );
 
-      this.logger.log(
-        `[NotesAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`,
-      );
+      this.logger.log(`[NotesAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`);
 
       if (parsedIntent.action === 'unknown') {
         // Store failed response in memory
@@ -201,10 +191,7 @@ export class NotesAgentService {
 
       // Step 6: Resolve user names to IDs for share operations
       if (parsedIntent.action === 'share' && parsedIntent.shareWith) {
-        parsedIntent.shareWith = this.resolveUserIds(
-          parsedIntent.shareWith,
-          workspaceMembers,
-        );
+        parsedIntent.shareWith = this.resolveUserIds(parsedIntent.shareWith, workspaceMembers);
       } else if (parsedIntent.action === 'batch_share') {
         parsedIntent.batch_share?.forEach((item) => {
           item.userIds = this.resolveUserIds(item.userIds, workspaceMembers);
@@ -227,10 +214,7 @@ export class NotesAgentService {
 
       return result;
     } catch (error) {
-      this.logger.error(
-        `[NotesAgent] Error processing command: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[NotesAgent] Error processing command: ${error.message}`, error.stack);
       return {
         success: false,
         action: 'unknown',
@@ -243,11 +227,7 @@ export class NotesAgentService {
   /**
    * Store user message in conversation memory (fire and forget)
    */
-  private storeUserMessage(
-    content: string,
-    workspaceId: string,
-    userId: string,
-  ): void {
+  private storeUserMessage(content: string, workspaceId: string, userId: string): void {
     this.conversationMemoryService
       .storeMessage({
         role: 'user',
@@ -257,9 +237,7 @@ export class NotesAgentService {
         entity_type: 'note',
       })
       .catch((error) => {
-        this.logger.warn(
-          `[NotesAgent] Failed to store user message: ${error.message}`,
-        );
+        this.logger.warn(`[NotesAgent] Failed to store user message: ${error.message}`);
       });
   }
 
@@ -288,9 +266,7 @@ export class NotesAgentService {
         entity_type: 'note',
       })
       .catch((error) => {
-        this.logger.warn(
-          `[NotesAgent] Failed to store assistant message: ${error.message}`,
-        );
+        this.logger.warn(`[NotesAgent] Failed to store assistant message: ${error.message}`);
       });
   }
 
@@ -304,9 +280,7 @@ export class NotesAgentService {
   ): Promise<ConversationSearchResult[]> {
     try {
       if (!this.conversationMemoryService.isReady()) {
-        this.logger.warn(
-          '[NotesAgent] Conversation memory not ready, skipping history lookup',
-        );
+        this.logger.warn('[NotesAgent] Conversation memory not ready, skipping history lookup');
         return [];
       }
 
@@ -317,9 +291,7 @@ export class NotesAgentService {
         10,
       );
     } catch (error) {
-      this.logger.warn(
-        `[NotesAgent] Failed to get conversation history: ${error.message}`,
-      );
+      this.logger.warn(`[NotesAgent] Failed to get conversation history: ${error.message}`);
       return [];
     }
   }
@@ -376,17 +348,9 @@ export class NotesAgentService {
   /**
    * Get existing notes in the workspace for context
    */
-  private async getExistingNotes(
-    workspaceId: string,
-    userId: string,
-  ): Promise<any[]> {
+  private async getExistingNotes(workspaceId: string, userId: string): Promise<any[]> {
     try {
-      const notes = await this.notesService.getNotes(
-        workspaceId,
-        undefined,
-        userId,
-        false,
-      );
+      const notes = await this.notesService.getNotes(workspaceId, undefined, userId, false);
       return notes.map((n: any) => ({
         id: n.id,
         title: n.title,
@@ -398,9 +362,7 @@ export class NotesAgentService {
         updated_at: n.updated_at,
       }));
     } catch (error) {
-      this.logger.warn(
-        `[NotesAgent] Could not fetch existing notes: ${error.message}`,
-      );
+      this.logger.warn(`[NotesAgent] Could not fetch existing notes: ${error.message}`);
       return [];
     }
   }
@@ -421,16 +383,12 @@ export class NotesAgentService {
         .execute();
 
       const members = membersResult.data || [];
-      this.logger.log(
-        `[NotesAgent] Found ${members.length} workspace members`,
-      );
+      this.logger.log(`[NotesAgent] Found ${members.length} workspace members`);
 
       const membersWithNames: WorkspaceMember[] = await Promise.all(
         members.map(async (member: any) => {
           try {
-            const userProfile = await this.db.getUserById(
-              member.user_id,
-            );
+            const userProfile = await this.db.getUserById(member.user_id);
             const metadata = (userProfile as any)?.metadata || {};
 
             return {
@@ -440,8 +398,7 @@ export class NotesAgentService {
                 (userProfile as any)?.fullName ||
                 (userProfile as any)?.name ||
                 null,
-              username:
-                (userProfile as any)?.username || metadata.username || null,
+              username: (userProfile as any)?.username || metadata.username || null,
               email: (userProfile as any)?.email || null,
               role: member.role,
             };
@@ -462,9 +419,7 @@ export class NotesAgentService {
 
       return membersWithNames;
     } catch (error) {
-      this.logger.warn(
-        `[NotesAgent] Could not fetch workspace members: ${error.message}`,
-      );
+      this.logger.warn(`[NotesAgent] Could not fetch workspace members: ${error.message}`);
       return [];
     }
   }
@@ -472,10 +427,7 @@ export class NotesAgentService {
   /**
    * Resolve user names/emails to user IDs
    */
-  private resolveUserIds(
-    userIdentifiers: string[],
-    members: WorkspaceMember[],
-  ): string[] {
+  private resolveUserIds(userIdentifiers: string[], members: WorkspaceMember[]): string[] {
     return userIdentifiers
       .map((identifier) => {
         // If already a UUID, validate it exists
@@ -484,18 +436,14 @@ export class NotesAgentService {
           if (memberExists) {
             return identifier;
           }
-          this.logger.warn(
-            `[NotesAgent] User ID "${identifier}" is not a workspace member`,
-          );
+          this.logger.warn(`[NotesAgent] User ID "${identifier}" is not a workspace member`);
           return null;
         }
 
         // Try to find by name/username/email
         const resolvedId = this.findUserIdByNameOrEmail(identifier, members);
         if (resolvedId) {
-          this.logger.log(
-            `[NotesAgent] Resolved user "${identifier}" to ID: ${resolvedId}`,
-          );
+          this.logger.log(`[NotesAgent] Resolved user "${identifier}" to ID: ${resolvedId}`);
           return resolvedId;
         }
 
@@ -511,18 +459,14 @@ export class NotesAgentService {
    * Check if a string is a valid UUID
    */
   private isValidUUID(str: string): boolean {
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return uuidRegex.test(str);
   }
 
   /**
    * Find user ID by name, username, or email
    */
-  private findUserIdByNameOrEmail(
-    searchTerm: string,
-    members: WorkspaceMember[],
-  ): string | null {
+  private findUserIdByNameOrEmail(searchTerm: string, members: WorkspaceMember[]): string | null {
     const normalizedSearch = searchTerm.toLowerCase().trim();
 
     // Try exact match on name
@@ -765,7 +709,7 @@ IMPORTANT RULES:
       }
 
       // Clean up the response
-      let cleanedContent = responseText
+      const cleanedContent = responseText
         .trim()
         .replace(/^```json\s*/i, '')
         .replace(/^```\s*/i, '')
@@ -881,15 +825,9 @@ IMPORTANT RULES:
         attachments: details?.attachments,
       };
 
-      this.logger.log(
-        `[NotesAgent] Creating note with DTO: ${JSON.stringify(createDto)}`,
-      );
+      this.logger.log(`[NotesAgent] Creating note with DTO: ${JSON.stringify(createDto)}`);
 
-      const note = await this.notesService.createNote(
-        workspaceId,
-        createDto,
-        userId,
-      );
+      const note = await this.notesService.createNote(workspaceId, createDto, userId);
 
       return {
         success: true,
@@ -944,10 +882,8 @@ IMPORTANT RULES:
     if (details?.tags) updateFields.tags = details.tags;
     if (details?.icon) updateFields.icon = details.icon;
     if (details?.cover_image) updateFields.cover_image = details.cover_image;
-    if (details?.is_public !== undefined)
-      updateFields.is_public = details.is_public;
-    if (details?.parent_id !== undefined)
-      updateFields.parent_id = details.parent_id;
+    if (details?.is_public !== undefined) updateFields.is_public = details.is_public;
+    if (details?.parent_id !== undefined) updateFields.parent_id = details.parent_id;
     if (details?.attachments) updateFields.attachments = details.attachments;
 
     if (Object.keys(updateFields).length === 0) {
@@ -961,12 +897,7 @@ IMPORTANT RULES:
     }
 
     try {
-      const note = await this.notesService.updateNote(
-        noteId,
-        workspaceId,
-        updateFields,
-        userId,
-      );
+      const note = await this.notesService.updateNote(noteId, workspaceId, updateFields, userId);
 
       const changesDescription = Object.entries(updateFields)
         .map(([key, value]) => {
@@ -1017,11 +948,7 @@ IMPORTANT RULES:
     }
 
     try {
-      const result = await this.notesService.deleteNote(
-        noteId,
-        workspaceId,
-        userId,
-      );
+      const result = await this.notesService.deleteNote(noteId, workspaceId, userId);
 
       return {
         success: true,
@@ -1123,11 +1050,7 @@ IMPORTANT RULES:
     }
 
     try {
-      const result = await this.notesService.archiveNote(
-        noteId,
-        workspaceId,
-        userId,
-      );
+      const result = await this.notesService.archiveNote(noteId, workspaceId, userId);
 
       return {
         success: true,
@@ -1170,11 +1093,7 @@ IMPORTANT RULES:
     }
 
     try {
-      const result = await this.notesService.unarchiveNote(
-        noteId,
-        workspaceId,
-        userId,
-      );
+      const result = await this.notesService.unarchiveNote(noteId, workspaceId, userId);
 
       return {
         success: true,
@@ -1264,18 +1183,13 @@ IMPORTANT RULES:
       return {
         success: false,
         action: 'search',
-        message:
-          'Please specify what to search for. For example: "Find notes about marketing"',
+        message: 'Please specify what to search for. For example: "Find notes about marketing"',
         error: 'NO_SEARCH_QUERY',
       };
     }
 
     try {
-      const notes = await this.notesService.searchNotes(
-        workspaceId,
-        searchQuery,
-        userId,
-      );
+      const notes = await this.notesService.searchNotes(workspaceId, searchQuery, userId);
 
       if (notes.length === 0) {
         return {
@@ -1363,11 +1277,7 @@ IMPORTANT RULES:
           is_public: item.details.is_public || false,
         };
 
-        const note = await this.notesService.createNote(
-          workspaceId,
-          createDto,
-          userId,
-        );
+        const note = await this.notesService.createNote(workspaceId, createDto, userId);
 
         results.push({
           success: true,
@@ -1451,8 +1361,7 @@ IMPORTANT RULES:
         if (item.updates.content) updateFields.content = item.updates.content;
         if (item.updates.tags) updateFields.tags = item.updates.tags;
         if (item.updates.icon) updateFields.icon = item.updates.icon;
-        if (item.updates.is_public !== undefined)
-          updateFields.is_public = item.updates.is_public;
+        if (item.updates.is_public !== undefined) updateFields.is_public = item.updates.is_public;
 
         if (Object.keys(updateFields).length === 0) {
           results.push({
@@ -1481,9 +1390,7 @@ IMPORTANT RULES:
 
         this.logger.log(`[NotesAgent] Updated note: ${note.title}`);
       } catch (error) {
-        this.logger.error(
-          `[NotesAgent] Failed to update note ${item.noteName}: ${error.message}`,
-        );
+        this.logger.error(`[NotesAgent] Failed to update note ${item.noteName}: ${error.message}`);
         results.push({
           success: false,
           error: error.message,
@@ -1557,9 +1464,7 @@ IMPORTANT RULES:
 
         this.logger.log(`[NotesAgent] Deleted note: ${item.noteName}`);
       } catch (error) {
-        this.logger.error(
-          `[NotesAgent] Failed to delete note ${item.noteName}: ${error.message}`,
-        );
+        this.logger.error(`[NotesAgent] Failed to delete note ${item.noteName}: ${error.message}`);
         results.push({
           success: false,
           error: error.message,
@@ -1649,9 +1554,7 @@ IMPORTANT RULES:
 
         this.logger.log(`[NotesAgent] Shared note: ${item.noteName}`);
       } catch (error) {
-        this.logger.error(
-          `[NotesAgent] Failed to share note ${item.noteName}: ${error.message}`,
-        );
+        this.logger.error(`[NotesAgent] Failed to share note ${item.noteName}: ${error.message}`);
         results.push({
           success: false,
           error: error.message,

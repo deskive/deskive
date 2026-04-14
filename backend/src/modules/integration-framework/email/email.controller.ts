@@ -37,11 +37,7 @@ import {
   ExtractTravelInfoDto,
   NativeConnectGmailDto,
 } from './dto/email.dto';
-import {
-  SendEmailDto,
-  ReplyEmailDto,
-  CreateDraftDto,
-} from './dto/send-email.dto';
+import { SendEmailDto, ReplyEmailDto, CreateDraftDto } from './dto/send-email.dto';
 import { ConfigService } from '@nestjs/config';
 
 @ApiTags('email')
@@ -88,7 +84,7 @@ export class EmailController {
         email: dto.email,
         displayName: dto.displayName,
         photoUrl: dto.photoUrl,
-      }
+      },
     );
     return {
       data: connection,
@@ -113,10 +109,7 @@ export class EmailController {
   @ApiOperation({ summary: 'Disconnect Gmail' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.emailService.disconnect(userId, workspaceId);
     return { success: true, message: 'Gmail disconnected' };
   }
@@ -238,7 +231,13 @@ export class EmailController {
     @Body() dto: ReplyEmailDto,
     @Query('connectionId') connectionId?: string,
   ) {
-    const result = await this.emailService.replyToEmail(userId, workspaceId, messageId, dto, connectionId);
+    const result = await this.emailService.replyToEmail(
+      userId,
+      workspaceId,
+      messageId,
+      dto,
+      connectionId,
+    );
     return { data: result, message: 'Reply sent successfully' };
   }
 
@@ -256,8 +255,17 @@ export class EmailController {
     @Query('permanent') permanent?: string,
     @Query('connectionId') connectionId?: string,
   ) {
-    await this.emailService.deleteEmail(userId, workspaceId, messageId, permanent === 'true', connectionId);
-    return { success: true, message: permanent === 'true' ? 'Email deleted permanently' : 'Email moved to trash' };
+    await this.emailService.deleteEmail(
+      userId,
+      workspaceId,
+      messageId,
+      permanent === 'true',
+      connectionId,
+    );
+    return {
+      success: true,
+      message: permanent === 'true' ? 'Email deleted permanently' : 'Email moved to trash',
+    };
   }
 
   @Patch('messages/:messageId/read')
@@ -307,7 +315,14 @@ export class EmailController {
     @Body() dto: UpdateLabelsDto,
     @Query('connectionId') connectionId?: string,
   ) {
-    await this.emailService.updateLabels(userId, workspaceId, messageId, dto.addLabelIds, dto.removeLabelIds, connectionId);
+    await this.emailService.updateLabels(
+      userId,
+      workspaceId,
+      messageId,
+      dto.addLabelIds,
+      dto.removeLabelIds,
+      connectionId,
+    );
     return { success: true };
   }
 
@@ -338,7 +353,13 @@ export class EmailController {
     @Body() dto: CreateLabelDto,
     @Query('connectionId') connectionId?: string,
   ) {
-    const label = await this.emailService.createLabel(userId, workspaceId, dto.name, dto.color, connectionId);
+    const label = await this.emailService.createLabel(
+      userId,
+      workspaceId,
+      dto.name,
+      dto.color,
+      connectionId,
+    );
     return { data: label, message: 'Label created' };
   }
 
@@ -411,7 +432,10 @@ export class EmailController {
     @Body() body: { enabled: boolean },
   ) {
     await this.emailPollingService.setNotificationsEnabled(userId, workspaceId, body.enabled);
-    return { success: true, message: `Email notifications ${body.enabled ? 'enabled' : 'disabled'}` };
+    return {
+      success: true,
+      message: `Email notifications ${body.enabled ? 'enabled' : 'disabled'}`,
+    };
   }
 
   // ==================== Connection Settings Endpoints ====================
@@ -426,7 +450,11 @@ export class EmailController {
     @Param('connectionId') connectionId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    const settings = await this.emailPollingService.getConnectionSettings(userId, workspaceId, connectionId);
+    const settings = await this.emailPollingService.getConnectionSettings(
+      userId,
+      workspaceId,
+      connectionId,
+    );
     return { data: settings };
   }
 
@@ -461,10 +489,7 @@ export class EmailController {
   @ApiOperation({ summary: 'Manually trigger email polling (for testing)' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Poll completed' })
-  async triggerPoll(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async triggerPoll(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const result = await this.emailPollingService.pollForUser(userId, workspaceId);
     return { success: true, data: result, message: `Found ${result.newEmails} new email(s)` };
   }
@@ -475,9 +500,7 @@ export class EmailController {
   @ApiOperation({ summary: 'Test SMTP/IMAP connection before saving' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Connection test result' })
-  async testSmtpImapConnection(
-    @Body() dto: TestSmtpImapConnectionDto,
-  ) {
+  async testSmtpImapConnection(@Body() dto: TestSmtpImapConnectionDto) {
     const result = await this.smtpImapEmailService.testConnection(dto);
     return { data: result };
   }
@@ -553,7 +576,13 @@ export class EmailController {
     @Query('mailbox') mailbox?: string,
     @Query('connectionId') connectionId?: string,
   ) {
-    const email = await this.smtpImapEmailService.getMessage(userId, workspaceId, messageId, mailbox || 'INBOX', connectionId);
+    const email = await this.smtpImapEmailService.getMessage(
+      userId,
+      workspaceId,
+      messageId,
+      mailbox || 'INBOX',
+      connectionId,
+    );
     return { data: email };
   }
 
@@ -602,7 +631,12 @@ export class EmailController {
     @Body() dto: SendEmailDto,
     @Query('connectionId') connectionId?: string,
   ) {
-    const result = await this.smtpImapEmailService.sendEmail(userId, workspaceId, dto, connectionId);
+    const result = await this.smtpImapEmailService.sendEmail(
+      userId,
+      workspaceId,
+      dto,
+      connectionId,
+    );
     return { data: result, message: 'Email sent successfully' };
   }
 
@@ -656,7 +690,10 @@ export class EmailController {
       permanent === 'true',
       connectionId,
     );
-    return { success: true, message: permanent === 'true' ? 'Email deleted permanently' : 'Email moved to trash' };
+    return {
+      success: true,
+      message: permanent === 'true' ? 'Email deleted permanently' : 'Email moved to trash',
+    };
   }
 
   @Patch('smtp-imap/messages/:messageId/read')
@@ -820,14 +857,20 @@ export class EmailController {
     @Param('connectionId') connectionId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    const result = await this.emailService.getPrioritiesForConnection(userId, workspaceId, connectionId);
+    const result = await this.emailService.getPrioritiesForConnection(
+      userId,
+      workspaceId,
+      connectionId,
+    );
     return { data: result, message: 'Connection priorities retrieved successfully' };
   }
 
   // ==================== Travel Ticket Extraction ====================
 
   @Post('extract-travel-info')
-  @ApiOperation({ summary: 'Extract travel ticket information from email using AI (supports PDF attachments)' })
+  @ApiOperation({
+    summary: 'Extract travel ticket information from email using AI (supports PDF attachments)',
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Travel information extracted' })
   async extractTravelInfo(

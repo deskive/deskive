@@ -41,14 +41,8 @@ export class FcmProvider implements PushProvider {
   private app: any;
 
   constructor(config: ConfigService) {
-    this.serviceAccountJson = config.get<string>(
-      'FIREBASE_SERVICE_ACCOUNT',
-      '',
-    );
-    this.serviceAccountFile = config.get<string>(
-      'FIREBASE_SERVICE_ACCOUNT_FILE',
-      '',
-    );
+    this.serviceAccountJson = config.get<string>('FIREBASE_SERVICE_ACCOUNT', '');
+    this.serviceAccountFile = config.get<string>('FIREBASE_SERVICE_ACCOUNT_FILE', '');
     this.projectId = config.get<string>('FCM_PROJECT_ID', '');
     this.webConfigJson = config.get<string>('FIREBASE_WEB_CONFIG', '');
 
@@ -68,12 +62,10 @@ export class FcmProvider implements PushProvider {
   private loadSdk() {
     if (this.sdkLoaded) return;
     if (!this.isAvailable()) {
-      throw new PushProviderNotConfiguredError('fcm', [
-        'FIREBASE_SERVICE_ACCOUNT',
-      ]);
+      throw new PushProviderNotConfiguredError('fcm', ['FIREBASE_SERVICE_ACCOUNT']);
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       this.admin = require('firebase-admin');
 
       // Parse the service account config.
@@ -87,9 +79,7 @@ export class FcmProvider implements PushProvider {
 
       // Reuse an existing default app if something else already
       // initialized firebase-admin (e.g. another module).
-      const existing = this.admin.apps.find(
-        (a: any) => a?.name === '[DEFAULT]',
-      );
+      const existing = this.admin.apps.find((a: any) => a?.name === '[DEFAULT]');
       this.app = existing ?? this.admin.initializeApp({ credential });
       this.sdkLoaded = true;
       this.logger.log('firebase-admin loaded');
@@ -148,10 +138,7 @@ export class FcmProvider implements PushProvider {
     };
   }
 
-  async send(
-    recipient: PushRecipient,
-    message: PushMessage,
-  ): Promise<PushResult> {
+  async send(recipient: PushRecipient, message: PushMessage): Promise<PushResult> {
     this.loadSdk();
     try {
       const messageId = await this.admin
@@ -171,10 +158,7 @@ export class FcmProvider implements PushProvider {
     }
   }
 
-  async sendBulk(
-    recipients: PushRecipient[],
-    message: PushMessage,
-  ): Promise<PushBulkResult> {
+  async sendBulk(recipients: PushRecipient[], message: PushMessage): Promise<PushBulkResult> {
     this.loadSdk();
 
     // FCM's sendEach supports up to 500 messages per batch. For
@@ -190,9 +174,7 @@ export class FcmProvider implements PushProvider {
       const chunk = recipients.slice(i, i + CHUNK);
       const msgs = chunk.map((r) => this.buildMessage(r, message));
       try {
-        const response = await this.admin
-          .messaging(this.app)
-          .sendEach(msgs);
+        const response = await this.admin.messaging(this.app).sendEach(msgs);
         for (let j = 0; j < response.responses.length; j++) {
           const r = response.responses[j];
           if (r.success) {

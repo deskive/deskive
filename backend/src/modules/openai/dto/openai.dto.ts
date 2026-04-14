@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsBoolean, IsNumber, IsArray, ValidateNested, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsNumber,
+  IsArray,
+  ValidateNested,
+  Min,
+  Max,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -76,7 +85,10 @@ export class ListModelsResponseDto {
 // ==================== Chat Completion DTOs ====================
 
 export class ChatMessageDto {
-  @ApiProperty({ enum: ['system', 'user', 'assistant', 'function'], description: 'Role of the message author' })
+  @ApiProperty({
+    enum: ['system', 'user', 'assistant', 'function'],
+    description: 'Role of the message author',
+  })
   @IsString()
   role: 'system' | 'user' | 'assistant' | 'function';
 
@@ -91,7 +103,10 @@ export class ChatMessageDto {
 }
 
 export class ChatCompletionRequestDto {
-  @ApiProperty({ description: 'Model to use (e.g., gpt-4, gpt-3.5-turbo)', default: 'gpt-3.5-turbo' })
+  @ApiProperty({
+    description: 'Model to use (e.g., gpt-4, gpt-3.5-turbo)',
+    default: 'gpt-3.5-turbo',
+  })
   @IsOptional()
   @IsString()
   model?: string;

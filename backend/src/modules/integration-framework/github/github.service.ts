@@ -1,4 +1,10 @@
-import { Injectable, Logger, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+} from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
 import { GitHubOAuthService } from './github-oauth.service';
 import axios from 'axios';
@@ -37,7 +43,10 @@ export class GitHubService {
    * Handle GitHub App installation callback
    * This is called when user installs the app on their account/org
    */
-  async handleInstallationCallback(installationId: number, state: string): Promise<GitHubConnectionDto> {
+  async handleInstallationCallback(
+    installationId: number,
+    state: string,
+  ): Promise<GitHubConnectionDto> {
     // Decode and validate state
     const stateData = this.oauthService.decodeState(state);
     const { userId, workspaceId } = stateData;
@@ -82,7 +91,9 @@ export class GitHubService {
       connection = await this.db.insert('github_connections', connectionData);
     }
 
-    this.logger.log(`GitHub App installed for user ${userId} (${installation.account.login}) in workspace ${workspaceId}`);
+    this.logger.log(
+      `GitHub App installed for user ${userId} (${installation.account.login}) in workspace ${workspaceId}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -142,7 +153,9 @@ export class GitHubService {
     });
 
     if (!connection) {
-      throw new NotFoundException('GitHub not connected. Please connect your GitHub account first.');
+      throw new NotFoundException(
+        'GitHub not connected. Please connect your GitHub account first.',
+      );
     }
 
     // Check if token is expired (installation tokens expire after 1 hour)
@@ -153,7 +166,9 @@ export class GitHubService {
       // Refresh installation access token
       this.logger.log(`Refreshing expired installation token for user ${userId}`);
       try {
-        const tokens = await this.oauthService.refreshInstallationToken(parseInt(connection.installation_id));
+        const tokens = await this.oauthService.refreshInstallationToken(
+          parseInt(connection.installation_id),
+        );
 
         // Update stored token
         await this.db.update('github_connections', connection.id, {
@@ -169,7 +184,9 @@ export class GitHubService {
           is_active: false,
           updated_at: new Date().toISOString(),
         });
-        throw new NotFoundException('GitHub token refresh failed. Please reconnect your GitHub account.');
+        throw new NotFoundException(
+          'GitHub token refresh failed. Please reconnect your GitHub account.',
+        );
       }
     }
 
@@ -181,7 +198,9 @@ export class GitHubService {
           is_active: false,
           updated_at: new Date().toISOString(),
         });
-        throw new NotFoundException('GitHub token is invalid or expired. Please reconnect your GitHub account.');
+        throw new NotFoundException(
+          'GitHub token is invalid or expired. Please reconnect your GitHub account.',
+        );
       }
     }
 
@@ -207,18 +226,23 @@ export class GitHubService {
 
     try {
       // Use installation repositories endpoint for GitHub App
-      const response = await axios.get(`${this.GITHUB_API_BASE}/installation/repositories?${params.toString()}`, {
-        headers: {
-          Authorization: `token ${accessToken}`,
-          Accept: 'application/vnd.github.v3+json',
+      const response = await axios.get(
+        `${this.GITHUB_API_BASE}/installation/repositories?${params.toString()}`,
+        {
+          headers: {
+            Authorization: `token ${accessToken}`,
+            Accept: 'application/vnd.github.v3+json',
+          },
         },
-      });
+      );
 
       // Installation API returns { total_count, repositories: [...] }
       const repoData = response.data.repositories || response.data;
       const totalCount = response.data.total_count || repoData.length;
 
-      const repositories = (Array.isArray(repoData) ? repoData : []).map((repo: any) => this.transformRepository(repo));
+      const repositories = (Array.isArray(repoData) ? repoData : []).map((repo: any) =>
+        this.transformRepository(repo),
+      );
 
       return {
         repositories,
@@ -235,7 +259,12 @@ export class GitHubService {
   /**
    * Get a specific repository
    */
-  async getRepository(userId: string, workspaceId: string, owner: string, repo: string): Promise<GitHubRepositoryDto> {
+  async getRepository(
+    userId: string,
+    workspaceId: string,
+    owner: string,
+    repo: string,
+  ): Promise<GitHubRepositoryDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     try {
@@ -408,7 +437,9 @@ export class GitHubService {
     });
 
     if (!connection) {
-      throw new NotFoundException('GitHub not connected. Please connect your GitHub account first.');
+      throw new NotFoundException(
+        'GitHub not connected. Please connect your GitHub account first.',
+      );
     }
 
     // Verify task exists (tasks are linked to workspace via project)
@@ -443,7 +474,13 @@ export class GitHubService {
     }
 
     // Fetch issue details from GitHub
-    const issue = await this.getIssue(userId, workspaceId, dto.repoOwner, dto.repoName, dto.issueNumber);
+    const issue = await this.getIssue(
+      userId,
+      workspaceId,
+      dto.repoOwner,
+      dto.repoName,
+      dto.issueNumber,
+    );
 
     // Determine state (for PRs, check if merged)
     let state: 'open' | 'closed' | 'merged' = issue.state;
@@ -506,7 +543,11 @@ export class GitHubService {
   /**
    * Get all GitHub links for a task
    */
-  async getTaskLinks(userId: string, workspaceId: string, taskId: string): Promise<GitHubIssueLinkDto[]> {
+  async getTaskLinks(
+    userId: string,
+    workspaceId: string,
+    taskId: string,
+  ): Promise<GitHubIssueLinkDto[]> {
     const result = await this.db.findMany('github_issue_links', {
       task_id: taskId,
       workspace_id: workspaceId,
@@ -519,7 +560,11 @@ export class GitHubService {
   /**
    * Sync/refresh a GitHub issue link with latest data
    */
-  async syncIssueLink(userId: string, workspaceId: string, linkId: string): Promise<GitHubIssueLinkDto> {
+  async syncIssueLink(
+    userId: string,
+    workspaceId: string,
+    linkId: string,
+  ): Promise<GitHubIssueLinkDto> {
     const link = await this.db.findOne('github_issue_links', {
       id: linkId,
       workspace_id: workspaceId,
@@ -530,7 +575,13 @@ export class GitHubService {
     }
 
     // Fetch latest issue data from GitHub
-    const issue = await this.getIssue(userId, workspaceId, link.repo_owner, link.repo_name, link.issue_number);
+    const issue = await this.getIssue(
+      userId,
+      workspaceId,
+      link.repo_owner,
+      link.repo_name,
+      link.issue_number,
+    );
 
     // Determine state
     let state: 'open' | 'closed' | 'merged' = issue.state;

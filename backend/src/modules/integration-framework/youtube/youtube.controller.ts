@@ -62,17 +62,21 @@ export class YoutubeController {
 
     if (existingConnection) {
       // Update existing connection
-      await this.db.update('youtube_connections', { id: existingConnection.id }, {
-        access_token: tokens.accessToken,
-        refresh_token: tokens.refreshToken || existingConnection.refresh_token,
-        expires_at: tokens.expiresAt.toISOString(),
-        google_user_id: userInfo.id,
-        google_email: userInfo.email,
-        google_name: userInfo.name,
-        google_picture: userInfo.picture,
-        is_active: true,
-        updated_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'youtube_connections',
+        { id: existingConnection.id },
+        {
+          access_token: tokens.accessToken,
+          refresh_token: tokens.refreshToken || existingConnection.refresh_token,
+          expires_at: tokens.expiresAt.toISOString(),
+          google_user_id: userInfo.id,
+          google_email: userInfo.email,
+          google_name: userInfo.name,
+          google_picture: userInfo.picture,
+          is_active: true,
+          updated_at: new Date().toISOString(),
+        },
+      );
     } else {
       // Create new connection
       await this.db.insert('youtube_connections', {
@@ -192,7 +196,12 @@ export class YoutubeController {
     const userId = req.user.sub || req.user.userId;
     const { workspaceId, ...playlistData } = createPlaylistDto;
 
-    const data = await this.youtubeService.createPlaylist(userId, workspaceId, playlistData.title, playlistData);
+    const data = await this.youtubeService.createPlaylist(
+      userId,
+      workspaceId,
+      playlistData.title,
+      playlistData,
+    );
 
     return { success: true, data };
   }
@@ -258,7 +267,13 @@ export class YoutubeController {
     const userId = req.user.sub || req.user.userId;
     const { workspaceId, videoId, position } = addItemDto;
 
-    const data = await this.youtubeService.addToPlaylist(userId, workspaceId, playlistId, videoId, position);
+    const data = await this.youtubeService.addToPlaylist(
+      userId,
+      workspaceId,
+      playlistId,
+      videoId,
+      position,
+    );
 
     return { success: true, data };
   }

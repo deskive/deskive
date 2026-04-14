@@ -3,10 +3,7 @@
  * Tax forms, payment authorizations, and financial request forms
  */
 
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const FINANCE_FORMS_TEMPLATES = [
   {
@@ -63,15 +60,36 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'payee_name', type: 'text', label: 'Payee Name', required: true },
       { key: 'payee_address', type: 'text', label: 'Payee Address', required: true },
       { key: 'payment_amount', type: 'currency', label: 'Payment Amount', required: true },
-      { key: 'payment_method', type: 'select', label: 'Payment Method', required: true, options: ['Check', 'ACH Transfer', 'Wire Transfer', 'Credit Card'] },
+      {
+        key: 'payment_method',
+        type: 'select',
+        label: 'Payment Method',
+        required: true,
+        options: ['Check', 'ACH Transfer', 'Wire Transfer', 'Credit Card'],
+      },
       { key: 'payment_purpose', type: 'textarea', label: 'Payment Purpose', required: true },
       { key: 'account_code', type: 'text', label: 'Account Code', required: true },
       { key: 'cost_center', type: 'text', label: 'Cost Center', required: false },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'manager_signature', label: 'Manager Approval', required: true, position: { x: 100, y: 750 } },
-      { id: 'finance_signature', label: 'Finance Approval', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Manager Approval',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'finance_signature',
+        label: 'Finance Approval',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -113,7 +131,10 @@ export const FINANCE_FORMS_TEMPLATES = [
         { insert: '\nEmail: {{email}}' },
         { insert: '\n\nCertification' },
         { insert: '\n', attributes: { header: 2 } },
-        { insert: '\nUnder penalties of perjury, I certify that the information provided is correct and complete.' },
+        {
+          insert:
+            '\nUnder penalties of perjury, I certify that the information provided is correct and complete.',
+        },
         { insert: '\n\nSignature: _____________________ Date: {{signature_date}}' },
         { insert: '\nPrinted Name: {{printed_name}}' },
         { insert: '\n' },
@@ -122,7 +143,21 @@ export const FINANCE_FORMS_TEMPLATES = [
     placeholders: [
       { key: 'legal_name', type: 'text', label: 'Legal Name', required: true },
       { key: 'business_name', type: 'text', label: 'Business Name', required: false },
-      { key: 'entity_type', type: 'select', label: 'Entity Type', required: true, options: ['Individual/Sole Proprietor', 'C Corporation', 'S Corporation', 'Partnership', 'LLC', 'Trust/Estate', 'Other'] },
+      {
+        key: 'entity_type',
+        type: 'select',
+        label: 'Entity Type',
+        required: true,
+        options: [
+          'Individual/Sole Proprietor',
+          'C Corporation',
+          'S Corporation',
+          'Partnership',
+          'LLC',
+          'Trust/Estate',
+          'Other',
+        ],
+      },
       { key: 'tax_id', type: 'text', label: 'Tax ID Number', required: true },
       { key: 'street_address', type: 'text', label: 'Street Address', required: true },
       { key: 'city', type: 'text', label: 'City', required: true },
@@ -136,7 +171,12 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
     ],
     signatureFields: [
-      { id: 'certification_signature', label: 'Certification Signature', required: true, position: { x: 100, y: 700 } },
+      {
+        id: 'certification_signature',
+        label: 'Certification Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -167,9 +207,18 @@ export const FINANCE_FORMS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Date | Description | Category | Amount |' },
         { insert: '\n|------|-------------|----------|--------|' },
-        { insert: '\n| {{expense_date_1}} | {{expense_desc_1}} | {{expense_cat_1}} | {{expense_amount_1}} |' },
-        { insert: '\n| {{expense_date_2}} | {{expense_desc_2}} | {{expense_cat_2}} | {{expense_amount_2}} |' },
-        { insert: '\n| {{expense_date_3}} | {{expense_desc_3}} | {{expense_cat_3}} | {{expense_amount_3}} |' },
+        {
+          insert:
+            '\n| {{expense_date_1}} | {{expense_desc_1}} | {{expense_cat_1}} | {{expense_amount_1}} |',
+        },
+        {
+          insert:
+            '\n| {{expense_date_2}} | {{expense_desc_2}} | {{expense_cat_2}} | {{expense_amount_2}} |',
+        },
+        {
+          insert:
+            '\n| {{expense_date_3}} | {{expense_desc_3}} | {{expense_cat_3}} | {{expense_amount_3}} |',
+        },
         { insert: '\n\nTotal Reimbursement Requested: {{total_amount}}' },
         { insert: '\n\nBusiness Purpose: {{business_purpose}}' },
         { insert: '\n\nReceipts Attached' },
@@ -178,7 +227,10 @@ export const FINANCE_FORMS_TEMPLATES = [
         { insert: '\n☐ Missing receipt explanation: {{missing_receipt_explanation}}' },
         { insert: '\n\nEmployee Certification' },
         { insert: '\n', attributes: { header: 2 } },
-        { insert: '\nI certify that these expenses were incurred for legitimate business purposes and are in compliance with company policy.' },
+        {
+          insert:
+            '\nI certify that these expenses were incurred for legitimate business purposes and are in compliance with company policy.',
+        },
         { insert: '\n\nEmployee Signature: _____________________ Date: _________' },
         { insert: '\nManager Approval: _____________________ Date: _________' },
         { insert: '\n' },
@@ -191,23 +243,56 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'submission_date', type: 'date', label: 'Submission Date', required: true },
       { key: 'expense_date_1', type: 'date', label: 'Expense Date 1', required: true },
       { key: 'expense_desc_1', type: 'text', label: 'Expense Description 1', required: true },
-      { key: 'expense_cat_1', type: 'select', label: 'Expense Category 1', required: true, options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'] },
+      {
+        key: 'expense_cat_1',
+        type: 'select',
+        label: 'Expense Category 1',
+        required: true,
+        options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'],
+      },
       { key: 'expense_amount_1', type: 'currency', label: 'Expense Amount 1', required: true },
       { key: 'expense_date_2', type: 'date', label: 'Expense Date 2', required: false },
       { key: 'expense_desc_2', type: 'text', label: 'Expense Description 2', required: false },
-      { key: 'expense_cat_2', type: 'select', label: 'Expense Category 2', required: false, options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'] },
+      {
+        key: 'expense_cat_2',
+        type: 'select',
+        label: 'Expense Category 2',
+        required: false,
+        options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'],
+      },
       { key: 'expense_amount_2', type: 'currency', label: 'Expense Amount 2', required: false },
       { key: 'expense_date_3', type: 'date', label: 'Expense Date 3', required: false },
       { key: 'expense_desc_3', type: 'text', label: 'Expense Description 3', required: false },
-      { key: 'expense_cat_3', type: 'select', label: 'Expense Category 3', required: false, options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'] },
+      {
+        key: 'expense_cat_3',
+        type: 'select',
+        label: 'Expense Category 3',
+        required: false,
+        options: ['Travel', 'Meals', 'Supplies', 'Equipment', 'Training', 'Other'],
+      },
       { key: 'expense_amount_3', type: 'currency', label: 'Expense Amount 3', required: false },
       { key: 'total_amount', type: 'currency', label: 'Total Amount', required: true },
       { key: 'business_purpose', type: 'textarea', label: 'Business Purpose', required: true },
-      { key: 'missing_receipt_explanation', type: 'textarea', label: 'Missing Receipt Explanation', required: false },
+      {
+        key: 'missing_receipt_explanation',
+        type: 'textarea',
+        label: 'Missing Receipt Explanation',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'employee_signature', label: 'Employee Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'manager_signature', label: 'Manager Approval', required: true, position: { x: 100, y: 750 } },
+      {
+        id: 'employee_signature',
+        label: 'Employee Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Manager Approval',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -289,15 +374,35 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'tax', type: 'currency', label: 'Tax', required: false },
       { key: 'shipping', type: 'currency', label: 'Shipping', required: false },
       { key: 'grand_total', type: 'currency', label: 'Grand Total', required: true },
-      { key: 'purchase_justification', type: 'textarea', label: 'Purchase Justification', required: true },
+      {
+        key: 'purchase_justification',
+        type: 'textarea',
+        label: 'Purchase Justification',
+        required: true,
+      },
       { key: 'preferred_vendor', type: 'text', label: 'Preferred Vendor', required: false },
       { key: 'delivery_date', type: 'date', label: 'Delivery Date Required', required: true },
       { key: 'budget_code', type: 'text', label: 'Budget Code', required: true },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'department_head_signature', label: 'Department Head Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'purchasing_signature', label: 'Purchasing Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'department_head_signature',
+        label: 'Department Head Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'purchasing_signature',
+        label: 'Purchasing Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -355,7 +460,13 @@ export const FINANCE_FORMS_TEMPLATES = [
     placeholders: [
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
       { key: 'dba_name', type: 'text', label: 'DBA Name', required: false },
-      { key: 'vendor_type', type: 'select', label: 'Vendor Type', required: true, options: ['Supplier', 'Contractor', 'Consultant', 'Service Provider', 'Other'] },
+      {
+        key: 'vendor_type',
+        type: 'select',
+        label: 'Vendor Type',
+        required: true,
+        options: ['Supplier', 'Contractor', 'Consultant', 'Service Provider', 'Other'],
+      },
       { key: 'tax_id', type: 'text', label: 'Tax ID', required: true },
       { key: 'contact_name', type: 'text', label: 'Contact Name', required: true },
       { key: 'contact_title', type: 'text', label: 'Contact Title', required: false },
@@ -365,8 +476,20 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'city', type: 'text', label: 'City', required: true },
       { key: 'state', type: 'text', label: 'State', required: true },
       { key: 'zip_code', type: 'text', label: 'ZIP Code', required: true },
-      { key: 'payment_terms', type: 'select', label: 'Payment Terms', required: true, options: ['Net 15', 'Net 30', 'Net 45', 'Net 60', 'Due on Receipt'] },
-      { key: 'payment_method', type: 'select', label: 'Payment Method', required: true, options: ['Check', 'ACH', 'Wire Transfer', 'Credit Card'] },
+      {
+        key: 'payment_terms',
+        type: 'select',
+        label: 'Payment Terms',
+        required: true,
+        options: ['Net 15', 'Net 30', 'Net 45', 'Net 60', 'Due on Receipt'],
+      },
+      {
+        key: 'payment_method',
+        type: 'select',
+        label: 'Payment Method',
+        required: true,
+        options: ['Check', 'ACH', 'Wire Transfer', 'Credit Card'],
+      },
       { key: 'bank_name', type: 'text', label: 'Bank Name', required: false },
       { key: 'routing_number', type: 'text', label: 'Routing Number', required: false },
       { key: 'account_number', type: 'text', label: 'Account Number', required: false },
@@ -441,8 +564,18 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'purpose', type: 'textarea', label: 'Purpose/Description', required: true },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'manager_signature', label: 'Department Manager Signature', required: true, position: { x: 100, y: 750 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Department Manager Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -503,9 +636,24 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'max_amount', type: 'text', label: 'Maximum Amount', required: false },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 600 } },
-      { id: 'manager_signature', label: 'Manager Approval', required: true, position: { x: 100, y: 650 } },
-      { id: 'recipient_signature', label: 'Recipient Signature', required: true, position: { x: 100, y: 750 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 600 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Manager Approval',
+        required: true,
+        position: { x: 100, y: 650 },
+      },
+      {
+        id: 'recipient_signature',
+        label: 'Recipient Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -563,7 +711,13 @@ export const FINANCE_FORMS_TEMPLATES = [
     },
     placeholders: [
       { key: 'request_date', type: 'date', label: 'Request Date', required: true },
-      { key: 'transfer_type', type: 'select', label: 'Transfer Type', required: true, options: ['Domestic Wire', 'International Wire'] },
+      {
+        key: 'transfer_type',
+        type: 'select',
+        label: 'Transfer Type',
+        required: true,
+        options: ['Domestic Wire', 'International Wire'],
+      },
       { key: 'requester_name', type: 'text', label: 'Requester Name', required: true },
       { key: 'department', type: 'text', label: 'Department', required: true },
       { key: 'phone', type: 'phone', label: 'Phone', required: true },
@@ -575,14 +729,35 @@ export const FINANCE_FORMS_TEMPLATES = [
       { key: 'swift_code', type: 'text', label: 'SWIFT/BIC Code', required: false },
       { key: 'iban', type: 'text', label: 'IBAN', required: false },
       { key: 'amount', type: 'currency', label: 'Amount', required: true },
-      { key: 'currency', type: 'select', label: 'Currency', required: true, options: ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'Other'] },
+      {
+        key: 'currency',
+        type: 'select',
+        label: 'Currency',
+        required: true,
+        options: ['USD', 'EUR', 'GBP', 'CAD', 'AUD', 'Other'],
+      },
       { key: 'purpose', type: 'textarea', label: 'Purpose', required: true },
       { key: 'gl_account', type: 'text', label: 'GL Account', required: true },
     ],
     signatureFields: [
-      { id: 'requester_signature', label: 'Requester Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'first_approver_signature', label: 'First Approver Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'second_approver_signature', label: 'Second Approver Signature', required: false, position: { x: 100, y: 800 } },
+      {
+        id: 'requester_signature',
+        label: 'Requester Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'first_approver_signature',
+        label: 'First Approver Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'second_approver_signature',
+        label: 'Second Approver Signature',
+        required: false,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',

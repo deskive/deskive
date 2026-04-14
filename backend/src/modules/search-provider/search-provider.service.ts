@@ -62,17 +62,11 @@ export class SearchProviderService implements OnModuleInit {
     return this.provider.search<T>(collection, query);
   }
 
-  async indexDocument(
-    collection: string,
-    document: SearchableDocument,
-  ): Promise<void> {
+  async indexDocument(collection: string, document: SearchableDocument): Promise<void> {
     return this.provider.indexDocument(collection, document);
   }
 
-  async indexBatch(
-    collection: string,
-    documents: SearchableDocument[],
-  ): Promise<void> {
+  async indexBatch(collection: string, documents: SearchableDocument[]): Promise<void> {
     return this.provider.indexBatch(collection, documents);
   }
 
@@ -80,10 +74,7 @@ export class SearchProviderService implements OnModuleInit {
     return this.provider.deleteDocument(collection, id);
   }
 
-  async reindex(
-    collection: string,
-    source: AsyncIterable<SearchableDocument>,
-  ): Promise<number> {
+  async reindex(collection: string, source: AsyncIterable<SearchableDocument>): Promise<number> {
     return this.provider.reindex(collection, source);
   }
 

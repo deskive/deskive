@@ -23,7 +23,9 @@ export class YoutubeService {
     });
 
     if (!result) {
-      throw new NotFoundException('YouTube not connected. Please connect your YouTube account first.');
+      throw new NotFoundException(
+        'YouTube not connected. Please connect your YouTube account first.',
+      );
     }
 
     // Check if token needs refresh
@@ -36,11 +38,15 @@ export class YoutubeService {
       const tokens = await this.youtubeOAuthService.refreshAccessToken(result.refresh_token);
 
       // Update tokens in database
-      await this.db.update('youtube_connections', { id: result.id }, {
-        access_token: tokens.accessToken,
-        expires_at: tokens.expiresAt.toISOString(),
-        updated_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'youtube_connections',
+        { id: result.id },
+        {
+          access_token: tokens.accessToken,
+          expires_at: tokens.expiresAt.toISOString(),
+          updated_at: new Date().toISOString(),
+        },
+      );
 
       result.access_token = tokens.accessToken;
       result.expires_at = tokens.expiresAt.toISOString();
@@ -52,7 +58,14 @@ export class YoutubeService {
   /**
    * Make authenticated request to YouTube API
    */
-  private async makeYoutubeRequest(method: string, endpoint: string, userId: string, workspaceId: string, data?: any, params?: any) {
+  private async makeYoutubeRequest(
+    method: string,
+    endpoint: string,
+    userId: string,
+    workspaceId: string,
+    data?: any,
+    params?: any,
+  ) {
     const connection = await this.getConnectionInfo(userId, workspaceId);
 
     const url = `${this.YOUTUBE_API_BASE}${endpoint}`;
@@ -62,8 +75,8 @@ export class YoutubeService {
         method,
         url,
         headers: {
-          'Authorization': `Bearer ${connection.access_token}`,
-          'Accept': 'application/json',
+          Authorization: `Bearer ${connection.access_token}`,
+          Accept: 'application/json',
           'Content-Type': 'application/json',
         },
         params,
@@ -72,15 +85,24 @@ export class YoutubeService {
 
       return response.data;
     } catch (error: any) {
-      this.logger.error(`YouTube API error: ${error.response?.data?.error?.message || error.message}`);
-      throw new BadRequestException(error.response?.data?.error?.message || 'YouTube API request failed');
+      this.logger.error(
+        `YouTube API error: ${error.response?.data?.error?.message || error.message}`,
+      );
+      throw new BadRequestException(
+        error.response?.data?.error?.message || 'YouTube API request failed',
+      );
     }
   }
 
   /**
    * Get a playlist by ID
    */
-  async getPlaylist(userId: string, workspaceId: string, playlistId: string, part: string[] = ['snippet', 'contentDetails']) {
+  async getPlaylist(
+    userId: string,
+    workspaceId: string,
+    playlistId: string,
+    part: string[] = ['snippet', 'contentDetails'],
+  ) {
     const params = {
       part: part.join(','),
       id: playlistId,
@@ -141,7 +163,12 @@ export class YoutubeService {
   /**
    * Get a video by ID
    */
-  async getVideo(userId: string, workspaceId: string, videoId: string, part: string[] = ['snippet', 'statistics']) {
+  async getVideo(
+    userId: string,
+    workspaceId: string,
+    videoId: string,
+    part: string[] = ['snippet', 'statistics'],
+  ) {
     const params = {
       part: part.join(','),
       id: videoId,
@@ -186,7 +213,13 @@ export class YoutubeService {
   /**
    * Add video to playlist
    */
-  async addToPlaylist(userId: string, workspaceId: string, playlistId: string, videoId: string, position?: number) {
+  async addToPlaylist(
+    userId: string,
+    workspaceId: string,
+    playlistId: string,
+    videoId: string,
+    position?: number,
+  ) {
     const body: any = {
       snippet: {
         playlistId,
@@ -222,7 +255,12 @@ export class YoutubeService {
   /**
    * Rate a video
    */
-  async rateVideo(userId: string, workspaceId: string, videoId: string, rating: 'like' | 'dislike' | 'none') {
+  async rateVideo(
+    userId: string,
+    workspaceId: string,
+    videoId: string,
+    rating: 'like' | 'dislike' | 'none',
+  ) {
     const params = {
       id: videoId,
       rating,
@@ -234,7 +272,12 @@ export class YoutubeService {
   /**
    * Get playlist items
    */
-  async getPlaylistItems(userId: string, workspaceId: string, playlistId: string, limit: number = 25) {
+  async getPlaylistItems(
+    userId: string,
+    workspaceId: string,
+    playlistId: string,
+    limit: number = 25,
+  ) {
     const params = {
       part: 'snippet,contentDetails',
       playlistId,

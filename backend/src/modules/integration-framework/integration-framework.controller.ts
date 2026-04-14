@@ -61,9 +61,7 @@ export class IntegrationFrameworkController {
   @Get('catalog')
   @ApiOperation({ summary: 'Get integration marketplace' })
   @ApiResponse({ status: 200, type: MarketplaceResponseDto })
-  async getMarketplace(
-    @Query() filters: IntegrationFiltersDto,
-  ): Promise<MarketplaceResponseDto> {
+  async getMarketplace(@Query() filters: IntegrationFiltersDto): Promise<MarketplaceResponseDto> {
     return this.catalogService.getMarketplace(filters);
   }
 
@@ -77,9 +75,7 @@ export class IntegrationFrameworkController {
   @ApiOperation({ summary: 'Get integration details by slug' })
   @ApiParam({ name: 'slug', description: 'Integration slug (e.g., google-drive, slack)' })
   @ApiResponse({ status: 200, type: IntegrationCatalogResponseDto })
-  async getIntegrationBySlug(
-    @Param('slug') slug: string,
-  ): Promise<IntegrationCatalogResponseDto> {
+  async getIntegrationBySlug(@Param('slug') slug: string): Promise<IntegrationCatalogResponseDto> {
     return this.catalogService.getBySlug(slug);
   }
 
@@ -122,11 +118,7 @@ export class IntegrationFrameworkController {
     @Req() req: AuthenticatedRequest,
   ): Promise<ConnectionResponseDto | null> {
     const userId = req.user.sub || req.user.userId;
-    return this.connectionService.getConnectionBySlug(
-      workspaceId,
-      userId,
-      integrationSlug,
-    );
+    return this.connectionService.getConnectionBySlug(workspaceId, userId, integrationSlug);
   }
 
   @Patch(':workspaceId/connections/:connectionId')
@@ -218,8 +210,7 @@ export class IntegrationFrameworkController {
     @Query() query: OAuthCallbackQueryDto,
     @Res() res: Response,
   ): Promise<void> {
-    const frontendUrl =
-      this.configService.get<string>('FRONTEND_URL') || 'http://localhost:5173';
+    const frontendUrl = this.configService.get<string>('FRONTEND_URL') || 'http://localhost:5173';
 
     try {
       // Check for OAuth errors
@@ -241,21 +232,13 @@ export class IntegrationFrameworkController {
       const stateData = this.oauthService.decodeState(query.state);
 
       // Get integration config
-      const integration = await this.catalogService.getFullConfig(
-        stateData.integrationSlug,
-      );
+      const integration = await this.catalogService.getFullConfig(stateData.integrationSlug);
 
       // Exchange code for tokens
-      const tokens = await this.oauthService.exchangeCodeForTokens(
-        integration,
-        query.code,
-      );
+      const tokens = await this.oauthService.exchangeCodeForTokens(integration, query.code);
 
       // Get user info
-      const userInfo = await this.oauthService.getUserInfo(
-        integration,
-        tokens.accessToken,
-      );
+      const userInfo = await this.oauthService.getUserInfo(integration, tokens.accessToken);
 
       // Create/update connection
       await this.connectionService.createConnection(
@@ -322,10 +305,7 @@ export class IntegrationFrameworkController {
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete integration (admin)' })
   @ApiResponse({ status: 204 })
-  async deleteIntegration(
-    @Param('id') id: string,
-    @Res() res: Response,
-  ): Promise<void> {
+  async deleteIntegration(@Param('id') id: string, @Res() res: Response): Promise<void> {
     // TODO: Add admin role check
     await this.catalogService.delete(id);
     res.status(HttpStatus.NO_CONTENT).send();
@@ -348,12 +328,17 @@ export class IntegrationFrameworkController {
   @Get('admin/run-tests')
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
-  @ApiOperation({ summary: 'Run OAuth integration tests (uses nock + jest). Query params: ?slug=asana&type=oauth (or type=actions or type=all). Leave slug empty to test all' })
+  @ApiOperation({
+    summary:
+      'Run OAuth integration tests (uses nock + jest). Query params: ?slug=asana&type=oauth (or type=actions or type=all). Leave slug empty to test all',
+  })
   async runIntegrationTests(
     @Query('slug') slug?: string,
     @Query('type') type?: 'oauth' | 'actions' | 'all',
   ) {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { exec } = require('child_process');
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { promisify } = require('util');
     const execAsync = promisify(exec);
 
@@ -372,26 +357,26 @@ export class IntegrationFrameworkController {
             'google-drive': 'integration-framework/google-drive.*oauth',
             'google-sheets': 'integration-framework/google-sheets.*oauth',
             'google-calendar': 'calendar.*oauth',
-            'gmail': 'integration-framework/email.*oauth',
-            'slack': 'integration-framework.*slack-oauth',
-            'github': 'integration-framework/github.*oauth',
-            'asana': 'integration-framework/asana.*asana-oauth',
-            'clickup': 'integration-framework/clickup.*clickup-oauth',
-            'jira': 'integration-framework/jira.*jira-oauth',
-            'linear': 'integration-framework/linear.*linear-oauth',
-            'notion': 'integration-framework/notion.*notion-oauth',
-            'trello': 'integration-framework/trello.*trello-oauth',
+            gmail: 'integration-framework/email.*oauth',
+            slack: 'integration-framework.*slack-oauth',
+            github: 'integration-framework/github.*oauth',
+            asana: 'integration-framework/asana.*asana-oauth',
+            clickup: 'integration-framework/clickup.*clickup-oauth',
+            jira: 'integration-framework/jira.*jira-oauth',
+            linear: 'integration-framework/linear.*linear-oauth',
+            notion: 'integration-framework/notion.*notion-oauth',
+            trello: 'integration-framework/trello.*trello-oauth',
           };
           testPattern = oauthPatternMap[slug];
         } else if (testType === 'actions') {
           // Action tests (service methods)
           const actionPatternMap: Record<string, string> = {
-            'asana': 'integration-framework/asana/.*asana.service.spec',
-            'clickup': 'integration-framework/clickup/.*clickup.service.spec',
-            'jira': 'integration-framework/jira/.*jira.service.spec',
-            'linear': 'integration-framework/linear/.*linear.service.spec',
-            'notion': 'integration-framework/notion/.*notion.service.spec',
-            'trello': 'integration-framework/trello/.*trello.service.spec',
+            asana: 'integration-framework/asana/.*asana.service.spec',
+            clickup: 'integration-framework/clickup/.*clickup.service.spec',
+            jira: 'integration-framework/jira/.*jira.service.spec',
+            linear: 'integration-framework/linear/.*linear.service.spec',
+            notion: 'integration-framework/notion/.*notion.service.spec',
+            trello: 'integration-framework/trello/.*trello.service.spec',
           };
           testPattern = actionPatternMap[slug];
         } else {

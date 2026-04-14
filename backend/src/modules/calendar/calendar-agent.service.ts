@@ -6,7 +6,12 @@ import {
   ConversationMemoryService,
   ConversationSearchResult,
 } from '../conversation-memory/conversation-memory.service';
-import { CreateEventDto, EventPriority, EventStatus, EventVisibility } from './dto/create-event.dto';
+import {
+  CreateEventDto,
+  EventPriority,
+  EventStatus,
+  EventVisibility,
+} from './dto/create-event.dto';
 
 // Workspace member interface for user lookup
 interface WorkspaceMember {
@@ -155,10 +160,7 @@ export class CalendarAgentService {
       const existingEvents = await this.getExistingEvents(workspaceId, userId);
 
       // Step 5: Get workspace members for attendee resolution
-      const workspaceMembers = await this.getWorkspaceMembers(
-        workspaceId,
-        userId,
-      );
+      const workspaceMembers = await this.getWorkspaceMembers(workspaceId, userId);
 
       // Step 6: Use AI to parse the user's intent
       const parsedIntent = await this.parseIntentWithAI(
@@ -169,9 +171,7 @@ export class CalendarAgentService {
         userTimezone,
       );
 
-      this.logger.log(
-        `[CalendarAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`,
-      );
+      this.logger.log(`[CalendarAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`);
 
       if (parsedIntent.action === 'unknown') {
         // Store failed response in memory
@@ -236,10 +236,7 @@ export class CalendarAgentService {
 
       return result;
     } catch (error) {
-      this.logger.error(
-        `[CalendarAgent] Error processing command: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[CalendarAgent] Error processing command: ${error.message}`, error.stack);
       return {
         success: false,
         action: 'unknown',
@@ -252,11 +249,7 @@ export class CalendarAgentService {
   /**
    * Store user message in conversation memory (fire and forget)
    */
-  private storeUserMessage(
-    content: string,
-    workspaceId: string,
-    userId: string,
-  ): void {
+  private storeUserMessage(content: string, workspaceId: string, userId: string): void {
     this.conversationMemoryService
       .storeMessage({
         role: 'user',
@@ -266,19 +259,14 @@ export class CalendarAgentService {
         entity_type: 'calendar',
       })
       .catch((error) => {
-        this.logger.warn(
-          `[CalendarAgent] Failed to store user message: ${error.message}`,
-        );
+        this.logger.warn(`[CalendarAgent] Failed to store user message: ${error.message}`);
       });
   }
 
   /**
    * Get user's timezone from request, user settings, or default to UTC
    */
-  private async getUserTimezone(
-    userId: string,
-    requestTimezone?: string,
-  ): Promise<string> {
+  private async getUserTimezone(userId: string, requestTimezone?: string): Promise<string> {
     // Priority 1: Use timezone from request (frontend sends browser timezone)
     if (requestTimezone && this.isValidTimezone(requestTimezone)) {
       return requestTimezone;
@@ -292,9 +280,7 @@ export class CalendarAgentService {
         return metadata.timezone;
       }
     } catch (error) {
-      this.logger.warn(
-        `[CalendarAgent] Could not fetch user timezone: ${error.message}`,
-      );
+      this.logger.warn(`[CalendarAgent] Could not fetch user timezone: ${error.message}`);
     }
 
     // Priority 3: Try to get timezone from user_settings table
@@ -310,9 +296,7 @@ export class CalendarAgentService {
         return settings.timezone;
       }
     } catch (error) {
-      this.logger.warn(
-        `[CalendarAgent] Could not fetch user settings timezone: ${error.message}`,
-      );
+      this.logger.warn(`[CalendarAgent] Could not fetch user settings timezone: ${error.message}`);
     }
 
     // Default: UTC
@@ -356,9 +340,7 @@ export class CalendarAgentService {
         entity_type: 'calendar',
       })
       .catch((error) => {
-        this.logger.warn(
-          `[CalendarAgent] Failed to store assistant message: ${error.message}`,
-        );
+        this.logger.warn(`[CalendarAgent] Failed to store assistant message: ${error.message}`);
       });
   }
 
@@ -372,9 +354,7 @@ export class CalendarAgentService {
   ): Promise<ConversationSearchResult[]> {
     try {
       if (!this.conversationMemoryService.isReady()) {
-        this.logger.warn(
-          '[CalendarAgent] Conversation memory not ready, skipping history lookup',
-        );
+        this.logger.warn('[CalendarAgent] Conversation memory not ready, skipping history lookup');
         return [];
       }
 
@@ -385,9 +365,7 @@ export class CalendarAgentService {
         10,
       );
     } catch (error) {
-      this.logger.warn(
-        `[CalendarAgent] Failed to get conversation history: ${error.message}`,
-      );
+      this.logger.warn(`[CalendarAgent] Failed to get conversation history: ${error.message}`);
       return [];
     }
   }
@@ -443,22 +421,14 @@ export class CalendarAgentService {
   /**
    * Get existing events in the workspace for context
    */
-  private async getExistingEvents(
-    workspaceId: string,
-    userId: string,
-  ): Promise<any[]> {
+  private async getExistingEvents(workspaceId: string, userId: string): Promise<any[]> {
     try {
       // Get events for the next 30 days for context
       const now = new Date();
       const startDate = now.toISOString();
       const endDate = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000).toISOString();
 
-      const events = await this.calendarService.getEvents(
-        workspaceId,
-        startDate,
-        endDate,
-        userId,
-      );
+      const events = await this.calendarService.getEvents(workspaceId, startDate, endDate, userId);
       return events.map((e: any) => ({
         id: e.id,
         title: e.title,
@@ -471,9 +441,7 @@ export class CalendarAgentService {
         priority: e.priority,
       }));
     } catch (error) {
-      this.logger.warn(
-        `[CalendarAgent] Could not fetch existing events: ${error.message}`,
-      );
+      this.logger.warn(`[CalendarAgent] Could not fetch existing events: ${error.message}`);
       return [];
     }
   }
@@ -494,16 +462,12 @@ export class CalendarAgentService {
         .execute();
 
       const members = membersResult.data || [];
-      this.logger.log(
-        `[CalendarAgent] Found ${members.length} workspace members`,
-      );
+      this.logger.log(`[CalendarAgent] Found ${members.length} workspace members`);
 
       const membersWithNames: WorkspaceMember[] = await Promise.all(
         members.map(async (member: any) => {
           try {
-            const userProfile = await this.db.getUserById(
-              member.user_id,
-            );
+            const userProfile = await this.db.getUserById(member.user_id);
             const metadata = (userProfile as any)?.metadata || {};
 
             return {
@@ -513,8 +477,7 @@ export class CalendarAgentService {
                 (userProfile as any)?.fullName ||
                 (userProfile as any)?.name ||
                 null,
-              username:
-                (userProfile as any)?.username || metadata.username || null,
+              username: (userProfile as any)?.username || metadata.username || null,
               email: (userProfile as any)?.email || null,
               role: member.role,
             };
@@ -535,9 +498,7 @@ export class CalendarAgentService {
 
       return membersWithNames;
     } catch (error) {
-      this.logger.warn(
-        `[CalendarAgent] Could not fetch workspace members: ${error.message}`,
-      );
+      this.logger.warn(`[CalendarAgent] Could not fetch workspace members: ${error.message}`);
       return [];
     }
   }
@@ -545,10 +506,7 @@ export class CalendarAgentService {
   /**
    * Resolve attendee names/usernames to emails
    */
-  private resolveAttendeeEmails(
-    attendees: string[],
-    members: WorkspaceMember[],
-  ): string[] {
+  private resolveAttendeeEmails(attendees: string[], members: WorkspaceMember[]): string[] {
     return attendees
       .map((attendee) => {
         // If already an email, validate it exists in members
@@ -570,9 +528,7 @@ export class CalendarAgentService {
           return foundEmail;
         }
 
-        this.logger.warn(
-          `[CalendarAgent] Could not resolve attendee "${attendee}" to an email`,
-        );
+        this.logger.warn(`[CalendarAgent] Could not resolve attendee "${attendee}" to an email`);
         return null;
       })
       .filter((email): email is string => email !== null);
@@ -581,10 +537,7 @@ export class CalendarAgentService {
   /**
    * Find email by name or username
    */
-  private findEmailByNameOrUsername(
-    searchTerm: string,
-    members: WorkspaceMember[],
-  ): string | null {
+  private findEmailByNameOrUsername(searchTerm: string, members: WorkspaceMember[]): string | null {
     const normalizedSearch = searchTerm.toLowerCase().trim();
 
     // Try exact match on name
@@ -668,19 +621,19 @@ export class CalendarAgentService {
         day: 'numeric',
         hour: '2-digit',
         minute: '2-digit',
-        hour12: true
+        hour12: true,
       });
       currentDayOfWeek = now.toLocaleDateString('en-US', {
         timeZone: userTimezone,
-        weekday: 'long'
+        weekday: 'long',
       });
       // Calculate UTC offset for the timezone
       const formatter = new Intl.DateTimeFormat('en-US', {
         timeZone: userTimezone,
-        timeZoneName: 'shortOffset'
+        timeZoneName: 'shortOffset',
       });
       const parts = formatter.formatToParts(now);
-      const offsetPart = parts.find(p => p.type === 'timeZoneName');
+      const offsetPart = parts.find((p) => p.type === 'timeZoneName');
       utcOffset = offsetPart?.value || '';
     } catch (e) {
       // Fallback if timezone is invalid
@@ -873,7 +826,7 @@ EXAMPLE PARSING:
       }
 
       // Clean up the response
-      let cleanedContent = responseText
+      const cleanedContent = responseText
         .trim()
         .replace(/^```json\s*/i, '')
         .replace(/^```\s*/i, '')
@@ -994,15 +947,9 @@ EXAMPLE PARSING:
         reminders: details.reminders || [15],
       };
 
-      this.logger.log(
-        `[CalendarAgent] Creating event with DTO: ${JSON.stringify(createDto)}`,
-      );
+      this.logger.log(`[CalendarAgent] Creating event with DTO: ${JSON.stringify(createDto)}`);
 
-      const event = await this.calendarService.createEvent(
-        workspaceId,
-        createDto,
-        userId,
-      );
+      const event = await this.calendarService.createEvent(workspaceId, createDto, userId);
 
       // Format the event time for display
       const startDate = new Date(details.start_time);
@@ -1186,8 +1133,7 @@ EXAMPLE PARSING:
       return {
         success: false,
         action: 'search',
-        message:
-          'Please specify what to search for. For example: "Find meetings about marketing"',
+        message: 'Please specify what to search for. For example: "Find meetings about marketing"',
         error: 'NO_SEARCH_QUERY',
       };
     }
@@ -1314,11 +1260,7 @@ EXAMPLE PARSING:
           reminders: item.details.reminders || [15],
         };
 
-        const event = await this.calendarService.createEvent(
-          workspaceId,
-          createDto,
-          userId,
-        );
+        const event = await this.calendarService.createEvent(workspaceId, createDto, userId);
 
         results.push({
           success: true,
@@ -1406,7 +1348,8 @@ EXAMPLE PARSING:
         if (item.updates.attendees) updateFields.attendees = item.updates.attendees;
         if (item.updates.priority) updateFields.priority = this.mapPriority(item.updates.priority);
         if (item.updates.status) updateFields.status = this.mapStatus(item.updates.status);
-        if (item.updates.reminders) updateFields.reminders = this.normalizeReminders(item.updates.reminders);
+        if (item.updates.reminders)
+          updateFields.reminders = this.normalizeReminders(item.updates.reminders);
 
         if (Object.keys(updateFields).length === 0) {
           results.push({

@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const EDUCATION_ADMIN_TEMPLATES = [
   {
@@ -18,13 +15,19 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'PARENT-TEACHER CONFERENCE NOTES\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{school_name}}\n\n' },
         { insert: 'MEETING INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Date: {{conference_date}}\nTime: {{conference_time}}\nTeacher: {{teacher_name}}\nGrade/Subject: {{grade_subject}}\n\n' },
+        {
+          insert:
+            'Date: {{conference_date}}\nTime: {{conference_time}}\nTeacher: {{teacher_name}}\nGrade/Subject: {{grade_subject}}\n\n',
+        },
         { insert: 'STUDENT INFORMATION\n', attributes: { bold: true } },
         { insert: 'Student Name: {{student_name}}\n\n' },
         { insert: 'ATTENDEES\n', attributes: { bold: true } },
         { insert: '{{attendees}}\n\n' },
         { insert: 'ACADEMIC PROGRESS\n', attributes: { bold: true } },
-        { insert: 'Current Grades: {{current_grades}}\n\nStrengths:\n{{academic_strengths}}\n\nAreas for Growth:\n{{areas_for_growth}}\n\n' },
+        {
+          insert:
+            'Current Grades: {{current_grades}}\n\nStrengths:\n{{academic_strengths}}\n\nAreas for Growth:\n{{areas_for_growth}}\n\n',
+        },
         { insert: 'BEHAVIOR/SOCIAL SKILLS\n', attributes: { bold: true } },
         { insert: '{{behavior_notes}}\n\n' },
         { insert: 'PARENT CONCERNS/QUESTIONS\n', attributes: { bold: true } },
@@ -32,11 +35,17 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'TEACHER CONCERNS/OBSERVATIONS\n', attributes: { bold: true } },
         { insert: '{{teacher_observations}}\n\n' },
         { insert: 'ACTION ITEMS\n', attributes: { bold: true } },
-        { insert: 'Teacher will:\n{{teacher_actions}}\n\nParent will:\n{{parent_actions}}\n\nStudent will:\n{{student_actions}}\n\n' },
+        {
+          insert:
+            'Teacher will:\n{{teacher_actions}}\n\nParent will:\n{{parent_actions}}\n\nStudent will:\n{{student_actions}}\n\n',
+        },
         { insert: 'GOALS SET\n', attributes: { bold: true } },
         { insert: '{{goals}}\n\n' },
         { insert: 'FOLLOW-UP\n', attributes: { bold: true } },
-        { insert: 'Next Meeting: {{next_meeting}}\nPreferred Contact Method: {{contact_method}}\n\n' },
+        {
+          insert:
+            'Next Meeting: {{next_meeting}}\nPreferred Contact Method: {{contact_method}}\n\n',
+        },
         { insert: 'SIGNATURES\n', attributes: { bold: true } },
         { insert: 'Teacher: _________________________ Date: _____________\n' },
         { insert: 'Parent/Guardian: _________________________ Date: _____________\n' },
@@ -55,19 +64,44 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'areas_for_growth', type: 'textarea', label: 'Areas for Growth', required: true },
       { key: 'behavior_notes', type: 'textarea', label: 'Behavior/Social Notes', required: false },
       { key: 'parent_concerns', type: 'textarea', label: 'Parent Concerns', required: false },
-      { key: 'teacher_observations', type: 'textarea', label: 'Teacher Observations', required: true },
+      {
+        key: 'teacher_observations',
+        type: 'textarea',
+        label: 'Teacher Observations',
+        required: true,
+      },
       { key: 'teacher_actions', type: 'textarea', label: 'Teacher Action Items', required: false },
       { key: 'parent_actions', type: 'textarea', label: 'Parent Action Items', required: false },
       { key: 'student_actions', type: 'textarea', label: 'Student Action Items', required: false },
       { key: 'goals', type: 'textarea', label: 'Goals Set', required: true },
       { key: 'next_meeting', type: 'text', label: 'Next Meeting', required: false },
-      { key: 'contact_method', type: 'select', label: 'Preferred Contact', required: true, options: ['Phone', 'Email', 'Text', 'In Person'] },
+      {
+        key: 'contact_method',
+        type: 'select',
+        label: 'Preferred Contact',
+        required: true,
+        options: ['Phone', 'Email', 'Text', 'In Person'],
+      },
     ],
     signatureFields: [
-      { id: 'teacher_signature', label: 'Teacher Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'parent_signature', label: 'Parent/Guardian Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'teacher_signature',
+        label: 'Teacher Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'parent_signature',
+        label: 'Parent/Guardian Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'School Newsletter',
@@ -83,7 +117,10 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: '{{school_name}} NEWSLETTER\n', attributes: { bold: true, size: 'huge' } },
         { insert: '{{newsletter_date}}\n\n' },
         { insert: 'FROM THE PRINCIPAL\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nDear {{school_name}} Community,\n\n{{principal_message}}\n\nSincerely,\n{{principal_name}}\n\n' },
+        {
+          insert:
+            '\nDear {{school_name}} Community,\n\n{{principal_message}}\n\nSincerely,\n{{principal_name}}\n\n',
+        },
         { insert: 'UPCOMING EVENTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{upcoming_events}}\n\n' },
         { insert: 'IMPORTANT DATES\n', attributes: { bold: true, size: 'large' } },
@@ -99,7 +136,10 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'REMINDERS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{reminders}}\n\n' },
         { insert: 'CONTACT US\n', attributes: { bold: true } },
-        { insert: '{{school_name}}\n{{school_address}}\nPhone: {{school_phone}}\nEmail: {{school_email}}\nWebsite: {{school_website}}\n' },
+        {
+          insert:
+            '{{school_name}}\n{{school_address}}\nPhone: {{school_phone}}\nEmail: {{school_email}}\nWebsite: {{school_website}}\n',
+        },
       ],
     },
     placeholders: [
@@ -120,7 +160,11 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'school_website', type: 'text', label: 'School Website', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Substitute Teacher Plan',
@@ -134,31 +178,52 @@ export const EDUCATION_ADMIN_TEMPLATES = [
     content: {
       ops: [
         { insert: 'SUBSTITUTE TEACHER PLAN\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nTeacher: {{teacher_name}}\nGrade/Subject: {{grade_subject}}\nRoom: {{room_number}}\nDate(s): {{absence_dates}}\n\n' },
+        {
+          insert:
+            '\nTeacher: {{teacher_name}}\nGrade/Subject: {{grade_subject}}\nRoom: {{room_number}}\nDate(s): {{absence_dates}}\n\n',
+        },
         { insert: 'EMERGENCY CONTACTS\n', attributes: { bold: true } },
-        { insert: 'Teacher Contact: {{teacher_phone}}\nNearest Teacher: {{nearest_teacher}}\nOffice: {{office_phone}}\n\n' },
+        {
+          insert:
+            'Teacher Contact: {{teacher_phone}}\nNearest Teacher: {{nearest_teacher}}\nOffice: {{office_phone}}\n\n',
+        },
         { insert: 'DAILY SCHEDULE\n', attributes: { bold: true } },
         { insert: '{{daily_schedule}}\n\n' },
         { insert: 'CLASS INFORMATION\n', attributes: { bold: true } },
-        { insert: '\nClass List Location: {{class_list_location}}\n\nSeating Chart: {{seating_chart}}\n\nStudents with Special Needs:\n{{special_needs_students}}\n\n' },
+        {
+          insert:
+            '\nClass List Location: {{class_list_location}}\n\nSeating Chart: {{seating_chart}}\n\nStudents with Special Needs:\n{{special_needs_students}}\n\n',
+        },
         { insert: 'CLASSROOM PROCEDURES\n', attributes: { bold: true } },
-        { insert: 'Arrival Routine: {{arrival_routine}}\nBathroom Procedure: {{bathroom_procedure}}\nDismissal Routine: {{dismissal_routine}}\n\n' },
+        {
+          insert:
+            'Arrival Routine: {{arrival_routine}}\nBathroom Procedure: {{bathroom_procedure}}\nDismissal Routine: {{dismissal_routine}}\n\n',
+        },
         { insert: 'CLASSROOM RULES\n', attributes: { bold: true } },
         { insert: '{{classroom_rules}}\n\n' },
         { insert: 'BEHAVIOR MANAGEMENT\n', attributes: { bold: true } },
-        { insert: 'Positive Reinforcement: {{positive_reinforcement}}\nConsequences: {{consequences}}\nStudents to Watch: {{students_to_watch}}\n\n' },
+        {
+          insert:
+            'Positive Reinforcement: {{positive_reinforcement}}\nConsequences: {{consequences}}\nStudents to Watch: {{students_to_watch}}\n\n',
+        },
         { insert: 'LESSON PLANS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{lesson_plans}}\n\n' },
         { insert: 'MATERIALS LOCATION\n', attributes: { bold: true } },
         { insert: '{{materials_location}}\n\n' },
         { insert: 'EMERGENCY PROCEDURES\n', attributes: { bold: true } },
-        { insert: 'Fire Drill: {{fire_drill}}\nLockdown: {{lockdown}}\nMedical Emergency: {{medical_emergency}}\n\n' },
+        {
+          insert:
+            'Fire Drill: {{fire_drill}}\nLockdown: {{lockdown}}\nMedical Emergency: {{medical_emergency}}\n\n',
+        },
         { insert: 'HELPFUL STUDENTS\n', attributes: { bold: true } },
         { insert: '{{helpful_students}}\n\n' },
         { insert: 'NOTES FOR SUBSTITUTE\n', attributes: { bold: true } },
         { insert: '{{notes}}\n\n' },
         { insert: 'FEEDBACK SECTION\n', attributes: { bold: true } },
-        { insert: 'Please leave notes about how the day went:\n\n______________________________________________\n______________________________________________\n______________________________________________\n\n' },
+        {
+          insert:
+            'Please leave notes about how the day went:\n\n______________________________________________\n______________________________________________\n______________________________________________\n\n',
+        },
         { insert: 'Substitute Name: _______________ Date: _______________\n' },
       ],
     },
@@ -173,12 +238,22 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'daily_schedule', type: 'textarea', label: 'Daily Schedule', required: true },
       { key: 'class_list_location', type: 'text', label: 'Class List Location', required: true },
       { key: 'seating_chart', type: 'text', label: 'Seating Chart Location', required: true },
-      { key: 'special_needs_students', type: 'textarea', label: 'Students with Special Needs', required: false },
+      {
+        key: 'special_needs_students',
+        type: 'textarea',
+        label: 'Students with Special Needs',
+        required: false,
+      },
       { key: 'arrival_routine', type: 'textarea', label: 'Arrival Routine', required: true },
       { key: 'bathroom_procedure', type: 'textarea', label: 'Bathroom Procedure', required: true },
       { key: 'dismissal_routine', type: 'textarea', label: 'Dismissal Routine', required: true },
       { key: 'classroom_rules', type: 'textarea', label: 'Classroom Rules', required: true },
-      { key: 'positive_reinforcement', type: 'textarea', label: 'Positive Reinforcement', required: true },
+      {
+        key: 'positive_reinforcement',
+        type: 'textarea',
+        label: 'Positive Reinforcement',
+        required: true,
+      },
       { key: 'consequences', type: 'textarea', label: 'Consequences', required: true },
       { key: 'students_to_watch', type: 'textarea', label: 'Students to Watch', required: false },
       { key: 'lesson_plans', type: 'textarea', label: 'Lesson Plans', required: true },
@@ -190,7 +265,11 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Additional Notes', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Attendance Record',
@@ -204,13 +283,19 @@ export const EDUCATION_ADMIN_TEMPLATES = [
     content: {
       ops: [
         { insert: 'ATTENDANCE RECORD\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\n{{school_name}}\nTeacher: {{teacher_name}}\nGrade/Class: {{grade_class}}\nWeek of: {{week_of}}\n\n' },
+        {
+          insert:
+            '\n{{school_name}}\nTeacher: {{teacher_name}}\nGrade/Class: {{grade_class}}\nWeek of: {{week_of}}\n\n',
+        },
         { insert: 'ATTENDANCE KEY\n', attributes: { bold: true } },
         { insert: 'P = Present | A = Absent | T = Tardy | E = Excused | U = Unexcused\n\n' },
         { insert: 'DAILY ATTENDANCE\n', attributes: { bold: true } },
         { insert: '{{attendance_grid}}\n\n' },
         { insert: 'WEEKLY SUMMARY\n', attributes: { bold: true } },
-        { insert: 'Total Students: {{total_students}}\nAverage Daily Attendance: {{avg_attendance}}\nTotal Absences: {{total_absences}}\nTotal Tardies: {{total_tardies}}\n\n' },
+        {
+          insert:
+            'Total Students: {{total_students}}\nAverage Daily Attendance: {{avg_attendance}}\nTotal Absences: {{total_absences}}\nTotal Tardies: {{total_tardies}}\n\n',
+        },
         { insert: 'NOTES\n', attributes: { bold: true } },
         { insert: '{{notes}}\n\n' },
         { insert: 'Verified by: _________________________ Date: _____________\n' },
@@ -229,9 +314,18 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [
-      { id: 'teacher_signature', label: 'Teacher Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'teacher_signature',
+        label: 'Teacher Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'landscape', margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'landscape',
+      margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 },
+    },
   },
   {
     name: 'Academic Probation Notice',
@@ -250,11 +344,17 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: '{{student_name}}\n{{student_address}}\n\n' },
         { insert: 'Re: Notice of Academic Probation\n\n', attributes: { bold: true } },
         { insert: 'Dear {{student_name}},\n\n' },
-        { insert: 'This letter is to inform you that you have been placed on Academic Probation effective {{effective_date}}.\n\n' },
+        {
+          insert:
+            'This letter is to inform you that you have been placed on Academic Probation effective {{effective_date}}.\n\n',
+        },
         { insert: 'REASON FOR PROBATION\n', attributes: { bold: true } },
         { insert: '{{probation_reason}}\n\n' },
         { insert: 'CURRENT ACADEMIC STANDING\n', attributes: { bold: true } },
-        { insert: 'Cumulative GPA: {{cumulative_gpa}}\nTerm GPA: {{term_gpa}}\nCredits Attempted: {{credits_attempted}}\nCredits Earned: {{credits_earned}}\n\n' },
+        {
+          insert:
+            'Cumulative GPA: {{cumulative_gpa}}\nTerm GPA: {{term_gpa}}\nCredits Attempted: {{credits_attempted}}\nCredits Earned: {{credits_earned}}\n\n',
+        },
         { insert: 'REQUIREMENTS FOR GOOD STANDING\n', attributes: { bold: true } },
         { insert: 'Minimum GPA Required: {{required_gpa}}\n\n' },
         { insert: 'CONDITIONS OF PROBATION\n', attributes: { bold: true } },
@@ -263,8 +363,14 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'Failure to meet these requirements may result in:\n{{consequences}}\n\n' },
         { insert: 'SUPPORT RESOURCES\n', attributes: { bold: true } },
         { insert: '{{support_resources}}\n\n' },
-        { insert: 'We encourage you to take advantage of the academic support services available to you. Please schedule a meeting with your academic advisor within {{advisor_meeting_days}} days to discuss your academic plan.\n\n' },
-        { insert: 'If you have any questions, please contact {{contact_name}} at {{contact_email}} or {{contact_phone}}.\n\n' },
+        {
+          insert:
+            'We encourage you to take advantage of the academic support services available to you. Please schedule a meeting with your academic advisor within {{advisor_meeting_days}} days to discuss your academic plan.\n\n',
+        },
+        {
+          insert:
+            'If you have any questions, please contact {{contact_name}} at {{contact_email}} or {{contact_phone}}.\n\n',
+        },
         { insert: 'Sincerely,\n\n' },
         { insert: '_______________________________________________\n' },
         { insert: '{{sender_name}}\n{{sender_title}}\n' },
@@ -286,7 +392,12 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'conditions', type: 'textarea', label: 'Conditions of Probation', required: true },
       { key: 'consequences', type: 'textarea', label: 'Consequences', required: true },
       { key: 'support_resources', type: 'textarea', label: 'Support Resources', required: true },
-      { key: 'advisor_meeting_days', type: 'number', label: 'Days to Meet Advisor', required: true },
+      {
+        key: 'advisor_meeting_days',
+        type: 'number',
+        label: 'Days to Meet Advisor',
+        required: true,
+      },
       { key: 'contact_name', type: 'text', label: 'Contact Name', required: true },
       { key: 'contact_email', type: 'email', label: 'Contact Email', required: true },
       { key: 'contact_phone', type: 'text', label: 'Contact Phone', required: true },
@@ -294,9 +405,18 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'sender_title', type: 'text', label: 'Sender Title', required: true },
     ],
     signatureFields: [
-      { id: 'sender_signature', label: 'Sender Signature', required: true, position: { page: 1, x: 100, y: 650 } },
+      {
+        id: 'sender_signature',
+        label: 'Sender Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'School Photo Release',
@@ -312,9 +432,14 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'PHOTO/VIDEO RELEASE FORM\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{school_name}}\nAcademic Year: {{academic_year}}\n\n' },
         { insert: 'STUDENT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Student Name: {{student_name}}\nGrade: {{grade}}\nTeacher: {{teacher_name}}\n\n' },
+        {
+          insert: 'Student Name: {{student_name}}\nGrade: {{grade}}\nTeacher: {{teacher_name}}\n\n',
+        },
         { insert: 'AUTHORIZATION\n', attributes: { bold: true } },
-        { insert: '\nI, the undersigned parent/guardian, hereby grant permission to {{school_name}} to use photographs, video recordings, and/or audio recordings of my child for the purposes indicated below:\n\n' },
+        {
+          insert:
+            '\nI, the undersigned parent/guardian, hereby grant permission to {{school_name}} to use photographs, video recordings, and/or audio recordings of my child for the purposes indicated below:\n\n',
+        },
         { insert: 'Please check all that apply:\n\n' },
         { insert: '[ ] School Website and Social Media\n' },
         { insert: '[ ] School Yearbook\n' },
@@ -329,10 +454,19 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: '1. No compensation will be provided for the use of images/recordings.\n' },
         { insert: '2. The school will use reasonable efforts to protect student privacy.\n' },
         { insert: '3. Images/recordings may be edited or altered as needed.\n' },
-        { insert: '4. This release remains in effect for the current academic year unless revoked in writing.\n' },
-        { insert: '5. Parents/guardians may revoke this permission at any time by submitting a written request.\n\n' },
+        {
+          insert:
+            '4. This release remains in effect for the current academic year unless revoked in writing.\n',
+        },
+        {
+          insert:
+            '5. Parents/guardians may revoke this permission at any time by submitting a written request.\n\n',
+        },
         { insert: 'I have read and understand the terms of this release.\n\n' },
-        { insert: 'Parent/Guardian Name: {{parent_name}}\nRelationship: {{relationship}}\nPhone: {{parent_phone}}\nEmail: {{parent_email}}\n\n' },
+        {
+          insert:
+            'Parent/Guardian Name: {{parent_name}}\nRelationship: {{relationship}}\nPhone: {{parent_phone}}\nEmail: {{parent_email}}\n\n',
+        },
         { insert: '_______________________________________________\n' },
         { insert: 'Parent/Guardian Signature                Date\n' },
       ],
@@ -344,14 +478,29 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'grade', type: 'text', label: 'Grade', required: true },
       { key: 'teacher_name', type: 'text', label: 'Teacher Name', required: true },
       { key: 'parent_name', type: 'text', label: 'Parent/Guardian Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Mother', 'Father', 'Guardian', 'Grandparent', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Mother', 'Father', 'Guardian', 'Grandparent', 'Other'],
+      },
       { key: 'parent_phone', type: 'text', label: 'Parent Phone', required: true },
       { key: 'parent_email', type: 'email', label: 'Parent Email', required: true },
     ],
     signatureFields: [
-      { id: 'parent_signature', label: 'Parent/Guardian Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'parent_signature',
+        label: 'Parent/Guardian Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Scholarship Application',
@@ -368,13 +517,25 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: '\n{{scholarship_name}}\n{{organization_name}}\n\n' },
         { insert: 'Application Deadline: {{deadline}}\n\n' },
         { insert: 'APPLICANT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{applicant_name}}\nDate of Birth: {{date_of_birth}}\nAddress: {{address}}\nCity: {{city}} State: {{state}} ZIP: {{zip}}\nPhone: {{phone}}\nEmail: {{email}}\n\n' },
+        {
+          insert:
+            'Name: {{applicant_name}}\nDate of Birth: {{date_of_birth}}\nAddress: {{address}}\nCity: {{city}} State: {{state}} ZIP: {{zip}}\nPhone: {{phone}}\nEmail: {{email}}\n\n',
+        },
         { insert: 'ACADEMIC INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Current School: {{current_school}}\nGrade/Year: {{grade_year}}\nGPA: {{gpa}}\nClass Rank: {{class_rank}}\nExpected Graduation: {{graduation_date}}\n\n' },
+        {
+          insert:
+            'Current School: {{current_school}}\nGrade/Year: {{grade_year}}\nGPA: {{gpa}}\nClass Rank: {{class_rank}}\nExpected Graduation: {{graduation_date}}\n\n',
+        },
         { insert: 'INTENDED COLLEGE/UNIVERSITY\n', attributes: { bold: true } },
-        { insert: 'School: {{intended_school}}\nIntended Major: {{intended_major}}\nExpected Start: {{expected_start}}\n\n' },
+        {
+          insert:
+            'School: {{intended_school}}\nIntended Major: {{intended_major}}\nExpected Start: {{expected_start}}\n\n',
+        },
         { insert: 'FINANCIAL INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Household Income: {{household_income}}\nNumber in Household: {{household_size}}\nOther Scholarships Received: {{other_scholarships}}\n\n' },
+        {
+          insert:
+            'Household Income: {{household_income}}\nNumber in Household: {{household_size}}\nOther Scholarships Received: {{other_scholarships}}\n\n',
+        },
         { insert: 'EXTRACURRICULAR ACTIVITIES\n', attributes: { bold: true } },
         { insert: '{{extracurriculars}}\n\n' },
         { insert: 'COMMUNITY SERVICE\n', attributes: { bold: true } },
@@ -388,7 +549,10 @@ export const EDUCATION_ADMIN_TEMPLATES = [
         { insert: 'REFERENCES\n', attributes: { bold: true } },
         { insert: '{{references}}\n\n' },
         { insert: 'REQUIRED DOCUMENTS\n', attributes: { bold: true } },
-        { insert: '[ ] Official Transcript\n[ ] Letter(s) of Recommendation\n[ ] Essay\n[ ] Financial Aid Information\n[ ] Other: {{other_documents}}\n\n' },
+        {
+          insert:
+            '[ ] Official Transcript\n[ ] Letter(s) of Recommendation\n[ ] Essay\n[ ] Financial Aid Information\n[ ] Other: {{other_documents}}\n\n',
+        },
         { insert: 'CERTIFICATION\n', attributes: { bold: true } },
         { insert: 'I certify that all information provided is accurate and complete.\n\n' },
         { insert: '_______________________________________________\n' },
@@ -417,10 +581,27 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'intended_school', type: 'text', label: 'Intended School', required: false },
       { key: 'intended_major', type: 'text', label: 'Intended Major', required: false },
       { key: 'expected_start', type: 'text', label: 'Expected Start', required: false },
-      { key: 'household_income', type: 'select', label: 'Household Income', required: true, options: ['Under $25,000', '$25,000-$50,000', '$50,000-$75,000', '$75,000-$100,000', 'Over $100,000'] },
+      {
+        key: 'household_income',
+        type: 'select',
+        label: 'Household Income',
+        required: true,
+        options: [
+          'Under $25,000',
+          '$25,000-$50,000',
+          '$50,000-$75,000',
+          '$75,000-$100,000',
+          'Over $100,000',
+        ],
+      },
       { key: 'household_size', type: 'number', label: 'Household Size', required: true },
       { key: 'other_scholarships', type: 'textarea', label: 'Other Scholarships', required: false },
-      { key: 'extracurriculars', type: 'textarea', label: 'Extracurricular Activities', required: true },
+      {
+        key: 'extracurriculars',
+        type: 'textarea',
+        label: 'Extracurricular Activities',
+        required: true,
+      },
       { key: 'community_service', type: 'textarea', label: 'Community Service', required: false },
       { key: 'work_experience', type: 'textarea', label: 'Work Experience', required: false },
       { key: 'honors_awards', type: 'textarea', label: 'Honors and Awards', required: false },
@@ -429,9 +610,23 @@ export const EDUCATION_ADMIN_TEMPLATES = [
       { key: 'other_documents', type: 'text', label: 'Other Required Documents', required: false },
     ],
     signatureFields: [
-      { id: 'applicant_signature', label: 'Applicant Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'parent_signature', label: 'Parent/Guardian Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'applicant_signature',
+        label: 'Applicant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'parent_signature',
+        label: 'Parent/Guardian Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

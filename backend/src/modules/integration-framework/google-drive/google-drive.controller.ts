@@ -72,9 +72,7 @@ export class GoogleDriveController {
   @ApiOperation({ summary: 'Handle OAuth callback and store connection (user-specific)' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Connection established successfully' })
-  async handleCallback(
-    @Body() callbackDto: GoogleDriveOAuthCallbackDto,
-  ) {
+  async handleCallback(@Body() callbackDto: GoogleDriveOAuthCallbackDto) {
     const connection = await this.googleDriveService.handleOAuthCallback(
       callbackDto.code,
       callbackDto.state,
@@ -104,7 +102,7 @@ export class GoogleDriveController {
         email: dto.email,
         displayName: dto.displayName,
         photoUrl: dto.photoUrl,
-      }
+      },
     );
     return {
       data: connection,
@@ -136,10 +134,7 @@ export class GoogleDriveController {
   @ApiOperation({ summary: 'Disconnect your Google Drive connection' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.googleDriveService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -155,10 +150,7 @@ export class GoogleDriveController {
   @ApiOperation({ summary: 'List available drives (My Drive + Shared Drives)' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'List of drives' })
-  async listDrives(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async listDrives(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const drives = await this.googleDriveService.listDrives(userId, workspaceId);
     return {
       data: drives,
@@ -235,7 +227,11 @@ export class GoogleDriveController {
   @ApiOperation({ summary: 'Download a file from Google Drive' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'Google Drive file ID' })
-  @ApiQuery({ name: 'convertTo', required: false, description: 'Convert Google Docs to format (pdf, docx, xlsx, pptx, html, txt)' })
+  @ApiQuery({
+    name: 'convertTo',
+    required: false,
+    description: 'Convert Google Docs to format (pdf, docx, xlsx, pptx, html, txt)',
+  })
   @ApiResponse({ status: 200, description: 'File content' })
   async downloadFile(
     @Param('workspaceId') workspaceId: string,
@@ -324,7 +320,11 @@ export class GoogleDriveController {
   @ApiOperation({ summary: 'Delete a file (move to trash or permanently delete)' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'fileId', description: 'Google Drive file ID' })
-  @ApiQuery({ name: 'permanent', required: false, description: 'Permanently delete instead of trash' })
+  @ApiQuery({
+    name: 'permanent',
+    required: false,
+    description: 'Permanently delete instead of trash',
+  })
   @ApiResponse({ status: 200, description: 'File deleted' })
   async deleteFile(
     @Param('workspaceId') workspaceId: string,
@@ -332,12 +332,7 @@ export class GoogleDriveController {
     @CurrentUser('sub') userId: string,
     @Query('permanent') permanent: string,
   ) {
-    await this.googleDriveService.deleteFile(
-      userId,
-      workspaceId,
-      fileId,
-      permanent === 'true',
-    );
+    await this.googleDriveService.deleteFile(userId, workspaceId, fileId, permanent === 'true');
     return {
       data: null,
       message: permanent === 'true' ? 'File permanently deleted' : 'File moved to trash',
@@ -410,7 +405,10 @@ export class GoogleDriveController {
       required: ['fileId'],
       properties: {
         fileId: { type: 'string', description: 'Deskive file ID to export' },
-        targetFolderId: { type: 'string', description: 'Google Drive folder ID (optional, defaults to root)' },
+        targetFolderId: {
+          type: 'string',
+          description: 'Google Drive folder ID (optional, defaults to root)',
+        },
       },
     },
   })
@@ -563,7 +561,12 @@ export class GoogleDriveCallbackController {
     };
 
     // Helper to handle redirect (either deep link page or direct redirect)
-    const handleRedirect = (stateParam: string, success: boolean, errorMsg?: string, email?: string) => {
+    const handleRedirect = (
+      stateParam: string,
+      success: boolean,
+      errorMsg?: string,
+      email?: string,
+    ) => {
       try {
         const decoded = Buffer.from(stateParam, 'base64url').toString('utf-8');
         const stateData = JSON.parse(decoded);
@@ -576,21 +579,29 @@ export class GoogleDriveCallbackController {
             : `error=${encodeURIComponent(errorMsg || 'unknown_error')}`;
           const deepLinkUrl = `${stateData.returnUrl}${separator}${params}`;
 
-          const title = success ? 'Google Drive Connected Successfully' : 'Google Drive Connection Failed';
+          const title = success
+            ? 'Google Drive Connected Successfully'
+            : 'Google Drive Connection Failed';
           return sendDeepLinkPage(deepLinkUrl, title, success ? undefined : errorMsg);
         }
 
         // Otherwise use web frontend
         if (success) {
-          return res.redirect(`${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations?google_drive_success=true`);
+          return res.redirect(
+            `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations?google_drive_success=true`,
+          );
         }
-        return res.redirect(`${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMsg || 'unknown_error')}`);
+        return res.redirect(
+          `${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMsg || 'unknown_error')}`,
+        );
       } catch {
         // Fallback to frontend on decode error
         if (success) {
           return res.redirect(`${frontendUrl}/settings/integrations?google_drive_success=true`);
         }
-        return res.redirect(`${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMsg || 'unknown_error')}`);
+        return res.redirect(
+          `${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMsg || 'unknown_error')}`,
+        );
       }
     };
 

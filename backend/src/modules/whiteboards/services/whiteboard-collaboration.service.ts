@@ -4,7 +4,10 @@ import * as awarenessProtocol from 'y-protocols/awareness';
 import * as syncProtocol from 'y-protocols/sync';
 import * as encoding from 'lib0/encoding';
 import * as decoding from 'lib0/decoding';
-import { WhiteboardCollaborationUser, COLLABORATOR_COLORS } from '../dto/whiteboard-collaboration.dto';
+import {
+  WhiteboardCollaborationUser,
+  COLLABORATOR_COLORS,
+} from '../dto/whiteboard-collaboration.dto';
 import { WhiteboardsService } from '../whiteboards.service';
 
 /**
@@ -98,7 +101,9 @@ export class WhiteboardCollaborationService {
           }
         });
 
-        this.logger.log(`Loaded ${whiteboard.elements.length} elements for whiteboard ${sessionId}`);
+        this.logger.log(
+          `Loaded ${whiteboard.elements.length} elements for whiteboard ${sessionId}`,
+        );
       } else {
         this.logger.log(`Created empty collaboration session for whiteboard ${sessionId}`);
       }

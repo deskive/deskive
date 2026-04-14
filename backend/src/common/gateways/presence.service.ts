@@ -61,7 +61,7 @@ export class PresenceService {
    */
   getMultipleUserPresence(userIds: string[]): PresenceStatus[] {
     return userIds
-      .map(userId => this.getUserPresence(userId))
+      .map((userId) => this.getUserPresence(userId))
       .filter((presence): presence is PresenceStatus => presence !== null);
   }
 
@@ -99,10 +99,14 @@ export class PresenceService {
       });
 
       // Broadcast to other users
-      this.socketGateway.broadcast('presence:updated', {
+      this.socketGateway.broadcast(
+        'presence:updated',
+        {
+          userId,
+          status,
+        },
         userId,
-        status,
-      }, userId);
+      );
 
       this.logger.debug(`User ${userId} status updated to: ${status}`);
       return true;
@@ -138,7 +142,7 @@ export class PresenceService {
 
     this.activitySessions.set(socketId, session);
     this.resetActivityTimer(userId);
-    
+
     this.logger.debug(`Activity session started for user ${userId} on ${deviceType}`);
   }
 
@@ -169,7 +173,7 @@ export class PresenceService {
    */
   getUserSessions(userId: string): ActivitySession[] {
     return Array.from(this.activitySessions.values()).filter(
-      session => session.userId === userId,
+      (session) => session.userId === userId,
     );
   }
 
@@ -191,7 +195,7 @@ export class PresenceService {
     const sessions = this.getUserSessions(userId);
     const devices: { web?: Date; mobile?: Date; desktop?: Date } = {};
 
-    sessions.forEach(session => {
+    sessions.forEach((session) => {
       if (!devices[session.deviceType] || session.lastActivity > devices[session.deviceType]!) {
         devices[session.deviceType] = session.lastActivity;
       }
@@ -207,8 +211,8 @@ export class PresenceService {
     const sessions = this.getUserSessions(userId);
     if (sessions.length === 0) return 0;
 
-    const earliestSession = sessions.reduce((earliest, session) => 
-      session.startTime < earliest.startTime ? session : earliest
+    const earliestSession = sessions.reduce((earliest, session) =>
+      session.startTime < earliest.startTime ? session : earliest,
     );
 
     return Date.now() - earliestSession.startTime.getTime();
@@ -221,8 +225,8 @@ export class PresenceService {
     const sessions = this.getUserSessions(userId);
     if (sessions.length === 0) return true;
 
-    const latestActivity = sessions.reduce((latest, session) =>
-      session.lastActivity > latest ? session.lastActivity : latest,
+    const latestActivity = sessions.reduce(
+      (latest, session) => (session.lastActivity > latest ? session.lastActivity : latest),
       new Date(0),
     );
 
@@ -238,33 +242,45 @@ export class PresenceService {
    * Broadcast user came online
    */
   broadcastUserOnline(userId: string): void {
-    this.socketGateway.broadcast('presence:user_online', {
+    this.socketGateway.broadcast(
+      'presence:user_online',
+      {
+        userId,
+        timestamp: new Date().toISOString(),
+      },
       userId,
-      timestamp: new Date().toISOString(),
-    }, userId);
+    );
   }
 
   /**
    * Broadcast user went offline
    */
   broadcastUserOffline(userId: string, lastSeen: Date): void {
-    this.socketGateway.broadcast('presence:user_offline', {
+    this.socketGateway.broadcast(
+      'presence:user_offline',
+      {
+        userId,
+        lastSeen: lastSeen.toISOString(),
+        timestamp: new Date().toISOString(),
+      },
       userId,
-      lastSeen: lastSeen.toISOString(),
-      timestamp: new Date().toISOString(),
-    }, userId);
+    );
   }
 
   /**
    * Broadcast user status change
    */
   broadcastStatusChange(userId: string, status: string, oldStatus?: string): void {
-    this.socketGateway.broadcast('presence:status_changed', {
+    this.socketGateway.broadcast(
+      'presence:status_changed',
+      {
+        userId,
+        status,
+        oldStatus,
+        timestamp: new Date().toISOString(),
+      },
       userId,
-      status,
-      oldStatus,
-      timestamp: new Date().toISOString(),
-    }, userId);
+    );
   }
 
   // =============================================
@@ -296,10 +312,10 @@ export class PresenceService {
 
     let totalSessionDuration = 0;
 
-    onlineUsers.forEach(user => {
+    onlineUsers.forEach((user) => {
       byStatus[user.status]++;
-      
-      Object.keys(user.devices).forEach(device => {
+
+      Object.keys(user.devices).forEach((device) => {
         byDevice[device]++;
       });
 
@@ -310,7 +326,8 @@ export class PresenceService {
       totalOnline: onlineUsers.length,
       byStatus,
       byDevice,
-      averageSessionDuration: onlineUsers.length > 0 ? totalSessionDuration / onlineUsers.length : 0,
+      averageSessionDuration:
+        onlineUsers.length > 0 ? totalSessionDuration / onlineUsers.length : 0,
     };
   }
 
@@ -328,7 +345,7 @@ export class PresenceService {
       setTimeout(() => {
         // Remove all sessions for this user
         const sessions = this.getUserSessions(userId);
-        sessions.forEach(session => {
+        sessions.forEach((session) => {
           this.endActivitySession(session.sessionId);
         });
       }, 1000);
@@ -351,11 +368,14 @@ export class PresenceService {
     }
 
     // Set new timer to mark user as away after 10 minutes of inactivity
-    const timer = setTimeout(() => {
-      if (this.isUserIdle(userId, 10)) {
-        this.updateUserStatus(userId, 'away');
-      }
-    }, 10 * 60 * 1000); // 10 minutes
+    const timer = setTimeout(
+      () => {
+        if (this.isUserIdle(userId, 10)) {
+          this.updateUserStatus(userId, 'away');
+        }
+      },
+      10 * 60 * 1000,
+    ); // 10 minutes
 
     this.userActivityTimers.set(userId, timer);
   }

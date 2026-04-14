@@ -30,9 +30,7 @@ export class CalendarBotContextService {
       }
 
       // Filter events for this specific user (bot owner)
-      const userEvents = assignedEvents.filter(
-        (assignment) => assignment.user_id === userId,
-      );
+      const userEvents = assignedEvents.filter((assignment) => assignment.user_id === userId);
 
       if (userEvents.length === 0) {
         return null;
@@ -117,7 +115,8 @@ export class CalendarBotContextService {
       message += '- Add reminders\n';
       message += '- Cancel events\n';
       message += '- Get event details\n\n';
-      message += 'When the user asks to update an event, use the appropriate tools (update_event_time, update_event_location, update_event_attendees, etc.) with the event ID from above.\n\n';
+      message +=
+        'When the user asks to update an event, use the appropriate tools (update_event_time, update_event_location, update_event_attendees, etc.) with the event ID from above.\n\n';
     } else if (pastEvents.length > 0) {
       message += `You were assigned to ${pastEvents.length} event(s), but they have all passed or been cancelled. `;
       message += 'Ask the user if they want to schedule a new event.\n\n';

@@ -16,8 +16,12 @@ export class FirebaseService implements OnModuleInit {
       const firebaseCredentials = process.env.FIREBASE_SERVICE_ACCOUNT;
 
       if (!firebaseCredentials) {
-        this.logger.warn('⚠️ Firebase credentials not found. FCM push notifications will be disabled.');
-        this.logger.warn('To enable FCM, set FIREBASE_SERVICE_ACCOUNT environment variable with your service account JSON.');
+        this.logger.warn(
+          '⚠️ Firebase credentials not found. FCM push notifications will be disabled.',
+        );
+        this.logger.warn(
+          'To enable FCM, set FIREBASE_SERVICE_ACCOUNT environment variable with your service account JSON.',
+        );
         return;
       }
 
@@ -31,7 +35,10 @@ export class FirebaseService implements OnModuleInit {
 
       this.logger.log('✅ Firebase Admin SDK initialized successfully');
     } catch (error) {
-      this.logger.error(`❌ Failed to initialize Firebase Admin SDK: ${error.message}`, error.stack);
+      this.logger.error(
+        `❌ Failed to initialize Firebase Admin SDK: ${error.message}`,
+        error.stack,
+      );
       this.logger.warn('FCM push notifications will be disabled');
     }
   }
@@ -108,8 +115,10 @@ export class FirebaseService implements OnModuleInit {
       this.logger.error(`❌ Failed to send FCM notification: ${error.message}`, error.stack);
 
       // Handle invalid token errors
-      if (error.code === 'messaging/invalid-registration-token' ||
-          error.code === 'messaging/registration-token-not-registered') {
+      if (
+        error.code === 'messaging/invalid-registration-token' ||
+        error.code === 'messaging/registration-token-not-registered'
+      ) {
         return { success: false, error: 'INVALID_TOKEN' };
       }
 
@@ -180,19 +189,27 @@ export class FirebaseService implements OnModuleInit {
       response.responses.forEach((resp, idx) => {
         if (!resp.success) {
           // Log detailed error for debugging
-          this.logger.error(`❌ FCM Error for token ${tokens[idx].substring(0, 20)}...: ${resp.error?.code} - ${resp.error?.message}`);
+          this.logger.error(
+            `❌ FCM Error for token ${tokens[idx].substring(0, 20)}...: ${resp.error?.code} - ${resp.error?.message}`,
+          );
 
-          if (resp.error?.code === 'messaging/invalid-registration-token' ||
-              resp.error?.code === 'messaging/registration-token-not-registered') {
+          if (
+            resp.error?.code === 'messaging/invalid-registration-token' ||
+            resp.error?.code === 'messaging/registration-token-not-registered'
+          ) {
             invalidTokens.push(tokens[idx]);
           }
         }
       });
 
-      this.logger.log(`✅ FCM multicast sent: ${response.successCount} succeeded, ${response.failureCount} failed`);
+      this.logger.log(
+        `✅ FCM multicast sent: ${response.successCount} succeeded, ${response.failureCount} failed`,
+      );
 
       if (invalidTokens.length > 0) {
-        this.logger.warn(`⚠️ Found ${invalidTokens.length} invalid tokens that should be cleaned up`);
+        this.logger.warn(
+          `⚠️ Found ${invalidTokens.length} invalid tokens that should be cleaned up`,
+        );
       }
 
       return {
@@ -201,7 +218,10 @@ export class FirebaseService implements OnModuleInit {
         invalidTokens,
       };
     } catch (error) {
-      this.logger.error(`❌ Failed to send multicast FCM notification: ${error.message}`, error.stack);
+      this.logger.error(
+        `❌ Failed to send multicast FCM notification: ${error.message}`,
+        error.stack,
+      );
       return { successCount: 0, failureCount: tokens.length, invalidTokens: [] };
     }
   }
@@ -260,19 +280,27 @@ export class FirebaseService implements OnModuleInit {
       const invalidTokens: string[] = [];
       response.responses.forEach((resp, idx) => {
         if (!resp.success) {
-          this.logger.error(`❌ FCM Error for token ${tokens[idx].substring(0, 20)}...: ${resp.error?.code} - ${resp.error?.message}`);
+          this.logger.error(
+            `❌ FCM Error for token ${tokens[idx].substring(0, 20)}...: ${resp.error?.code} - ${resp.error?.message}`,
+          );
 
-          if (resp.error?.code === 'messaging/invalid-registration-token' ||
-              resp.error?.code === 'messaging/registration-token-not-registered') {
+          if (
+            resp.error?.code === 'messaging/invalid-registration-token' ||
+            resp.error?.code === 'messaging/registration-token-not-registered'
+          ) {
             invalidTokens.push(tokens[idx]);
           }
         }
       });
 
-      this.logger.log(`✅ FCM data-only multicast sent: ${response.successCount} succeeded, ${response.failureCount} failed`);
+      this.logger.log(
+        `✅ FCM data-only multicast sent: ${response.successCount} succeeded, ${response.failureCount} failed`,
+      );
 
       if (invalidTokens.length > 0) {
-        this.logger.warn(`⚠️ Found ${invalidTokens.length} invalid tokens that should be cleaned up`);
+        this.logger.warn(
+          `⚠️ Found ${invalidTokens.length} invalid tokens that should be cleaned up`,
+        );
       }
 
       return {
@@ -298,18 +326,23 @@ export class FirebaseService implements OnModuleInit {
 
     try {
       // Try to send a dry-run message to validate the token
-      await messaging.send({
-        token,
-        notification: {
-          title: 'Test',
-          body: 'Test',
+      await messaging.send(
+        {
+          token,
+          notification: {
+            title: 'Test',
+            body: 'Test',
+          },
         },
-      }, true); // dry run
+        true,
+      ); // dry run
 
       return true;
     } catch (error) {
-      if (error.code === 'messaging/invalid-registration-token' ||
-          error.code === 'messaging/registration-token-not-registered') {
+      if (
+        error.code === 'messaging/invalid-registration-token' ||
+        error.code === 'messaging/registration-token-not-registered'
+      ) {
         return false;
       }
       // If it's another error, assume token might still be valid

@@ -110,9 +110,7 @@ export class GroqProvider implements AiProvider {
     return { ...res, provider: 'groq' };
   }
 
-  async generateEmbedding(
-    _input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(_input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     throw new AiProviderNotSupportedError(
       'groq',
       'generateEmbedding (Groq has no embeddings endpoint — use OpenAI, Gemini, or Ollama for vectors)',

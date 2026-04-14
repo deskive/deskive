@@ -25,9 +25,7 @@ export function createAiProvider(config: ConfigService): AiProvider {
   const explicit = (config.get<string>('AI_PROVIDER') || '').toLowerCase().trim();
   // Backcompat shim: if AI_PROVIDER is unset but OPENAI_API_KEY exists
   // (deskive's legacy config), default to openai instead of none.
-  const choice =
-    explicit ||
-    (config.get<string>('OPENAI_API_KEY') ? 'openai' : 'none');
+  const choice = explicit || (config.get<string>('OPENAI_API_KEY') ? 'openai' : 'none');
 
   switch (choice) {
     case 'openai':
@@ -39,9 +37,7 @@ export function createAiProvider(config: ConfigService): AiProvider {
     case 'anthropic':
     case 'claude': {
       const p = new AnthropicProvider(config);
-      log.log(
-        `Selected AI provider: anthropic (available=${p.isAvailable()})`,
-      );
+      log.log(`Selected AI provider: anthropic (available=${p.isAvailable()})`);
       return p;
     }
     case 'gemini':

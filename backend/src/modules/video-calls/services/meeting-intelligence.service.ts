@@ -208,16 +208,11 @@ ${transcript.substring(0, 2000)}`;
         video_call_id: callId,
       });
       const participants = (participantsResult.data || [])
-        .map(p => p.display_name || 'Unknown')
+        .map((p) => p.display_name || 'Unknown')
         .filter(Boolean);
 
       // Generate summary
-      await this.generateMeetingSummary(
-        callId,
-        workspaceId,
-        transcript.full_text,
-        participants,
-      );
+      await this.generateMeetingSummary(callId, workspaceId, transcript.full_text, participants);
     } catch (error) {
       this.logger.error(`Failed to process call end for ${callId}: ${error.message}`);
     }

@@ -42,19 +42,13 @@ export class OllamaProvider implements AiProvider {
 
   constructor(config: ConfigService) {
     this.baseUrl = (
-      config.get<string>('OLLAMA_BASE_URL', 'http://localhost:11434') ||
-      'http://localhost:11434'
+      config.get<string>('OLLAMA_BASE_URL', 'http://localhost:11434') || 'http://localhost:11434'
     ).replace(/\/+$/, '');
     this.defaultModel = config.get<string>('AI_MODEL', 'llama3.2');
     this.defaultVisionModel = config.get<string>('AI_VISION_MODEL', 'llava');
-    this.defaultEmbeddingModel = config.get<string>(
-      'AI_EMBEDDING_MODEL',
-      'nomic-embed-text',
-    );
+    this.defaultEmbeddingModel = config.get<string>('AI_EMBEDDING_MODEL', 'nomic-embed-text');
 
-    this.logger.log(
-      `Ollama provider configured (${this.baseUrl}, model=${this.defaultModel})`,
-    );
+    this.logger.log(`Ollama provider configured (${this.baseUrl}, model=${this.defaultModel})`);
   }
 
   isAvailable(): boolean {
@@ -119,8 +113,7 @@ export class OllamaProvider implements AiProvider {
       usage: {
         promptTokens: res.prompt_eval_count,
         completionTokens: res.eval_count,
-        totalTokens:
-          (res.prompt_eval_count ?? 0) + (res.eval_count ?? 0),
+        totalTokens: (res.prompt_eval_count ?? 0) + (res.eval_count ?? 0),
       },
     };
   }
@@ -138,9 +131,7 @@ export class OllamaProvider implements AiProvider {
       // accept remote URLs directly.
       const res = await fetch(input.image);
       if (!res.ok) {
-        throw new Error(
-          `Ollama provider: failed to fetch image URL ${input.image}: ${res.status}`,
-        );
+        throw new Error(`Ollama provider: failed to fetch image URL ${input.image}: ${res.status}`);
       }
       const buf = Buffer.from(await res.arrayBuffer());
       base64 = buf.toString('base64');
@@ -176,9 +167,7 @@ export class OllamaProvider implements AiProvider {
     };
   }
 
-  async generateEmbedding(
-    input: GenerateEmbeddingInput,
-  ): Promise<GenerateEmbeddingResult> {
+  async generateEmbedding(input: GenerateEmbeddingInput): Promise<GenerateEmbeddingResult> {
     const model = input.model ?? this.defaultEmbeddingModel;
     const texts = Array.isArray(input.text) ? input.text : [input.text];
 

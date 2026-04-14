@@ -74,7 +74,7 @@ describe('JiraService - Actions', () => {
           'user-123',
           'workspace-456',
           'cloud-123',
-          testCase.input
+          testCase.input,
         );
 
         expect(result).toMatchObject(testCase.expected.data);
@@ -90,7 +90,12 @@ describe('JiraService - Actions', () => {
           issues: [{ key: 'TEST-1' }, { key: 'TEST-2' }],
         });
 
-      const result = await service.searchIssues('user-123', 'workspace-456', 'cloud-123', 'project = TEST');
+      const result = await service.searchIssues(
+        'user-123',
+        'workspace-456',
+        'cloud-123',
+        'project = TEST',
+      );
       expect(result.issues).toHaveLength(2);
     });
   });

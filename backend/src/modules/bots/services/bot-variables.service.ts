@@ -55,9 +55,7 @@ export interface VariableContext {
 export class BotVariablesService {
   private readonly logger = new Logger(BotVariablesService.name);
 
-  constructor(
-    @Optional() private readonly sharedEvaluator?: SharedConditionEvaluatorService,
-  ) {}
+  constructor(@Optional() private readonly sharedEvaluator?: SharedConditionEvaluatorService) {}
 
   /**
    * Interpolate variables in a template string
@@ -186,27 +184,35 @@ export class BotVariablesService {
         email: data.userEmail,
         avatarUrl: data.userAvatarUrl,
       },
-      message: data.messageId ? {
-        id: data.messageId,
-        content: data.messageContent || '',
-        contentHtml: data.messageContentHtml,
-      } : undefined,
-      channel: data.channelId ? {
-        id: data.channelId,
-        name: data.channelName,
-      } : undefined,
-      conversation: data.conversationId ? {
-        id: data.conversationId,
-      } : undefined,
+      message: data.messageId
+        ? {
+            id: data.messageId,
+            content: data.messageContent || '',
+            contentHtml: data.messageContentHtml,
+          }
+        : undefined,
+      channel: data.channelId
+        ? {
+            id: data.channelId,
+            name: data.channelName,
+          }
+        : undefined,
+      conversation: data.conversationId
+        ? {
+            id: data.conversationId,
+          }
+        : undefined,
       workspace: {
         id: data.workspaceId,
         name: data.workspaceName,
       },
-      bot: data.botId ? {
-        id: data.botId,
-        name: data.botName || '',
-        displayName: data.botDisplayName || data.botName || '',
-      } : undefined,
+      bot: data.botId
+        ? {
+            id: data.botId,
+            name: data.botName || '',
+            displayName: data.botDisplayName || data.botName || '',
+          }
+        : undefined,
       captureGroups: data.captureGroups,
       custom: data.custom,
     };
@@ -229,19 +235,22 @@ export class BotVariablesService {
   /**
    * Recursive object interpolation using bot-specific interpolate method
    */
-  private interpolateObjectRecursive(obj: Record<string, any>, context: VariableContext): Record<string, any> {
+  private interpolateObjectRecursive(
+    obj: Record<string, any>,
+    context: VariableContext,
+  ): Record<string, any> {
     const result: Record<string, any> = {};
 
     for (const [key, value] of Object.entries(obj)) {
       if (typeof value === 'string') {
         result[key] = this.interpolate(value, context);
       } else if (Array.isArray(value)) {
-        result[key] = value.map(item =>
+        result[key] = value.map((item) =>
           typeof item === 'string'
             ? this.interpolate(item, context)
             : typeof item === 'object' && item !== null
               ? this.interpolateObjectRecursive(item, context)
-              : item
+              : item,
         );
       } else if (typeof value === 'object' && value !== null) {
         result[key] = this.interpolateObjectRecursive(value, context);

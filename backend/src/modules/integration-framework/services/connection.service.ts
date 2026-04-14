@@ -45,11 +45,7 @@ export class ConnectionService {
       const integration = await this.catalogService.getById(integrationId);
 
       // Check if connection already exists
-      const existing = await this.findExistingConnection(
-        workspaceId,
-        userId,
-        integrationId,
-      );
+      const existing = await this.findExistingConnection(workspaceId, userId, integrationId);
 
       const now = new Date().toISOString();
       const connectionData = {
@@ -86,9 +82,7 @@ export class ConnectionService {
           .returning('*')
           .execute();
 
-        this.logger.log(
-          `Updated connection for ${integration.slug} in workspace ${workspaceId}`,
-        );
+        this.logger.log(`Updated connection for ${integration.slug} in workspace ${workspaceId}`);
       } else {
         // Create new connection
         result = await this.db
@@ -103,9 +97,7 @@ export class ConnectionService {
         // Increment install count
         await this.catalogService.incrementInstallCount(integrationId);
 
-        this.logger.log(
-          `Created connection for ${integration.slug} in workspace ${workspaceId}`,
-        );
+        this.logger.log(`Created connection for ${integration.slug} in workspace ${workspaceId}`);
       }
 
       const resultArray = Array.isArray(result?.data) ? result.data : [result?.data || result];
@@ -136,16 +128,10 @@ export class ConnectionService {
       }
 
       // Check if connection already exists
-      const existing = await this.findExistingConnection(
-        workspaceId,
-        userId,
-        integration.id,
-      );
+      const existing = await this.findExistingConnection(workspaceId, userId, integration.id);
 
       if (existing) {
-        throw new ConflictException(
-          `Connection already exists for '${integrationSlug}'`,
-        );
+        throw new ConflictException(`Connection already exists for '${integrationSlug}'`);
       }
 
       const now = new Date().toISOString();
@@ -205,9 +191,7 @@ export class ConnectionService {
       const resultsArray = Array.isArray(results?.data) ? results.data : [];
       const connections = await Promise.all(
         resultsArray.map(async (row: Record<string, unknown>) => {
-          const integration = await this.catalogService.getById(
-            row.integration_id as string,
-          );
+          const integration = await this.catalogService.getById(row.integration_id as string);
           return this.transformToResponse(row, integration);
         }),
       );
@@ -225,10 +209,7 @@ export class ConnectionService {
   /**
    * Get a specific connection
    */
-  async getConnection(
-    connectionId: string,
-    userId: string,
-  ): Promise<ConnectionResponseDto> {
+  async getConnection(connectionId: string, userId: string): Promise<ConnectionResponseDto> {
     try {
       const result = await this.db
         .table(this.tableName)
@@ -250,16 +231,11 @@ export class ConnectionService {
         throw new ForbiddenException('Not authorized to access this connection');
       }
 
-      const integration = await this.catalogService.getById(
-        connection.integration_id as string,
-      );
+      const integration = await this.catalogService.getById(connection.integration_id as string);
 
       return this.transformToResponse(connection, integration);
     } catch (error) {
-      if (
-        error instanceof NotFoundException ||
-        error instanceof ForbiddenException
-      ) {
+      if (error instanceof NotFoundException || error instanceof ForbiddenException) {
         throw error;
       }
       this.logger.error(`Failed to get connection: ${connectionId}`, error);
@@ -295,10 +271,7 @@ export class ConnectionService {
 
       return this.transformToResponse(resultArray[0], integration);
     } catch (error) {
-      this.logger.error(
-        `Failed to get connection by slug: ${integrationSlug}`,
-        error,
-      );
+      this.logger.error(`Failed to get connection by slug: ${integrationSlug}`, error);
       return null;
     }
   }
@@ -356,9 +329,7 @@ export class ConnectionService {
       // Revoke OAuth token if possible
       if (connection.authType === 'oauth2' && connection.integration) {
         try {
-          const integration = await this.catalogService.getFullConfig(
-            connection.integration.slug,
-          );
+          const integration = await this.catalogService.getFullConfig(connection.integration.slug);
 
           // Get the access token from the raw connection data
           const rawConnection = await this.db
@@ -369,10 +340,7 @@ export class ConnectionService {
 
           const rawArray = Array.isArray(rawConnection?.data) ? rawConnection.data : [];
           if (rawArray?.[0]?.access_token) {
-            await this.oauthService.revokeToken(
-              integration,
-              rawArray[0].access_token as string,
-            );
+            await this.oauthService.revokeToken(integration, rawArray[0].access_token as string);
           }
         } catch (error) {
           this.logger.warn(`Failed to revoke token for connection: ${connectionId}`, error);
@@ -424,19 +392,13 @@ export class ConnectionService {
       const connection = resultArray[0];
 
       // Check if token is expired
-      const expiresAt = connection.expires_at
-        ? new Date(connection.expires_at as string)
-        : null;
+      const expiresAt = connection.expires_at ? new Date(connection.expires_at as string) : null;
       const isExpired = expiresAt && expiresAt < new Date();
 
       if (isExpired && connection.refresh_token) {
         // Refresh the token
-        const integration = await this.catalogService.getById(
-          connection.integration_id as string,
-        );
-        const fullConfig = await this.catalogService.getFullConfig(
-          integration.slug,
-        );
+        const integration = await this.catalogService.getById(connection.integration_id as string);
+        const fullConfig = await this.catalogService.getFullConfig(integration.slug);
 
         const newTokens = await this.oauthService.refreshAccessToken(
           fullConfig,
@@ -479,10 +441,7 @@ export class ConnectionService {
 
       return connection.access_token as string;
     } catch (error) {
-      this.logger.error(
-        `Failed to get valid access token for connection: ${connectionId}`,
-        error,
-      );
+      this.logger.error(`Failed to get valid access token for connection: ${connectionId}`, error);
       throw error;
     }
   }
@@ -490,10 +449,7 @@ export class ConnectionService {
   /**
    * Update connection status after an error
    */
-  async markConnectionError(
-    connectionId: string,
-    errorMessage: string,
-  ): Promise<void> {
+  async markConnectionError(connectionId: string, errorMessage: string): Promise<void> {
     try {
       await this.db
         .table(this.tableName)
@@ -506,20 +462,14 @@ export class ConnectionService {
         })
         .execute();
     } catch (error) {
-      this.logger.error(
-        `Failed to mark connection error: ${connectionId}`,
-        error,
-      );
+      this.logger.error(`Failed to mark connection error: ${connectionId}`, error);
     }
   }
 
   /**
    * Update last synced timestamp
    */
-  async updateLastSynced(
-    connectionId: string,
-    syncCursor?: string,
-  ): Promise<void> {
+  async updateLastSynced(connectionId: string, syncCursor?: string): Promise<void> {
     try {
       const updateData: Record<string, unknown> = {
         last_synced_at: new Date().toISOString(),
@@ -536,10 +486,7 @@ export class ConnectionService {
         .update(updateData)
         .execute();
     } catch (error) {
-      this.logger.error(
-        `Failed to update last synced: ${connectionId}`,
-        error,
-      );
+      this.logger.error(`Failed to update last synced: ${connectionId}`, error);
     }
   }
 
@@ -564,7 +511,13 @@ export class ConnectionService {
 
   private transformToResponse(
     row: Record<string, unknown>,
-    integration?: { slug: string; name: string; category: string; provider?: string; logoUrl?: string },
+    integration?: {
+      slug: string;
+      name: string;
+      category: string;
+      provider?: string;
+      logoUrl?: string;
+    },
   ): ConnectionResponseDto {
     return {
       id: row.id as string,

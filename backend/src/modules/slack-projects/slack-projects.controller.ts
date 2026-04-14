@@ -1,4 +1,16 @@
-import { Controller, Post, Get, Body, Query, Res, Headers, HttpStatus, Logger, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Query,
+  Res,
+  Headers,
+  HttpStatus,
+  Logger,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { SlackProjectsService } from './slack-projects.service';
@@ -115,8 +127,7 @@ export class SlackProjectsController {
     const bodyString = typeof body === 'string' ? body : JSON.stringify(body);
     const signatureBaseString = `v0:${timestamp}:${bodyString}`;
     const mySignature =
-      'v0=' +
-      crypto.createHmac('sha256', signingSecret).update(signatureBaseString).digest('hex');
+      'v0=' + crypto.createHmac('sha256', signingSecret).update(signatureBaseString).digest('hex');
 
     // Compare signatures (timing-safe)
     try {

@@ -7,7 +7,11 @@ export class CreateChannelDto {
   @MaxLength(50)
   name: string;
 
-  @ApiProperty({ description: 'Channel description', example: 'General discussion', required: false })
+  @ApiProperty({
+    description: 'Channel description',
+    example: 'General discussion',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   @MaxLength(500)
@@ -26,7 +30,7 @@ export class CreateChannelDto {
   @ApiProperty({
     description: 'Array of user IDs to add as channel members (only for private channels)',
     example: ['user-id-1', 'user-id-2'],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()

@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
   {
@@ -16,25 +13,40 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     content: {
       ops: [
         { insert: 'TECHNICAL SPECIFICATION DOCUMENT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nDocument Version: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n' },
+        {
+          insert:
+            '\nDocument Version: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n',
+        },
         { insert: 'PROJECT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Project Name: {{project_name}}\nProject Code: {{project_code}}\nClient: {{client}}\n\n' },
+        {
+          insert:
+            'Project Name: {{project_name}}\nProject Code: {{project_code}}\nClient: {{client}}\n\n',
+        },
         { insert: 'DOCUMENT CONTROL\n', attributes: { bold: true } },
         { insert: '{{revision_history}}\n\n' },
         { insert: '1. INTRODUCTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 Definitions and Acronyms\n{{definitions}}\n\n' },
+        {
+          insert:
+            '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 Definitions and Acronyms\n{{definitions}}\n\n',
+        },
         { insert: '2. SYSTEM OVERVIEW\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{system_overview}}\n\n' },
         { insert: '3. FUNCTIONAL REQUIREMENTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{functional_requirements}}\n\n' },
         { insert: '4. NON-FUNCTIONAL REQUIREMENTS\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n4.1 Performance Requirements\n{{performance_requirements}}\n\n4.2 Security Requirements\n{{security_requirements}}\n\n4.3 Scalability Requirements\n{{scalability_requirements}}\n\n' },
+        {
+          insert:
+            '\n4.1 Performance Requirements\n{{performance_requirements}}\n\n4.2 Security Requirements\n{{security_requirements}}\n\n4.3 Scalability Requirements\n{{scalability_requirements}}\n\n',
+        },
         { insert: '5. SYSTEM ARCHITECTURE\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{system_architecture}}\n\n' },
         { insert: '6. DATA SPECIFICATIONS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{data_specifications}}\n\n' },
         { insert: '7. INTERFACE SPECIFICATIONS\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n7.1 User Interfaces\n{{user_interfaces}}\n\n7.2 System Interfaces\n{{system_interfaces}}\n\n7.3 API Specifications\n{{api_specifications}}\n\n' },
+        {
+          insert:
+            '\n7.1 User Interfaces\n{{user_interfaces}}\n\n7.2 System Interfaces\n{{system_interfaces}}\n\n7.3 API Specifications\n{{api_specifications}}\n\n',
+        },
         { insert: '8. TECHNICAL CONSTRAINTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{technical_constraints}}\n\n' },
         { insert: '9. DEPENDENCIES\n', attributes: { bold: true, size: 'large' } },
@@ -61,26 +73,85 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'scope', type: 'textarea', label: 'Scope', required: true },
       { key: 'definitions', type: 'textarea', label: 'Definitions and Acronyms', required: false },
       { key: 'system_overview', type: 'textarea', label: 'System Overview', required: true },
-      { key: 'functional_requirements', type: 'textarea', label: 'Functional Requirements', required: true },
-      { key: 'performance_requirements', type: 'textarea', label: 'Performance Requirements', required: true },
-      { key: 'security_requirements', type: 'textarea', label: 'Security Requirements', required: true },
-      { key: 'scalability_requirements', type: 'textarea', label: 'Scalability Requirements', required: false },
-      { key: 'system_architecture', type: 'textarea', label: 'System Architecture', required: true },
-      { key: 'data_specifications', type: 'textarea', label: 'Data Specifications', required: true },
+      {
+        key: 'functional_requirements',
+        type: 'textarea',
+        label: 'Functional Requirements',
+        required: true,
+      },
+      {
+        key: 'performance_requirements',
+        type: 'textarea',
+        label: 'Performance Requirements',
+        required: true,
+      },
+      {
+        key: 'security_requirements',
+        type: 'textarea',
+        label: 'Security Requirements',
+        required: true,
+      },
+      {
+        key: 'scalability_requirements',
+        type: 'textarea',
+        label: 'Scalability Requirements',
+        required: false,
+      },
+      {
+        key: 'system_architecture',
+        type: 'textarea',
+        label: 'System Architecture',
+        required: true,
+      },
+      {
+        key: 'data_specifications',
+        type: 'textarea',
+        label: 'Data Specifications',
+        required: true,
+      },
       { key: 'user_interfaces', type: 'textarea', label: 'User Interfaces', required: false },
       { key: 'system_interfaces', type: 'textarea', label: 'System Interfaces', required: false },
       { key: 'api_specifications', type: 'textarea', label: 'API Specifications', required: false },
-      { key: 'technical_constraints', type: 'textarea', label: 'Technical Constraints', required: false },
+      {
+        key: 'technical_constraints',
+        type: 'textarea',
+        label: 'Technical Constraints',
+        required: false,
+      },
       { key: 'dependencies', type: 'textarea', label: 'Dependencies', required: false },
-      { key: 'testing_requirements', type: 'textarea', label: 'Testing Requirements', required: true },
+      {
+        key: 'testing_requirements',
+        type: 'textarea',
+        label: 'Testing Requirements',
+        required: true,
+      },
       { key: 'appendices', type: 'textarea', label: 'Appendices', required: false },
     ],
     signatureFields: [
-      { id: 'prepared_signature', label: 'Prepared By Signature', required: true, position: { page: 1, x: 100, y: 620 } },
-      { id: 'reviewed_signature', label: 'Reviewed By Signature', required: false, position: { page: 1, x: 100, y: 660 } },
-      { id: 'approved_signature', label: 'Approved By Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'prepared_signature',
+        label: 'Prepared By Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 620 },
+      },
+      {
+        id: 'reviewed_signature',
+        label: 'Reviewed By Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'approved_signature',
+        label: 'Approved By Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'API Documentation',
@@ -94,7 +165,10 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     content: {
       ops: [
         { insert: 'API DOCUMENTATION\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nAPI Name: {{api_name}}\nVersion: {{api_version}}\nBase URL: {{base_url}}\nLast Updated: {{last_updated}}\n\n' },
+        {
+          insert:
+            '\nAPI Name: {{api_name}}\nVersion: {{api_version}}\nBase URL: {{base_url}}\nLast Updated: {{last_updated}}\n\n',
+        },
         { insert: 'OVERVIEW\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{overview}}\n\n' },
         { insert: 'AUTHENTICATION\n', attributes: { bold: true, size: 'large' } },
@@ -121,8 +195,19 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'base_url', type: 'text', label: 'Base URL', required: true },
       { key: 'last_updated', type: 'date', label: 'Last Updated', required: true },
       { key: 'overview', type: 'textarea', label: 'Overview', required: true },
-      { key: 'auth_method', type: 'select', label: 'Authentication Method', required: true, options: ['API Key', 'OAuth 2.0', 'JWT', 'Basic Auth', 'None'] },
-      { key: 'authentication_details', type: 'textarea', label: 'Authentication Details', required: true },
+      {
+        key: 'auth_method',
+        type: 'select',
+        label: 'Authentication Method',
+        required: true,
+        options: ['API Key', 'OAuth 2.0', 'JWT', 'Basic Auth', 'None'],
+      },
+      {
+        key: 'authentication_details',
+        type: 'textarea',
+        label: 'Authentication Details',
+        required: true,
+      },
       { key: 'rate_limiting', type: 'textarea', label: 'Rate Limiting', required: false },
       { key: 'error_handling', type: 'textarea', label: 'Error Handling', required: true },
       { key: 'endpoints', type: 'textarea', label: 'Endpoints', required: true },
@@ -133,7 +218,11 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'docs_url', type: 'text', label: 'Documentation URL', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Software Requirements Specification (SRS)',
@@ -146,18 +235,41 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     isFeatured: true,
     content: {
       ops: [
-        { insert: 'SOFTWARE REQUIREMENTS SPECIFICATION\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\n\n' },
+        {
+          insert: 'SOFTWARE REQUIREMENTS SPECIFICATION\n',
+          attributes: { bold: true, size: 'huge' },
+        },
+        {
+          insert: '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\n\n',
+        },
         { insert: '1. INTRODUCTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n1.1 Purpose\n{{purpose}}\n\n1.2 Document Conventions\n{{conventions}}\n\n1.3 Intended Audience\n{{intended_audience}}\n\n1.4 Project Scope\n{{project_scope}}\n\n1.5 References\n{{references}}\n\n' },
+        {
+          insert:
+            '\n1.1 Purpose\n{{purpose}}\n\n1.2 Document Conventions\n{{conventions}}\n\n1.3 Intended Audience\n{{intended_audience}}\n\n1.4 Project Scope\n{{project_scope}}\n\n1.5 References\n{{references}}\n\n',
+        },
         { insert: '2. OVERALL DESCRIPTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n2.1 Product Perspective\n{{product_perspective}}\n\n2.2 Product Functions\n{{product_functions}}\n\n2.3 User Classes and Characteristics\n{{user_classes}}\n\n2.4 Operating Environment\n{{operating_environment}}\n\n2.5 Design and Implementation Constraints\n{{constraints}}\n\n2.6 User Documentation\n{{user_documentation}}\n\n2.7 Assumptions and Dependencies\n{{assumptions}}\n\n' },
-        { insert: '3. EXTERNAL INTERFACE REQUIREMENTS\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n3.1 User Interfaces\n{{user_interfaces}}\n\n3.2 Hardware Interfaces\n{{hardware_interfaces}}\n\n3.3 Software Interfaces\n{{software_interfaces}}\n\n3.4 Communications Interfaces\n{{communications_interfaces}}\n\n' },
+        {
+          insert:
+            '\n2.1 Product Perspective\n{{product_perspective}}\n\n2.2 Product Functions\n{{product_functions}}\n\n2.3 User Classes and Characteristics\n{{user_classes}}\n\n2.4 Operating Environment\n{{operating_environment}}\n\n2.5 Design and Implementation Constraints\n{{constraints}}\n\n2.6 User Documentation\n{{user_documentation}}\n\n2.7 Assumptions and Dependencies\n{{assumptions}}\n\n',
+        },
+        {
+          insert: '3. EXTERNAL INTERFACE REQUIREMENTS\n',
+          attributes: { bold: true, size: 'large' },
+        },
+        {
+          insert:
+            '\n3.1 User Interfaces\n{{user_interfaces}}\n\n3.2 Hardware Interfaces\n{{hardware_interfaces}}\n\n3.3 Software Interfaces\n{{software_interfaces}}\n\n3.4 Communications Interfaces\n{{communications_interfaces}}\n\n',
+        },
         { insert: '4. SYSTEM FEATURES\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{system_features}}\n\n' },
-        { insert: '5. OTHER NONFUNCTIONAL REQUIREMENTS\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n5.1 Performance Requirements\n{{performance}}\n\n5.2 Safety Requirements\n{{safety}}\n\n5.3 Security Requirements\n{{security}}\n\n5.4 Software Quality Attributes\n{{quality}}\n\n5.5 Business Rules\n{{business_rules}}\n\n' },
+        {
+          insert: '5. OTHER NONFUNCTIONAL REQUIREMENTS\n',
+          attributes: { bold: true, size: 'large' },
+        },
+        {
+          insert:
+            '\n5.1 Performance Requirements\n{{performance}}\n\n5.2 Safety Requirements\n{{safety}}\n\n5.3 Security Requirements\n{{security}}\n\n5.4 Software Quality Attributes\n{{quality}}\n\n5.5 Business Rules\n{{business_rules}}\n\n',
+        },
         { insert: '6. OTHER REQUIREMENTS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{other_requirements}}\n\n' },
         { insert: 'APPENDIX A: GLOSSARY\n', attributes: { bold: true } },
@@ -177,17 +289,47 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'intended_audience', type: 'textarea', label: 'Intended Audience', required: true },
       { key: 'project_scope', type: 'textarea', label: 'Project Scope', required: true },
       { key: 'references', type: 'textarea', label: 'References', required: false },
-      { key: 'product_perspective', type: 'textarea', label: 'Product Perspective', required: true },
+      {
+        key: 'product_perspective',
+        type: 'textarea',
+        label: 'Product Perspective',
+        required: true,
+      },
       { key: 'product_functions', type: 'textarea', label: 'Product Functions', required: true },
       { key: 'user_classes', type: 'textarea', label: 'User Classes', required: true },
-      { key: 'operating_environment', type: 'textarea', label: 'Operating Environment', required: true },
+      {
+        key: 'operating_environment',
+        type: 'textarea',
+        label: 'Operating Environment',
+        required: true,
+      },
       { key: 'constraints', type: 'textarea', label: 'Constraints', required: false },
       { key: 'user_documentation', type: 'textarea', label: 'User Documentation', required: false },
-      { key: 'assumptions', type: 'textarea', label: 'Assumptions and Dependencies', required: true },
+      {
+        key: 'assumptions',
+        type: 'textarea',
+        label: 'Assumptions and Dependencies',
+        required: true,
+      },
       { key: 'user_interfaces', type: 'textarea', label: 'User Interfaces', required: true },
-      { key: 'hardware_interfaces', type: 'textarea', label: 'Hardware Interfaces', required: false },
-      { key: 'software_interfaces', type: 'textarea', label: 'Software Interfaces', required: true },
-      { key: 'communications_interfaces', type: 'textarea', label: 'Communications Interfaces', required: false },
+      {
+        key: 'hardware_interfaces',
+        type: 'textarea',
+        label: 'Hardware Interfaces',
+        required: false,
+      },
+      {
+        key: 'software_interfaces',
+        type: 'textarea',
+        label: 'Software Interfaces',
+        required: true,
+      },
+      {
+        key: 'communications_interfaces',
+        type: 'textarea',
+        label: 'Communications Interfaces',
+        required: false,
+      },
       { key: 'system_features', type: 'textarea', label: 'System Features', required: true },
       { key: 'performance', type: 'textarea', label: 'Performance Requirements', required: true },
       { key: 'safety', type: 'textarea', label: 'Safety Requirements', required: false },
@@ -200,7 +342,11 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'tbd_list', type: 'textarea', label: 'TBD List', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'User Manual',
@@ -218,9 +364,15 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
         { insert: 'TABLE OF CONTENTS\n', attributes: { bold: true } },
         { insert: '{{table_of_contents}}\n\n' },
         { insert: '1. INTRODUCTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n1.1 About This Manual\n{{about_manual}}\n\n1.2 Product Overview\n{{product_overview}}\n\n1.3 System Requirements\n{{system_requirements}}\n\n' },
+        {
+          insert:
+            '\n1.1 About This Manual\n{{about_manual}}\n\n1.2 Product Overview\n{{product_overview}}\n\n1.3 System Requirements\n{{system_requirements}}\n\n',
+        },
         { insert: '2. GETTING STARTED\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n2.1 Installation\n{{installation}}\n\n2.2 Initial Setup\n{{initial_setup}}\n\n2.3 Quick Start Guide\n{{quick_start}}\n\n' },
+        {
+          insert:
+            '\n2.1 Installation\n{{installation}}\n\n2.2 Initial Setup\n{{initial_setup}}\n\n2.3 Quick Start Guide\n{{quick_start}}\n\n',
+        },
         { insert: '3. FEATURES AND FUNCTIONS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{features}}\n\n' },
         { insert: '4. USER INTERFACE\n', attributes: { bold: true, size: 'large' } },
@@ -232,9 +384,14 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
         { insert: '7. FAQ\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{faq}}\n\n' },
         { insert: '8. SUPPORT\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nContact: {{support_contact}}\nWebsite: {{support_website}}\nEmail: {{support_email}}\n\n' },
+        {
+          insert:
+            '\nContact: {{support_contact}}\nWebsite: {{support_website}}\nEmail: {{support_email}}\n\n',
+        },
         { insert: 'APPENDIX\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\nA. Keyboard Shortcuts\n{{keyboard_shortcuts}}\n\nB. Glossary\n{{glossary}}\n' },
+        {
+          insert: '\nA. Keyboard Shortcuts\n{{keyboard_shortcuts}}\n\nB. Glossary\n{{glossary}}\n',
+        },
       ],
     },
     placeholders: [
@@ -243,7 +400,12 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'table_of_contents', type: 'textarea', label: 'Table of Contents', required: false },
       { key: 'about_manual', type: 'textarea', label: 'About This Manual', required: true },
       { key: 'product_overview', type: 'textarea', label: 'Product Overview', required: true },
-      { key: 'system_requirements', type: 'textarea', label: 'System Requirements', required: true },
+      {
+        key: 'system_requirements',
+        type: 'textarea',
+        label: 'System Requirements',
+        required: true,
+      },
       { key: 'installation', type: 'textarea', label: 'Installation Instructions', required: true },
       { key: 'initial_setup', type: 'textarea', label: 'Initial Setup', required: true },
       { key: 'quick_start', type: 'textarea', label: 'Quick Start Guide', required: true },
@@ -259,7 +421,11 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'glossary', type: 'textarea', label: 'Glossary', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'System Design Document',
@@ -273,15 +439,30 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     content: {
       ops: [
         { insert: 'SYSTEM DESIGN DOCUMENT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n' },
+        {
+          insert:
+            '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\nAuthor: {{author}}\n\n',
+        },
         { insert: '1. INTRODUCTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 Overview\n{{overview}}\n\n' },
+        {
+          insert:
+            '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 Overview\n{{overview}}\n\n',
+        },
         { insert: '2. SYSTEM ARCHITECTURE\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n2.1 Architecture Overview\n{{architecture_overview}}\n\n2.2 Component Diagram\n{{component_diagram}}\n\n2.3 Deployment Diagram\n{{deployment_diagram}}\n\n' },
+        {
+          insert:
+            '\n2.1 Architecture Overview\n{{architecture_overview}}\n\n2.2 Component Diagram\n{{component_diagram}}\n\n2.3 Deployment Diagram\n{{deployment_diagram}}\n\n',
+        },
         { insert: '3. DATA DESIGN\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n3.1 Data Model\n{{data_model}}\n\n3.2 Database Design\n{{database_design}}\n\n3.3 Data Flow\n{{data_flow}}\n\n' },
+        {
+          insert:
+            '\n3.1 Data Model\n{{data_model}}\n\n3.2 Database Design\n{{database_design}}\n\n3.3 Data Flow\n{{data_flow}}\n\n',
+        },
         { insert: '4. INTERFACE DESIGN\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n4.1 User Interface Design\n{{ui_design}}\n\n4.2 API Design\n{{api_design}}\n\n4.3 External Interfaces\n{{external_interfaces}}\n\n' },
+        {
+          insert:
+            '\n4.1 User Interface Design\n{{ui_design}}\n\n4.2 API Design\n{{api_design}}\n\n4.3 External Interfaces\n{{external_interfaces}}\n\n',
+        },
         { insert: '5. COMPONENT DESIGN\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{component_design}}\n\n' },
         { insert: '6. SECURITY DESIGN\n', attributes: { bold: true, size: 'large' } },
@@ -304,15 +485,35 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'purpose', type: 'textarea', label: 'Purpose', required: true },
       { key: 'scope', type: 'textarea', label: 'Scope', required: true },
       { key: 'overview', type: 'textarea', label: 'Overview', required: true },
-      { key: 'architecture_overview', type: 'textarea', label: 'Architecture Overview', required: true },
-      { key: 'component_diagram', type: 'textarea', label: 'Component Diagram Description', required: true },
-      { key: 'deployment_diagram', type: 'textarea', label: 'Deployment Diagram Description', required: true },
+      {
+        key: 'architecture_overview',
+        type: 'textarea',
+        label: 'Architecture Overview',
+        required: true,
+      },
+      {
+        key: 'component_diagram',
+        type: 'textarea',
+        label: 'Component Diagram Description',
+        required: true,
+      },
+      {
+        key: 'deployment_diagram',
+        type: 'textarea',
+        label: 'Deployment Diagram Description',
+        required: true,
+      },
       { key: 'data_model', type: 'textarea', label: 'Data Model', required: true },
       { key: 'database_design', type: 'textarea', label: 'Database Design', required: true },
       { key: 'data_flow', type: 'textarea', label: 'Data Flow', required: true },
       { key: 'ui_design', type: 'textarea', label: 'UI Design', required: true },
       { key: 'api_design', type: 'textarea', label: 'API Design', required: true },
-      { key: 'external_interfaces', type: 'textarea', label: 'External Interfaces', required: false },
+      {
+        key: 'external_interfaces',
+        type: 'textarea',
+        label: 'External Interfaces',
+        required: false,
+      },
       { key: 'component_design', type: 'textarea', label: 'Component Design', required: true },
       { key: 'security_design', type: 'textarea', label: 'Security Design', required: true },
       { key: 'performance', type: 'textarea', label: 'Performance Considerations', required: true },
@@ -321,7 +522,11 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'revision_history', type: 'textarea', label: 'Revision History', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Test Plan',
@@ -335,9 +540,15 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     content: {
       ops: [
         { insert: 'TEST PLAN\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\nTest Lead: {{test_lead}}\n\n' },
+        {
+          insert:
+            '\nProject: {{project_name}}\nVersion: {{version}}\nDate: {{document_date}}\nTest Lead: {{test_lead}}\n\n',
+        },
         { insert: '1. INTRODUCTION\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 References\n{{references}}\n\n' },
+        {
+          insert:
+            '\n1.1 Purpose\n{{purpose}}\n\n1.2 Scope\n{{scope}}\n\n1.3 References\n{{references}}\n\n',
+        },
         { insert: '2. TEST ITEMS\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{test_items}}\n\n' },
         { insert: '3. TEST OBJECTIVES\n', attributes: { bold: true, size: 'large' } },
@@ -345,9 +556,15 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
         { insert: '4. TEST APPROACH\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n4.1 Test Levels\n{{test_levels}}\n\n4.2 Test Types\n{{test_types}}\n\n' },
         { insert: '5. ENTRY AND EXIT CRITERIA\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n5.1 Entry Criteria\n{{entry_criteria}}\n\n5.2 Exit Criteria\n{{exit_criteria}}\n\n' },
+        {
+          insert:
+            '\n5.1 Entry Criteria\n{{entry_criteria}}\n\n5.2 Exit Criteria\n{{exit_criteria}}\n\n',
+        },
         { insert: '6. TEST ENVIRONMENT\n', attributes: { bold: true, size: 'large' } },
-        { insert: '\n6.1 Hardware\n{{hardware}}\n\n6.2 Software\n{{software}}\n\n6.3 Test Data\n{{test_data}}\n\n' },
+        {
+          insert:
+            '\n6.1 Hardware\n{{hardware}}\n\n6.2 Software\n{{software}}\n\n6.3 Test Data\n{{test_data}}\n\n',
+        },
         { insert: '7. TEST SCHEDULE\n', attributes: { bold: true, size: 'large' } },
         { insert: '\n{{test_schedule}}\n\n' },
         { insert: '8. TEST DELIVERABLES\n', attributes: { bold: true, size: 'large' } },
@@ -387,10 +604,24 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'defect_management', type: 'textarea', label: 'Defect Management', required: true },
     ],
     signatureFields: [
-      { id: 'test_lead_signature', label: 'Test Lead Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'pm_signature', label: 'Project Manager Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'test_lead_signature',
+        label: 'Test Lead Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'pm_signature',
+        label: 'Project Manager Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Release Notes',
@@ -440,13 +671,22 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'known_issues', type: 'textarea', label: 'Known Issues', required: false },
       { key: 'breaking_changes', type: 'textarea', label: 'Breaking Changes', required: false },
       { key: 'deprecated', type: 'textarea', label: 'Deprecated Features', required: false },
-      { key: 'upgrade_instructions', type: 'textarea', label: 'Upgrade Instructions', required: true },
+      {
+        key: 'upgrade_instructions',
+        type: 'textarea',
+        label: 'Upgrade Instructions',
+        required: true,
+      },
       { key: 'compatibility', type: 'textarea', label: 'Compatibility', required: true },
       { key: 'docs_url', type: 'text', label: 'Documentation URL', required: false },
       { key: 'support_contact', type: 'text', label: 'Support Contact', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Bug Report',
@@ -460,11 +700,17 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
     content: {
       ops: [
         { insert: 'BUG REPORT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nBug ID: {{bug_id}}\nDate Reported: {{report_date}}\nReporter: {{reporter}}\n\n' },
+        {
+          insert:
+            '\nBug ID: {{bug_id}}\nDate Reported: {{report_date}}\nReporter: {{reporter}}\n\n',
+        },
         { insert: 'SUMMARY\n', attributes: { bold: true } },
         { insert: '{{summary}}\n\n' },
         { insert: 'ENVIRONMENT\n', attributes: { bold: true } },
-        { insert: 'Product: {{product}}\nVersion: {{version}}\nPlatform: {{platform}}\nBrowser: {{browser}}\nOS: {{operating_system}}\n\n' },
+        {
+          insert:
+            'Product: {{product}}\nVersion: {{version}}\nPlatform: {{platform}}\nBrowser: {{browser}}\nOS: {{operating_system}}\n\n',
+        },
         { insert: 'SEVERITY\n', attributes: { bold: true } },
         { insert: '{{severity}}\n\n' },
         { insert: 'PRIORITY\n', attributes: { bold: true } },
@@ -499,19 +745,46 @@ export const TECHNICAL_DOCUMENTATION_TEMPLATES = [
       { key: 'platform', type: 'text', label: 'Platform', required: false },
       { key: 'browser', type: 'text', label: 'Browser', required: false },
       { key: 'operating_system', type: 'text', label: 'Operating System', required: true },
-      { key: 'severity', type: 'select', label: 'Severity', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Urgent', 'High', 'Medium', 'Low'] },
-      { key: 'status', type: 'select', label: 'Status', required: true, options: ['New', 'Open', 'In Progress', 'Resolved', 'Closed', 'Reopened'] },
+      {
+        key: 'severity',
+        type: 'select',
+        label: 'Severity',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Urgent', 'High', 'Medium', 'Low'],
+      },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Status',
+        required: true,
+        options: ['New', 'Open', 'In Progress', 'Resolved', 'Closed', 'Reopened'],
+      },
       { key: 'steps_to_reproduce', type: 'textarea', label: 'Steps to Reproduce', required: true },
       { key: 'expected_behavior', type: 'textarea', label: 'Expected Behavior', required: true },
       { key: 'actual_behavior', type: 'textarea', label: 'Actual Behavior', required: true },
       { key: 'attachments', type: 'textarea', label: 'Screenshots/Logs', required: false },
-      { key: 'additional_info', type: 'textarea', label: 'Additional Information', required: false },
+      {
+        key: 'additional_info',
+        type: 'textarea',
+        label: 'Additional Information',
+        required: false,
+      },
       { key: 'assigned_to', type: 'text', label: 'Assigned To', required: false },
       { key: 'resolution', type: 'textarea', label: 'Resolution', required: false },
       { key: 'comments', type: 'textarea', label: 'Comments', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

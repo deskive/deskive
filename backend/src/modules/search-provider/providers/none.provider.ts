@@ -35,17 +35,11 @@ export class NoneSearchProvider implements SearchProvider {
     ]);
   }
 
-  async indexDocument(
-    _collection: string,
-    _document: SearchableDocument,
-  ): Promise<void> {
+  async indexDocument(_collection: string, _document: SearchableDocument): Promise<void> {
     return this.fail('indexDocument');
   }
 
-  async indexBatch(
-    _collection: string,
-    _documents: SearchableDocument[],
-  ): Promise<void> {
+  async indexBatch(_collection: string, _documents: SearchableDocument[]): Promise<void> {
     return this.fail('indexBatch');
   }
 
@@ -60,10 +54,7 @@ export class NoneSearchProvider implements SearchProvider {
     return this.fail('search');
   }
 
-  async reindex(
-    _collection: string,
-    _source: AsyncIterable<SearchableDocument>,
-  ): Promise<number> {
+  async reindex(_collection: string, _source: AsyncIterable<SearchableDocument>): Promise<number> {
     return this.fail('reindex');
   }
 }

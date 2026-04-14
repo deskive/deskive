@@ -8,7 +8,7 @@ import {
   Param,
   HttpStatus,
   HttpCode,
-  BadRequestException
+  BadRequestException,
 } from '@nestjs/common';
 import {
   ApiTags,
@@ -16,7 +16,7 @@ import {
   ApiBearerAuth,
   ApiResponse,
   ApiQuery,
-  ApiBody
+  ApiBody,
 } from '@nestjs/swagger';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -63,7 +63,7 @@ import {
   AIWorkoutResponse,
   AIMealPlanResponse,
   AIHistoryResponse,
-  AIUsageStats
+  AIUsageStats,
 } from './dto';
 
 // Travel DTO - removed since travel module doesn't exist
@@ -86,7 +86,8 @@ export class AIController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Process command with AI assistant',
-    description: 'Intelligently routes natural language commands to the appropriate specialized agent (projects, tasks, notes, calendar, files, or chat)',
+    description:
+      'Intelligently routes natural language commands to the appropriate specialized agent (projects, tasks, notes, calendar, files, or chat)',
   })
   @ApiBody({
     schema: {
@@ -132,28 +133,32 @@ export class AIController {
    */
   @Post('generate-text')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate text content',
-    description: 'Generate various types of text content including blog posts, social media, emails, articles, and more'
+    description:
+      'Generate various types of text content including blog posts, social media, emails, articles, and more',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Text generated successfully', 
-    type: AITextResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Text generated successfully',
+    type: AITextResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  @ApiResponse({ 
-    status: HttpStatus.TOO_MANY_REQUESTS, 
-    description: 'Rate limit exceeded' 
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Rate limit exceeded',
   })
-  async generateText(@Body() dto: GenerateTextDto, @CurrentUser('sub') userId: string): Promise<AITextResponse> {
+  async generateText(
+    @Body() dto: GenerateTextDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AITextResponse> {
     return await this.aiService.generateText(userId, dto);
   }
 
@@ -164,24 +169,25 @@ export class AIController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Generate email suggestions',
-    description: 'Generate multiple email body suggestions for composing new emails or replying to existing ones'
+    description:
+      'Generate multiple email body suggestions for composing new emails or replying to existing ones',
   })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Email suggestions generated successfully',
-    type: EmailSuggestionResponseDto
+    type: EmailSuggestionResponseDto,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid request parameters'
+    description: 'Invalid request parameters',
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
-    description: 'Authentication required'
+    description: 'Authentication required',
   })
   async generateEmailSuggestions(
     @Body() dto: GenerateEmailSuggestionsDto,
-    @CurrentUser('sub') userId: string
+    @CurrentUser('sub') userId: string,
   ): Promise<EmailSuggestionResponseDto> {
     return await this.aiService.generateEmailSuggestions(userId, dto);
   }
@@ -190,24 +196,24 @@ export class AIController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Generate smart replies',
-    description: 'Generate short, one-line smart reply suggestions for quick email responses'
+    description: 'Generate short, one-line smart reply suggestions for quick email responses',
   })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Smart replies generated successfully',
-    type: SmartReplyResponseDto
+    type: SmartReplyResponseDto,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid request parameters'
+    description: 'Invalid request parameters',
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
-    description: 'Authentication required'
+    description: 'Authentication required',
   })
   async generateSmartReplies(
     @Body() dto: GenerateSmartRepliesDto,
-    @CurrentUser('sub') userId: string
+    @CurrentUser('sub') userId: string,
   ): Promise<SmartReplyResponseDto> {
     return await this.aiService.generateSmartReplies(userId, dto);
   }
@@ -219,24 +225,25 @@ export class AIController {
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Generate description suggestions',
-    description: 'Generate multiple description suggestions for tasks, projects, events, or meetings based on title'
+    description:
+      'Generate multiple description suggestions for tasks, projects, events, or meetings based on title',
   })
   @ApiResponse({
     status: HttpStatus.OK,
     description: 'Description suggestions generated successfully',
-    type: DescriptionSuggestionResponseDto
+    type: DescriptionSuggestionResponseDto,
   })
   @ApiResponse({
     status: HttpStatus.BAD_REQUEST,
-    description: 'Invalid request parameters'
+    description: 'Invalid request parameters',
   })
   @ApiResponse({
     status: HttpStatus.UNAUTHORIZED,
-    description: 'Authentication required'
+    description: 'Authentication required',
   })
   async generateDescriptionSuggestions(
     @Body() dto: GenerateDescriptionSuggestionsDto,
-    @CurrentUser('sub') userId: string
+    @CurrentUser('sub') userId: string,
   ): Promise<DescriptionSuggestionResponseDto> {
     return await this.aiService.generateDescriptionSuggestions(userId, dto);
   }
@@ -246,28 +253,32 @@ export class AIController {
    */
   @Post('generate-image')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate images',
-    description: 'Generate AI images including artwork, logos, illustrations, and more with customizable styles and parameters'
+    description:
+      'Generate AI images including artwork, logos, illustrations, and more with customizable styles and parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Image generated successfully', 
-    type: AIImageResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Image generated successfully',
+    type: AIImageResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  @ApiResponse({ 
-    status: HttpStatus.TOO_MANY_REQUESTS, 
-    description: 'Rate limit exceeded' 
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Rate limit exceeded',
   })
-  async generateImage(@Body() dto: GenerateImageDto, @CurrentUser('sub') userId: string): Promise<AIImageResponse> {
+  async generateImage(
+    @Body() dto: GenerateImageDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIImageResponse> {
     return await this.aiService.generateImage(userId, dto);
   }
 
@@ -276,28 +287,32 @@ export class AIController {
    */
   @Post('generate-video')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate videos',
-    description: 'Generate AI videos including animations, timelapses, cinematic scenes with customizable duration, style, and motion parameters. Returns the video URL directly.'
+    description:
+      'Generate AI videos including animations, timelapses, cinematic scenes with customizable duration, style, and motion parameters. Returns the video URL directly.',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Video generated successfully', 
-    type: AIVideoResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Video generated successfully',
+    type: AIVideoResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  @ApiResponse({ 
-    status: HttpStatus.TOO_MANY_REQUESTS, 
-    description: 'Rate limit exceeded' 
+  @ApiResponse({
+    status: HttpStatus.TOO_MANY_REQUESTS,
+    description: 'Rate limit exceeded',
   })
-  async generateVideo(@Body() dto: GenerateVideoDto, @CurrentUser('sub') userId: string): Promise<AIVideoResponse> {
+  async generateVideo(
+    @Body() dto: GenerateVideoDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIVideoResponse> {
     return await this.aiService.generateVideo(userId, dto);
   }
 
@@ -306,24 +321,28 @@ export class AIController {
    */
   @Post('generate-code')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate code',
-    description: 'Generate code in various programming languages with support for different frameworks, patterns, and complexity levels'
+    description:
+      'Generate code in various programming languages with support for different frameworks, patterns, and complexity levels',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Code generated successfully', 
-    type: AICodeResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Code generated successfully',
+    type: AICodeResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  async generateCode(@Body() dto: GenerateCodeDto, @CurrentUser('sub') userId: string): Promise<AICodeResponse> {
+  async generateCode(
+    @Body() dto: GenerateCodeDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AICodeResponse> {
     return await this.aiService.generateCode(userId, dto);
   }
 
@@ -332,40 +351,44 @@ export class AIController {
    */
   @Post('translate')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Translate text',
-    description: 'Translate text between different languages with context-aware translation and style options'
+    description:
+      'Translate text between different languages with context-aware translation and style options',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Text translated successfully', 
-    type: AITranslationResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Text translated successfully',
+    type: AITranslationResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  async translateText(@Body() dto: TranslateTextDto, @CurrentUser('sub') userId: string): Promise<AITranslationResponse> {
+  async translateText(
+    @Body() dto: TranslateTextDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AITranslationResponse> {
     return await this.aiService.translateText(userId, dto);
   }
 
   @Post('translate-batch')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Batch translate multiple texts',
-    description: 'Translate multiple text items in a single request for efficiency'
+    description: 'Translate multiple text items in a single request for efficiency',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Batch translation completed successfully'
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Batch translation completed successfully',
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
   async batchTranslate(@Body() dto: BatchTranslateDto, @CurrentUser('sub') userId: string) {
     const results = [];
@@ -396,41 +419,45 @@ export class AIController {
    */
   @Post('summarize')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Summarize content',
-    description: 'Generate summaries of various content types with customizable length and focus areas'
+    description:
+      'Generate summaries of various content types with customizable length and focus areas',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Content summarized successfully', 
-    type: AISummaryResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Content summarized successfully',
+    type: AISummaryResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  async summarizeContent(@Body() dto: SummarizeContentDto, @CurrentUser('sub') userId: string): Promise<AISummaryResponse> {
+  async summarizeContent(
+    @Body() dto: SummarizeContentDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AISummaryResponse> {
     return await this.aiService.summarizeContent(userId, dto);
   }
 
   @Post('summarize-url')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Summarize content from URL',
-    description: 'Fetch and summarize content from a given URL'
+    description: 'Fetch and summarize content from a given URL',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'URL content summarized successfully', 
-    type: AISummaryResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'URL content summarized successfully',
+    type: AISummaryResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid URL or content could not be fetched' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid URL or content could not be fetched',
   })
   async summarizeUrl(@Body() dto: SummarizeUrlDto, @CurrentUser('sub') userId: string) {
     // This would need URL content fetching logic
@@ -443,37 +470,40 @@ export class AIController {
    */
   @Post('chat')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'AI chat conversation',
-    description: 'Engage in AI-powered conversations with customizable personality and context'
+    description: 'Engage in AI-powered conversations with customizable personality and context',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Chat response generated successfully', 
-    type: AIChatResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Chat response generated successfully',
+    type: AIChatResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
   })
-  async createChat(@Body() dto: CreateChatDto, @CurrentUser('sub') userId: string): Promise<AIChatResponse> {
+  async createChat(
+    @Body() dto: CreateChatDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIChatResponse> {
     return await this.aiService.createChat(userId, dto);
   }
 
   @Post('chat-history')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Continue chat with history',
-    description: 'Continue a conversation by providing the full message history'
+    description: 'Continue a conversation by providing the full message history',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Chat response with history generated successfully', 
-    type: AIChatResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Chat response with history generated successfully',
+    type: AIChatResponse,
   })
   async chatWithHistory(@Body() dto: ChatHistoryDto, @CurrentUser('sub') userId: string) {
     // Convert ChatHistoryDto to CreateChatDto format
@@ -491,9 +521,9 @@ export class AIController {
   }
 
   @Get('chat-sessions')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get chat sessions',
-    description: 'Retrieve user\'s chat sessions with pagination and filtering'
+    description: "Retrieve user's chat sessions with pagination and filtering",
   })
   @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number' })
   @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page' })
@@ -504,9 +534,9 @@ export class AIController {
   }
 
   @Get('chat-sessions/:sessionId')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get specific chat session',
-    description: 'Retrieve a specific chat session with its message history'
+    description: 'Retrieve a specific chat session with its message history',
   })
   async getChatSession(@Param('sessionId') sessionId: string, @CurrentUser('sub') userId: string) {
     // This would need implementation in the service
@@ -518,36 +548,41 @@ export class AIController {
    */
   @Post('recipe')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate recipes',
-    description: 'Generate detailed recipes with ingredients, instructions, and nutritional information'
+    description:
+      'Generate detailed recipes with ingredients, instructions, and nutritional information',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Recipe generated successfully', 
-    type: AIRecipeResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Recipe generated successfully',
+    type: AIRecipeResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  async generateRecipe(@Body() dto: GenerateRecipeDto, @CurrentUser('sub') userId: string): Promise<AIRecipeResponse> {
+  async generateRecipe(
+    @Body() dto: GenerateRecipeDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIRecipeResponse> {
     return await this.aiService.generateRecipe(userId, dto);
   }
 
   @Post('travel-plan')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate travel plans',
-    description: 'Create comprehensive travel itineraries with accommodations, activities, and recommendations'
+    description:
+      'Create comprehensive travel itineraries with accommodations, activities, and recommendations',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Travel plan generated successfully'
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Travel plan generated successfully',
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
   // Travel plan functionality disabled - requires travel module
   async generateTravelPlan(@Body() dto: any, @CurrentUser('sub') userId: string) {
@@ -556,39 +591,46 @@ export class AIController {
 
   @Post('workout-plan')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate workout plans',
-    description: 'Create personalized workout routines based on fitness goals and preferences'
+    description: 'Create personalized workout routines based on fitness goals and preferences',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Workout plan generated successfully', 
-    type: AIWorkoutResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Workout plan generated successfully',
+    type: AIWorkoutResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  async generateWorkoutPlan(@Body() dto: GenerateWorkoutPlanDto, @CurrentUser('sub') userId: string): Promise<AIWorkoutResponse> {
+  async generateWorkoutPlan(
+    @Body() dto: GenerateWorkoutPlanDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIWorkoutResponse> {
     return await this.aiService.generateWorkoutPlan(userId, dto);
   }
 
   @Post('meal-plan')
   @HttpCode(HttpStatus.OK)
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Generate meal plans',
-    description: 'Create detailed meal plans with recipes and grocery lists based on dietary preferences'
+    description:
+      'Create detailed meal plans with recipes and grocery lists based on dietary preferences',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Meal plan generated successfully', 
-    type: AIMealPlanResponse 
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Meal plan generated successfully',
+    type: AIMealPlanResponse,
   })
-  @ApiResponse({ 
-    status: HttpStatus.BAD_REQUEST, 
-    description: 'Invalid request parameters' 
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: 'Invalid request parameters',
   })
-  async generateMealPlan(@Body() dto: GenerateMealPlanDto, @CurrentUser('sub') userId: string): Promise<AIMealPlanResponse> {
+  async generateMealPlan(
+    @Body() dto: GenerateMealPlanDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIMealPlanResponse> {
     return await this.aiService.generateMealPlan(userId, dto);
   }
 
@@ -596,53 +638,135 @@ export class AIController {
    * History and Analytics Endpoints
    */
   @Get('history')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get AI generation history',
-    description: 'Retrieve user\'s AI generation history with filtering and pagination'
+    description: "Retrieve user's AI generation history with filtering and pagination",
   })
-  @ApiQuery({ name: 'page', required: false, type: Number, description: 'Page number (default: 1)' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Items per page (default: 10, max: 100)' })
-  @ApiQuery({ name: 'service_type', required: false, enum: ['text_generation', 'image_generation', 'code_generation', 'translation', 'summarization', 'chat', 'recipe', 'travel_plan', 'workout_plan', 'meal_plan'], description: 'Filter by AI service type' })
+  @ApiQuery({
+    name: 'page',
+    required: false,
+    type: Number,
+    description: 'Page number (default: 1)',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Items per page (default: 10, max: 100)',
+  })
+  @ApiQuery({
+    name: 'service_type',
+    required: false,
+    enum: [
+      'text_generation',
+      'image_generation',
+      'code_generation',
+      'translation',
+      'summarization',
+      'chat',
+      'recipe',
+      'travel_plan',
+      'workout_plan',
+      'meal_plan',
+    ],
+    description: 'Filter by AI service type',
+  })
   @ApiQuery({ name: 'search', required: false, type: String, description: 'Search in prompts' })
-  @ApiQuery({ name: 'date_from', required: false, type: String, description: 'Start date (ISO 8601)' })
+  @ApiQuery({
+    name: 'date_from',
+    required: false,
+    type: String,
+    description: 'Start date (ISO 8601)',
+  })
   @ApiQuery({ name: 'date_to', required: false, type: String, description: 'End date (ISO 8601)' })
-  @ApiQuery({ name: 'sort_order', required: false, enum: ['asc', 'desc'], description: 'Sort order (default: desc)' })
-  @ApiQuery({ name: 'include_preview', required: false, type: Boolean, description: 'Include content preview (default: true)' })
-  @ApiQuery({ name: 'include_usage', required: false, type: Boolean, description: 'Include usage stats (default: false)' })
-  @ApiQuery({ name: 'include_metadata', required: false, type: Boolean, description: 'Include metadata (default: false)' })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'AI generation history retrieved successfully', 
-    type: AIHistoryResponse 
+  @ApiQuery({
+    name: 'sort_order',
+    required: false,
+    enum: ['asc', 'desc'],
+    description: 'Sort order (default: desc)',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiQuery({
+    name: 'include_preview',
+    required: false,
+    type: Boolean,
+    description: 'Include content preview (default: true)',
   })
-  async getHistory(@Query() query: AIQueryDto, @CurrentUser('sub') userId: string): Promise<AIHistoryResponse> {
+  @ApiQuery({
+    name: 'include_usage',
+    required: false,
+    type: Boolean,
+    description: 'Include usage stats (default: false)',
+  })
+  @ApiQuery({
+    name: 'include_metadata',
+    required: false,
+    type: Boolean,
+    description: 'Include metadata (default: false)',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'AI generation history retrieved successfully',
+    type: AIHistoryResponse,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
+  })
+  async getHistory(
+    @Query() query: AIQueryDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIHistoryResponse> {
     return await this.aiService.getHistory(userId, query);
   }
 
   @Get('usage')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get usage statistics',
-    description: 'Retrieve user\'s AI service usage statistics and limits'
+    description: "Retrieve user's AI service usage statistics and limits",
   })
-  @ApiQuery({ name: 'period', required: false, enum: ['daily', 'weekly', 'monthly', 'yearly', 'all_time'], description: 'Usage period (default: monthly)' })
-  @ApiQuery({ name: 'start_date', required: false, type: String, description: 'Custom start date (ISO 8601)' })
-  @ApiQuery({ name: 'end_date', required: false, type: String, description: 'Custom end date (ISO 8601)' })
-  @ApiQuery({ name: 'detailed', required: false, type: Boolean, description: 'Include detailed breakdown (default: false)' })
-  @ApiQuery({ name: 'include_costs', required: false, type: Boolean, description: 'Include cost information (default: false)' })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Usage statistics retrieved successfully', 
-    type: AIUsageStats 
+  @ApiQuery({
+    name: 'period',
+    required: false,
+    enum: ['daily', 'weekly', 'monthly', 'yearly', 'all_time'],
+    description: 'Usage period (default: monthly)',
   })
-  @ApiResponse({ 
-    status: HttpStatus.UNAUTHORIZED, 
-    description: 'Authentication required' 
+  @ApiQuery({
+    name: 'start_date',
+    required: false,
+    type: String,
+    description: 'Custom start date (ISO 8601)',
   })
-  async getUsageStats(@Query() query: AIUsageQueryDto, @CurrentUser('sub') userId: string): Promise<AIUsageStats> {
+  @ApiQuery({
+    name: 'end_date',
+    required: false,
+    type: String,
+    description: 'Custom end date (ISO 8601)',
+  })
+  @ApiQuery({
+    name: 'detailed',
+    required: false,
+    type: Boolean,
+    description: 'Include detailed breakdown (default: false)',
+  })
+  @ApiQuery({
+    name: 'include_costs',
+    required: false,
+    type: Boolean,
+    description: 'Include cost information (default: false)',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Usage statistics retrieved successfully',
+    type: AIUsageStats,
+  })
+  @ApiResponse({
+    status: HttpStatus.UNAUTHORIZED,
+    description: 'Authentication required',
+  })
+  async getUsageStats(
+    @Query() query: AIUsageQueryDto,
+    @CurrentUser('sub') userId: string,
+  ): Promise<AIUsageStats> {
     return await this.aiService.getUsageStats(userId, query);
   }
 
@@ -650,13 +774,13 @@ export class AIController {
    * Health Check and Info Endpoints
    */
   @Get('health')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'AI service health check',
-    description: 'Check the health and availability of AI services'
+    description: 'Check the health and availability of AI services',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'AI services are healthy'
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'AI services are healthy',
   })
   async healthCheck() {
     return {
@@ -676,13 +800,13 @@ export class AIController {
   }
 
   @Get('models')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get available AI models',
-    description: 'List all available AI models and their capabilities'
+    description: 'List all available AI models and their capabilities',
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'Available models retrieved successfully'
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Available models retrieved successfully',
   })
   async getAvailableModels() {
     return {
@@ -735,13 +859,13 @@ export class AIController {
   }
 
   @Get('limits')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get user limits and quotas',
-    description: 'Get current user\'s AI service limits and remaining quotas'
+    description: "Get current user's AI service limits and remaining quotas",
   })
-  @ApiResponse({ 
-    status: HttpStatus.OK, 
-    description: 'User limits retrieved successfully'
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'User limits retrieved successfully',
   })
   async getUserLimits(@CurrentUser('sub') userId: string) {
     const usage = await this.aiService.getUsageStats(userId, { period: UsagePeriod.MONTHLY });

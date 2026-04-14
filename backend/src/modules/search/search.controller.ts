@@ -1,5 +1,23 @@
-import { Controller, Get, Query, UseGuards, Param, Delete, Body, Post, Put, Req } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Query,
+  UseGuards,
+  Param,
+  Delete,
+  Body,
+  Post,
+  Put,
+  Req,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { Request } from 'express';
 import { SearchService } from './search.service';
 import { SemanticSearchService, IndexableContentType } from './semantic-search.service';
@@ -13,7 +31,7 @@ import {
   CreateSavedSearchDto,
   UpdateSavedSearchDto,
   ShareSavedSearchDto,
-  SavedSearchResponseDto
+  SavedSearchResponseDto,
 } from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
@@ -61,7 +79,7 @@ export class SearchController {
   @ApiResponse({
     status: 200,
     description: 'Recent search history',
-    type: [SearchHistoryResponseDto]
+    type: [SearchHistoryResponseDto],
   })
   async getRecentSearches(
     @Param('workspaceId') workspaceId: string,
@@ -102,7 +120,7 @@ export class SearchController {
   @ApiResponse({
     status: 201,
     description: 'Search saved successfully',
-    type: SavedSearchResponseDto
+    type: SavedSearchResponseDto,
   })
   async createSavedSearch(
     @Param('workspaceId') workspaceId: string,
@@ -113,7 +131,7 @@ export class SearchController {
     // Use raw request body to preserve resultsSnapshot
     const data = {
       ...dto,
-      resultsSnapshot: (req.body as any).resultsSnapshot || dto.resultsSnapshot
+      resultsSnapshot: (req.body as any).resultsSnapshot || dto.resultsSnapshot,
     };
     return this.searchService.createSavedSearch(workspaceId, userId, data);
   }
@@ -124,7 +142,7 @@ export class SearchController {
   @ApiResponse({
     status: 200,
     description: 'List of saved searches',
-    type: [SavedSearchResponseDto]
+    type: [SavedSearchResponseDto],
   })
   async getSavedSearches(
     @Param('workspaceId') workspaceId: string,
@@ -139,7 +157,7 @@ export class SearchController {
   @ApiResponse({
     status: 200,
     description: 'List of shared saved searches',
-    type: [SavedSearchResponseDto]
+    type: [SavedSearchResponseDto],
   })
   async getSharedSavedSearches(
     @Param('workspaceId') workspaceId: string,
@@ -155,7 +173,7 @@ export class SearchController {
   @ApiResponse({
     status: 200,
     description: 'Saved search details',
-    type: SavedSearchResponseDto
+    type: SavedSearchResponseDto,
   })
   async getSavedSearchById(
     @Param('workspaceId') workspaceId: string,
@@ -212,7 +230,12 @@ export class SearchController {
   @ApiOperation({ summary: 'Semantic search using AI embeddings' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiQuery({ name: 'q', description: 'Search query', required: true })
-  @ApiQuery({ name: 'types', description: 'Content types to search (comma-separated: note,message,file,task,meeting_transcript)', required: false })
+  @ApiQuery({
+    name: 'types',
+    description:
+      'Content types to search (comma-separated: note,message,file,task,meeting_transcript)',
+    required: false,
+  })
   @ApiQuery({ name: 'limit', description: 'Max results', required: false })
   @ApiQuery({ name: 'minScore', description: 'Minimum similarity score (0-1)', required: false })
   @ApiResponse({ status: 200, description: 'Semantic search results' })
@@ -224,9 +247,7 @@ export class SearchController {
     @Query('minScore') minScore?: number,
     @CurrentUser('sub') userId?: string,
   ) {
-    const contentTypes = types
-      ? (types.split(',') as IndexableContentType[])
-      : undefined;
+    const contentTypes = types ? (types.split(',') as IndexableContentType[]) : undefined;
 
     return this.semanticSearchService.search(query, workspaceId, {
       contentTypes,
@@ -239,7 +260,10 @@ export class SearchController {
   @Get('semantic/similar/:contentType/:contentId')
   @ApiOperation({ summary: 'Find similar content using AI embeddings' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiParam({ name: 'contentType', description: 'Content type (note, message, file, task, meeting_transcript)' })
+  @ApiParam({
+    name: 'contentType',
+    description: 'Content type (note, message, file, task, meeting_transcript)',
+  })
   @ApiParam({ name: 'contentId', description: 'Content ID to find similar items for' })
   @ApiQuery({ name: 'limit', description: 'Max results', required: false })
   @ApiResponse({ status: 200, description: 'Similar content results' })
@@ -249,12 +273,7 @@ export class SearchController {
     @Param('contentId') contentId: string,
     @Query('limit') limit?: number,
   ) {
-    return this.semanticSearchService.findSimilar(
-      contentType,
-      contentId,
-      workspaceId,
-      limit || 5,
-    );
+    return this.semanticSearchService.findSimilar(contentType, contentId, workspaceId, limit || 5);
   }
 
   @Get('semantic/stats')
@@ -277,7 +296,8 @@ export class SearchController {
   @ApiResponse({ status: 200, description: 'Content indexed successfully' })
   async indexContent(
     @Param('workspaceId') workspaceId: string,
-    @Body() dto: {
+    @Body()
+    dto: {
       contentType: IndexableContentType;
       contentId: string;
       title?: string;
@@ -310,10 +330,7 @@ export class SearchController {
     @Param('contentType') contentType: IndexableContentType,
     @Param('contentId') contentId: string,
   ) {
-    const success = await this.semanticSearchService.removeContent(
-      contentType,
-      contentId,
-    );
+    const success = await this.semanticSearchService.removeContent(contentType, contentId);
 
     return { success };
   }

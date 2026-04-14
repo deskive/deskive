@@ -115,13 +115,11 @@ describe('TelegramService', () => {
       });
 
       it('should throw BadRequestException for invalid bot token', async () => {
-        nock('https://api.telegram.org')
-          .post('/botinvalid-token/getMe')
-          .reply(401, {
-            ok: false,
-            error_code: 401,
-            description: 'Unauthorized',
-          });
+        nock('https://api.telegram.org').post('/botinvalid-token/getMe').reply(401, {
+          ok: false,
+          error_code: 401,
+          description: 'Unauthorized',
+        });
 
         await expect(
           service.saveConnection(mockUserId, mockWorkspaceId, 'invalid-token'),
@@ -193,13 +191,11 @@ describe('TelegramService', () => {
       });
 
       it('should return failure for invalid token', async () => {
-        nock('https://api.telegram.org')
-          .post('/botinvalid/getMe')
-          .reply(401, {
-            ok: false,
-            error_code: 401,
-            description: 'Unauthorized',
-          });
+        nock('https://api.telegram.org').post('/botinvalid/getMe').reply(401, {
+          ok: false,
+          error_code: 401,
+          description: 'Unauthorized',
+        });
 
         const result = await service.testBotToken('invalid');
 
@@ -231,9 +227,7 @@ describe('TelegramService', () => {
       it('should throw NotFoundException when not connected', async () => {
         deskiveService.findOne.mockResolvedValue(null);
 
-        await expect(service.getMe(mockUserId, mockWorkspaceId)).rejects.toThrow(
-          NotFoundException,
-        );
+        await expect(service.getMe(mockUserId, mockWorkspaceId)).rejects.toThrow(NotFoundException);
       });
     });
   });
@@ -337,13 +331,11 @@ describe('TelegramService', () => {
       });
 
       it('should throw BadRequestException on API error', async () => {
-        nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/sendMessage`)
-          .reply(400, {
-            ok: false,
-            error_code: 400,
-            description: 'Bad Request: chat not found',
-          });
+        nock('https://api.telegram.org').post(`/bot${mockBotToken}/sendMessage`).reply(400, {
+          ok: false,
+          error_code: 400,
+          description: 'Bad Request: chat not found',
+        });
 
         await expect(
           service.sendMessage(mockUserId, mockWorkspaceId, {
@@ -463,9 +455,7 @@ describe('TelegramService', () => {
           },
         };
 
-        nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/getChat`)
-          .reply(200, mockChat);
+        nock('https://api.telegram.org').post(`/bot${mockBotToken}/getChat`).reply(200, mockChat);
 
         const result = await service.getChat(mockUserId, mockWorkspaceId, '111222333');
 
@@ -488,9 +478,7 @@ describe('TelegramService', () => {
           },
         };
 
-        nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/getChat`)
-          .reply(200, mockChat);
+        nock('https://api.telegram.org').post(`/bot${mockBotToken}/getChat`).reply(200, mockChat);
 
         const result = await service.getChat(mockUserId, mockWorkspaceId, '-100123456789');
 
@@ -501,17 +489,15 @@ describe('TelegramService', () => {
       });
 
       it('should throw BadRequestException for invalid chat', async () => {
-        nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/getChat`)
-          .reply(400, {
-            ok: false,
-            error_code: 400,
-            description: 'Bad Request: chat not found',
-          });
+        nock('https://api.telegram.org').post(`/bot${mockBotToken}/getChat`).reply(400, {
+          ok: false,
+          error_code: 400,
+          description: 'Bad Request: chat not found',
+        });
 
-        await expect(
-          service.getChat(mockUserId, mockWorkspaceId, 'invalid'),
-        ).rejects.toThrow(BadRequestException);
+        await expect(service.getChat(mockUserId, mockWorkspaceId, 'invalid')).rejects.toThrow(
+          BadRequestException,
+        );
       });
     });
   });
@@ -524,8 +510,9 @@ describe('TelegramService', () => {
     describe('setWebhook', () => {
       it('should set webhook successfully', async () => {
         nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/setWebhook`, (body) =>
-            body.url === 'https://example.com/webhook'
+          .post(
+            `/bot${mockBotToken}/setWebhook`,
+            (body) => body.url === 'https://example.com/webhook',
           )
           .reply(200, { ok: true, result: true, description: 'Webhook was set' });
 
@@ -563,13 +550,11 @@ describe('TelegramService', () => {
       });
 
       it('should throw BadRequestException on error', async () => {
-        nock('https://api.telegram.org')
-          .post(`/bot${mockBotToken}/setWebhook`)
-          .reply(400, {
-            ok: false,
-            error_code: 400,
-            description: 'Bad Request: bad webhook: HTTPS url must be provided',
-          });
+        nock('https://api.telegram.org').post(`/bot${mockBotToken}/setWebhook`).reply(400, {
+          ok: false,
+          error_code: 400,
+          description: 'Bad Request: bad webhook: HTTPS url must be provided',
+        });
 
         await expect(
           service.setWebhook(mockUserId, mockWorkspaceId, {
@@ -712,13 +697,11 @@ describe('TelegramService', () => {
     });
 
     it('should handle Telegram API error response', async () => {
-      nock('https://api.telegram.org')
-        .post(`/bot${mockBotToken}/sendMessage`)
-        .reply(403, {
-          ok: false,
-          error_code: 403,
-          description: 'Forbidden: bot was blocked by the user',
-        });
+      nock('https://api.telegram.org').post(`/bot${mockBotToken}/sendMessage`).reply(403, {
+        ok: false,
+        error_code: 403,
+        description: 'Forbidden: bot was blocked by the user',
+      });
 
       await expect(
         service.sendMessage(mockUserId, mockWorkspaceId, {

@@ -172,7 +172,9 @@ export class QdrantService implements OnModuleInit {
       } catch (error: any) {
         // Ignore "already exists" errors (race condition between check and create)
         if (error.status === 409 || error.message?.includes('already exists')) {
-          this.logger.log(`[Qdrant] Collection already exists: ${collectionName} (race condition handled)`);
+          this.logger.log(
+            `[Qdrant] Collection already exists: ${collectionName} (race condition handled)`,
+          );
           return;
         }
         throw error;
@@ -439,13 +441,10 @@ export class QdrantService implements OnModuleInit {
     try {
       const embeddings = options?.customEmbeddings || this.langchainEmbeddings;
 
-      const vectorStore = await QdrantVectorStore.fromExistingCollection(
-        embeddings,
-        {
-          url: this.qdrantUrl,
-          collectionName,
-        },
-      );
+      const vectorStore = await QdrantVectorStore.fromExistingCollection(embeddings, {
+        url: this.qdrantUrl,
+        collectionName,
+      });
 
       this.logger.log(`[Qdrant] Created LangChain vector store for: ${collectionName}`);
       return vectorStore;
@@ -472,14 +471,10 @@ export class QdrantService implements OnModuleInit {
     try {
       const embeddings = options?.customEmbeddings || this.langchainEmbeddings;
 
-      const vectorStore = await QdrantVectorStore.fromDocuments(
-        documents,
-        embeddings,
-        {
-          url: this.qdrantUrl,
-          collectionName,
-        },
-      );
+      const vectorStore = await QdrantVectorStore.fromDocuments(documents, embeddings, {
+        url: this.qdrantUrl,
+        collectionName,
+      });
 
       this.logger.log(`[Qdrant] Created LangChain vector store from documents: ${collectionName}`);
       return vectorStore;

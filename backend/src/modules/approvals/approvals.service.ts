@@ -1,4 +1,12 @@
-import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Logger, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ForbiddenException,
+  Logger,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { GoogleSheetsService } from '../integration-framework/google-sheets/google-sheets.service';
@@ -94,7 +102,10 @@ export class ApprovalsService {
     return results.map((r: any) => this.mapRequestType(r));
   }
 
-  async getRequestType(workspaceId: string, requestTypeId: string): Promise<RequestTypeResponseDto> {
+  async getRequestType(
+    workspaceId: string,
+    requestTypeId: string,
+  ): Promise<RequestTypeResponseDto> {
     const result = await this.db
       .table('request_types')
       .select('*')
@@ -126,8 +137,10 @@ export class ApprovalsService {
     if (dto.icon !== undefined) updateData.icon = dto.icon;
     if (dto.color !== undefined) updateData.color = dto.color;
     if (dto.fieldsConfig !== undefined) updateData.fields_config = JSON.stringify(dto.fieldsConfig);
-    if (dto.defaultApprovers !== undefined) updateData.default_approvers = JSON.stringify(dto.defaultApprovers);
-    if (dto.requireAllApprovers !== undefined) updateData.require_all_approvers = dto.requireAllApprovers;
+    if (dto.defaultApprovers !== undefined)
+      updateData.default_approvers = JSON.stringify(dto.defaultApprovers);
+    if (dto.requireAllApprovers !== undefined)
+      updateData.require_all_approvers = dto.requireAllApprovers;
     if (dto.allowAttachments !== undefined) updateData.allow_attachments = dto.allowAttachments;
     if (dto.isActive !== undefined) updateData.is_active = dto.isActive;
 
@@ -173,9 +186,10 @@ export class ApprovalsService {
     const result = await this.db.insert('approval_requests', data);
 
     // Determine approvers
-    const approverIds = dto.approverIds && dto.approverIds.length > 0
-      ? dto.approverIds
-      : requestType.defaultApprovers;
+    const approverIds =
+      dto.approverIds && dto.approverIds.length > 0
+        ? dto.approverIds
+        : requestType.defaultApprovers;
 
     // Create approver records
     for (let i = 0; i < approverIds.length; i++) {
@@ -195,7 +209,8 @@ export class ApprovalsService {
           title: 'New Approval Request',
           message: `You have a new approval request: "${dto.title}"`,
           action_url: `/workspaces/${workspaceId}/approvals/${result.id}`,
-          priority: dto.priority === 'urgent' ? NotificationPriority.HIGH : NotificationPriority.NORMAL,
+          priority:
+            dto.priority === 'urgent' ? NotificationPriority.HIGH : NotificationPriority.NORMAL,
           send_push: true,
           data: {
             category: 'approvals',
@@ -213,9 +228,11 @@ export class ApprovalsService {
     }
 
     // Export to Google Sheets (async, don't block the request)
-    this.exportRequestToGoogleSheets(workspaceId, result.id, requestType, dto, userId).catch(error => {
-      this.logger.warn(`Failed to export request to Google Sheets: ${error.message}`);
-    });
+    this.exportRequestToGoogleSheets(workspaceId, result.id, requestType, dto, userId).catch(
+      (error) => {
+        this.logger.warn(`Failed to export request to Google Sheets: ${error.message}`);
+      },
+    );
 
     // Get the full request with approvers for the response and WebSocket event
     const createdRequest = await this.getApprovalRequest(workspaceId, result.id, userId);
@@ -238,17 +255,23 @@ export class ApprovalsService {
     dto: CreateApprovalRequestDto,
     requesterId: string,
   ): Promise<void> {
-    this.logger.log(`[Google Sheets Export] Starting export for request ${requestId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `[Google Sheets Export] Starting export for request ${requestId} in workspace ${workspaceId}`,
+    );
 
     try {
       // Get any active Google Sheets connection for this workspace
       const connectionResult = await this.googleSheetsService.getWorkspaceConnection(workspaceId);
       if (!connectionResult) {
-        this.logger.log(`[Google Sheets Export] No active Google Sheets connection found for workspace ${workspaceId}, skipping export`);
+        this.logger.log(
+          `[Google Sheets Export] No active Google Sheets connection found for workspace ${workspaceId}, skipping export`,
+        );
         return;
       }
 
-      this.logger.log(`[Google Sheets Export] Found connection for user ${connectionResult.userId}, email: ${connectionResult.connection.googleEmail}`);
+      this.logger.log(
+        `[Google Sheets Export] Found connection for user ${connectionResult.userId}, email: ${connectionResult.connection.googleEmail}`,
+      );
       const connectedUserId = connectionResult.userId;
 
       // Get workspace name for spreadsheet title
@@ -266,12 +289,14 @@ export class ApprovalsService {
 
       if (!spreadsheetId) {
         // Create new spreadsheet
-        this.logger.log(`[Google Sheets Export] Creating new spreadsheet for workspace: ${workspaceName}`);
+        this.logger.log(
+          `[Google Sheets Export] Creating new spreadsheet for workspace: ${workspaceName}`,
+        );
         const spreadsheet = await this.googleSheetsService.createSpreadsheet(
           connectedUserId,
           workspaceId,
           `Deskive Approvals - ${workspaceName}`,
-          ['Sheet1'] // Default sheet, will be renamed or we'll add new sheets
+          ['Sheet1'], // Default sheet, will be renamed or we'll add new sheets
         );
         spreadsheetId = spreadsheet.spreadsheetId;
         this.logger.log(`[Google Sheets Export] Created spreadsheet with ID: ${spreadsheetId}`);
@@ -314,11 +339,14 @@ export class ApprovalsService {
         workspaceId,
         spreadsheetId,
         sheetName,
-        headers
+        headers,
       );
 
       // Prepare row data
-      const customFieldValues = this.getCustomFieldValues(requestType.fieldsConfig || [], dto.data || {});
+      const customFieldValues = this.getCustomFieldValues(
+        requestType.fieldsConfig || [],
+        dto.data || {},
+      );
       const rowData = [
         requestId,
         dto.title,
@@ -339,12 +367,17 @@ export class ApprovalsService {
         workspaceId,
         spreadsheetId,
         sheetName,
-        [rowData]
+        [rowData],
       );
 
-      this.logger.log(`[Google Sheets Export] Successfully exported request ${requestId} to Google Sheets`);
+      this.logger.log(
+        `[Google Sheets Export] Successfully exported request ${requestId} to Google Sheets`,
+      );
     } catch (error) {
-      this.logger.error(`[Google Sheets Export] Failed to export request ${requestId}: ${error.message}`, error.stack);
+      this.logger.error(
+        `[Google Sheets Export] Failed to export request ${requestId}: ${error.message}`,
+        error.stack,
+      );
       // Don't throw - this is a non-critical operation
     }
   }
@@ -366,7 +399,10 @@ export class ApprovalsService {
   /**
    * Save the approval spreadsheet ID for a workspace
    */
-  private async saveApprovalSpreadsheetId(workspaceId: string, spreadsheetId: string): Promise<void> {
+  private async saveApprovalSpreadsheetId(
+    workspaceId: string,
+    spreadsheetId: string,
+  ): Promise<void> {
     // Check if setting exists
     const existing = await this.db
       .table('workspace_settings')
@@ -396,24 +432,26 @@ export class ApprovalsService {
    */
   private sanitizeSheetName(name: string): string {
     // Remove invalid characters and limit length
-    return name
-      .replace(/[\\/*?:[\]]/g, '') // Remove invalid chars
-      .substring(0, 100) // Max 100 chars
-      .trim() || 'Requests';
+    return (
+      name
+        .replace(/[\\/*?:[\]]/g, '') // Remove invalid chars
+        .substring(0, 100) // Max 100 chars
+        .trim() || 'Requests'
+    );
   }
 
   /**
    * Get headers from custom field config
    */
   private getCustomFieldHeaders(fieldsConfig: any[]): string[] {
-    return fieldsConfig.map(field => field.label || field.id);
+    return fieldsConfig.map((field) => field.label || field.id);
   }
 
   /**
    * Get values from custom field data matching the field config order
    */
   private getCustomFieldValues(fieldsConfig: any[], data: Record<string, any>): string[] {
-    return fieldsConfig.map(field => {
+    return fieldsConfig.map((field) => {
       const value = data[field.id];
       if (value === undefined || value === null) return '';
       if (typeof value === 'object') return JSON.stringify(value);
@@ -431,13 +469,17 @@ export class ApprovalsService {
     requestTypeName: string,
     newStatus: RequestStatus,
   ): Promise<void> {
-    this.logger.log(`[Google Sheets Update] Starting status update for request ${requestId} to ${newStatus}`);
+    this.logger.log(
+      `[Google Sheets Update] Starting status update for request ${requestId} to ${newStatus}`,
+    );
 
     try {
       // Get any active Google Sheets connection for this workspace
       const connectionResult = await this.googleSheetsService.getWorkspaceConnection(workspaceId);
       if (!connectionResult) {
-        this.logger.log(`[Google Sheets Update] No active Google Sheets connection found for workspace ${workspaceId}, skipping update`);
+        this.logger.log(
+          `[Google Sheets Update] No active Google Sheets connection found for workspace ${workspaceId}, skipping update`,
+        );
         return;
       }
 
@@ -446,7 +488,9 @@ export class ApprovalsService {
       // Get the approval spreadsheet ID for this workspace
       const spreadsheetId = await this.getApprovalSpreadsheetId(workspaceId);
       if (!spreadsheetId) {
-        this.logger.log(`[Google Sheets Update] No spreadsheet found for workspace ${workspaceId}, skipping update`);
+        this.logger.log(
+          `[Google Sheets Update] No spreadsheet found for workspace ${workspaceId}, skipping update`,
+        );
         return;
       }
 
@@ -461,18 +505,23 @@ export class ApprovalsService {
         sheetName,
         {
           'Request ID': requestId,
-          'Status': newStatus,
+          Status: newStatus,
         },
         {
           columnToMatchOn: 'Request ID',
           valueToMatch: requestId,
           appendIfNotFound: false, // Don't append if not found, just skip
-        }
+        },
       );
 
-      this.logger.log(`[Google Sheets Update] Successfully updated status for request ${requestId} to ${newStatus}`);
+      this.logger.log(
+        `[Google Sheets Update] Successfully updated status for request ${requestId} to ${newStatus}`,
+      );
     } catch (error) {
-      this.logger.error(`[Google Sheets Update] Failed to update status for request ${requestId}: ${error.message}`, error.stack);
+      this.logger.error(
+        `[Google Sheets Update] Failed to update status for request ${requestId}: ${error.message}`,
+        error.stack,
+      );
       // Don't throw - this is a non-critical operation
     }
   }
@@ -675,7 +724,9 @@ export class ApprovalsService {
             request.data.expenseId,
             userId,
           );
-          this.logger.log(`Expense ${request.data.expenseId} approved via approval request ${requestId}`);
+          this.logger.log(
+            `Expense ${request.data.expenseId} approved via approval request ${requestId}`,
+          );
         } catch (error) {
           this.logger.error(`Failed to approve expense ${request.data.expenseId}:`, error);
         }
@@ -712,13 +763,19 @@ export class ApprovalsService {
           requestId,
           request.requestType.name,
           RequestStatus.APPROVED,
-        ).catch(error => {
+        ).catch((error) => {
           this.logger.warn(`Failed to update Google Sheets status: ${error.message}`);
         });
       }
 
       // Emit WebSocket event for real-time status update
-      this.emitApprovalStatusUpdate(workspaceId, requestId, request, RequestStatus.APPROVED, userId);
+      this.emitApprovalStatusUpdate(
+        workspaceId,
+        requestId,
+        request,
+        RequestStatus.APPROVED,
+        userId,
+      );
     }
 
     return this.getApprovalRequest(workspaceId, requestId, userId);
@@ -786,7 +843,9 @@ export class ApprovalsService {
           request.data.expenseId,
           dto.reason,
         );
-        this.logger.log(`Expense ${request.data.expenseId} rejected via approval request ${requestId}`);
+        this.logger.log(
+          `Expense ${request.data.expenseId} rejected via approval request ${requestId}`,
+        );
       } catch (error) {
         this.logger.error(`Failed to reject expense ${request.data.expenseId}:`, error);
       }
@@ -824,13 +883,20 @@ export class ApprovalsService {
         requestId,
         request.requestType.name,
         RequestStatus.REJECTED,
-      ).catch(error => {
+      ).catch((error) => {
         this.logger.warn(`Failed to update Google Sheets status: ${error.message}`);
       });
     }
 
     // Emit WebSocket event for real-time status update
-    this.emitApprovalStatusUpdate(workspaceId, requestId, request, RequestStatus.REJECTED, userId, dto.reason);
+    this.emitApprovalStatusUpdate(
+      workspaceId,
+      requestId,
+      request,
+      RequestStatus.REJECTED,
+      userId,
+      dto.reason,
+    );
 
     return this.getApprovalRequest(workspaceId, requestId, userId);
   }
@@ -892,11 +958,7 @@ export class ApprovalsService {
     return this.getApprovalRequest(workspaceId, requestId, userId);
   }
 
-  async deleteRequest(
-    workspaceId: string,
-    requestId: string,
-    userId: string,
-  ): Promise<void> {
+  async deleteRequest(workspaceId: string, requestId: string, userId: string): Promise<void> {
     const request = await this.getApprovalRequest(workspaceId, requestId, userId);
 
     // Only owners/admins can delete requests
@@ -907,7 +969,9 @@ export class ApprovalsService {
 
     // Can only delete completed requests (approved, rejected, or cancelled)
     if (request.status === RequestStatus.PENDING) {
-      throw new BadRequestException('Cannot delete a pending request. Cancel it first or wait for approval/rejection.');
+      throw new BadRequestException(
+        'Cannot delete a pending request. Cancel it first or wait for approval/rejection.',
+      );
     }
 
     // Delete related comments first
@@ -993,7 +1057,9 @@ export class ApprovalsService {
           },
         });
       } catch (error) {
-        this.logger.warn(`Failed to send comment notification to ${notifyUserId}: ${error.message}`);
+        this.logger.warn(
+          `Failed to send comment notification to ${notifyUserId}: ${error.message}`,
+        );
       }
     }
 
@@ -1071,9 +1137,15 @@ export class ApprovalsService {
 
     // Calculate stats
     const totalRequests = allRequests.length;
-    const pendingRequests = allRequests.filter((r: any) => r.status === RequestStatus.PENDING).length;
-    const approvedRequests = allRequests.filter((r: any) => r.status === RequestStatus.APPROVED).length;
-    const rejectedRequests = allRequests.filter((r: any) => r.status === RequestStatus.REJECTED).length;
+    const pendingRequests = allRequests.filter(
+      (r: any) => r.status === RequestStatus.PENDING,
+    ).length;
+    const approvedRequests = allRequests.filter(
+      (r: any) => r.status === RequestStatus.APPROVED,
+    ).length;
+    const rejectedRequests = allRequests.filter(
+      (r: any) => r.status === RequestStatus.REJECTED,
+    ).length;
     const myRequests = allRequests.filter((r: any) => r.requester_id === userId).length;
 
     // Calculate average approval time
@@ -1120,12 +1192,14 @@ export class ApprovalsService {
       description: data.description,
       icon: data.icon,
       color: data.color,
-      fieldsConfig: typeof data.fields_config === 'string'
-        ? JSON.parse(data.fields_config)
-        : data.fields_config || [],
-      defaultApprovers: typeof data.default_approvers === 'string'
-        ? JSON.parse(data.default_approvers)
-        : data.default_approvers || [],
+      fieldsConfig:
+        typeof data.fields_config === 'string'
+          ? JSON.parse(data.fields_config)
+          : data.fields_config || [],
+      defaultApprovers:
+        typeof data.default_approvers === 'string'
+          ? JSON.parse(data.default_approvers)
+          : data.default_approvers || [],
       requireAllApprovers: data.require_all_approvers,
       allowAttachments: data.allow_attachments,
       isActive: data.is_active,
@@ -1180,9 +1254,10 @@ export class ApprovalsService {
       title: data.title,
       description: data.description,
       data: typeof data.data === 'string' ? JSON.parse(data.data) : data.data || {},
-      attachments: typeof data.attachments === 'string'
-        ? JSON.parse(data.attachments)
-        : data.attachments || [],
+      attachments:
+        typeof data.attachments === 'string'
+          ? JSON.parse(data.attachments)
+          : data.attachments || [],
       status: data.status,
       priority: data.priority,
       dueDate: data.due_date,
@@ -1246,7 +1321,10 @@ export class ApprovalsService {
   /**
    * Get all participant user IDs (requester + approvers) except the given user
    */
-  private getParticipantUserIds(request: ApprovalRequestResponseDto, excludeUserId: string): string[] {
+  private getParticipantUserIds(
+    request: ApprovalRequestResponseDto,
+    excludeUserId: string,
+  ): string[] {
     const userIds = new Set<string>();
 
     // Add requester
@@ -1292,10 +1370,17 @@ export class ApprovalsService {
       // Emit to all participants (requester + approvers)
       const participantIds = this.getParticipantUserIds(request, ''); // Include everyone
 
-      this.logger.log(`[WebSocket] Emitting approval:status_updated to ${participantIds.length} users for request ${requestId}`);
+      this.logger.log(
+        `[WebSocket] Emitting approval:status_updated to ${participantIds.length} users for request ${requestId}`,
+      );
 
       // Emit to each user in the workspace
-      this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'approval:status_updated', eventData);
+      this.appGateway.emitToWorkspaceUsers(
+        workspaceId,
+        participantIds,
+        'approval:status_updated',
+        eventData,
+      );
 
       // Also emit to workspace room for any listeners
       this.appGateway.emitToRoom(`workspace:${workspaceId}`, 'approval:status_updated', eventData);
@@ -1334,13 +1419,25 @@ export class ApprovalsService {
       // Emit to all participants (requester + approvers) except the commenter
       const participantIds = this.getParticipantUserIds(request, actorId);
 
-      this.logger.log(`[WebSocket] Emitting approval:comment_added to ${participantIds.length} users for request ${requestId}`);
+      this.logger.log(
+        `[WebSocket] Emitting approval:comment_added to ${participantIds.length} users for request ${requestId}`,
+      );
 
       // Emit to each user in the workspace
-      this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'approval:comment_added', eventData);
+      this.appGateway.emitToWorkspaceUsers(
+        workspaceId,
+        participantIds,
+        'approval:comment_added',
+        eventData,
+      );
 
       // Also emit to the commenter so their UI can update
-      this.appGateway.emitToWorkspaceUser(workspaceId, actorId, 'approval:comment_added', eventData);
+      this.appGateway.emitToWorkspaceUser(
+        workspaceId,
+        actorId,
+        'approval:comment_added',
+        eventData,
+      );
     } catch (error) {
       this.logger.error(`[WebSocket] Failed to emit comment added event: ${error.message}`);
     }
@@ -1392,7 +1489,12 @@ export class ApprovalsService {
       this.logger.log(`[WebSocket] Emitting approval:request_created for request ${request.id}`);
 
       // Emit to all approvers so they see the new request
-      this.appGateway.emitToWorkspaceUsers(workspaceId, approverIds, 'approval:request_created', eventData);
+      this.appGateway.emitToWorkspaceUsers(
+        workspaceId,
+        approverIds,
+        'approval:request_created',
+        eventData,
+      );
 
       // Also emit to workspace room so admins/owners can see all new requests
       this.appGateway.emitToRoom(`workspace:${workspaceId}`, 'approval:request_created', eventData);

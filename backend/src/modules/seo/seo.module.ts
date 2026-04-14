@@ -16,19 +16,7 @@ import { SlugService } from './slug.service';
 @Module({
   imports: [ConfigModule],
   controllers: [SeoController, MetadataController],
-  providers: [
-    SitemapService,
-    RobotsService,
-    MetadataService,
-    FeedService,
-    SlugService,
-  ],
-  exports: [
-    SitemapService,
-    RobotsService,
-    MetadataService,
-    FeedService,
-    SlugService,
-  ],
+  providers: [SitemapService, RobotsService, MetadataService, FeedService, SlugService],
+  exports: [SitemapService, RobotsService, MetadataService, FeedService, SlugService],
 })
 export class SeoModule {}

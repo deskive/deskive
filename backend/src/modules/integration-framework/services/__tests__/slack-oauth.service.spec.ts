@@ -76,7 +76,9 @@ describe('GenericOAuthService - Slack', () => {
     );
 
     expect(authData.authorizationUrl).toContain('https://slack.com/oauth/v2/authorize');
-    expect(authData.authorizationUrl).toContain(`client_id=${OAUTH_MOCK_CREDENTIALS.slack.clientId}`);
+    expect(authData.authorizationUrl).toContain(
+      `client_id=${OAUTH_MOCK_CREDENTIALS.slack.clientId}`,
+    );
   });
 
   it('should exchange code for tokens', async () => {

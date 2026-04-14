@@ -25,7 +25,11 @@ export class HubSpotOAuthService {
   private readonly HUBSPOT_TOKEN_URL = 'https://api.hubapi.com/oauth/v1/token';
   private readonly HUBSPOT_USERINFO_URL = 'https://api.hubapi.com/oauth/v1/access-tokens';
 
-  private readonly SCOPES = ['crm.objects.contacts.read', 'crm.objects.contacts.write', 'crm.objects.companies.read'];
+  private readonly SCOPES = [
+    'crm.objects.contacts.read',
+    'crm.objects.contacts.write',
+    'crm.objects.companies.read',
+  ];
 
   constructor(private configService: ConfigService) {}
 
@@ -82,7 +86,11 @@ export class HubSpotOAuthService {
     }
   }
 
-  getAuthorizationUrl(userId: string, workspaceId: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { clientId, redirectUri } = this.getClientCredentials();
     const state = this.generateState(userId, workspaceId, returnUrl);
 
