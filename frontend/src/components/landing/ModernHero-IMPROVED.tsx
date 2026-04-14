@@ -400,14 +400,6 @@ const ModernHero: React.FC = () => {
         >
           <Button
             size="lg"
-            className="group bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold px-8 py-6 text-base border-0 hover:scale-105 transition-all duration-300 shadow-2xl"
-            onClick={handleGetStarted}
-          >
-            {intl.formatMessage({ id: 'hero.cta.primary' })}
-            <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-          </Button>
-          <Button
-            size="lg"
             variant="outline"
             className="group border-2 border-gray-300 hover:border-sky-500 bg-white hover:bg-sky-50 px-8 py-6 text-base font-bold transition-all duration-300 text-black"
             onClick={() => setIsVideoModalOpen(true)}
@@ -492,25 +484,6 @@ const ModernHero: React.FC = () => {
               })}
             </div>
 
-            {/* CTA */}
-            {!isAuthenticated && (
-              <motion.div
-                key={`cta-${slide.id}`}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.75, type: "spring", stiffness: 150 }}
-                className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
-              >
-                <Button
-                  size="lg"
-                  className="group bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white font-bold px-8 py-6 text-base border-0 hover:scale-105 transition-all duration-300 shadow-xl"
-                  onClick={handleGetStarted}
-                >
-                  {intl.formatMessage({ id: 'hero.cta.primary' })}
-                  <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </motion.div>
-            )}
           </div>
 
           {/* Right side - Visual */}
