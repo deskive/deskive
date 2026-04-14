@@ -123,10 +123,15 @@ export class SmtpImapEmailService {
       await this.db.update('email_connections', existingConnection.id, connectionData);
       connection = { ...existingConnection, ...connectionData } as SmtpImapConnection;
     } else {
-      connection = await this.db.insert('email_connections', connectionData) as SmtpImapConnection;
+      connection = (await this.db.insert(
+        'email_connections',
+        connectionData,
+      )) as SmtpImapConnection;
     }
 
-    this.logger.log(`SMTP/IMAP connected for user ${userId} in workspace ${workspaceId}: ${dto.emailAddress}`);
+    this.logger.log(
+      `SMTP/IMAP connected for user ${userId} in workspace ${workspaceId}: ${dto.emailAddress}`,
+    );
 
     return this.transformConnection(connection);
   }
@@ -199,25 +204,27 @@ export class SmtpImapEmailService {
 
     if (connectionId) {
       // Get specific connection by ID
-      connection = await this.db.findOne('email_connections', {
+      connection = (await this.db.findOne('email_connections', {
         id: connectionId,
         workspace_id: workspaceId,
         user_id: userId,
         provider: EmailProvider.SMTP_IMAP,
         is_active: true,
-      }) as SmtpImapConnection | null;
+      })) as SmtpImapConnection | null;
     } else {
       // Fallback: get first active SMTP/IMAP connection
-      connection = await this.db.findOne('email_connections', {
+      connection = (await this.db.findOne('email_connections', {
         workspace_id: workspaceId,
         user_id: userId,
         provider: EmailProvider.SMTP_IMAP,
         is_active: true,
-      }) as SmtpImapConnection | null;
+      })) as SmtpImapConnection | null;
     }
 
     if (!connection) {
-      throw new NotFoundException('SMTP/IMAP not connected. Please connect your email account first.');
+      throw new NotFoundException(
+        'SMTP/IMAP not connected. Please connect your email account first.',
+      );
     }
 
     return connection;
@@ -265,7 +272,11 @@ export class SmtpImapEmailService {
       connectionId?: string;
     } = {},
   ): Promise<EmailListResponseDto> {
-    const connection = await this.getConnectionWithCredentials(userId, workspaceId, options.connectionId);
+    const connection = await this.getConnectionWithCredentials(
+      userId,
+      workspaceId,
+      options.connectionId,
+    );
     const imapConfig = this.getImapConfig(connection);
 
     const { labelId = 'INBOX', query, pageToken, maxResults = 20 } = options;
@@ -337,7 +348,12 @@ export class SmtpImapEmailService {
 
     try {
       const actualMailbox = await this.imapService.resolveMailboxName(imapConfig, mailbox);
-      const attachment = await this.imapService.fetchAttachment(imapConfig, messageId, attachmentId, actualMailbox);
+      const attachment = await this.imapService.fetchAttachment(
+        imapConfig,
+        messageId,
+        attachmentId,
+        actualMailbox,
+      );
 
       if (!attachment) {
         throw new NotFoundException('Attachment not found');

@@ -53,8 +53,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Review previous quarter OKRs',
-              description:
-                'Analyze outcomes and learnings from last quarter.',
+              description: 'Analyze outcomes and learnings from last quarter.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -67,8 +66,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Define company objectives',
-              description:
-                'Set 3-5 company-level objectives for the quarter.',
+              description: 'Set 3-5 company-level objectives for the quarter.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -76,8 +74,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Define key results',
-              description:
-                'Create measurable key results for each objective.',
+              description: 'Create measurable key results for each objective.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -85,8 +82,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Cascade to departments',
-              description:
-                'Help departments align their OKRs to company OKRs.',
+              description: 'Help departments align their OKRs to company OKRs.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'high',
@@ -94,8 +90,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Team OKR workshops',
-              description:
-                'Facilitate team-level OKR setting sessions.',
+              description: 'Facilitate team-level OKR setting sessions.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -109,8 +104,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Cross-team alignment review',
-              description:
-                'Ensure OKRs are aligned across teams.',
+              description: 'Ensure OKRs are aligned across teams.',
               assigneeRole: 'lead',
               dueOffset: 12,
               priority: 'high',
@@ -118,8 +112,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Leadership approval',
-              description:
-                'Get sign-off from leadership on final OKRs.',
+              description: 'Get sign-off from leadership on final OKRs.',
               assigneeRole: 'lead',
               dueOffset: 14,
               priority: 'high',
@@ -127,8 +120,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Publish OKRs',
-              description:
-                'Make OKRs visible to entire organization.',
+              description: 'Make OKRs visible to entire organization.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -136,8 +128,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'OKR kickoff communication',
-              description:
-                'Announce quarterly OKRs to the company.',
+              description: 'Announce quarterly OKRs to the company.',
               assigneeRole: 'lead',
               dueOffset: 15,
               priority: 'high',
@@ -151,8 +142,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Weekly check-in template',
-              description:
-                'Template for weekly OKR progress updates.',
+              description: 'Template for weekly OKR progress updates.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'medium',
@@ -160,8 +150,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Mid-quarter review',
-              description:
-                'Comprehensive progress review at quarter midpoint.',
+              description: 'Comprehensive progress review at quarter midpoint.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -174,8 +163,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Address blockers',
-              description:
-                'Track and resolve obstacles to OKR progress.',
+              description: 'Track and resolve obstacles to OKR progress.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -189,8 +177,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Final scoring',
-              description:
-                'Score all OKRs and key results.',
+              description: 'Score all OKRs and key results.',
               assigneeRole: 'member',
               dueOffset: 85,
               priority: 'high',
@@ -198,8 +185,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Create retrospective report',
-              description:
-                'Document quarter outcomes and insights.',
+              description: 'Document quarter outcomes and insights.',
               assigneeRole: 'lead',
               dueOffset: 88,
               priority: 'high',
@@ -207,8 +193,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Share results company-wide',
-              description:
-                'Present OKR results to organization.',
+              description: 'Present OKR results to organization.',
               assigneeRole: 'lead',
               dueOffset: 90,
               priority: 'high',
@@ -270,8 +255,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Market research',
-              description:
-                'Research target market size, trends, and dynamics.',
+              description: 'Research target market size, trends, and dynamics.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -284,8 +268,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Competitor analysis',
-              description:
-                'Analyze competitive landscape and positioning.',
+              description: 'Analyze competitive landscape and positioning.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -293,8 +276,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Customer research',
-              description:
-                'Define target customer segments and needs.',
+              description: 'Define target customer segments and needs.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -302,8 +284,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'SWOT analysis',
-              description:
-                'Conduct strengths, weaknesses, opportunities, threats analysis.',
+              description: 'Conduct strengths, weaknesses, opportunities, threats analysis.',
               assigneeRole: 'lead',
               dueOffset: 12,
               priority: 'high',
@@ -317,8 +298,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Executive summary',
-              description:
-                'Write compelling executive summary (last to finalize).',
+              description: 'Write compelling executive summary (last to finalize).',
               assigneeRole: 'lead',
               dueOffset: 35,
               priority: 'high',
@@ -326,8 +306,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Company description',
-              description:
-                'Describe company, mission, vision, and values.',
+              description: 'Describe company, mission, vision, and values.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -335,8 +314,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Products/services description',
-              description:
-                'Detail offerings and value proposition.',
+              description: 'Detail offerings and value proposition.',
               assigneeRole: 'member',
               dueOffset: 17,
               priority: 'high',
@@ -344,8 +322,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Market analysis section',
-              description:
-                'Write up market research findings.',
+              description: 'Write up market research findings.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -353,8 +330,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Marketing strategy',
-              description:
-                'Define go-to-market and marketing approach.',
+              description: 'Define go-to-market and marketing approach.',
               assigneeRole: 'member',
               dueOffset: 23,
               priority: 'high',
@@ -362,8 +338,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Operations plan',
-              description:
-                'Describe operational model and processes.',
+              description: 'Describe operational model and processes.',
               assigneeRole: 'member',
               dueOffset: 25,
               priority: 'high',
@@ -371,8 +346,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Management team',
-              description:
-                'Present leadership team and structure.',
+              description: 'Present leadership team and structure.',
               assigneeRole: 'member',
               dueOffset: 27,
               priority: 'medium',
@@ -386,8 +360,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Revenue projections',
-              description:
-                'Create 3-5 year revenue forecasts.',
+              description: 'Create 3-5 year revenue forecasts.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -395,8 +368,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Expense budget',
-              description:
-                'Project operating expenses.',
+              description: 'Project operating expenses.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -404,8 +376,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Cash flow projections',
-              description:
-                'Create cash flow statements.',
+              description: 'Create cash flow statements.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -413,8 +384,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Break-even analysis',
-              description:
-                'Calculate break-even point.',
+              description: 'Calculate break-even point.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -422,8 +392,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Funding requirements',
-              description:
-                'Define funding needs and use of funds.',
+              description: 'Define funding needs and use of funds.',
               assigneeRole: 'lead',
               dueOffset: 32,
               priority: 'high',
@@ -437,8 +406,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Internal review',
-              description:
-                'Review plan with team and stakeholders.',
+              description: 'Review plan with team and stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 38,
               priority: 'high',
@@ -446,8 +414,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Expert/advisor review',
-              description:
-                'Get feedback from advisors or mentors.',
+              description: 'Get feedback from advisors or mentors.',
               assigneeRole: 'lead',
               dueOffset: 42,
               priority: 'medium',
@@ -455,8 +422,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Incorporate feedback',
-              description:
-                'Revise plan based on feedback.',
+              description: 'Revise plan based on feedback.',
               assigneeRole: 'member',
               dueOffset: 45,
               priority: 'high',
@@ -464,8 +430,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Design and formatting',
-              description:
-                'Professional formatting and design.',
+              description: 'Professional formatting and design.',
               assigneeRole: 'member',
               dueOffset: 48,
               priority: 'medium',
@@ -473,8 +438,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Final proofread',
-              description:
-                'Final review for errors and consistency.',
+              description: 'Final review for errors and consistency.',
               assigneeRole: 'lead',
               dueOffset: 50,
               priority: 'high',
@@ -517,7 +481,15 @@ export const BUSINESS_TEMPLATES = [
         name: 'Process Area',
         type: 'select',
         description: 'Area of improvement',
-        options: ['Sales', 'Operations', 'Customer Service', 'Finance', 'HR', 'IT', 'Manufacturing'],
+        options: [
+          'Sales',
+          'Operations',
+          'Customer Service',
+          'Finance',
+          'HR',
+          'IT',
+          'Manufacturing',
+        ],
         isRequired: true,
       },
       {
@@ -536,8 +508,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Identify process for improvement',
-              description:
-                'Select and scope the process to improve.',
+              description: 'Select and scope the process to improve.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -545,8 +516,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Define problem statement',
-              description:
-                'Create clear problem statement and goals.',
+              description: 'Create clear problem statement and goals.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -554,8 +524,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Identify stakeholders',
-              description:
-                'Map all process stakeholders.',
+              description: 'Map all process stakeholders.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'high',
@@ -563,8 +532,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Create project charter',
-              description:
-                'Document scope, objectives, and team.',
+              description: 'Document scope, objectives, and team.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -578,8 +546,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Map current process',
-              description:
-                'Create as-is process map.',
+              description: 'Create as-is process map.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -592,8 +559,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Collect baseline data',
-              description:
-                'Gather current performance metrics.',
+              description: 'Gather current performance metrics.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -601,8 +567,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Identify KPIs',
-              description:
-                'Define metrics to track improvement.',
+              description: 'Define metrics to track improvement.',
               assigneeRole: 'lead',
               dueOffset: 12,
               priority: 'high',
@@ -610,8 +575,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Document pain points',
-              description:
-                'Gather feedback on current issues.',
+              description: 'Gather feedback on current issues.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -625,8 +589,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Root cause analysis',
-              description:
-                'Identify root causes of problems.',
+              description: 'Identify root causes of problems.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'high',
@@ -639,8 +602,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Data analysis',
-              description:
-                'Analyze collected data for patterns.',
+              description: 'Analyze collected data for patterns.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -648,8 +610,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Identify waste',
-              description:
-                'Find non-value-added activities.',
+              description: 'Find non-value-added activities.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -657,8 +618,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Prioritize opportunities',
-              description:
-                'Rank improvement opportunities.',
+              description: 'Rank improvement opportunities.',
               assigneeRole: 'lead',
               dueOffset: 22,
               priority: 'high',
@@ -672,8 +632,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Design future state',
-              description:
-                'Create to-be process design.',
+              description: 'Create to-be process design.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -681,8 +640,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Develop solutions',
-              description:
-                'Create detailed improvement solutions.',
+              description: 'Create detailed improvement solutions.',
               assigneeRole: 'member',
               dueOffset: 32,
               priority: 'high',
@@ -690,8 +648,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Pilot improvements',
-              description:
-                'Test solutions on small scale.',
+              description: 'Test solutions on small scale.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -699,8 +656,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Refine and adjust',
-              description:
-                'Iterate based on pilot results.',
+              description: 'Iterate based on pilot results.',
               assigneeRole: 'member',
               dueOffset: 45,
               priority: 'high',
@@ -708,8 +664,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Full implementation',
-              description:
-                'Roll out improvements organization-wide.',
+              description: 'Roll out improvements organization-wide.',
               assigneeRole: 'lead',
               dueOffset: 55,
               priority: 'high',
@@ -723,8 +678,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Create control plan',
-              description:
-                'Document how to maintain improvements.',
+              description: 'Document how to maintain improvements.',
               assigneeRole: 'lead',
               dueOffset: 60,
               priority: 'high',
@@ -732,8 +686,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Update documentation',
-              description:
-                'Update SOPs and process docs.',
+              description: 'Update SOPs and process docs.',
               assigneeRole: 'member',
               dueOffset: 62,
               priority: 'high',
@@ -741,8 +694,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Train team members',
-              description:
-                'Train staff on new process.',
+              description: 'Train staff on new process.',
               assigneeRole: 'member',
               dueOffset: 65,
               priority: 'high',
@@ -750,8 +702,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Set up monitoring',
-              description:
-                'Establish ongoing monitoring and alerts.',
+              description: 'Establish ongoing monitoring and alerts.',
               assigneeRole: 'member',
               dueOffset: 68,
               priority: 'high',
@@ -759,8 +710,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Project closeout',
-              description:
-                'Document results and lessons learned.',
+              description: 'Document results and lessons learned.',
               assigneeRole: 'lead',
               dueOffset: 75,
               priority: 'medium',
@@ -821,8 +771,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Gather requirements',
-              description:
-                'Document all requirements from stakeholders.',
+              description: 'Document all requirements from stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -830,8 +779,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Prioritize requirements',
-              description:
-                'Classify as must-have vs nice-to-have.',
+              description: 'Classify as must-have vs nice-to-have.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -839,8 +787,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Create evaluation criteria',
-              description:
-                'Define scoring criteria and weights.',
+              description: 'Define scoring criteria and weights.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'high',
@@ -848,8 +795,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Set budget and timeline',
-              description:
-                'Define budget constraints and timeline.',
+              description: 'Define budget constraints and timeline.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'high',
@@ -863,8 +809,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Market research',
-              description:
-                'Research available vendors in the market.',
+              description: 'Research available vendors in the market.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -872,8 +817,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Create long list',
-              description:
-                'Compile initial list of potential vendors.',
+              description: 'Compile initial list of potential vendors.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -881,8 +825,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Send RFI/RFP',
-              description:
-                'Send request for information/proposal.',
+              description: 'Send request for information/proposal.',
               assigneeRole: 'member',
               dueOffset: 17,
               priority: 'high',
@@ -890,8 +833,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Shortlist vendors',
-              description:
-                'Narrow down to 3-5 vendors for evaluation.',
+              description: 'Narrow down to 3-5 vendors for evaluation.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'high',
@@ -905,8 +847,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Vendor demos',
-              description:
-                'Schedule and attend vendor demonstrations.',
+              description: 'Schedule and attend vendor demonstrations.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -914,8 +855,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Reference checks',
-              description:
-                'Contact vendor references.',
+              description: 'Contact vendor references.',
               assigneeRole: 'member',
               dueOffset: 38,
               priority: 'high',
@@ -923,8 +863,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Technical evaluation',
-              description:
-                'Assess technical capabilities.',
+              description: 'Assess technical capabilities.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -932,8 +871,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Security and compliance review',
-              description:
-                'Review security and compliance posture.',
+              description: 'Review security and compliance posture.',
               assigneeRole: 'member',
               dueOffset: 42,
               priority: 'high',
@@ -941,8 +879,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Score vendors',
-              description:
-                'Complete scoring for all vendors.',
+              description: 'Complete scoring for all vendors.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -956,8 +893,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Selection decision',
-              description:
-                'Make final vendor selection.',
+              description: 'Make final vendor selection.',
               assigneeRole: 'lead',
               dueOffset: 48,
               priority: 'high',
@@ -965,8 +901,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Negotiate terms',
-              description:
-                'Negotiate contract terms and pricing.',
+              description: 'Negotiate contract terms and pricing.',
               assigneeRole: 'lead',
               dueOffset: 55,
               priority: 'high',
@@ -974,8 +909,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Legal review',
-              description:
-                'Have legal review contract.',
+              description: 'Have legal review contract.',
               assigneeRole: 'member',
               dueOffset: 60,
               priority: 'high',
@@ -983,8 +917,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Sign contract',
-              description:
-                'Execute final agreement.',
+              description: 'Execute final agreement.',
               assigneeRole: 'lead',
               dueOffset: 65,
               priority: 'high',
@@ -992,8 +925,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Notify unsuccessful vendors',
-              description:
-                'Communicate decision to other vendors.',
+              description: 'Communicate decision to other vendors.',
               assigneeRole: 'member',
               dueOffset: 65,
               priority: 'medium',
@@ -1042,7 +974,15 @@ export const BUSINESS_TEMPLATES = [
         name: 'Department',
         type: 'select',
         description: 'Department',
-        options: ['Company-wide', 'Engineering', 'Marketing', 'Sales', 'Operations', 'Finance', 'HR'],
+        options: [
+          'Company-wide',
+          'Engineering',
+          'Marketing',
+          'Sales',
+          'Operations',
+          'Finance',
+          'HR',
+        ],
         isRequired: false,
       },
     ],
@@ -1054,8 +994,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Set budget timeline',
-              description:
-                'Define key dates for budget process.',
+              description: 'Define key dates for budget process.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -1063,8 +1002,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Prepare templates',
-              description:
-                'Create budget submission templates.',
+              description: 'Create budget submission templates.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'high',
@@ -1072,8 +1010,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Set guidelines',
-              description:
-                'Define budget guidelines and assumptions.',
+              description: 'Define budget guidelines and assumptions.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -1081,8 +1018,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Kick off meeting',
-              description:
-                'Brief department heads on process.',
+              description: 'Brief department heads on process.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'high',
@@ -1096,8 +1032,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Distribute templates',
-              description:
-                'Send templates to all departments.',
+              description: 'Send templates to all departments.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -1105,8 +1040,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Department submissions',
-              description:
-                'Collect budget submissions from all departments.',
+              description: 'Collect budget submissions from all departments.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -1114,8 +1048,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Follow up on late submissions',
-              description:
-                'Chase any outstanding submissions.',
+              description: 'Chase any outstanding submissions.',
               assigneeRole: 'member',
               dueOffset: 32,
               priority: 'high',
@@ -1129,8 +1062,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Initial review',
-              description:
-                'Review all submissions for completeness.',
+              description: 'Review all submissions for completeness.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -1138,8 +1070,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Consolidate budgets',
-              description:
-                'Roll up to company-wide budget.',
+              description: 'Roll up to company-wide budget.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -1147,8 +1078,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Identify gaps/issues',
-              description:
-                'Flag any concerns or over-budget areas.',
+              description: 'Flag any concerns or over-budget areas.',
               assigneeRole: 'lead',
               dueOffset: 42,
               priority: 'high',
@@ -1156,8 +1086,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Department meetings',
-              description:
-                'Meet with departments to discuss submissions.',
+              description: 'Meet with departments to discuss submissions.',
               assigneeRole: 'lead',
               dueOffset: 48,
               priority: 'high',
@@ -1165,8 +1094,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Make adjustments',
-              description:
-                'Revise budgets based on discussions.',
+              description: 'Revise budgets based on discussions.',
               assigneeRole: 'member',
               dueOffset: 52,
               priority: 'high',
@@ -1180,8 +1108,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Prepare presentation',
-              description:
-                'Create budget presentation for leadership.',
+              description: 'Create budget presentation for leadership.',
               assigneeRole: 'lead',
               dueOffset: 55,
               priority: 'high',
@@ -1189,8 +1116,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Leadership review',
-              description:
-                'Present to executive team.',
+              description: 'Present to executive team.',
               assigneeRole: 'lead',
               dueOffset: 58,
               priority: 'high',
@@ -1198,8 +1124,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Board approval',
-              description:
-                'Get board approval if required.',
+              description: 'Get board approval if required.',
               assigneeRole: 'lead',
               dueOffset: 65,
               priority: 'high',
@@ -1207,8 +1132,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Final revisions',
-              description:
-                'Incorporate any final changes.',
+              description: 'Incorporate any final changes.',
               assigneeRole: 'member',
               dueOffset: 68,
               priority: 'high',
@@ -1222,8 +1146,7 @@ export const BUSINESS_TEMPLATES = [
           tasks: [
             {
               title: 'Finalize budget',
-              description:
-                'Lock in final approved budget.',
+              description: 'Lock in final approved budget.',
               assigneeRole: 'lead',
               dueOffset: 70,
               priority: 'high',
@@ -1231,8 +1154,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Load into systems',
-              description:
-                'Enter budget into financial systems.',
+              description: 'Enter budget into financial systems.',
               assigneeRole: 'member',
               dueOffset: 72,
               priority: 'high',
@@ -1240,8 +1162,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Communicate to organization',
-              description:
-                'Share approved budget with departments.',
+              description: 'Share approved budget with departments.',
               assigneeRole: 'lead',
               dueOffset: 74,
               priority: 'high',
@@ -1249,8 +1170,7 @@ export const BUSINESS_TEMPLATES = [
             },
             {
               title: 'Setup tracking',
-              description:
-                'Configure budget vs actual tracking.',
+              description: 'Configure budget vs actual tracking.',
               assigneeRole: 'member',
               dueOffset: 75,
               priority: 'high',

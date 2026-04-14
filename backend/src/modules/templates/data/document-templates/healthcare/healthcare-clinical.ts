@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const HEALTHCARE_CLINICAL_TEMPLATES = [
   {
@@ -16,7 +13,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'PROGRESS NOTE\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{note_date}}\nProvider: {{provider_name}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{note_date}}\nProvider: {{provider_name}}\n\n',
+        },
         { insert: 'SUBJECTIVE\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nChief Complaint: {{chief_complaint}}\n\n' },
         { insert: 'History of Present Illness:\n{{hpi}}\n\n' },
@@ -24,7 +24,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'Current Medications: {{current_medications}}\nAllergies: {{allergies}}\n\n' },
         { insert: 'OBJECTIVE\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nVital Signs:\n' },
-        { insert: 'BP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}} Weight: {{weight}} Height: {{height}}\n\n' },
+        {
+          insert:
+            'BP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}} Weight: {{weight}} Height: {{height}}\n\n',
+        },
         { insert: 'Physical Examination:\n{{physical_exam}}\n\n' },
         { insert: 'Lab/Diagnostic Results:\n{{lab_results}}\n\n' },
         { insert: 'ASSESSMENT\n', attributes: { bold: true, size: 'large' } },
@@ -44,13 +47,23 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'note_date', type: 'date', label: 'Note Date', required: true },
       { key: 'provider_name', type: 'text', label: 'Provider Name', required: true },
       { key: 'chief_complaint', type: 'text', label: 'Chief Complaint', required: true },
       { key: 'hpi', type: 'textarea', label: 'History of Present Illness', required: true },
       { key: 'ros', type: 'textarea', label: 'Review of Systems', required: false },
-      { key: 'current_medications', type: 'textarea', label: 'Current Medications', required: true },
+      {
+        key: 'current_medications',
+        type: 'textarea',
+        label: 'Current Medications',
+        required: true,
+      },
       { key: 'allergies', type: 'text', label: 'Allergies', required: true },
       { key: 'blood_pressure', type: 'text', label: 'Blood Pressure', required: true },
       { key: 'heart_rate', type: 'text', label: 'Heart Rate', required: true },
@@ -64,7 +77,12 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'assessment', type: 'textarea', label: 'Assessment', required: true },
       { key: 'diagnosis_codes', type: 'textarea', label: 'Diagnosis/ICD-10 Codes', required: true },
       { key: 'treatment_plan', type: 'textarea', label: 'Treatment Plan', required: true },
-      { key: 'medications_prescribed', type: 'textarea', label: 'Medications Prescribed', required: false },
+      {
+        key: 'medications_prescribed',
+        type: 'textarea',
+        label: 'Medications Prescribed',
+        required: false,
+      },
       { key: 'orders', type: 'textarea', label: 'Orders', required: false },
       { key: 'patient_education', type: 'textarea', label: 'Patient Education', required: false },
       { key: 'follow_up', type: 'text', label: 'Follow-up', required: true },
@@ -73,9 +91,18 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'History and Physical (H&P)',
@@ -89,7 +116,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'HISTORY AND PHYSICAL\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Admission: {{admission_date}}\nAttending Physician: {{attending_physician}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Admission: {{admission_date}}\nAttending Physician: {{attending_physician}}\n\n',
+        },
         { insert: 'CHIEF COMPLAINT\n', attributes: { bold: true } },
         { insert: '{{chief_complaint}}\n\n' },
         { insert: 'HISTORY OF PRESENT ILLNESS\n', attributes: { bold: true } },
@@ -109,7 +139,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'REVIEW OF SYSTEMS\n', attributes: { bold: true } },
         { insert: '{{review_of_systems}}\n\n' },
         { insert: 'PHYSICAL EXAMINATION\n', attributes: { bold: true } },
-        { insert: 'Vital Signs:\nBP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}}\nHeight: {{height}} Weight: {{weight}} BMI: {{bmi}}\n\n' },
+        {
+          insert:
+            'Vital Signs:\nBP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}}\nHeight: {{height}} Weight: {{weight}} BMI: {{bmi}}\n\n',
+        },
         { insert: 'General: {{general_appearance}}\n' },
         { insert: 'HEENT: {{heent}}\n' },
         { insert: 'Neck: {{neck}}\n' },
@@ -128,18 +161,36 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'PLAN\n', attributes: { bold: true } },
         { insert: '{{plan}}\n\n' },
         { insert: '_______________________________________________\n' },
-        { insert: '{{attending_physician}}, {{credentials}}\nDate: {{signature_date}} Time: {{signature_time}}\n' },
+        {
+          insert:
+            '{{attending_physician}}, {{credentials}}\nDate: {{signature_date}} Time: {{signature_time}}\n',
+        },
       ],
     },
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'admission_date', type: 'date', label: 'Date of Admission', required: true },
       { key: 'attending_physician', type: 'text', label: 'Attending Physician', required: true },
       { key: 'chief_complaint', type: 'textarea', label: 'Chief Complaint', required: true },
-      { key: 'history_present_illness', type: 'textarea', label: 'History of Present Illness', required: true },
-      { key: 'past_medical_history', type: 'textarea', label: 'Past Medical History', required: true },
+      {
+        key: 'history_present_illness',
+        type: 'textarea',
+        label: 'History of Present Illness',
+        required: true,
+      },
+      {
+        key: 'past_medical_history',
+        type: 'textarea',
+        label: 'Past Medical History',
+        required: true,
+      },
       { key: 'surgical_history', type: 'textarea', label: 'Surgical History', required: false },
       { key: 'medications', type: 'textarea', label: 'Current Medications', required: true },
       { key: 'allergies', type: 'text', label: 'Allergies', required: true },
@@ -172,9 +223,18 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'signature_time', type: 'text', label: 'Signature Time', required: true },
     ],
     signatureFields: [
-      { id: 'physician_signature', label: 'Physician Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'physician_signature',
+        label: 'Physician Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Operative Report',
@@ -188,7 +248,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'OPERATIVE REPORT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Surgery: {{surgery_date}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Surgery: {{surgery_date}}\n\n',
+        },
         { insert: 'PREOPERATIVE DIAGNOSIS\n', attributes: { bold: true } },
         { insert: '{{preop_diagnosis}}\n\n' },
         { insert: 'POSTOPERATIVE DIAGNOSIS\n', attributes: { bold: true } },
@@ -196,7 +259,9 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'PROCEDURE(S) PERFORMED\n', attributes: { bold: true } },
         { insert: '{{procedures}}\n\n' },
         { insert: 'SURGEON(S)\n', attributes: { bold: true } },
-        { insert: 'Primary Surgeon: {{primary_surgeon}}\nAssistant(s): {{assistant_surgeons}}\n\n' },
+        {
+          insert: 'Primary Surgeon: {{primary_surgeon}}\nAssistant(s): {{assistant_surgeons}}\n\n',
+        },
         { insert: 'ANESTHESIA\n', attributes: { bold: true } },
         { insert: 'Type: {{anesthesia_type}}\nAnesthesiologist: {{anesthesiologist}}\n\n' },
         { insert: 'INDICATIONS FOR SURGERY\n', attributes: { bold: true } },
@@ -218,20 +283,39 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'DISPOSITION\n', attributes: { bold: true } },
         { insert: '{{disposition}}\n\n' },
         { insert: '_______________________________________________\n' },
-        { insert: '{{primary_surgeon}}, {{credentials}}\nDate Dictated: {{dictated_date}}\nDate Transcribed: {{transcribed_date}}\n' },
+        {
+          insert:
+            '{{primary_surgeon}}, {{credentials}}\nDate Dictated: {{dictated_date}}\nDate Transcribed: {{transcribed_date}}\n',
+        },
       ],
     },
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'surgery_date', type: 'date', label: 'Date of Surgery', required: true },
       { key: 'preop_diagnosis', type: 'textarea', label: 'Preoperative Diagnosis', required: true },
-      { key: 'postop_diagnosis', type: 'textarea', label: 'Postoperative Diagnosis', required: true },
+      {
+        key: 'postop_diagnosis',
+        type: 'textarea',
+        label: 'Postoperative Diagnosis',
+        required: true,
+      },
       { key: 'procedures', type: 'textarea', label: 'Procedures Performed', required: true },
       { key: 'primary_surgeon', type: 'text', label: 'Primary Surgeon', required: true },
       { key: 'assistant_surgeons', type: 'text', label: 'Assistant Surgeon(s)', required: false },
-      { key: 'anesthesia_type', type: 'select', label: 'Anesthesia Type', required: true, options: ['General', 'Regional', 'Local', 'Spinal', 'Epidural', 'MAC', 'None'] },
+      {
+        key: 'anesthesia_type',
+        type: 'select',
+        label: 'Anesthesia Type',
+        required: true,
+        options: ['General', 'Regional', 'Local', 'Spinal', 'Epidural', 'MAC', 'None'],
+      },
       { key: 'anesthesiologist', type: 'text', label: 'Anesthesiologist', required: false },
       { key: 'indications', type: 'textarea', label: 'Indications for Surgery', required: true },
       { key: 'procedure_details', type: 'textarea', label: 'Procedure Details', required: true },
@@ -247,9 +331,18 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'transcribed_date', type: 'date', label: 'Date Transcribed', required: false },
     ],
     signatureFields: [
-      { id: 'surgeon_signature', label: 'Surgeon Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'surgeon_signature',
+        label: 'Surgeon Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Consultation Report',
@@ -263,7 +356,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'CONSULTATION REPORT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Consultation: {{consultation_date}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate of Consultation: {{consultation_date}}\n\n',
+        },
         { insert: 'CONSULTING PHYSICIAN\n', attributes: { bold: true } },
         { insert: '{{consulting_physician}}, {{specialty}}\n\n' },
         { insert: 'REFERRING PHYSICIAN\n', attributes: { bold: true } },
@@ -296,18 +392,43 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'consultation_date', type: 'date', label: 'Date of Consultation', required: true },
       { key: 'consulting_physician', type: 'text', label: 'Consulting Physician', required: true },
       { key: 'specialty', type: 'text', label: 'Specialty', required: true },
       { key: 'referring_physician', type: 'text', label: 'Referring Physician', required: true },
-      { key: 'consultation_reason', type: 'textarea', label: 'Reason for Consultation', required: true },
-      { key: 'history_present_illness', type: 'textarea', label: 'History of Present Illness', required: true },
-      { key: 'past_medical_history', type: 'textarea', label: 'Past Medical History', required: true },
+      {
+        key: 'consultation_reason',
+        type: 'textarea',
+        label: 'Reason for Consultation',
+        required: true,
+      },
+      {
+        key: 'history_present_illness',
+        type: 'textarea',
+        label: 'History of Present Illness',
+        required: true,
+      },
+      {
+        key: 'past_medical_history',
+        type: 'textarea',
+        label: 'Past Medical History',
+        required: true,
+      },
       { key: 'medications', type: 'textarea', label: 'Medications', required: true },
       { key: 'allergies', type: 'text', label: 'Allergies', required: true },
       { key: 'review_of_systems', type: 'textarea', label: 'Review of Systems', required: true },
-      { key: 'physical_examination', type: 'textarea', label: 'Physical Examination', required: true },
+      {
+        key: 'physical_examination',
+        type: 'textarea',
+        label: 'Physical Examination',
+        required: true,
+      },
       { key: 'diagnostic_studies', type: 'textarea', label: 'Diagnostic Studies', required: false },
       { key: 'assessment', type: 'textarea', label: 'Assessment', required: true },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: true },
@@ -315,9 +436,18 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'consultant_signature', label: 'Consultant Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'consultant_signature',
+        label: 'Consultant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Nursing Assessment',
@@ -331,27 +461,56 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'NURSING ASSESSMENT\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\nDate/Time: {{assessment_datetime}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\nDate/Time: {{assessment_datetime}}\n\n',
+        },
         { insert: 'ADMISSION INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Admission Date: {{admission_date}}\nAdmitting Diagnosis: {{admitting_diagnosis}}\nAttending Physician: {{attending_physician}}\n\n' },
+        {
+          insert:
+            'Admission Date: {{admission_date}}\nAdmitting Diagnosis: {{admitting_diagnosis}}\nAttending Physician: {{attending_physician}}\n\n',
+        },
         { insert: 'VITAL SIGNS\n', attributes: { bold: true } },
-        { insert: 'BP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}} Pain Level: {{pain_level}}/10\n\n' },
+        {
+          insert:
+            'BP: {{blood_pressure}} HR: {{heart_rate}} Temp: {{temperature}} RR: {{respiratory_rate}} SpO2: {{spo2}} Pain Level: {{pain_level}}/10\n\n',
+        },
         { insert: 'NEUROLOGICAL\n', attributes: { bold: true } },
-        { insert: 'Level of Consciousness: {{loc}}\nOrientation: {{orientation}}\nPupils: {{pupils}}\n{{neuro_notes}}\n\n' },
+        {
+          insert:
+            'Level of Consciousness: {{loc}}\nOrientation: {{orientation}}\nPupils: {{pupils}}\n{{neuro_notes}}\n\n',
+        },
         { insert: 'CARDIOVASCULAR\n', attributes: { bold: true } },
-        { insert: 'Heart Sounds: {{heart_sounds}}\nPeripheral Pulses: {{peripheral_pulses}}\nEdema: {{edema}}\n{{cardio_notes}}\n\n' },
+        {
+          insert:
+            'Heart Sounds: {{heart_sounds}}\nPeripheral Pulses: {{peripheral_pulses}}\nEdema: {{edema}}\n{{cardio_notes}}\n\n',
+        },
         { insert: 'RESPIRATORY\n', attributes: { bold: true } },
-        { insert: 'Breath Sounds: {{breath_sounds}}\nOxygen: {{oxygen}}\nCough: {{cough}}\n{{respiratory_notes}}\n\n' },
+        {
+          insert:
+            'Breath Sounds: {{breath_sounds}}\nOxygen: {{oxygen}}\nCough: {{cough}}\n{{respiratory_notes}}\n\n',
+        },
         { insert: 'GASTROINTESTINAL\n', attributes: { bold: true } },
-        { insert: 'Abdomen: {{abdomen}}\nBowel Sounds: {{bowel_sounds}}\nLast BM: {{last_bm}}\nDiet: {{diet}}\n{{gi_notes}}\n\n' },
+        {
+          insert:
+            'Abdomen: {{abdomen}}\nBowel Sounds: {{bowel_sounds}}\nLast BM: {{last_bm}}\nDiet: {{diet}}\n{{gi_notes}}\n\n',
+        },
         { insert: 'GENITOURINARY\n', attributes: { bold: true } },
         { insert: 'Urinary Output: {{urinary_output}}\nCatheter: {{catheter}}\n{{gu_notes}}\n\n' },
         { insert: 'INTEGUMENTARY\n', attributes: { bold: true } },
-        { insert: 'Skin Color: {{skin_color}}\nSkin Integrity: {{skin_integrity}}\nWounds: {{wounds}}\nBraden Score: {{braden_score}}\n{{skin_notes}}\n\n' },
+        {
+          insert:
+            'Skin Color: {{skin_color}}\nSkin Integrity: {{skin_integrity}}\nWounds: {{wounds}}\nBraden Score: {{braden_score}}\n{{skin_notes}}\n\n',
+        },
         { insert: 'MUSCULOSKELETAL\n', attributes: { bold: true } },
-        { insert: 'Mobility: {{mobility}}\nFall Risk: {{fall_risk}}\n{{musculoskeletal_notes}}\n\n' },
+        {
+          insert: 'Mobility: {{mobility}}\nFall Risk: {{fall_risk}}\n{{musculoskeletal_notes}}\n\n',
+        },
         { insert: 'PSYCHOSOCIAL\n', attributes: { bold: true } },
-        { insert: 'Emotional Status: {{emotional_status}}\nSupport System: {{support_system}}\n{{psychosocial_notes}}\n\n' },
+        {
+          insert:
+            'Emotional Status: {{emotional_status}}\nSupport System: {{support_system}}\n{{psychosocial_notes}}\n\n',
+        },
         { insert: 'IV ACCESS\n', attributes: { bold: true } },
         { insert: '{{iv_access}}\n\n' },
         { insert: 'SAFETY MEASURES\n', attributes: { bold: true } },
@@ -367,7 +526,12 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'room_number', type: 'text', label: 'Room Number', required: true },
       { key: 'assessment_datetime', type: 'text', label: 'Assessment Date/Time', required: true },
       { key: 'admission_date', type: 'date', label: 'Admission Date', required: true },
@@ -379,7 +543,13 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'respiratory_rate', type: 'text', label: 'Respiratory Rate', required: true },
       { key: 'spo2', type: 'text', label: 'SpO2', required: true },
       { key: 'pain_level', type: 'number', label: 'Pain Level (0-10)', required: true },
-      { key: 'loc', type: 'select', label: 'Level of Consciousness', required: true, options: ['Alert', 'Lethargic', 'Obtunded', 'Stuporous', 'Comatose'] },
+      {
+        key: 'loc',
+        type: 'select',
+        label: 'Level of Consciousness',
+        required: true,
+        options: ['Alert', 'Lethargic', 'Obtunded', 'Stuporous', 'Comatose'],
+      },
       { key: 'orientation', type: 'text', label: 'Orientation', required: true },
       { key: 'pupils', type: 'text', label: 'Pupils', required: true },
       { key: 'neuro_notes', type: 'textarea', label: 'Neuro Notes', required: false },
@@ -397,7 +567,13 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'diet', type: 'text', label: 'Diet', required: true },
       { key: 'gi_notes', type: 'textarea', label: 'GI Notes', required: false },
       { key: 'urinary_output', type: 'text', label: 'Urinary Output', required: true },
-      { key: 'catheter', type: 'select', label: 'Catheter', required: true, options: ['None', 'Foley', 'Condom', 'Suprapubic'] },
+      {
+        key: 'catheter',
+        type: 'select',
+        label: 'Catheter',
+        required: true,
+        options: ['None', 'Foley', 'Condom', 'Suprapubic'],
+      },
       { key: 'gu_notes', type: 'textarea', label: 'GU Notes', required: false },
       { key: 'skin_color', type: 'text', label: 'Skin Color', required: true },
       { key: 'skin_integrity', type: 'text', label: 'Skin Integrity', required: true },
@@ -405,8 +581,19 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'braden_score', type: 'number', label: 'Braden Score', required: false },
       { key: 'skin_notes', type: 'textarea', label: 'Skin Notes', required: false },
       { key: 'mobility', type: 'text', label: 'Mobility', required: true },
-      { key: 'fall_risk', type: 'select', label: 'Fall Risk', required: true, options: ['Low', 'Moderate', 'High'] },
-      { key: 'musculoskeletal_notes', type: 'textarea', label: 'Musculoskeletal Notes', required: false },
+      {
+        key: 'fall_risk',
+        type: 'select',
+        label: 'Fall Risk',
+        required: true,
+        options: ['Low', 'Moderate', 'High'],
+      },
+      {
+        key: 'musculoskeletal_notes',
+        type: 'textarea',
+        label: 'Musculoskeletal Notes',
+        required: false,
+      },
       { key: 'emotional_status', type: 'text', label: 'Emotional Status', required: true },
       { key: 'support_system', type: 'text', label: 'Support System', required: false },
       { key: 'psychosocial_notes', type: 'textarea', label: 'Psychosocial Notes', required: false },
@@ -419,9 +606,18 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'signature_datetime', type: 'text', label: 'Signature Date/Time', required: true },
     ],
     signatureFields: [
-      { id: 'nurse_signature', label: 'Nurse Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'nurse_signature',
+        label: 'Nurse Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Medication Administration Record',
@@ -435,7 +631,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     content: {
       ops: [
         { insert: 'MEDICATION ADMINISTRATION RECORD\n', attributes: { bold: true, size: 'huge' } },
-        { insert: '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\n\n' },
+        {
+          insert:
+            '\nPatient: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nRoom: {{room_number}}\n\n',
+        },
         { insert: 'Allergies: ', attributes: { bold: true } },
         { insert: '{{allergies}}\n' },
         { insert: 'Weight: {{weight}} Height: {{height}}\n\n' },
@@ -445,7 +644,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: 'PRN MEDICATIONS\n', attributes: { bold: true } },
         { insert: '{{prn_medications}}\n\n' },
         { insert: 'ADMINISTRATION LEGEND\n', attributes: { bold: true } },
-        { insert: 'Given = Initials of nurse\nNPO = Nothing by mouth\nRef = Patient refused\nHold = Medication held\nD/C = Discontinued\nN/A = Not available\n\n' },
+        {
+          insert:
+            'Given = Initials of nurse\nNPO = Nothing by mouth\nRef = Patient refused\nHold = Medication held\nD/C = Discontinued\nN/A = Not available\n\n',
+        },
         { insert: 'NURSE SIGNATURE LOG\n', attributes: { bold: true } },
         { insert: '{{nurse_signatures}}\n\n' },
         { insert: 'NOTES\n', attributes: { bold: true } },
@@ -455,20 +657,34 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
     placeholders: [
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'room_number', type: 'text', label: 'Room Number', required: true },
       { key: 'allergies', type: 'text', label: 'Allergies', required: true },
       { key: 'weight', type: 'text', label: 'Weight', required: true },
       { key: 'height', type: 'text', label: 'Height', required: true },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'end_date', type: 'date', label: 'End Date', required: true },
-      { key: 'scheduled_medications', type: 'textarea', label: 'Scheduled Medications', required: true },
+      {
+        key: 'scheduled_medications',
+        type: 'textarea',
+        label: 'Scheduled Medications',
+        required: true,
+      },
       { key: 'prn_medications', type: 'textarea', label: 'PRN Medications', required: false },
       { key: 'nurse_signatures', type: 'textarea', label: 'Nurse Signatures', required: true },
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'landscape', margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'landscape',
+      margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 },
+    },
   },
   {
     name: 'Prescription Form',
@@ -486,7 +702,10 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
         { insert: '{{provider_name}}, {{credentials}}\n' },
         { insert: 'DEA #: {{dea_number}} NPI: {{npi_number}}\n\n' },
         { insert: 'Date: {{prescription_date}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nAddress: {{patient_address}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nAddress: {{patient_address}}\n\n',
+        },
         { insert: 'Rx\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nMedication: {{medication_name}}\n' },
         { insert: 'Strength: {{strength}}\n' },
@@ -517,14 +736,41 @@ export const HEALTHCARE_CLINICAL_TEMPLATES = [
       { key: 'strength', type: 'text', label: 'Strength', required: true },
       { key: 'quantity', type: 'text', label: 'Quantity', required: true },
       { key: 'directions', type: 'textarea', label: 'Directions (Sig)', required: true },
-      { key: 'refills', type: 'select', label: 'Refills', required: true, options: ['0', '1', '2', '3', '4', '5', 'PRN'] },
-      { key: 'daw', type: 'select', label: 'Dispense as Written', required: true, options: ['Yes', 'No'] },
-      { key: 'substitution', type: 'select', label: 'Substitution Permitted', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'refills',
+        type: 'select',
+        label: 'Refills',
+        required: true,
+        options: ['0', '1', '2', '3', '4', '5', 'PRN'],
+      },
+      {
+        key: 'daw',
+        type: 'select',
+        label: 'Dispense as Written',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'substitution',
+        type: 'select',
+        label: 'Substitution Permitted',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'validity_days', type: 'number', label: 'Validity (Days)', required: true },
     ],
     signatureFields: [
-      { id: 'prescriber_signature', label: 'Prescriber Signature', required: true, position: { page: 1, x: 100, y: 500 } },
+      {
+        id: 'prescriber_signature',
+        label: 'Prescriber Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 500 },
+      },
     ],
-    settings: { paperSize: 'A5', orientation: 'portrait', margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 } },
+    settings: {
+      paperSize: 'A5',
+      orientation: 'portrait',
+      margins: { top: 0.5, right: 0.5, bottom: 0.5, left: 0.5 },
+    },
   },
 ];

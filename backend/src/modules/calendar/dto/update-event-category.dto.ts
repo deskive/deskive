@@ -3,28 +3,28 @@ import { IsString, IsOptional, IsHexColor, IsArray, IsUUID } from 'class-validat
 import { Transform } from 'class-transformer';
 
 export class UpdateEventCategoryDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Category name',
     example: 'Work Meetings',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
   name?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Category description',
     example: 'All work-related meetings and events',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsString()
   description?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Category color in hex format',
     example: '#3b82f6',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsHexColor()
@@ -33,16 +33,17 @@ export class UpdateEventCategoryDto {
   @ApiProperty({
     description: 'Category icon (emoji or icon identifier)',
     example: '💼',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
   icon?: string;
 
   @ApiProperty({
-    description: 'Array of file IDs embedded in the description content (for rich text images/files)',
+    description:
+      'Array of file IDs embedded in the description content (for rich text images/files)',
     example: ['file-uuid-1', 'file-uuid-2'],
-    required: false
+    required: false,
   })
   @IsOptional()
   @Transform(({ value }) => {

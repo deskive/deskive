@@ -1,6 +1,19 @@
-import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ForbiddenException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { CreateChannelDto, SendMessageDto, UpdateMessageDto, CreateConversationDto, UpdateChannelDto } from './dto';
+import {
+  CreateChannelDto,
+  SendMessageDto,
+  UpdateMessageDto,
+  CreateConversationDto,
+  UpdateChannelDto,
+} from './dto';
 import { AppGateway } from '../../common/gateways/app.gateway';
 import { ChatGateway } from './gateways/chat.gateway';
 import { NotificationsService } from '../notifications/notifications.service';
@@ -52,7 +65,7 @@ export class ChatService {
     // Check if user is workspace owner or admin
     const membershipResult = await this.db.findMany('workspace_members', {
       workspace_id: workspaceId,
-      user_id: userId
+      user_id: userId,
     });
 
     const membershipData = Array.isArray(membershipResult.data) ? membershipResult.data : [];
@@ -69,10 +82,12 @@ export class ChatService {
     const existingChannelsResult = await this.db.findMany('channels', {
       workspace_id: workspaceId,
       name: createChannelDto.name,
-      is_archived: false
+      is_archived: false,
     });
 
-    const existingChannelsData = Array.isArray(existingChannelsResult.data) ? existingChannelsResult.data : [];
+    const existingChannelsData = Array.isArray(existingChannelsResult.data)
+      ? existingChannelsResult.data
+      : [];
     if (existingChannelsData.length > 0) {
       throw new BadRequestException('Channel name already exists in this workspace');
     }
@@ -84,7 +99,7 @@ export class ChatService {
       workspace_id: workspaceId,
       created_by: userId,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const channel = await this.db.insert('channels', channelData);
@@ -96,10 +111,12 @@ export class ChatService {
     if (!createChannelDto.is_private) {
       // Get all workspace members
       const workspaceMembersResult = await this.db.findMany('workspace_members', {
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
 
-      const workspaceMembers = Array.isArray(workspaceMembersResult.data) ? workspaceMembersResult.data : [];
+      const workspaceMembers = Array.isArray(workspaceMembersResult.data)
+        ? workspaceMembersResult.data
+        : [];
 
       // Add all workspace members to the channel
       for (const member of workspaceMembers) {
@@ -107,7 +124,7 @@ export class ChatService {
           channel_id: channel.id,
           user_id: member.user_id,
           role: member.user_id === userId ? 'admin' : 'member',
-          joined_at: new Date().toISOString()
+          joined_at: new Date().toISOString(),
         });
 
         // Add to notification list (exclude creator)
@@ -121,7 +138,7 @@ export class ChatService {
         channel_id: channel.id,
         user_id: userId,
         role: 'admin',
-        joined_at: new Date().toISOString()
+        joined_at: new Date().toISOString(),
       });
 
       // Add selected members if member_ids are provided
@@ -135,7 +152,7 @@ export class ChatService {
           // Verify that the user is a workspace member before adding
           const workspaceMemberResult = await this.db.findMany('workspace_members', {
             workspace_id: workspaceId,
-            user_id: memberId
+            user_id: memberId,
           });
 
           const workspaceMemberData = Array.isArray(workspaceMemberResult.data)
@@ -147,7 +164,7 @@ export class ChatService {
               channel_id: channel.id,
               user_id: memberId,
               role: 'member',
-              joined_at: new Date().toISOString()
+              joined_at: new Date().toISOString(),
             });
 
             // Add to notification list
@@ -181,10 +198,10 @@ export class ChatService {
             channel_name: channel.name,
             channel_type: channel.type,
             is_private: channel.is_private,
-            created_by: userId
+            created_by: userId,
           },
           send_push: true,
-          send_email: false
+          send_email: false,
         });
       } catch (error) {
         console.error(`Failed to send channel creation notifications:`, error);
@@ -198,11 +215,11 @@ export class ChatService {
   async getChannels(workspaceId: string, userId: string) {
     // Get user's channel memberships first
     const membershipResult = await this.db.findMany('channel_members', {
-      user_id: userId
+      user_id: userId,
     });
 
     const membershipData = Array.isArray(membershipResult.data) ? membershipResult.data : [];
-    const memberChannelIds = membershipData.map(m => m.channel_id);
+    const memberChannelIds = membershipData.map((m) => m.channel_id);
 
     // If user has no memberships, return empty array
     if (memberChannelIds.length === 0) {
@@ -212,22 +229,20 @@ export class ChatService {
     // Get all channels in the workspace (both public and private)
     const allChannelsResult = await this.db.findMany('channels', {
       workspace_id: workspaceId,
-      is_archived: false
+      is_archived: false,
     });
 
     const allChannelsData = Array.isArray(allChannelsResult.data) ? allChannelsResult.data : [];
 
     // Filter to only channels where user is a member
-    const allChannels = allChannelsData.filter(channel =>
-      memberChannelIds.includes(channel.id)
-    );
+    const allChannels = allChannelsData.filter((channel) => memberChannelIds.includes(channel.id));
 
     // Add member count to each channel
     const channelsWithMemberCount = await Promise.all(
       allChannels.map(async (channel) => {
         // Get member count for this channel
         const membersResult = await this.db.findMany('channel_members', {
-          channel_id: channel.id
+          channel_id: channel.id,
         });
         const members = Array.isArray(membersResult.data) ? membersResult.data : [];
 
@@ -235,7 +250,7 @@ export class ChatService {
           ...channel,
           member_count: members.length,
         };
-      })
+      }),
     );
 
     return channelsWithMemberCount;
@@ -249,14 +264,14 @@ export class ChatService {
     // Get all non-archived channels in the workspace
     const allChannelsResult = await this.db.findMany('channels', {
       workspace_id: workspaceId,
-      is_archived: false
+      is_archived: false,
     });
 
     const allChannels = Array.isArray(allChannelsResult.data) ? allChannelsResult.data : [];
 
     // Filter channels by search query (case-insensitive)
     const searchTerm = query.toLowerCase().trim();
-    const matchingChannels = allChannels.filter(channel => {
+    const matchingChannels = allChannels.filter((channel) => {
       const nameMatch = channel.name.toLowerCase().includes(searchTerm);
       const descriptionMatch = channel.description?.toLowerCase().includes(searchTerm);
       return nameMatch || descriptionMatch;
@@ -264,16 +279,16 @@ export class ChatService {
 
     // Get user's channel memberships to mark which channels they're already in
     const membershipResult = await this.db.findMany('channel_members', {
-      user_id: userId
+      user_id: userId,
     });
 
     const membershipData = Array.isArray(membershipResult.data) ? membershipResult.data : [];
-    const memberChannelIds = membershipData.map(m => m.channel_id);
+    const memberChannelIds = membershipData.map((m) => m.channel_id);
 
     // Add is_member flag to each channel
-    return matchingChannels.map(channel => ({
+    return matchingChannels.map((channel) => ({
       ...channel,
-      is_member: memberChannelIds.includes(channel.id)
+      is_member: memberChannelIds.includes(channel.id),
     }));
   }
 
@@ -286,31 +301,33 @@ export class ChatService {
     const privateChannelsResult = await this.db.findMany('channels', {
       workspace_id: workspaceId,
       is_archived: false,
-      is_private: true
+      is_private: true,
     });
 
-    const privateChannels = Array.isArray(privateChannelsResult.data) ? privateChannelsResult.data : [];
+    const privateChannels = Array.isArray(privateChannelsResult.data)
+      ? privateChannelsResult.data
+      : [];
 
     // Filter by name (case-insensitive)
     const searchTerm = name.toLowerCase().trim();
-    const matchingChannels = privateChannels.filter(channel =>
-      channel.name.toLowerCase().includes(searchTerm)
+    const matchingChannels = privateChannels.filter((channel) =>
+      channel.name.toLowerCase().includes(searchTerm),
     );
 
     // Get user's channel memberships to mark which channels they're already in
     const membershipResult = await this.db.findMany('channel_members', {
-      user_id: userId
+      user_id: userId,
     });
 
     const membershipData = Array.isArray(membershipResult.data) ? membershipResult.data : [];
-    const memberChannelIds = membershipData.map(m => m.channel_id);
+    const memberChannelIds = membershipData.map((m) => m.channel_id);
 
     // Add is_member flag and member_count to each channel
     const channelsWithDetails = await Promise.all(
       matchingChannels.map(async (channel) => {
         // Get member count for this channel
         const membersResult = await this.db.findMany('channel_members', {
-          channel_id: channel.id
+          channel_id: channel.id,
         });
         const members = Array.isArray(membersResult.data) ? membersResult.data : [];
 
@@ -319,7 +336,7 @@ export class ChatService {
           is_member: memberChannelIds.includes(channel.id),
           member_count: members.length,
         };
-      })
+      }),
     );
 
     return channelsWithDetails;
@@ -330,7 +347,7 @@ export class ChatService {
     await this.checkChannelAccess(channelId, userId);
 
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -344,7 +361,7 @@ export class ChatService {
   async updateChannel(channelId: string, updateChannelDto: UpdateChannelDto, userId: string) {
     // Check if channel exists and user has access
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -357,11 +374,16 @@ export class ChatService {
     // Check if user is channel admin or workspace owner
     const membershipQueryResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
-    if (membershipData.length === 0 || (membershipData[0].role !== 'admin' && membershipData[0].role !== 'owner')) {
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
+    if (
+      membershipData.length === 0 ||
+      (membershipData[0].role !== 'admin' && membershipData[0].role !== 'owner')
+    ) {
       throw new ForbiddenException('Only channel admins can update the channel');
     }
 
@@ -370,10 +392,12 @@ export class ChatService {
       const existingChannelsResult = await this.db.findMany('channels', {
         workspace_id: channel.workspace_id,
         name: updateChannelDto.name,
-        is_archived: false
+        is_archived: false,
       });
 
-      const existingChannelsData = Array.isArray(existingChannelsResult.data) ? existingChannelsResult.data : [];
+      const existingChannelsData = Array.isArray(existingChannelsResult.data)
+        ? existingChannelsResult.data
+        : [];
       if (existingChannelsData.length > 0 && existingChannelsData[0].id !== channelId) {
         throw new BadRequestException('Channel name already exists in this workspace');
       }
@@ -384,7 +408,7 @@ export class ChatService {
 
     const updateData = {
       ...channelUpdateData,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Check if channel is transitioning from private to public
@@ -396,20 +420,26 @@ export class ChatService {
     // Handle member management based on channel privacy changes
     if (isTransitioningToPublic) {
       // Channel is being made public - add all workspace members who aren't already members
-      console.log('🔓 [Chat Service] Channel transitioning from private to public, adding all workspace members');
+      console.log(
+        '🔓 [Chat Service] Channel transitioning from private to public, adding all workspace members',
+      );
 
       // Get all workspace members
       const workspaceMembersResult = await this.db.findMany('workspace_members', {
-        workspace_id: channel.workspace_id
+        workspace_id: channel.workspace_id,
       });
-      const workspaceMembers = Array.isArray(workspaceMembersResult.data) ? workspaceMembersResult.data : [];
+      const workspaceMembers = Array.isArray(workspaceMembersResult.data)
+        ? workspaceMembersResult.data
+        : [];
 
       // Get current channel members
       const currentMembersResult = await this.db.findMany('channel_members', {
-        channel_id: channelId
+        channel_id: channelId,
       });
-      const currentMembers = Array.isArray(currentMembersResult.data) ? currentMembersResult.data : [];
-      const currentMemberIds = currentMembers.map(m => m.user_id);
+      const currentMembers = Array.isArray(currentMembersResult.data)
+        ? currentMembersResult.data
+        : [];
+      const currentMemberIds = currentMembers.map((m) => m.user_id);
 
       // Add all workspace members who aren't already channel members
       for (const workspaceMember of workspaceMembers) {
@@ -418,33 +448,39 @@ export class ChatService {
             channel_id: channelId,
             user_id: workspaceMember.user_id,
             role: 'member',
-            joined_at: new Date().toISOString()
+            joined_at: new Date().toISOString(),
           });
-          console.log(`✅ [Chat Service] Added workspace member ${workspaceMember.user_id} to channel`);
+          console.log(
+            `✅ [Chat Service] Added workspace member ${workspaceMember.user_id} to channel`,
+          );
         }
       }
     } else if (member_ids !== undefined && updateChannelDto.is_private) {
       // Update channel members if member_ids is provided and channel is/remains private
       // Get current channel members (excluding the owner/admin making the update)
       const currentMembersResult = await this.db.findMany('channel_members', {
-        channel_id: channelId
+        channel_id: channelId,
       });
 
-      const currentMembers = Array.isArray(currentMembersResult.data) ? currentMembersResult.data : [];
+      const currentMembers = Array.isArray(currentMembersResult.data)
+        ? currentMembersResult.data
+        : [];
 
       // Get all current member IDs except the admin making the update
       const currentMemberIds = currentMembers
-        .filter(m => m.user_id !== userId)
-        .map(m => m.user_id);
+        .filter((m) => m.user_id !== userId)
+        .map((m) => m.user_id);
 
       // Ensure the admin/owner is always included in the member list
       const newMemberIds = [...new Set([userId, ...member_ids])];
 
       // Find members to add (in new list but not in current)
-      const membersToAdd = newMemberIds.filter(id => !currentMemberIds.includes(id) && id !== userId);
+      const membersToAdd = newMemberIds.filter(
+        (id) => !currentMemberIds.includes(id) && id !== userId,
+      );
 
       // Find members to remove (in current list but not in new list, and not the admin)
-      const membersToRemove = currentMemberIds.filter(id => !newMemberIds.includes(id));
+      const membersToRemove = currentMemberIds.filter((id) => !newMemberIds.includes(id));
 
       // Add new members
       for (const memberId of membersToAdd) {
@@ -452,16 +488,17 @@ export class ChatService {
           channel_id: channelId,
           user_id: memberId,
           role: 'member',
-          joined_at: new Date().toISOString()
+          joined_at: new Date().toISOString(),
         });
       }
 
       // Remove members no longer in the list
       for (const memberId of membersToRemove) {
-        const memberToRemove = currentMembers.find(m => m.user_id === memberId);
+        const memberToRemove = currentMembers.find((m) => m.user_id === memberId);
         if (memberToRemove) {
           // Use query builder since ID is UUID, not integer
-          await this.db.table('channel_members')
+          await this.db
+            .table('channel_members')
             .delete()
             .where('id', '=', memberToRemove.id)
             .execute();
@@ -475,7 +512,7 @@ export class ChatService {
   async deleteChannel(channelId: string, userId: string) {
     // Check if channel exists
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -487,7 +524,7 @@ export class ChatService {
 
     // Check if user is workspace owner
     const workspaceQueryResult = await this.db.findMany('workspaces', {
-      id: channel.workspace_id
+      id: channel.workspace_id,
     });
 
     const workspaceData = Array.isArray(workspaceQueryResult.data) ? workspaceQueryResult.data : [];
@@ -505,28 +542,36 @@ export class ChatService {
     // Archive the channel instead of hard delete to preserve messages
     const updatedChannel = await this.db.update('channels', channelId, {
       is_archived: true,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
 
     // Emit WebSocket event to notify all workspace members
-    console.log(`[ChatService] Emitting channel:deleted event for channel ${channelId} in workspace ${workspace.id}`);
+    console.log(
+      `[ChatService] Emitting channel:deleted event for channel ${channelId} in workspace ${workspace.id}`,
+    );
     this.appGateway.emitToRoom(`workspace:${workspace.id}`, 'channel:deleted', {
       channelId: channelId,
       workspaceId: workspace.id,
-      channelName: channel.name
+      channelName: channel.name,
     });
 
     return updatedChannel;
   }
 
-  async getChannelMessages(channelId: string, userId: string, limit: number = 50, offset: number = 0) {
+  async getChannelMessages(
+    channelId: string,
+    userId: string,
+    limit: number = 50,
+    offset: number = 0,
+  ) {
     // Check if user has access to channel
     await this.checkChannelAccess(channelId, userId);
 
     console.log('[ChatService] getChannelMessages called:', { channelId, userId, limit, offset });
 
     // Query messages and filter out deleted ones
-    const messagesQueryResult = await this.db.table('messages')
+    const messagesQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('channel_id', '=', channelId)
       .execute();
@@ -538,7 +583,7 @@ export class ChatService {
 
     // Filter out deleted messages manually (is_deleted might be true, false, or null)
     const messagesData = Array.isArray(messagesQueryResult.data) ? messagesQueryResult.data : [];
-    const nonDeletedMessages = messagesData.filter(msg => msg.is_deleted !== true);
+    const nonDeletedMessages = messagesData.filter((msg) => msg.is_deleted !== true);
     const sortedMessages = nonDeletedMessages
       .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
       .slice(offset, offset + limit);
@@ -546,121 +591,139 @@ export class ChatService {
     console.log('[ChatService] Messages count:', {
       total: messagesData.length,
       nonDeleted: nonDeletedMessages.length,
-      afterPagination: sortedMessages.length
+      afterPagination: sortedMessages.length,
     });
 
     // Fetch user info for each message and parse JSON fields
-    const messagesWithUsers = await Promise.all(sortedMessages.map(async (message) => {
-      let user = null;
+    const messagesWithUsers = await Promise.all(
+      sortedMessages.map(async (message) => {
+        let user = null;
 
-      // Handle bot messages specially - format is "bot" or "bot:{botId}"
-      if (message.user_id === 'bot' || message.user_id?.startsWith('bot:')) {
-        // Try to look up bot details if we have a bot ID
-        const botId = message.user_id?.startsWith('bot:') ? message.user_id.split(':')[1] : null;
+        // Handle bot messages specially - format is "bot" or "bot:{botId}"
+        if (message.user_id === 'bot' || message.user_id?.startsWith('bot:')) {
+          // Try to look up bot details if we have a bot ID
+          const botId = message.user_id?.startsWith('bot:') ? message.user_id.split(':')[1] : null;
 
-        if (botId) {
+          if (botId) {
+            try {
+              const botResult = await this.db.findMany('bots', { id: botId });
+              const bots = Array.isArray(botResult.data) ? botResult.data : [];
+              if (bots.length > 0) {
+                const bot = bots[0];
+                user = {
+                  id: message.user_id,
+                  name: bot.display_name || bot.name || 'Bot',
+                  email: '',
+                  avatarUrl: bot.avatar_url || null,
+                  isBot: true,
+                };
+              }
+            } catch (error) {
+              console.warn('[ChatService] Could not fetch bot info:', error.message);
+            }
+          }
+
+          // Fallback if bot lookup failed
+          if (!user) {
+            user = {
+              id: message.user_id,
+              name: 'Bot',
+              email: '',
+              avatarUrl: null,
+              isBot: true,
+            };
+          }
+        } else {
           try {
-            const botResult = await this.db.findMany('bots', { id: botId });
-            const bots = Array.isArray(botResult.data) ? botResult.data : [];
-            if (bots.length > 0) {
-              const bot = bots[0];
+            const userInfo: any = await this.db.getUserById(message.user_id);
+            if (userInfo) {
+              // Extract metadata for additional profile fields (same pattern as auth service)
+              const metadata = userInfo.metadata || {};
+
               user = {
-                id: message.user_id,
-                name: bot.display_name || bot.name || 'Bot',
-                email: '',
-                avatarUrl: bot.avatar_url || null,
-                isBot: true
+                id: userInfo.id,
+                // Priority: metadata.name -> fullName -> name -> email prefix
+                name:
+                  metadata.name ||
+                  (userInfo as any).fullName ||
+                  userInfo.name ||
+                  userInfo.email?.split('@')[0] ||
+                  'User',
+                email: userInfo.email,
+                avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null,
               };
             }
           } catch (error) {
-            console.warn('[ChatService] Could not fetch bot info:', error.message);
-          }
-        }
-
-        // Fallback if bot lookup failed
-        if (!user) {
-          user = {
-            id: message.user_id,
-            name: 'Bot',
-            email: '',
-            avatarUrl: null,
-            isBot: true
-          };
-        }
-      } else {
-        try {
-          const userInfo: any = await this.db.getUserById(message.user_id);
-          if (userInfo) {
-            // Extract metadata for additional profile fields (same pattern as auth service)
-            const metadata = userInfo.metadata || {};
-
+            console.warn(
+              '[ChatService] Could not fetch user info for message:',
+              message.id,
+              error.message,
+            );
             user = {
-              id: userInfo.id,
-              // Priority: metadata.name -> fullName -> name -> email prefix
-              name: metadata.name || (userInfo as any).fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
-              email: userInfo.email,
-              avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null
+              id: message.user_id,
+              name: 'User',
+              email: '',
+              avatarUrl: null,
             };
           }
-        } catch (error) {
-          console.warn('[ChatService] Could not fetch user info for message:', message.id, error.message);
-          user = {
-            id: message.user_id,
-            name: 'User',
-            email: '',
-            avatarUrl: null
-          };
         }
-      }
 
-      // Get read receipt count for this message
-      let readByCount = 0;
-      try {
-        const receiptsResult = await this.db.findMany('message_read_receipts', {
-          message_id: message.id
-        });
-        const receipts = Array.isArray(receiptsResult.data) ? receiptsResult.data : [];
-        readByCount = receipts.length;
-      } catch (error) {
-        console.warn('[ChatService] Could not fetch read receipt count for message:', message.id);
-      }
+        // Get read receipt count for this message
+        let readByCount = 0;
+        try {
+          const receiptsResult = await this.db.findMany('message_read_receipts', {
+            message_id: message.id,
+          });
+          const receipts = Array.isArray(receiptsResult.data) ? receiptsResult.data : [];
+          readByCount = receipts.length;
+        } catch (error) {
+          console.warn('[ChatService] Could not fetch read receipt count for message:', message.id);
+        }
 
-      // Fetch reactions from message_reactions table
-      const reactions = await this.getMessageReactions(message.id);
+        // Fetch reactions from message_reactions table
+        const reactions = await this.getMessageReactions(message.id);
 
-      // Parse linked_content
-      const parsedLinkedContent = typeof message.linked_content === 'string'
-        ? JSON.parse(message.linked_content)
-        : (message.linked_content || []);
+        // Parse linked_content
+        const parsedLinkedContent =
+          typeof message.linked_content === 'string'
+            ? JSON.parse(message.linked_content)
+            : message.linked_content || [];
 
-      // Enrich polls with user vote status
-      const enrichedLinkedContent = await this.enrichLinkedContentWithUserVotes(
-        parsedLinkedContent,
-        message.id,
-        userId
-      );
+        // Enrich polls with user vote status
+        const enrichedLinkedContent = await this.enrichLinkedContentWithUserVotes(
+          parsedLinkedContent,
+          message.id,
+          userId,
+        );
 
-      return {
-        ...message,
-        user,
-        read_by_count: readByCount,
-        attachments: typeof message.attachments === 'string'
-          ? JSON.parse(message.attachments)
-          : (message.attachments || []),
-        mentions: typeof message.mentions === 'string'
-          ? JSON.parse(message.mentions)
-          : (message.mentions || []),
-        linked_content: enrichedLinkedContent,
-        reactions
-      };
-    }));
+        return {
+          ...message,
+          user,
+          read_by_count: readByCount,
+          attachments:
+            typeof message.attachments === 'string'
+              ? JSON.parse(message.attachments)
+              : message.attachments || [],
+          mentions:
+            typeof message.mentions === 'string'
+              ? JSON.parse(message.mentions)
+              : message.mentions || [],
+          linked_content: enrichedLinkedContent,
+          reactions,
+        };
+      }),
+    );
 
     console.log('[ChatService] Returning messages with user info:', messagesWithUsers.length);
     return messagesWithUsers;
   }
 
   // Conversation operations
-  async createConversation(workspaceId: string, createConversationDto: CreateConversationDto, userId: string) {
+  async createConversation(
+    workspaceId: string,
+    createConversationDto: CreateConversationDto,
+    userId: string,
+  ) {
     // Validate participants array length (DTO validation should catch this, but double-check)
     if (createConversationDto.participants.length !== 1) {
       throw new BadRequestException('Direct conversations must have exactly one other participant');
@@ -676,7 +739,7 @@ export class ChatService {
     // Verify the other participant is either a workspace member OR a bot
     const workspaceMember = await this.db.findOne('workspace_members', {
       workspace_id: workspaceId,
-      user_id: otherParticipantId
+      user_id: otherParticipantId,
     });
 
     // If not a workspace member, check if it's a bot
@@ -684,11 +747,13 @@ export class ChatService {
       const bot = await this.db.findOne('bots', {
         id: otherParticipantId,
         workspace_id: workspaceId,
-        status: 'active'
+        status: 'active',
       });
 
       if (!bot) {
-        throw new NotFoundException('The specified user is not a member of this workspace and is not an active bot');
+        throw new NotFoundException(
+          'The specified user is not a member of this workspace and is not an active bot',
+        );
       }
     }
 
@@ -697,7 +762,7 @@ export class ChatService {
 
     // Check if a conversation with these exact participants already exists in this workspace
     const existingConversationsResult = await this.db.findMany('conversations', {
-      workspace_id: workspaceId
+      workspace_id: workspaceId,
     });
 
     const existingConversationsData = Array.isArray(existingConversationsResult.data)
@@ -709,9 +774,10 @@ export class ChatService {
       let existingParticipants: string[];
 
       try {
-        existingParticipants = typeof existingConv.participants === 'string'
-          ? JSON.parse(existingConv.participants)
-          : existingConv.participants;
+        existingParticipants =
+          typeof existingConv.participants === 'string'
+            ? JSON.parse(existingConv.participants)
+            : existingConv.participants;
       } catch {
         continue; // Skip if participants can't be parsed
       }
@@ -733,7 +799,7 @@ export class ChatService {
       created_by: userId,
       participants: JSON.stringify(allParticipants),
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const conversation = await this.db.insert('conversations', conversationData);
@@ -743,7 +809,7 @@ export class ChatService {
       await this.db.insert('conversation_members', {
         conversation_id: conversation.id,
         user_id: participantId,
-        joined_at: new Date().toISOString()
+        joined_at: new Date().toISOString(),
       });
     }
 
@@ -752,32 +818,38 @@ export class ChatService {
 
   async getConversations(workspaceId: string, userId: string) {
     // Get all conversations where user is a member
-    const membershipQueryResult = await this.db.findMany('conversation_members', {
-      user_id: userId
-    }, { limit: 1000 }); // Increase limit to ensure we get all memberships
+    const membershipQueryResult = await this.db.findMany(
+      'conversation_members',
+      {
+        user_id: userId,
+      },
+      { limit: 1000 },
+    ); // Increase limit to ensure we get all memberships
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       return [];
     }
 
     // Create a map of conversation_id to membership data (for starred info)
     const membershipMap = new Map<string, { isStarred: boolean; starredAt: string | null }>();
-    membershipData.forEach(m => {
+    membershipData.forEach((m) => {
       membershipMap.set(m.conversation_id, {
         isStarred: m.is_starred === true,
-        starredAt: m.starred_at || null
+        starredAt: m.starred_at || null,
       });
     });
 
-    const conversationIds = membershipData.map(m => m.conversation_id);
+    const conversationIds = membershipData.map((m) => m.conversation_id);
 
     // Fetch each conversation individually to avoid pagination issues
     const conversationPromises = conversationIds.map(async (convId) => {
       try {
         const conversation = await this.db.findOne('conversations', {
           id: convId,
-          workspace_id: workspaceId
+          workspace_id: workspaceId,
         });
         return conversation;
       } catch (error) {
@@ -790,13 +862,13 @@ export class ChatService {
 
     // Filter out null results, archived conversations, and add membership data
     const conversations = conversationsResults
-      .filter(c => c !== null && c.is_archived !== true)
-      .map(c => {
+      .filter((c) => c !== null && c.is_archived !== true)
+      .map((c) => {
         const membership = membershipMap.get(c.id);
         return {
           ...c,
           isStarred: membership?.isStarred || false,
-          starredAt: membership?.starredAt || null
+          starredAt: membership?.starredAt || null,
         };
       })
       // Sort: starred first (by starred_at desc), then by updated_at desc
@@ -823,10 +895,12 @@ export class ChatService {
   async deleteConversation(conversationId: string, userId: string) {
     // Check if conversation exists
     const conversationQueryResult = await this.db.findMany('conversations', {
-      id: conversationId
+      id: conversationId,
     });
 
-    const conversationData = Array.isArray(conversationQueryResult.data) ? conversationQueryResult.data : [];
+    const conversationData = Array.isArray(conversationQueryResult.data)
+      ? conversationQueryResult.data
+      : [];
     if (conversationData.length === 0) {
       throw new NotFoundException('Conversation not found');
     }
@@ -834,10 +908,12 @@ export class ChatService {
     // Check if user is a participant in this conversation
     const membershipQueryResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       throw new ForbiddenException('You are not a participant in this conversation');
     }
@@ -846,7 +922,7 @@ export class ChatService {
     // This preserves the conversation history but removes it from the user's list
     return await this.db.update('conversations', conversationId, {
       is_archived: true,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
   }
 
@@ -856,10 +932,12 @@ export class ChatService {
   async starConversation(conversationId: string, userId: string) {
     // Check if conversation exists
     const conversationQueryResult = await this.db.findMany('conversations', {
-      id: conversationId
+      id: conversationId,
     });
 
-    const conversationData = Array.isArray(conversationQueryResult.data) ? conversationQueryResult.data : [];
+    const conversationData = Array.isArray(conversationQueryResult.data)
+      ? conversationQueryResult.data
+      : [];
     if (conversationData.length === 0) {
       throw new NotFoundException('Conversation not found');
     }
@@ -867,10 +945,12 @@ export class ChatService {
     // Check if user is a participant in this conversation
     const membershipQueryResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       throw new ForbiddenException('You are not a participant in this conversation');
     }
@@ -878,10 +958,11 @@ export class ChatService {
     const membership = membershipData[0];
 
     // Update the membership to star the conversation
-    await this.db.table('conversation_members')
+    await this.db
+      .table('conversation_members')
       .update({
         is_starred: true,
-        starred_at: new Date().toISOString()
+        starred_at: new Date().toISOString(),
       })
       .where('id', '=', membership.id)
       .execute();
@@ -893,8 +974,8 @@ export class ChatService {
       data: {
         conversationId,
         isStarred: true,
-        starredAt: new Date().toISOString()
-      }
+        starredAt: new Date().toISOString(),
+      },
     };
   }
 
@@ -904,10 +985,12 @@ export class ChatService {
   async unstarConversation(conversationId: string, userId: string) {
     // Check if conversation exists
     const conversationQueryResult = await this.db.findMany('conversations', {
-      id: conversationId
+      id: conversationId,
     });
 
-    const conversationData = Array.isArray(conversationQueryResult.data) ? conversationQueryResult.data : [];
+    const conversationData = Array.isArray(conversationQueryResult.data)
+      ? conversationQueryResult.data
+      : [];
     if (conversationData.length === 0) {
       throw new NotFoundException('Conversation not found');
     }
@@ -915,10 +998,12 @@ export class ChatService {
     // Check if user is a participant in this conversation
     const membershipQueryResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       throw new ForbiddenException('You are not a participant in this conversation');
     }
@@ -926,10 +1011,11 @@ export class ChatService {
     const membership = membershipData[0];
 
     // Update the membership to unstar the conversation
-    await this.db.table('conversation_members')
+    await this.db
+      .table('conversation_members')
       .update({
         is_starred: false,
-        starred_at: null
+        starred_at: null,
       })
       .where('id', '=', membership.id)
       .execute();
@@ -941,19 +1027,30 @@ export class ChatService {
       data: {
         conversationId,
         isStarred: false,
-        starredAt: null
-      }
+        starredAt: null,
+      },
     };
   }
 
-  async getConversationMessages(conversationId: string, userId: string, limit: number = 50, offset: number = 0) {
+  async getConversationMessages(
+    conversationId: string,
+    userId: string,
+    limit: number = 50,
+    offset: number = 0,
+  ) {
     // Check if user has access to conversation
     await this.checkConversationAccess(conversationId, userId);
 
-    console.log('[ChatService] getConversationMessages called:', { conversationId, userId, limit, offset });
+    console.log('[ChatService] getConversationMessages called:', {
+      conversationId,
+      userId,
+      limit,
+      offset,
+    });
 
     // Query messages and filter out deleted ones
-    const messagesQueryResult = await this.db.table('messages')
+    const messagesQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .execute();
@@ -965,7 +1062,7 @@ export class ChatService {
 
     // Filter out deleted messages manually (is_deleted might be true, false, or null)
     const messagesData = Array.isArray(messagesQueryResult.data) ? messagesQueryResult.data : [];
-    const nonDeletedMessages = messagesData.filter(msg => msg.is_deleted !== true);
+    const nonDeletedMessages = messagesData.filter((msg) => msg.is_deleted !== true);
     const sortedMessages = nonDeletedMessages
       .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
       .slice(offset, offset + limit);
@@ -973,116 +1070,133 @@ export class ChatService {
     console.log('[ChatService] Messages count:', {
       total: messagesData.length,
       nonDeleted: nonDeletedMessages.length,
-      afterPagination: sortedMessages.length
+      afterPagination: sortedMessages.length,
     });
 
     // Fetch user info for each message and parse JSON fields
-    const messagesWithUsers = await Promise.all(sortedMessages.map(async (message) => {
-      let user = null;
+    const messagesWithUsers = await Promise.all(
+      sortedMessages.map(async (message) => {
+        let user = null;
 
-      // Handle bot messages specially - format is "bot" or "bot:{botId}"
-      if (message.user_id === 'bot' || message.user_id?.startsWith('bot:')) {
-        // Try to look up bot details if we have a bot ID
-        const botId = message.user_id?.startsWith('bot:') ? message.user_id.split(':')[1] : null;
+        // Handle bot messages specially - format is "bot" or "bot:{botId}"
+        if (message.user_id === 'bot' || message.user_id?.startsWith('bot:')) {
+          // Try to look up bot details if we have a bot ID
+          const botId = message.user_id?.startsWith('bot:') ? message.user_id.split(':')[1] : null;
 
-        if (botId) {
+          if (botId) {
+            try {
+              const botResult = await this.db.findMany('bots', { id: botId });
+              const bots = Array.isArray(botResult.data) ? botResult.data : [];
+              if (bots.length > 0) {
+                const bot = bots[0];
+                user = {
+                  id: message.user_id,
+                  name: bot.display_name || bot.name || 'Bot',
+                  email: '',
+                  avatarUrl: bot.avatar_url || null,
+                  isBot: true,
+                };
+              }
+            } catch (error) {
+              console.warn('[ChatService] Could not fetch bot info:', error.message);
+            }
+          }
+
+          // Fallback if bot lookup failed
+          if (!user) {
+            user = {
+              id: message.user_id,
+              name: 'Bot',
+              email: '',
+              avatarUrl: null,
+              isBot: true,
+            };
+          }
+        } else {
           try {
-            const botResult = await this.db.findMany('bots', { id: botId });
-            const bots = Array.isArray(botResult.data) ? botResult.data : [];
-            if (bots.length > 0) {
-              const bot = bots[0];
+            const userInfo: any = await this.db.getUserById(message.user_id);
+            if (userInfo) {
+              // Extract metadata for additional profile fields (same pattern as auth service)
+              const metadata = userInfo.metadata || {};
+
               user = {
-                id: message.user_id,
-                name: bot.display_name || bot.name || 'Bot',
-                email: '',
-                avatarUrl: bot.avatar_url || null,
-                isBot: true
+                id: userInfo.id,
+                // Priority: metadata.name -> fullName -> name -> email prefix
+                name:
+                  metadata.name ||
+                  (userInfo as any).fullName ||
+                  userInfo.name ||
+                  userInfo.email?.split('@')[0] ||
+                  'User',
+                email: userInfo.email,
+                avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null,
               };
             }
           } catch (error) {
-            console.warn('[ChatService] Could not fetch bot info:', error.message);
-          }
-        }
-
-        // Fallback if bot lookup failed
-        if (!user) {
-          user = {
-            id: message.user_id,
-            name: 'Bot',
-            email: '',
-            avatarUrl: null,
-            isBot: true
-          };
-        }
-      } else {
-        try {
-          const userInfo: any = await this.db.getUserById(message.user_id);
-          if (userInfo) {
-            // Extract metadata for additional profile fields (same pattern as auth service)
-            const metadata = userInfo.metadata || {};
-
+            console.warn(
+              '[ChatService] Could not fetch user info for message:',
+              message.id,
+              error.message,
+            );
             user = {
-              id: userInfo.id,
-              // Priority: metadata.name -> fullName -> name -> email prefix
-              name: metadata.name || (userInfo as any).fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
-              email: userInfo.email,
-              avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null
+              id: message.user_id,
+              name: 'User',
+              email: '',
+              avatarUrl: null,
             };
           }
-        } catch (error) {
-          console.warn('[ChatService] Could not fetch user info for message:', message.id, error.message);
-          user = {
-            id: message.user_id,
-            name: 'User',
-            email: '',
-            avatarUrl: null
-          };
         }
-      }
 
-      // Get read receipt count for this message
-      let readByCount = 0;
-      try {
-        const receiptsResult = await this.db.findMany('message_read_receipts', {
-          message_id: message.id
-        });
-        const receipts = Array.isArray(receiptsResult.data) ? receiptsResult.data : [];
-        readByCount = receipts.length;
-      } catch (error) {
-        console.warn('[ChatService] Could not fetch read receipt count for message:', message.id);
-      }
+        // Get read receipt count for this message
+        let readByCount = 0;
+        try {
+          const receiptsResult = await this.db.findMany('message_read_receipts', {
+            message_id: message.id,
+          });
+          const receipts = Array.isArray(receiptsResult.data) ? receiptsResult.data : [];
+          readByCount = receipts.length;
+        } catch (error) {
+          console.warn('[ChatService] Could not fetch read receipt count for message:', message.id);
+        }
 
-      // Fetch reactions from message_reactions table
-      const reactions = await this.getMessageReactions(message.id);
+        // Fetch reactions from message_reactions table
+        const reactions = await this.getMessageReactions(message.id);
 
-      // Parse linked_content
-      const parsedLinkedContent = typeof message.linked_content === 'string'
-        ? JSON.parse(message.linked_content)
-        : (message.linked_content || []);
+        // Parse linked_content
+        const parsedLinkedContent =
+          typeof message.linked_content === 'string'
+            ? JSON.parse(message.linked_content)
+            : message.linked_content || [];
 
-      // Enrich polls with user vote status
-      const enrichedLinkedContent = await this.enrichLinkedContentWithUserVotes(
-        parsedLinkedContent,
-        message.id,
-        userId
-      );
+        // Enrich polls with user vote status
+        const enrichedLinkedContent = await this.enrichLinkedContentWithUserVotes(
+          parsedLinkedContent,
+          message.id,
+          userId,
+        );
 
-      return {
-        ...message,
-        user,
-        read_by_count: readByCount,
-        attachments: typeof message.attachments === 'string'
-          ? JSON.parse(message.attachments)
-          : (message.attachments || []),
-        mentions: typeof message.mentions === 'string'
-          ? JSON.parse(message.mentions)
-          : (message.mentions || []),
-        linked_content: enrichedLinkedContent,
-        reactions
-      };
-    }));
+        return {
+          ...message,
+          user,
+          read_by_count: readByCount,
+          attachments:
+            typeof message.attachments === 'string'
+              ? JSON.parse(message.attachments)
+              : message.attachments || [],
+          mentions:
+            typeof message.mentions === 'string'
+              ? JSON.parse(message.mentions)
+              : message.mentions || [],
+          linked_content: enrichedLinkedContent,
+          reactions,
+        };
+      }),
+    );
 
-    console.log('[ChatService] Returning conversation messages with user info:', messagesWithUsers.length);
+    console.log(
+      '[ChatService] Returning conversation messages with user info:',
+      messagesWithUsers.length,
+    );
     return messagesWithUsers;
   }
 
@@ -1093,75 +1207,93 @@ export class ChatService {
     console.log('[ChatService] getConversationMembers called:', { conversationId, userId });
 
     // Get conversation members from conversation_members table
-    const membersResult = await this.db.table('conversation_members')
+    const membersResult = await this.db
+      .table('conversation_members')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .execute();
 
     console.log('[ChatService] Conversation members query result:', {
       hasData: !!membersResult.data,
-      dataLength: Array.isArray(membersResult.data) ? membersResult.data.length : 0
+      dataLength: Array.isArray(membersResult.data) ? membersResult.data.length : 0,
     });
 
     const membersData = Array.isArray(membersResult.data) ? membersResult.data : [];
 
     // Fetch user info for each member (similar to channel members pattern)
-    const membersWithUsers = await Promise.all(membersData.map(async (member) => {
-      let user = null;
-      try {
-        // First check if this is a bot
-        const botResult = await this.db.findOne('bots', { id: member.user_id });
-        if (botResult) {
-          // It's a bot
-          user = {
-            id: botResult.id,
-            name: botResult.display_name || botResult.name || 'Bot',
-            email: `${botResult.name}@bot.deskive.ai`,
-            avatarUrl: botResult.avatar_url || null,
-            status: 'online', // Bots are always "online"
-            isBot: true
-          };
-        } else {
-          // It's a regular user
-          const userInfo: any = await this.db.getUserById(member.user_id);
-          if (userInfo) {
-            const metadata = userInfo.metadata || {};
+    const membersWithUsers = await Promise.all(
+      membersData.map(async (member) => {
+        let user = null;
+        try {
+          // First check if this is a bot
+          const botResult = await this.db.findOne('bots', { id: member.user_id });
+          if (botResult) {
+            // It's a bot
             user = {
-              id: userInfo.id,
-              name: metadata.name || (userInfo as any).fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
-              email: userInfo.email,
-              avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null,
-              status: 'offline' // Default status, can be enhanced with presence service
+              id: botResult.id,
+              name: botResult.display_name || botResult.name || 'Bot',
+              email: `${botResult.name}@bot.deskive.ai`,
+              avatarUrl: botResult.avatar_url || null,
+              status: 'online', // Bots are always "online"
+              isBot: true,
             };
+          } else {
+            // It's a regular user
+            const userInfo: any = await this.db.getUserById(member.user_id);
+            if (userInfo) {
+              const metadata = userInfo.metadata || {};
+              user = {
+                id: userInfo.id,
+                name:
+                  metadata.name ||
+                  (userInfo as any).fullName ||
+                  userInfo.name ||
+                  userInfo.email?.split('@')[0] ||
+                  'User',
+                email: userInfo.email,
+                avatarUrl: metadata.avatarUrl || userInfo.avatar_url || userInfo.avatarUrl || null,
+                status: 'offline', // Default status, can be enhanced with presence service
+              };
+            }
           }
+        } catch (error) {
+          console.warn(
+            '[ChatService] Could not fetch user info for conversation member:',
+            member.user_id,
+            error.message,
+          );
+          user = {
+            id: member.user_id,
+            name: 'User',
+            email: '',
+            avatarUrl: null,
+            status: 'offline',
+          };
         }
-      } catch (error) {
-        console.warn('[ChatService] Could not fetch user info for conversation member:', member.user_id, error.message);
-        user = {
-          id: member.user_id,
-          name: 'User',
-          email: '',
-          avatarUrl: null,
-          status: 'offline'
+
+        return {
+          id: member.id,
+          conversationId: member.conversation_id,
+          userId: member.user_id,
+          role: member.role || 'member', // Default role
+          joinedAt: member.joined_at || member.created_at,
+          user,
         };
-      }
+      }),
+    );
 
-      return {
-        id: member.id,
-        conversationId: member.conversation_id,
-        userId: member.user_id,
-        role: member.role || 'member', // Default role
-        joinedAt: member.joined_at || member.created_at,
-        user
-      };
-    }));
-
-    console.log('[ChatService] Returning conversation members with user info:', membersWithUsers.length);
+    console.log(
+      '[ChatService] Returning conversation members with user info:',
+      membersWithUsers.length,
+    );
     return membersWithUsers;
   }
 
   // Message operations
-  async sendMessage(messageData: SendMessageDto & { channel_id?: string; conversation_id?: string }, userId: string) {
+  async sendMessage(
+    messageData: SendMessageDto & { channel_id?: string; conversation_id?: string },
+    userId: string,
+  ) {
     console.log('[ChatService] ⚠️ sendMessage CALLED - STACK TRACE:');
     console.trace('[ChatService] sendMessage caller');
     console.log('[ChatService] sendMessage called with data:', {
@@ -1170,7 +1302,7 @@ export class ChatService {
       attachmentsCount: messageData.attachments?.length || 0,
       attachments: messageData.attachments,
       channel_id: messageData.channel_id,
-      conversation_id: messageData.conversation_id
+      conversation_id: messageData.conversation_id,
     });
 
     if (!messageData.channel_id && !messageData.conversation_id) {
@@ -1199,12 +1331,12 @@ export class ChatService {
       is_encrypted: messageData.is_encrypted || false,
       content: messageData.content || '',
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     console.log('[ChatService] Message payload to insert:', {
       ...messagePayload,
-      attachments: messagePayload.attachments // Show stringified version
+      attachments: messagePayload.attachments, // Show stringified version
     });
 
     const message = await this.db.insert('messages', messagePayload);
@@ -1224,9 +1356,14 @@ export class ChatService {
         user = {
           id: userInfo.id,
           // Priority: metadata.name -> fullName -> name -> email prefix
-          name: metadata.name || userInfo.fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
+          name:
+            metadata.name ||
+            userInfo.fullName ||
+            userInfo.name ||
+            userInfo.email?.split('@')[0] ||
+            'User',
           email: userInfo.email,
-          avatarUrl: userInfo.avatar_url || userInfo.avatarUrl || null
+          avatarUrl: userInfo.avatar_url || userInfo.avatarUrl || null,
         };
         console.log('[ChatService] User object created:', user);
       }
@@ -1237,7 +1374,7 @@ export class ChatService {
         id: userId,
         name: 'User',
         email: '',
-        avatarUrl: null
+        avatarUrl: null,
       };
     }
 
@@ -1247,24 +1384,40 @@ export class ChatService {
       parsedMessage = {
         ...message,
         user,
-        attachments: typeof message.attachments === 'string'
-          ? JSON.parse(message.attachments)
-          : (Array.isArray(message.attachments) ? message.attachments : []),
-        mentions: typeof message.mentions === 'string'
-          ? JSON.parse(message.mentions)
-          : (Array.isArray(message.mentions) ? message.mentions : []),
-        linked_content: typeof message.linked_content === 'string'
-          ? JSON.parse(message.linked_content)
-          : (Array.isArray(message.linked_content) ? message.linked_content : []),
-        reactions: typeof message.reactions === 'string'
-          ? JSON.parse(message.reactions)
-          : (typeof message.reactions === 'object' ? message.reactions : {}),
+        attachments:
+          typeof message.attachments === 'string'
+            ? JSON.parse(message.attachments)
+            : Array.isArray(message.attachments)
+              ? message.attachments
+              : [],
+        mentions:
+          typeof message.mentions === 'string'
+            ? JSON.parse(message.mentions)
+            : Array.isArray(message.mentions)
+              ? message.mentions
+              : [],
+        linked_content:
+          typeof message.linked_content === 'string'
+            ? JSON.parse(message.linked_content)
+            : Array.isArray(message.linked_content)
+              ? message.linked_content
+              : [],
+        reactions:
+          typeof message.reactions === 'string'
+            ? JSON.parse(message.reactions)
+            : typeof message.reactions === 'object'
+              ? message.reactions
+              : {},
         // Parse E2EE metadata if stored as string
-        encryption_metadata: typeof message.encryption_metadata === 'string'
-          ? JSON.parse(message.encryption_metadata)
-          : message.encryption_metadata,
+        encryption_metadata:
+          typeof message.encryption_metadata === 'string'
+            ? JSON.parse(message.encryption_metadata)
+            : message.encryption_metadata,
       };
-      console.log('[ChatService] ✅ Successfully parsed message fields with user info:', user ? `User: ${user.name}` : 'No user info');
+      console.log(
+        '[ChatService] ✅ Successfully parsed message fields with user info:',
+        user ? `User: ${user.name}` : 'No user info',
+      );
       console.log('[ChatService] Parsed attachments:', parsedMessage.attachments);
     } catch (error) {
       console.error('[ChatService] ❌ Error parsing message fields:', error);
@@ -1275,7 +1428,7 @@ export class ChatService {
         attachments: [],
         mentions: [],
         linked_content: [],
-        reactions: {}
+        reactions: {},
       };
     }
 
@@ -1287,13 +1440,15 @@ export class ChatService {
     // Update parent message reply count if this is a reply
     if (messageData.parent_id) {
       const parentMessageResult = await this.db.findMany('messages', {
-        id: messageData.parent_id
+        id: messageData.parent_id,
       });
 
-      const parentMessageData = Array.isArray(parentMessageResult.data) ? parentMessageResult.data : [];
+      const parentMessageData = Array.isArray(parentMessageResult.data)
+        ? parentMessageResult.data
+        : [];
       if (parentMessageData.length > 0) {
         await this.db.update('messages', messageData.parent_id, {
-          reply_count: (parentMessageData[0].reply_count || 0) + 1
+          reply_count: (parentMessageData[0].reply_count || 0) + 1,
         });
       }
     }
@@ -1302,21 +1457,27 @@ export class ChatService {
     try {
       if (messageData.conversation_id) {
         // Emit to conversation room (frontend joins this room when viewing conversation)
-        console.log(`[ChatService] 📡 Attempting to emit to conversation:${messageData.conversation_id}`);
+        console.log(
+          `[ChatService] 📡 Attempting to emit to conversation:${messageData.conversation_id}`,
+        );
         this.appGateway.emitToRoom(`conversation:${messageData.conversation_id}`, 'message:new', {
           message: parsedMessage,
           conversation_id: messageData.conversation_id,
         });
         this.chatGateway.notifyConversation(messageData.conversation_id, 'new_message', message);
-        console.log(`[ChatService] ✅ Emitted message:new to room conversation:${messageData.conversation_id}`);
+        console.log(
+          `[ChatService] ✅ Emitted message:new to room conversation:${messageData.conversation_id}`,
+        );
 
         // ALSO emit to each participant's workspace+user room for cross-page notifications
         try {
           // Step 1: Get conversation to find workspace_id
           const conversationResult = await this.db.findMany('conversations', {
-            id: messageData.conversation_id
+            id: messageData.conversation_id,
           });
-          const conversations = Array.isArray(conversationResult.data) ? conversationResult.data : [];
+          const conversations = Array.isArray(conversationResult.data)
+            ? conversationResult.data
+            : [];
 
           if (conversations.length === 0) {
             console.warn('[ChatService] ⚠️ Conversation not found for workspace notification');
@@ -1327,53 +1488,74 @@ export class ChatService {
 
           // Step 2: Get all participants' user_ids from conversation_members
           const membersResult = await this.db.findMany('conversation_members', {
-            conversation_id: messageData.conversation_id
+            conversation_id: messageData.conversation_id,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const participantIds = members.map(m => m.user_id);
+          const participantIds = members.map((m) => m.user_id);
 
           // Step 3: Emit to each participant's workspace+user room
           if (workspaceId && participantIds.length > 0) {
-            console.log(`[ChatService] 📡 Emitting to ${participantIds.length} participants in workspace ${workspaceId}`);
-            this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'message:new:workspace', {
-              message: parsedMessage,
-              conversation_id: messageData.conversation_id,
-              type: 'conversation',
-            });
-            console.log(`[ChatService] ✅ Workspace notifications sent to: ${participantIds.join(', ')}`);
+            console.log(
+              `[ChatService] 📡 Emitting to ${participantIds.length} participants in workspace ${workspaceId}`,
+            );
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              participantIds,
+              'message:new:workspace',
+              {
+                message: parsedMessage,
+                conversation_id: messageData.conversation_id,
+                type: 'conversation',
+              },
+            );
+            console.log(
+              `[ChatService] ✅ Workspace notifications sent to: ${participantIds.join(', ')}`,
+            );
 
             // Process bot message handler for DMs asynchronously
             if (this.botMessageHandler) {
-              console.log(`[ChatService] 🤖 Calling bot message handler for conversation ${messageData.conversation_id}`);
-              this.botMessageHandler.processMessage(
-                workspaceId,
-                messageData.conversation_id,
-                message.id,
-                userId,
-                messageData.content || '',
-              ).catch(err => console.error('[ChatService] Bot message handler error:', err));
+              console.log(
+                `[ChatService] 🤖 Calling bot message handler for conversation ${messageData.conversation_id}`,
+              );
+              this.botMessageHandler
+                .processMessage(
+                  workspaceId,
+                  messageData.conversation_id,
+                  message.id,
+                  userId,
+                  messageData.content || '',
+                )
+                .catch((err) => console.error('[ChatService] Bot message handler error:', err));
             }
 
             // Step 4: Save database notifications for all participants (except sender)
             try {
-              console.log('[ChatService] 💾 Starting to save database notifications for conversation...');
+              console.log(
+                '[ChatService] 💾 Starting to save database notifications for conversation...',
+              );
               // Get sender's user info for notification using DatabaseService
               console.log('[ChatService] 💾 Fetching sender user info for userId:', userId);
               const senderUser = await this.db.getUserById(userId);
               console.log('[ChatService] 💾 Sender user result:', JSON.stringify(senderUser));
 
               const metadata = senderUser?.metadata || {};
-              const senderName = metadata.name || (senderUser as any)?.fullName || senderUser?.name || senderUser?.email?.split('@')[0] || 'Someone';
+              const senderName =
+                metadata.name ||
+                (senderUser as any)?.fullName ||
+                senderUser?.name ||
+                senderUser?.email?.split('@')[0] ||
+                'Someone';
               console.log('[ChatService] 💾 Sender name:', senderName);
 
               // Create message preview (max 100 chars) - strip HTML and convert mentions
               const cleanContent = this.stripHtmlForNotification(messageData.content);
-              const messagePreview = cleanContent.length > 100
-                ? cleanContent.substring(0, 100) + '...'
-                : cleanContent;
+              const messagePreview =
+                cleanContent.length > 100 ? cleanContent.substring(0, 100) + '...' : cleanContent;
 
               // Get users currently viewing this conversation (to exclude them from notifications)
-              const usersInRoom = await this.appGateway.getUsersInRoom(`conversation:${messageData.conversation_id}`);
+              const usersInRoom = await this.appGateway.getUsersInRoom(
+                `conversation:${messageData.conversation_id}`,
+              );
               console.log('[ChatService] 💾 Users currently in conversation room:', usersInRoom);
 
               // Send notification to all participants except the sender and users currently viewing the conversation
@@ -1398,17 +1580,25 @@ export class ChatService {
                       conversation_id: messageData.conversation_id,
                       msg_type: 'conversation', // Renamed from message_type (FCM reserved key)
                       sender_name: senderName, // Add sender name for Flutter app
-                    }
+                    },
                   });
                 }
               }
-              console.log(`[ChatService] ✅ Database notifications saved for ${participantIds.length - 1} participants`);
+              console.log(
+                `[ChatService] ✅ Database notifications saved for ${participantIds.length - 1} participants`,
+              );
             } catch (notificationError) {
-              console.error('[ChatService] ❌ Error saving database notifications:', notificationError.message);
+              console.error(
+                '[ChatService] ❌ Error saving database notifications:',
+                notificationError.message,
+              );
             }
           }
         } catch (workspaceError) {
-          console.error('[ChatService] ❌ Error emitting workspace notifications:', workspaceError.message);
+          console.error(
+            '[ChatService] ❌ Error emitting workspace notifications:',
+            workspaceError.message,
+          );
         }
       } else if (messageData.channel_id) {
         // Emit to channel room (frontend joins this room when viewing channel)
@@ -1418,19 +1608,21 @@ export class ChatService {
           channel_id: messageData.channel_id,
         });
         this.chatGateway.notifyChannel(messageData.channel_id, 'new_message', message);
-        console.log(`[ChatService] ✅ Emitted message:new to room channel:${messageData.channel_id}`);
+        console.log(
+          `[ChatService] ✅ Emitted message:new to room channel:${messageData.channel_id}`,
+        );
 
         // ALSO emit to each channel member's workspace+user room for cross-page notifications
         try {
           // Step 1: Get channel to find workspace_id
           console.log(`[ChatService] 🔍 Fetching channel details for: ${messageData.channel_id}`);
           const channelResult = await this.db.findMany('channels', {
-            id: messageData.channel_id
+            id: messageData.channel_id,
           });
           const channels = Array.isArray(channelResult.data) ? channelResult.data : [];
           console.log(`[ChatService] 🔍 Channel query result:`, {
             found: channels.length,
-            channels: channels.map(c => ({ id: c.id, workspace_id: c.workspace_id }))
+            channels: channels.map((c) => ({ id: c.id, workspace_id: c.workspace_id })),
           });
 
           if (channels.length === 0) {
@@ -1443,44 +1635,55 @@ export class ChatService {
           // Step 2: Get all members' user_ids from channel_members
           console.log(`[ChatService] 🔍 Fetching channel members for: ${messageData.channel_id}`);
           const membersResult = await this.db.findMany('channel_members', {
-            channel_id: messageData.channel_id
+            channel_id: messageData.channel_id,
           });
           console.log(`[ChatService] 🔍 Raw members result:`, {
             hasData: !!membersResult.data,
             isArray: Array.isArray(membersResult.data),
             dataLength: membersResult.data?.length,
-            rawData: membersResult
+            rawData: membersResult,
           });
 
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const memberIds = members.map(m => m.user_id);
+          const memberIds = members.map((m) => m.user_id);
 
           console.log(`[ChatService] 🔍 Processed members:`, {
             memberCount: members.length,
             memberIds: memberIds,
-            members: members.map(m => ({ id: m.id, user_id: m.user_id }))
+            members: members.map((m) => ({ id: m.id, user_id: m.user_id })),
           });
 
           // Step 3: Emit to each member's workspace+user room
           if (workspaceId && memberIds.length > 0) {
-            console.log(`[ChatService] 📡 Emitting to ${memberIds.length} members in workspace ${workspaceId}`);
+            console.log(
+              `[ChatService] 📡 Emitting to ${memberIds.length} members in workspace ${workspaceId}`,
+            );
             this.appGateway.emitToWorkspaceUsers(workspaceId, memberIds, 'message:new:workspace', {
               message: parsedMessage,
               channel_id: messageData.channel_id,
               type: 'channel',
             });
-            console.log(`[ChatService] ✅ Workspace notifications sent to: ${memberIds.join(', ')}`);
+            console.log(
+              `[ChatService] ✅ Workspace notifications sent to: ${memberIds.join(', ')}`,
+            );
 
             // Step 4: Save database notifications for all channel members (except sender)
             try {
-              console.log('[ChatService] 💾 Starting to save database notifications for channel...');
+              console.log(
+                '[ChatService] 💾 Starting to save database notifications for channel...',
+              );
               // Get sender's user info for notification using DatabaseService
               console.log('[ChatService] 💾 Fetching sender user info for userId:', userId);
               const senderUser = await this.db.getUserById(userId);
               console.log('[ChatService] 💾 Sender user result:', JSON.stringify(senderUser));
 
               const metadata = senderUser?.metadata || {};
-              const senderName = metadata.name || (senderUser as any)?.fullName || senderUser?.name || senderUser?.email?.split('@')[0] || 'Someone';
+              const senderName =
+                metadata.name ||
+                (senderUser as any)?.fullName ||
+                senderUser?.name ||
+                senderUser?.email?.split('@')[0] ||
+                'Someone';
               console.log('[ChatService] 💾 Sender name:', senderName);
 
               // Get channel name for notification
@@ -1488,12 +1691,13 @@ export class ChatService {
 
               // Create message preview (max 100 chars) - strip HTML and convert mentions
               const cleanContent = this.stripHtmlForNotification(messageData.content);
-              const messagePreview = cleanContent.length > 100
-                ? cleanContent.substring(0, 100) + '...'
-                : cleanContent;
+              const messagePreview =
+                cleanContent.length > 100 ? cleanContent.substring(0, 100) + '...' : cleanContent;
 
               // Get users currently viewing this channel (to exclude them from notifications)
-              const usersInRoom = await this.appGateway.getUsersInRoom(`channel:${messageData.channel_id}`);
+              const usersInRoom = await this.appGateway.getUsersInRoom(
+                `channel:${messageData.channel_id}`,
+              );
               console.log('[ChatService] 💾 Users currently in channel room:', usersInRoom);
 
               // Send notification to all channel members except the sender and users currently viewing the channel
@@ -1519,22 +1723,30 @@ export class ChatService {
                       channel_name: channelName,
                       msg_type: 'channel', // Renamed from message_type (FCM reserved key)
                       sender_name: senderName, // Add sender name for Flutter app
-                    }
+                    },
                   });
                 }
               }
-              console.log(`[ChatService] ✅ Database notifications saved for ${memberIds.length - 1} channel members`);
+              console.log(
+                `[ChatService] ✅ Database notifications saved for ${memberIds.length - 1} channel members`,
+              );
             } catch (notificationError) {
-              console.error('[ChatService] ❌ Error saving database notifications:', notificationError.message);
+              console.error(
+                '[ChatService] ❌ Error saving database notifications:',
+                notificationError.message,
+              );
             }
           } else {
             console.warn(`[ChatService] ⚠️ Cannot emit workspace notification:`, {
               hasWorkspaceId: !!workspaceId,
-              memberCount: memberIds.length
+              memberCount: memberIds.length,
             });
           }
         } catch (workspaceError) {
-          console.error('[ChatService] ❌ Error emitting workspace notifications:', workspaceError.message);
+          console.error(
+            '[ChatService] ❌ Error emitting workspace notifications:',
+            workspaceError.message,
+          );
           console.error('[ChatService] ❌ Full error:', workspaceError);
         }
       }
@@ -1566,8 +1778,12 @@ export class ChatService {
           chatId = messageData.channel_id;
           chatType = 'channel';
         } else if (messageData.conversation_id) {
-          const conversationResult = await this.db.findMany('conversations', { id: messageData.conversation_id });
-          const conversations = Array.isArray(conversationResult.data) ? conversationResult.data : [];
+          const conversationResult = await this.db.findMany('conversations', {
+            id: messageData.conversation_id,
+          });
+          const conversations = Array.isArray(conversationResult.data)
+            ? conversationResult.data
+            : [];
           if (conversations.length > 0) {
             workspaceId = conversations[0].workspace_id;
           }
@@ -1579,19 +1795,25 @@ export class ChatService {
           // Get sender's user info
           const senderUser = await this.db.getUserById(userId);
           const metadata = senderUser?.metadata || {};
-          const senderName = metadata.name || (senderUser as any)?.fullName || senderUser?.name || senderUser?.email?.split('@')[0] || 'Someone';
+          const senderName =
+            metadata.name ||
+            (senderUser as any)?.fullName ||
+            senderUser?.name ||
+            senderUser?.email?.split('@')[0] ||
+            'Someone';
 
           // Create message preview - strip HTML and convert mentions
           const cleanContent = this.stripHtmlForNotification(messageData.content);
-          const messagePreview = cleanContent.length > 100
-            ? cleanContent.substring(0, 100) + '...'
-            : cleanContent;
+          const messagePreview =
+            cleanContent.length > 100 ? cleanContent.substring(0, 100) + '...' : cleanContent;
 
           // Handle @channel mention - notify all channel members
           if (mentions.includes('channel') && messageData.channel_id) {
-            console.log('[ChatService] 📢 @channel mention detected - notifying all channel members');
+            console.log(
+              '[ChatService] 📢 @channel mention detected - notifying all channel members',
+            );
             const membersResult = await this.db.findMany('channel_members', {
-              channel_id: messageData.channel_id
+              channel_id: messageData.channel_id,
             });
             const members = Array.isArray(membersResult.data) ? membersResult.data : [];
 
@@ -1619,21 +1841,24 @@ export class ChatService {
                   msg_type: 'channel_mention',
                   sender_name: senderName,
                   is_mention: true,
-                }
+                },
               });
             }
-            console.log(`[ChatService] ✅ @channel mention notifications sent to ${members.length - 1} members`);
+            console.log(
+              `[ChatService] ✅ @channel mention notifications sent to ${members.length - 1} members`,
+            );
           }
 
           // Handle individual user mentions
-          const userMentions = mentions.filter(m => m !== 'channel');
+          const userMentions = mentions.filter((m) => m !== 'channel');
           for (const mentionedUserId of userMentions) {
             // Skip the sender (can't mention yourself)
             if (mentionedUserId === userId) continue;
 
-            const notificationTitle = chatType === 'channel'
-              ? `${senderName} mentioned you in #${channelName}`
-              : `${senderName} mentioned you`;
+            const notificationTitle =
+              chatType === 'channel'
+                ? `${senderName} mentioned you in #${channelName}`
+                : `${senderName} mentioned you`;
 
             await this.notificationsService.sendNotification({
               user_id: mentionedUserId,
@@ -1650,11 +1875,13 @@ export class ChatService {
                 entity_id: message.id,
                 actor_id: userId,
                 workspace_id: workspaceId,
-                ...(chatType === 'channel' ? { channel_id: chatId, channel_name: channelName } : { conversation_id: chatId }),
+                ...(chatType === 'channel'
+                  ? { channel_id: chatId, channel_name: channelName }
+                  : { conversation_id: chatId }),
                 msg_type: chatType === 'channel' ? 'channel_mention' : 'dm_mention',
                 sender_name: senderName,
                 is_mention: true,
-              }
+              },
             });
             console.log(`[ChatService] ✅ Mention notification sent to user ${mentionedUserId}`);
           }
@@ -1668,10 +1895,14 @@ export class ChatService {
   }
 
   async updateMessage(messageId: string, updateMessageDto: UpdateMessageDto, userId: string) {
-    console.log(`[ChatService] updateMessage called:`, { messageId, userId, updateDto: updateMessageDto });
+    console.log(`[ChatService] updateMessage called:`, {
+      messageId,
+      userId,
+      updateDto: updateMessageDto,
+    });
 
     const messageQueryResult = await this.db.findMany('messages', {
-      id: messageId
+      id: messageId,
     });
 
     const messageData = Array.isArray(messageQueryResult.data) ? messageQueryResult.data : [];
@@ -1686,14 +1917,16 @@ export class ChatService {
 
     // Only message author can update
     if (message.user_id !== userId) {
-      console.log(`[ChatService] User ${userId} is not the author of message ${messageId} (owner: ${message.user_id})`);
+      console.log(
+        `[ChatService] User ${userId} is not the author of message ${messageId} (owner: ${message.user_id})`,
+      );
       throw new ForbiddenException('You can only edit your own messages');
     }
 
     const updateData: any = {
       ...updateMessageDto,
       is_edited: true,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (updateMessageDto.attachments) {
@@ -1711,15 +1944,18 @@ export class ChatService {
     // Parse JSON fields back to objects for the response
     const parsedUpdatedMessage = {
       ...updatedMessage,
-      attachments: typeof updatedMessage.attachments === 'string'
-        ? JSON.parse(updatedMessage.attachments)
-        : (updatedMessage.attachments || []),
-      mentions: typeof updatedMessage.mentions === 'string'
-        ? JSON.parse(updatedMessage.mentions)
-        : (updatedMessage.mentions || []),
-      reactions: typeof updatedMessage.reactions === 'string'
-        ? JSON.parse(updatedMessage.reactions)
-        : (updatedMessage.reactions || {})
+      attachments:
+        typeof updatedMessage.attachments === 'string'
+          ? JSON.parse(updatedMessage.attachments)
+          : updatedMessage.attachments || [],
+      mentions:
+        typeof updatedMessage.mentions === 'string'
+          ? JSON.parse(updatedMessage.mentions)
+          : updatedMessage.mentions || [],
+      reactions:
+        typeof updatedMessage.reactions === 'string'
+          ? JSON.parse(updatedMessage.reactions)
+          : updatedMessage.reactions || {},
     };
 
     // Emit real-time update event with parsed message
@@ -1728,34 +1964,46 @@ export class ChatService {
         message: parsedUpdatedMessage,
         conversation_id: message.conversation_id,
       });
-      console.log(`[ChatService] Emitted message:updated to room conversation:${message.conversation_id}`);
+      console.log(
+        `[ChatService] Emitted message:updated to room conversation:${message.conversation_id}`,
+      );
 
       // ALSO emit to workspace users for cross-page updates
       try {
         const conversationResult = await this.db.findMany('conversations', {
-          id: message.conversation_id
+          id: message.conversation_id,
         });
         const conversations = Array.isArray(conversationResult.data) ? conversationResult.data : [];
 
         if (conversations.length > 0) {
           const workspaceId = conversations[0].workspace_id;
           const membersResult = await this.db.findMany('conversation_members', {
-            conversation_id: message.conversation_id
+            conversation_id: message.conversation_id,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const participantIds = members.map(m => m.user_id);
+          const participantIds = members.map((m) => m.user_id);
 
           if (workspaceId && participantIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'message:updated:workspace', {
-              message: parsedUpdatedMessage,
-              conversation_id: message.conversation_id,
-              type: 'conversation',
-            });
-            console.log(`[ChatService] ✅ Workspace update notifications sent to: ${participantIds.join(', ')}`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              participantIds,
+              'message:updated:workspace',
+              {
+                message: parsedUpdatedMessage,
+                conversation_id: message.conversation_id,
+                type: 'conversation',
+              },
+            );
+            console.log(
+              `[ChatService] ✅ Workspace update notifications sent to: ${participantIds.join(', ')}`,
+            );
           }
         }
       } catch (workspaceError) {
-        console.error('[ChatService] ❌ Error emitting workspace update notification:', workspaceError.message);
+        console.error(
+          '[ChatService] ❌ Error emitting workspace update notification:',
+          workspaceError.message,
+        );
       }
     } else if (message.channel_id) {
       this.appGateway.emitToRoom(`channel:${message.channel_id}`, 'message:updated', {
@@ -1767,29 +2015,39 @@ export class ChatService {
       // ALSO emit to workspace users for cross-page updates
       try {
         const channelResult = await this.db.findMany('channels', {
-          id: message.channel_id
+          id: message.channel_id,
         });
         const channels = Array.isArray(channelResult.data) ? channelResult.data : [];
 
         if (channels.length > 0) {
           const workspaceId = channels[0].workspace_id;
           const membersResult = await this.db.findMany('channel_members', {
-            channel_id: message.channel_id
+            channel_id: message.channel_id,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const memberIds = members.map(m => m.user_id);
+          const memberIds = members.map((m) => m.user_id);
 
           if (workspaceId && memberIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, memberIds, 'message:updated:workspace', {
-              message: parsedUpdatedMessage,
-              channel_id: message.channel_id,
-              type: 'channel',
-            });
-            console.log(`[ChatService] ✅ Workspace update notifications sent to: ${memberIds.join(', ')}`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              memberIds,
+              'message:updated:workspace',
+              {
+                message: parsedUpdatedMessage,
+                channel_id: message.channel_id,
+                type: 'channel',
+              },
+            );
+            console.log(
+              `[ChatService] ✅ Workspace update notifications sent to: ${memberIds.join(', ')}`,
+            );
           }
         }
       } catch (workspaceError) {
-        console.error('[ChatService] ❌ Error emitting workspace update notification:', workspaceError.message);
+        console.error(
+          '[ChatService] ❌ Error emitting workspace update notification:',
+          workspaceError.message,
+        );
       }
     }
 
@@ -1798,7 +2056,7 @@ export class ChatService {
 
   async deleteMessage(messageId: string, userId: string) {
     const messageQueryResult = await this.db.findMany('messages', {
-      id: messageId
+      id: messageId,
     });
 
     const messageData = Array.isArray(messageQueryResult.data) ? messageQueryResult.data : [];
@@ -1815,7 +2073,7 @@ export class ChatService {
 
     const deletedMessage = await this.db.update('messages', messageId, {
       is_deleted: true,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
 
     // Emit real-time delete event
@@ -1824,34 +2082,46 @@ export class ChatService {
         messageId,
         conversation_id: message.conversation_id,
       });
-      console.log(`[ChatService] Emitted message:deleted to room conversation:${message.conversation_id}`);
+      console.log(
+        `[ChatService] Emitted message:deleted to room conversation:${message.conversation_id}`,
+      );
 
       // ALSO emit to workspace users for cross-page updates
       try {
         const conversationResult = await this.db.findMany('conversations', {
-          id: message.conversation_id
+          id: message.conversation_id,
         });
         const conversations = Array.isArray(conversationResult.data) ? conversationResult.data : [];
 
         if (conversations.length > 0) {
           const workspaceId = conversations[0].workspace_id;
           const membersResult = await this.db.findMany('conversation_members', {
-            conversation_id: message.conversation_id
+            conversation_id: message.conversation_id,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const participantIds = members.map(m => m.user_id);
+          const participantIds = members.map((m) => m.user_id);
 
           if (workspaceId && participantIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, participantIds, 'message:deleted:workspace', {
-              messageId,
-              conversation_id: message.conversation_id,
-              type: 'conversation',
-            });
-            console.log(`[ChatService] ✅ Workspace delete notifications sent to: ${participantIds.join(', ')}`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              participantIds,
+              'message:deleted:workspace',
+              {
+                messageId,
+                conversation_id: message.conversation_id,
+                type: 'conversation',
+              },
+            );
+            console.log(
+              `[ChatService] ✅ Workspace delete notifications sent to: ${participantIds.join(', ')}`,
+            );
           }
         }
       } catch (workspaceError) {
-        console.error('[ChatService] ❌ Error emitting workspace delete notification:', workspaceError.message);
+        console.error(
+          '[ChatService] ❌ Error emitting workspace delete notification:',
+          workspaceError.message,
+        );
       }
     } else if (message.channel_id) {
       this.appGateway.emitToRoom(`channel:${message.channel_id}`, 'message:deleted', {
@@ -1863,29 +2133,39 @@ export class ChatService {
       // ALSO emit to workspace users for cross-page updates
       try {
         const channelResult = await this.db.findMany('channels', {
-          id: message.channel_id
+          id: message.channel_id,
         });
         const channels = Array.isArray(channelResult.data) ? channelResult.data : [];
 
         if (channels.length > 0) {
           const workspaceId = channels[0].workspace_id;
           const membersResult = await this.db.findMany('channel_members', {
-            channel_id: message.channel_id
+            channel_id: message.channel_id,
           });
           const members = Array.isArray(membersResult.data) ? membersResult.data : [];
-          const memberIds = members.map(m => m.user_id);
+          const memberIds = members.map((m) => m.user_id);
 
           if (workspaceId && memberIds.length > 0) {
-            this.appGateway.emitToWorkspaceUsers(workspaceId, memberIds, 'message:deleted:workspace', {
-              messageId,
-              channel_id: message.channel_id,
-              type: 'channel',
-            });
-            console.log(`[ChatService] ✅ Workspace delete notifications sent to: ${memberIds.join(', ')}`);
+            this.appGateway.emitToWorkspaceUsers(
+              workspaceId,
+              memberIds,
+              'message:deleted:workspace',
+              {
+                messageId,
+                channel_id: message.channel_id,
+                type: 'channel',
+              },
+            );
+            console.log(
+              `[ChatService] ✅ Workspace delete notifications sent to: ${memberIds.join(', ')}`,
+            );
           }
         }
       } catch (workspaceError) {
-        console.error('[ChatService] ❌ Error emitting workspace delete notification:', workspaceError.message);
+        console.error(
+          '[ChatService] ❌ Error emitting workspace delete notification:',
+          workspaceError.message,
+        );
       }
     }
 
@@ -1895,7 +2175,7 @@ export class ChatService {
   async addReaction(messageId: string, emoji: string, userId: string) {
     // Check if message exists
     const messageQueryResult = await this.db.findMany('messages', {
-      id: messageId
+      id: messageId,
     });
 
     const messageData = Array.isArray(messageQueryResult.data) ? messageQueryResult.data : [];
@@ -1907,10 +2187,12 @@ export class ChatService {
     const existingReactionQueryResult = await this.db.findMany('message_reactions', {
       message_id: messageId,
       user_id: userId,
-      emoji: emoji
+      emoji: emoji,
     });
 
-    const existingReactionData = Array.isArray(existingReactionQueryResult.data) ? existingReactionQueryResult.data : [];
+    const existingReactionData = Array.isArray(existingReactionQueryResult.data)
+      ? existingReactionQueryResult.data
+      : [];
     if (existingReactionData.length > 0) {
       // If reaction exists, remove it (toggle behavior)
       await this.db.delete('message_reactions', existingReactionData[0].id);
@@ -1922,7 +2204,7 @@ export class ChatService {
       message_id: messageId,
       user_id: userId,
       emoji: emoji,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     });
 
     return { added: true, reaction: newReaction };
@@ -1932,7 +2214,7 @@ export class ChatService {
     const reactionQueryResult = await this.db.findMany('message_reactions', {
       message_id: messageId,
       user_id: userId,
-      emoji: emoji
+      emoji: emoji,
     });
 
     const reactionData = Array.isArray(reactionQueryResult.data) ? reactionQueryResult.data : [];
@@ -1947,15 +2229,17 @@ export class ChatService {
   private async checkChannelAccess(channelId: string, userId: string) {
     const membershipQueryResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       // User is not a member of this channel
       // Check if channel exists to provide appropriate error message
       const channelQueryResult = await this.db.findMany('channels', {
-        id: channelId
+        id: channelId,
       });
 
       const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -1965,17 +2249,21 @@ export class ChatService {
 
       // User must be a member to access any channel (public or private)
       // To join a public channel, they need to use the joinChannel endpoint
-      throw new ForbiddenException('You are not a member of this channel. Please join the channel first.');
+      throw new ForbiddenException(
+        'You are not a member of this channel. Please join the channel first.',
+      );
     }
   }
 
   private async checkConversationAccess(conversationId: string, userId: string) {
     // First check if conversation exists
     const conversationQueryResult = await this.db.findMany('conversations', {
-      id: conversationId
+      id: conversationId,
     });
 
-    const conversationData = Array.isArray(conversationQueryResult.data) ? conversationQueryResult.data : [];
+    const conversationData = Array.isArray(conversationQueryResult.data)
+      ? conversationQueryResult.data
+      : [];
     if (conversationData.length === 0) {
       throw new NotFoundException('Conversation not found');
     }
@@ -1983,10 +2271,12 @@ export class ChatService {
     // Then check if user is a member
     const membershipQueryResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       throw new ForbiddenException('Access denied to this conversation');
     }
@@ -1996,21 +2286,26 @@ export class ChatService {
    * Fetches reactions for a message from the message_reactions table
    * and aggregates them by emoji with count and memberIds
    */
-  private async getMessageReactions(messageId: string): Promise<Array<{
-    id: string;
-    value: string;
-    count: number;
-    memberIds: string[];
-  }>> {
+  private async getMessageReactions(messageId: string): Promise<
+    Array<{
+      id: string;
+      value: string;
+      count: number;
+      memberIds: string[];
+    }>
+  > {
     try {
       const reactionsResult = await this.db.findMany('message_reactions', {
-        message_id: messageId
+        message_id: messageId,
       });
 
       const reactionsData = Array.isArray(reactionsResult.data) ? reactionsResult.data : [];
 
       // Aggregate reactions by emoji
-      const reactionMap = new Map<string, { id: string; value: string; count: number; memberIds: string[] }>();
+      const reactionMap = new Map<
+        string,
+        { id: string; value: string; count: number; memberIds: string[] }
+      >();
 
       for (const reaction of reactionsData) {
         const emoji = reaction.emoji;
@@ -2023,14 +2318,18 @@ export class ChatService {
             id: reaction.id,
             value: emoji,
             count: 1,
-            memberIds: [reaction.user_id]
+            memberIds: [reaction.user_id],
           });
         }
       }
 
       return Array.from(reactionMap.values());
     } catch (error) {
-      console.warn('[ChatService] Could not fetch reactions for message:', messageId, error.message);
+      console.warn(
+        '[ChatService] Could not fetch reactions for message:',
+        messageId,
+        error.message,
+      );
       return [];
     }
   }
@@ -2042,7 +2341,7 @@ export class ChatService {
   private async enrichLinkedContentWithUserVotes(
     linkedContent: any[],
     messageId: string,
-    userId: string
+    userId: string,
   ): Promise<any[]> {
     if (!linkedContent || linkedContent.length === 0) {
       return linkedContent;
@@ -2061,7 +2360,7 @@ export class ChatService {
           const userVote = await this.db.findOne('poll_votes', {
             message_id: messageId,
             poll_id: item.poll.id,
-            user_id: userId
+            user_id: userId,
           });
 
           // Add userVotedOptionId to the poll object
@@ -2069,14 +2368,18 @@ export class ChatService {
             ...item,
             poll: {
               ...item.poll,
-              userVotedOptionId: userVote?.option_id || null
-            }
+              userVotedOptionId: userVote?.option_id || null,
+            },
           };
         } catch (error) {
-          console.warn('[ChatService] Could not fetch user vote for poll:', item.poll.id, error.message);
+          console.warn(
+            '[ChatService] Could not fetch user vote for poll:',
+            item.poll.id,
+            error.message,
+          );
           return item;
         }
-      })
+      }),
     );
 
     return enrichedContent;
@@ -2085,7 +2388,7 @@ export class ChatService {
   async joinChannel(channelId: string, userId: string) {
     // Check if channel exists
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -2098,10 +2401,12 @@ export class ChatService {
     // Verify user is a workspace member
     const workspaceMemberQueryResult = await this.db.findMany('workspace_members', {
       workspace_id: channel.workspace_id,
-      user_id: userId
+      user_id: userId,
     });
 
-    const workspaceMemberData = Array.isArray(workspaceMemberQueryResult.data) ? workspaceMemberQueryResult.data : [];
+    const workspaceMemberData = Array.isArray(workspaceMemberQueryResult.data)
+      ? workspaceMemberQueryResult.data
+      : [];
     if (workspaceMemberData.length === 0) {
       throw new ForbiddenException('You must be a workspace member to join this channel');
     }
@@ -2109,10 +2414,12 @@ export class ChatService {
     // Check if already a member
     const membershipQueryResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length > 0) {
       throw new BadRequestException('Already a member of this channel');
     }
@@ -2122,24 +2429,26 @@ export class ChatService {
       channel_id: channelId,
       user_id: userId,
       role: 'member',
-      joined_at: new Date().toISOString()
+      joined_at: new Date().toISOString(),
     });
   }
 
   async leaveChannel(channelId: string, userId: string) {
     const membershipQueryResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
-    const membershipData = Array.isArray(membershipQueryResult.data) ? membershipQueryResult.data : [];
+    const membershipData = Array.isArray(membershipQueryResult.data)
+      ? membershipQueryResult.data
+      : [];
     if (membershipData.length === 0) {
       throw new BadRequestException('You are not a member of this channel');
     }
 
     // Get channel details for WebSocket event
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
     const channelsData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
 
@@ -2152,10 +2461,16 @@ export class ChatService {
     // Get user details for WebSocket event
     const userProfile = await this.db.getUserById(userId);
     const metadata = userProfile?.metadata || {};
-    const userName = metadata.name || (userProfile as any)?.fullName || userProfile?.name || userProfile?.email?.split('@')[0] || 'Unknown User';
+    const userName =
+      metadata.name ||
+      (userProfile as any)?.fullName ||
+      userProfile?.name ||
+      userProfile?.email?.split('@')[0] ||
+      'Unknown User';
 
     // Delete the membership using table() query builder (since ID is UUID, not integer)
-    const result = await this.db.table('channel_members')
+    const result = await this.db
+      .table('channel_members')
       .delete()
       .where('id', '=', membershipData[0].id)
       .execute();
@@ -2166,7 +2481,7 @@ export class ChatService {
       channelName: channel.name,
       userId: userId,
       userName: userName,
-      workspaceId: channel.workspace_id
+      workspaceId: channel.workspace_id,
     });
 
     return result;
@@ -2181,7 +2496,7 @@ export class ChatService {
 
     // Get all channel members
     const membersQueryResult = await this.db.findMany('channel_members', {
-      channel_id: channelId
+      channel_id: channelId,
     });
 
     const membersData = Array.isArray(membersQueryResult.data) ? membersQueryResult.data : [];
@@ -2198,11 +2513,16 @@ export class ChatService {
           const metadata = userProfile?.metadata || {};
           return {
             user_id: member.user_id,
-            name: metadata.name || (userProfile as any)?.fullName || userProfile?.name || userProfile?.email?.split('@')[0] || 'Unknown User',
+            name:
+              metadata.name ||
+              (userProfile as any)?.fullName ||
+              userProfile?.name ||
+              userProfile?.email?.split('@')[0] ||
+              'Unknown User',
             email: userProfile?.email || null,
             avatar: userProfile?.avatar_url || metadata?.avatarUrl || null,
             role: member.role || 'member',
-            joined_at: member.created_at
+            joined_at: member.created_at,
           };
         } catch (error) {
           console.error('Failed to fetch user for member:', member.user_id, error);
@@ -2212,10 +2532,10 @@ export class ChatService {
             email: null,
             avatar: null,
             role: member.role || 'member',
-            joined_at: member.created_at
+            joined_at: member.created_at,
           };
         }
-      })
+      }),
     );
 
     return members;
@@ -2229,15 +2549,17 @@ export class ChatService {
     workspaceId: string,
     channelId: string,
     body: { userId?: string; userIds?: string[]; role?: string },
-    requestingUserId: string
+    requestingUserId: string,
   ) {
     // Verify requesting user is admin/owner of the channel
     const channelMemberResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: requestingUserId
+      user_id: requestingUserId,
     });
 
-    const channelMemberData = Array.isArray(channelMemberResult.data) ? channelMemberResult.data : [];
+    const channelMemberData = Array.isArray(channelMemberResult.data)
+      ? channelMemberResult.data
+      : [];
     const requesterMembership = channelMemberData[0];
 
     if (!requesterMembership || requesterMembership.role !== 'admin') {
@@ -2246,7 +2568,7 @@ export class ChatService {
 
     // Get the channel to check if it's private
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -2270,7 +2592,7 @@ export class ChatService {
       // Verify user is a workspace member
       const workspaceMemberResult = await this.db.findMany('workspace_members', {
         workspace_id: workspaceId,
-        user_id: userIdToAdd
+        user_id: userIdToAdd,
       });
 
       const workspaceMemberData = Array.isArray(workspaceMemberResult.data)
@@ -2285,7 +2607,7 @@ export class ChatService {
       // Check if user is already a channel member
       const existingMemberResult = await this.db.findMany('channel_members', {
         channel_id: channelId,
-        user_id: userIdToAdd
+        user_id: userIdToAdd,
       });
 
       const existingMemberData = Array.isArray(existingMemberResult.data)
@@ -2308,7 +2630,7 @@ export class ChatService {
         is_active: true,
         last_read_at: null,
         notification_settings: {},
-        collaborative_data: {}
+        collaborative_data: {},
       });
 
       addedMembers.push(userIdToAdd);
@@ -2327,10 +2649,10 @@ export class ChatService {
             workspace_id: workspaceId,
             channel_id: channelId,
             channel_name: channel.name,
-            added_by: requestingUserId
+            added_by: requestingUserId,
           },
           send_push: true,
-          send_email: false
+          send_email: false,
         });
       } catch (error) {
         console.error('Failed to send notification for added member:', error);
@@ -2340,7 +2662,7 @@ export class ChatService {
     return {
       success: true,
       message: `Added ${addedMembers.length} member(s) to channel`,
-      added_count: addedMembers.length
+      added_count: addedMembers.length,
     };
   }
 
@@ -2351,15 +2673,17 @@ export class ChatService {
     workspaceId: string,
     channelId: string,
     memberUserId: string,
-    requestingUserId: string
+    requestingUserId: string,
   ) {
     // Verify requesting user is admin/owner of the channel
     const channelMemberResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: requestingUserId
+      user_id: requestingUserId,
     });
 
-    const channelMemberData = Array.isArray(channelMemberResult.data) ? channelMemberResult.data : [];
+    const channelMemberData = Array.isArray(channelMemberResult.data)
+      ? channelMemberResult.data
+      : [];
     const requesterMembership = channelMemberData[0];
 
     if (!requesterMembership || requesterMembership.role !== 'admin') {
@@ -2368,7 +2692,7 @@ export class ChatService {
 
     // Get the channel
     const channelQueryResult = await this.db.findMany('channels', {
-      id: channelId
+      id: channelId,
     });
 
     const channelData = Array.isArray(channelQueryResult.data) ? channelQueryResult.data : [];
@@ -2386,7 +2710,7 @@ export class ChatService {
     // Find the member to remove
     const memberToRemoveResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: memberUserId
+      user_id: memberUserId,
     });
 
     const memberToRemoveData = Array.isArray(memberToRemoveResult.data)
@@ -2400,10 +2724,7 @@ export class ChatService {
     const memberToRemove = memberToRemoveData[0];
 
     // Delete the member using query builder (since ID is UUID, not integer)
-    await this.db.table('channel_members')
-      .delete()
-      .where('id', '=', memberToRemove.id)
-      .execute();
+    await this.db.table('channel_members').delete().where('id', '=', memberToRemove.id).execute();
 
     // Send notification to the removed user
     try {
@@ -2417,10 +2738,10 @@ export class ChatService {
           workspace_id: workspaceId,
           channel_id: channelId,
           channel_name: channel.name,
-          removed_by: requestingUserId
+          removed_by: requestingUserId,
         },
         send_push: true,
-        send_email: false
+        send_email: false,
       });
     } catch (error) {
       console.error('Failed to send notification for removed member:', error);
@@ -2428,7 +2749,7 @@ export class ChatService {
 
     return {
       success: true,
-      message: 'Member removed from channel'
+      message: 'Member removed from channel',
     };
   }
 
@@ -2439,7 +2760,8 @@ export class ChatService {
    */
   async bookmarkMessage(messageId: string, userId: string) {
     // Check if message exists using table query
-    const messageQueryResult = await this.db.table('messages')
+    const messageQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2459,16 +2781,17 @@ export class ChatService {
       setting: {
         is_bookmarked: true,
         bookmarked_at: new Date().toISOString(),
-        bookmarked_by: userId
-      }
+        bookmarked_by: userId,
+      },
     });
 
-    const updateResult = await this.db.table('messages')
+    const updateResult = await this.db
+      .table('messages')
       .update({
         is_bookmarked: true,
         bookmarked_at: new Date().toISOString(),
         bookmarked_by: userId,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
@@ -2476,7 +2799,8 @@ export class ChatService {
     console.log('📝 Update result:', updateResult);
 
     // Fetch updated message
-    const updatedMessageResult = await this.db.table('messages')
+    const updatedMessageResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2495,7 +2819,7 @@ export class ChatService {
         messageId,
         userId,
         bookmarked: true,
-        message: updatedMessage
+        message: updatedMessage,
       });
       console.log('📡 Emitted message:bookmarked to room:', room);
     } else if (messageResult.channel_id) {
@@ -2504,14 +2828,14 @@ export class ChatService {
         messageId,
         userId,
         bookmarked: true,
-        message: updatedMessage
+        message: updatedMessage,
       });
       console.log('📡 Emitted message:bookmarked to room:', room);
     }
 
     return {
       message: 'Message bookmarked successfully',
-      data: updatedMessage
+      data: updatedMessage,
     };
   }
 
@@ -2520,7 +2844,8 @@ export class ChatService {
    */
   async removeBookmark(messageId: string, userId: string) {
     // Check if message exists using table query
-    const messageQueryResult = await this.db.table('messages')
+    const messageQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2535,18 +2860,20 @@ export class ChatService {
     const messageResult = messages[0];
 
     // Update message to remove bookmark using table query
-    await this.db.table('messages')
+    await this.db
+      .table('messages')
       .update({
         is_bookmarked: false,
         bookmarked_at: null,
         bookmarked_by: null,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
 
     // Fetch updated message
-    const updatedMessageResult = await this.db.table('messages')
+    const updatedMessageResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2564,7 +2891,7 @@ export class ChatService {
         messageId,
         userId,
         bookmarked: false,
-        message: updatedMessage
+        message: updatedMessage,
       });
       console.log('📡 Emitted message:bookmarked (remove) to room:', room);
     } else if (messageResult.channel_id) {
@@ -2573,14 +2900,14 @@ export class ChatService {
         messageId,
         userId,
         bookmarked: false,
-        message: updatedMessage
+        message: updatedMessage,
       });
       console.log('📡 Emitted message:bookmarked (remove) to room:', room);
     }
 
     return {
       message: 'Bookmark removed successfully',
-      data: updatedMessage
+      data: updatedMessage,
     };
   }
 
@@ -2588,14 +2915,11 @@ export class ChatService {
    * Get all bookmarked messages in a conversation OR channel (no pagination - returns all)
    * This endpoint works for both - conversationId can be either a conversation or channel ID
    */
-  async getBookmarkedMessages(
-    conversationOrChannelId: string,
-    userId: string
-  ) {
+  async getBookmarkedMessages(conversationOrChannelId: string, userId: string) {
     // Try to find if it's a conversation member first
     const conversationMemberResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationOrChannelId,
-      user_id: userId
+      user_id: userId,
     });
 
     const conversationMemberData = Array.isArray(conversationMemberResult.data)
@@ -2608,7 +2932,7 @@ export class ChatService {
     if (!isConversationMember) {
       const channelMemberResult = await this.db.findMany('channel_members', {
         channel_id: conversationOrChannelId,
-        user_id: userId
+        user_id: userId,
       });
 
       const channelMemberData = Array.isArray(channelMemberResult.data)
@@ -2624,11 +2948,12 @@ export class ChatService {
     console.log('📚 Building query for bookmarked messages:', {
       chatId: conversationOrChannelId,
       isConversationMember,
-      willQueryField: isConversationMember ? 'conversation_id' : 'channel_id'
+      willQueryField: isConversationMember ? 'conversation_id' : 'channel_id',
     });
 
     // First, let's check what messages exist for this conversation/channel
-    const debugQuery = this.db.table('messages')
+    const debugQuery = this.db
+      .table('messages')
       .select('id, content, is_bookmarked, is_deleted, conversation_id, channel_id')
       .limit(10);
 
@@ -2643,7 +2968,7 @@ export class ChatService {
       chatId: conversationOrChannelId,
       field: isConversationMember ? 'conversation_id' : 'channel_id',
       messagesFound: debugResult.data?.length || 0,
-      messages: debugResult.data || debugResult
+      messages: debugResult.data || debugResult,
     });
 
     // Get bookmarked messages
@@ -2651,14 +2976,16 @@ export class ChatService {
     let bookmarkedMessagesResult;
 
     if (isConversationMember) {
-      bookmarkedMessagesResult = await this.db.table('messages')
+      bookmarkedMessagesResult = await this.db
+        .table('messages')
         .select('*')
         .where('conversation_id', '=', conversationOrChannelId)
         .where('is_bookmarked', '=', true)
         .orderBy('bookmarked_at', 'DESC')
         .execute();
     } else {
-      bookmarkedMessagesResult = await this.db.table('messages')
+      bookmarkedMessagesResult = await this.db
+        .table('messages')
         .select('*')
         .where('channel_id', '=', conversationOrChannelId)
         .where('is_bookmarked', '=', true)
@@ -2672,12 +2999,12 @@ export class ChatService {
       resultType: typeof bookmarkedMessagesResult,
       isArray: Array.isArray(bookmarkedMessagesResult),
       hasData: !!bookmarkedMessagesResult?.data,
-      result: bookmarkedMessagesResult
+      result: bookmarkedMessagesResult,
     });
 
     const bookmarkedMessages = Array.isArray(bookmarkedMessagesResult)
       ? bookmarkedMessagesResult
-      : (bookmarkedMessagesResult.data || []);
+      : bookmarkedMessagesResult.data || [];
 
     // Enrich messages with user data
     const enrichedMessages = await Promise.all(
@@ -2688,10 +3015,14 @@ export class ChatService {
             ...message,
             user: {
               id: message.user_id,
-              name: userProfile?.name || userProfile?.metadata?.name || userProfile?.metadata?.full_name || 'Unknown User',
+              name:
+                userProfile?.name ||
+                userProfile?.metadata?.name ||
+                userProfile?.metadata?.full_name ||
+                'Unknown User',
               email: userProfile?.email || null,
               avatarUrl: userProfile?.metadata?.avatarUrl || userProfile?.avatar_url || null,
-            }
+            },
           };
         } catch (error) {
           console.error('Failed to fetch user for message:', message.id, error);
@@ -2702,10 +3033,10 @@ export class ChatService {
               name: 'Unknown User',
               email: null,
               avatarUrl: null,
-            }
+            },
           };
         }
-      })
+      }),
     );
 
     const total = enrichedMessages.length;
@@ -2716,12 +3047,12 @@ export class ChatService {
       whereCondition: isConversationMember ? 'conversation_id' : 'channel_id',
       total,
       count: enrichedMessages.length,
-      enriched: true
+      enriched: true,
     });
 
     return {
       data: enrichedMessages,
-      total
+      total,
     };
   }
 
@@ -2732,12 +3063,12 @@ export class ChatService {
     channelId: string,
     userId: string,
     page: number = 1,
-    limit: number = 50
+    limit: number = 50,
   ) {
     // Verify user is part of the channel
     const channelMemberResult = await this.db.findMany('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
     const channelMemberData = Array.isArray(channelMemberResult.data)
@@ -2752,7 +3083,8 @@ export class ChatService {
     const offset = (page - 1) * limit;
 
     // Get bookmarked messages using database query builder
-    const bookmarkedMessagesResult = await this.db.table('messages')
+    const bookmarkedMessagesResult = await this.db
+      .table('messages')
       .select('*')
       .where('channel_id', '=', channelId)
       .where('is_bookmarked', '=', true)
@@ -2764,17 +3096,18 @@ export class ChatService {
 
     const bookmarkedMessages = Array.isArray(bookmarkedMessagesResult)
       ? bookmarkedMessagesResult
-      : (bookmarkedMessagesResult.data || []);
+      : bookmarkedMessagesResult.data || [];
 
     // Get total count for pagination
-    const totalResult = await this.db.table('messages')
+    const totalResult = await this.db
+      .table('messages')
       .select('COUNT(*) as count')
       .where('channel_id', '=', channelId)
       .where('is_bookmarked', '=', true)
       .where('is_deleted', '=', false)
       .execute();
 
-    const totalData = Array.isArray(totalResult) ? totalResult : (totalResult.data || []);
+    const totalData = Array.isArray(totalResult) ? totalResult : totalResult.data || [];
     const total = totalData && totalData[0] ? parseInt(totalData[0].count) : 0;
     const totalPages = Math.ceil(total / limit);
 
@@ -2783,7 +3116,7 @@ export class ChatService {
       page,
       limit,
       total,
-      count: bookmarkedMessages.length
+      count: bookmarkedMessages.length,
     });
 
     return {
@@ -2791,7 +3124,7 @@ export class ChatService {
       total,
       page,
       limit,
-      totalPages
+      totalPages,
     };
   }
 
@@ -2803,7 +3136,8 @@ export class ChatService {
    */
   async pinMessage(conversationId: string, messageId: string, userId: string) {
     // Check if message exists and belongs to the conversation using table query
-    const messageQueryResult = await this.db.table('messages')
+    const messageQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .where('conversation_id', '=', conversationId)
@@ -2821,7 +3155,7 @@ export class ChatService {
     // Verify user is part of the conversation
     const conversationMemberResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
     const conversationMemberData = Array.isArray(conversationMemberResult.data)
@@ -2833,7 +3167,8 @@ export class ChatService {
     }
 
     // First, unpin any previously pinned messages in this conversation
-    const previouslyPinnedResult = await this.db.table('messages')
+    const previouslyPinnedResult = await this.db
+      .table('messages')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .where('is_pinned', '=', true)
@@ -2841,16 +3176,17 @@ export class ChatService {
 
     const previouslyPinned: any[] = Array.isArray(previouslyPinnedResult)
       ? previouslyPinnedResult
-      : (previouslyPinnedResult.data || []);
+      : previouslyPinnedResult.data || [];
 
     // Unpin all previously pinned messages using table query
     for (const pinnedMsg of previouslyPinned) {
-      await this.db.table('messages')
+      await this.db
+        .table('messages')
         .update({
           is_pinned: false,
           pinned_at: null,
           pinned_by: null,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
         .where('id', '=', pinnedMsg.id)
         .execute();
@@ -2858,18 +3194,20 @@ export class ChatService {
     }
 
     // Pin the new message using table query
-    await this.db.table('messages')
+    await this.db
+      .table('messages')
       .update({
         is_pinned: true,
         pinned_at: new Date().toISOString(),
         pinned_by: userId,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
 
     // Fetch updated message
-    const updatedMessageResult = await this.db.table('messages')
+    const updatedMessageResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2886,15 +3224,15 @@ export class ChatService {
       messageId,
       userId,
       pinned: true,
-      previouslyPinnedMessages: previouslyPinned.map(m => m.id),
-      message: updatedMessage
+      previouslyPinnedMessages: previouslyPinned.map((m) => m.id),
+      message: updatedMessage,
     });
     console.log('📡 Emitted message:pinned to room:', room);
 
     return {
       message: 'Message pinned successfully',
       previouslyPinnedCount: previouslyPinned.length,
-      data: updatedMessage
+      data: updatedMessage,
     };
   }
 
@@ -2903,7 +3241,8 @@ export class ChatService {
    */
   async unpinMessage(conversationId: string, messageId: string, userId: string) {
     // Check if message exists and belongs to the conversation using table query
-    const messageQueryResult = await this.db.table('messages')
+    const messageQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .where('conversation_id', '=', conversationId)
@@ -2921,7 +3260,7 @@ export class ChatService {
     // Verify user is part of the conversation
     const conversationMemberResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
     const conversationMemberData = Array.isArray(conversationMemberResult.data)
@@ -2933,18 +3272,20 @@ export class ChatService {
     }
 
     // Unpin the message using table query
-    await this.db.table('messages')
+    await this.db
+      .table('messages')
       .update({
         is_pinned: false,
         pinned_at: null,
         pinned_by: null,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
 
     // Fetch updated message
-    const updatedMessageResult = await this.db.table('messages')
+    const updatedMessageResult = await this.db
+      .table('messages')
       .select('*')
       .where('id', '=', messageId)
       .limit(1)
@@ -2961,13 +3302,13 @@ export class ChatService {
       messageId,
       userId,
       pinned: false,
-      message: updatedMessage
+      message: updatedMessage,
     });
     console.log('📡 Emitted message:pinned (unpin) to room:', room);
 
     return {
       message: 'Message unpinned successfully',
-      data: updatedMessage
+      data: updatedMessage,
     };
   }
 
@@ -2978,7 +3319,7 @@ export class ChatService {
     // Verify user is part of the conversation
     const conversationMemberResult = await this.db.findMany('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
     const conversationMemberData = Array.isArray(conversationMemberResult.data)
@@ -2990,7 +3331,8 @@ export class ChatService {
     }
 
     // Get pinned message
-    const pinnedMessageResult = await this.db.table('messages')
+    const pinnedMessageResult = await this.db
+      .table('messages')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .where('is_pinned', '=', true)
@@ -3001,7 +3343,7 @@ export class ChatService {
     // Handle different result formats
     const pinnedMessages = Array.isArray(pinnedMessageResult)
       ? pinnedMessageResult
-      : (pinnedMessageResult?.data || []);
+      : pinnedMessageResult?.data || [];
 
     const pinnedMessage = pinnedMessages.length > 0 ? pinnedMessages[0] : null;
 
@@ -3010,7 +3352,7 @@ export class ChatService {
       isArray: Array.isArray(pinnedMessageResult),
       hasData: !!pinnedMessageResult?.data,
       messagesCount: pinnedMessages.length,
-      found: pinnedMessage ? 'yes' : 'no'
+      found: pinnedMessage ? 'yes' : 'no',
     });
 
     // If no pinned message, return null
@@ -3030,28 +3372,46 @@ export class ChatService {
     return {
       data: {
         ...pinnedMessage,
-        sender: messageSender ? {
-          id: messageSender.id,
-          username: messageSender.username || messageSender.email?.split('@')[0] || 'Unknown',
-          full_name: messageSender.metadata?.name || messageSender.metadata?.full_name || messageSender.name || messageSender.email?.split('@')[0] || 'Unknown User',
-          avatar_url: messageSender.metadata?.avatarUrl || messageSender.avatar_url || null
-        } : null,
-        pinned_by_user: pinnedByUser ? {
-          id: pinnedByUser.id,
-          username: pinnedByUser.username || pinnedByUser.email?.split('@')[0] || 'Unknown',
-          full_name: pinnedByUser.metadata?.name || pinnedByUser.metadata?.full_name || pinnedByUser.name || pinnedByUser.email?.split('@')[0] || 'Unknown User',
-          avatar_url: pinnedByUser.metadata?.avatarUrl || pinnedByUser.avatar_url || null
-        } : null
-      }
+        sender: messageSender
+          ? {
+              id: messageSender.id,
+              username: messageSender.username || messageSender.email?.split('@')[0] || 'Unknown',
+              full_name:
+                messageSender.metadata?.name ||
+                messageSender.metadata?.full_name ||
+                messageSender.name ||
+                messageSender.email?.split('@')[0] ||
+                'Unknown User',
+              avatar_url: messageSender.metadata?.avatarUrl || messageSender.avatar_url || null,
+            }
+          : null,
+        pinned_by_user: pinnedByUser
+          ? {
+              id: pinnedByUser.id,
+              username: pinnedByUser.username || pinnedByUser.email?.split('@')[0] || 'Unknown',
+              full_name:
+                pinnedByUser.metadata?.name ||
+                pinnedByUser.metadata?.full_name ||
+                pinnedByUser.name ||
+                pinnedByUser.email?.split('@')[0] ||
+                'Unknown User',
+              avatar_url: pinnedByUser.metadata?.avatarUrl || pinnedByUser.avatar_url || null,
+            }
+          : null,
+      },
     };
   }
 
   // Read tracking and unread count methods
-  async markChannelAsRead(channelId: string, lastReadMessageId: string | undefined, userId: string): Promise<void> {
+  async markChannelAsRead(
+    channelId: string,
+    lastReadMessageId: string | undefined,
+    userId: string,
+  ): Promise<void> {
     // Verify user is a member of the channel
     const memberResult = await this.db.findOne('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
     if (!memberResult) {
@@ -3059,14 +3419,16 @@ export class ChatService {
     }
 
     // Update last_read_at timestamp
-    const updateResult = await this.db.table('channel_members')
+    const updateResult = await this.db
+      .table('channel_members')
       .update({ last_read_at: new Date().toISOString() })
       .where('channel_id', '=', channelId)
       .where('user_id', '=', userId)
       .execute();
 
     // Get all messages in the channel (NO is_deleted filter in query!)
-    const messagesResult = await this.db.table('messages')
+    const messagesResult = await this.db
+      .table('messages')
       .select('*')
       .where('channel_id', '=', channelId)
       .execute();
@@ -3074,27 +3436,30 @@ export class ChatService {
     const messagesData = Array.isArray(messagesResult.data) ? messagesResult.data : [];
 
     // Filter deleted messages manually
-    const messages = messagesData.filter(msg => msg.is_deleted !== true);
+    const messages = messagesData.filter((msg) => msg.is_deleted !== true);
 
     console.log('📖 Creating read receipts for channel:', {
       channelId,
       userId,
       totalMessages: messagesData.length,
-      nonDeletedMessages: messages.length
+      nonDeletedMessages: messages.length,
     });
 
     // Get existing read receipts for this user in this channel
-    const existingReceiptsResult = await this.db.table('message_read_receipts')
+    const existingReceiptsResult = await this.db
+      .table('message_read_receipts')
       .select('message_id')
       .where('user_id', '=', userId)
       .execute();
 
-    const existingReceiptsData = Array.isArray(existingReceiptsResult.data) ? existingReceiptsResult.data : [];
+    const existingReceiptsData = Array.isArray(existingReceiptsResult.data)
+      ? existingReceiptsResult.data
+      : [];
     const existingMessageIds = new Set(existingReceiptsData.map((r: any) => r.message_id));
 
     console.log('📖 Existing receipts:', {
       count: existingMessageIds.size,
-      messageIds: Array.from(existingMessageIds)
+      messageIds: Array.from(existingMessageIds),
     });
 
     // Insert read receipts ONLY for messages that don't have receipts yet
@@ -3113,7 +3478,7 @@ export class ChatService {
         await this.db.insert('message_read_receipts', {
           message_id: message.id,
           user_id: userId,
-          read_at: new Date().toISOString()
+          read_at: new Date().toISOString(),
         });
         // If insert succeeded, this is a newly read message
         newlyReadMessageIds.push(message.id);
@@ -3128,7 +3493,7 @@ export class ChatService {
       userId,
       lastReadMessageId,
       totalMessages: messages.length,
-      newlyReadMessages: newlyReadMessageIds.length
+      newlyReadMessages: newlyReadMessageIds.length,
     });
 
     // Emit WebSocket event so other users know you read the messages
@@ -3136,16 +3501,20 @@ export class ChatService {
       channelId,
       userId,
       readAt: new Date().toISOString(),
-      messageId: lastReadMessageId
+      messageId: lastReadMessageId,
     });
 
     // Emit messages:read event ONLY for newly read messages
     if (newlyReadMessageIds.length > 0) {
-      console.log('📡 Emitting messages:read event for', newlyReadMessageIds.length, 'newly read messages');
+      console.log(
+        '📡 Emitting messages:read event for',
+        newlyReadMessageIds.length,
+        'newly read messages',
+      );
       this.appGateway.emitToRoom(`channel:${channelId}`, 'messages:read', {
         messageIds: newlyReadMessageIds,
         userId,
-        readAt: new Date().toISOString()
+        readAt: new Date().toISOString(),
       });
     } else {
       console.log('⏭️ No new messages to emit (all already read)');
@@ -3156,7 +3525,7 @@ export class ChatService {
     // Get user's last read timestamp
     const member = await this.db.findOne('channel_members', {
       channel_id: channelId,
-      user_id: userId
+      user_id: userId,
     });
 
     if (!member) {
@@ -3165,10 +3534,16 @@ export class ChatService {
     }
 
     const lastReadAt = member.last_read_at || null;
-    console.log('📊 Checking unread messages since:', { channelId, userId, lastReadAt, hasLastRead: !!lastReadAt });
+    console.log('📊 Checking unread messages since:', {
+      channelId,
+      userId,
+      lastReadAt,
+      hasLastRead: !!lastReadAt,
+    });
 
     // Get ALL messages in the channel using the EXACT same query as getChannelMessages
-    const messagesQueryResult = await this.db.table('messages')
+    const messagesQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('channel_id', '=', channelId)
       .execute();
@@ -3181,7 +3556,7 @@ export class ChatService {
     const messagesData = Array.isArray(messagesQueryResult.data) ? messagesQueryResult.data : [];
 
     // Filter out deleted messages manually (is_deleted might be true, false, or null)
-    const allMessages = messagesData.filter(msg => msg.is_deleted !== true);
+    const allMessages = messagesData.filter((msg) => msg.is_deleted !== true);
 
     console.log('📊 Messages count:', {
       totalRaw: messagesData.length,
@@ -3189,17 +3564,20 @@ export class ChatService {
     });
 
     if (allMessages.length > 0) {
-      console.log('📊 Sample messages:', allMessages.slice(0, 2).map(m => ({
-        id: m.id,
-        created_at: m.created_at,
-        user_id: m.user_id,
-        is_deleted: m.is_deleted,
-        content: m.content?.substring(0, 30)
-      })));
+      console.log(
+        '📊 Sample messages:',
+        allMessages.slice(0, 2).map((m) => ({
+          id: m.id,
+          created_at: m.created_at,
+          user_id: m.user_id,
+          is_deleted: m.is_deleted,
+          content: m.content?.substring(0, 30),
+        })),
+      );
     }
 
     // Filter messages manually
-    let unreadMessages = allMessages.filter(msg => {
+    const unreadMessages = allMessages.filter((msg) => {
       // Don't count own messages
       if (msg.user_id === userId) return false;
 
@@ -3213,11 +3591,12 @@ export class ChatService {
     });
 
     // Get the latest message timestamp
-    const latestMessage = allMessages.length > 0
-      ? allMessages.reduce((latest, msg) => {
-          return new Date(msg.created_at) > new Date(latest.created_at) ? msg : latest;
-        })
-      : null;
+    const latestMessage =
+      allMessages.length > 0
+        ? allMessages.reduce((latest, msg) => {
+            return new Date(msg.created_at) > new Date(latest.created_at) ? msg : latest;
+          })
+        : null;
 
     console.log('📊 Channel unread count result:', {
       channelId,
@@ -3227,22 +3606,28 @@ export class ChatService {
       lastReadAt,
       latestMessageCreatedAt: latestMessage?.created_at || 'none',
       latestMessageUser: latestMessage?.user_id || 'none',
-      sampleUnreadMessage: unreadMessages[0] ? {
-        id: unreadMessages[0].id,
-        created_at: unreadMessages[0].created_at,
-        user_id: unreadMessages[0].user_id,
-        content: unreadMessages[0].content?.substring(0, 50)
-      } : 'none'
+      sampleUnreadMessage: unreadMessages[0]
+        ? {
+            id: unreadMessages[0].id,
+            created_at: unreadMessages[0].created_at,
+            user_id: unreadMessages[0].user_id,
+            content: unreadMessages[0].content?.substring(0, 50),
+          }
+        : 'none',
     });
 
     return unreadMessages.length;
   }
 
-  async markConversationAsRead(conversationId: string, lastReadMessageId: string | undefined, userId: string): Promise<void> {
+  async markConversationAsRead(
+    conversationId: string,
+    lastReadMessageId: string | undefined,
+    userId: string,
+  ): Promise<void> {
     // Verify user is a member of the conversation
     const memberResult = await this.db.findOne('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
     if (!memberResult) {
@@ -3250,7 +3635,8 @@ export class ChatService {
     }
 
     // Get the latest message ID from the database (don't trust frontend temporary IDs)
-    const latestMessageResult = await this.db.table('messages')
+    const latestMessageResult = await this.db
+      .table('messages')
       .select('id')
       .where('conversation_id', '=', conversationId)
       .orderBy('created_at', 'DESC')
@@ -3265,21 +3651,23 @@ export class ChatService {
 
     // Update last_read_at timestamp and last_read_message_id with actual DB message ID
     const updateData: any = {
-      last_read_at: new Date().toISOString()
+      last_read_at: new Date().toISOString(),
     };
 
     if (latestMessageId) {
       updateData.last_read_message_id = latestMessageId;
     }
 
-    const updateResult = await this.db.table('conversation_members')
+    const updateResult = await this.db
+      .table('conversation_members')
       .update(updateData)
       .where('conversation_id', '=', conversationId)
       .where('user_id', '=', userId)
       .execute();
 
     // Get all messages in the conversation (NO is_deleted filter in query!)
-    const messagesResult = await this.db.table('messages')
+    const messagesResult = await this.db
+      .table('messages')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .execute();
@@ -3287,27 +3675,30 @@ export class ChatService {
     const messagesData = Array.isArray(messagesResult.data) ? messagesResult.data : [];
 
     // Filter deleted messages manually
-    const messages = messagesData.filter(msg => msg.is_deleted !== true);
+    const messages = messagesData.filter((msg) => msg.is_deleted !== true);
 
     console.log('📖 Creating read receipts for conversation:', {
       conversationId,
       userId,
       totalMessages: messagesData.length,
-      nonDeletedMessages: messages.length
+      nonDeletedMessages: messages.length,
     });
 
     // Get existing read receipts for this user in this conversation
-    const existingReceiptsResult = await this.db.table('message_read_receipts')
+    const existingReceiptsResult = await this.db
+      .table('message_read_receipts')
       .select('message_id')
       .where('user_id', '=', userId)
       .execute();
 
-    const existingReceiptsData = Array.isArray(existingReceiptsResult.data) ? existingReceiptsResult.data : [];
+    const existingReceiptsData = Array.isArray(existingReceiptsResult.data)
+      ? existingReceiptsResult.data
+      : [];
     const existingMessageIds = new Set(existingReceiptsData.map((r: any) => r.message_id));
 
     console.log('📖 Existing receipts:', {
       count: existingMessageIds.size,
-      messageIds: Array.from(existingMessageIds)
+      messageIds: Array.from(existingMessageIds),
     });
 
     // Insert read receipts ONLY for messages that don't have receipts yet
@@ -3326,7 +3717,7 @@ export class ChatService {
         await this.db.insert('message_read_receipts', {
           message_id: message.id,
           user_id: userId,
-          read_at: new Date().toISOString()
+          read_at: new Date().toISOString(),
         });
         // If insert succeeded, this is a newly read message
         newlyReadMessageIds.push(message.id);
@@ -3336,23 +3727,25 @@ export class ChatService {
       }
     }
 
-    
-
     // Emit WebSocket event
     this.appGateway.emitToRoom(`conversation:${conversationId}`, 'conversation:read', {
       conversationId,
       userId,
       readAt: new Date().toISOString(),
-      messageId: lastReadMessageId
+      messageId: lastReadMessageId,
     });
 
     // Emit messages:read event ONLY for newly read messages
     if (newlyReadMessageIds.length > 0) {
-      console.log('📡 Emitting messages:read event for', newlyReadMessageIds.length, 'newly read messages');
+      console.log(
+        '📡 Emitting messages:read event for',
+        newlyReadMessageIds.length,
+        'newly read messages',
+      );
       this.appGateway.emitToRoom(`conversation:${conversationId}`, 'messages:read', {
         messageIds: newlyReadMessageIds,
         userId,
-        readAt: new Date().toISOString()
+        readAt: new Date().toISOString(),
       });
     } else {
       console.log('⏭️ No new messages to emit (all already read)');
@@ -3363,7 +3756,7 @@ export class ChatService {
     // Get user's last read timestamp
     const member = await this.db.findOne('conversation_members', {
       conversation_id: conversationId,
-      user_id: userId
+      user_id: userId,
     });
 
     if (!member) {
@@ -3372,10 +3765,16 @@ export class ChatService {
     }
 
     const lastReadAt = member.last_read_at || null;
-    console.log('📊 Checking conversation unread since:', { conversationId, userId, lastReadAt, hasLastRead: !!lastReadAt });
+    console.log('📊 Checking conversation unread since:', {
+      conversationId,
+      userId,
+      lastReadAt,
+      hasLastRead: !!lastReadAt,
+    });
 
     // Get ALL messages in the conversation using the EXACT same query as getConversationMessages
-    const messagesQueryResult = await this.db.table('messages')
+    const messagesQueryResult = await this.db
+      .table('messages')
       .select('*')
       .where('conversation_id', '=', conversationId)
       .execute();
@@ -3388,7 +3787,7 @@ export class ChatService {
     const messagesData = Array.isArray(messagesQueryResult.data) ? messagesQueryResult.data : [];
 
     // Filter out deleted messages manually (is_deleted might be true, false, or null)
-    const allMessages = messagesData.filter(msg => msg.is_deleted !== true);
+    const allMessages = messagesData.filter((msg) => msg.is_deleted !== true);
 
     console.log('📊 Messages count:', {
       totalRaw: messagesData.length,
@@ -3396,17 +3795,20 @@ export class ChatService {
     });
 
     if (allMessages.length > 0) {
-      console.log('📊 Sample messages:', allMessages.slice(0, 2).map(m => ({
-        id: m.id,
-        created_at: m.created_at,
-        user_id: m.user_id,
-        is_deleted: m.is_deleted,
-        content: m.content?.substring(0, 30)
-      })));
+      console.log(
+        '📊 Sample messages:',
+        allMessages.slice(0, 2).map((m) => ({
+          id: m.id,
+          created_at: m.created_at,
+          user_id: m.user_id,
+          is_deleted: m.is_deleted,
+          content: m.content?.substring(0, 30),
+        })),
+      );
     }
 
     // Filter messages manually
-    let unreadMessages = allMessages.filter(msg => {
+    const unreadMessages = allMessages.filter((msg) => {
       // Don't count own messages
       if (msg.user_id === userId) return false;
 
@@ -3420,11 +3822,12 @@ export class ChatService {
     });
 
     // Get the latest message timestamp
-    const latestMessage = allMessages.length > 0
-      ? allMessages.reduce((latest, msg) => {
-          return new Date(msg.created_at) > new Date(latest.created_at) ? msg : latest;
-        })
-      : null;
+    const latestMessage =
+      allMessages.length > 0
+        ? allMessages.reduce((latest, msg) => {
+            return new Date(msg.created_at) > new Date(latest.created_at) ? msg : latest;
+          })
+        : null;
 
     console.log('📊 Conversation unread count result:', {
       conversationId,
@@ -3434,12 +3837,14 @@ export class ChatService {
       lastReadAt,
       latestMessageCreatedAt: latestMessage?.created_at || 'none',
       latestMessageUser: latestMessage?.user_id || 'none',
-      sampleUnreadMessage: unreadMessages[0] ? {
-        id: unreadMessages[0].id,
-        created_at: unreadMessages[0].created_at,
-        user_id: unreadMessages[0].user_id,
-        content: unreadMessages[0].content?.substring(0, 50)
-      } : 'none'
+      sampleUnreadMessage: unreadMessages[0]
+        ? {
+            id: unreadMessages[0].id,
+            created_at: unreadMessages[0].created_at,
+            user_id: unreadMessages[0].user_id,
+            content: unreadMessages[0].content?.substring(0, 50),
+          }
+        : 'none',
     });
 
     return unreadMessages.length;
@@ -3458,7 +3863,7 @@ export class ChatService {
     if (message.channel_id) {
       const member = await this.db.findOne('channel_members', {
         channel_id: message.channel_id,
-        user_id: userId
+        user_id: userId,
       });
       if (!member) {
         throw new ForbiddenException('Not authorized to view read receipts for this message');
@@ -3466,7 +3871,7 @@ export class ChatService {
     } else if (message.conversation_id) {
       const member = await this.db.findOne('conversation_members', {
         conversation_id: message.conversation_id,
-        user_id: userId
+        user_id: userId,
       });
       if (!member) {
         throw new ForbiddenException('Not authorized to view read receipts for this message');
@@ -3475,7 +3880,7 @@ export class ChatService {
 
     // Get all read receipts for this message
     const receiptsResult = await this.db.findMany('message_read_receipts', {
-      message_id: messageId
+      message_id: messageId,
     });
 
     const receipts = Array.isArray(receiptsResult.data) ? receiptsResult.data : [];
@@ -3500,14 +3905,17 @@ export class ChatService {
     // Parse linked_content to find the poll
     let linkedContent: any[] = [];
     try {
-      linkedContent = typeof messageResult.linked_content === 'string'
-        ? JSON.parse(messageResult.linked_content)
-        : messageResult.linked_content || [];
+      linkedContent =
+        typeof messageResult.linked_content === 'string'
+          ? JSON.parse(messageResult.linked_content)
+          : messageResult.linked_content || [];
     } catch (e) {
       linkedContent = [];
     }
 
-    const pollContent = linkedContent.find((item: any) => item.type === 'poll' && item.poll?.id === pollId);
+    const pollContent = linkedContent.find(
+      (item: any) => item.type === 'poll' && item.poll?.id === pollId,
+    );
     if (!pollContent || !pollContent.poll) {
       throw new NotFoundException('Poll not found');
     }
@@ -3529,7 +3937,7 @@ export class ChatService {
     const existingVote = await this.db.findOne('poll_votes', {
       message_id: messageId,
       poll_id: pollId,
-      user_id: userId
+      user_id: userId,
     });
 
     if (existingVote) {
@@ -3541,19 +3949,19 @@ export class ChatService {
       message_id: messageId,
       poll_id: pollId,
       option_id: optionId,
-      user_id: userId
+      user_id: userId,
     });
 
     // Update vote counts in the poll
     const updatedOptions = poll.options.map((opt: any) => ({
       ...opt,
-      voteCount: opt.id === optionId ? (opt.voteCount || 0) + 1 : (opt.voteCount || 0)
+      voteCount: opt.id === optionId ? (opt.voteCount || 0) + 1 : opt.voteCount || 0,
     }));
 
     const updatedPoll = {
       ...poll,
       options: updatedOptions,
-      totalVotes: (poll.totalVotes || 0) + 1
+      totalVotes: (poll.totalVotes || 0) + 1,
     };
 
     // Update the linked_content in the message
@@ -3564,10 +3972,11 @@ export class ChatService {
       return item;
     });
 
-    await this.db.table('messages')
+    await this.db
+      .table('messages')
       .update({
         linked_content: JSON.stringify(updatedLinkedContent),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
@@ -3584,15 +3993,15 @@ export class ChatService {
       pollId,
       optionId,
       userId,
-      poll: updatedPoll
+      poll: updatedPoll,
     });
 
     return {
       message: 'Vote recorded successfully',
       data: {
         poll: updatedPoll,
-        userVotedOptionId: optionId
-      }
+        userVotedOptionId: optionId,
+      },
     };
   }
 
@@ -3609,14 +4018,17 @@ export class ChatService {
     // Parse linked_content to find the poll
     let linkedContent: any[] = [];
     try {
-      linkedContent = typeof messageResult.linked_content === 'string'
-        ? JSON.parse(messageResult.linked_content)
-        : messageResult.linked_content || [];
+      linkedContent =
+        typeof messageResult.linked_content === 'string'
+          ? JSON.parse(messageResult.linked_content)
+          : messageResult.linked_content || [];
     } catch (e) {
       linkedContent = [];
     }
 
-    const pollContent = linkedContent.find((item: any) => item.type === 'poll' && item.poll?.id === pollId);
+    const pollContent = linkedContent.find(
+      (item: any) => item.type === 'poll' && item.poll?.id === pollId,
+    );
     if (!pollContent || !pollContent.poll) {
       throw new NotFoundException('Poll not found');
     }
@@ -3636,7 +4048,7 @@ export class ChatService {
     // Update the poll to closed
     const updatedPoll = {
       ...poll,
-      isOpen: false
+      isOpen: false,
     };
 
     // Update the linked_content in the message
@@ -3647,10 +4059,11 @@ export class ChatService {
       return item;
     });
 
-    await this.db.table('messages')
+    await this.db
+      .table('messages')
       .update({
         linked_content: JSON.stringify(updatedLinkedContent),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', messageId)
       .execute();
@@ -3665,12 +4078,12 @@ export class ChatService {
     this.appGateway.emitToRoom(room, 'poll:closed', {
       messageId,
       pollId,
-      poll: updatedPoll
+      poll: updatedPoll,
     });
 
     return {
       message: 'Poll closed successfully',
-      data: { poll: updatedPoll }
+      data: { poll: updatedPoll },
     };
   }
 
@@ -3687,14 +4100,17 @@ export class ChatService {
     // Parse linked_content to find the poll
     let linkedContent: any[] = [];
     try {
-      linkedContent = typeof messageResult.linked_content === 'string'
-        ? JSON.parse(messageResult.linked_content)
-        : messageResult.linked_content || [];
+      linkedContent =
+        typeof messageResult.linked_content === 'string'
+          ? JSON.parse(messageResult.linked_content)
+          : messageResult.linked_content || [];
     } catch (e) {
       linkedContent = [];
     }
 
-    const pollContent = linkedContent.find((item: any) => item.type === 'poll' && item.poll?.id === pollId);
+    const pollContent = linkedContent.find(
+      (item: any) => item.type === 'poll' && item.poll?.id === pollId,
+    );
     if (!pollContent || !pollContent.poll) {
       throw new NotFoundException('Poll not found');
     }
@@ -3705,7 +4121,7 @@ export class ChatService {
     const userVote = await this.db.findOne('poll_votes', {
       message_id: messageId,
       poll_id: pollId,
-      user_id: userId
+      user_id: userId,
     });
 
     const userVotedOptionId = userVote ? userVote.option_id : null;
@@ -3722,9 +4138,9 @@ export class ChatService {
         ...poll,
         options: poll.options.map((opt: any) => ({
           ...opt,
-          voteCount: undefined
+          voteCount: undefined,
         })),
-        totalVotes: undefined
+        totalVotes: undefined,
       };
     }
 
@@ -3733,8 +4149,8 @@ export class ChatService {
         poll: pollData,
         userVotedOptionId,
         hasVoted,
-        showResults
-      }
+        showResults,
+      },
     };
   }
 
@@ -3746,7 +4162,7 @@ export class ChatService {
   async scheduleMessage(
     workspaceId: string,
     scheduleDto: import('./dto/scheduled-message.dto').ScheduleMessageDto,
-    userId: string
+    userId: string,
   ): Promise<{ data: ReturnType<typeof this.formatScheduledMessage>; message: string }> {
     const { scheduledAt, channelId, conversationId, ...messageData } = scheduleDto;
 
@@ -3761,7 +4177,10 @@ export class ChatService {
     console.log('📅 [SCHEDULE] Parsed scheduledDate (Local):', scheduledDate.toLocaleString());
     console.log('📅 [SCHEDULE] Current time (UTC):', now.toISOString());
     console.log('📅 [SCHEDULE] Current time (Local):', now.toLocaleString());
-    console.log('📅 [SCHEDULE] Time difference (minutes):', (scheduledDate.getTime() - now.getTime()) / 60000);
+    console.log(
+      '📅 [SCHEDULE] Time difference (minutes):',
+      (scheduledDate.getTime() - now.getTime()) / 60000,
+    );
 
     if (scheduledDate <= now) {
       throw new BadRequestException('Scheduled time must be in the future');
@@ -3795,19 +4214,19 @@ export class ChatService {
       scheduled_at: scheduledDate.toISOString(),
       status: 'pending',
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
 
     console.log('📅 Message scheduled:', {
       id: scheduledMessage.id,
       scheduledAt: scheduledDate.toISOString(),
       channelId,
-      conversationId
+      conversationId,
     });
 
     return {
       data: this.formatScheduledMessage(scheduledMessage),
-      message: 'Message scheduled successfully'
+      message: 'Message scheduled successfully',
     };
   }
 
@@ -3817,12 +4236,13 @@ export class ChatService {
   async getScheduledMessages(
     workspaceId: string,
     userId: string,
-    query: import('./dto/scheduled-message.dto').QueryScheduledMessagesDto
+    query: import('./dto/scheduled-message.dto').QueryScheduledMessagesDto,
   ): Promise<{ data: Array<ReturnType<typeof this.formatScheduledMessage>>; total: number }> {
     const { status, channelId, conversationId, limit = 50, offset = 0 } = query;
 
     // Build query
-    let queryBuilder = this.db.table('scheduled_messages')
+    let queryBuilder = this.db
+      .table('scheduled_messages')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId);
@@ -3845,7 +4265,7 @@ export class ChatService {
       .offset(offset)
       .execute();
 
-    const messages = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+    const messages = Array.isArray(result.data) ? result.data : Array.isArray(result) ? result : [];
 
     // Get destination names for each message
     const formattedMessages = await Promise.all(
@@ -3862,24 +4282,25 @@ export class ChatService {
         } else if (msg.conversation_id) {
           // For conversations, get the other participant's name
           const members = await this.db.findMany('conversation_members', {
-            conversation_id: msg.conversation_id
+            conversation_id: msg.conversation_id,
           });
           const membersData = Array.isArray(members.data) ? members.data : [];
-          const otherMember = membersData.find(m => m.user_id !== userId);
+          const otherMember = membersData.find((m) => m.user_id !== userId);
           if (otherMember) {
             const user = await this.db.getUserById(otherMember.user_id);
-            formatted.destinationName = user?.metadata?.name || user?.name || user?.email?.split('@')[0] || 'Unknown';
+            formatted.destinationName =
+              user?.metadata?.name || user?.name || user?.email?.split('@')[0] || 'Unknown';
             formatted.destinationType = 'conversation';
           }
         }
 
         return formatted;
-      })
+      }),
     );
 
     return {
       data: formattedMessages,
-      total: messages.length
+      total: messages.length,
     };
   }
 
@@ -3888,10 +4309,10 @@ export class ChatService {
    */
   async getScheduledMessage(
     scheduledMessageId: string,
-    userId: string
+    userId: string,
   ): Promise<{ data: ReturnType<typeof this.formatScheduledMessage> }> {
     const message = await this.db.findOne('scheduled_messages', {
-      id: scheduledMessageId
+      id: scheduledMessageId,
     });
 
     if (!message) {
@@ -3911,10 +4332,10 @@ export class ChatService {
   async updateScheduledMessage(
     scheduledMessageId: string,
     updateDto: import('./dto/scheduled-message.dto').UpdateScheduledMessageDto,
-    userId: string
+    userId: string,
   ): Promise<{ data: ReturnType<typeof this.formatScheduledMessage>; message: string }> {
     const message = await this.db.findOne('scheduled_messages', {
-      id: scheduledMessageId
+      id: scheduledMessageId,
     });
 
     if (!message) {
@@ -3931,7 +4352,7 @@ export class ChatService {
 
     // Build update object
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (updateDto.content !== undefined) {
@@ -3962,21 +4383,22 @@ export class ChatService {
       updateData.linked_content = JSON.stringify(updateDto.linkedContent);
     }
 
-    await this.db.table('scheduled_messages')
+    await this.db
+      .table('scheduled_messages')
       .update(updateData)
       .where('id', '=', scheduledMessageId)
       .execute();
 
     // Fetch updated message
     const updatedMessage = await this.db.findOne('scheduled_messages', {
-      id: scheduledMessageId
+      id: scheduledMessageId,
     });
 
     console.log('📅 Scheduled message updated:', scheduledMessageId);
 
     return {
       data: this.formatScheduledMessage(updatedMessage),
-      message: 'Scheduled message updated successfully'
+      message: 'Scheduled message updated successfully',
     };
   }
 
@@ -3985,10 +4407,10 @@ export class ChatService {
    */
   async cancelScheduledMessage(
     scheduledMessageId: string,
-    userId: string
+    userId: string,
   ): Promise<{ message: string }> {
     const message = await this.db.findOne('scheduled_messages', {
-      id: scheduledMessageId
+      id: scheduledMessageId,
     });
 
     if (!message) {
@@ -4003,10 +4425,11 @@ export class ChatService {
       throw new BadRequestException('Can only cancel pending scheduled messages');
     }
 
-    await this.db.table('scheduled_messages')
+    await this.db
+      .table('scheduled_messages')
       .update({
         status: 'cancelled',
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       })
       .where('id', '=', scheduledMessageId)
       .execute();
@@ -4029,13 +4452,18 @@ export class ChatService {
 
     // Get ALL pending messages - we'll filter in JavaScript because database
     // timestamp comparison is unreliable
-    const allPending = await this.db.table('scheduled_messages')
+    const allPending = await this.db
+      .table('scheduled_messages')
       .select('*')
       .where('status', '=', 'pending')
       .limit(100)
       .execute();
 
-    const allPendingMessages = Array.isArray(allPending.data) ? allPending.data : (Array.isArray(allPending) ? allPending : []);
+    const allPendingMessages = Array.isArray(allPending.data)
+      ? allPending.data
+      : Array.isArray(allPending)
+        ? allPending
+        : [];
 
     console.log(`[ScheduledMessages] Total pending messages: ${allPendingMessages.length}`);
 
@@ -4062,17 +4490,20 @@ export class ChatService {
     for (const scheduledMsg of messages) {
       try {
         // Parse JSON fields
-        const attachments = typeof scheduledMsg.attachments === 'string'
-          ? JSON.parse(scheduledMsg.attachments)
-          : scheduledMsg.attachments || [];
+        const attachments =
+          typeof scheduledMsg.attachments === 'string'
+            ? JSON.parse(scheduledMsg.attachments)
+            : scheduledMsg.attachments || [];
 
-        const mentions = typeof scheduledMsg.mentions === 'string'
-          ? JSON.parse(scheduledMsg.mentions)
-          : scheduledMsg.mentions || [];
+        const mentions =
+          typeof scheduledMsg.mentions === 'string'
+            ? JSON.parse(scheduledMsg.mentions)
+            : scheduledMsg.mentions || [];
 
-        const linkedContent = typeof scheduledMsg.linked_content === 'string'
-          ? JSON.parse(scheduledMsg.linked_content)
-          : scheduledMsg.linked_content || [];
+        const linkedContent =
+          typeof scheduledMsg.linked_content === 'string'
+            ? JSON.parse(scheduledMsg.linked_content)
+            : scheduledMsg.linked_content || [];
 
         // Build message data for sendMessage (use snake_case for database columns)
         const messageData: any = {
@@ -4084,19 +4515,20 @@ export class ChatService {
           thread_id: scheduledMsg.thread_id,
           parent_id: scheduledMsg.parent_id,
           channel_id: scheduledMsg.channel_id || undefined,
-          conversation_id: scheduledMsg.conversation_id || undefined
+          conversation_id: scheduledMsg.conversation_id || undefined,
         };
 
         // Send the message
         const sentMessage = await this.sendMessage(messageData, scheduledMsg.user_id);
 
         // Update scheduled message as sent
-        await this.db.table('scheduled_messages')
+        await this.db
+          .table('scheduled_messages')
           .update({
             status: 'sent',
             sent_at: new Date().toISOString(),
             sent_message_id: sentMessage.id,
-            updated_at: new Date().toISOString()
+            updated_at: new Date().toISOString(),
           })
           .where('id', '=', scheduledMsg.id)
           .execute();
@@ -4105,11 +4537,12 @@ export class ChatService {
         console.log('✅ Scheduled message sent:', scheduledMsg.id);
       } catch (error) {
         // Mark as failed
-        await this.db.table('scheduled_messages')
+        await this.db
+          .table('scheduled_messages')
           .update({
             status: 'failed',
             failure_reason: error.message || 'Unknown error',
-            updated_at: new Date().toISOString()
+            updated_at: new Date().toISOString(),
           })
           .where('id', '=', scheduledMsg.id)
           .execute();
@@ -4156,15 +4589,18 @@ export class ChatService {
       userId: message.user_id,
       content: message.content,
       contentHtml: message.content_html,
-      attachments: typeof message.attachments === 'string'
-        ? JSON.parse(message.attachments)
-        : message.attachments || [],
-      mentions: typeof message.mentions === 'string'
-        ? JSON.parse(message.mentions)
-        : message.mentions || [],
-      linkedContent: typeof message.linked_content === 'string'
-        ? JSON.parse(message.linked_content)
-        : message.linked_content || [],
+      attachments:
+        typeof message.attachments === 'string'
+          ? JSON.parse(message.attachments)
+          : message.attachments || [],
+      mentions:
+        typeof message.mentions === 'string'
+          ? JSON.parse(message.mentions)
+          : message.mentions || [],
+      linkedContent:
+        typeof message.linked_content === 'string'
+          ? JSON.parse(message.linked_content)
+          : message.linked_content || [],
       threadId: message.thread_id,
       parentId: message.parent_id,
       scheduledAt: message.scheduled_at,
@@ -4173,7 +4609,7 @@ export class ChatService {
       sentMessageId: message.sent_message_id,
       failureReason: message.failure_reason,
       createdAt: message.created_at,
-      updatedAt: message.updated_at
+      updatedAt: message.updated_at,
     };
   }
 
@@ -4209,7 +4645,7 @@ export class ChatService {
       linked_content: JSON.stringify([]),
       reactions: JSON.stringify({}),
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const message = await this.db.insert('messages', messagePayload);
@@ -4244,7 +4680,10 @@ export class ChatService {
     }
 
     if (data.conversationId) {
-      console.log('[ChatService] 📡 Bot emitting message:new to conversation:', data.conversationId);
+      console.log(
+        '[ChatService] 📡 Bot emitting message:new to conversation:',
+        data.conversationId,
+      );
       this.appGateway.emitToRoom(`conversation:${data.conversationId}`, 'message:new', {
         message: parsedMessage,
         conversation_id: data.conversationId,
@@ -4283,7 +4722,7 @@ export class ChatService {
       linked_content: JSON.stringify([]),
       reactions: JSON.stringify({}),
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const message = await this.db.insert('messages', messagePayload);
@@ -4319,7 +4758,8 @@ export class ChatService {
    * Get recent messages from a channel (for bot context)
    */
   async getRecentMessages(channelId: string, limit: number = 10): Promise<any[]> {
-    const result = await this.db.table('messages')
+    const result = await this.db
+      .table('messages')
       .select('*')
       .where('channel_id', '=', channelId)
       .execute();
@@ -4332,7 +4772,8 @@ export class ChatService {
     const enrichedMessages = [];
     for (const message of messages) {
       let user = null;
-      const isBot = !message.user_id || message.user_id === 'bot' || message.user_id.startsWith('bot:');
+      const isBot =
+        !message.user_id || message.user_id === 'bot' || message.user_id.startsWith('bot:');
 
       if (message.user_id && !isBot) {
         try {
@@ -4341,16 +4782,24 @@ export class ChatService {
             const metadata = userInfo.metadata || {};
             user = {
               id: userInfo.id,
-              name: metadata.name || userInfo.fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
+              name:
+                metadata.name ||
+                userInfo.fullName ||
+                userInfo.name ||
+                userInfo.email?.split('@')[0] ||
+                'User',
               email: userInfo.email,
-              avatarUrl: userInfo.avatar_url || userInfo.avatarUrl || null
+              avatarUrl: userInfo.avatar_url || userInfo.avatarUrl || null,
             };
           }
         } catch (e) {
           user = { id: message.user_id, name: 'User', email: '', avatarUrl: null };
         }
       } else if (isBot) {
-        const metadata = typeof message.metadata === 'string' ? JSON.parse(message.metadata) : message.metadata || {};
+        const metadata =
+          typeof message.metadata === 'string'
+            ? JSON.parse(message.metadata)
+            : message.metadata || {};
         user = {
           id: 'bot',
           name: metadata.botName || 'Bot',
@@ -4364,8 +4813,14 @@ export class ChatService {
         ...message,
         user,
         content: message.content,
-        attachments: typeof message.attachments === 'string' ? JSON.parse(message.attachments) : message.attachments || [],
-        mentions: typeof message.mentions === 'string' ? JSON.parse(message.mentions) : message.mentions || [],
+        attachments:
+          typeof message.attachments === 'string'
+            ? JSON.parse(message.attachments)
+            : message.attachments || [],
+        mentions:
+          typeof message.mentions === 'string'
+            ? JSON.parse(message.mentions)
+            : message.mentions || [],
       });
     }
 

@@ -112,7 +112,7 @@ export class GoogleOAuthController {
     } catch (err) {
       console.error('Google OAuth callback error:', err);
       return res.redirect(
-        `${frontendUrl}?google_error=${encodeURIComponent(err.message || 'unknown_error')}`
+        `${frontendUrl}?google_error=${encodeURIComponent(err.message || 'unknown_error')}`,
       );
     }
   }
@@ -129,7 +129,8 @@ export class GoogleOAuthController {
   ) {
     try {
       const connection = await this.emailService.handleOAuthCallback(code, state);
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/email`;
+      const returnUrl =
+        stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/email`;
 
       // Build redirect URL with proper query parameter handling
       const separator = returnUrl.includes('?') ? '&' : '?';
@@ -146,7 +147,8 @@ export class GoogleOAuthController {
       return res.redirect(redirectUrl);
     } catch (err) {
       console.error('Gmail OAuth callback error:', err);
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/email`;
+      const returnUrl =
+        stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/email`;
 
       const separator = returnUrl.includes('?') ? '&' : '?';
       const errorUrl = `${returnUrl}${separator}emailError=${encodeURIComponent(err.message || 'unknown_error')}`;
@@ -176,7 +178,12 @@ export class GoogleOAuthController {
    * Send an HTML page that triggers a deep link
    * This is needed because browsers can't redirect to custom URL schemes
    */
-  private sendDeepLinkPage(res: Response, deepLinkUrl: string, title: string, errorMessage?: string) {
+  private sendDeepLinkPage(
+    res: Response,
+    deepLinkUrl: string,
+    title: string,
+    errorMessage?: string,
+  ) {
     const isError = title.toLowerCase().includes('failed');
     const bgGradient = isError
       ? 'linear-gradient(135deg, #e53935 0%, #c62828 100%)'
@@ -286,7 +293,8 @@ export class GoogleOAuthController {
         stateData.workspaceId,
       );
 
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/calendar`;
+      const returnUrl =
+        stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/calendar`;
 
       // Build redirect URL with proper query parameter handling
       const separator = returnUrl.includes('?') ? '&' : '?';
@@ -302,7 +310,8 @@ export class GoogleOAuthController {
       return res.redirect(redirectUrl);
     } catch (err) {
       console.error('Google Calendar OAuth callback error:', err);
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/calendar`;
+      const returnUrl =
+        stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/calendar`;
 
       const separator = returnUrl.includes('?') ? '&' : '?';
       const errorUrl = `${returnUrl}${separator}calendarError=${encodeURIComponent(err.message || 'unknown_error')}`;
@@ -330,7 +339,7 @@ export class GoogleOAuthController {
       const connection = await this.googleSheetsService.handleOAuthCallback(code, state);
 
       // Check if returnUrl was provided (for mobile deep link)
-      let returnUrl = stateData.returnUrl;
+      const returnUrl = stateData.returnUrl;
 
       if (returnUrl) {
         // Build redirect URL with success params
@@ -349,7 +358,7 @@ export class GoogleOAuthController {
 
       // Default: redirect to web frontend
       return res.redirect(
-        `${frontendUrl}/workspaces/${connection.workspaceId}/settings/integrations?google_sheets_success=true`
+        `${frontendUrl}/workspaces/${connection.workspaceId}/settings/integrations?google_sheets_success=true`,
       );
     } catch (err) {
       console.error('Google Sheets OAuth callback error:', err);
@@ -357,7 +366,7 @@ export class GoogleOAuthController {
       const errorMessage = err.message || 'unknown_error';
 
       // Check if returnUrl was provided (for mobile deep link)
-      let returnUrl = stateData.returnUrl;
+      const returnUrl = stateData.returnUrl;
 
       if (returnUrl) {
         const separator = returnUrl.includes('?') ? '&' : '?';
@@ -365,7 +374,12 @@ export class GoogleOAuthController {
 
         // Check if returnUrl is a custom scheme (mobile app deep link)
         if (this.isCustomScheme(returnUrl)) {
-          return this.sendDeepLinkPage(res, errorUrl, 'Google Sheets Connection Failed', errorMessage);
+          return this.sendDeepLinkPage(
+            res,
+            errorUrl,
+            'Google Sheets Connection Failed',
+            errorMessage,
+          );
         }
 
         return res.redirect(errorUrl);
@@ -373,7 +387,7 @@ export class GoogleOAuthController {
 
       // Default: redirect to web frontend
       return res.redirect(
-        `${frontendUrl}/settings/integrations?google_sheets_error=${encodeURIComponent(errorMessage)}`
+        `${frontendUrl}/settings/integrations?google_sheets_error=${encodeURIComponent(errorMessage)}`,
       );
     }
   }
@@ -392,7 +406,7 @@ export class GoogleOAuthController {
       const connection = await this.googleDriveService.handleOAuthCallback(code, state);
 
       // Check if returnUrl was provided (for mobile deep link)
-      let returnUrl = stateData.returnUrl;
+      const returnUrl = stateData.returnUrl;
 
       if (returnUrl) {
         // Build redirect URL with success params
@@ -411,7 +425,7 @@ export class GoogleOAuthController {
 
       // Default: redirect to web frontend
       return res.redirect(
-        `${frontendUrl}/workspaces/${connection.workspaceId}/settings/integrations?google_drive_success=true`
+        `${frontendUrl}/workspaces/${connection.workspaceId}/settings/integrations?google_drive_success=true`,
       );
     } catch (err) {
       console.error('Google Drive OAuth callback error:', err);
@@ -419,7 +433,7 @@ export class GoogleOAuthController {
       const errorMessage = err.message || 'unknown_error';
 
       // Check if returnUrl was provided (for mobile deep link)
-      let returnUrl = stateData.returnUrl;
+      const returnUrl = stateData.returnUrl;
 
       if (returnUrl) {
         const separator = returnUrl.includes('?') ? '&' : '?';
@@ -427,7 +441,12 @@ export class GoogleOAuthController {
 
         // Check if returnUrl is a custom scheme (mobile app deep link)
         if (this.isCustomScheme(returnUrl)) {
-          return this.sendDeepLinkPage(res, errorUrl, 'Google Drive Connection Failed', errorMessage);
+          return this.sendDeepLinkPage(
+            res,
+            errorUrl,
+            'Google Drive Connection Failed',
+            errorMessage,
+          );
         }
 
         return res.redirect(errorUrl);
@@ -435,7 +454,7 @@ export class GoogleOAuthController {
 
       // Default: redirect to web frontend
       return res.redirect(
-        `${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMessage)}`
+        `${frontendUrl}/settings/integrations?google_drive_error=${encodeURIComponent(errorMessage)}`,
       );
     }
   }
@@ -472,7 +491,9 @@ export class GoogleOAuthController {
       );
 
       // Build success redirect URL
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations`;
+      const returnUrl =
+        stateData.returnUrl ||
+        `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations`;
       const separator = returnUrl.includes('?') ? '&' : '?';
       const successParam = `${service.replace('-', '_')}_connected`;
       const redirectUrl = `${returnUrl}${separator}success=true&${successParam}=true&email=${encodeURIComponent(userInfo.email || '')}`;
@@ -490,7 +511,9 @@ export class GoogleOAuthController {
       console.error(`${service} OAuth callback error:`, err);
 
       const errorMessage = err.message || 'unknown_error';
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations`;
+      const returnUrl =
+        stateData.returnUrl ||
+        `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations`;
 
       const separator = returnUrl.includes('?') ? '&' : '?';
       const errorUrl = `${returnUrl}${separator}error=${encodeURIComponent(errorMessage)}`;
@@ -498,7 +521,12 @@ export class GoogleOAuthController {
       // Check if returnUrl is a custom scheme (mobile app deep link)
       if (this.isCustomScheme(returnUrl)) {
         const displayName = this.getServiceDisplayName(service);
-        return this.sendDeepLinkPage(res, errorUrl, `${displayName} Connection Failed`, errorMessage);
+        return this.sendDeepLinkPage(
+          res,
+          errorUrl,
+          `${displayName} Connection Failed`,
+          errorMessage,
+        );
       }
 
       return res.redirect(errorUrl);
@@ -514,7 +542,7 @@ export class GoogleOAuthController {
       'google-meet': 'Google Meet',
       'google-cloud': 'Google Cloud',
       'google-analytics': 'Google Analytics',
-      'youtube': 'YouTube',
+      youtube: 'YouTube',
     };
     return names[service] || service;
   }

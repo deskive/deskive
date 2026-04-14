@@ -83,7 +83,7 @@ export class TriggerTestHelper {
    */
   static async createTriggerTestModule(
     TriggerServiceClass: any,
-    additionalProviders: any[] = []
+    additionalProviders: any[] = [],
   ): Promise<TestingModule> {
     const mockConfigService = this.createMockConfigService();
     const mockPlatformService = this.createMockPlatformService();
@@ -103,7 +103,7 @@ export class TriggerTestHelper {
    */
   static async createWebhookControllerTestModule(
     WebhookControllerClass: any,
-    additionalProviders: any[] = []
+    additionalProviders: any[] = [],
   ): Promise<TestingModule> {
     const mockWorkflowService = this.createMockWorkflowService();
 
@@ -123,7 +123,7 @@ export class TriggerTestHelper {
     baseUrl: string,
     listPath: string,
     createPath: string,
-    webhookId: string = 'mock-webhook-123'
+    webhookId: string = 'mock-webhook-123',
   ): void {
     // Mock: list existing webhooks (empty)
     nock(baseUrl).get(listPath).reply(200, { webhooks: [] });
@@ -142,9 +142,7 @@ export class TriggerTestHelper {
   /**
    * Create a test trigger configuration
    */
-  static createTriggerConfig(
-    overrides?: Partial<TriggerTestConfig>
-  ): TriggerTestConfig {
+  static createTriggerConfig(overrides?: Partial<TriggerTestConfig>): TriggerTestConfig {
     return {
       workflowId: 'test-workflow-123',
       triggerId: 'email_delivered',

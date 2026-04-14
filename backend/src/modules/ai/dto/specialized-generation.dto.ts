@@ -1,4 +1,12 @@
-import { IsString, IsOptional, IsEnum, IsNumber, IsBoolean, IsArray, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+  IsBoolean,
+  IsArray,
+  IsDateString,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 // Recipe Generation DTOs
@@ -20,7 +28,7 @@ export enum CuisineType {
   AFRICAN = 'african',
   CARIBBEAN = 'caribbean',
   FUSION = 'fusion',
-  INTERNATIONAL = 'international'
+  INTERNATIONAL = 'international',
 }
 
 export enum DietaryRestriction {
@@ -36,7 +44,7 @@ export enum DietaryRestriction {
   KOSHER = 'kosher',
   LOW_SODIUM = 'low_sodium',
   DIABETIC_FRIENDLY = 'diabetic_friendly',
-  HEART_HEALTHY = 'heart_healthy'
+  HEART_HEALTHY = 'heart_healthy',
 }
 
 export enum MealType {
@@ -47,14 +55,14 @@ export enum MealType {
   SNACK = 'snack',
   DESSERT = 'dessert',
   APPETIZER = 'appetizer',
-  BEVERAGE = 'beverage'
+  BEVERAGE = 'beverage',
 }
 
 export enum DifficultyLevel {
   BEGINNER = 'beginner',
   INTERMEDIATE = 'intermediate',
   ADVANCED = 'advanced',
-  EXPERT = 'expert'
+  EXPERT = 'expert',
 }
 
 export class GenerateRecipeDto {
@@ -62,29 +70,29 @@ export class GenerateRecipeDto {
   @IsString()
   recipe_request: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Cuisine type',
     enum: CuisineType,
-    example: CuisineType.AMERICAN
+    example: CuisineType.AMERICAN,
   })
   @IsOptional()
   @IsEnum(CuisineType)
   cuisine?: CuisineType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Meal type',
     enum: MealType,
-    example: MealType.DESSERT
+    example: MealType.DESSERT,
   })
   @IsOptional()
   @IsEnum(MealType)
   meal_type?: MealType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Dietary restrictions',
     enum: DietaryRestriction,
     isArray: true,
-    example: [DietaryRestriction.VEGETARIAN]
+    example: [DietaryRestriction.VEGETARIAN],
   })
   @IsOptional()
   @IsArray()
@@ -101,17 +109,20 @@ export class GenerateRecipeDto {
   @IsNumber()
   cooking_time?: number;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Recipe difficulty level',
     enum: DifficultyLevel,
     example: DifficultyLevel.INTERMEDIATE,
-    default: DifficultyLevel.INTERMEDIATE
+    default: DifficultyLevel.INTERMEDIATE,
   })
   @IsOptional()
   @IsEnum(DifficultyLevel)
   difficulty?: DifficultyLevel;
 
-  @ApiPropertyOptional({ description: 'Available ingredients', example: ['flour', 'eggs', 'milk', 'sugar'] })
+  @ApiPropertyOptional({
+    description: 'Available ingredients',
+    example: ['flour', 'eggs', 'milk', 'sugar'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -155,14 +166,14 @@ export enum FitnessGoal {
   TONING = 'toning',
   REHABILITATION = 'rehabilitation',
   SPORTS_PERFORMANCE = 'sports_performance',
-  MAINTENANCE = 'maintenance'
+  MAINTENANCE = 'maintenance',
 }
 
 export enum FitnessLevel {
   BEGINNER = 'beginner',
   INTERMEDIATE = 'intermediate',
   ADVANCED = 'advanced',
-  EXPERT = 'expert'
+  EXPERT = 'expert',
 }
 
 export enum WorkoutType {
@@ -177,7 +188,7 @@ export enum WorkoutType {
   MARTIAL_ARTS = 'martial_arts',
   DANCE = 'dance',
   SPORTS = 'sports',
-  MIXED = 'mixed'
+  MIXED = 'mixed',
 }
 
 export enum Equipment {
@@ -190,22 +201,22 @@ export enum Equipment {
   FULL_GYM = 'full_gym',
   CARDIO_MACHINE = 'cardio_machine',
   YOGA_MAT = 'yoga_mat',
-  PULL_UP_BAR = 'pull_up_bar'
+  PULL_UP_BAR = 'pull_up_bar',
 }
 
 export class GenerateWorkoutPlanDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Primary fitness goal',
     enum: FitnessGoal,
-    example: FitnessGoal.MUSCLE_GAIN
+    example: FitnessGoal.MUSCLE_GAIN,
   })
   @IsEnum(FitnessGoal)
   fitness_goal: FitnessGoal;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Current fitness level',
     enum: FitnessLevel,
-    example: FitnessLevel.INTERMEDIATE
+    example: FitnessLevel.INTERMEDIATE,
   })
   @IsEnum(FitnessLevel)
   fitness_level: FitnessLevel;
@@ -225,35 +236,41 @@ export class GenerateWorkoutPlanDto {
   @IsNumber()
   session_duration?: number;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Preferred workout types',
     enum: WorkoutType,
     isArray: true,
-    example: [WorkoutType.STRENGTH_TRAINING, WorkoutType.CARDIO]
+    example: [WorkoutType.STRENGTH_TRAINING, WorkoutType.CARDIO],
   })
   @IsOptional()
   @IsArray()
   @IsEnum(WorkoutType, { each: true })
   preferred_workouts?: WorkoutType[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Available equipment',
     enum: Equipment,
     isArray: true,
-    example: [Equipment.DUMBBELLS, Equipment.YOGA_MAT]
+    example: [Equipment.DUMBBELLS, Equipment.YOGA_MAT],
   })
   @IsOptional()
   @IsArray()
   @IsEnum(Equipment, { each: true })
   available_equipment?: Equipment[];
 
-  @ApiPropertyOptional({ description: 'Focus areas or muscle groups', example: ['chest', 'shoulders', 'core'] })
+  @ApiPropertyOptional({
+    description: 'Focus areas or muscle groups',
+    example: ['chest', 'shoulders', 'core'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   focus_areas?: string[];
 
-  @ApiPropertyOptional({ description: 'Injuries or physical limitations', example: ['lower back pain', 'knee issues'] })
+  @ApiPropertyOptional({
+    description: 'Injuries or physical limitations',
+    example: ['lower back pain', 'knee issues'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -302,29 +319,32 @@ export class GenerateMealPlanDto {
   @IsBoolean()
   include_snacks?: boolean;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Dietary restrictions',
     enum: DietaryRestriction,
     isArray: true,
-    example: [DietaryRestriction.VEGETARIAN]
+    example: [DietaryRestriction.VEGETARIAN],
   })
   @IsOptional()
   @IsArray()
   @IsEnum(DietaryRestriction, { each: true })
   dietary_restrictions?: DietaryRestriction[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Preferred cuisines',
     enum: CuisineType,
     isArray: true,
-    example: [CuisineType.MEDITERRANEAN, CuisineType.CHINESE]
+    example: [CuisineType.MEDITERRANEAN, CuisineType.CHINESE],
   })
   @IsOptional()
   @IsArray()
   @IsEnum(CuisineType, { each: true })
   preferred_cuisines?: CuisineType[];
 
-  @ApiPropertyOptional({ description: 'Foods to include', example: ['salmon', 'quinoa', 'avocado'] })
+  @ApiPropertyOptional({
+    description: 'Foods to include',
+    example: ['salmon', 'quinoa', 'avocado'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
@@ -336,7 +356,11 @@ export class GenerateMealPlanDto {
   @IsString({ each: true })
   foods_to_avoid?: string[];
 
-  @ApiPropertyOptional({ description: 'Cooking skill level', enum: DifficultyLevel, example: DifficultyLevel.INTERMEDIATE })
+  @ApiPropertyOptional({
+    description: 'Cooking skill level',
+    enum: DifficultyLevel,
+    example: DifficultyLevel.INTERMEDIATE,
+  })
   @IsOptional()
   @IsEnum(DifficultyLevel)
   cooking_skill?: DifficultyLevel;
@@ -346,7 +370,7 @@ export class GenerateMealPlanDto {
   @IsNumber()
   max_prep_time?: number;
 
-  @ApiPropertyOptional({ description: 'Budget per day (optional)', example: 25.00 })
+  @ApiPropertyOptional({ description: 'Budget per day (optional)', example: 25.0 })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   daily_budget?: number;

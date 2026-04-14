@@ -59,7 +59,10 @@ class GeneralSettingsDto {
   @Type(() => QuietHoursDto)
   quietHours: QuietHoursDto;
 
-  @ApiProperty({ description: 'Notification frequency', enum: ['immediate', 'digest', 'daily', 'weekly'] })
+  @ApiProperty({
+    description: 'Notification frequency',
+    enum: ['immediate', 'digest', 'daily', 'weekly'],
+  })
   @IsEnum(['immediate', 'digest', 'daily', 'weekly'])
   frequency: 'immediate' | 'digest' | 'daily' | 'weekly';
 
@@ -114,14 +117,22 @@ export class NotificationSettingsDto {
   @IsBoolean()
   marketing?: boolean;
 
-  @ApiProperty({ description: 'Notification categories', type: [NotificationCategoryDto], required: false })
+  @ApiProperty({
+    description: 'Notification categories',
+    type: [NotificationCategoryDto],
+    required: false,
+  })
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => NotificationCategoryDto)
   categories?: NotificationCategoryDto[];
 
-  @ApiProperty({ description: 'General notification settings', type: GeneralSettingsDto, required: false })
+  @ApiProperty({
+    description: 'General notification settings',
+    type: GeneralSettingsDto,
+    required: false,
+  })
   @IsOptional()
   @ValidateNested()
   @Type(() => GeneralSettingsDto)
@@ -174,20 +185,32 @@ export class UpdateNotificationSettingsDto {
   @IsBoolean()
   marketing?: boolean;
 
-  @ApiProperty({ description: 'Notification categories', type: [NotificationCategoryDto], required: false })
+  @ApiProperty({
+    description: 'Notification categories',
+    type: [NotificationCategoryDto],
+    required: false,
+  })
   @IsOptional()
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => NotificationCategoryDto)
   categories?: NotificationCategoryDto[];
 
-  @ApiProperty({ description: 'General notification settings', type: GeneralSettingsDto, required: false })
+  @ApiProperty({
+    description: 'General notification settings',
+    type: GeneralSettingsDto,
+    required: false,
+  })
   @IsOptional()
   @ValidateNested()
   @Type(() => GeneralSettingsDto)
   generalSettings?: GeneralSettingsDto;
 
-  @ApiProperty({ description: 'User timezone (IANA format, e.g., Asia/Dhaka)', example: 'Asia/Dhaka', required: false })
+  @ApiProperty({
+    description: 'User timezone (IANA format, e.g., Asia/Dhaka)',
+    example: 'Asia/Dhaka',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   timezone?: string;

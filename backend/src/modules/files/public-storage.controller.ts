@@ -5,13 +5,7 @@ import {
   UploadedFile,
   BadRequestException,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiConsumes,
-  ApiBody,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { DatabaseService } from '../database/database.service';
 
@@ -28,7 +22,8 @@ export class PublicStorageController {
   @Post('upload')
   @ApiOperation({
     summary: 'Upload public file (videos/images)',
-    description: 'Public endpoint for uploading marketing assets like feature videos, hero images, etc. No authentication required.',
+    description:
+      'Public endpoint for uploading marketing assets like feature videos, hero images, etc. No authentication required.',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({

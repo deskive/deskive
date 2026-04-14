@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const LEGAL_CONTRACTS_TEMPLATES = [
   {
@@ -24,13 +21,25 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'RECEIVING PARTY:\n', attributes: { bold: true } },
         { insert: '{{receiving_party_name}}\n{{receiving_party_address}}\n\n' },
         { insert: '1. DEFINITION OF CONFIDENTIAL INFORMATION\n', attributes: { bold: true } },
-        { insert: '"Confidential Information" means any and all non-public information, including but not limited to trade secrets, business plans, financial information, customer lists, technical data, and proprietary processes disclosed by the Disclosing Party to the Receiving Party.\n\n' },
+        {
+          insert:
+            '"Confidential Information" means any and all non-public information, including but not limited to trade secrets, business plans, financial information, customer lists, technical data, and proprietary processes disclosed by the Disclosing Party to the Receiving Party.\n\n',
+        },
         { insert: '2. OBLIGATIONS OF RECEIVING PARTY\n', attributes: { bold: true } },
-        { insert: 'The Receiving Party agrees to:\na) Hold and maintain Confidential Information in strict confidence\nb) Not disclose Confidential Information to any third parties\nc) Use Confidential Information solely for the purpose of {{purpose}}\nd) Protect Confidential Information with the same degree of care used for its own confidential information\n\n' },
+        {
+          insert:
+            'The Receiving Party agrees to:\na) Hold and maintain Confidential Information in strict confidence\nb) Not disclose Confidential Information to any third parties\nc) Use Confidential Information solely for the purpose of {{purpose}}\nd) Protect Confidential Information with the same degree of care used for its own confidential information\n\n',
+        },
         { insert: '3. TERM\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall remain in effect for {{term_years}} years from the Effective Date.\n\n' },
+        {
+          insert:
+            'This Agreement shall remain in effect for {{term_years}} years from the Effective Date.\n\n',
+        },
         { insert: '4. RETURN OF INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Upon termination or request, the Receiving Party shall return or destroy all Confidential Information.\n\n' },
+        {
+          insert:
+            'Upon termination or request, the Receiving Party shall return or destroy all Confidential Information.\n\n',
+        },
         { insert: '5. GOVERNING LAW\n', attributes: { bold: true } },
         { insert: 'This Agreement shall be governed by the laws of {{governing_state}}.\n\n' },
         { insert: 'IN WITNESS WHEREOF, the parties have executed this Agreement.\n\n' },
@@ -44,23 +53,77 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
     },
     placeholders: [
       { key: 'effective_date', type: 'date', label: 'Effective Date', required: true },
-      { key: 'disclosing_party_name', type: 'text', label: 'Disclosing Party Name', required: true },
-      { key: 'disclosing_party_address', type: 'text', label: 'Disclosing Party Address', required: true },
+      {
+        key: 'disclosing_party_name',
+        type: 'text',
+        label: 'Disclosing Party Name',
+        required: true,
+      },
+      {
+        key: 'disclosing_party_address',
+        type: 'text',
+        label: 'Disclosing Party Address',
+        required: true,
+      },
       { key: 'receiving_party_name', type: 'text', label: 'Receiving Party Name', required: true },
-      { key: 'receiving_party_address', type: 'text', label: 'Receiving Party Address', required: true },
+      {
+        key: 'receiving_party_address',
+        type: 'text',
+        label: 'Receiving Party Address',
+        required: true,
+      },
       { key: 'purpose', type: 'text', label: 'Purpose of Disclosure', required: true },
       { key: 'term_years', type: 'number', label: 'Term (Years)', required: true },
-      { key: 'governing_state', type: 'text', label: 'Governing State/Jurisdiction', required: true },
-      { key: 'disclosing_party_signatory', type: 'text', label: 'Disclosing Party Signatory Name', required: true },
-      { key: 'disclosing_party_title', type: 'text', label: 'Disclosing Party Title', required: true },
-      { key: 'receiving_party_signatory', type: 'text', label: 'Receiving Party Signatory Name', required: true },
-      { key: 'receiving_party_title', type: 'text', label: 'Receiving Party Title', required: true },
+      {
+        key: 'governing_state',
+        type: 'text',
+        label: 'Governing State/Jurisdiction',
+        required: true,
+      },
+      {
+        key: 'disclosing_party_signatory',
+        type: 'text',
+        label: 'Disclosing Party Signatory Name',
+        required: true,
+      },
+      {
+        key: 'disclosing_party_title',
+        type: 'text',
+        label: 'Disclosing Party Title',
+        required: true,
+      },
+      {
+        key: 'receiving_party_signatory',
+        type: 'text',
+        label: 'Receiving Party Signatory Name',
+        required: true,
+      },
+      {
+        key: 'receiving_party_title',
+        type: 'text',
+        label: 'Receiving Party Title',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'disclosing_signature', label: 'Disclosing Party Signature', required: true, position: { page: 1, x: 100, y: 650 } },
-      { id: 'receiving_signature', label: 'Receiving Party Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'disclosing_signature',
+        label: 'Disclosing Party Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
+      {
+        id: 'receiving_signature',
+        label: 'Receiving Party Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Service Agreement',
@@ -82,25 +145,50 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'CLIENT:\n', attributes: { bold: true } },
         { insert: '{{client_name}}\n{{client_address}}\n\n' },
         { insert: '1. SERVICES\n', attributes: { bold: true } },
-        { insert: 'The Service Provider agrees to provide the following services:\n{{services_description}}\n\n' },
+        {
+          insert:
+            'The Service Provider agrees to provide the following services:\n{{services_description}}\n\n',
+        },
         { insert: '2. TERM\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall commence on {{start_date}} and continue until {{end_date}} unless terminated earlier.\n\n' },
+        {
+          insert:
+            'This Agreement shall commence on {{start_date}} and continue until {{end_date}} unless terminated earlier.\n\n',
+        },
         { insert: '3. COMPENSATION\n', attributes: { bold: true } },
         { insert: 'The Client agrees to pay the Service Provider:\n' },
         { insert: 'Fee: {{service_fee}}\nPayment Terms: {{payment_terms}}\n\n' },
         { insert: '4. INDEPENDENT CONTRACTOR\n', attributes: { bold: true } },
-        { insert: 'The Service Provider is an independent contractor and not an employee of the Client.\n\n' },
+        {
+          insert:
+            'The Service Provider is an independent contractor and not an employee of the Client.\n\n',
+        },
         { insert: '5. CONFIDENTIALITY\n', attributes: { bold: true } },
-        { insert: 'Both parties agree to maintain confidentiality of proprietary information.\n\n' },
+        {
+          insert: 'Both parties agree to maintain confidentiality of proprietary information.\n\n',
+        },
         { insert: '6. TERMINATION\n', attributes: { bold: true } },
-        { insert: 'Either party may terminate this Agreement with {{notice_period}} days written notice.\n\n' },
+        {
+          insert:
+            'Either party may terminate this Agreement with {{notice_period}} days written notice.\n\n',
+        },
         { insert: '7. LIMITATION OF LIABILITY\n', attributes: { bold: true } },
-        { insert: 'Neither party shall be liable for indirect, incidental, or consequential damages.\n\n' },
+        {
+          insert:
+            'Neither party shall be liable for indirect, incidental, or consequential damages.\n\n',
+        },
         { insert: '8. GOVERNING LAW\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n' },
+        {
+          insert: 'This Agreement shall be governed by the laws of {{governing_jurisdiction}}.\n\n',
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
-        { insert: 'SERVICE PROVIDER:\nSignature: _________________________ Date: _____________\nName: {{provider_signatory}}\n\n' },
-        { insert: 'CLIENT:\nSignature: _________________________ Date: _____________\nName: {{client_signatory}}\n' },
+        {
+          insert:
+            'SERVICE PROVIDER:\nSignature: _________________________ Date: _____________\nName: {{provider_signatory}}\n\n',
+        },
+        {
+          insert:
+            'CLIENT:\nSignature: _________________________ Date: _____________\nName: {{client_signatory}}\n',
+        },
       ],
     },
     placeholders: [
@@ -109,21 +197,45 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'provider_address', type: 'text', label: 'Provider Address', required: true },
       { key: 'client_name', type: 'text', label: 'Client Name', required: true },
       { key: 'client_address', type: 'text', label: 'Client Address', required: true },
-      { key: 'services_description', type: 'textarea', label: 'Services Description', required: true },
+      {
+        key: 'services_description',
+        type: 'textarea',
+        label: 'Services Description',
+        required: true,
+      },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'end_date', type: 'date', label: 'End Date', required: true },
       { key: 'service_fee', type: 'currency', label: 'Service Fee', required: true },
       { key: 'payment_terms', type: 'text', label: 'Payment Terms', required: true },
       { key: 'notice_period', type: 'number', label: 'Notice Period (Days)', required: true },
-      { key: 'governing_jurisdiction', type: 'text', label: 'Governing Jurisdiction', required: true },
+      {
+        key: 'governing_jurisdiction',
+        type: 'text',
+        label: 'Governing Jurisdiction',
+        required: true,
+      },
       { key: 'provider_signatory', type: 'text', label: 'Provider Signatory', required: true },
       { key: 'client_signatory', type: 'text', label: 'Client Signatory', required: true },
     ],
     signatureFields: [
-      { id: 'provider_signature', label: 'Provider Signature', required: true, position: { page: 1, x: 100, y: 680 } },
-      { id: 'client_signature', label: 'Client Signature', required: true, position: { page: 1, x: 100, y: 750 } },
+      {
+        id: 'provider_signature',
+        label: 'Provider Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 680 },
+      },
+      {
+        id: 'client_signature',
+        label: 'Client Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 750 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Partnership Agreement',
@@ -143,7 +255,10 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'PARTNERS:\n', attributes: { bold: true } },
         { insert: '{{partner_list}}\n\n' },
         { insert: '1. NAME AND PURPOSE\n', attributes: { bold: true } },
-        { insert: 'The partnership shall be known as {{partnership_name}} and shall conduct business for the purpose of {{business_purpose}}.\n\n' },
+        {
+          insert:
+            'The partnership shall be known as {{partnership_name}} and shall conduct business for the purpose of {{business_purpose}}.\n\n',
+        },
         { insert: '2. CAPITAL CONTRIBUTIONS\n', attributes: { bold: true } },
         { insert: '{{capital_contributions}}\n\n' },
         { insert: '3. PROFIT AND LOSS SHARING\n', attributes: { bold: true } },
@@ -164,17 +279,47 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'partner_list', type: 'textarea', label: 'List of Partners', required: true },
       { key: 'partnership_name', type: 'text', label: 'Partnership Name', required: true },
       { key: 'business_purpose', type: 'textarea', label: 'Business Purpose', required: true },
-      { key: 'capital_contributions', type: 'textarea', label: 'Capital Contributions', required: true },
+      {
+        key: 'capital_contributions',
+        type: 'textarea',
+        label: 'Capital Contributions',
+        required: true,
+      },
       { key: 'profit_sharing', type: 'textarea', label: 'Profit Sharing Terms', required: true },
       { key: 'management_duties', type: 'textarea', label: 'Management Duties', required: true },
-      { key: 'withdrawal_notice', type: 'number', label: 'Withdrawal Notice (Days)', required: true },
-      { key: 'dispute_resolution', type: 'select', label: 'Dispute Resolution Method', required: true, options: ['Mediation', 'Arbitration', 'Litigation'] },
+      {
+        key: 'withdrawal_notice',
+        type: 'number',
+        label: 'Withdrawal Notice (Days)',
+        required: true,
+      },
+      {
+        key: 'dispute_resolution',
+        type: 'select',
+        label: 'Dispute Resolution Method',
+        required: true,
+        options: ['Mediation', 'Arbitration', 'Litigation'],
+      },
     ],
     signatureFields: [
-      { id: 'partner1_signature', label: 'Partner 1 Signature', required: true, position: { page: 1, x: 100, y: 680 } },
-      { id: 'partner2_signature', label: 'Partner 2 Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'partner1_signature',
+        label: 'Partner 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 680 },
+      },
+      {
+        id: 'partner2_signature',
+        label: 'Partner 2 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Licensing Agreement',
@@ -196,19 +341,28 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'LICENSEE:\n', attributes: { bold: true } },
         { insert: '{{licensee_name}}\n{{licensee_address}}\n\n' },
         { insert: '1. GRANT OF LICENSE\n', attributes: { bold: true } },
-        { insert: 'Licensor grants Licensee a {{license_type}} license to use {{licensed_property}} for the purpose of {{permitted_use}}.\n\n' },
+        {
+          insert:
+            'Licensor grants Licensee a {{license_type}} license to use {{licensed_property}} for the purpose of {{permitted_use}}.\n\n',
+        },
         { insert: '2. TERRITORY\n', attributes: { bold: true } },
         { insert: 'This license is valid in the following territory: {{territory}}\n\n' },
         { insert: '3. TERM\n', attributes: { bold: true } },
         { insert: 'The license term shall be from {{start_date}} to {{end_date}}.\n\n' },
         { insert: '4. LICENSE FEES\n', attributes: { bold: true } },
-        { insert: 'Licensee shall pay:\nUpfront Fee: {{upfront_fee}}\nRoyalty Rate: {{royalty_rate}}\n\n' },
+        {
+          insert:
+            'Licensee shall pay:\nUpfront Fee: {{upfront_fee}}\nRoyalty Rate: {{royalty_rate}}\n\n',
+        },
         { insert: '5. QUALITY CONTROL\n', attributes: { bold: true } },
         { insert: 'Licensee agrees to maintain quality standards as specified by Licensor.\n\n' },
         { insert: '6. INTELLECTUAL PROPERTY\n', attributes: { bold: true } },
         { insert: 'All intellectual property rights remain with Licensor.\n\n' },
         { insert: '7. TERMINATION\n', attributes: { bold: true } },
-        { insert: 'Either party may terminate with {{notice_period}} days notice for material breach.\n\n' },
+        {
+          insert:
+            'Either party may terminate with {{notice_period}} days notice for material breach.\n\n',
+        },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
         { insert: 'LICENSOR: _________________________ Date: _____________\n' },
         { insert: 'LICENSEE: _________________________ Date: _____________\n' },
@@ -220,7 +374,13 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'licensor_address', type: 'text', label: 'Licensor Address', required: true },
       { key: 'licensee_name', type: 'text', label: 'Licensee Name', required: true },
       { key: 'licensee_address', type: 'text', label: 'Licensee Address', required: true },
-      { key: 'license_type', type: 'select', label: 'License Type', required: true, options: ['Exclusive', 'Non-Exclusive', 'Sole'] },
+      {
+        key: 'license_type',
+        type: 'select',
+        label: 'License Type',
+        required: true,
+        options: ['Exclusive', 'Non-Exclusive', 'Sole'],
+      },
       { key: 'licensed_property', type: 'text', label: 'Licensed Property', required: true },
       { key: 'permitted_use', type: 'textarea', label: 'Permitted Use', required: true },
       { key: 'territory', type: 'text', label: 'Territory', required: true },
@@ -231,10 +391,24 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'notice_period', type: 'number', label: 'Notice Period (Days)', required: true },
     ],
     signatureFields: [
-      { id: 'licensor_signature', label: 'Licensor Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'licensee_signature', label: 'Licensee Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'licensor_signature',
+        label: 'Licensor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'licensee_signature',
+        label: 'Licensee Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Non-Compete Agreement',
@@ -256,17 +430,32 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'INDIVIDUAL:\n', attributes: { bold: true } },
         { insert: '{{individual_name}}\n{{individual_address}}\n\n' },
         { insert: '1. NON-COMPETE COVENANT\n', attributes: { bold: true } },
-        { insert: 'The Individual agrees not to engage in any business that competes with the Company in the field of {{business_field}}.\n\n' },
+        {
+          insert:
+            'The Individual agrees not to engage in any business that competes with the Company in the field of {{business_field}}.\n\n',
+        },
         { insert: '2. GEOGRAPHIC SCOPE\n', attributes: { bold: true } },
         { insert: 'This restriction applies within: {{geographic_area}}\n\n' },
         { insert: '3. DURATION\n', attributes: { bold: true } },
-        { insert: 'This non-compete restriction shall remain in effect for {{duration_months}} months following termination of employment/relationship.\n\n' },
+        {
+          insert:
+            'This non-compete restriction shall remain in effect for {{duration_months}} months following termination of employment/relationship.\n\n',
+        },
         { insert: '4. NON-SOLICITATION\n', attributes: { bold: true } },
-        { insert: 'The Individual agrees not to solicit Company clients, customers, or employees for {{non_solicit_period}} months.\n\n' },
+        {
+          insert:
+            'The Individual agrees not to solicit Company clients, customers, or employees for {{non_solicit_period}} months.\n\n',
+        },
         { insert: '5. CONSIDERATION\n', attributes: { bold: true } },
-        { insert: 'In consideration for this agreement, the Individual shall receive: {{consideration}}\n\n' },
+        {
+          insert:
+            'In consideration for this agreement, the Individual shall receive: {{consideration}}\n\n',
+        },
         { insert: '6. REMEDIES\n', attributes: { bold: true } },
-        { insert: 'Company shall be entitled to injunctive relief and damages for breach of this Agreement.\n\n' },
+        {
+          insert:
+            'Company shall be entitled to injunctive relief and damages for breach of this Agreement.\n\n',
+        },
         { insert: '7. GOVERNING LAW\n', attributes: { bold: true } },
         { insert: 'This Agreement shall be governed by the laws of {{governing_state}}.\n\n' },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
@@ -283,15 +472,34 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'business_field', type: 'text', label: 'Business Field', required: true },
       { key: 'geographic_area', type: 'text', label: 'Geographic Area', required: true },
       { key: 'duration_months', type: 'number', label: 'Duration (Months)', required: true },
-      { key: 'non_solicit_period', type: 'number', label: 'Non-Solicitation Period (Months)', required: true },
+      {
+        key: 'non_solicit_period',
+        type: 'number',
+        label: 'Non-Solicitation Period (Months)',
+        required: true,
+      },
       { key: 'consideration', type: 'text', label: 'Consideration', required: true },
       { key: 'governing_state', type: 'text', label: 'Governing State', required: true },
     ],
     signatureFields: [
-      { id: 'company_signature', label: 'Company Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'individual_signature', label: 'Individual Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'company_signature',
+        label: 'Company Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'individual_signature',
+        label: 'Individual Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Settlement Agreement',
@@ -313,18 +521,30 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'PARTY B:\n', attributes: { bold: true } },
         { insert: '{{party_b_name}}\n{{party_b_address}}\n\n' },
         { insert: 'RECITALS\n', attributes: { bold: true } },
-        { insert: 'WHEREAS, a dispute has arisen between the parties regarding {{dispute_description}};\nWHEREAS, the parties wish to settle and resolve all disputes between them;\n\n' },
+        {
+          insert:
+            'WHEREAS, a dispute has arisen between the parties regarding {{dispute_description}};\nWHEREAS, the parties wish to settle and resolve all disputes between them;\n\n',
+        },
         { insert: 'NOW, THEREFORE, the parties agree as follows:\n\n' },
         { insert: '1. SETTLEMENT TERMS\n', attributes: { bold: true } },
         { insert: '{{settlement_terms}}\n\n' },
         { insert: '2. SETTLEMENT PAYMENT\n', attributes: { bold: true } },
-        { insert: 'Party {{paying_party}} agrees to pay Party {{receiving_party}} the sum of {{settlement_amount}} by {{payment_due_date}}.\n\n' },
+        {
+          insert:
+            'Party {{paying_party}} agrees to pay Party {{receiving_party}} the sum of {{settlement_amount}} by {{payment_due_date}}.\n\n',
+        },
         { insert: '3. RELEASE OF CLAIMS\n', attributes: { bold: true } },
-        { insert: 'Each party releases the other from any and all claims arising from the dispute described herein.\n\n' },
+        {
+          insert:
+            'Each party releases the other from any and all claims arising from the dispute described herein.\n\n',
+        },
         { insert: '4. CONFIDENTIALITY\n', attributes: { bold: true } },
         { insert: 'The terms of this settlement shall remain confidential.\n\n' },
         { insert: '5. NO ADMISSION\n', attributes: { bold: true } },
-        { insert: 'This Agreement does not constitute an admission of liability by either party.\n\n' },
+        {
+          insert:
+            'This Agreement does not constitute an admission of liability by either party.\n\n',
+        },
         { insert: '6. ENTIRE AGREEMENT\n', attributes: { bold: true } },
         { insert: 'This Agreement constitutes the entire agreement between the parties.\n\n' },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
@@ -338,18 +558,49 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'party_a_address', type: 'text', label: 'Party A Address', required: true },
       { key: 'party_b_name', type: 'text', label: 'Party B Name', required: true },
       { key: 'party_b_address', type: 'text', label: 'Party B Address', required: true },
-      { key: 'dispute_description', type: 'textarea', label: 'Dispute Description', required: true },
+      {
+        key: 'dispute_description',
+        type: 'textarea',
+        label: 'Dispute Description',
+        required: true,
+      },
       { key: 'settlement_terms', type: 'textarea', label: 'Settlement Terms', required: true },
-      { key: 'paying_party', type: 'select', label: 'Paying Party', required: true, options: ['A', 'B'] },
-      { key: 'receiving_party', type: 'select', label: 'Receiving Party', required: true, options: ['A', 'B'] },
+      {
+        key: 'paying_party',
+        type: 'select',
+        label: 'Paying Party',
+        required: true,
+        options: ['A', 'B'],
+      },
+      {
+        key: 'receiving_party',
+        type: 'select',
+        label: 'Receiving Party',
+        required: true,
+        options: ['A', 'B'],
+      },
       { key: 'settlement_amount', type: 'currency', label: 'Settlement Amount', required: true },
       { key: 'payment_due_date', type: 'date', label: 'Payment Due Date', required: true },
     ],
     signatureFields: [
-      { id: 'party_a_signature', label: 'Party A Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'party_b_signature', label: 'Party B Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'party_a_signature',
+        label: 'Party A Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'party_b_signature',
+        label: 'Party B Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Joint Venture Agreement',
@@ -371,19 +622,34 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'PARTY B:\n', attributes: { bold: true } },
         { insert: '{{party_b_name}} ("Party B")\n\n' },
         { insert: '1. FORMATION AND NAME\n', attributes: { bold: true } },
-        { insert: 'The parties hereby form a joint venture under the name {{jv_name}} for the purpose of {{jv_purpose}}.\n\n' },
+        {
+          insert:
+            'The parties hereby form a joint venture under the name {{jv_name}} for the purpose of {{jv_purpose}}.\n\n',
+        },
         { insert: '2. CONTRIBUTIONS\n', attributes: { bold: true } },
-        { insert: 'Party A Contribution: {{party_a_contribution}}\nParty B Contribution: {{party_b_contribution}}\n\n' },
+        {
+          insert:
+            'Party A Contribution: {{party_a_contribution}}\nParty B Contribution: {{party_b_contribution}}\n\n',
+        },
         { insert: '3. OWNERSHIP INTERESTS\n', attributes: { bold: true } },
         { insert: 'Party A: {{party_a_percentage}}%\nParty B: {{party_b_percentage}}%\n\n' },
         { insert: '4. MANAGEMENT\n', attributes: { bold: true } },
         { insert: '{{management_structure}}\n\n' },
         { insert: '5. PROFIT AND LOSS DISTRIBUTION\n', attributes: { bold: true } },
-        { insert: 'Profits and losses shall be distributed in proportion to ownership interests.\n\n' },
+        {
+          insert:
+            'Profits and losses shall be distributed in proportion to ownership interests.\n\n',
+        },
         { insert: '6. TERM\n', attributes: { bold: true } },
-        { insert: 'This joint venture shall continue until {{end_date}} or until terminated by mutual agreement.\n\n' },
+        {
+          insert:
+            'This joint venture shall continue until {{end_date}} or until terminated by mutual agreement.\n\n',
+        },
         { insert: '7. DISSOLUTION\n', attributes: { bold: true } },
-        { insert: 'Upon dissolution, assets shall be distributed after payment of debts in accordance with ownership percentages.\n\n' },
+        {
+          insert:
+            'Upon dissolution, assets shall be distributed after payment of debts in accordance with ownership percentages.\n\n',
+        },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
         { insert: 'PARTY A: _________________________ Date: _____________\n' },
         { insert: 'PARTY B: _________________________ Date: _____________\n' },
@@ -395,18 +661,47 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'party_b_name', type: 'text', label: 'Party B Name', required: true },
       { key: 'jv_name', type: 'text', label: 'Joint Venture Name', required: true },
       { key: 'jv_purpose', type: 'textarea', label: 'Joint Venture Purpose', required: true },
-      { key: 'party_a_contribution', type: 'textarea', label: 'Party A Contribution', required: true },
-      { key: 'party_b_contribution', type: 'textarea', label: 'Party B Contribution', required: true },
+      {
+        key: 'party_a_contribution',
+        type: 'textarea',
+        label: 'Party A Contribution',
+        required: true,
+      },
+      {
+        key: 'party_b_contribution',
+        type: 'textarea',
+        label: 'Party B Contribution',
+        required: true,
+      },
       { key: 'party_a_percentage', type: 'number', label: 'Party A Percentage', required: true },
       { key: 'party_b_percentage', type: 'number', label: 'Party B Percentage', required: true },
-      { key: 'management_structure', type: 'textarea', label: 'Management Structure', required: true },
+      {
+        key: 'management_structure',
+        type: 'textarea',
+        label: 'Management Structure',
+        required: true,
+      },
       { key: 'end_date', type: 'date', label: 'End Date', required: false },
     ],
     signatureFields: [
-      { id: 'party_a_signature', label: 'Party A Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'party_b_signature', label: 'Party B Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'party_a_signature',
+        label: 'Party A Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'party_b_signature',
+        label: 'Party B Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Franchise Agreement',
@@ -428,19 +723,33 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
         { insert: 'FRANCHISEE:\n', attributes: { bold: true } },
         { insert: '{{franchisee_name}}\n{{franchisee_address}}\n\n' },
         { insert: '1. GRANT OF FRANCHISE\n', attributes: { bold: true } },
-        { insert: 'Franchisor grants Franchisee the right to operate a {{business_type}} franchise at: {{franchise_location}}\n\n' },
+        {
+          insert:
+            'Franchisor grants Franchisee the right to operate a {{business_type}} franchise at: {{franchise_location}}\n\n',
+        },
         { insert: '2. TERM\n', attributes: { bold: true } },
-        { insert: 'Initial Term: {{initial_term}} years\nRenewal Options: {{renewal_options}}\n\n' },
+        {
+          insert: 'Initial Term: {{initial_term}} years\nRenewal Options: {{renewal_options}}\n\n',
+        },
         { insert: '3. FEES\n', attributes: { bold: true } },
-        { insert: 'Initial Franchise Fee: {{initial_fee}}\nOngoing Royalty: {{royalty_percentage}}% of gross sales\nMarketing Fee: {{marketing_fee}}% of gross sales\n\n' },
+        {
+          insert:
+            'Initial Franchise Fee: {{initial_fee}}\nOngoing Royalty: {{royalty_percentage}}% of gross sales\nMarketing Fee: {{marketing_fee}}% of gross sales\n\n',
+        },
         { insert: '4. TRAINING AND SUPPORT\n', attributes: { bold: true } },
         { insert: 'Franchisor shall provide: {{training_description}}\n\n' },
         { insert: '5. OPERATIONAL STANDARDS\n', attributes: { bold: true } },
-        { insert: 'Franchisee agrees to operate in accordance with the Operations Manual and brand standards.\n\n' },
+        {
+          insert:
+            'Franchisee agrees to operate in accordance with the Operations Manual and brand standards.\n\n',
+        },
         { insert: '6. TERRITORY\n', attributes: { bold: true } },
         { insert: 'Protected Territory: {{protected_territory}}\n\n' },
         { insert: '7. TERMINATION\n', attributes: { bold: true } },
-        { insert: 'Franchisor may terminate for material breach with {{cure_period}} days to cure.\n\n' },
+        {
+          insert:
+            'Franchisor may terminate for material breach with {{cure_period}} days to cure.\n\n',
+        },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
         { insert: 'FRANCHISOR: _________________________ Date: _____________\n' },
         { insert: 'FRANCHISEE: _________________________ Date: _____________\n' },
@@ -459,14 +768,33 @@ export const LEGAL_CONTRACTS_TEMPLATES = [
       { key: 'initial_fee', type: 'currency', label: 'Initial Franchise Fee', required: true },
       { key: 'royalty_percentage', type: 'number', label: 'Royalty Percentage', required: true },
       { key: 'marketing_fee', type: 'number', label: 'Marketing Fee Percentage', required: true },
-      { key: 'training_description', type: 'textarea', label: 'Training Description', required: true },
+      {
+        key: 'training_description',
+        type: 'textarea',
+        label: 'Training Description',
+        required: true,
+      },
       { key: 'protected_territory', type: 'text', label: 'Protected Territory', required: true },
       { key: 'cure_period', type: 'number', label: 'Cure Period (Days)', required: true },
     ],
     signatureFields: [
-      { id: 'franchisor_signature', label: 'Franchisor Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'franchisee_signature', label: 'Franchisee Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'franchisor_signature',
+        label: 'Franchisor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'franchisee_signature',
+        label: 'Franchisee Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

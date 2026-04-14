@@ -20,8 +20,8 @@ import { WorkspaceLayout } from './components/layout/WorkspaceLayout';
 import AdminLayout from './layouts/AdminLayout';
 import { Toaster } from './components/ui/toast';
 import { ThemeProvider } from './contexts/ThemeProvider';
-import { deskiveAnalytics } from './components/analytics/deskiveAnalytics';
-import { deskiveChatbot } from './components/chat/deskiveChatbot';
+import { deskiveAnalytics as DeskiveAnalytics } from './components/analytics/deskiveAnalytics';
+import { deskiveChatbot as DeskiveChatbot } from './components/chat/deskiveChatbot';
 import { FeatureAnnouncementProvider } from './providers/FeatureAnnouncementProvider';
 import { PageLoader, InlinePageLoader } from './components/common/PageLoader';
 
@@ -252,8 +252,8 @@ function App() {
       <LanguageProvider>
         <QueryClientProvider client={queryClient}>
           <Router>
-            <deskiveAnalytics debug={process.env.NODE_ENV === 'development'} />
-            <deskiveChatbot
+            <DeskiveAnalytics debug={process.env.NODE_ENV === 'development'} />
+            <DeskiveChatbot
               debug={process.env.NODE_ENV === 'development'}
               position="bottom-right"
               primaryColor="#2563EB"

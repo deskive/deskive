@@ -28,9 +28,10 @@ export class FormResponsesService {
       respondentId: response.respondent_id,
       respondentEmail: response.respondent_email,
       respondentName: response.respondent_name,
-      responses: typeof response.responses === 'string'
-        ? JSON.parse(response.responses)
-        : response.responses,
+      responses:
+        typeof response.responses === 'string'
+          ? JSON.parse(response.responses)
+          : response.responses,
       ipAddress: response.ip_address,
       userAgent: response.user_agent,
       submissionTimeSeconds: response.submission_time_seconds,
@@ -79,10 +80,14 @@ export class FormResponsesService {
             throw new BadRequestException(`Invalid number for field "${field.label}"`);
           }
           if (field.validation?.min !== undefined && value < field.validation.min) {
-            throw new BadRequestException(`Value for "${field.label}" must be at least ${field.validation.min}`);
+            throw new BadRequestException(
+              `Value for "${field.label}" must be at least ${field.validation.min}`,
+            );
           }
           if (field.validation?.max !== undefined && value > field.validation.max) {
-            throw new BadRequestException(`Value for "${field.label}" must be at most ${field.validation.max}`);
+            throw new BadRequestException(
+              `Value for "${field.label}" must be at most ${field.validation.max}`,
+            );
           }
           break;
 
@@ -116,7 +121,9 @@ export class FormResponsesService {
           }
           for (const option of value) {
             if (!field.options?.includes(option) && !(field.allowOther && option)) {
-              throw new BadRequestException(`Invalid option "${option}" for field "${field.label}"`);
+              throw new BadRequestException(
+                `Invalid option "${option}" for field "${field.label}"`,
+              );
             }
           }
           break;
@@ -267,7 +274,9 @@ export class FormResponsesService {
       .offset(offset)
       .execute();
 
-    const data = (results.data || []).map((response: any) => this.transformResponseToCamelCase(response));
+    const data = (results.data || []).map((response: any) =>
+      this.transformResponseToCamelCase(response),
+    );
 
     return { data, total };
   }
@@ -362,9 +371,10 @@ export class FormResponsesService {
 
       // Add field responses
       // Parse responses if they're stored as JSON string
-      const responses = typeof response.responses === 'string'
-        ? JSON.parse(response.responses)
-        : response.responses;
+      const responses =
+        typeof response.responses === 'string'
+          ? JSON.parse(response.responses)
+          : response.responses;
 
       for (const field of form.fields) {
         const fieldResponse = responses[field.id];
@@ -404,9 +414,8 @@ export class FormResponsesService {
       .where('form_id', '=', formId)
       .execute();
 
-    const totalResponses = countResult.data && countResult.data[0]
-      ? parseInt(countResult.data[0].count, 10)
-      : 0;
+    const totalResponses =
+      countResult.data && countResult.data[0] ? parseInt(countResult.data[0].count, 10) : 0;
 
     // Get avg completion time
     const avgTimeResult = await this.db
@@ -416,14 +425,14 @@ export class FormResponsesService {
       .where('submission_time_seconds', 'IS NOT', null)
       .execute();
 
-    const avgCompletionTime = avgTimeResult.data && avgTimeResult.data[0].avg_time
-      ? Math.round(parseFloat(avgTimeResult.data[0].avg_time))
-      : null;
+    const avgCompletionTime =
+      avgTimeResult.data && avgTimeResult.data[0].avg_time
+        ? Math.round(parseFloat(avgTimeResult.data[0].avg_time))
+        : null;
 
     // Calculate completion rate
-    const completionRate = form.viewCount > 0
-      ? ((totalResponses / form.viewCount) * 100).toFixed(2)
-      : 0;
+    const completionRate =
+      form.viewCount > 0 ? ((totalResponses / form.viewCount) * 100).toFixed(2) : 0;
 
     return {
       totalViews: form.viewCount,

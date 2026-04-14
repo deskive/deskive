@@ -4,7 +4,7 @@ import { IsString, IsOptional, IsObject } from 'class-validator';
 export class ActivatePrebuiltBotDto {
   @ApiProperty({
     description: 'ID of the prebuilt bot to activate (e.g., calendar-event-bot)',
-    example: 'calendar-event-bot'
+    example: 'calendar-event-bot',
   })
   @IsString()
   prebuiltBotId: string;
@@ -12,7 +12,7 @@ export class ActivatePrebuiltBotDto {
   @ApiProperty({
     description: 'Custom display name for this bot instance (optional, defaults to prebuilt name)',
     example: 'My Calendar Assistant',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -21,7 +21,7 @@ export class ActivatePrebuiltBotDto {
   @ApiProperty({
     description: 'Custom settings for this bot instance (optional)',
     example: { reminderIntervals: [30, 120], notifyOnUpdates: true },
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()

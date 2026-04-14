@@ -1,11 +1,14 @@
-import { Injectable, NotFoundException, BadRequestException, Logger, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+  ForbiddenException,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType, NotificationPriority } from '../notifications/dto';
-import {
-  CreateFeedbackDto,
-  FeedbackType,
-} from './dto/create-feedback.dto';
+import { CreateFeedbackDto, FeedbackType } from './dto/create-feedback.dto';
 import {
   UpdateFeedbackDto,
   ResolveFeedbackDto,
@@ -71,20 +74,25 @@ export class FeedbackService {
         user_id: userId,
       });
 
-      let feedbackList = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+      let feedbackList = Array.isArray(result.data)
+        ? result.data
+        : Array.isArray(result)
+          ? result
+          : [];
 
       // Apply filters
       if (filters.type) {
-        feedbackList = feedbackList.filter(f => f.type === filters.type);
+        feedbackList = feedbackList.filter((f) => f.type === filters.type);
       }
       if (filters.status) {
-        feedbackList = feedbackList.filter(f => f.status === filters.status);
+        feedbackList = feedbackList.filter((f) => f.status === filters.status);
       }
       if (filters.search) {
         const searchLower = filters.search.toLowerCase();
-        feedbackList = feedbackList.filter(f =>
-          f.title?.toLowerCase().includes(searchLower) ||
-          f.description?.toLowerCase().includes(searchLower)
+        feedbackList = feedbackList.filter(
+          (f) =>
+            f.title?.toLowerCase().includes(searchLower) ||
+            f.description?.toLowerCase().includes(searchLower),
         );
       }
 
@@ -102,7 +110,7 @@ export class FeedbackService {
       feedbackList = feedbackList.slice(offset, offset + limit);
 
       return {
-        data: feedbackList.map(f => this.formatFeedback(f)),
+        data: feedbackList.map((f) => this.formatFeedback(f)),
         total,
         page,
         limit,
@@ -148,41 +156,46 @@ export class FeedbackService {
 
       // Get all feedback
       const result = await this.db.findMany('feedback', {});
-      let feedbackList = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+      let feedbackList = Array.isArray(result.data)
+        ? result.data
+        : Array.isArray(result)
+          ? result
+          : [];
 
       // Apply filters
       if (filters.type) {
-        feedbackList = feedbackList.filter(f => f.type === filters.type);
+        feedbackList = feedbackList.filter((f) => f.type === filters.type);
       }
       if (filters.status) {
-        feedbackList = feedbackList.filter(f => f.status === filters.status);
+        feedbackList = feedbackList.filter((f) => f.status === filters.status);
       }
       if (filters.priority) {
-        feedbackList = feedbackList.filter(f => f.priority === filters.priority);
+        feedbackList = feedbackList.filter((f) => f.priority === filters.priority);
       }
       if (filters.category) {
-        feedbackList = feedbackList.filter(f => f.category === filters.category);
+        feedbackList = feedbackList.filter((f) => f.category === filters.category);
       }
       if (filters.userId) {
-        feedbackList = feedbackList.filter(f => f.user_id === filters.userId);
+        feedbackList = feedbackList.filter((f) => f.user_id === filters.userId);
       }
       if (filters.assignedTo) {
-        feedbackList = feedbackList.filter(f => f.assigned_to === filters.assignedTo);
+        feedbackList = feedbackList.filter((f) => f.assigned_to === filters.assignedTo);
       }
       if (filters.search) {
         const searchLower = filters.search.toLowerCase();
-        feedbackList = feedbackList.filter(f =>
-          f.title?.toLowerCase().includes(searchLower) ||
-          f.description?.toLowerCase().includes(searchLower)
+        feedbackList = feedbackList.filter(
+          (f) =>
+            f.title?.toLowerCase().includes(searchLower) ||
+            f.description?.toLowerCase().includes(searchLower),
         );
       }
       if (filters.startDate) {
         const startDate = new Date(filters.startDate);
-        feedbackList = feedbackList.filter(f => new Date(f.created_at) >= startDate);
+        feedbackList = feedbackList.filter((f) => new Date(f.created_at) >= startDate);
       }
       if (filters.endDate) {
         const endDate = new Date(filters.endDate + 'T23:59:59.999Z');
-        feedbackList = feedbackList.filter(f => new Date(f.created_at) <= endDate);
+        feedbackList = feedbackList.filter((f) => new Date(f.created_at) <= endDate);
       }
 
       // Sort
@@ -199,7 +212,7 @@ export class FeedbackService {
       feedbackList = feedbackList.slice(offset, offset + limit);
 
       return {
-        data: feedbackList.map(f => this.formatFeedback(f)),
+        data: feedbackList.map((f) => this.formatFeedback(f)),
         total,
         page,
         limit,
@@ -252,7 +265,11 @@ export class FeedbackService {
     }
   }
 
-  async resolveFeedback(feedbackId: string, adminUserId: string, dto: ResolveFeedbackDto): Promise<FeedbackDto> {
+  async resolveFeedback(
+    feedbackId: string,
+    adminUserId: string,
+    dto: ResolveFeedbackDto,
+  ): Promise<FeedbackDto> {
     try {
       const feedback = await this.db.findOne('feedback', { id: feedbackId });
 
@@ -294,7 +311,11 @@ export class FeedbackService {
   // FEEDBACK RESPONSES
   // =============================================
 
-  async addResponse(feedbackId: string, adminUserId: string, dto: CreateFeedbackResponseDto): Promise<FeedbackResponseDto> {
+  async addResponse(
+    feedbackId: string,
+    adminUserId: string,
+    dto: CreateFeedbackResponseDto,
+  ): Promise<FeedbackResponseDto> {
     try {
       const feedback = await this.db.findOne('feedback', { id: feedbackId });
 
@@ -331,7 +352,11 @@ export class FeedbackService {
     }
   }
 
-  async getResponses(feedbackId: string, userId: string, isAdmin = false): Promise<FeedbackResponseDto[]> {
+  async getResponses(
+    feedbackId: string,
+    userId: string,
+    isAdmin = false,
+  ): Promise<FeedbackResponseDto[]> {
     try {
       const feedback = await this.db.findOne('feedback', { id: feedbackId });
 
@@ -348,17 +373,21 @@ export class FeedbackService {
         feedback_id: feedbackId,
       });
 
-      let responses = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+      let responses = Array.isArray(result.data)
+        ? result.data
+        : Array.isArray(result)
+          ? result
+          : [];
 
       // Filter out internal notes for non-admin users
       if (!isAdmin) {
-        responses = responses.filter(r => !r.is_internal);
+        responses = responses.filter((r) => !r.is_internal);
       }
 
       // Sort by created_at
       responses.sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
 
-      return responses.map(r => this.formatFeedbackResponse(r));
+      return responses.map((r) => this.formatFeedbackResponse(r));
     } catch (error) {
       if (error instanceof NotFoundException || error instanceof ForbiddenException) {
         throw error;
@@ -372,12 +401,20 @@ export class FeedbackService {
   // FILE UPLOAD
   // =============================================
 
-  async uploadAttachment(userId: string, file: Express.Multer.File): Promise<{ url: string; name: string; type: string; size: number }> {
+  async uploadAttachment(
+    userId: string,
+    file: Express.Multer.File,
+  ): Promise<{ url: string; name: string; type: string; size: number }> {
     try {
       const fileName = `${userId}/${Date.now()}-${file.originalname}`;
-      const result = await /* TODO: use StorageService */ this.db.uploadFile('feedback-attachments', file.buffer, fileName, {
-        contentType: file.mimetype,
-      });
+      const result = await /* TODO: use StorageService */ this.db.uploadFile(
+        'feedback-attachments',
+        file.buffer,
+        fileName,
+        {
+          contentType: file.mimetype,
+        },
+      );
 
       return {
         url: result.url,

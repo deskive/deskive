@@ -80,7 +80,7 @@ describe('TrelloService - Actions', () => {
           'user-123',
           'workspace-456',
           'list-123',
-          testCase.input
+          testCase.input,
         );
 
         expect(result).toMatchObject(testCase.expected.data);

@@ -24,7 +24,7 @@ export class SmtpService {
     return nodemailer.createTransport({
       host: config.host,
       port: config.port,
-      secure: config.secure ?? (config.port === 465), // true for 465, false for other ports
+      secure: config.secure ?? config.port === 465, // true for 465, false for other ports
       auth: {
         user: config.user,
         pass: config.password,
@@ -48,7 +48,9 @@ export class SmtpService {
       return { success: true, message: 'SMTP connection successful' };
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-      this.logger.warn(`SMTP connection test failed for ${config.host}:${config.port}: ${errorMessage}`);
+      this.logger.warn(
+        `SMTP connection test failed for ${config.host}:${config.port}: ${errorMessage}`,
+      );
       return { success: false, message: `SMTP connection failed: ${errorMessage}` };
     } finally {
       transporter.close();

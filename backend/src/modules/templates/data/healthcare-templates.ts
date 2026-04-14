@@ -414,7 +414,15 @@ export const HEALTHCARE_TEMPLATES = [
         name: 'Department',
         type: 'select',
         description: 'Hospital department',
-        options: ['Emergency', 'ICU', 'Surgery', 'Pediatrics', 'Oncology', 'Radiology', 'Laboratory'],
+        options: [
+          'Emergency',
+          'ICU',
+          'Surgery',
+          'Pediatrics',
+          'Oncology',
+          'Radiology',
+          'Laboratory',
+        ],
         isRequired: true,
       },
       {
@@ -729,7 +737,13 @@ export const HEALTHCARE_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['needs_assessment', 'vendor_selection', 'procurement', 'installation', 'operational'],
+        statuses: [
+          'needs_assessment',
+          'vendor_selection',
+          'procurement',
+          'installation',
+          'operational',
+        ],
       },
     },
     settings: {

@@ -74,7 +74,8 @@ export class SharedScheduledJobService {
 
     try {
       // Check if job already exists
-      const existing = await this.db.table(tableName)
+      const existing = await this.db
+        .table(tableName)
         .select('id')
         .where(idColumn, '=', automationId)
         .where('workspace_id', '=', workspaceId)
@@ -124,7 +125,8 @@ export class SharedScheduledJobService {
     const idColumn = this.getAutomationIdColumn(jobType);
 
     try {
-      const jobs = await this.db.table(tableName)
+      const jobs = await this.db
+        .table(tableName)
         .select('id')
         .where(idColumn, '=', automationId)
         .where('workspace_id', '=', workspaceId)
@@ -183,7 +185,8 @@ export class SharedScheduledJobService {
     const now = new Date().toISOString();
 
     try {
-      const result = await this.db.table(tableName)
+      const result = await this.db
+        .table(tableName)
         .select('*')
         .where('is_active', '=', true)
         .where('next_run_at', '<=', now)
@@ -276,9 +279,7 @@ export class SharedScheduledJobService {
   // Helper methods
 
   private getTableName(jobType: ScheduledJobType): string {
-    return jobType === ScheduledJobType.BOT
-      ? 'bot_scheduled_jobs'
-      : 'workflow_scheduled_jobs';
+    return jobType === ScheduledJobType.BOT ? 'bot_scheduled_jobs' : 'workflow_scheduled_jobs';
   }
 
   private getAutomationIdColumn(jobType: ScheduledJobType): string {

@@ -45,15 +45,13 @@ describe('JiraOAuthService', () => {
   });
 
   it('should exchange code for tokens', async () => {
-    nock('https://auth.atlassian.com')
-      .post('/oauth/token')
-      .reply(200, {
-        access_token: 'mock-jira-token',
-        refresh_token: 'mock-jira-refresh',
-        token_type: 'Bearer',
-        expires_in: 3600,
-        scope: 'read:jira-user read:jira-work write:jira-work',
-      });
+    nock('https://auth.atlassian.com').post('/oauth/token').reply(200, {
+      access_token: 'mock-jira-token',
+      refresh_token: 'mock-jira-refresh',
+      token_type: 'Bearer',
+      expires_in: 3600,
+      scope: 'read:jira-user read:jira-work write:jira-work',
+    });
 
     const tokens = await service.exchangeCodeForTokens('test-code');
 

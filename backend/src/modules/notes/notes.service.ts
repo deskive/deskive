@@ -1,4 +1,11 @@
-import { Injectable, NotFoundException, BadRequestException, Optional, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Optional,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType } from '../notifications/dto';
@@ -10,7 +17,7 @@ import {
   MergeNotesDto,
   BulkDeleteDto,
   DuplicateNoteDto,
-  BulkArchiveDto
+  BulkArchiveDto,
 } from './dto';
 
 @Injectable()
@@ -18,7 +25,8 @@ export class NotesService {
   constructor(
     private readonly db: DatabaseService,
     private notificationsService: NotificationsService,
-    @Optional() @Inject(forwardRef(() => EntityEventIntegrationService))
+    @Optional()
+    @Inject(forwardRef(() => EntityEventIntegrationService))
     private entityEventIntegration?: EntityEventIntegrationService,
   ) {}
 
@@ -59,13 +67,13 @@ export class NotesService {
       attachments: createNoteDto.attachments || {
         note_attachment: [],
         file_attachment: [],
-        event_attachment: []
+        event_attachment: [],
       },
       cover_image: createNoteDto.cover_image,
       icon: createNoteDto.icon,
       is_public: createNoteDto.is_public || false,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const note = await this.db.insert('notes', noteData);
@@ -82,19 +90,29 @@ export class NotesService {
     return note;
   }
 
-  async getNotes(workspaceId: string, parentId?: string, userId?: string, isDeleted?: boolean, isArchived?: boolean) {
-    console.log('[NotesService] getNotes called:', { workspaceId, parentId, userId, isDeleted, isArchived });
+  async getNotes(
+    workspaceId: string,
+    parentId?: string,
+    userId?: string,
+    isDeleted?: boolean,
+    isArchived?: boolean,
+  ) {
+    console.log('[NotesService] getNotes called:', {
+      workspaceId,
+      parentId,
+      userId,
+      isDeleted,
+      isArchived,
+    });
 
     // Using new SDK pattern
-    const allNotesResult = await this.db.table('notes')
-      .select('*')
-      .execute();
+    const allNotesResult = await this.db.table('notes').select('*').execute();
     const allNotesData = Array.isArray(allNotesResult.data) ? allNotesResult.data : [];
 
     console.log('[NotesService] Total notes in database:', allNotesData.length);
 
     // Debug: Log notes with shared_with data
-    allNotesData.forEach(note => {
+    allNotesData.forEach((note) => {
       if (note.collaborative_data) {
         const collaborativeData = this.parseCollaborativeData(note.collaborative_data);
         if (collaborativeData?.shared_with?.length > 0) {
@@ -104,14 +122,14 @@ export class NotesService {
             createdBy: note.created_by,
             sharedWith: collaborativeData.shared_with,
             currentUserId: userId,
-            isUserInSharedWith: collaborativeData.shared_with.includes(userId)
+            isUserInSharedWith: collaborativeData.shared_with.includes(userId),
           });
         }
       }
     });
 
     // Filter by workspace, deletion status, and archive status
-    let notes = allNotesData.filter(n => {
+    let notes = allNotesData.filter((n) => {
       const matchesWorkspace = n.workspace_id === workspaceId;
 
       // Handle deletion status filtering
@@ -151,14 +169,14 @@ export class NotesService {
 
     // Filter by parent
     if (parentId !== undefined) {
-      notes = notes.filter(n => n.parent_id === parentId);
+      notes = notes.filter((n) => n.parent_id === parentId);
     }
 
     // Filter by access permissions
     if (userId) {
       console.log('[NotesService] Filtering notes for userId:', userId, 'type:', typeof userId);
 
-      notes = notes.filter(n => {
+      notes = notes.filter((n) => {
         // User created the note
         if (n.created_by === userId) {
           console.log('[NotesService] Note included - user is creator:', n.id, n.title);
@@ -181,9 +199,9 @@ export class NotesService {
             noteTitle: n.title,
             sharedWith,
             userId,
-            sharedWithTypes: sharedWith.map(id => typeof id),
+            sharedWithTypes: sharedWith.map((id) => typeof id),
             userIdType: typeof userId,
-            includes: sharedWith.includes(userId)
+            includes: sharedWith.includes(userId),
           });
 
           if (Array.isArray(sharedWith) && sharedWith.includes(userId)) {
@@ -211,7 +229,12 @@ export class NotesService {
               const metadata = authorUser.metadata || {};
               authorInfo = {
                 id: authorUser.id,
-                name: metadata.name || authorUser.fullName || authorUser.name || authorUser.email?.split('@')[0] || 'User',
+                name:
+                  metadata.name ||
+                  authorUser.fullName ||
+                  authorUser.name ||
+                  authorUser.email?.split('@')[0] ||
+                  'User',
                 email: authorUser.email,
                 avatarUrl: authorUser.avatar_url || authorUser.avatarUrl || null,
               };
@@ -234,7 +257,12 @@ export class NotesService {
                   const metadata = collaboratorUser.metadata || {};
                   collaborators.push({
                     id: collaboratorUser.id,
-                    name: metadata.name || collaboratorUser.fullName || collaboratorUser.name || collaboratorUser.email?.split('@')[0] || 'User',
+                    name:
+                      metadata.name ||
+                      collaboratorUser.fullName ||
+                      collaboratorUser.name ||
+                      collaboratorUser.email?.split('@')[0] ||
+                      'User',
                     email: collaboratorUser.email,
                     avatarUrl: collaboratorUser.avatar_url || collaboratorUser.avatarUrl || null,
                   });
@@ -249,16 +277,19 @@ export class NotesService {
         return {
           ...note,
           author: authorInfo,
-          collaborators: collaborators
+          collaborators: collaborators,
         };
-      })
+      }),
     );
 
-    return enrichedNotes.sort((a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime());
+    return enrichedNotes.sort(
+      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
+    );
   }
 
   async getNote(noteId: string, workspaceId: string, userId: string) {
-    const noteQuery = await this.db.table('notes')
+    const noteQuery = await this.db
+      .table('notes')
       .select('*')
       .where('id', '=', noteId)
       .where('workspace_id', '=', workspaceId)
@@ -274,7 +305,7 @@ export class NotesService {
 
     // Update view count
     await this.db.update('notes', noteId, {
-      view_count: (note.view_count || 0) + 1
+      view_count: (note.view_count || 0) + 1,
     });
 
     // Enrich with author and collaborators information
@@ -287,7 +318,12 @@ export class NotesService {
           const metadata = authorUser.metadata || {};
           authorInfo = {
             id: authorUser.id,
-            name: metadata.name || authorUser.fullName || authorUser.name || authorUser.email?.split('@')[0] || 'User',
+            name:
+              metadata.name ||
+              authorUser.fullName ||
+              authorUser.name ||
+              authorUser.email?.split('@')[0] ||
+              'User',
             email: authorUser.email,
             avatarUrl: authorUser.avatar_url || authorUser.avatarUrl || null,
           };
@@ -310,7 +346,12 @@ export class NotesService {
               const metadata = collaboratorUser.metadata || {};
               collaborators.push({
                 id: collaboratorUser.id,
-                name: metadata.name || collaboratorUser.fullName || collaboratorUser.name || collaboratorUser.email?.split('@')[0] || 'User',
+                name:
+                  metadata.name ||
+                  collaboratorUser.fullName ||
+                  collaboratorUser.name ||
+                  collaboratorUser.email?.split('@')[0] ||
+                  'User',
                 email: collaboratorUser.email,
                 avatarUrl: collaboratorUser.avatar_url || collaboratorUser.avatarUrl || null,
               });
@@ -331,7 +372,7 @@ export class NotesService {
       ...note,
       attachments: enrichedAttachments,
       author: authorInfo,
-      collaborators: collaborators
+      collaborators: collaborators,
     };
   }
 
@@ -340,7 +381,8 @@ export class NotesService {
    * Does not check permissions or increment view count
    */
   async getNoteById(noteId: string) {
-    const noteQuery = await this.db.table('notes')
+    const noteQuery = await this.db
+      .table('notes')
       .select('*')
       .where('id', '=', noteId)
       .limit(1)
@@ -361,7 +403,7 @@ export class NotesService {
   async updateNoteContent(noteId: string, content: string) {
     return await this.db.update('notes', noteId, {
       content,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
   }
 
@@ -373,14 +415,14 @@ export class NotesService {
       return {
         file_attachment: [],
         note_attachment: [],
-        event_attachment: []
+        event_attachment: [],
       };
     }
 
     const enriched: any = {
       file_attachment: [],
       note_attachment: [],
-      event_attachment: []
+      event_attachment: [],
     };
 
     // Enrich file attachments
@@ -389,7 +431,8 @@ export class NotesService {
         try {
           // Query file without is_deleted filter to include all files
           // (files attached to notes should be accessible even if "deleted" from file manager)
-          const fileQuery = await this.db.table('files')
+          const fileQuery = await this.db
+            .table('files')
             .select('id, name, mime_type, size, url, is_deleted')
             .where('id', '=', fileId)
             .limit(1)
@@ -402,7 +445,7 @@ export class NotesService {
               name: fileData.name || 'Unknown file',
               type: fileData.mime_type,
               size: fileData.size,
-              url: fileData.url
+              url: fileData.url,
             });
             console.log(`[NotesService] Enriched file attachment: ${fileId} -> ${fileData.name}`);
           } else {
@@ -421,7 +464,8 @@ export class NotesService {
     if (attachments.note_attachment && Array.isArray(attachments.note_attachment)) {
       for (const linkedNoteId of attachments.note_attachment) {
         try {
-          const noteQuery = await this.db.table('notes')
+          const noteQuery = await this.db
+            .table('notes')
             .select('id, title, icon, updated_at')
             .where('id', '=', linkedNoteId)
             .where('workspace_id', '=', workspaceId)
@@ -435,11 +479,14 @@ export class NotesService {
               id: noteData.id,
               title: noteData.title || 'Untitled Note',
               icon: noteData.icon || '📝',
-              updated_at: noteData.updated_at
+              updated_at: noteData.updated_at,
             });
           }
         } catch (error) {
-          console.warn(`[NotesService] Could not fetch note attachment ${linkedNoteId}:`, error.message);
+          console.warn(
+            `[NotesService] Could not fetch note attachment ${linkedNoteId}:`,
+            error.message,
+          );
           // Keep the ID if we can't fetch details
           enriched.note_attachment.push({ id: linkedNoteId, title: 'Unknown note', icon: '📝' });
         }
@@ -450,7 +497,8 @@ export class NotesService {
     if (attachments.event_attachment && Array.isArray(attachments.event_attachment)) {
       for (const eventId of attachments.event_attachment) {
         try {
-          const eventQuery = await this.db.table('calendar_events')
+          const eventQuery = await this.db
+            .table('calendar_events')
             .select('id, title, start_time, end_time, location')
             .where('id', '=', eventId)
             .where('workspace_id', '=', workspaceId)
@@ -464,11 +512,14 @@ export class NotesService {
               title: eventData.title || 'Untitled Event',
               start_time: eventData.start_time,
               end_time: eventData.end_time,
-              location: eventData.location
+              location: eventData.location,
             });
           }
         } catch (error) {
-          console.warn(`[NotesService] Could not fetch event attachment ${eventId}:`, error.message);
+          console.warn(
+            `[NotesService] Could not fetch event attachment ${eventId}:`,
+            error.message,
+          );
           // Keep the ID if we can't fetch details
           enriched.event_attachment.push({ id: eventId, title: 'Unknown event' });
         }
@@ -478,13 +529,18 @@ export class NotesService {
     return enriched;
   }
 
-  async updateNote(noteId: string, workspaceId: string, updateNoteDto: UpdateNoteDto, userId: string) {
+  async updateNote(
+    noteId: string,
+    workspaceId: string,
+    updateNoteDto: UpdateNoteDto,
+    userId: string,
+  ) {
     const note = await this.getNoteWithAccess(noteId, workspaceId, userId);
 
     const updateData: any = {
       ...updateNoteDto,
       last_edited_by: userId,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Handle attachments update - merge with existing if provided
@@ -492,7 +548,7 @@ export class NotesService {
       updateData.attachments = {
         note_attachment: updateNoteDto.attachments.note_attachment || [],
         file_attachment: updateNoteDto.attachments.file_attachment || [],
-        event_attachment: updateNoteDto.attachments.event_attachment || []
+        event_attachment: updateNoteDto.attachments.event_attachment || [],
       };
     }
 
@@ -522,14 +578,14 @@ export class NotesService {
 
     // Delete the parent note
     await this.db.update('notes', noteId, {
-      deleted_at: new Date().toISOString()
+      deleted_at: new Date().toISOString(),
     });
 
     // Recursively delete all descendant notes
     const deletionTime = new Date().toISOString();
     for (const descendantId of descendantIds) {
       await this.db.update('notes', descendantId, {
-        deleted_at: deletionTime
+        deleted_at: deletionTime,
       });
     }
 
@@ -545,13 +601,14 @@ export class NotesService {
     return {
       success: true,
       message: 'Note and all sub-notes deleted successfully',
-      deletedCount: descendantIds.length + 1
+      deletedCount: descendantIds.length + 1,
     };
   }
 
   async restoreNote(noteId: string, workspaceId: string, userId: string) {
     // Check if note exists and is actually deleted
-    const noteQuery = await this.db.table('notes')
+    const noteQuery = await this.db
+      .table('notes')
       .select('*')
       .where('id', '=', noteId)
       .where('workspace_id', '=', workspaceId)
@@ -580,20 +637,20 @@ export class NotesService {
 
     // Restore the parent note
     await this.db.update('notes', noteId, {
-      deleted_at: null
+      deleted_at: null,
     });
 
     // Restore all descendant notes
     for (const descendantId of descendantIds) {
       await this.db.update('notes', descendantId, {
-        deleted_at: null
+        deleted_at: null,
       });
     }
 
     return {
       success: true,
       message: 'Note and all sub-notes restored successfully',
-      restoredCount: descendantIds.length + 1
+      restoredCount: descendantIds.length + 1,
     };
   }
 
@@ -606,7 +663,8 @@ export class NotesService {
     for (const noteId of note_ids) {
       try {
         // Check if note exists and is actually deleted
-        const noteQuery = await this.db.table('notes')
+        const noteQuery = await this.db
+          .table('notes')
           .select('*')
           .where('id', '=', noteId)
           .where('workspace_id', '=', workspaceId)
@@ -638,30 +696,29 @@ export class NotesService {
 
         // Restore the parent note
         await this.db.update('notes', noteId, {
-          deleted_at: null
+          deleted_at: null,
         });
 
         // Restore all descendant notes
         for (const descendantId of descendantIds) {
           await this.db.update('notes', descendantId, {
-            deleted_at: null
+            deleted_at: null,
           });
         }
 
         const restoredCount = descendantIds.length + 1;
         totalRestoredCount += restoredCount;
-        
+
         results.push({
           noteId,
           title: note.title,
           success: true,
-          restoredCount
+          restoredCount,
         });
-
       } catch (error) {
-        errors.push({ 
-          noteId, 
-          error: error.message || 'Failed to restore note' 
+        errors.push({
+          noteId,
+          error: error.message || 'Failed to restore note',
         });
       }
     }
@@ -673,13 +730,14 @@ export class NotesService {
       processedCount: results.length,
       errorCount: errors.length,
       results,
-      errors
+      errors,
     };
   }
 
   async permanentlyDeleteNote(noteId: string, workspaceId: string, userId: string) {
     // Check if note exists
-    const noteQuery = await this.db.table('notes')
+    const noteQuery = await this.db
+      .table('notes')
       .select('*')
       .where('id', '=', noteId)
       .where('workspace_id', '=', workspaceId)
@@ -712,7 +770,7 @@ export class NotesService {
     return {
       success: true,
       message: 'Note and all sub-notes permanently deleted',
-      deletedCount: descendantIds.length + 1
+      deletedCount: descendantIds.length + 1,
     };
   }
 
@@ -725,7 +783,8 @@ export class NotesService {
     for (const noteId of note_ids) {
       try {
         // Check if note exists and user has permission
-        const noteQuery = await this.db.table('notes')
+        const noteQuery = await this.db
+          .table('notes')
           .select('*')
           .where('id', '=', noteId)
           .where('workspace_id', '=', workspaceId)
@@ -751,31 +810,30 @@ export class NotesService {
 
         // Delete the parent note
         await this.db.update('notes', noteId, {
-          deleted_at: new Date().toISOString()
+          deleted_at: new Date().toISOString(),
         });
 
         // Recursively delete all descendant notes
         const deletionTime = new Date().toISOString();
         for (const descendantId of descendantIds) {
           await this.db.update('notes', descendantId, {
-            deleted_at: deletionTime
+            deleted_at: deletionTime,
           });
         }
 
         const deletedCount = descendantIds.length + 1;
         totalDeletedCount += deletedCount;
-        
+
         results.push({
           noteId,
           title: note.title,
           success: true,
-          deletedCount
+          deletedCount,
         });
-
       } catch (error) {
-        errors.push({ 
-          noteId, 
-          error: error.message || 'Failed to delete note' 
+        errors.push({
+          noteId,
+          error: error.message || 'Failed to delete note',
         });
       }
     }
@@ -787,11 +845,15 @@ export class NotesService {
       processedCount: results.length,
       errorCount: errors.length,
       results,
-      errors
+      errors,
     };
   }
 
-  async bulkPermanentlyDeleteNotes(workspaceId: string, bulkDeleteDto: BulkDeleteDto, userId: string) {
+  async bulkPermanentlyDeleteNotes(
+    workspaceId: string,
+    bulkDeleteDto: BulkDeleteDto,
+    userId: string,
+  ) {
     const { note_ids } = bulkDeleteDto;
     const results = [];
     const errors = [];
@@ -800,7 +862,8 @@ export class NotesService {
     for (const noteId of note_ids) {
       try {
         // Check if note exists and user has permission
-        const noteQuery = await this.db.table('notes')
+        const noteQuery = await this.db
+          .table('notes')
           .select('*')
           .where('id', '=', noteId)
           .where('workspace_id', '=', workspaceId)
@@ -834,18 +897,17 @@ export class NotesService {
 
         const deletedCount = descendantIds.length + 1;
         totalDeletedCount += deletedCount;
-        
+
         results.push({
           noteId,
           title: note.title,
           success: true,
-          deletedCount
+          deletedCount,
         });
-
       } catch (error) {
-        errors.push({ 
-          noteId, 
-          error: error.message || 'Failed to permanently delete note' 
+        errors.push({
+          noteId,
+          error: error.message || 'Failed to permanently delete note',
         });
       }
     }
@@ -857,7 +919,7 @@ export class NotesService {
       processedCount: results.length,
       errorCount: errors.length,
       results,
-      errors
+      errors,
     };
   }
 
@@ -867,13 +929,14 @@ export class NotesService {
     console.log('[NotesService] Sharing note with users:', {
       noteId,
       userIds: shareNoteDto.user_ids,
-      sharedBy: userId
+      sharedBy: userId,
     });
 
     // Verify all users exist in workspace
     const userVerifications = await Promise.all(
       shareNoteDto.user_ids.map(async (targetUserId) => {
-        const targetUserResult = await this.db.table('workspace_members')
+        const targetUserResult = await this.db
+          .table('workspace_members')
           .select('*')
           .where('workspace_id', '=', workspaceId)
           .where('user_id', '=', targetUserId)
@@ -881,16 +944,17 @@ export class NotesService {
           .limit(1)
           .execute();
 
-        const targetUser = Array.isArray(targetUserResult.data) && targetUserResult.data.length > 0
-          ? targetUserResult.data[0]
-          : null;
+        const targetUser =
+          Array.isArray(targetUserResult.data) && targetUserResult.data.length > 0
+            ? targetUserResult.data[0]
+            : null;
 
         if (!targetUser) {
           throw new BadRequestException(`User ${targetUserId} is not a member of this workspace`);
         }
 
         return targetUserId;
-      })
+      }),
     );
 
     console.log('[NotesService] All users verified as workspace members');
@@ -909,20 +973,22 @@ export class NotesService {
     // Update collaborative_data with new shared_with array
     const updatedCollaborativeData = {
       ...existingCollaborativeData,
-      shared_with: newSharedWith
+      shared_with: newSharedWith,
     };
 
     // Update the note - store collaborative_data as object (JSONB column handles serialization)
     await this.db.update('notes', noteId, {
       collaborative_data: updatedCollaborativeData,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
 
     console.log('[NotesService] Note shared successfully with users:', newSharedWith);
 
     // Send notifications to newly shared users
-    const newlySharedUsers = shareNoteDto.user_ids.filter(id => id !== userId);
-    console.log(`[NotesService] Sending notifications to ${newlySharedUsers.length} newly shared users`);
+    const newlySharedUsers = shareNoteDto.user_ids.filter((id) => id !== userId);
+    console.log(
+      `[NotesService] Sending notifications to ${newlySharedUsers.length} newly shared users`,
+    );
 
     for (const targetUserId of newlySharedUsers) {
       try {
@@ -944,13 +1010,16 @@ export class NotesService {
             workspace_id: workspaceId,
             note_title: note.title,
             note_id: noteId,
-            action: 'note_shared'
-          }
+            action: 'note_shared',
+          },
         });
 
         console.log(`[NotesService] ✅ Note share notification sent to user: ${targetUserId}`);
       } catch (error) {
-        console.error(`[NotesService] ❌ Failed to send note share notification to user ${targetUserId}:`, error);
+        console.error(
+          `[NotesService] ❌ Failed to send note share notification to user ${targetUserId}:`,
+          error,
+        );
         // Don't fail note sharing if notification fails
       }
     }
@@ -959,57 +1028,65 @@ export class NotesService {
       success: true,
       message: 'Note shared successfully',
       shared_count: shareNoteDto.user_ids.length,
-      total_shared_users: newSharedWith.length
+      total_shared_users: newSharedWith.length,
     };
   }
 
-  async searchNotes(workspaceId: string, query: string, userId: string, options?: {
-    mode?: 'keyword' | 'semantic' | 'hybrid';
-    limit?: number;
-    offset?: number;
-  }) {
+  async searchNotes(
+    workspaceId: string,
+    query: string,
+    userId: string,
+    options?: {
+      mode?: 'keyword' | 'semantic' | 'hybrid';
+      limit?: number;
+      offset?: number;
+    },
+  ) {
     // If no query, return all accessible notes
     if (!query || query.trim() === '') {
-      const allNotes = await this.db.table('notes')
-        .select('*')
-        .execute();
+      const allNotes = await this.db.table('notes').select('*').execute();
       const allNotesData = Array.isArray(allNotes.data) ? allNotes.data : [];
-      return allNotesData.filter(n =>
-        n.workspace_id === workspaceId &&
-        !n.deleted_at &&
-        (n.created_by === userId || n.is_public)
+      return allNotesData.filter(
+        (n) =>
+          n.workspace_id === workspaceId &&
+          !n.deleted_at &&
+          (n.created_by === userId || n.is_public),
       );
     }
 
     try {
       // Use unified search with PostgreSQL pg_trgm + pgvector
-      const searchResult = await /* TODO: use QdrantService */ this.db.unifiedSearch('notes', query, {
-        mode: options?.mode || 'hybrid',
-        columns: ['title', 'content_text', 'tags'],
-        limit: options?.limit || 50,
-        offset: options?.offset || 0,
-        filters: {
-          workspace_id: workspaceId,
-          deleted_at: null,
+      const searchResult = await /* TODO: use QdrantService */ this.db.unifiedSearch(
+        'notes',
+        query,
+        {
+          mode: options?.mode || 'hybrid',
+          columns: ['title', 'content_text', 'tags'],
+          limit: options?.limit || 50,
+          offset: options?.offset || 0,
+          filters: {
+            workspace_id: workspaceId,
+            deleted_at: null,
+          },
+          highlight: true,
+          threshold: 0.3,
         },
-        highlight: true,
-        threshold: 0.3,
-      });
+      );
 
       console.log('[NotesService] Unified search result:', {
         total: searchResult.total,
         mode: searchResult.mode,
         executionTimeMs: searchResult.executionTimeMs,
-        resultsCount: searchResult.results?.length || 0
+        resultsCount: searchResult.results?.length || 0,
       });
 
       // Filter results by access permissions and enrich with highlights
       const accessibleResults = searchResult.results
-        .filter(result => {
+        .filter((result) => {
           const note = result.data;
           return note.created_by === userId || note.is_public;
         })
-        .map(result => ({
+        .map((result) => ({
           ...result.data,
           _searchScore: result.score,
           _matchType: result.matchType,
@@ -1021,21 +1098,21 @@ export class NotesService {
       console.error('[NotesService] Unified search failed, falling back to basic search:', error);
 
       // Fallback to basic in-memory search
-      const allNotes = await this.db.table('notes')
-        .select('*')
-        .execute();
+      const allNotes = await this.db.table('notes').select('*').execute();
       const allNotesData = Array.isArray(allNotes.data) ? allNotes.data : [];
-      const notes = allNotesData.filter(n =>
-        n.workspace_id === workspaceId &&
-        !n.deleted_at &&
-        (n.created_by === userId || n.is_public)
+      const notes = allNotesData.filter(
+        (n) =>
+          n.workspace_id === workspaceId &&
+          !n.deleted_at &&
+          (n.created_by === userId || n.is_public),
       );
 
       const searchTerm = query.toLowerCase();
-      return notes.filter(n =>
-        n.title.toLowerCase().includes(searchTerm) ||
-        (n.content_text && n.content_text.toLowerCase().includes(searchTerm)) ||
-        (n.tags && n.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm)))
+      return notes.filter(
+        (n) =>
+          n.title.toLowerCase().includes(searchTerm) ||
+          (n.content_text && n.content_text.toLowerCase().includes(searchTerm)) ||
+          (n.tags && n.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm))),
       );
     }
   }
@@ -1044,13 +1121,14 @@ export class NotesService {
     const { note_ids, title, include_headers, add_dividers, sort_by_date } = mergeNotesDto;
 
     // Fetch all notes
-    const notesPromises = note_ids.map(noteId =>
-      this.db.table('notes')
+    const notesPromises = note_ids.map((noteId) =>
+      this.db
+        .table('notes')
         .select('*')
         .where('id', '=', noteId)
         .where('workspace_id', '=', workspaceId)
         .limit(1)
-        .execute()
+        .execute(),
     );
 
     const notesResults = await Promise.all(notesPromises);
@@ -1093,7 +1171,7 @@ export class NotesService {
           month: 'long',
           day: 'numeric',
           hour: '2-digit',
-          minute: '2-digit'
+          minute: '2-digit',
         });
 
         const headerHtml = `
@@ -1112,12 +1190,14 @@ export class NotesService {
 
       // Collect tags
       if (note.tags && Array.isArray(note.tags)) {
-        note.tags.forEach(tag => allTags.add(tag));
+        note.tags.forEach((tag) => allTags.add(tag));
       }
 
       // Add divider between notes (except after the last note)
       if (add_dividers && i < notes.length - 1) {
-        mergedContentParts.push('<hr style="margin: 30px 0; border: none; border-top: 2px solid #ddd;" />');
+        mergedContentParts.push(
+          '<hr style="margin: 30px 0; border: none; border-top: 2px solid #ddd;" />',
+        );
       }
     }
 
@@ -1132,7 +1212,7 @@ export class NotesService {
       tags: Array.from(allTags),
       is_public: false,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const mergedNote = await this.db.insert('notes', mergedNoteData);
@@ -1140,13 +1220,13 @@ export class NotesService {
     return {
       ...mergedNote,
       merged_count: notes.length,
-      source_note_titles: notes.map(n => n.title),
+      source_note_titles: notes.map((n) => n.title),
       merged_from_ids: note_ids,
       merge_options: {
         include_headers,
         add_dividers,
-        sort_by_date
-      }
+        sort_by_date,
+      },
     };
   }
 
@@ -1157,14 +1237,15 @@ export class NotesService {
       ...templateData,
       created_by: userId,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.insert('note_templates', template);
   }
 
   async getTemplates(workspaceId: string) {
-    return await this.db.table('note_templates')
+    return await this.db
+      .table('note_templates')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -1172,8 +1253,13 @@ export class NotesService {
 
   // Helper methods
 
-  private async getAllDescendantNoteIds(parentId: string, workspaceId: string, includeDeleted = false): Promise<string[]> {
-    const allNotes = await this.db.table('notes')
+  private async getAllDescendantNoteIds(
+    parentId: string,
+    workspaceId: string,
+    includeDeleted = false,
+  ): Promise<string[]> {
+    const allNotes = await this.db
+      .table('notes')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -1183,8 +1269,8 @@ export class NotesService {
 
     const findChildren = (currentParentId: string) => {
       const children = includeDeleted
-        ? notesData.filter(n => n.parent_id === currentParentId)
-        : notesData.filter(n => n.parent_id === currentParentId && !n.deleted_at);
+        ? notesData.filter((n) => n.parent_id === currentParentId)
+        : notesData.filter((n) => n.parent_id === currentParentId && !n.deleted_at);
 
       for (const child of children) {
         descendantIds.push(child.id);
@@ -1198,7 +1284,8 @@ export class NotesService {
   }
 
   private async createNoteVersion(noteId: string, content: any, userId: string) {
-    const existingVersions = await this.db.table('note_versions')
+    const existingVersions = await this.db
+      .table('note_versions')
       .select('*')
       .where('note_id', '=', noteId)
       .execute();
@@ -1211,12 +1298,13 @@ export class NotesService {
       content,
       version_number: versionNumber,
       created_by: userId,
-      created_at: new Date().toISOString()
+      created_at: new Date().toISOString(),
     });
   }
 
   private async getNoteWithAccess(noteId: string, workspaceId: string, userId: string) {
-    const noteQuery = await this.db.table('notes')
+    const noteQuery = await this.db
+      .table('notes')
       .select('*')
       .where('id', '=', noteId)
       .where('workspace_id', '=', workspaceId)
@@ -1236,9 +1324,10 @@ export class NotesService {
     // Check if user is in the shared_with list (from collaborative_data)
     let isSharedWithUser = false;
     if (note.collaborative_data) {
-      const collaborativeData = typeof note.collaborative_data === 'string'
-        ? JSON.parse(note.collaborative_data)
-        : note.collaborative_data;
+      const collaborativeData =
+        typeof note.collaborative_data === 'string'
+          ? JSON.parse(note.collaborative_data)
+          : note.collaborative_data;
       const sharedWith = Array.isArray(collaborativeData?.shared_with)
         ? collaborativeData.shared_with
         : [];
@@ -1253,37 +1342,45 @@ export class NotesService {
     return note;
   }
 
-  async duplicateNote(noteId: string, workspaceId: string, duplicateNoteDto: DuplicateNoteDto, userId: string) {
+  async duplicateNote(
+    noteId: string,
+    workspaceId: string,
+    duplicateNoteDto: DuplicateNoteDto,
+    userId: string,
+  ) {
     // Get the original note
     const originalNote = await this.getNoteWithAccess(noteId, workspaceId, userId);
-    
+
     // Prepare new note data
     const newNoteData = {
       ...originalNote,
       id: undefined, // Let DB generate new ID
       title: duplicateNoteDto.title || `${originalNote.title} (Copy)`,
-      parent_id: duplicateNoteDto.parentId !== undefined ? duplicateNoteDto.parentId : originalNote.parent_id,
+      parent_id:
+        duplicateNoteDto.parentId !== undefined
+          ? duplicateNoteDto.parentId
+          : originalNote.parent_id,
       created_at: new Date().toISOString(),
       updated_at: new Date().toISOString(),
       created_by: userId,
       author_id: userId,
       view_count: 0,
       deleted_at: null,
-      archived_at: null
+      archived_at: null,
     };
 
     // Create the duplicated note
     const duplicatedNote = await this.db.insert('notes', newNoteData);
-    
+
     let duplicatedCount = 1;
 
     // Duplicate sub-notes if requested
     if (duplicateNoteDto.includeSubNotes !== false) {
       const subNotesCount = await this.duplicateSubNotes(
-        noteId, 
-        duplicatedNote.id, 
-        workspaceId, 
-        userId
+        noteId,
+        duplicatedNote.id,
+        workspaceId,
+        userId,
       );
       duplicatedCount += subNotesCount;
     }
@@ -1292,13 +1389,13 @@ export class NotesService {
       success: true,
       message: 'Note duplicated successfully',
       note: duplicatedNote,
-      duplicatedCount
+      duplicatedCount,
     };
   }
 
   async archiveNote(noteId: string, workspaceId: string, userId: string) {
     const note = await this.getNoteWithAccess(noteId, workspaceId, userId);
-    
+
     if (note.archived_at) {
       throw new BadRequestException('Note is already archived');
     }
@@ -1306,14 +1403,14 @@ export class NotesService {
     // Archive the note and all its sub-notes
     const descendantIds = await this.getAllDescendantNoteIds(noteId, workspaceId);
     const allNoteIds = [noteId, ...descendantIds];
-    
+
     let archivedCount = 0;
     const archiveTime = new Date().toISOString();
-    
+
     for (const id of allNoteIds) {
       await this.db.update('notes', id, {
         archived_at: archiveTime,
-        updated_at: archiveTime
+        updated_at: archiveTime,
       });
       archivedCount++;
     }
@@ -1321,7 +1418,7 @@ export class NotesService {
     return {
       success: true,
       message: 'Note and all sub-notes archived successfully',
-      archivedCount
+      archivedCount,
     };
   }
 
@@ -1333,8 +1430,9 @@ export class NotesService {
     for (const noteId of bulkArchiveDto.noteIds) {
       try {
         const result = await this.archiveNote(noteId, workspaceId, userId);
-        
-        const noteQuery = await this.db.table('notes')
+
+        const noteQuery = await this.db
+          .table('notes')
           .select('title')
           .where('id', '=', noteId)
           .limit(1)
@@ -1345,23 +1443,23 @@ export class NotesService {
           noteId,
           title: noteTitle,
           success: true,
-          archivedCount: result.archivedCount
+          archivedCount: result.archivedCount,
         });
         totalArchivedCount += result.archivedCount;
       } catch (error) {
         errors.push({
           noteId,
-          error: error.message
+          error: error.message,
         });
         results.push({
           noteId,
           success: false,
-          error: error.message
+          error: error.message,
         });
       }
     }
 
-    const processedCount = results.filter(r => r.success).length;
+    const processedCount = results.filter((r) => r.success).length;
     const errorCount = errors.length;
 
     return {
@@ -1371,13 +1469,13 @@ export class NotesService {
       processedCount,
       errorCount,
       results,
-      errors
+      errors,
     };
   }
 
   async unarchiveNote(noteId: string, workspaceId: string, userId: string) {
     const note = await this.getNoteWithAccess(noteId, workspaceId, userId);
-    
+
     if (!note.archived_at) {
       throw new BadRequestException('Note is not archived');
     }
@@ -1385,13 +1483,13 @@ export class NotesService {
     // Unarchive the note and all its sub-notes
     const descendantIds = await this.getAllDescendantNoteIds(noteId, workspaceId);
     const allNoteIds = [noteId, ...descendantIds];
-    
+
     let unarchivedCount = 0;
-    
+
     for (const id of allNoteIds) {
       await this.db.update('notes', id, {
         archived_at: null,
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
       unarchivedCount++;
     }
@@ -1399,7 +1497,7 @@ export class NotesService {
     return {
       success: true,
       message: 'Note and all sub-notes unarchived successfully',
-      unarchivedCount
+      unarchivedCount,
     };
   }
 
@@ -1411,8 +1509,9 @@ export class NotesService {
     for (const noteId of bulkArchiveDto.noteIds) {
       try {
         const result = await this.unarchiveNote(noteId, workspaceId, userId);
-        
-        const noteQuery = await this.db.table('notes')
+
+        const noteQuery = await this.db
+          .table('notes')
           .select('title')
           .where('id', '=', noteId)
           .limit(1)
@@ -1423,23 +1522,23 @@ export class NotesService {
           noteId,
           title: noteTitle,
           success: true,
-          unarchivedCount: result.unarchivedCount
+          unarchivedCount: result.unarchivedCount,
         });
         totalUnarchivedCount += result.unarchivedCount;
       } catch (error) {
         errors.push({
           noteId,
-          error: error.message
+          error: error.message,
         });
         results.push({
           noteId,
           success: false,
-          error: error.message
+          error: error.message,
         });
       }
     }
 
-    const processedCount = results.filter(r => r.success).length;
+    const processedCount = results.filter((r) => r.success).length;
     const errorCount = errors.length;
 
     return {
@@ -1449,7 +1548,7 @@ export class NotesService {
       processedCount,
       errorCount,
       results,
-      errors
+      errors,
     };
   }
 
@@ -1457,14 +1556,15 @@ export class NotesService {
     originalParentId: string,
     newParentId: string,
     workspaceId: string,
-    userId: string
+    userId: string,
   ): Promise<number> {
-    const subNotesQuery = await this.db.table('notes')
+    const subNotesQuery = await this.db
+      .table('notes')
       .select('*')
       .where('parent_id', '=', originalParentId)
       .where('workspace_id', '=', workspaceId)
       .execute();
-    
+
     const subNotes = Array.isArray(subNotesQuery.data) ? subNotesQuery.data : [];
     let count = 0;
 
@@ -1481,7 +1581,7 @@ export class NotesService {
           author_id: userId,
           view_count: 0,
           deleted_at: null,
-          archived_at: null
+          archived_at: null,
         };
 
         const duplicatedSubNote = await this.db.insert('notes', newSubNoteData);
@@ -1492,7 +1592,7 @@ export class NotesService {
           subNote.id,
           duplicatedSubNote.id,
           workspaceId,
-          userId
+          userId,
         );
         count += childCount;
       }

@@ -1,7 +1,22 @@
-import { Injectable, NotFoundException, BadRequestException, ConflictException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ConflictException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import { WorkspaceInvitationService, InviteWorkspaceMemberDto } from './workspace-invitation.service';
-import { CreateWorkspaceDto, UpdateWorkspaceDto, InviteMemberDto, UpdateMemberRoleDto, UpdateWorkspaceSettingsDto } from './dto';
+import {
+  WorkspaceInvitationService,
+  InviteWorkspaceMemberDto,
+} from './workspace-invitation.service';
+import {
+  CreateWorkspaceDto,
+  UpdateWorkspaceDto,
+  InviteMemberDto,
+  UpdateMemberRoleDto,
+  UpdateWorkspaceSettingsDto,
+} from './dto';
 import { PresenceService } from '../../common/gateways/presence.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -29,9 +44,9 @@ export class WorkspaceService {
           metadata: {
             userId,
             originalName: file.originalname,
-            type: 'workspace-logo'
-          }
-        }
+            type: 'workspace-logo',
+          },
+        },
       );
 
       console.log('[WorkspaceService.uploadLogo] Logo uploaded successfully:', uploadResult);
@@ -52,7 +67,8 @@ export class WorkspaceService {
 
     // Check if user already owns an ACTIVE workspace with this name
     // We filter by is_active=true so deleted workspaces don't block name reuse
-    const existingWorkspacesResult = await this.db.table('workspaces')
+    const existingWorkspacesResult = await this.db
+      .table('workspaces')
       .select('*')
       .where('owner_id', '=', userId)
       .where('name', '=', createWorkspaceDto.name)
@@ -70,7 +86,7 @@ export class WorkspaceService {
       ...createWorkspaceDto,
       owner_id: userId,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     console.log('[WorkspaceService.create] Creating workspace with data:', workspaceData);
@@ -84,9 +100,9 @@ export class WorkspaceService {
       role: 'owner',
       permissions: ['*'], // Owner has all permissions
       joined_at: new Date().toISOString(),
-      is_active: true
+      is_active: true,
     };
-    
+
     console.log('[WorkspaceService.create] Adding owner as member with data:', memberData);
     const member = await this.db.insert('workspace_members', memberData);
     console.log('[WorkspaceService.create] Member added:', member);
@@ -101,38 +117,58 @@ export class WorkspaceService {
     console.log('[WorkspaceService.findAll] User ID length:', userId?.length);
 
     // First, let's check ALL members in the table to see what's there
-    const allMembersResult = await this.db.table('workspace_members')
-      .select('*')
-      .execute();
+    const allMembersResult = await this.db.table('workspace_members').select('*').execute();
 
-    console.log('[WorkspaceService.findAll] Total members in table:', (allMembersResult.data || []).length);
-    console.log('[WorkspaceService.findAll] Sample members:', JSON.stringify((allMembersResult.data || []).slice(0, 3), null, 2));
+    console.log(
+      '[WorkspaceService.findAll] Total members in table:',
+      (allMembersResult.data || []).length,
+    );
+    console.log(
+      '[WorkspaceService.findAll] Sample members:',
+      JSON.stringify((allMembersResult.data || []).slice(0, 3), null, 2),
+    );
 
     // Get all workspaces where user is a member using table() method
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('user_id', '=', userId)
       .where('is_active', '=', true)
       .execute();
 
-    console.log('[WorkspaceService.findAll] Membership query result:', JSON.stringify(membershipResult, null, 2));
+    console.log(
+      '[WorkspaceService.findAll] Membership query result:',
+      JSON.stringify(membershipResult, null, 2),
+    );
     const membershipData = membershipResult.data || [];
     console.log('[WorkspaceService.findAll] Found memberships:', membershipData.length);
 
     if (membershipData.length > 0) {
-      console.log('[WorkspaceService.findAll] Membership details:', JSON.stringify(membershipData, null, 2));
+      console.log(
+        '[WorkspaceService.findAll] Membership details:',
+        JSON.stringify(membershipData, null, 2),
+      );
     } else {
       // Try without is_active filter to see if that's the issue
-      console.log('[WorkspaceService.findAll] No active memberships found, checking without is_active filter...');
-      const allUserMembershipsResult = await this.db.table('workspace_members')
+      console.log(
+        '[WorkspaceService.findAll] No active memberships found, checking without is_active filter...',
+      );
+      const allUserMembershipsResult = await this.db
+        .table('workspace_members')
         .select('*')
         .where('user_id', '=', userId)
         .execute();
 
       const allUserMemberships = allUserMembershipsResult.data || [];
-      console.log('[WorkspaceService.findAll] Found memberships without is_active filter:', allUserMemberships.length);
+      console.log(
+        '[WorkspaceService.findAll] Found memberships without is_active filter:',
+        allUserMemberships.length,
+      );
       if (allUserMemberships.length > 0) {
-        console.log('[WorkspaceService.findAll] Inactive memberships found:', JSON.stringify(allUserMemberships, null, 2));
+        console.log(
+          '[WorkspaceService.findAll] Inactive memberships found:',
+          JSON.stringify(allUserMemberships, null, 2),
+        );
       } else {
         console.log('[WorkspaceService.findAll] No memberships found at all for this user');
       }
@@ -141,13 +177,14 @@ export class WorkspaceService {
       return [];
     }
 
-    const workspaceIds = membershipData.map(m => m.workspace_id);
+    const workspaceIds = membershipData.map((m) => m.workspace_id);
     console.log('[WorkspaceService.findAll] Workspace IDs to fetch:', workspaceIds);
 
     // Query each workspace individually since orWhere doesn't work reliably with multiple conditions
     const workspacePromises = workspaceIds.map(async (workspaceId) => {
       console.log('[WorkspaceService.findAll] Fetching workspace:', workspaceId);
-      const result = await this.db.table('workspaces')
+      const result = await this.db
+        .table('workspaces')
         .select('*')
         .where('id', '=', workspaceId)
         .where('is_active', '=', true)
@@ -155,30 +192,38 @@ export class WorkspaceService {
         .execute();
 
       const data = result.data || [];
-      console.log('[WorkspaceService.findAll] Workspace query result for', workspaceId, ':', data.length > 0 ? 'FOUND' : 'NOT FOUND');
+      console.log(
+        '[WorkspaceService.findAll] Workspace query result for',
+        workspaceId,
+        ':',
+        data.length > 0 ? 'FOUND' : 'NOT FOUND',
+      );
       return data[0] || null;
     });
 
     const workspaceResults = await Promise.all(workspacePromises);
-    const workspaces = workspaceResults.filter(w => w !== null);
+    const workspaces = workspaceResults.filter((w) => w !== null);
 
     console.log('[WorkspaceService.findAll] Total workspaces found:', workspaces.length);
     console.log('[WorkspaceService.findAll] Workspaces:', JSON.stringify(workspaces, null, 2));
 
     // Add membership info to each workspace
-    const result = workspaces.map(workspace => {
-      const membership = membershipData.find(m => m.workspace_id === workspace.id);
+    const result = workspaces.map((workspace) => {
+      const membership = membershipData.find((m) => m.workspace_id === workspace.id);
       return {
         ...workspace,
         membership: {
           role: membership.role,
           permissions: membership.permissions,
-          joined_at: membership.joined_at
-        }
+          joined_at: membership.joined_at,
+        },
       };
     });
 
-    console.log('[WorkspaceService.findAll] Returning workspaces with membership info:', result.length);
+    console.log(
+      '[WorkspaceService.findAll] Returning workspaces with membership info:',
+      result.length,
+    );
     console.log('[WorkspaceService.findAll] Final result:', JSON.stringify(result, null, 2));
     console.log('[WorkspaceService.findAll] ========================================');
     return result;
@@ -186,7 +231,8 @@ export class WorkspaceService {
 
   async findOne(id: string, userId: string) {
     // Check if user has access to this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', id)
       .where('user_id', '=', userId)
@@ -199,7 +245,8 @@ export class WorkspaceService {
       throw new NotFoundException('Workspace not found or access denied');
     }
 
-    const workspaceResult = await this.db.table('workspaces')
+    const workspaceResult = await this.db
+      .table('workspaces')
       .select('*')
       .where('id', '=', id)
       .limit(1)
@@ -218,14 +265,15 @@ export class WorkspaceService {
       membership: {
         role: membership.role,
         permissions: membership.permissions,
-        joined_at: membership.joined_at
-      }
+        joined_at: membership.joined_at,
+      },
     };
   }
 
   async update(id: string, updateWorkspaceDto: UpdateWorkspaceDto, userId: string) {
     // Check if user has admin access
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', id)
       .where('user_id', '=', userId)
@@ -245,7 +293,7 @@ export class WorkspaceService {
 
     const updateData = {
       ...updateWorkspaceDto,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.update('workspaces', id, updateData);
@@ -253,7 +301,8 @@ export class WorkspaceService {
 
   async remove(id: string, userId: string) {
     // Check if user is the owner
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', id)
       .where('user_id', '=', userId)
@@ -270,14 +319,14 @@ export class WorkspaceService {
     // Soft delete by setting is_active to false
     return await this.db.update('workspaces', id, {
       is_active: false,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
   }
 
   async inviteMember(workspaceId: string, inviteMemberDto: InviteMemberDto, inviterId: string) {
     // Map workspace roles to supported roles (admin | member)
     let role: 'admin' | 'member' = 'member';
-    
+
     if (inviteMemberDto.role) {
       switch (inviteMemberDto.role) {
         case 'owner':
@@ -305,7 +354,8 @@ export class WorkspaceService {
     console.log('[WorkspaceService.getMembers] Fetching members for workspace:', workspaceId);
 
     // Check if user has access to this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -319,7 +369,8 @@ export class WorkspaceService {
     }
 
     // Get all members of this workspace
-    const membersResult = await this.db.table('workspace_members')
+    const membersResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('is_active', '=', true)
@@ -347,10 +398,10 @@ export class WorkspaceService {
                 email: userProfile.email,
                 name: metadata.name || (userProfile as any).fullName || userProfile.name || null,
                 username: userProfile.username || metadata.username || null,
-                avatar: metadata.avatarUrl || userProfile.avatar_url || null,  // Avatar is in metadata.avatarUrl
+                avatar: metadata.avatarUrl || userProfile.avatar_url || null, // Avatar is in metadata.avatarUrl
                 avatar_url: metadata.avatarUrl || userProfile.avatar_url || null,
                 profileImage: metadata.avatarUrl || userProfile.avatar_url || null,
-              }
+              },
             };
           } else {
             // User not found, return member data without user details
@@ -365,11 +416,16 @@ export class WorkspaceService {
                 avatar: null,
                 avatar_url: null,
                 profileImage: null,
-              }
+              },
             };
           }
         } catch (error) {
-          console.error('[WorkspaceService.getMembers] Error fetching user details for', member.user_id, ':', error);
+          console.error(
+            '[WorkspaceService.getMembers] Error fetching user details for',
+            member.user_id,
+            ':',
+            error,
+          );
           // Return member data without user details on error
           return {
             ...member,
@@ -381,10 +437,10 @@ export class WorkspaceService {
               avatar: null,
               avatar_url: null,
               profileImage: null,
-            }
+            },
           };
         }
-      })
+      }),
     );
 
     console.log('[WorkspaceService.getMembers] Returning members with user details');
@@ -392,10 +448,16 @@ export class WorkspaceService {
   }
 
   async getMemberByUserId(workspaceId: string, targetUserId: string, requestingUserId: string) {
-    console.log('[WorkspaceService.getMemberByUserId] Fetching member:', targetUserId, 'in workspace:', workspaceId);
+    console.log(
+      '[WorkspaceService.getMemberByUserId] Fetching member:',
+      targetUserId,
+      'in workspace:',
+      workspaceId,
+    );
 
     // Check if requesting user has access to this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', requestingUserId)
@@ -409,7 +471,8 @@ export class WorkspaceService {
     }
 
     // Find the target member
-    const targetMemberResult = await this.db.table('workspace_members')
+    const targetMemberResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', targetUserId)
@@ -442,7 +505,7 @@ export class WorkspaceService {
             avatar: metadata.avatarUrl || userProfile.avatar_url || null,
             avatar_url: metadata.avatarUrl || userProfile.avatar_url || null,
             profileImage: metadata.avatarUrl || userProfile.avatar_url || null,
-          }
+          },
         };
       }
     } catch (error) {
@@ -461,13 +524,19 @@ export class WorkspaceService {
         avatar: null,
         avatar_url: null,
         profileImage: null,
-      }
+      },
     };
   }
 
-  async updateMemberRole(workspaceId: string, memberId: string, updateMemberRoleDto: UpdateMemberRoleDto, updaterId: string) {
+  async updateMemberRole(
+    workspaceId: string,
+    memberId: string,
+    updateMemberRoleDto: UpdateMemberRoleDto,
+    updaterId: string,
+  ) {
     // Check if updater has admin access
-    const updaterMembershipResult = await this.db.table('workspace_members')
+    const updaterMembershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', updaterId)
@@ -499,7 +568,8 @@ export class WorkspaceService {
 
   async removeMember(workspaceId: string, memberId: string, removerId: string) {
     // Check if remover has admin access
-    const removerMembershipResult = await this.db.table('workspace_members')
+    const removerMembershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', removerId)
@@ -518,7 +588,8 @@ export class WorkspaceService {
     }
 
     // Get member to be removed
-    const memberResult = await this.db.table('workspace_members')
+    const memberResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('id', '=', memberId)
       .limit(1)
@@ -530,7 +601,7 @@ export class WorkspaceService {
     }
 
     const member = memberData[0];
-    
+
     // Cannot remove owner
     if (member.role === 'owner') {
       throw new BadRequestException('Cannot remove workspace owner');
@@ -538,13 +609,14 @@ export class WorkspaceService {
 
     // Deactivate member
     return await this.db.update('workspace_members', memberId, {
-      is_active: false
+      is_active: false,
     });
   }
 
   async getWorkspaceStats(workspaceId: string, userId: string) {
     // Check if user has access to this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -558,7 +630,8 @@ export class WorkspaceService {
     }
 
     // Get total members count
-    const totalMembersResult = await this.db.table('workspace_members')
+    const totalMembersResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .execute();
@@ -567,11 +640,12 @@ export class WorkspaceService {
     const total_members = allMembers.length;
 
     // Get active members count
-    const activeMembers = allMembers.filter(member => member.is_active === true);
+    const activeMembers = allMembers.filter((member) => member.is_active === true);
     const active_members = activeMembers.length;
 
     // Get pending invitations count
-    const invitationsResult = await this.db.table('workspace_invites')
+    const invitationsResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('status', '=', 'pending')
@@ -582,13 +656,14 @@ export class WorkspaceService {
     return {
       total_members,
       active_members,
-      pending_invitations
+      pending_invitations,
     };
   }
 
   async getCurrentMembership(workspaceId: string, userId: string) {
     // Get user's membership in this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -604,9 +679,14 @@ export class WorkspaceService {
     return membershipData[0];
   }
 
-  async updateSettings(workspaceId: string, updateSettingsDto: UpdateWorkspaceSettingsDto, userId: string) {
+  async updateSettings(
+    workspaceId: string,
+    updateSettingsDto: UpdateWorkspaceSettingsDto,
+    userId: string,
+  ) {
     // Check if user has admin access
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -625,7 +705,8 @@ export class WorkspaceService {
     }
 
     // Get current workspace to merge settings
-    const workspaceResult = await this.db.table('workspaces')
+    const workspaceResult = await this.db
+      .table('workspaces')
       .select('*')
       .where('id', '=', workspaceId)
       .limit(1)
@@ -651,7 +732,7 @@ export class WorkspaceService {
     // Update workspace with merged settings
     const updateData = {
       settings: updatedSettings,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.update('workspaces', workspaceId, updateData);
@@ -659,7 +740,8 @@ export class WorkspaceService {
 
   async getWorkspaceInvitations(workspaceId: string, userId: string) {
     // Check if user has access to this workspace
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -673,7 +755,8 @@ export class WorkspaceService {
     }
 
     // Get all pending invitations for this workspace
-    const invitationsResult = await this.db.table('workspace_invites')
+    const invitationsResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('status', '=', 'pending')
@@ -687,7 +770,8 @@ export class WorkspaceService {
    */
   async deleteInvitation(workspaceId: string, invitationId: string, userId: string) {
     // Verify user has permission (admin or owner)
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -708,7 +792,8 @@ export class WorkspaceService {
     // Check if invitation exists and belongs to this workspace
     console.log('🔍 Looking for invitation:', { invitationId, workspaceId });
 
-    const invitationResult = await this.db.table('workspace_invites')
+    const invitationResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('id', '=', invitationId)
       .where('workspace_id', '=', workspaceId)
@@ -728,15 +813,12 @@ export class WorkspaceService {
     const invitation = invitations[0];
 
     // Delete the invitation using table query
-    await this.db.table('workspace_invites')
-      .delete()
-      .where('id', '=', invitationId)
-      .execute();
+    await this.db.table('workspace_invites').delete().where('id', '=', invitationId).execute();
 
     console.log('✅ Invitation deleted:', invitationId);
 
     return {
-      message: 'Invitation deleted successfully'
+      message: 'Invitation deleted successfully',
     };
   }
 
@@ -745,7 +827,8 @@ export class WorkspaceService {
    */
   async resendInvitation(workspaceId: string, invitationId: string, userId: string) {
     // Verify user has permission (admin or owner)
-    const membershipResult = await this.db.table('workspace_members')
+    const membershipResult = await this.db
+      .table('workspace_members')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -764,7 +847,8 @@ export class WorkspaceService {
     }
 
     // Check if invitation exists and belongs to this workspace
-    const invitationQueryResult = await this.db.table('workspace_invites')
+    const invitationQueryResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('id', '=', invitationId)
       .where('workspace_id', '=', workspaceId)
@@ -791,19 +875,21 @@ export class WorkspaceService {
     newExpiresAt.setDate(newExpiresAt.getDate() + 7); // 7 days from now
 
     // Update invitation using table query
-    await this.db.table('workspace_invites')
+    await this.db
+      .table('workspace_invites')
       .update({
         token: newToken,
         expires_at: newExpiresAt.toISOString(),
         status: 'pending',
         invited_by: userId, // Update to current user
-        created_at: new Date().toISOString() // Reset creation date
+        created_at: new Date().toISOString(), // Reset creation date
       })
       .where('id', '=', invitationId)
       .execute();
 
     // Fetch the updated invitation
-    const updatedInvitationResult = await this.db.table('workspace_invites')
+    const updatedInvitationResult = await this.db
+      .table('workspace_invites')
       .select('*')
       .where('id', '=', invitationId)
       .limit(1)
@@ -811,23 +897,24 @@ export class WorkspaceService {
 
     // Handle result - it might have a .data property
     const updatedInvitations = updatedInvitationResult.data || updatedInvitationResult || [];
-    const updatedInvitation = Array.isArray(updatedInvitations) && updatedInvitations.length > 0
-      ? updatedInvitations[0]
-      : null;
+    const updatedInvitation =
+      Array.isArray(updatedInvitations) && updatedInvitations.length > 0
+        ? updatedInvitations[0]
+        : null;
 
     console.log('✅ Invitation resent:', invitationId);
 
     // Fetch workspace details for email
-    const workspaceResult = await this.db.table('workspaces')
+    const workspaceResult = await this.db
+      .table('workspaces')
       .select('*')
       .where('id', '=', workspaceId)
       .limit(1)
       .execute();
 
     const workspaceData = workspaceResult.data || workspaceResult || [];
-    const workspace = Array.isArray(workspaceData) && workspaceData.length > 0
-      ? workspaceData[0]
-      : null;
+    const workspace =
+      Array.isArray(workspaceData) && workspaceData.length > 0 ? workspaceData[0] : null;
 
     if (!workspace) {
       throw new NotFoundException('Workspace not found');
@@ -873,7 +960,7 @@ export class WorkspaceService {
     return {
       message: 'Invitation resent successfully',
       data: updatedInvitation,
-      inviteUrl: `${process.env.FRONTEND_URL}/invite/${newToken}`
+      inviteUrl: `${process.env.FRONTEND_URL}/invite/${newToken}`,
     };
   }
 
@@ -900,13 +987,13 @@ export class WorkspaceService {
     const members = membersResult.data || [];
 
     // Get user IDs
-    const userIds = members.map(m => m.user_id);
+    const userIds = members.map((m) => m.user_id);
 
     // Get presence status for all members
     const presenceList = this.presenceService.getMultipleUserPresence(userIds);
 
     // Create a map for quick lookup
-    const presenceMap = new Map(presenceList.map(p => [p.userId, p]));
+    const presenceMap = new Map(presenceList.map((p) => [p.userId, p]));
 
     // Combine member data with presence
     const membersWithPresence = await Promise.all(
@@ -922,12 +1009,22 @@ export class WorkspaceService {
           const userProfile = await this.db.getUserById(member.user_id);
           if (userProfile) {
             const metadata = userProfile.metadata || {};
-            userName = metadata.name || (userProfile as any).fullName || userProfile.name || userProfile.email || 'Unknown User';
+            userName =
+              metadata.name ||
+              (userProfile as any).fullName ||
+              userProfile.name ||
+              userProfile.email ||
+              'Unknown User';
             userEmail = userProfile.email;
             userAvatar = userProfile.avatar_url || null;
           }
         } catch (error) {
-          console.error('[WorkspaceService.getMemberPresence] Error fetching user details for', member.user_id, ':', error);
+          console.error(
+            '[WorkspaceService.getMemberPresence] Error fetching user details for',
+            member.user_id,
+            ':',
+            error,
+          );
         }
 
         return {
@@ -941,7 +1038,7 @@ export class WorkspaceService {
           connectionCount: presence?.connectionCount || 0,
           devices: presence?.devices || {},
         };
-      })
+      }),
     );
 
     return membersWithPresence;
@@ -951,8 +1048,10 @@ export class WorkspaceService {
    * Helper method to generate invitation token
    */
   private generateInvitationToken(): string {
-    return Math.random().toString(36).substring(2, 15) +
-           Math.random().toString(36).substring(2, 15) +
-           Date.now().toString(36);
+    return (
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15) +
+      Date.now().toString(36)
+    );
   }
 }

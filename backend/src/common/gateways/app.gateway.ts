@@ -53,7 +53,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   private socketToUser = new Map<string, string>();
   private connectionAttempts = new Map<string, number>();
   private blockedIPs = new Set<string>();
-  
+
   private readonly MAX_CONNECTIONS_PER_IP = 10;
   private readonly MAX_CONNECTION_ATTEMPTS = 5;
   private readonly BLOCK_DURATION_MS = 5 * 60 * 1000; // 5 minutes
@@ -71,7 +71,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   afterInit() {
     this.logger.log('🚀 WebSocket Gateway initialized');
-    
+
     // Set up periodic presence cleanup
     setInterval(() => {
       this.cleanupStalePresence();
@@ -84,7 +84,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       const clientIP = client.handshake.address;
 
       // Skip rate limiting for localhost in development
-      const isLocalhost = clientIP === '::1' || clientIP === '127.0.0.1' || clientIP === 'localhost';
+      const isLocalhost =
+        clientIP === '::1' || clientIP === '127.0.0.1' || clientIP === 'localhost';
       const isDevelopment = this.configService.get('NODE_ENV') !== 'production';
 
       if (!isLocalhost || !isDevelopment) {
@@ -105,7 +106,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
       // Extract token from handshake auth
       const token = this.extractTokenFromSocket(client);
-      
+
       if (!token) {
         this.logger.warn(`Connection rejected: No token provided - ${client.id}`);
         client.disconnect();
@@ -137,45 +138,47 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       await client.join('authenticated');
 
       this.logger.log(`User ${payload.sub} connected - Socket: ${client.id}`);
-      
+
       // Emit presence update to other users
       this.emitPresenceUpdate(payload.sub, 'online');
-      
+
       // Send welcome message
       client.emit('connection:success', {
         message: 'Connected to Life-OS real-time service',
         userId: payload.sub,
         timestamp: new Date().toISOString(),
       });
-
     } catch (error) {
       const clientIP = client.handshake.address;
-      
+
       // Handle different types of errors with appropriate responses
       if (error.name === 'JsonWebTokenError') {
         this.logger.warn(`JWT error for IP ${clientIP}: ${error.message}`);
-        client.emit('connection:error', { 
-          type: 'INVALID_TOKEN', 
-          message: 'Invalid authentication token'
+        client.emit('connection:error', {
+          type: 'INVALID_TOKEN',
+          message: 'Invalid authentication token',
         });
       } else if (error.name === 'TokenExpiredError') {
         this.logger.warn(`Expired token for IP ${clientIP}: ${error.message}`);
-        client.emit('connection:error', { 
-          type: 'TOKEN_EXPIRED', 
-          message: 'Authentication token expired'
+        client.emit('connection:error', {
+          type: 'TOKEN_EXPIRED',
+          message: 'Authentication token expired',
         });
       } else {
-        this.logger.error(`Unexpected connection error for IP ${clientIP}: ${error.message}`, error.stack);
-        client.emit('connection:error', { 
-          type: 'CONNECTION_ERROR', 
-          message: 'Connection failed'
+        this.logger.error(
+          `Unexpected connection error for IP ${clientIP}: ${error.message}`,
+          error.stack,
+        );
+        client.emit('connection:error', {
+          type: 'CONNECTION_ERROR',
+          message: 'Connection failed',
         });
       }
-      
+
       // Increment failed attempts for rate limiting
       const attempts = this.connectionAttempts.get(clientIP) || 0;
       this.connectionAttempts.set(clientIP, attempts + 1);
-      
+
       // Add small delay before disconnecting to prevent rapid reconnection attempts
       setTimeout(() => client.disconnect(), 1000);
     }
@@ -184,25 +187,25 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   handleDisconnect(@ConnectedSocket() client: AuthenticatedSocket) {
     try {
       const userId = this.socketToUser.get(client.id);
-      
+
       if (userId) {
         // Remove socket from user presence
         this.removeSocketFromPresence(userId, client.id);
-        
+
         // Remove socket-to-user mapping
         this.socketToUser.delete(client.id);
-        
+
         // Check if user still has other active connections
         const userPresence = this.userPresence.get(userId);
         const isStillOnline = userPresence && userPresence.socketIds.size > 0;
-        
+
         if (!isStillOnline && userPresence) {
           // Mark user as offline and emit presence update
           userPresence.status = 'offline';
           userPresence.lastSeen = new Date();
           this.emitPresenceUpdate(userId, 'offline');
         }
-        
+
         this.logger.log(`User ${userId} disconnected - Socket: ${client.id}`);
       } else {
         this.logger.log(`Unknown socket disconnected: ${client.id}`);
@@ -226,7 +229,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     try {
       this.updateUserPresence(client.userId, client.id, data.status);
       this.emitPresenceUpdate(client.userId, data.status);
-      
+
       this.logger.debug(`User ${client.userId} presence updated to: ${data.status}`);
     } catch (error) {
       this.logger.error(`Presence update error: ${error.message}`);
@@ -244,19 +247,19 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       // Validate room access (implement your own logic here)
       if (this.canJoinRoom(client.userId, data.room)) {
         await client.join(data.room);
-        
+
         client.emit('room:joined', {
           room: data.room,
           timestamp: new Date().toISOString(),
         });
-        
+
         // Notify other room members
         client.to(data.room).emit('user:joined', {
           userId: client.userId,
           room: data.room,
           timestamp: new Date().toISOString(),
         });
-        
+
         this.logger.debug(`User ${client.userId} joined room: ${data.room}`);
       } else {
         client.emit('error', {
@@ -278,19 +281,19 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
     try {
       await client.leave(data.room);
-      
+
       client.emit('room:left', {
         room: data.room,
         timestamp: new Date().toISOString(),
       });
-      
+
       // Notify other room members
       client.to(data.room).emit('user:left', {
         userId: client.userId,
         room: data.room,
         timestamp: new Date().toISOString(),
       });
-      
+
       this.logger.debug(`User ${client.userId} left room: ${data.room}`);
     } catch (error) {
       this.logger.error(`Leave room error: ${error.message}`);
@@ -310,7 +313,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     @MessageBody() data: { workspaceId: string },
   ) {
     if (!client.userId || !data.workspaceId) {
-      this.logger.warn(`Invalid workspace join attempt - userId: ${client.userId}, workspaceId: ${data.workspaceId}`);
+      this.logger.warn(
+        `Invalid workspace join attempt - userId: ${client.userId}, workspaceId: ${data.workspaceId}`,
+      );
       return;
     }
 
@@ -339,7 +344,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         timestamp: new Date().toISOString(),
       });
 
-      this.logger.log(`User ${client.userId} joined workspace ${workspaceId} - Room: ${workspaceUserRoom}`);
+      this.logger.log(
+        `User ${client.userId} joined workspace ${workspaceId} - Room: ${workspaceUserRoom}`,
+      );
     } catch (error) {
       this.logger.error(`Join workspace error: ${error.message}`);
       client.emit('error', {
@@ -368,7 +375,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
       // Remove from workspaceIds array
       if (client.workspaceIds) {
-        client.workspaceIds = client.workspaceIds.filter(id => id !== workspaceId);
+        client.workspaceIds = client.workspaceIds.filter((id) => id !== workspaceId);
       }
       if (client.workspaceId === workspaceId) {
         client.workspaceId = undefined;
@@ -392,12 +399,15 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('video:offer')
   async handleVideoOffer(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { offer: RTCSessionDescriptionInit; to: string; callId: string; fromName?: string },
+    @MessageBody()
+    data: { offer: RTCSessionDescriptionInit; to: string; callId: string; fromName?: string },
   ) {
     if (!client.userId) return;
 
     try {
-      this.logger.log(`📹 [WebRTC] User ${client.userId} sending offer to ${data.to} for call ${data.callId}`);
+      this.logger.log(
+        `📹 [WebRTC] User ${client.userId} sending offer to ${data.to} for call ${data.callId}`,
+      );
 
       // Send offer to the target user with caller info
       this.emitToUser(data.to, 'video:offer', {
@@ -425,7 +435,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     if (!client.userId) return;
 
     try {
-      this.logger.log(`📹 [WebRTC] User ${client.userId} sending answer to ${data.to} for call ${data.callId}`);
+      this.logger.log(
+        `📹 [WebRTC] User ${client.userId} sending answer to ${data.to} for call ${data.callId}`,
+      );
 
       // Send answer to the target user
       this.emitToUser(data.to, 'video:answer', {
@@ -538,7 +550,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     if (!client.userId) return;
 
     try {
-      this.logger.debug(`🎤 [WebRTC] User ${client.userId} audio ${data.enabled ? 'enabled' : 'muted'}`);
+      this.logger.debug(
+        `🎤 [WebRTC] User ${client.userId} audio ${data.enabled ? 'enabled' : 'muted'}`,
+      );
 
       // Notify other participants
       client.to(data.roomName).emit('video:audio-toggled', {
@@ -559,7 +573,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     if (!client.userId) return;
 
     try {
-      this.logger.debug(`📹 [WebRTC] User ${client.userId} video ${data.enabled ? 'enabled' : 'disabled'}`);
+      this.logger.debug(
+        `📹 [WebRTC] User ${client.userId} video ${data.enabled ? 'enabled' : 'disabled'}`,
+      );
 
       // Notify other participants
       client.to(data.roomName).emit('video:video-toggled', {
@@ -635,7 +651,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   // Emit to multiple users
   emitToUsers(userIds: string[], event: string, data: any): boolean {
     try {
-      userIds.forEach(userId => {
+      userIds.forEach((userId) => {
         this.emitToUser(userId, event, data);
       });
       return true;
@@ -663,11 +679,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   broadcast(event: string, data: any, excludeUserId?: string): boolean {
     try {
       let emitter = this.server.to('authenticated');
-      
+
       if (excludeUserId) {
         emitter = emitter.except(`user:${excludeUserId}`);
       }
-      
+
       emitter.emit(event, {
         ...data,
         timestamp: new Date().toISOString(),
@@ -730,10 +746,12 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
       // Check if anyone is in this room
       const socketsInRoom = this.server.in(room).allSockets();
-      socketsInRoom.then(sockets => {
+      socketsInRoom.then((sockets) => {
         this.logger.log(`📡 [AppGateway] Room ${room} has ${sockets.size} socket(s)`);
         if (sockets.size === 0) {
-          this.logger.warn(`⚠️ [AppGateway] No sockets in room ${room} - user may not be connected`);
+          this.logger.warn(
+            `⚠️ [AppGateway] No sockets in room ${room} - user may not be connected`,
+          );
         }
       });
 
@@ -744,7 +762,9 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       this.logger.log(`✅ [AppGateway] Emitted ${event} to room: ${room}`);
       return true;
     } catch (error) {
-      this.logger.error(`❌ [AppGateway] Failed to emit to workspace user ${workspaceId}:${userId}: ${error.message}`);
+      this.logger.error(
+        `❌ [AppGateway] Failed to emit to workspace user ${workspaceId}:${userId}: ${error.message}`,
+      );
       return false;
     }
   }
@@ -752,8 +772,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   // Emit to multiple workspace users (for conversation/channel participants)
   emitToWorkspaceUsers(workspaceId: string, userIds: string[], event: string, data: any): boolean {
     try {
-      this.logger.log(`📡 [AppGateway] Emitting ${event} to ${userIds.length} users in workspace ${workspaceId}`);
-      userIds.forEach(userId => {
+      this.logger.log(
+        `📡 [AppGateway] Emitting ${event} to ${userIds.length} users in workspace ${workspaceId}`,
+      );
+      userIds.forEach((userId) => {
         this.emitToWorkspaceUser(workspaceId, userId, event, data);
       });
       return true;
@@ -769,11 +791,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
 
   private extractTokenFromSocket(client: Socket): string | null {
     // Try multiple sources for the token
-    const token = 
-      client.handshake.auth?.token || 
+    const token =
+      client.handshake.auth?.token ||
       client.handshake.headers?.authorization?.replace('Bearer ', '') ||
       client.handshake.query?.token;
-      
+
     return typeof token === 'string' ? token : null;
   }
 
@@ -813,9 +835,13 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
   }
 
-  private updateUserPresence(userId: string, socketId: string, status: 'online' | 'away' | 'busy' | 'offline'): void {
+  private updateUserPresence(
+    userId: string,
+    socketId: string,
+    status: 'online' | 'away' | 'busy' | 'offline',
+  ): void {
     let presence = this.userPresence.get(userId);
-    
+
     if (!presence) {
       presence = {
         userId,
@@ -843,10 +869,14 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   }
 
   private emitPresenceUpdate(userId: string, status: string): void {
-    this.broadcast('presence:updated', {
+    this.broadcast(
+      'presence:updated',
+      {
+        userId,
+        status,
+      },
       userId,
-      status,
-    }, userId);
+    );
   }
 
   private canJoinRoom(userId: string, room: string): boolean {
@@ -859,11 +889,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     // - Channel rooms (channel:channelId)
     // - Common rooms (general, notifications)
 
-    const allowedRooms = [
-      `user:${userId}`,
-      'general',
-      'notifications',
-    ];
+    const allowedRooms = [`user:${userId}`, 'general', 'notifications'];
 
     // Check if room matches allowed rooms
     if (allowedRooms.includes(room)) {
@@ -903,10 +929,10 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   private cleanupStalePresence(): void {
     const now = new Date();
     const staleThreshold = 5 * 60 * 1000; // 5 minutes
-    
+
     for (const [userId, presence] of this.userPresence.entries()) {
       const timeSinceLastSeen = now.getTime() - presence.lastSeen.getTime();
-      
+
       if (timeSinceLastSeen > staleThreshold && presence.socketIds.size === 0) {
         this.userPresence.delete(userId);
         this.logger.debug(`Cleaned up stale presence for user: ${userId}`);
@@ -917,12 +943,12 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   private checkConnectionRateLimit(clientIP: string): boolean {
     const now = Date.now();
     const attempts = this.connectionAttempts.get(clientIP) || 0;
-    
+
     // Reset attempts every minute
     setTimeout(() => {
       this.connectionAttempts.delete(clientIP);
     }, 60000);
-    
+
     if (attempts >= this.MAX_CONNECTION_ATTEMPTS) {
       // Block IP temporarily
       this.blockedIPs.add(clientIP);
@@ -930,11 +956,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         this.blockedIPs.delete(clientIP);
         this.logger.log(`Unblocked IP: ${clientIP}`);
       }, this.BLOCK_DURATION_MS);
-      
+
       this.logger.warn(`Blocked IP due to excessive connection attempts: ${clientIP}`);
       return false;
     }
-    
+
     // Count current connections from this IP
     let connectionsFromIP = 0;
 
@@ -952,7 +978,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         return false;
       }
     }
-    
+
     // Increment connection attempts
     this.connectionAttempts.set(clientIP, attempts + 1);
     return true;
@@ -965,7 +991,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('typing_start')
   handleTypingStart(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId?: string; conversationId?: string }
+    @MessageBody() data: { channelId?: string; conversationId?: string },
   ) {
     if (!client.userId) {
       this.logger.warn('typing_start received but no userId on socket');
@@ -975,8 +1001,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     const room = data.channelId
       ? `channel:${data.channelId}`
       : data.conversationId
-      ? `conversation:${data.conversationId}`
-      : null;
+        ? `conversation:${data.conversationId}`
+        : null;
 
     this.logger.log(`⌨️ User ${client.userId} started typing in room: ${room}`);
 
@@ -996,7 +1022,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('typing_stop')
   handleTypingStop(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId?: string; conversationId?: string }
+    @MessageBody() data: { channelId?: string; conversationId?: string },
   ) {
     if (!client.userId) {
       this.logger.warn('typing_stop received but no userId on socket');
@@ -1006,8 +1032,8 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     const room = data.channelId
       ? `channel:${data.channelId}`
       : data.conversationId
-      ? `conversation:${data.conversationId}`
-      : null;
+        ? `conversation:${data.conversationId}`
+        : null;
 
     this.logger.log(`⌨️ User ${client.userId} stopped typing in room: ${room}`);
 
@@ -1027,7 +1053,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('add_reaction')
   async handleAddReaction(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { messageId: string; emoji: string }
+    @MessageBody() data: { messageId: string; emoji: string },
   ) {
     if (!client.userId) {
       this.logger.warn('add_reaction received but no userId on socket');
@@ -1035,13 +1061,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
 
     try {
-      this.logger.log(`👍 User ${client.userId} toggling reaction ${data.emoji} on message ${data.messageId}`);
-
-      const result = await this.chatService.addReaction(
-        data.messageId,
-        data.emoji,
-        client.userId
+      this.logger.log(
+        `👍 User ${client.userId} toggling reaction ${data.emoji} on message ${data.messageId}`,
       );
+
+      const result = await this.chatService.addReaction(data.messageId, data.emoji, client.userId);
 
       // Broadcast appropriate event based on whether reaction was added or removed (toggle)
       if (result.removed) {
@@ -1062,7 +1086,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
         });
         this.logger.log(`✅ Reaction added successfully`);
       }
-
     } catch (error) {
       this.logger.error(`❌ Failed to toggle reaction: ${error.message}`);
       client.emit('error', { message: 'Failed to toggle reaction' });
@@ -1072,7 +1095,7 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
   @SubscribeMessage('remove_reaction')
   async handleRemoveReaction(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { messageId: string; emoji: string }
+    @MessageBody() data: { messageId: string; emoji: string },
   ) {
     if (!client.userId) {
       this.logger.warn('remove_reaction received but no userId on socket');
@@ -1080,13 +1103,11 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
     }
 
     try {
-      this.logger.log(`👎 User ${client.userId} removing reaction ${data.emoji} from message ${data.messageId}`);
-
-      await this.chatService.removeReaction(
-        data.messageId,
-        data.emoji,
-        client.userId
+      this.logger.log(
+        `👎 User ${client.userId} removing reaction ${data.emoji} from message ${data.messageId}`,
       );
+
+      await this.chatService.removeReaction(data.messageId, data.emoji, client.userId);
 
       // Broadcast reaction removal to workspace
       this.server.to(`workspace:${client.workspaceId}`).emit('reaction_removed', {
@@ -1096,7 +1117,6 @@ export class AppGateway implements OnGatewayInit, OnGatewayConnection, OnGateway
       });
 
       this.logger.log(`✅ Reaction removed successfully`);
-
     } catch (error) {
       this.logger.error(`❌ Failed to remove reaction: ${error.message}`);
       client.emit('error', { message: 'Failed to remove reaction' });

@@ -27,10 +27,10 @@ export class RoleGuard implements CanActivate {
     }
 
     const hasRole = this.checkRoleHierarchy(workspace.membershipRole, requiredRoles);
-    
+
     if (!hasRole) {
       throw new ForbiddenException(
-        `Access denied: Required role(s): ${requiredRoles.join(', ')}, current role: ${workspace.membershipRole}`
+        `Access denied: Required role(s): ${requiredRoles.join(', ')}, current role: ${workspace.membershipRole}`,
       );
     }
 
@@ -46,7 +46,7 @@ export class RoleGuard implements CanActivate {
     };
 
     const userRoleLevel = roleHierarchy[userRole as WorkspaceRole] || 0;
-    const requiredLevel = Math.min(...requiredRoles.map(role => roleHierarchy[role] || 0));
+    const requiredLevel = Math.min(...requiredRoles.map((role) => roleHierarchy[role] || 0));
 
     return userRoleLevel >= requiredLevel;
   }

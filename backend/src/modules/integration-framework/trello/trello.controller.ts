@@ -25,10 +25,7 @@ export class TrelloController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get Trello OAuth authorization URL' })
-  getAuthUrl(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: AuthenticatedRequest,
-  ) {
+  getAuthUrl(@Param('workspaceId') workspaceId: string, @Req() req: AuthenticatedRequest) {
     const userId = req.user.sub || req.user.userId;
     return this.trelloOAuthService.getAuthorizationUrl(userId, workspaceId);
   }

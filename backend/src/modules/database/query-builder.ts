@@ -60,12 +60,24 @@ export class QueryBuilder {
   }
 
   // Comparison aliases used by some callers
-  gte(column: string, value: any): this { return this.where(column, '>=', value); }
-  lte(column: string, value: any): this { return this.where(column, '<=', value); }
-  gt(column: string, value: any): this { return this.where(column, '>', value); }
-  lt(column: string, value: any): this { return this.where(column, '<', value); }
-  eq(column: string, value: any): this { return this.where(column, '=', value); }
-  neq(column: string, value: any): this { return this.where(column, '!=', value); }
+  gte(column: string, value: any): this {
+    return this.where(column, '>=', value);
+  }
+  lte(column: string, value: any): this {
+    return this.where(column, '<=', value);
+  }
+  gt(column: string, value: any): this {
+    return this.where(column, '>', value);
+  }
+  lt(column: string, value: any): this {
+    return this.where(column, '<', value);
+  }
+  eq(column: string, value: any): this {
+    return this.where(column, '=', value);
+  }
+  neq(column: string, value: any): this {
+    return this.where(column, '!=', value);
+  }
 
   // Alias for whereIn
   in(column: string, values: any[]): this {
@@ -267,7 +279,8 @@ export class QueryBuilder {
           return clause.replace(/\$(\d+)/g, (_, num) => `$${parseInt(num) + keys.length}`);
         });
 
-        const whereReindexed = reindexedWhere.length > 0 ? ` WHERE ${reindexedWhere.join(' AND ')}` : '';
+        const whereReindexed =
+          reindexedWhere.length > 0 ? ` WHERE ${reindexedWhere.join(' AND ')}` : '';
         const ret = this._returning ? ` RETURNING ${this._returning}` : ' RETURNING *';
         const sql = `UPDATE "${this._table}" SET ${setClauses.join(', ')}${whereReindexed}${ret}`;
         return { sql, params: [...setValues, ...this._whereValues] };

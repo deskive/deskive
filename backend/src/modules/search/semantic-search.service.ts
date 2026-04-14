@@ -62,7 +62,6 @@ export class SemanticSearchService implements OnModuleInit {
     return this.db.getAI();
   }
 
-
   async onModuleInit() {
     await this.ensureCollection();
     await this.testEmbeddingsAPI();
@@ -181,9 +180,7 @@ export class SemanticSearchService implements OnModuleInit {
         },
       ]);
 
-      this.logger.debug(
-        `[SemanticSearch] Indexed ${options.content_type}: ${options.content_id}`,
-      );
+      this.logger.debug(`[SemanticSearch] Indexed ${options.content_type}: ${options.content_id}`);
       return vectorId;
     } catch (error) {
       this.logger.error(`[SemanticSearch] Failed to index content:`, error);
@@ -205,7 +202,10 @@ export class SemanticSearchService implements OnModuleInit {
         ],
       };
 
-      await /* TODO: use QdrantService */ this.db.deleteVectorsByFilter(this.collectionName, filter);
+      await /* TODO: use QdrantService */ this.db.deleteVectorsByFilter(
+        this.collectionName,
+        filter,
+      );
       this.logger.debug(`[SemanticSearch] Removed ${contentType}: ${contentId}`);
       return true;
     } catch (error) {
@@ -234,23 +234,14 @@ export class SemanticSearchService implements OnModuleInit {
       return [];
     }
 
-    const {
-      contentTypes,
-      limit = 20,
-      minScore = 0.5,
-      userId,
-      channelId,
-      projectId,
-    } = options;
+    const { contentTypes, limit = 20, minScore = 0.5, userId, channelId, projectId } = options;
 
     try {
       // Generate embedding for search query
       const queryEmbedding = await this.generateEmbedding(query);
 
       // Build filter
-      const mustConditions: any[] = [
-        { key: 'workspace_id', match: { value: workspaceId } },
-      ];
+      const mustConditions: any[] = [{ key: 'workspace_id', match: { value: workspaceId } }];
 
       if (contentTypes && contentTypes.length > 0) {
         mustConditions.push({
@@ -339,11 +330,14 @@ export class SemanticSearchService implements OnModuleInit {
         ],
       };
 
-      const existing = await /* TODO: use QdrantService */ this.db.scrollVectors(this.collectionName, {
-        filter,
-        limit: 1,
-        with_payload: true,
-      });
+      const existing = await /* TODO: use QdrantService */ this.db.scrollVectors(
+        this.collectionName,
+        {
+          filter,
+          limit: 1,
+          with_payload: true,
+        },
+      );
 
       const points = existing?.points || existing || [];
       if (!Array.isArray(points) || points.length === 0) {
@@ -423,9 +417,7 @@ export class SemanticSearchService implements OnModuleInit {
       const promises = batch.map((item) => this.indexContent(item));
       const results = await Promise.allSettled(promises);
 
-      indexed += results.filter(
-        (r) => r.status === 'fulfilled' && r.value !== '',
-      ).length;
+      indexed += results.filter((r) => r.status === 'fulfilled' && r.value !== '').length;
 
       // Small delay between batches
       if (i + batchSize < items.length) {
@@ -454,11 +446,14 @@ export class SemanticSearchService implements OnModuleInit {
       };
 
       // Get count by scrolling (Qdrant doesn't have native count with filter)
-      const results = await /* TODO: use QdrantService */ this.db.scrollVectors(this.collectionName, {
-        filter,
-        limit: 10000,
-        with_payload: true,
-      });
+      const results = await /* TODO: use QdrantService */ this.db.scrollVectors(
+        this.collectionName,
+        {
+          filter,
+          limit: 10000,
+          with_payload: true,
+        },
+      );
 
       const points = results?.points || results || [];
       const byType: Record<string, number> = {};

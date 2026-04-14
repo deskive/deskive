@@ -85,9 +85,7 @@ describe('TwitterOAuthService', () => {
         refresh_token: 'test-refresh-token',
       };
 
-      nock('https://api.twitter.com')
-        .post('/2/oauth2/token')
-        .reply(200, mockResponse);
+      nock('https://api.twitter.com').post('/2/oauth2/token').reply(200, mockResponse);
 
       const tokens = await service.exchangeCodeForTokens('test-code', state);
 
@@ -97,9 +95,9 @@ describe('TwitterOAuthService', () => {
     });
 
     it('should throw error when code verifier not found', async () => {
-      await expect(
-        service.exchangeCodeForTokens('test-code', 'unknown-state'),
-      ).rejects.toThrow('Code verifier not found');
+      await expect(service.exchangeCodeForTokens('test-code', 'unknown-state')).rejects.toThrow(
+        'Code verifier not found',
+      );
     });
   });
 
@@ -113,9 +111,7 @@ describe('TwitterOAuthService', () => {
         refresh_token: 'new-refresh-token',
       };
 
-      nock('https://api.twitter.com')
-        .post('/2/oauth2/token')
-        .reply(200, mockResponse);
+      nock('https://api.twitter.com').post('/2/oauth2/token').reply(200, mockResponse);
 
       const tokens = await service.refreshAccessToken('old-refresh-token');
 
@@ -150,10 +146,7 @@ describe('TwitterOAuthService', () => {
         },
       };
 
-      nock('https://api.twitter.com')
-        .get('/2/users/me')
-        .query(true)
-        .reply(200, mockUser);
+      nock('https://api.twitter.com').get('/2/users/me').query(true).reply(200, mockUser);
 
       const userInfo = await service.getUserInfo('test-token');
 
@@ -175,9 +168,7 @@ describe('TwitterOAuthService', () => {
 
   describe('revokeToken', () => {
     it('should revoke token successfully', async () => {
-      nock('https://api.twitter.com')
-        .post('/2/oauth2/revoke')
-        .reply(200, { revoked: true });
+      nock('https://api.twitter.com').post('/2/oauth2/revoke').reply(200, { revoked: true });
 
       await expect(service.revokeToken('test-token')).resolves.not.toThrow();
     });
@@ -194,7 +185,11 @@ describe('TwitterOAuthService', () => {
 
   describe('generateState / decodeState', () => {
     it('should generate and decode state correctly', () => {
-      const state = service.generateState('workspace-123', 'user-456', 'https://example.com/callback');
+      const state = service.generateState(
+        'workspace-123',
+        'user-456',
+        'https://example.com/callback',
+      );
       const decoded = service.decodeState(state);
 
       expect(decoded.workspaceId).toBe('workspace-123');

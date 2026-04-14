@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const RE_MANAGEMENT_TEMPLATES = [
   {
@@ -20,27 +17,45 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: '{{agreement_date}}', attributes: { bold: true } },
         { insert: ' between:\n\n' },
         { insert: 'OWNER:\n', attributes: { bold: true } },
-        { insert: '{{owner_name}}\n{{owner_address}}\nPhone: {{owner_phone}}\nEmail: {{owner_email}}\n\n' },
+        {
+          insert:
+            '{{owner_name}}\n{{owner_address}}\nPhone: {{owner_phone}}\nEmail: {{owner_email}}\n\n',
+        },
         { insert: 'MANAGER:\n', attributes: { bold: true } },
         { insert: '{{manager_name}}\n{{manager_address}}\nLicense #: {{manager_license}}\n\n' },
         { insert: 'PROPERTY:\n', attributes: { bold: true } },
         { insert: '{{property_address}}\nType: {{property_type}}\nUnits: {{num_units}}\n\n' },
         { insert: '1. TERM\n', attributes: { bold: true } },
-        { insert: 'Start Date: {{start_date}}\nInitial Term: {{initial_term}}\nAuto-Renewal: {{auto_renewal}}\nTermination Notice: {{termination_notice}} days\n\n' },
+        {
+          insert:
+            'Start Date: {{start_date}}\nInitial Term: {{initial_term}}\nAuto-Renewal: {{auto_renewal}}\nTermination Notice: {{termination_notice}} days\n\n',
+        },
         { insert: '2. MANAGEMENT FEE\n', attributes: { bold: true } },
-        { insert: 'Fee Structure: {{fee_structure}}\nManagement Fee: {{management_fee}}\nLeasing Fee: {{leasing_fee}}\nRenewal Fee: {{renewal_fee}}\n\n' },
+        {
+          insert:
+            'Fee Structure: {{fee_structure}}\nManagement Fee: {{management_fee}}\nLeasing Fee: {{leasing_fee}}\nRenewal Fee: {{renewal_fee}}\n\n',
+        },
         { insert: '3. MANAGER DUTIES\n', attributes: { bold: true } },
         { insert: 'Manager shall:\n{{manager_duties}}\n\n' },
         { insert: '4. RENT COLLECTION\n', attributes: { bold: true } },
-        { insert: 'Manager is authorized to collect rent and pursue late fees as outlined in lease agreements.\n{{rent_collection_terms}}\n\n' },
+        {
+          insert:
+            'Manager is authorized to collect rent and pursue late fees as outlined in lease agreements.\n{{rent_collection_terms}}\n\n',
+        },
         { insert: '5. MAINTENANCE AND REPAIRS\n', attributes: { bold: true } },
-        { insert: 'Spending Authority: {{spending_authority}}\nEmergency Spending: {{emergency_spending}}\n{{maintenance_terms}}\n\n' },
+        {
+          insert:
+            'Spending Authority: {{spending_authority}}\nEmergency Spending: {{emergency_spending}}\n{{maintenance_terms}}\n\n',
+        },
         { insert: '6. TENANT SCREENING\n', attributes: { bold: true } },
         { insert: '{{tenant_screening}}\n\n' },
         { insert: '7. OWNER RESPONSIBILITIES\n', attributes: { bold: true } },
         { insert: '{{owner_responsibilities}}\n\n' },
         { insert: '8. INSURANCE\n', attributes: { bold: true } },
-        { insert: 'Owner shall maintain: {{owner_insurance}}\nManager shall maintain: {{manager_insurance}}\n\n' },
+        {
+          insert:
+            'Owner shall maintain: {{owner_insurance}}\nManager shall maintain: {{manager_insurance}}\n\n',
+        },
         { insert: '9. ACCOUNTING AND REPORTS\n', attributes: { bold: true } },
         { insert: '{{reporting_terms}}\n\n' },
         { insert: '10. RESERVE FUND\n', attributes: { bold: true } },
@@ -66,30 +81,96 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'num_units', type: 'number', label: 'Number of Units', required: true },
       { key: 'start_date', type: 'date', label: 'Start Date', required: true },
       { key: 'initial_term', type: 'text', label: 'Initial Term', required: true },
-      { key: 'auto_renewal', type: 'select', label: 'Auto-Renewal', required: true, options: ['Yes', 'No'] },
-      { key: 'termination_notice', type: 'number', label: 'Termination Notice (Days)', required: true },
-      { key: 'fee_structure', type: 'select', label: 'Fee Structure', required: true, options: ['Percentage of Rent', 'Flat Fee', 'Per Unit'] },
+      {
+        key: 'auto_renewal',
+        type: 'select',
+        label: 'Auto-Renewal',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'termination_notice',
+        type: 'number',
+        label: 'Termination Notice (Days)',
+        required: true,
+      },
+      {
+        key: 'fee_structure',
+        type: 'select',
+        label: 'Fee Structure',
+        required: true,
+        options: ['Percentage of Rent', 'Flat Fee', 'Per Unit'],
+      },
       { key: 'management_fee', type: 'text', label: 'Management Fee', required: true },
       { key: 'leasing_fee', type: 'text', label: 'Leasing Fee', required: true },
       { key: 'renewal_fee', type: 'text', label: 'Renewal Fee', required: false },
       { key: 'manager_duties', type: 'textarea', label: 'Manager Duties', required: true },
-      { key: 'rent_collection_terms', type: 'textarea', label: 'Rent Collection Terms', required: true },
+      {
+        key: 'rent_collection_terms',
+        type: 'textarea',
+        label: 'Rent Collection Terms',
+        required: true,
+      },
       { key: 'spending_authority', type: 'currency', label: 'Spending Authority', required: true },
-      { key: 'emergency_spending', type: 'currency', label: 'Emergency Spending Limit', required: true },
+      {
+        key: 'emergency_spending',
+        type: 'currency',
+        label: 'Emergency Spending Limit',
+        required: true,
+      },
       { key: 'maintenance_terms', type: 'textarea', label: 'Maintenance Terms', required: true },
-      { key: 'tenant_screening', type: 'textarea', label: 'Tenant Screening Criteria', required: true },
-      { key: 'owner_responsibilities', type: 'textarea', label: 'Owner Responsibilities', required: true },
-      { key: 'owner_insurance', type: 'text', label: 'Owner Insurance Requirements', required: true },
-      { key: 'manager_insurance', type: 'text', label: 'Manager Insurance Requirements', required: true },
+      {
+        key: 'tenant_screening',
+        type: 'textarea',
+        label: 'Tenant Screening Criteria',
+        required: true,
+      },
+      {
+        key: 'owner_responsibilities',
+        type: 'textarea',
+        label: 'Owner Responsibilities',
+        required: true,
+      },
+      {
+        key: 'owner_insurance',
+        type: 'text',
+        label: 'Owner Insurance Requirements',
+        required: true,
+      },
+      {
+        key: 'manager_insurance',
+        type: 'text',
+        label: 'Manager Insurance Requirements',
+        required: true,
+      },
       { key: 'reporting_terms', type: 'textarea', label: 'Reporting Terms', required: true },
       { key: 'reserve_amount', type: 'currency', label: 'Reserve Fund Amount', required: true },
-      { key: 'indemnification_terms', type: 'textarea', label: 'Indemnification Terms', required: true },
+      {
+        key: 'indemnification_terms',
+        type: 'textarea',
+        label: 'Indemnification Terms',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'owner_signature', label: 'Owner Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'manager_signature', label: 'Manager Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'owner_signature',
+        label: 'Owner Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'manager_signature',
+        label: 'Manager Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Move-In/Move-Out Checklist',
@@ -104,19 +185,40 @@ export const RE_MANAGEMENT_TEMPLATES = [
       ops: [
         { insert: 'MOVE-IN / MOVE-OUT CHECKLIST\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nProperty: {{property_address}}\nTenant: {{tenant_name}}\n\n' },
-        { insert: 'Type: {{inspection_type}}\nDate: {{inspection_date}}\nInspector: {{inspector_name}}\n\n' },
+        {
+          insert:
+            'Type: {{inspection_type}}\nDate: {{inspection_date}}\nInspector: {{inspector_name}}\n\n',
+        },
         { insert: 'LIVING ROOM\n', attributes: { bold: true } },
-        { insert: '[ ] Walls/Ceiling: {{living_walls}}\n[ ] Flooring: {{living_floor}}\n[ ] Windows: {{living_windows}}\n[ ] Doors: {{living_doors}}\n[ ] Light Fixtures: {{living_lights}}\n[ ] Outlets/Switches: {{living_outlets}}\n[ ] Other: {{living_other}}\n\n' },
+        {
+          insert:
+            '[ ] Walls/Ceiling: {{living_walls}}\n[ ] Flooring: {{living_floor}}\n[ ] Windows: {{living_windows}}\n[ ] Doors: {{living_doors}}\n[ ] Light Fixtures: {{living_lights}}\n[ ] Outlets/Switches: {{living_outlets}}\n[ ] Other: {{living_other}}\n\n',
+        },
         { insert: 'KITCHEN\n', attributes: { bold: true } },
-        { insert: '[ ] Walls/Ceiling: {{kitchen_walls}}\n[ ] Flooring: {{kitchen_floor}}\n[ ] Cabinets: {{kitchen_cabinets}}\n[ ] Countertops: {{kitchen_counters}}\n[ ] Sink/Faucet: {{kitchen_sink}}\n[ ] Stove/Oven: {{kitchen_stove}}\n[ ] Refrigerator: {{kitchen_fridge}}\n[ ] Dishwasher: {{kitchen_dishwasher}}\n[ ] Other: {{kitchen_other}}\n\n' },
+        {
+          insert:
+            '[ ] Walls/Ceiling: {{kitchen_walls}}\n[ ] Flooring: {{kitchen_floor}}\n[ ] Cabinets: {{kitchen_cabinets}}\n[ ] Countertops: {{kitchen_counters}}\n[ ] Sink/Faucet: {{kitchen_sink}}\n[ ] Stove/Oven: {{kitchen_stove}}\n[ ] Refrigerator: {{kitchen_fridge}}\n[ ] Dishwasher: {{kitchen_dishwasher}}\n[ ] Other: {{kitchen_other}}\n\n',
+        },
         { insert: 'BATHROOM(S)\n', attributes: { bold: true } },
-        { insert: '[ ] Walls/Ceiling: {{bath_walls}}\n[ ] Flooring: {{bath_floor}}\n[ ] Toilet: {{bath_toilet}}\n[ ] Sink/Vanity: {{bath_sink}}\n[ ] Tub/Shower: {{bath_tub}}\n[ ] Mirror/Cabinet: {{bath_mirror}}\n[ ] Exhaust Fan: {{bath_fan}}\n[ ] Other: {{bath_other}}\n\n' },
+        {
+          insert:
+            '[ ] Walls/Ceiling: {{bath_walls}}\n[ ] Flooring: {{bath_floor}}\n[ ] Toilet: {{bath_toilet}}\n[ ] Sink/Vanity: {{bath_sink}}\n[ ] Tub/Shower: {{bath_tub}}\n[ ] Mirror/Cabinet: {{bath_mirror}}\n[ ] Exhaust Fan: {{bath_fan}}\n[ ] Other: {{bath_other}}\n\n',
+        },
         { insert: 'BEDROOM(S)\n', attributes: { bold: true } },
-        { insert: '[ ] Walls/Ceiling: {{bed_walls}}\n[ ] Flooring: {{bed_floor}}\n[ ] Windows: {{bed_windows}}\n[ ] Closet: {{bed_closet}}\n[ ] Doors: {{bed_doors}}\n[ ] Other: {{bed_other}}\n\n' },
+        {
+          insert:
+            '[ ] Walls/Ceiling: {{bed_walls}}\n[ ] Flooring: {{bed_floor}}\n[ ] Windows: {{bed_windows}}\n[ ] Closet: {{bed_closet}}\n[ ] Doors: {{bed_doors}}\n[ ] Other: {{bed_other}}\n\n',
+        },
         { insert: 'GENERAL\n', attributes: { bold: true } },
-        { insert: '[ ] HVAC: {{hvac}}\n[ ] Water Heater: {{water_heater}}\n[ ] Smoke Detectors: {{smoke_detectors}}\n[ ] CO Detectors: {{co_detectors}}\n[ ] Doors/Locks: {{doors_locks}}\n[ ] Windows/Screens: {{windows_screens}}\n[ ] Blinds/Curtains: {{blinds}}\n\n' },
+        {
+          insert:
+            '[ ] HVAC: {{hvac}}\n[ ] Water Heater: {{water_heater}}\n[ ] Smoke Detectors: {{smoke_detectors}}\n[ ] CO Detectors: {{co_detectors}}\n[ ] Doors/Locks: {{doors_locks}}\n[ ] Windows/Screens: {{windows_screens}}\n[ ] Blinds/Curtains: {{blinds}}\n\n',
+        },
         { insert: 'EXTERIOR (if applicable)\n', attributes: { bold: true } },
-        { insert: '[ ] Yard/Landscaping: {{yard}}\n[ ] Garage: {{garage}}\n[ ] Patio/Deck: {{patio}}\n[ ] Other: {{exterior_other}}\n\n' },
+        {
+          insert:
+            '[ ] Yard/Landscaping: {{yard}}\n[ ] Garage: {{garage}}\n[ ] Patio/Deck: {{patio}}\n[ ] Other: {{exterior_other}}\n\n',
+        },
         { insert: 'KEYS PROVIDED\n', attributes: { bold: true } },
         { insert: '{{keys_provided}}\n\n' },
         { insert: 'METER READINGS\n', attributes: { bold: true } },
@@ -131,7 +233,13 @@ export const RE_MANAGEMENT_TEMPLATES = [
     placeholders: [
       { key: 'property_address', type: 'text', label: 'Property Address', required: true },
       { key: 'tenant_name', type: 'text', label: 'Tenant Name', required: true },
-      { key: 'inspection_type', type: 'select', label: 'Inspection Type', required: true, options: ['Move-In', 'Move-Out'] },
+      {
+        key: 'inspection_type',
+        type: 'select',
+        label: 'Inspection Type',
+        required: true,
+        options: ['Move-In', 'Move-Out'],
+      },
       { key: 'inspection_date', type: 'date', label: 'Inspection Date', required: true },
       { key: 'inspector_name', type: 'text', label: 'Inspector Name', required: true },
       { key: 'living_walls', type: 'text', label: 'Living Room - Walls', required: false },
@@ -179,13 +287,32 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'electric_meter', type: 'text', label: 'Electric Meter', required: false },
       { key: 'gas_meter', type: 'text', label: 'Gas Meter', required: false },
       { key: 'water_meter', type: 'text', label: 'Water Meter', required: false },
-      { key: 'additional_comments', type: 'textarea', label: 'Additional Comments', required: false },
+      {
+        key: 'additional_comments',
+        type: 'textarea',
+        label: 'Additional Comments',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord/Agent Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord/Agent Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Eviction Notice',
@@ -204,28 +331,55 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: 'TO: {{tenant_name}}\nAND ALL OTHER OCCUPANTS\n\n' },
         { insert: 'Property Address:\n{{property_address}}\n\n' },
         { insert: 'FROM: {{landlord_name}}\n\n' },
-        { insert: 'NOTICE IS HEREBY GIVEN that you are required to vacate the above premises within ' },
+        {
+          insert:
+            'NOTICE IS HEREBY GIVEN that you are required to vacate the above premises within ',
+        },
         { insert: '{{notice_days}}', attributes: { bold: true } },
         { insert: ' days from the date of service of this notice.\n\n' },
         { insert: 'REASON FOR NOTICE:\n', attributes: { bold: true } },
         { insert: '{{eviction_reason}}\n\n' },
         { insert: 'AMOUNT OWED (if applicable):\n', attributes: { bold: true } },
-        { insert: 'Rent Due: {{rent_due}}\nLate Fees: {{late_fees}}\nOther Charges: {{other_charges}}\nTotal Due: {{total_due}}\n\n' },
+        {
+          insert:
+            'Rent Due: {{rent_due}}\nLate Fees: {{late_fees}}\nOther Charges: {{other_charges}}\nTotal Due: {{total_due}}\n\n',
+        },
         { insert: 'CURE OPTION (if applicable):\n', attributes: { bold: true } },
         { insert: '{{cure_option}}\n\n' },
         { insert: 'LEGAL CONSEQUENCES:\n', attributes: { bold: true } },
-        { insert: 'If you fail to vacate by the date specified, legal proceedings may be initiated to recover possession of the premises, and you may be held liable for:\n' },
-        { insert: '- Court costs and attorney fees\n- Past due rent and damages\n- Any other applicable fees\n\n' },
+        {
+          insert:
+            'If you fail to vacate by the date specified, legal proceedings may be initiated to recover possession of the premises, and you may be held liable for:\n',
+        },
+        {
+          insert:
+            '- Court costs and attorney fees\n- Past due rent and damages\n- Any other applicable fees\n\n',
+        },
         { insert: 'This notice is given pursuant to {{legal_reference}}.\n\n' },
         { insert: 'LANDLORD/AGENT:\n', attributes: { bold: true } },
         { insert: '{{landlord_name}}\n{{landlord_address}}\n{{landlord_phone}}\n\n' },
         { insert: 'Signature: _________________________\nDate: {{notice_date}}\n\n' },
         { insert: 'PROOF OF SERVICE\n', attributes: { bold: true } },
-        { insert: 'Method of Service: {{service_method}}\nDate Served: {{service_date}}\nServed By: {{served_by}}\n' },
+        {
+          insert:
+            'Method of Service: {{service_method}}\nDate Served: {{service_date}}\nServed By: {{served_by}}\n',
+        },
       ],
     },
     placeholders: [
-      { key: 'notice_type', type: 'select', label: 'Notice Type', required: true, options: ['Pay or Quit', 'Cure or Quit', 'Unconditional Quit', '30-Day Notice', '60-Day Notice'] },
+      {
+        key: 'notice_type',
+        type: 'select',
+        label: 'Notice Type',
+        required: true,
+        options: [
+          'Pay or Quit',
+          'Cure or Quit',
+          'Unconditional Quit',
+          '30-Day Notice',
+          '60-Day Notice',
+        ],
+      },
       { key: 'notice_date', type: 'date', label: 'Notice Date', required: true },
       { key: 'tenant_name', type: 'text', label: 'Tenant Name', required: true },
       { key: 'property_address', type: 'text', label: 'Property Address', required: true },
@@ -240,14 +394,29 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'legal_reference', type: 'text', label: 'Legal Reference', required: true },
       { key: 'landlord_address', type: 'text', label: 'Landlord Address', required: true },
       { key: 'landlord_phone', type: 'text', label: 'Landlord Phone', required: true },
-      { key: 'service_method', type: 'select', label: 'Service Method', required: true, options: ['Personal Service', 'Posting', 'Certified Mail', 'Regular Mail'] },
+      {
+        key: 'service_method',
+        type: 'select',
+        label: 'Service Method',
+        required: true,
+        options: ['Personal Service', 'Posting', 'Certified Mail', 'Regular Mail'],
+      },
       { key: 'service_date', type: 'date', label: 'Date Served', required: true },
       { key: 'served_by', type: 'text', label: 'Served By', required: true },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 650 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 650 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Lease Termination Notice',
@@ -266,9 +435,15 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: 'FROM: {{sender_name}}\n{{sender_address}}\n\n' },
         { insert: 'RE: NOTICE OF LEASE TERMINATION\n', attributes: { bold: true } },
         { insert: 'Property: {{property_address}}\nLease Date: {{original_lease_date}}\n\n' },
-        { insert: 'This letter serves as formal notice that the lease agreement for the above-referenced property will be terminated.\n\n' },
+        {
+          insert:
+            'This letter serves as formal notice that the lease agreement for the above-referenced property will be terminated.\n\n',
+        },
         { insert: 'TERMINATION DETAILS:\n', attributes: { bold: true } },
-        { insert: 'Last Day of Tenancy: {{termination_date}}\nNotice Period: {{notice_period}} days\nReason: {{termination_reason}}\n\n' },
+        {
+          insert:
+            'Last Day of Tenancy: {{termination_date}}\nNotice Period: {{notice_period}} days\nReason: {{termination_reason}}\n\n',
+        },
         { insert: 'MOVE-OUT REQUIREMENTS:\n', attributes: { bold: true } },
         { insert: '{{move_out_requirements}}\n\n' },
         { insert: 'KEY RETURN:\n', attributes: { bold: true } },
@@ -278,7 +453,10 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: 'FINAL INSPECTION:\n', attributes: { bold: true } },
         { insert: 'Date/Time: {{inspection_datetime}}\n\n' },
         { insert: 'FORWARDING ADDRESS:\n', attributes: { bold: true } },
-        { insert: 'Please provide your forwarding address for security deposit return and final correspondence.\n\n' },
+        {
+          insert:
+            'Please provide your forwarding address for security deposit return and final correspondence.\n\n',
+        },
         { insert: 'For questions, contact: {{contact_info}}\n\n' },
         { insert: 'Signature: _________________________\n' },
         { insert: 'Print Name: {{sender_name}}\nDate: {{notice_date}}\n' },
@@ -295,16 +473,45 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'termination_date', type: 'date', label: 'Termination Date', required: true },
       { key: 'notice_period', type: 'number', label: 'Notice Period (Days)', required: true },
       { key: 'termination_reason', type: 'textarea', label: 'Termination Reason', required: false },
-      { key: 'move_out_requirements', type: 'textarea', label: 'Move-Out Requirements', required: true },
-      { key: 'key_return_instructions', type: 'textarea', label: 'Key Return Instructions', required: true },
-      { key: 'security_deposit_terms', type: 'textarea', label: 'Security Deposit Terms', required: true },
-      { key: 'inspection_datetime', type: 'text', label: 'Final Inspection Date/Time', required: false },
+      {
+        key: 'move_out_requirements',
+        type: 'textarea',
+        label: 'Move-Out Requirements',
+        required: true,
+      },
+      {
+        key: 'key_return_instructions',
+        type: 'textarea',
+        label: 'Key Return Instructions',
+        required: true,
+      },
+      {
+        key: 'security_deposit_terms',
+        type: 'textarea',
+        label: 'Security Deposit Terms',
+        required: true,
+      },
+      {
+        key: 'inspection_datetime',
+        type: 'text',
+        label: 'Final Inspection Date/Time',
+        required: false,
+      },
       { key: 'contact_info', type: 'text', label: 'Contact Information', required: true },
     ],
     signatureFields: [
-      { id: 'sender_signature', label: 'Sender Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'sender_signature',
+        label: 'Sender Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Rent Increase Notice',
@@ -321,15 +528,24 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: '\nDate: {{notice_date}}\n\n' },
         { insert: 'Dear {{tenant_name}},\n\n' },
         { insert: 'Property Address: {{property_address}}\n\n' },
-        { insert: 'This letter serves as official notice that your monthly rent will be increased.\n\n' },
+        {
+          insert:
+            'This letter serves as official notice that your monthly rent will be increased.\n\n',
+        },
         { insert: 'RENT CHANGE DETAILS:\n', attributes: { bold: true } },
-        { insert: 'Current Rent: {{current_rent}}\nNew Rent: {{new_rent}}\nIncrease Amount: {{increase_amount}}\nPercentage Increase: {{increase_percentage}}%\n\n' },
+        {
+          insert:
+            'Current Rent: {{current_rent}}\nNew Rent: {{new_rent}}\nIncrease Amount: {{increase_amount}}\nPercentage Increase: {{increase_percentage}}%\n\n',
+        },
         { insert: 'EFFECTIVE DATE:\n', attributes: { bold: true } },
         { insert: '{{effective_date}}\n\n' },
         { insert: 'REASON FOR INCREASE:\n', attributes: { bold: true } },
         { insert: '{{increase_reason}}\n\n' },
         { insert: 'All other terms of your lease remain unchanged.\n\n' },
-        { insert: 'If you have any questions or concerns, please contact us at:\n{{contact_info}}\n\n' },
+        {
+          insert:
+            'If you have any questions or concerns, please contact us at:\n{{contact_info}}\n\n',
+        },
         { insert: 'Thank you for your continued tenancy.\n\n' },
         { insert: 'Sincerely,\n\n{{landlord_name}}\n' },
       ],
@@ -348,7 +564,11 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'landlord_name', type: 'text', label: 'Landlord Name', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Security Deposit Return Letter',
@@ -379,7 +599,10 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: '{{itemized_explanation}}\n\n' },
         { insert: 'DOCUMENTATION:\n', attributes: { bold: true } },
         { insert: 'Attached: {{attached_documents}}\n\n' },
-        { insert: 'If you have questions about these deductions, please contact us within {{dispute_days}} days.\n\n' },
+        {
+          insert:
+            'If you have questions about these deductions, please contact us within {{dispute_days}} days.\n\n',
+        },
         { insert: 'Sincerely,\n\n{{landlord_name}}\n{{landlord_phone}}\n{{landlord_email}}\n' },
       ],
     },
@@ -396,14 +619,23 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'total_deductions', type: 'currency', label: 'Total Deductions', required: true },
       { key: 'refund_amount', type: 'currency', label: 'Refund Amount', required: false },
       { key: 'amount_owed', type: 'currency', label: 'Amount Owed by Tenant', required: false },
-      { key: 'itemized_explanation', type: 'textarea', label: 'Itemized Explanation', required: true },
+      {
+        key: 'itemized_explanation',
+        type: 'textarea',
+        label: 'Itemized Explanation',
+        required: true,
+      },
       { key: 'attached_documents', type: 'textarea', label: 'Attached Documents', required: false },
       { key: 'dispute_days', type: 'number', label: 'Days to Dispute', required: true },
       { key: 'landlord_phone', type: 'text', label: 'Landlord Phone', required: true },
       { key: 'landlord_email', type: 'email', label: 'Landlord Email', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Property Disclosure Statement',
@@ -416,26 +648,53 @@ export const RE_MANAGEMENT_TEMPLATES = [
     isFeatured: false,
     content: {
       ops: [
-        { insert: 'SELLER\'S PROPERTY DISCLOSURE STATEMENT\n', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: "SELLER'S PROPERTY DISCLOSURE STATEMENT\n",
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '\nProperty Address: {{property_address}}\nDate: {{disclosure_date}}\n\n' },
         { insert: 'Seller(s): {{seller_name}}\n\n' },
-        { insert: 'INSTRUCTIONS: Seller must disclose all known material facts about the property.\n\n' },
+        {
+          insert:
+            'INSTRUCTIONS: Seller must disclose all known material facts about the property.\n\n',
+        },
         { insert: 'GENERAL INFORMATION\n', attributes: { bold: true } },
-        { insert: 'Year Built: {{year_built}}\nOwnership Period: {{ownership_period}}\nOccupied By: {{occupied_by}}\n\n' },
+        {
+          insert:
+            'Year Built: {{year_built}}\nOwnership Period: {{ownership_period}}\nOccupied By: {{occupied_by}}\n\n',
+        },
         { insert: 'STRUCTURAL\n', attributes: { bold: true } },
-        { insert: 'Foundation Problems: {{foundation_problems}}\nRoof Issues: {{roof_issues}}\nRoof Age: {{roof_age}}\nWater Intrusion: {{water_intrusion}}\nTermite/Pest Issues: {{pest_issues}}\n\n' },
+        {
+          insert:
+            'Foundation Problems: {{foundation_problems}}\nRoof Issues: {{roof_issues}}\nRoof Age: {{roof_age}}\nWater Intrusion: {{water_intrusion}}\nTermite/Pest Issues: {{pest_issues}}\n\n',
+        },
         { insert: 'SYSTEMS\n', attributes: { bold: true } },
-        { insert: 'HVAC: {{hvac_condition}}\nPlumbing: {{plumbing_condition}}\nElectrical: {{electrical_condition}}\nWater Heater Age: {{water_heater_age}}\n\n' },
+        {
+          insert:
+            'HVAC: {{hvac_condition}}\nPlumbing: {{plumbing_condition}}\nElectrical: {{electrical_condition}}\nWater Heater Age: {{water_heater_age}}\n\n',
+        },
         { insert: 'WATER AND SEWER\n', attributes: { bold: true } },
-        { insert: 'Water Source: {{water_source}}\nSewer/Septic: {{sewer_type}}\nSeptic Last Pumped: {{septic_pumped}}\nWell Test Date: {{well_test}}\n\n' },
+        {
+          insert:
+            'Water Source: {{water_source}}\nSewer/Septic: {{sewer_type}}\nSeptic Last Pumped: {{septic_pumped}}\nWell Test Date: {{well_test}}\n\n',
+        },
         { insert: 'ENVIRONMENTAL\n', attributes: { bold: true } },
-        { insert: 'Lead Paint: {{lead_paint}}\nAsbestos: {{asbestos}}\nMold: {{mold}}\nRadon: {{radon}}\nFlood Zone: {{flood_zone}}\n\n' },
+        {
+          insert:
+            'Lead Paint: {{lead_paint}}\nAsbestos: {{asbestos}}\nMold: {{mold}}\nRadon: {{radon}}\nFlood Zone: {{flood_zone}}\n\n',
+        },
         { insert: 'LEGAL\n', attributes: { bold: true } },
-        { insert: 'HOA: {{hoa}}\nEasements: {{easements}}\nZoning Violations: {{zoning_violations}}\nPending Litigation: {{litigation}}\nDeath on Property: {{death_on_property}}\n\n' },
+        {
+          insert:
+            'HOA: {{hoa}}\nEasements: {{easements}}\nZoning Violations: {{zoning_violations}}\nPending Litigation: {{litigation}}\nDeath on Property: {{death_on_property}}\n\n',
+        },
         { insert: 'ADDITIONAL DISCLOSURES\n', attributes: { bold: true } },
         { insert: '{{additional_disclosures}}\n\n' },
         { insert: 'SELLER CERTIFICATION\n', attributes: { bold: true } },
-        { insert: 'I certify that the above information is true and complete to the best of my knowledge.\n\n' },
+        {
+          insert:
+            'I certify that the above information is true and complete to the best of my knowledge.\n\n',
+        },
         { insert: 'SELLER: _________________________ Date: _____________\n' },
         { insert: 'SELLER: _________________________ Date: _____________\n\n' },
         { insert: 'BUYER ACKNOWLEDGMENT\n', attributes: { bold: true } },
@@ -449,38 +708,158 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'seller_name', type: 'text', label: 'Seller Name(s)', required: true },
       { key: 'year_built', type: 'number', label: 'Year Built', required: true },
       { key: 'ownership_period', type: 'text', label: 'Ownership Period', required: true },
-      { key: 'occupied_by', type: 'select', label: 'Occupied By', required: true, options: ['Owner', 'Tenant', 'Vacant'] },
-      { key: 'foundation_problems', type: 'select', label: 'Foundation Problems', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'roof_issues', type: 'select', label: 'Roof Issues', required: true, options: ['Yes', 'No', 'Unknown'] },
+      {
+        key: 'occupied_by',
+        type: 'select',
+        label: 'Occupied By',
+        required: true,
+        options: ['Owner', 'Tenant', 'Vacant'],
+      },
+      {
+        key: 'foundation_problems',
+        type: 'select',
+        label: 'Foundation Problems',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'roof_issues',
+        type: 'select',
+        label: 'Roof Issues',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
       { key: 'roof_age', type: 'text', label: 'Roof Age', required: false },
-      { key: 'water_intrusion', type: 'select', label: 'Water Intrusion', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'pest_issues', type: 'select', label: 'Pest Issues', required: true, options: ['Yes', 'No', 'Unknown'] },
+      {
+        key: 'water_intrusion',
+        type: 'select',
+        label: 'Water Intrusion',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'pest_issues',
+        type: 'select',
+        label: 'Pest Issues',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
       { key: 'hvac_condition', type: 'text', label: 'HVAC Condition', required: true },
       { key: 'plumbing_condition', type: 'text', label: 'Plumbing Condition', required: true },
       { key: 'electrical_condition', type: 'text', label: 'Electrical Condition', required: true },
       { key: 'water_heater_age', type: 'text', label: 'Water Heater Age', required: false },
-      { key: 'water_source', type: 'select', label: 'Water Source', required: true, options: ['Public', 'Well', 'Other'] },
-      { key: 'sewer_type', type: 'select', label: 'Sewer Type', required: true, options: ['Public', 'Septic', 'Other'] },
+      {
+        key: 'water_source',
+        type: 'select',
+        label: 'Water Source',
+        required: true,
+        options: ['Public', 'Well', 'Other'],
+      },
+      {
+        key: 'sewer_type',
+        type: 'select',
+        label: 'Sewer Type',
+        required: true,
+        options: ['Public', 'Septic', 'Other'],
+      },
       { key: 'septic_pumped', type: 'date', label: 'Septic Last Pumped', required: false },
       { key: 'well_test', type: 'date', label: 'Well Test Date', required: false },
-      { key: 'lead_paint', type: 'select', label: 'Lead Paint', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'asbestos', type: 'select', label: 'Asbestos', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'mold', type: 'select', label: 'Mold', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'radon', type: 'select', label: 'Radon', required: true, options: ['Tested-Safe', 'Tested-Elevated', 'Not Tested'] },
-      { key: 'flood_zone', type: 'select', label: 'Flood Zone', required: true, options: ['Yes', 'No', 'Unknown'] },
+      {
+        key: 'lead_paint',
+        type: 'select',
+        label: 'Lead Paint',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'asbestos',
+        type: 'select',
+        label: 'Asbestos',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'mold',
+        type: 'select',
+        label: 'Mold',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'radon',
+        type: 'select',
+        label: 'Radon',
+        required: true,
+        options: ['Tested-Safe', 'Tested-Elevated', 'Not Tested'],
+      },
+      {
+        key: 'flood_zone',
+        type: 'select',
+        label: 'Flood Zone',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
       { key: 'hoa', type: 'select', label: 'HOA', required: true, options: ['Yes', 'No'] },
-      { key: 'easements', type: 'select', label: 'Easements', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'zoning_violations', type: 'select', label: 'Zoning Violations', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'litigation', type: 'select', label: 'Pending Litigation', required: true, options: ['Yes', 'No'] },
-      { key: 'death_on_property', type: 'select', label: 'Death on Property', required: true, options: ['Yes', 'No', 'Unknown'] },
-      { key: 'additional_disclosures', type: 'textarea', label: 'Additional Disclosures', required: false },
+      {
+        key: 'easements',
+        type: 'select',
+        label: 'Easements',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'zoning_violations',
+        type: 'select',
+        label: 'Zoning Violations',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'litigation',
+        type: 'select',
+        label: 'Pending Litigation',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'death_on_property',
+        type: 'select',
+        label: 'Death on Property',
+        required: true,
+        options: ['Yes', 'No', 'Unknown'],
+      },
+      {
+        key: 'additional_disclosures',
+        type: 'textarea',
+        label: 'Additional Disclosures',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'seller1_signature', label: 'Seller 1 Signature', required: true, position: { page: 1, x: 100, y: 640 } },
-      { id: 'seller2_signature', label: 'Seller 2 Signature', required: false, position: { page: 1, x: 100, y: 680 } },
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller1_signature',
+        label: 'Seller 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 640 },
+      },
+      {
+        id: 'seller2_signature',
+        label: 'Seller 2 Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 680 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Lease Amendment',
@@ -495,7 +874,10 @@ export const RE_MANAGEMENT_TEMPLATES = [
       ops: [
         { insert: 'LEASE AMENDMENT\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nAmendment #: {{amendment_number}}\nDate: {{amendment_date}}\n\n' },
-        { insert: 'This Amendment modifies the Lease Agreement dated {{original_lease_date}} between:\n\n' },
+        {
+          insert:
+            'This Amendment modifies the Lease Agreement dated {{original_lease_date}} between:\n\n',
+        },
         { insert: 'LANDLORD: ', attributes: { bold: true } },
         { insert: '{{landlord_name}}\n' },
         { insert: 'TENANT: ', attributes: { bold: true } },
@@ -510,7 +892,10 @@ export const RE_MANAGEMENT_TEMPLATES = [
         { insert: 'UNCHANGED TERMS:\n', attributes: { bold: true } },
         { insert: 'All other terms of the Original Lease remain in full force and effect.\n\n' },
         { insert: 'ENTIRE AGREEMENT:\n', attributes: { bold: true } },
-        { insert: 'This Amendment, together with the Original Lease, constitutes the entire agreement between the parties.\n\n' },
+        {
+          insert:
+            'This Amendment, together with the Original Lease, constitutes the entire agreement between the parties.\n\n',
+        },
         { insert: 'SIGNATURES:\n\n', attributes: { bold: true } },
         { insert: 'LANDLORD: _________________________ Date: _____________\n' },
         { insert: 'TENANT: _________________________ Date: _____________\n' },
@@ -527,9 +912,23 @@ export const RE_MANAGEMENT_TEMPLATES = [
       { key: 'effective_date', type: 'date', label: 'Effective Date', required: true },
     ],
     signatureFields: [
-      { id: 'landlord_signature', label: 'Landlord Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'tenant_signature', label: 'Tenant Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'landlord_signature',
+        label: 'Landlord Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'tenant_signature',
+        label: 'Tenant Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

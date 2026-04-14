@@ -21,7 +21,11 @@ export class RegisterDto {
   @IsString()
   name?: string;
 
-  @ApiProperty({ example: 'http://localhost:5175', required: false, description: 'Frontend URL for email verification redirect' })
+  @ApiProperty({
+    example: 'http://localhost:5175',
+    required: false,
+    description: 'Frontend URL for email verification redirect',
+  })
   @IsOptional()
   @IsString()
   frontendUrl?: string;
@@ -59,7 +63,10 @@ export class UpdateProfileDto {
   @IsString()
   website?: string;
 
-  @ApiProperty({ example: 'Software developer passionate about building great products', required: false })
+  @ApiProperty({
+    example: 'Software developer passionate about building great products',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   bio?: string;

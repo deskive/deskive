@@ -6,15 +6,7 @@ import { WorkspaceContextInterceptor } from './interceptors/workspace-context.in
 @Global()
 @Module({
   imports: [],
-  providers: [
-    WorkspaceGuard,
-    RoleGuard,
-    WorkspaceContextInterceptor,
-  ],
-  exports: [
-    WorkspaceGuard,
-    RoleGuard,
-    WorkspaceContextInterceptor,
-  ],
+  providers: [WorkspaceGuard, RoleGuard, WorkspaceContextInterceptor],
+  exports: [WorkspaceGuard, RoleGuard, WorkspaceContextInterceptor],
 })
 export class CommonModule {}

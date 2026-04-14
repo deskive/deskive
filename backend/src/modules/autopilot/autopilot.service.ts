@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { v4 as uuidv4 } from 'uuid';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const { PDFParse } = require('pdf-parse');
 import { LangChainAgentService } from './langchain/agent.service';
 import { AgentMemoryService } from './langchain/memory.service';
@@ -40,12 +41,14 @@ export class AutoPilotService {
    */
   private isHelpCommand(command: string): boolean {
     const normalizedCommand = command.trim().toLowerCase();
-    return normalizedCommand === 'help' ||
-           normalizedCommand === '/help' ||
-           normalizedCommand === '?' ||
-           normalizedCommand === 'what can you do' ||
-           normalizedCommand === 'what can you do?' ||
-           normalizedCommand.startsWith('help me');
+    return (
+      normalizedCommand === 'help' ||
+      normalizedCommand === '/help' ||
+      normalizedCommand === '?' ||
+      normalizedCommand === 'what can you do' ||
+      normalizedCommand === 'what can you do?' ||
+      normalizedCommand.startsWith('help me')
+    );
   }
 
   /**
@@ -146,8 +149,12 @@ export class AutoPilotService {
     const sessionId = dto.sessionId || uuidv4();
     const executeActions = dto.executeActions !== false;
 
-    this.logger.log(`[AutoPilot] Processing command: "${dto.command.substring(0, 50)}..." [Language: ${userLanguage}]`);
-    this.logger.log(`[AutoPilot] Session: ${sessionId}, User: ${userId}, Execute: ${executeActions}`);
+    this.logger.log(
+      `[AutoPilot] Processing command: "${dto.command.substring(0, 50)}..." [Language: ${userLanguage}]`,
+    );
+    this.logger.log(
+      `[AutoPilot] Session: ${sessionId}, User: ${userId}, Execute: ${executeActions}`,
+    );
 
     // Handle help command specially
     if (this.isHelpCommand(dto.command)) {
@@ -189,7 +196,9 @@ export class AutoPilotService {
       const currentReferencedItems = dto.context?.referencedItems || [];
       if (currentReferencedItems.length > 0) {
         await this.memoryService.addReferencedItems(sessionId, currentReferencedItems);
-        this.logger.log(`[AutoPilot] Stored ${currentReferencedItems.length} referenced items in session`);
+        this.logger.log(
+          `[AutoPilot] Stored ${currentReferencedItems.length} referenced items in session`,
+        );
       }
 
       // Get all referenced items from the session (including previously referenced items)
@@ -228,14 +237,14 @@ export class AutoPilotService {
 
       this.logger.log(`[AutoPilot] Command completed. Actions: ${result.actions?.length || 0}`);
       return response;
-
     } catch (error) {
       this.logger.error(`[AutoPilot] Error: ${error.message}`, error.stack);
 
       // Check if it's an AI service error
-      const isAIError = error.message?.includes('AI service error') ||
-                        error.message?.includes('AI text generation failed') ||
-                        error.message?.includes('Invalid token');
+      const isAIError =
+        error.message?.includes('AI service error') ||
+        error.message?.includes('AI text generation failed') ||
+        error.message?.includes('Invalid token');
 
       return {
         success: false,
@@ -261,7 +270,9 @@ export class AutoPilotService {
     const sessionId = dto.sessionId || uuidv4();
     const executeActions = dto.executeActions !== false;
 
-    this.logger.log(`[AutoPilot] Processing command (streaming): "${dto.command.substring(0, 50)}..." [Language: ${userLanguage}]`);
+    this.logger.log(
+      `[AutoPilot] Processing command (streaming): "${dto.command.substring(0, 50)}..." [Language: ${userLanguage}]`,
+    );
 
     // Handle help command specially (no need for AI)
     if (this.isHelpCommand(dto.command)) {
@@ -281,7 +292,10 @@ export class AutoPilotService {
 
       // Stream the help message
       onStream({ type: 'text', data: { content: helpMessage } });
-      onStream({ type: 'complete', data: { success: true, sessionId, message: helpMessage, actions: [] } });
+      onStream({
+        type: 'complete',
+        data: { success: true, sessionId, message: helpMessage, actions: [] },
+      });
 
       return {
         success: true,
@@ -311,12 +325,16 @@ export class AutoPilotService {
       const currentReferencedItems = dto.context?.referencedItems || [];
       if (currentReferencedItems.length > 0) {
         await this.memoryService.addReferencedItems(sessionId, currentReferencedItems);
-        this.logger.log(`[AutoPilot] Stored ${currentReferencedItems.length} referenced items in session`);
+        this.logger.log(
+          `[AutoPilot] Stored ${currentReferencedItems.length} referenced items in session`,
+        );
       }
 
       // Get all referenced items from the session (including previously referenced items)
       const allReferencedItems = await this.memoryService.getReferencedItems(sessionId);
-      this.logger.log(`[AutoPilot] Session has ${allReferencedItems.length} total referenced items`);
+      this.logger.log(
+        `[AutoPilot] Session has ${allReferencedItems.length} total referenced items`,
+      );
 
       // Build context for the agent with merged referenced items
       const context = {
@@ -329,7 +347,12 @@ export class AutoPilotService {
       };
 
       // Execute the agent with streaming
-      const result = await this.agentService.executeStream(dto.command, context, onStream, userLanguage);
+      const result = await this.agentService.executeStream(
+        dto.command,
+        context,
+        onStream,
+        userLanguage,
+      );
 
       // Build response
       const response: AutoPilotResponseDto = {
@@ -350,7 +373,6 @@ export class AutoPilotService {
       });
 
       return response;
-
     } catch (error) {
       this.logger.error(`[AutoPilot] Stream error: ${error.message}`, error.stack);
 
@@ -378,10 +400,7 @@ export class AutoPilotService {
   /**
    * Save feedback on an action
    */
-  async saveFeedback(
-    dto: ActionFeedbackDto,
-    userId: string,
-  ): Promise<{ success: boolean }> {
+  async saveFeedback(dto: ActionFeedbackDto, userId: string): Promise<{ success: boolean }> {
     this.logger.log(`[AutoPilot] Feedback received: ${dto.helpful ? 'helpful' : 'not helpful'}`);
     // TODO: Store feedback for improving the agent
     return { success: true };
@@ -397,10 +416,7 @@ export class AutoPilotService {
   /**
    * Create a new conversation session
    */
-  async createSession(
-    workspaceId: string,
-    userId: string,
-  ): Promise<{ sessionId: string }> {
+  async createSession(workspaceId: string, userId: string): Promise<{ sessionId: string }> {
     const sessionId = uuidv4();
     await this.memoryService.initializeSession(sessionId, {
       workspaceId,
@@ -427,10 +443,7 @@ export class AutoPilotService {
   /**
    * Clear session memory
    */
-  async clearSession(
-    sessionId: string,
-    userId: string,
-  ): Promise<{ success: boolean }> {
+  async clearSession(sessionId: string, userId: string): Promise<{ success: boolean }> {
     await this.memoryService.clearSession(sessionId);
     return { success: true };
   }
@@ -442,24 +455,23 @@ export class AutoPilotService {
     workspaceId: string,
     userId: string,
     limit?: number,
-  ): Promise<{
-    id: string;
-    sessionId: string;
-    title: string;
-    messageCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }[]> {
+  ): Promise<
+    {
+      id: string;
+      sessionId: string;
+      title: string;
+      messageCount: number;
+      createdAt: string;
+      updatedAt: string;
+    }[]
+  > {
     return this.memoryService.getUserSessions(workspaceId, userId, limit);
   }
 
   /**
    * Delete a session
    */
-  async deleteSession(
-    sessionId: string,
-    userId: string,
-  ): Promise<{ success: boolean }> {
+  async deleteSession(sessionId: string, userId: string): Promise<{ success: boolean }> {
     await this.memoryService.deleteSession(sessionId);
     return { success: true };
   }
@@ -526,8 +538,10 @@ export class AutoPilotService {
       });
 
       if (response) {
-        const text = typeof response === 'string' ? response :
-                     response?.text || response?.content || JSON.stringify(response);
+        const text =
+          typeof response === 'string'
+            ? response
+            : response?.text || response?.content || JSON.stringify(response);
         this.logger.log(`[AutoPilot] AI test successful: ${text.substring(0, 50)}`);
         return { success: true, message: `AI is working. Response: ${text.substring(0, 100)}` };
       } else {
@@ -547,14 +561,17 @@ export class AutoPilotService {
     userId: string,
     workspaceId: string,
   ): Promise<SmartSuggestionsResponseDto> {
-    this.logger.log(`[AutoPilot] Getting smart suggestions for user: ${userId}, workspace: ${workspaceId}`);
+    this.logger.log(
+      `[AutoPilot] Getting smart suggestions for user: ${userId}, workspace: ${workspaceId}`,
+    );
     const suggestions: SmartSuggestionDto[] = [];
     const now = new Date();
 
     try {
       // 1. Check for overdue tasks
       // Tasks are linked to projects, projects are linked to workspaces
-      const overdueTasksResult = await this.db.table('tasks')
+      const overdueTasksResult = await this.db
+        .table('tasks')
         .select('tasks.id', 'tasks.title', 'tasks.due_date', 'projects.workspace_id')
         .leftJoin('projects', 'tasks.project_id', '=', 'projects.id')
         .where('projects.workspace_id', '=', workspaceId)
@@ -570,9 +587,8 @@ export class AutoPilotService {
       const overdueTasks = overdueTasksArray.filter((task: any) => {
         if (!task.assigned_to) return task.created_by === userId;
         try {
-          const assignees = typeof task.assigned_to === 'string'
-            ? JSON.parse(task.assigned_to)
-            : task.assigned_to;
+          const assignees =
+            typeof task.assigned_to === 'string' ? JSON.parse(task.assigned_to) : task.assigned_to;
           return Array.isArray(assignees) && assignees.includes(userId);
         } catch {
           return task.created_by === userId;
@@ -593,7 +609,8 @@ export class AutoPilotService {
 
       // 2. Check for upcoming events (next 2 hours)
       const twoHoursLater = new Date(now.getTime() + 2 * 60 * 60 * 1000);
-      const upcomingEventsResult = await this.db.table('calendar_events')
+      const upcomingEventsResult = await this.db
+        .table('calendar_events')
         .select('id', 'title', 'start_time')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', now.toISOString())
@@ -610,9 +627,10 @@ export class AutoPilotService {
 
         suggestions.push({
           id: 'upcoming-event',
-          text: minutesUntil <= 0
-            ? `"${nextEvent.title}" is starting now`
-            : `"${nextEvent.title}" in ${minutesUntil} min`,
+          text:
+            minutesUntil <= 0
+              ? `"${nextEvent.title}" is starting now`
+              : `"${nextEvent.title}" in ${minutesUntil} min`,
           command: `What's on my calendar today?`,
           icon: 'event',
           priority: 2,
@@ -622,16 +640,24 @@ export class AutoPilotService {
       }
 
       // 3. Check for pending approvals (where user is an approver)
-      const pendingApprovalsResult = await this.db.table('approval_request_approvers')
+      const pendingApprovalsResult = await this.db
+        .table('approval_request_approvers')
         .select('approval_request_approvers.id', 'approval_requests.title')
-        .leftJoin('approval_requests', 'approval_request_approvers.request_id', '=', 'approval_requests.id')
+        .leftJoin(
+          'approval_requests',
+          'approval_request_approvers.request_id',
+          '=',
+          'approval_requests.id',
+        )
         .where('approval_requests.workspace_id', '=', workspaceId)
         .where('approval_request_approvers.approver_id', '=', userId)
         .where('approval_request_approvers.status', '=', 'pending')
         .execute();
 
       // Ensure we have an array
-      const pendingApprovals: any[] = Array.isArray(pendingApprovalsResult) ? pendingApprovalsResult : [];
+      const pendingApprovals: any[] = Array.isArray(pendingApprovalsResult)
+        ? pendingApprovalsResult
+        : [];
       if (pendingApprovals.length > 0) {
         suggestions.push({
           id: 'pending-approvals',
@@ -650,7 +676,8 @@ export class AutoPilotService {
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
 
-      const tasksDueTodayResult = await this.db.table('tasks')
+      const tasksDueTodayResult = await this.db
+        .table('tasks')
         .select('tasks.id', 'projects.workspace_id')
         .leftJoin('projects', 'tasks.project_id', '=', 'projects.id')
         .where('projects.workspace_id', '=', workspaceId)
@@ -662,7 +689,7 @@ export class AutoPilotService {
 
       // Ensure we have an array
       const tasksDueToday: any[] = Array.isArray(tasksDueTodayResult) ? tasksDueTodayResult : [];
-      if (tasksDueToday.length > 0 && !suggestions.find(s => s.id === 'overdue-tasks')) {
+      if (tasksDueToday.length > 0 && !suggestions.find((s) => s.id === 'overdue-tasks')) {
         suggestions.push({
           id: 'tasks-due-today',
           text: `${tasksDueToday.length} task${tasksDueToday.length > 1 ? 's' : ''} due today`,
@@ -724,9 +751,11 @@ export class AutoPilotService {
         suggestions,
         generatedAt: now.toISOString(),
       };
-
     } catch (error) {
-      this.logger.error(`[AutoPilot] Error getting smart suggestions: ${error.message}`, error.stack);
+      this.logger.error(
+        `[AutoPilot] Error getting smart suggestions: ${error.message}`,
+        error.stack,
+      );
       // Return empty suggestions on error instead of throwing
       return {
         suggestions: [],

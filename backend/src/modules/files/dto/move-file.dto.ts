@@ -2,19 +2,19 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsOptional, IsUUID } from 'class-validator';
 
 export class MoveFileDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Target folder ID to move the file to',
     example: 'uuid-here',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsUUID()
   target_folder_id?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'New name for the file (optional)',
     example: 'renamed-document.pdf',
-    required: false 
+    required: false,
   })
   @IsOptional()
   @IsString()

@@ -48,112 +48,134 @@ export class BotIntentClassifierService {
 
     // Define output schema
     const schema = z.object({
-      intent: z.enum([
-        // General
-        'greeting',
-        'help',
-        'general_chat',
-        'clear_memory',
-        'unknown',
+      intent: z
+        .enum([
+          // General
+          'greeting',
+          'help',
+          'general_chat',
+          'clear_memory',
+          'unknown',
 
-        // Bot assignments
-        'show_assignments',
-        'show_bot_projects',
-        'show_bot_events',
+          // Bot assignments
+          'show_assignments',
+          'show_bot_projects',
+          'show_bot_events',
 
-        // Project intents
-        'show_projects',
-        'show_project_details',
-        'show_project_members',
-        'show_project_tasks',
-        'create_project',
-        'update_project',
-        'delete_project',
-        'search_projects',
-        'add_project_member',
-        'remove_project_member',
-        'update_project_status',
-        'duplicate_project',
+          // Project intents
+          'show_projects',
+          'show_project_details',
+          'show_project_members',
+          'show_project_tasks',
+          'create_project',
+          'update_project',
+          'delete_project',
+          'search_projects',
+          'add_project_member',
+          'remove_project_member',
+          'update_project_status',
+          'duplicate_project',
 
-        // Task intents
-        'show_tasks',
-        'show_my_tasks',
-        'show_task_details',
-        'show_completed_tasks',
-        'show_overdue_tasks',
-        'show_tasks_by_priority',
-        'show_tasks_by_status',
-        'show_tasks_due_today',
-        'show_tasks_due_this_week',
-        'show_subtasks',
-        'create_task',
-        'create_subtask',
-        'update_task',
-        'update_task_status',
-        'update_task_assignee',
-        'update_task_description',
-        'set_task_priority',
-        'set_task_due_date',
-        'delete_task',
-        'assign_task',
-        'unassign_task',
-        'complete_task',
-        'reopen_task',
-        'add_task_comment',
-        'search_tasks',
+          // Task intents
+          'show_tasks',
+          'show_my_tasks',
+          'show_task_details',
+          'show_completed_tasks',
+          'show_overdue_tasks',
+          'show_tasks_by_priority',
+          'show_tasks_by_status',
+          'show_tasks_due_today',
+          'show_tasks_due_this_week',
+          'show_subtasks',
+          'create_task',
+          'create_subtask',
+          'update_task',
+          'update_task_status',
+          'update_task_assignee',
+          'update_task_description',
+          'set_task_priority',
+          'set_task_due_date',
+          'delete_task',
+          'assign_task',
+          'unassign_task',
+          'complete_task',
+          'reopen_task',
+          'add_task_comment',
+          'search_tasks',
 
-        // Event intents
-        'show_events',
-        'show_today_events',
-        'show_tomorrow_events',
-        'show_week_events',
-        'show_month_events',
-        'show_upcoming_events',
-        'show_past_events',
-        'show_event_details',
-        'show_event_participants',
-        'create_event',
-        'update_event',
-        'update_event_time',
-        'update_event_location',
-        'cancel_event',
-        'reschedule_event',
-        'delete_event',
-        'add_event_participant',
-        'remove_event_participant',
-        'search_events',
-        'duplicate_event',
+          // Event intents
+          'show_events',
+          'show_today_events',
+          'show_tomorrow_events',
+          'show_week_events',
+          'show_month_events',
+          'show_upcoming_events',
+          'show_past_events',
+          'show_event_details',
+          'show_event_participants',
+          'create_event',
+          'update_event',
+          'update_event_time',
+          'update_event_location',
+          'cancel_event',
+          'reschedule_event',
+          'delete_event',
+          'add_event_participant',
+          'remove_event_participant',
+          'search_events',
+          'duplicate_event',
 
-        // Messaging & Communication intents
-        'send_message_to_assignee',
-        'send_message_to_participant',
-        'send_message_to_member',
-        'send_message_to_user',
-        'message_project_team',
-        'message_event_participants',
-      ]).describe('The user\'s intent'),
-      entities: z.object({
-        projectName: z.string().optional().describe('Name of the project mentioned'),
-        taskName: z.string().optional().describe('Name of the task mentioned'),
-        eventName: z.string().optional().describe('Name of the event mentioned'),
-        status: z.string().optional().describe('New status (todo, in_progress, review, testing, done, complete)'),
-        priority: z.string().optional().describe('Priority level (highest, high, medium, low, lowest)'),
-        field: z.string().optional().describe('Field to update (title, priority, due date, location, time)'),
-        value: z.string().optional().describe('New value for the field'),
-        assignee: z.string().optional().describe('Person to assign to (name or email)'),
-        dueDate: z.string().optional().describe('Due date (today, tomorrow, next week, specific date)'),
-        description: z.string().optional().describe('Description or details'),
-        location: z.string().optional().describe('Location for event'),
-        time: z.string().optional().describe('Time (2pm, 14:00, etc)'),
-        date: z.string().optional().describe('Date (today, tomorrow, next monday, 2024-01-15)'),
-        participant: z.string().optional().describe('Event participant name or email'),
-        memberName: z.string().optional().describe('Project member name'),
-        comment: z.string().optional().describe('Comment text to add'),
-        duration: z.string().optional().describe('Duration (30min, 1 hour, 2 hours)'),
-        timeframe: z.string().optional().describe('Timeframe (today, tomorrow, this week, this month, past)'),
-        messageContent: z.string().optional().describe('Message content to send to user(s)'),
-        recipientName: z.string().optional().describe('Recipient name or email for direct messages'),
-      }).describe('Extracted entities from the message'),
+          // Messaging & Communication intents
+          'send_message_to_assignee',
+          'send_message_to_participant',
+          'send_message_to_member',
+          'send_message_to_user',
+          'message_project_team',
+          'message_event_participants',
+        ])
+        .describe("The user's intent"),
+      entities: z
+        .object({
+          projectName: z.string().optional().describe('Name of the project mentioned'),
+          taskName: z.string().optional().describe('Name of the task mentioned'),
+          eventName: z.string().optional().describe('Name of the event mentioned'),
+          status: z
+            .string()
+            .optional()
+            .describe('New status (todo, in_progress, review, testing, done, complete)'),
+          priority: z
+            .string()
+            .optional()
+            .describe('Priority level (highest, high, medium, low, lowest)'),
+          field: z
+            .string()
+            .optional()
+            .describe('Field to update (title, priority, due date, location, time)'),
+          value: z.string().optional().describe('New value for the field'),
+          assignee: z.string().optional().describe('Person to assign to (name or email)'),
+          dueDate: z
+            .string()
+            .optional()
+            .describe('Due date (today, tomorrow, next week, specific date)'),
+          description: z.string().optional().describe('Description or details'),
+          location: z.string().optional().describe('Location for event'),
+          time: z.string().optional().describe('Time (2pm, 14:00, etc)'),
+          date: z.string().optional().describe('Date (today, tomorrow, next monday, 2024-01-15)'),
+          participant: z.string().optional().describe('Event participant name or email'),
+          memberName: z.string().optional().describe('Project member name'),
+          comment: z.string().optional().describe('Comment text to add'),
+          duration: z.string().optional().describe('Duration (30min, 1 hour, 2 hours)'),
+          timeframe: z
+            .string()
+            .optional()
+            .describe('Timeframe (today, tomorrow, this week, this month, past)'),
+          messageContent: z.string().optional().describe('Message content to send to user(s)'),
+          recipientName: z
+            .string()
+            .optional()
+            .describe('Recipient name or email for direct messages'),
+        })
+        .describe('Extracted entities from the message'),
       confidence: z.number().min(0).max(1).describe('Confidence score 0-1'),
     });
 
@@ -431,9 +453,11 @@ User message: "${message}"
 ${formatInstructions}`;
 
       const response = await this.openai.invoke(prompt);
-      const parsed = await this.parser.parse(response.content as string) as IntentResult;
+      const parsed = (await this.parser.parse(response.content as string)) as IntentResult;
 
-      this.logger.log(`[Intent] Classified as: ${parsed.intent} (confidence: ${parsed.confidence})`);
+      this.logger.log(
+        `[Intent] Classified as: ${parsed.intent} (confidence: ${parsed.confidence})`,
+      );
       if (Object.keys(parsed.entities).length > 0) {
         this.logger.log(`[Intent] Entities: ${JSON.stringify(parsed.entities)}`);
       }

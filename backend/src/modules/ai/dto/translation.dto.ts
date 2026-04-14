@@ -49,7 +49,7 @@ export enum LanguageCode {
   KANNADA = 'kn',
   MALAYALAM = 'ml',
   PUNJABI = 'pa',
-  URDU = 'ur'
+  URDU = 'ur',
 }
 
 export enum TranslationStyle {
@@ -62,7 +62,7 @@ export enum TranslationStyle {
   CASUAL = 'casual',
   MEDICAL = 'medical',
   LEGAL = 'legal',
-  MARKETING = 'marketing'
+  MARKETING = 'marketing',
 }
 
 export enum TranslationContext {
@@ -83,7 +83,7 @@ export enum TranslationContext {
   FINANCE = 'finance',
   HEALTHCARE = 'healthcare',
   TECHNOLOGY = 'technology',
-  ENTERTAINMENT = 'entertainment'
+  ENTERTAINMENT = 'entertainment',
 }
 
 export class TranslateTextDto {
@@ -91,44 +91,47 @@ export class TranslateTextDto {
   @IsString()
   text: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Target language code',
     enum: LanguageCode,
-    example: LanguageCode.SPANISH
+    example: LanguageCode.SPANISH,
   })
   @IsEnum(LanguageCode)
   target_language: LanguageCode;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Source language code (auto-detected if not provided)',
     enum: LanguageCode,
-    example: LanguageCode.ENGLISH
+    example: LanguageCode.ENGLISH,
   })
   @IsOptional()
   @IsEnum(LanguageCode)
   source_language?: LanguageCode;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Translation style',
     enum: TranslationStyle,
     example: TranslationStyle.FORMAL,
-    default: TranslationStyle.FORMAL
+    default: TranslationStyle.FORMAL,
   })
   @IsOptional()
   @IsEnum(TranslationStyle)
   style?: TranslationStyle;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Context for better translation accuracy',
     enum: TranslationContext,
     example: TranslationContext.BUSINESS,
-    default: TranslationContext.GENERAL
+    default: TranslationContext.GENERAL,
   })
   @IsOptional()
   @IsEnum(TranslationContext)
   context?: TranslationContext;
 
-  @ApiPropertyOptional({ description: 'Preserve formatting (HTML, markdown, etc.)', default: false })
+  @ApiPropertyOptional({
+    description: 'Preserve formatting (HTML, markdown, etc.)',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   preserve_formatting?: boolean;
@@ -143,10 +146,13 @@ export class TranslateTextDto {
   @IsBoolean()
   include_alternatives?: boolean;
 
-  @ApiPropertyOptional({ description: 'Glossary terms for consistent translation', example: [{ source: 'API', target: 'API' }] })
+  @ApiPropertyOptional({
+    description: 'Glossary terms for consistent translation',
+    example: [{ source: 'API', target: 'API' }],
+  })
   @IsOptional()
   @IsArray()
-  glossary?: Array<{ source: string; target: string; }>;
+  glossary?: Array<{ source: string; target: string }>;
 
   @ApiPropertyOptional({ description: 'Cultural adaptation for target audience', default: false })
   @IsOptional()
@@ -160,49 +166,55 @@ export class TranslateTextDto {
 }
 
 export class BatchTranslateDto {
-  @ApiProperty({ description: 'Array of texts to translate', example: ['Hello', 'Goodbye', 'Thank you'] })
+  @ApiProperty({
+    description: 'Array of texts to translate',
+    example: ['Hello', 'Goodbye', 'Thank you'],
+  })
   @IsArray()
   @IsString({ each: true })
   texts: string[];
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Target language code',
     enum: LanguageCode,
-    example: LanguageCode.SPANISH
+    example: LanguageCode.SPANISH,
   })
   @IsEnum(LanguageCode)
   target_language: LanguageCode;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Source language code (auto-detected if not provided)',
     enum: LanguageCode,
-    example: LanguageCode.ENGLISH
+    example: LanguageCode.ENGLISH,
   })
   @IsOptional()
   @IsEnum(LanguageCode)
   source_language?: LanguageCode;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Translation style',
     enum: TranslationStyle,
     example: TranslationStyle.FORMAL,
-    default: TranslationStyle.FORMAL
+    default: TranslationStyle.FORMAL,
   })
   @IsOptional()
   @IsEnum(TranslationStyle)
   style?: TranslationStyle;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Context for better translation accuracy',
     enum: TranslationContext,
     example: TranslationContext.BUSINESS,
-    default: TranslationContext.GENERAL
+    default: TranslationContext.GENERAL,
   })
   @IsOptional()
   @IsEnum(TranslationContext)
   context?: TranslationContext;
 
-  @ApiPropertyOptional({ description: 'Preserve formatting (HTML, markdown, etc.)', default: false })
+  @ApiPropertyOptional({
+    description: 'Preserve formatting (HTML, markdown, etc.)',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   preserve_formatting?: boolean;
@@ -210,5 +222,5 @@ export class BatchTranslateDto {
   @ApiPropertyOptional({ description: 'Glossary terms for consistent translation' })
   @IsOptional()
   @IsArray()
-  glossary?: Array<{ source: string; target: string; }>;
+  glossary?: Array<{ source: string; target: string }>;
 }

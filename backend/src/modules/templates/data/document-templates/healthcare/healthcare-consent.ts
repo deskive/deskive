@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const HEALTHCARE_CONSENT_TEMPLATES = [
   {
@@ -17,23 +14,52 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       ops: [
         { insert: 'GENERAL CONSENT FOR TREATMENT\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{consent_date}}\n\n' },
-        { insert: 'I, the undersigned, hereby consent to and authorize {{facility_name}} and its medical staff, including physicians, nurses, and other healthcare professionals, to perform the following:\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{consent_date}}\n\n',
+        },
+        {
+          insert:
+            'I, the undersigned, hereby consent to and authorize {{facility_name}} and its medical staff, including physicians, nurses, and other healthcare professionals, to perform the following:\n\n',
+        },
         { insert: '1. GENERAL TREATMENT\n', attributes: { bold: true } },
-        { insert: 'I consent to routine diagnostic procedures, examinations, and medical treatment as deemed necessary by my healthcare providers.\n\n' },
+        {
+          insert:
+            'I consent to routine diagnostic procedures, examinations, and medical treatment as deemed necessary by my healthcare providers.\n\n',
+        },
         { insert: '2. DIAGNOSTIC PROCEDURES\n', attributes: { bold: true } },
-        { insert: 'I consent to laboratory tests, X-rays, and other diagnostic procedures that may be performed.\n\n' },
+        {
+          insert:
+            'I consent to laboratory tests, X-rays, and other diagnostic procedures that may be performed.\n\n',
+        },
         { insert: '3. ADMINISTRATION OF MEDICATIONS\n', attributes: { bold: true } },
-        { insert: 'I consent to the administration of medications, including injections, as prescribed by my healthcare providers.\n\n' },
+        {
+          insert:
+            'I consent to the administration of medications, including injections, as prescribed by my healthcare providers.\n\n',
+        },
         { insert: '4. UNFORESEEN CONDITIONS\n', attributes: { bold: true } },
-        { insert: 'I understand that during the course of treatment, unforeseen conditions may arise that require additional procedures not contemplated at the time of initial treatment.\n\n' },
+        {
+          insert:
+            'I understand that during the course of treatment, unforeseen conditions may arise that require additional procedures not contemplated at the time of initial treatment.\n\n',
+        },
         { insert: '5. NO GUARANTEE\n', attributes: { bold: true } },
-        { insert: 'I acknowledge that no guarantees have been made to me regarding the outcome of any examination or treatment.\n\n' },
+        {
+          insert:
+            'I acknowledge that no guarantees have been made to me regarding the outcome of any examination or treatment.\n\n',
+        },
         { insert: '6. RELEASE OF INFORMATION\n', attributes: { bold: true } },
-        { insert: 'I authorize the release of medical information necessary to process insurance claims or for other legitimate medical purposes.\n\n' },
+        {
+          insert:
+            'I authorize the release of medical information necessary to process insurance claims or for other legitimate medical purposes.\n\n',
+        },
         { insert: '7. FINANCIAL RESPONSIBILITY\n', attributes: { bold: true } },
-        { insert: 'I agree to be financially responsible for charges not covered by insurance.\n\n' },
-        { insert: 'I have read, understand, and agree to the above statements. I have had the opportunity to ask questions and have received satisfactory answers.\n\n' },
+        {
+          insert: 'I agree to be financially responsible for charges not covered by insurance.\n\n',
+        },
+        {
+          insert:
+            'I have read, understand, and agree to the above statements. I have had the opportunity to ask questions and have received satisfactory answers.\n\n',
+        },
         { insert: '_______________________________________________\n' },
         { insert: 'Patient/Legal Representative Signature\n\n' },
         { insert: 'Printed Name: {{printed_name}}\n' },
@@ -48,15 +74,35 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
       { key: 'consent_date', type: 'date', label: 'Consent Date', required: true },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship to Patient', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship to Patient',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
       { key: 'signature_time', type: 'text', label: 'Signature Time', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 600 } },
-      { id: 'witness_signature', label: 'Witness Signature', required: false, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
+      {
+        id: 'witness_signature',
+        label: 'Witness Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Informed Consent for Procedure',
@@ -71,7 +117,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       ops: [
         { insert: 'INFORMED CONSENT FOR PROCEDURE\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{consent_date}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{consent_date}}\n\n',
+        },
         { insert: 'PROCEDURE\n', attributes: { bold: true } },
         { insert: 'I hereby consent to the following procedure(s):\n{{procedure_name}}\n\n' },
         { insert: 'To be performed by: {{performing_physician}}\n\n' },
@@ -80,17 +129,32 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'INDICATIONS/REASONS FOR PROCEDURE\n', attributes: { bold: true } },
         { insert: '{{indications}}\n\n' },
         { insert: 'RISKS AND COMPLICATIONS\n', attributes: { bold: true } },
-        { insert: 'I understand that the following risks and complications may occur:\n{{risks}}\n\n' },
+        {
+          insert:
+            'I understand that the following risks and complications may occur:\n{{risks}}\n\n',
+        },
         { insert: 'BENEFITS\n', attributes: { bold: true } },
         { insert: '{{benefits}}\n\n' },
         { insert: 'ALTERNATIVES\n', attributes: { bold: true } },
-        { insert: 'Alternative treatments have been explained to me, including:\n{{alternatives}}\n\n' },
+        {
+          insert:
+            'Alternative treatments have been explained to me, including:\n{{alternatives}}\n\n',
+        },
         { insert: 'ANESTHESIA\n', attributes: { bold: true } },
-        { insert: 'Type of anesthesia: {{anesthesia_type}}\nI understand the risks associated with anesthesia have been explained to me.\n\n' },
+        {
+          insert:
+            'Type of anesthesia: {{anesthesia_type}}\nI understand the risks associated with anesthesia have been explained to me.\n\n',
+        },
         { insert: 'ADDITIONAL PROCEDURES\n', attributes: { bold: true } },
-        { insert: 'I authorize my physician to perform any additional procedures that may be deemed necessary during the course of the procedure.\n\n' },
+        {
+          insert:
+            'I authorize my physician to perform any additional procedures that may be deemed necessary during the course of the procedure.\n\n',
+        },
         { insert: 'TISSUE DISPOSITION\n', attributes: { bold: true } },
-        { insert: 'I consent to the examination and disposal of any tissue removed during the procedure.\n\n' },
+        {
+          insert:
+            'I consent to the examination and disposal of any tissue removed during the procedure.\n\n',
+        },
         { insert: 'ACKNOWLEDGMENTS\n', attributes: { bold: true } },
         { insert: '- I have been given the opportunity to ask questions\n' },
         { insert: '- My questions have been answered to my satisfaction\n' },
@@ -102,7 +166,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'Relationship: {{relationship}}\n' },
         { insert: 'Date: {{signature_date}} Time: {{signature_time}}\n\n' },
         { insert: 'PHYSICIAN STATEMENT\n', attributes: { bold: true } },
-        { insert: 'I have explained the procedure, risks, benefits, and alternatives to the patient/representative.\n\n' },
+        {
+          insert:
+            'I have explained the procedure, risks, benefits, and alternatives to the patient/representative.\n\n',
+        },
         { insert: 'Physician Signature: _________________________ Date: _____________\n' },
       ],
     },
@@ -110,26 +177,62 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'facility_name', type: 'text', label: 'Facility Name', required: true },
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'consent_date', type: 'date', label: 'Consent Date', required: true },
       { key: 'procedure_name', type: 'textarea', label: 'Procedure Name(s)', required: true },
       { key: 'performing_physician', type: 'text', label: 'Performing Physician', required: true },
-      { key: 'procedure_description', type: 'textarea', label: 'Procedure Description', required: true },
+      {
+        key: 'procedure_description',
+        type: 'textarea',
+        label: 'Procedure Description',
+        required: true,
+      },
       { key: 'indications', type: 'textarea', label: 'Indications', required: true },
       { key: 'risks', type: 'textarea', label: 'Risks and Complications', required: true },
       { key: 'benefits', type: 'textarea', label: 'Benefits', required: true },
       { key: 'alternatives', type: 'textarea', label: 'Alternatives', required: true },
-      { key: 'anesthesia_type', type: 'select', label: 'Anesthesia Type', required: true, options: ['General', 'Regional', 'Local', 'Spinal', 'Epidural', 'Sedation', 'None'] },
+      {
+        key: 'anesthesia_type',
+        type: 'select',
+        label: 'Anesthesia Type',
+        required: true,
+        options: ['General', 'Regional', 'Local', 'Spinal', 'Epidural', 'Sedation', 'None'],
+      },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
       { key: 'signature_time', type: 'text', label: 'Signature Time', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 550 } },
-      { id: 'physician_signature', label: 'Physician Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 550 },
+      },
+      {
+        id: 'physician_signature',
+        label: 'Physician Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'HIPAA Authorization',
@@ -142,13 +245,29 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
     isFeatured: true,
     content: {
       ops: [
-        { insert: 'AUTHORIZATION FOR RELEASE OF PROTECTED HEALTH INFORMATION\n', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: 'AUTHORIZATION FOR RELEASE OF PROTECTED HEALTH INFORMATION\n',
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '(HIPAA Compliant)\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nAddress: {{patient_address}}\n\n' },
-        { insert: 'I authorize the following individual/organization to DISCLOSE my health information:\n', attributes: { bold: true } },
-        { insert: 'Name: {{disclosing_party}}\nAddress: {{disclosing_address}}\nPhone: {{disclosing_phone}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nSSN (Last 4): {{ssn_last4}}\nAddress: {{patient_address}}\n\n',
+        },
+        {
+          insert:
+            'I authorize the following individual/organization to DISCLOSE my health information:\n',
+          attributes: { bold: true },
+        },
+        {
+          insert:
+            'Name: {{disclosing_party}}\nAddress: {{disclosing_address}}\nPhone: {{disclosing_phone}}\n\n',
+        },
         { insert: 'To the following individual/organization:\n', attributes: { bold: true } },
-        { insert: 'Name: {{receiving_party}}\nAddress: {{receiving_address}}\nPhone: {{receiving_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{receiving_party}}\nAddress: {{receiving_address}}\nPhone: {{receiving_phone}}\n\n',
+        },
         { insert: 'INFORMATION TO BE DISCLOSED\n', attributes: { bold: true } },
         { insert: '{{information_type}}\n\n' },
         { insert: 'Date Range of Records: {{date_from}} to {{date_to}}\n\n' },
@@ -157,10 +276,22 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'EXPIRATION\n', attributes: { bold: true } },
         { insert: 'This authorization expires on: {{expiration_date}}\n\n' },
         { insert: 'PATIENT RIGHTS\n', attributes: { bold: true } },
-        { insert: '- I understand I may revoke this authorization at any time by providing written notice\n' },
-        { insert: '- I understand that revocation will not affect any actions taken before receipt of the revocation\n' },
-        { insert: '- I understand that information disclosed may be subject to re-disclosure and may no longer be protected\n' },
-        { insert: '- I understand I may refuse to sign this authorization and that my treatment will not be affected\n' },
+        {
+          insert:
+            '- I understand I may revoke this authorization at any time by providing written notice\n',
+        },
+        {
+          insert:
+            '- I understand that revocation will not affect any actions taken before receipt of the revocation\n',
+        },
+        {
+          insert:
+            '- I understand that information disclosed may be subject to re-disclosure and may no longer be protected\n',
+        },
+        {
+          insert:
+            '- I understand I may refuse to sign this authorization and that my treatment will not be affected\n',
+        },
         { insert: '- I understand I may request a copy of this authorization\n\n' },
         { insert: 'I have read and understand this authorization and agree to its terms.\n\n' },
         { insert: '_______________________________________________\n' },
@@ -176,24 +307,49 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'ssn_last4', type: 'text', label: 'SSN Last 4 Digits', required: false },
       { key: 'patient_address', type: 'text', label: 'Patient Address', required: true },
       { key: 'disclosing_party', type: 'text', label: 'Disclosing Party Name', required: true },
-      { key: 'disclosing_address', type: 'text', label: 'Disclosing Party Address', required: true },
+      {
+        key: 'disclosing_address',
+        type: 'text',
+        label: 'Disclosing Party Address',
+        required: true,
+      },
       { key: 'disclosing_phone', type: 'text', label: 'Disclosing Party Phone', required: true },
       { key: 'receiving_party', type: 'text', label: 'Receiving Party Name', required: true },
       { key: 'receiving_address', type: 'text', label: 'Receiving Party Address', required: true },
       { key: 'receiving_phone', type: 'text', label: 'Receiving Party Phone', required: false },
-      { key: 'information_type', type: 'textarea', label: 'Information to be Disclosed', required: true },
+      {
+        key: 'information_type',
+        type: 'textarea',
+        label: 'Information to be Disclosed',
+        required: true,
+      },
       { key: 'date_from', type: 'date', label: 'Records From Date', required: false },
       { key: 'date_to', type: 'date', label: 'Records To Date', required: false },
       { key: 'purpose', type: 'textarea', label: 'Purpose of Disclosure', required: true },
       { key: 'expiration_date', type: 'date', label: 'Expiration Date', required: true },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney', 'Other'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Consent for Telehealth Services',
@@ -208,9 +364,15 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       ops: [
         { insert: 'CONSENT FOR TELEHEALTH SERVICES\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{consent_date}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nDate: {{consent_date}}\n\n',
+        },
         { insert: 'WHAT IS TELEHEALTH?\n', attributes: { bold: true } },
-        { insert: 'Telehealth involves the use of electronic communications to enable healthcare providers to deliver services remotely. Technologies may include video conferencing, telephone, and secure messaging.\n\n' },
+        {
+          insert:
+            'Telehealth involves the use of electronic communications to enable healthcare providers to deliver services remotely. Technologies may include video conferencing, telephone, and secure messaging.\n\n',
+        },
         { insert: 'BENEFITS OF TELEHEALTH\n', attributes: { bold: true } },
         { insert: '- Improved access to healthcare services\n' },
         { insert: '- Convenience of receiving care from home\n' },
@@ -233,8 +395,14 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: '- Provide accurate health information\n' },
         { insert: '- Have a backup plan if technology fails\n\n' },
         { insert: 'EMERGENCY SITUATIONS\n', attributes: { bold: true } },
-        { insert: 'I understand that telehealth is not appropriate for emergencies. If I experience a medical emergency, I will call 911 or go to the nearest emergency room.\n\n' },
-        { insert: 'By signing below, I acknowledge that I have read and understand this consent form and agree to participate in telehealth services.\n\n' },
+        {
+          insert:
+            'I understand that telehealth is not appropriate for emergencies. If I experience a medical emergency, I will call 911 or go to the nearest emergency room.\n\n',
+        },
+        {
+          insert:
+            'By signing below, I acknowledge that I have read and understand this consent form and agree to participate in telehealth services.\n\n',
+        },
         { insert: '_______________________________________________\n' },
         { insert: 'Patient/Legal Representative Signature\n\n' },
         { insert: 'Printed Name: {{printed_name}}\n' },
@@ -250,9 +418,18 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Advance Directive',
@@ -267,13 +444,22 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       ops: [
         { insert: 'ADVANCE DIRECTIVE FOR HEALTHCARE\n', attributes: { bold: true, size: 'huge' } },
         { insert: '(Living Will and Healthcare Proxy)\n\n' },
-        { insert: 'I, {{patient_name}}, being of sound mind, make this advance directive to exercise my right to determine my own healthcare.\n\n' },
+        {
+          insert:
+            'I, {{patient_name}}, being of sound mind, make this advance directive to exercise my right to determine my own healthcare.\n\n',
+        },
         { insert: 'Date of Birth: {{date_of_birth}}\nAddress: {{patient_address}}\n\n' },
         { insert: 'PART I: HEALTHCARE AGENT (PROXY)\n', attributes: { bold: true, size: 'large' } },
         { insert: '\nI designate the following person as my healthcare agent:\n\n' },
-        { insert: 'Name: {{agent_name}}\nRelationship: {{agent_relationship}}\nPhone: {{agent_phone}}\nAddress: {{agent_address}}\n\n' },
+        {
+          insert:
+            'Name: {{agent_name}}\nRelationship: {{agent_relationship}}\nPhone: {{agent_phone}}\nAddress: {{agent_address}}\n\n',
+        },
         { insert: 'ALTERNATE AGENT:\n', attributes: { bold: true } },
-        { insert: 'Name: {{alternate_agent_name}}\nRelationship: {{alternate_relationship}}\nPhone: {{alternate_phone}}\n\n' },
+        {
+          insert:
+            'Name: {{alternate_agent_name}}\nRelationship: {{alternate_relationship}}\nPhone: {{alternate_phone}}\n\n',
+        },
         { insert: 'My agent is authorized to:\n' },
         { insert: '- Make all healthcare decisions for me when I am unable to do so\n' },
         { insert: '- Consent to or refuse treatment\n' },
@@ -286,7 +472,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'Mechanical Ventilation: {{mechanical_ventilation}}\n' },
         { insert: 'CPR: {{cpr_preference}}\n' },
         { insert: 'Dialysis: {{dialysis_preference}}\n\n' },
-        { insert: 'Pain Management: I want all available measures to keep me comfortable and pain-free.\n\n' },
+        {
+          insert:
+            'Pain Management: I want all available measures to keep me comfortable and pain-free.\n\n',
+        },
         { insert: 'ADDITIONAL INSTRUCTIONS\n', attributes: { bold: true } },
         { insert: '{{additional_instructions}}\n\n' },
         { insert: 'PART III: ORGAN DONATION\n', attributes: { bold: true, size: 'large' } },
@@ -295,7 +484,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: '\n_______________________________________________\n' },
         { insert: 'My Signature                    Date: {{signature_date}}\n\n' },
         { insert: 'WITNESS STATEMENTS\n', attributes: { bold: true } },
-        { insert: 'We declare that the person who signed this document did so voluntarily and appeared to be of sound mind.\n\n' },
+        {
+          insert:
+            'We declare that the person who signed this document did so voluntarily and appeared to be of sound mind.\n\n',
+        },
         { insert: 'Witness 1: _________________________ Date: _____________\n' },
         { insert: 'Printed Name: {{witness1_name}}\nAddress: {{witness1_address}}\n\n' },
         { insert: 'Witness 2: _________________________ Date: _____________\n' },
@@ -311,16 +503,71 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'agent_phone', type: 'text', label: 'Agent Phone', required: true },
       { key: 'agent_address', type: 'text', label: 'Agent Address', required: true },
       { key: 'alternate_agent_name', type: 'text', label: 'Alternate Agent Name', required: false },
-      { key: 'alternate_relationship', type: 'text', label: 'Alternate Relationship', required: false },
+      {
+        key: 'alternate_relationship',
+        type: 'text',
+        label: 'Alternate Relationship',
+        required: false,
+      },
       { key: 'alternate_phone', type: 'text', label: 'Alternate Phone', required: false },
-      { key: 'life_sustaining', type: 'select', label: 'Life-Sustaining Treatment', required: true, options: ['I want all available treatment', 'I do not want life-sustaining treatment', 'I want treatment only if recovery is likely'] },
-      { key: 'artificial_nutrition', type: 'select', label: 'Artificial Nutrition/Hydration', required: true, options: ['I want', 'I do not want', 'Trial period only'] },
-      { key: 'mechanical_ventilation', type: 'select', label: 'Mechanical Ventilation', required: true, options: ['I want', 'I do not want', 'Trial period only'] },
-      { key: 'cpr_preference', type: 'select', label: 'CPR Preference', required: true, options: ['I want CPR', 'I do not want CPR (DNR)'] },
-      { key: 'dialysis_preference', type: 'select', label: 'Dialysis Preference', required: true, options: ['I want', 'I do not want', 'Trial period only'] },
-      { key: 'additional_instructions', type: 'textarea', label: 'Additional Instructions', required: false },
-      { key: 'organ_donation', type: 'select', label: 'Organ Donation', required: true, options: ['Yes, any organs/tissues', 'Yes, specific organs only', 'No'] },
-      { key: 'organ_donation_details', type: 'textarea', label: 'Organ Donation Details', required: false },
+      {
+        key: 'life_sustaining',
+        type: 'select',
+        label: 'Life-Sustaining Treatment',
+        required: true,
+        options: [
+          'I want all available treatment',
+          'I do not want life-sustaining treatment',
+          'I want treatment only if recovery is likely',
+        ],
+      },
+      {
+        key: 'artificial_nutrition',
+        type: 'select',
+        label: 'Artificial Nutrition/Hydration',
+        required: true,
+        options: ['I want', 'I do not want', 'Trial period only'],
+      },
+      {
+        key: 'mechanical_ventilation',
+        type: 'select',
+        label: 'Mechanical Ventilation',
+        required: true,
+        options: ['I want', 'I do not want', 'Trial period only'],
+      },
+      {
+        key: 'cpr_preference',
+        type: 'select',
+        label: 'CPR Preference',
+        required: true,
+        options: ['I want CPR', 'I do not want CPR (DNR)'],
+      },
+      {
+        key: 'dialysis_preference',
+        type: 'select',
+        label: 'Dialysis Preference',
+        required: true,
+        options: ['I want', 'I do not want', 'Trial period only'],
+      },
+      {
+        key: 'additional_instructions',
+        type: 'textarea',
+        label: 'Additional Instructions',
+        required: false,
+      },
+      {
+        key: 'organ_donation',
+        type: 'select',
+        label: 'Organ Donation',
+        required: true,
+        options: ['Yes, any organs/tissues', 'Yes, specific organs only', 'No'],
+      },
+      {
+        key: 'organ_donation_details',
+        type: 'textarea',
+        label: 'Organ Donation Details',
+        required: false,
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
       { key: 'witness1_name', type: 'text', label: 'Witness 1 Name', required: true },
       { key: 'witness1_address', type: 'text', label: 'Witness 1 Address', required: true },
@@ -328,11 +575,30 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'witness2_address', type: 'text', label: 'Witness 2 Address', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient Signature', required: true, position: { page: 1, x: 100, y: 500 } },
-      { id: 'witness1_signature', label: 'Witness 1 Signature', required: true, position: { page: 1, x: 100, y: 620 } },
-      { id: 'witness2_signature', label: 'Witness 2 Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 500 },
+      },
+      {
+        id: 'witness1_signature',
+        label: 'Witness 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 620 },
+      },
+      {
+        id: 'witness2_signature',
+        label: 'Witness 2 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Surgical Consent Form',
@@ -347,7 +613,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       ops: [
         { insert: 'SURGICAL CONSENT FORM\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\n\n' },
-        { insert: 'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{consent_date}}\n\n' },
+        {
+          insert:
+            'Patient Name: {{patient_name}}\nDOB: {{date_of_birth}}\nMRN: {{medical_record_number}}\nDate: {{consent_date}}\n\n',
+        },
         { insert: 'SURGICAL PROCEDURE\n', attributes: { bold: true } },
         { insert: '1. I consent to the following surgical procedure(s):\n{{procedure_name}}\n\n' },
         { insert: '2. To be performed by: {{surgeon_name}}\n' },
@@ -356,9 +625,15 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'Surgical Site: {{surgical_site}}\nSide (if applicable): {{surgical_side}}\n\n' },
         { insert: 'ANESTHESIA\n', attributes: { bold: true } },
         { insert: 'Type: {{anesthesia_type}}\nAnesthesiologist/CRNA: {{anesthesia_provider}}\n' },
-        { insert: 'I understand that anesthesia carries its own risks including but not limited to: allergic reaction, nausea, vomiting, dental injury, and in rare cases, death.\n\n' },
+        {
+          insert:
+            'I understand that anesthesia carries its own risks including but not limited to: allergic reaction, nausea, vomiting, dental injury, and in rare cases, death.\n\n',
+        },
         { insert: 'RISKS OF THE PROCEDURE\n', attributes: { bold: true } },
-        { insert: 'I understand that the risks of this procedure include but are not limited to:\n{{procedure_risks}}\n\n' },
+        {
+          insert:
+            'I understand that the risks of this procedure include but are not limited to:\n{{procedure_risks}}\n\n',
+        },
         { insert: 'EXPECTED BENEFITS\n', attributes: { bold: true } },
         { insert: '{{expected_benefits}}\n\n' },
         { insert: 'ALTERNATIVES\n', attributes: { bold: true } },
@@ -370,7 +645,10 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: '- I authorize the presence of observers/students: {{observers}}\n' },
         { insert: '- I authorize the disposal of removed tissue: {{tissue_disposal}}\n\n' },
         { insert: 'ACKNOWLEDGMENTS\n', attributes: { bold: true } },
-        { insert: 'I have been given the opportunity to ask questions and all my questions have been answered. I understand that there is no guarantee of results. I consent voluntarily.\n\n' },
+        {
+          insert:
+            'I have been given the opportunity to ask questions and all my questions have been answered. I understand that there is no guarantee of results. I consent voluntarily.\n\n',
+        },
         { insert: '_______________________________________________\n' },
         { insert: 'Patient/Legal Representative Signature\n\n' },
         { insert: 'Printed Name: {{printed_name}}\n' },
@@ -385,32 +663,93 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'facility_name', type: 'text', label: 'Facility Name', required: true },
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
       { key: 'consent_date', type: 'date', label: 'Consent Date', required: true },
       { key: 'procedure_name', type: 'textarea', label: 'Surgical Procedure(s)', required: true },
       { key: 'surgeon_name', type: 'text', label: 'Surgeon Name', required: true },
       { key: 'assistants', type: 'text', label: 'Surgical Assistants', required: false },
       { key: 'surgical_site', type: 'text', label: 'Surgical Site', required: true },
-      { key: 'surgical_side', type: 'select', label: 'Side', required: false, options: ['Left', 'Right', 'Bilateral', 'N/A'] },
-      { key: 'anesthesia_type', type: 'select', label: 'Anesthesia Type', required: true, options: ['General', 'Regional', 'Spinal', 'Epidural', 'Local', 'MAC'] },
+      {
+        key: 'surgical_side',
+        type: 'select',
+        label: 'Side',
+        required: false,
+        options: ['Left', 'Right', 'Bilateral', 'N/A'],
+      },
+      {
+        key: 'anesthesia_type',
+        type: 'select',
+        label: 'Anesthesia Type',
+        required: true,
+        options: ['General', 'Regional', 'Spinal', 'Epidural', 'Local', 'MAC'],
+      },
       { key: 'anesthesia_provider', type: 'text', label: 'Anesthesia Provider', required: true },
       { key: 'procedure_risks', type: 'textarea', label: 'Procedure Risks', required: true },
       { key: 'expected_benefits', type: 'textarea', label: 'Expected Benefits', required: true },
       { key: 'alternatives', type: 'textarea', label: 'Alternatives', required: true },
-      { key: 'blood_transfusion', type: 'select', label: 'Blood Transfusion', required: true, options: ['I consent', 'I refuse'] },
-      { key: 'photography', type: 'select', label: 'Photography Consent', required: true, options: ['Yes', 'No'] },
-      { key: 'observers', type: 'select', label: 'Observers Consent', required: true, options: ['Yes', 'No'] },
-      { key: 'tissue_disposal', type: 'select', label: 'Tissue Disposal Consent', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'blood_transfusion',
+        type: 'select',
+        label: 'Blood Transfusion',
+        required: true,
+        options: ['I consent', 'I refuse'],
+      },
+      {
+        key: 'photography',
+        type: 'select',
+        label: 'Photography Consent',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'observers',
+        type: 'select',
+        label: 'Observers Consent',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'tissue_disposal',
+        type: 'select',
+        label: 'Tissue Disposal Consent',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'printed_name', type: 'text', label: 'Printed Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Parent', 'Guardian', 'Spouse', 'Power of Attorney'],
+      },
       { key: 'signature_date', type: 'date', label: 'Signature Date', required: true },
       { key: 'signature_time', type: 'text', label: 'Signature Time', required: true },
     ],
     signatureFields: [
-      { id: 'patient_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 550 } },
-      { id: 'surgeon_signature', label: 'Surgeon Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'patient_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 550 },
+      },
+      {
+        id: 'surgeon_signature',
+        label: 'Surgeon Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Do Not Resuscitate (DNR) Order',
@@ -426,9 +765,15 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'DO NOT RESUSCITATE (DNR) ORDER\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\n{{facility_name}}\n\n' },
         { insert: 'THIS IS A PHYSICIAN ORDER\n', attributes: { bold: true, color: '#DC2626' } },
-        { insert: '\n\nPatient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nMRN: {{medical_record_number}}\n\n' },
+        {
+          insert:
+            '\n\nPatient Name: {{patient_name}}\nDate of Birth: {{date_of_birth}}\nMRN: {{medical_record_number}}\n\n',
+        },
         { insert: 'ORDER\n', attributes: { bold: true } },
-        { insert: 'In the event of cardiac or respiratory arrest, NO cardiopulmonary resuscitation (CPR) is to be performed.\n\n' },
+        {
+          insert:
+            'In the event of cardiac or respiratory arrest, NO cardiopulmonary resuscitation (CPR) is to be performed.\n\n',
+        },
         { insert: 'This order applies to: {{dnr_scope}}\n\n' },
         { insert: 'CLINICAL INDICATION\n', attributes: { bold: true } },
         { insert: 'Diagnosis: {{diagnosis}}\nPrognosis: {{prognosis}}\n\n' },
@@ -449,9 +794,15 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
         { insert: 'Dialysis: {{dialysis}}\n' },
         { insert: 'Additional Orders: {{additional_orders}}\n\n' },
         { insert: 'PHYSICIAN CERTIFICATION\n', attributes: { bold: true } },
-        { insert: 'I certify that I have discussed this order with the patient and/or their authorized representative. The nature of the order and its implications have been explained.\n\n' },
+        {
+          insert:
+            'I certify that I have discussed this order with the patient and/or their authorized representative. The nature of the order and its implications have been explained.\n\n',
+        },
         { insert: 'Physician Name: {{physician_name}}, {{credentials}}\n' },
-        { insert: 'Physician Signature: _________________________ Date: {{order_date}} Time: {{order_time}}\n\n' },
+        {
+          insert:
+            'Physician Signature: _________________________ Date: {{order_date}} Time: {{order_time}}\n\n',
+        },
         { insert: 'PATIENT/REPRESENTATIVE ACKNOWLEDGMENT\n', attributes: { bold: true } },
         { insert: 'I/We understand this order and consent to its implementation.\n\n' },
         { insert: 'Patient/Representative Signature: _________________________\n' },
@@ -464,30 +815,107 @@ export const HEALTHCARE_CONSENT_TEMPLATES = [
       { key: 'facility_name', type: 'text', label: 'Facility Name', required: true },
       { key: 'patient_name', type: 'text', label: 'Patient Name', required: true },
       { key: 'date_of_birth', type: 'date', label: 'Date of Birth', required: true },
-      { key: 'medical_record_number', type: 'text', label: 'Medical Record Number', required: true },
-      { key: 'dnr_scope', type: 'select', label: 'DNR Scope', required: true, options: ['All settings', 'Hospital only', 'Out-of-hospital only'] },
+      {
+        key: 'medical_record_number',
+        type: 'text',
+        label: 'Medical Record Number',
+        required: true,
+      },
+      {
+        key: 'dnr_scope',
+        type: 'select',
+        label: 'DNR Scope',
+        required: true,
+        options: ['All settings', 'Hospital only', 'Out-of-hospital only'],
+      },
       { key: 'diagnosis', type: 'textarea', label: 'Diagnosis', required: true },
       { key: 'prognosis', type: 'text', label: 'Prognosis', required: true },
-      { key: 'dnr_basis', type: 'select', label: 'Basis for DNR', required: true, options: ['Patient request', 'Healthcare proxy decision', 'Medical futility', 'Advance directive'] },
-      { key: 'comfort_measures', type: 'textarea', label: 'Other Comfort Measures', required: false },
-      { key: 'iv_fluids', type: 'select', label: 'IV Fluids', required: true, options: ['Continue', 'Discontinue', 'Comfort only'] },
-      { key: 'antibiotics', type: 'select', label: 'Antibiotics', required: true, options: ['Continue', 'Discontinue', 'Comfort only'] },
-      { key: 'blood_products', type: 'select', label: 'Blood Products', required: true, options: ['Continue', 'Discontinue', 'As needed'] },
-      { key: 'tube_feeding', type: 'select', label: 'Tube Feeding', required: true, options: ['Continue', 'Discontinue', 'As tolerated'] },
-      { key: 'dialysis', type: 'select', label: 'Dialysis', required: true, options: ['Continue', 'Discontinue', 'N/A'] },
+      {
+        key: 'dnr_basis',
+        type: 'select',
+        label: 'Basis for DNR',
+        required: true,
+        options: [
+          'Patient request',
+          'Healthcare proxy decision',
+          'Medical futility',
+          'Advance directive',
+        ],
+      },
+      {
+        key: 'comfort_measures',
+        type: 'textarea',
+        label: 'Other Comfort Measures',
+        required: false,
+      },
+      {
+        key: 'iv_fluids',
+        type: 'select',
+        label: 'IV Fluids',
+        required: true,
+        options: ['Continue', 'Discontinue', 'Comfort only'],
+      },
+      {
+        key: 'antibiotics',
+        type: 'select',
+        label: 'Antibiotics',
+        required: true,
+        options: ['Continue', 'Discontinue', 'Comfort only'],
+      },
+      {
+        key: 'blood_products',
+        type: 'select',
+        label: 'Blood Products',
+        required: true,
+        options: ['Continue', 'Discontinue', 'As needed'],
+      },
+      {
+        key: 'tube_feeding',
+        type: 'select',
+        label: 'Tube Feeding',
+        required: true,
+        options: ['Continue', 'Discontinue', 'As tolerated'],
+      },
+      {
+        key: 'dialysis',
+        type: 'select',
+        label: 'Dialysis',
+        required: true,
+        options: ['Continue', 'Discontinue', 'N/A'],
+      },
       { key: 'additional_orders', type: 'textarea', label: 'Additional Orders', required: false },
       { key: 'physician_name', type: 'text', label: 'Physician Name', required: true },
       { key: 'credentials', type: 'text', label: 'Credentials', required: true },
       { key: 'order_date', type: 'date', label: 'Order Date', required: true },
       { key: 'order_time', type: 'text', label: 'Order Time', required: true },
       { key: 'representative_name', type: 'text', label: 'Representative Name', required: true },
-      { key: 'relationship', type: 'select', label: 'Relationship', required: true, options: ['Self', 'Spouse', 'Child', 'Parent', 'Healthcare Proxy', 'Guardian', 'Other'] },
+      {
+        key: 'relationship',
+        type: 'select',
+        label: 'Relationship',
+        required: true,
+        options: ['Self', 'Spouse', 'Child', 'Parent', 'Healthcare Proxy', 'Guardian', 'Other'],
+      },
       { key: 'acknowledgment_date', type: 'date', label: 'Acknowledgment Date', required: true },
     ],
     signatureFields: [
-      { id: 'physician_signature', label: 'Physician Signature', required: true, position: { page: 1, x: 100, y: 550 } },
-      { id: 'representative_signature', label: 'Patient/Representative Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'physician_signature',
+        label: 'Physician Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 550 },
+      },
+      {
+        id: 'representative_signature',
+        label: 'Patient/Representative Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

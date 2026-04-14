@@ -104,7 +104,10 @@ export class StorageService implements OnModuleInit {
     return getSignedUrl(this.s3Client, command, { expiresIn });
   }
 
-  async listFiles(bucket: string, prefix?: string): Promise<{ key: string; size: number; lastModified: Date }[]> {
+  async listFiles(
+    bucket: string,
+    prefix?: string,
+  ): Promise<{ key: string; size: number; lastModified: Date }[]> {
     const command = new ListObjectsV2Command({
       Bucket: bucket,
       Prefix: prefix,

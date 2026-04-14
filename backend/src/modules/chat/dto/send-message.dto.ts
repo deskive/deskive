@@ -1,5 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsUUID, IsArray, ValidateNested, IsIn, IsBoolean, IsNumber, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsUUID,
+  IsArray,
+  ValidateNested,
+  IsIn,
+  IsBoolean,
+  IsNumber,
+  IsObject,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class AttachmentDto {
@@ -83,7 +93,11 @@ export class LinkedContentDto {
   @IsString()
   title: string;
 
-  @ApiProperty({ description: 'Content type', enum: ['notes', 'events', 'files', 'drive', 'poll'], example: 'notes' })
+  @ApiProperty({
+    description: 'Content type',
+    enum: ['notes', 'events', 'files', 'drive', 'poll'],
+    example: 'notes',
+  })
   @IsString()
   @IsIn(['notes', 'events', 'files', 'drive', 'poll'])
   type: 'notes' | 'events' | 'files' | 'drive' | 'poll';
@@ -122,7 +136,10 @@ export class LinkedContentDto {
 }
 
 export class SendMessageDto {
-  @ApiProperty({ description: 'Message content (plaintext or empty if encrypted)', example: 'Hello everyone!' })
+  @ApiProperty({
+    description: 'Message content (plaintext or empty if encrypted)',
+    example: 'Hello everyone!',
+  })
   @IsOptional()
   @IsString()
   content?: string;
@@ -141,7 +158,12 @@ export class SendMessageDto {
   @ApiProperty({
     description: 'Encryption metadata (algorithm, nonce, version)',
     required: false,
-    example: { algorithm: 'x25519-xsalsa20-poly1305', version: '1.0', nonce: 'base64...', conversationId: 'uuid' }
+    example: {
+      algorithm: 'x25519-xsalsa20-poly1305',
+      version: '1.0',
+      nonce: 'base64...',
+      conversationId: 'uuid',
+    },
   })
   @IsOptional()
   @IsObject()
@@ -152,7 +174,11 @@ export class SendMessageDto {
     conversationId: string;
   };
 
-  @ApiProperty({ description: 'Whether message is end-to-end encrypted', required: false, default: false })
+  @ApiProperty({
+    description: 'Whether message is end-to-end encrypted',
+    required: false,
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   is_encrypted?: boolean;
@@ -170,7 +196,7 @@ export class SendMessageDto {
   @ApiProperty({
     description: 'File attachments with full metadata',
     type: [AttachmentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -186,7 +212,7 @@ export class SendMessageDto {
   @ApiProperty({
     description: 'Linked content items (notes, events, files) attached to the message',
     type: [LinkedContentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()

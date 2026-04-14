@@ -10,13 +10,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiParam,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
 import { SendGridService } from './sendgrid.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
@@ -48,11 +42,7 @@ export class SendGridController {
     @CurrentUser('sub') userId: string,
     @Body() connectDto: SendGridConnectDto,
   ) {
-    const connection = await this.sendGridService.saveConnection(
-      userId,
-      workspaceId,
-      connectDto,
-    );
+    const connection = await this.sendGridService.saveConnection(userId, workspaceId, connectDto);
     return {
       data: connection,
       message: 'SendGrid connected successfully',
@@ -80,10 +70,7 @@ export class SendGridController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
   @ApiResponse({ status: 404, description: 'Connection not found' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.sendGridService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -141,7 +128,8 @@ export class SendGridController {
     const result = await this.sendGridService.sendBulkEmail(userId, workspaceId, bulkEmailDto);
     return {
       data: result,
-      message: result.status === 'sent' ? 'Bulk emails sent successfully' : 'Failed to send bulk emails',
+      message:
+        result.status === 'sent' ? 'Bulk emails sent successfully' : 'Failed to send bulk emails',
     };
   }
 

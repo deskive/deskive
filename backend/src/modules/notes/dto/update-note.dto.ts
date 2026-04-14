@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, IsArray, IsObject, IsUUID, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsObject,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 import { NoteAttachmentsDto } from './create-note.dto';
 
@@ -47,8 +55,8 @@ export class UpdateNoteDto {
     example: {
       note_attachment: ['550e8400-e29b-41d4-a716-446655440000'],
       file_attachment: ['660e8400-e29b-41d4-a716-446655440001'],
-      event_attachment: ['770e8400-e29b-41d4-a716-446655440002']
-    }
+      event_attachment: ['770e8400-e29b-41d4-a716-446655440002'],
+    },
   })
   @IsOptional()
   @ValidateNested()

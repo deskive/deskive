@@ -9,7 +9,14 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiParam, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
 import { BotsService } from '../services/bots.service';
@@ -62,10 +69,7 @@ export class BotsController {
   @Get()
   @ApiOperation({ summary: 'Get all bots in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  async getBots(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getBots(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const bots = await this.botsService.findAll(workspaceId, userId);
     return { data: bots };
   }
@@ -75,10 +79,15 @@ export class BotsController {
   @Get('prebuilt')
   @ApiOperation({
     summary: 'Get all available prebuilt bots',
-    description: 'Returns a list of prebuilt bots that users can activate. Includes activation status for the current user.'
+    description:
+      'Returns a list of prebuilt bots that users can activate. Includes activation status for the current user.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ status: 200, description: 'List of prebuilt bots', type: [PrebuiltBotResponseDto] })
+  @ApiResponse({
+    status: 200,
+    description: 'List of prebuilt bots',
+    type: [PrebuiltBotResponseDto],
+  })
   async getPrebuiltBots(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
@@ -90,7 +99,8 @@ export class BotsController {
   @Post('prebuilt/activate')
   @ApiOperation({
     summary: 'Activate a prebuilt bot',
-    description: 'Creates a bot instance from a prebuilt bot template. The bot will be available in your Direct Messages.'
+    description:
+      'Creates a bot instance from a prebuilt bot template. The bot will be available in your Direct Messages.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 201, description: 'Prebuilt bot activated successfully' })
@@ -114,7 +124,7 @@ export class BotsController {
   @Delete('prebuilt/:botId')
   @ApiOperation({
     summary: 'Deactivate a prebuilt bot',
-    description: 'Removes the prebuilt bot instance from your workspace'
+    description: 'Removes the prebuilt bot instance from your workspace',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot instance ID to deactivate' })
@@ -135,10 +145,7 @@ export class BotsController {
   @ApiOperation({ summary: 'Get a bot by ID' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
-  async getBot(
-    @Param('workspaceId') workspaceId: string,
-    @Param('botId') botId: string,
-  ) {
+  async getBot(@Param('workspaceId') workspaceId: string, @Param('botId') botId: string) {
     const bot = await this.botsService.findOne(botId, workspaceId);
     return { data: bot };
   }
@@ -203,10 +210,7 @@ export class BotsController {
   @ApiOperation({ summary: 'Get all triggers for a bot' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
-  async getTriggers(
-    @Param('workspaceId') workspaceId: string,
-    @Param('botId') botId: string,
-  ) {
+  async getTriggers(@Param('workspaceId') workspaceId: string, @Param('botId') botId: string) {
     await this.botsService.findOne(botId, workspaceId);
     const triggers = await this.triggersService.findAllForBot(botId);
     return { data: triggers };
@@ -263,10 +267,7 @@ export class BotsController {
   @ApiOperation({ summary: 'Get all actions for a bot' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
-  async getActions(
-    @Param('workspaceId') workspaceId: string,
-    @Param('botId') botId: string,
-  ) {
+  async getActions(@Param('workspaceId') workspaceId: string, @Param('botId') botId: string) {
     await this.botsService.findOne(botId, workspaceId);
     const actions = await this.actionsService.findAllForBot(botId);
     return { data: actions };
@@ -353,10 +354,7 @@ export class BotsController {
   @ApiOperation({ summary: 'Get all installations for a bot' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
-  async getInstallations(
-    @Param('workspaceId') workspaceId: string,
-    @Param('botId') botId: string,
-  ) {
+  async getInstallations(@Param('workspaceId') workspaceId: string, @Param('botId') botId: string) {
     await this.botsService.findOne(botId, workspaceId);
     const installations = await this.installationsService.findAllForBot(botId);
     return { data: installations };
@@ -474,7 +472,10 @@ export class BotsController {
   // ==================== PROJECT BOT ASSIGNMENTS ====================
 
   @Post(':botId/assign-to-project/:projectId')
-  @ApiOperation({ summary: 'Assign bot to a project', description: 'Gives the bot context of this specific project' })
+  @ApiOperation({
+    summary: 'Assign bot to a project',
+    description: 'Gives the bot context of this specific project',
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
   @ApiParam({ name: 'projectId', description: 'Project ID' })
@@ -484,7 +485,12 @@ export class BotsController {
     @Param('projectId') projectId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    const assignment = await this.botsService.assignToProject(workspaceId, botId, projectId, userId);
+    const assignment = await this.botsService.assignToProject(
+      workspaceId,
+      botId,
+      projectId,
+      userId,
+    );
     return { data: assignment, message: 'Bot assigned to project successfully' };
   }
 
@@ -519,7 +525,7 @@ export class BotsController {
   @Get('projects/:projectId/available-bots')
   @ApiOperation({
     summary: 'Get available bots that can be assigned to a project',
-    description: 'Returns activated bots that are NOT already assigned to this project'
+    description: 'Returns activated bots that are NOT already assigned to this project',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'projectId', description: 'Project ID' })
@@ -531,5 +537,4 @@ export class BotsController {
     const bots = await this.botsService.getAvailableBotsForProject(workspaceId, projectId, userId);
     return { data: bots };
   }
-
 }

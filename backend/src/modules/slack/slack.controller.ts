@@ -13,7 +13,14 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiQuery,
+  ApiParam,
+} from '@nestjs/swagger';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -73,7 +80,11 @@ export class SlackController {
 
   @Get('connection')
   @ApiOperation({ summary: 'Get current Slack connection' })
-  @ApiResponse({ status: 200, description: 'Returns the connection details', type: SlackConnectionDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns the connection details',
+    type: SlackConnectionDto,
+  })
   @ApiResponse({ status: 404, description: 'No connection found' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   async getConnection(
@@ -103,7 +114,11 @@ export class SlackController {
 
   @Get('channels')
   @ApiOperation({ summary: 'List Slack channels' })
-  @ApiResponse({ status: 200, description: 'Returns list of channels', type: ListChannelsResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns list of channels',
+    type: ListChannelsResponseDto,
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiQuery({ name: 'cursor', required: false })
   @ApiQuery({ name: 'limit', required: false })
@@ -136,7 +151,11 @@ export class SlackController {
 
   @Get('messages')
   @ApiOperation({ summary: 'List messages in a channel' })
-  @ApiResponse({ status: 200, description: 'Returns list of messages', type: ListMessagesResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Returns list of messages',
+    type: ListMessagesResponseDto,
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   async listMessages(
     @Param('workspaceId') workspaceId: string,
@@ -326,10 +345,7 @@ export class SlackCallbackController {
   @Get('callback')
   @ApiOperation({ summary: 'Handle Slack OAuth callback' })
   @ApiResponse({ status: 302, description: 'Redirects to return URL or default page' })
-  async handleCallback(
-    @Query() query: SlackOAuthCallbackDto,
-    @Res() res: Response,
-  ): Promise<void> {
+  async handleCallback(@Query() query: SlackOAuthCallbackDto, @Res() res: Response): Promise<void> {
     try {
       const { connection, returnUrl } = await this.slackService.handleOAuthCallback(
         query.code,

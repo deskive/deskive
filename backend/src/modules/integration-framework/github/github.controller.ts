@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Delete,
-  Param,
-  Query,
-  Body,
-  UseGuards,
-  Res,
-} from '@nestjs/common';
+import { Controller, Get, Post, Delete, Param, Query, Body, UseGuards, Res } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -22,11 +12,7 @@ import { GitHubService } from './github.service';
 import { AuthGuard } from '../../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../../common/guards/workspace.guard';
 import { CurrentUser } from '../../../common/decorators/current-user.decorator';
-import {
-  ListRepositoriesQueryDto,
-  ListIssuesQueryDto,
-  LinkIssueToTaskDto,
-} from './dto/github.dto';
+import { ListRepositoriesQueryDto, ListIssuesQueryDto, LinkIssueToTaskDto } from './dto/github.dto';
 import { ConfigService } from '@nestjs/config';
 
 @ApiTags('github')
@@ -81,10 +67,7 @@ export class GitHubController {
   @ApiOperation({ summary: 'Disconnect GitHub' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'GitHub disconnected successfully' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.githubService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -291,7 +274,9 @@ export class GitHubOAuthCallbackController {
       // Handle errors
       if (error) {
         console.error('GitHub App installation error:', error, errorDescription);
-        return res.redirect(`${frontendUrl}?github_error=${encodeURIComponent(errorDescription || error)}`);
+        return res.redirect(
+          `${frontendUrl}?github_error=${encodeURIComponent(errorDescription || error)}`,
+        );
       }
 
       if (!installationId || !state) {
@@ -310,7 +295,9 @@ export class GitHubOAuthCallbackController {
 
       const workspaceId = stateData.workspaceId;
 
-      console.log(`GitHub App ${setupAction} for installation ${installationId}, workspace ${workspaceId}`);
+      console.log(
+        `GitHub App ${setupAction} for installation ${installationId}, workspace ${workspaceId}`,
+      );
 
       // Handle the installation callback
       const connection = await this.githubService.handleInstallationCallback(
@@ -319,7 +306,7 @@ export class GitHubOAuthCallbackController {
       );
 
       // Build redirect URL
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${workspaceId}/apps`;
+      const returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${workspaceId}/apps`;
       const separator = returnUrl.includes('?') ? '&' : '?';
       const redirectUrl = `${returnUrl}${separator}githubConnected=true&username=${encodeURIComponent(connection.githubLogin || '')}`;
 
@@ -341,7 +328,8 @@ export class GitHubOAuthCallbackController {
         // Ignore parse error
       }
 
-      let returnUrl = stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId || ''}/apps`;
+      const returnUrl =
+        stateData.returnUrl || `${frontendUrl}/workspaces/${stateData.workspaceId || ''}/apps`;
       const separator = returnUrl.includes('?') ? '&' : '?';
       const errorUrl = `${returnUrl}${separator}githubError=${encodeURIComponent(err.message || 'unknown_error')}`;
 
@@ -368,7 +356,12 @@ export class GitHubOAuthCallbackController {
   /**
    * Send an HTML page that triggers a deep link
    */
-  private sendDeepLinkPage(res: Response, deepLinkUrl: string, title: string, errorMessage?: string) {
+  private sendDeepLinkPage(
+    res: Response,
+    deepLinkUrl: string,
+    title: string,
+    errorMessage?: string,
+  ) {
     const isError = title.toLowerCase().includes('failed');
     const bgGradient = isError
       ? 'linear-gradient(135deg, #e53935 0%, #c62828 100%)'

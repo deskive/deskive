@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { SearchQueryDto } from './dto';
+import { SearchProviderService } from '../search-provider/search-provider.service';
 
 interface SearchFilters {
   author?: string;
@@ -13,12 +14,28 @@ interface SearchFilters {
 
 @Injectable()
 export class SearchService {
-  constructor(private readonly db: DatabaseService) { }
+  constructor(
+    private readonly db: DatabaseService,
+    private readonly searchProvider: SearchProviderService,
+  ) {}
 
   async universalSearch(workspaceId: string, searchParams: SearchQueryDto, userId: string) {
-    const { query, types = ['notes', 'files', 'folders', 'messages', 'tasks', 'projects', 'events', 'videos'], page = 1, limit = 20, ...filters } = searchParams;
+    const {
+      query,
+      types = ['notes', 'files', 'folders', 'messages', 'tasks', 'projects', 'events', 'videos'],
+      page = 1,
+      limit = 20,
+      ...filters
+    } = searchParams;
 
-    console.log('[Search] Starting search with:', { query, types, page, limit, workspaceId, userId: userId?.substring(0, 8) });
+    console.log('[Search] Starting search with:', {
+      query,
+      types,
+      page,
+      limit,
+      workspaceId,
+      userId: userId?.substring(0, 8),
+    });
 
     // Validate query - must have a search term
     if (!query || query.trim().length === 0) {
@@ -29,7 +46,7 @@ export class SearchService {
         limit,
         query: '',
         types,
-        has_more: false
+        has_more: false,
       };
     }
 
@@ -37,7 +54,9 @@ export class SearchService {
     const results: any[] = [];
 
     // Search in different content types in parallel using allSettled to prevent one failure from breaking all
-    const searchPromises = types.map(type => this.searchInContentType(type, workspaceId, query, filters, userId));
+    const searchPromises = types.map((type) =>
+      this.searchInContentType(type, workspaceId, query, filters, userId),
+    );
     const searchResults = await Promise.allSettled(searchPromises);
 
     // Combine and flatten results
@@ -51,7 +70,7 @@ export class SearchService {
           results.push({
             ...item,
             content_type: contentType,
-            relevance_score: this.calculateRelevanceScore(item, query, contentType)
+            relevance_score: this.calculateRelevanceScore(item, query, contentType),
           });
         });
       } else {
@@ -59,10 +78,12 @@ export class SearchService {
       }
     });
 
-    console.log(`[Search] Total combined results: ${results.length}, after relevance filter: ${results.filter(r => r.relevance_score > 0).length}`);
+    console.log(
+      `[Search] Total combined results: ${results.length}, after relevance filter: ${results.filter((r) => r.relevance_score > 0).length}`,
+    );
 
     // Filter out results with zero relevance score (no actual match)
-    const filteredResults = results.filter(r => r.relevance_score > 0);
+    const filteredResults = results.filter((r) => r.relevance_score > 0);
 
     // Sort by relevance
     filteredResults.sort((a, b) => b.relevance_score - a.relevance_score);
@@ -80,47 +101,54 @@ export class SearchService {
       limit,
       query,
       types,
-      has_more: filteredResults.length > offset + limit
+      has_more: filteredResults.length > offset + limit,
     };
   }
 
-  private async searchInContentType(type: string, workspaceId: string, query: string, filters: SearchFilters, userId: string) {
-    const searchTerm = query.toLowerCase();
-
+  private async searchInContentType(
+    type: string,
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
-      switch (type) {
-        case 'notes':
-          return await this.searchNotes(workspaceId, searchTerm, filters, userId);
-        case 'files':
-          return await this.searchFiles(workspaceId, searchTerm, filters, userId);
-        case 'folders':
-          return await this.searchFolders(workspaceId, searchTerm, filters, userId);
-        case 'messages':
-          return await this.searchMessages(workspaceId, searchTerm, filters, userId);
-        case 'tasks':
-          return await this.searchTasks(workspaceId, searchTerm, filters, userId);
-        case 'projects':
-          return await this.searchProjects(workspaceId, searchTerm, filters, userId);
-        case 'events':
-          return await this.searchEvents(workspaceId, searchTerm, filters, userId);
-        case 'videos':
-          return await this.searchVideos(workspaceId, searchTerm, filters, userId);
-        default:
-          return [];
-      }
+      // Use the pluggable search provider (pg-trgm/meilisearch/typesense)
+      // Collection name matches the content type (notes, files, messages, etc.)
+      const result = await this.searchProvider.search(type, {
+        q: query,
+        filters: {
+          workspace_id: workspaceId,
+          ...filters,
+        },
+        limit: 100, // Get more results for relevance ranking
+      });
+
+      // Transform search provider results to match existing format
+      return result.hits.map((hit) => ({
+        ...hit.document,
+        _score: hit.score,
+      }));
     } catch (error) {
       console.error(`Error searching ${type}:`, error);
+      // Fallback to empty results if provider fails
       return [];
     }
   }
 
-  private async searchNotes(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchNotes(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('notes')
+        let q = this.db
+          .table('notes')
           .select('*')
           .where('workspace_id', '=', workspaceId)
           .where('deleted_at', 'IS', null);
@@ -144,25 +172,28 @@ export class SearchService {
       const titleResults = await buildBaseQuery().where('title', 'ILIKE', searchPattern).execute();
 
       // Search in content_text
-      const contentResults = await buildBaseQuery().where('content_text', 'ILIKE', searchPattern).execute();
+      const contentResults = await buildBaseQuery()
+        .where('content_text', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format { data: [...], count: n }
       const titleData = titleResults?.data || (Array.isArray(titleResults) ? titleResults : []);
-      const contentData = contentResults?.data || (Array.isArray(contentResults) ? contentResults : []);
+      const contentData =
+        contentResults?.data || (Array.isArray(contentResults) ? contentResults : []);
 
       // Combine and deduplicate results
       const resultsMap = new Map();
       const allResults = [...titleData, ...contentData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
       });
 
       // Filter: Only show notes created by user OR public notes
-      const filteredResults = Array.from(resultsMap.values()).filter(note =>
-        note.created_by === userId || note.is_public === true
+      const filteredResults = Array.from(resultsMap.values()).filter(
+        (note) => note.created_by === userId || note.is_public === true,
       );
 
       return filteredResults;
@@ -172,13 +203,19 @@ export class SearchService {
     }
   }
 
-  private async searchFiles(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchFiles(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('files')
+        let q = this.db
+          .table('files')
           .select('*')
           .where('workspace_id', '=', workspaceId)
           .where('is_deleted', '=', false);
@@ -202,7 +239,9 @@ export class SearchService {
       const nameResults = await buildBaseQuery().where('name', 'ILIKE', searchPattern).execute();
 
       // Search in extracted_text
-      const textResults = await buildBaseQuery().where('extracted_text', 'ILIKE', searchPattern).execute();
+      const textResults = await buildBaseQuery()
+        .where('extracted_text', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
       const nameData = nameResults?.data || (Array.isArray(nameResults) ? nameResults : []);
@@ -212,7 +251,7 @@ export class SearchService {
       const resultsMap = new Map();
       const allResults = [...nameData, ...textData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
@@ -225,10 +264,16 @@ export class SearchService {
     }
   }
 
-  private async searchFolders(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchFolders(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
-      let queryBuilder = this.db.table('folders')
+      let queryBuilder = this.db
+        .table('folders')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('is_deleted', '=', false)
@@ -256,28 +301,38 @@ export class SearchService {
     }
   }
 
-  private async searchMessages(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchMessages(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Get channels where user is a member
-      const memberChannelsResult = await this.db.table('channel_members')
+      const memberChannelsResult = await this.db
+        .table('channel_members')
         .select('channel_id')
         .where('user_id', '=', userId)
         .execute();
 
-      const memberData = memberChannelsResult?.data || (Array.isArray(memberChannelsResult) ? memberChannelsResult : []);
+      const memberData =
+        memberChannelsResult?.data ||
+        (Array.isArray(memberChannelsResult) ? memberChannelsResult : []);
       const channelIds = memberData.map((m: any) => m.channel_id);
 
       if (channelIds.length === 0) return [];
 
       // Get channel details for name lookup
-      const channelsResult = await this.db.table('channels')
+      const channelsResult = await this.db
+        .table('channels')
         .select('id', 'name', 'type', 'is_private')
         .whereIn('id', channelIds)
         .execute();
 
-      const channelsData = channelsResult?.data || (Array.isArray(channelsResult) ? channelsResult : []);
+      const channelsData =
+        channelsResult?.data || (Array.isArray(channelsResult) ? channelsResult : []);
       const channelMap = new Map();
       channelsData.forEach((channel: any) => {
         channelMap.set(channel.id, channel);
@@ -285,7 +340,8 @@ export class SearchService {
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('messages')
+        let q = this.db
+          .table('messages')
           .select('*')
           .where('is_deleted', '=', false)
           .whereIn('channel_id', channelIds);
@@ -303,20 +359,25 @@ export class SearchService {
       };
 
       // Search in content
-      const contentResults = await buildBaseQuery().where('content', 'ILIKE', searchPattern).execute();
+      const contentResults = await buildBaseQuery()
+        .where('content', 'ILIKE', searchPattern)
+        .execute();
 
       // Search in content_html
-      const htmlResults = await buildBaseQuery().where('content_html', 'ILIKE', searchPattern).execute();
+      const htmlResults = await buildBaseQuery()
+        .where('content_html', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
-      const contentData = contentResults?.data || (Array.isArray(contentResults) ? contentResults : []);
+      const contentData =
+        contentResults?.data || (Array.isArray(contentResults) ? contentResults : []);
       const htmlData = htmlResults?.data || (Array.isArray(htmlResults) ? htmlResults : []);
 
       // Combine and deduplicate
       const resultsMap = new Map();
       const allResults = [...contentData, ...htmlData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           // Enrich message with channel info
           const channel = channelMap.get(item.channel_id);
@@ -337,28 +398,39 @@ export class SearchService {
     }
   }
 
-  private async searchTasks(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchTasks(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Get projects where user is a member or owner
-      const userProjectMembershipsResult = await this.db.table('project_members')
+      const userProjectMembershipsResult = await this.db
+        .table('project_members')
         .select('project_id')
         .where('user_id', '=', userId)
         .where('is_active', '=', true)
         .execute();
 
-      const membershipData = userProjectMembershipsResult?.data || (Array.isArray(userProjectMembershipsResult) ? userProjectMembershipsResult : []);
+      const membershipData =
+        userProjectMembershipsResult?.data ||
+        (Array.isArray(userProjectMembershipsResult) ? userProjectMembershipsResult : []);
       const memberProjectIds = membershipData.map((m: any) => m.project_id);
 
       // Get projects where user is owner
-      const ownedProjectsResult = await this.db.table('projects')
+      const ownedProjectsResult = await this.db
+        .table('projects')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .where('owner_id', '=', userId)
         .execute();
 
-      const ownedProjectsData = ownedProjectsResult?.data || (Array.isArray(ownedProjectsResult) ? ownedProjectsResult : []);
+      const ownedProjectsData =
+        ownedProjectsResult?.data ||
+        (Array.isArray(ownedProjectsResult) ? ownedProjectsResult : []);
       const ownedProjectIds = ownedProjectsData.map((p: any) => p.id);
 
       // Combine both (projects user owns + projects user is member of)
@@ -368,9 +440,7 @@ export class SearchService {
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('tasks')
-          .select('*')
-          .whereIn('project_id', allUserProjectIds);
+        let q = this.db.table('tasks').select('*').whereIn('project_id', allUserProjectIds);
 
         if (filters.author) {
           q = q.where('assigned_to', '=', filters.author);
@@ -391,7 +461,9 @@ export class SearchService {
       const titleResults = await buildBaseQuery().where('title', 'ILIKE', searchPattern).execute();
 
       // Search in description
-      const descResults = await buildBaseQuery().where('description', 'ILIKE', searchPattern).execute();
+      const descResults = await buildBaseQuery()
+        .where('description', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
       const titleData = titleResults?.data || (Array.isArray(titleResults) ? titleResults : []);
@@ -401,7 +473,7 @@ export class SearchService {
       const resultsMap = new Map();
       const allResults = [...titleData, ...descData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
@@ -414,25 +486,31 @@ export class SearchService {
     }
   }
 
-  private async searchProjects(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchProjects(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Get projects where user is a member or owner
-      const userProjectMembershipsResult = await this.db.table('project_members')
+      const userProjectMembershipsResult = await this.db
+        .table('project_members')
         .select('project_id')
         .where('user_id', '=', userId)
         .where('is_active', '=', true)
         .execute();
 
-      const membershipData = userProjectMembershipsResult?.data || (Array.isArray(userProjectMembershipsResult) ? userProjectMembershipsResult : []);
+      const membershipData =
+        userProjectMembershipsResult?.data ||
+        (Array.isArray(userProjectMembershipsResult) ? userProjectMembershipsResult : []);
       const memberProjectIds = membershipData.map((m: any) => m.project_id);
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('projects')
-          .select('*')
-          .where('workspace_id', '=', workspaceId);
+        let q = this.db.table('projects').select('*').where('workspace_id', '=', workspaceId);
 
         // IMPORTANT: Only return projects where user is owner OR member
         // Note: Will filter in code after query
@@ -453,7 +531,9 @@ export class SearchService {
       const nameResults = await buildBaseQuery().where('name', 'ILIKE', searchPattern).execute();
 
       // Search in description
-      const descResults = await buildBaseQuery().where('description', 'ILIKE', searchPattern).execute();
+      const descResults = await buildBaseQuery()
+        .where('description', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
       const nameData = nameResults?.data || (Array.isArray(nameResults) ? nameResults : []);
@@ -463,15 +543,15 @@ export class SearchService {
       const resultsMap = new Map();
       const allResults = [...nameData, ...descData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
       });
 
       // Filter: Only return projects where user is owner OR member
-      const filteredResults = Array.from(resultsMap.values()).filter(project =>
-        project.owner_id === userId || memberProjectIds.includes(project.id)
+      const filteredResults = Array.from(resultsMap.values()).filter(
+        (project) => project.owner_id === userId || memberProjectIds.includes(project.id),
       );
 
       return filteredResults;
@@ -481,22 +561,31 @@ export class SearchService {
     }
   }
 
-  private async searchEvents(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchEvents(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Get events where user is an attendee
-      const attendeeEventsResult = await this.db.table('event_attendees')
+      const attendeeEventsResult = await this.db
+        .table('event_attendees')
         .select('event_id')
         .where('user_id', '=', userId)
         .execute();
 
-      const attendeeData = attendeeEventsResult?.data || (Array.isArray(attendeeEventsResult) ? attendeeEventsResult : []);
+      const attendeeData =
+        attendeeEventsResult?.data ||
+        (Array.isArray(attendeeEventsResult) ? attendeeEventsResult : []);
       const attendeeEventIds = attendeeData.map((a: any) => a.event_id);
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('calendar_events')
+        let q = this.db
+          .table('calendar_events')
           .select('*')
           .where('workspace_id', '=', workspaceId);
 
@@ -519,29 +608,34 @@ export class SearchService {
       const titleResults = await buildBaseQuery().where('title', 'ILIKE', searchPattern).execute();
 
       // Search in description
-      const descResults = await buildBaseQuery().where('description', 'ILIKE', searchPattern).execute();
+      const descResults = await buildBaseQuery()
+        .where('description', 'ILIKE', searchPattern)
+        .execute();
 
       // Search in location
-      const locationResults = await buildBaseQuery().where('location', 'ILIKE', searchPattern).execute();
+      const locationResults = await buildBaseQuery()
+        .where('location', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
       const titleData = titleResults?.data || (Array.isArray(titleResults) ? titleResults : []);
       const descData = descResults?.data || (Array.isArray(descResults) ? descResults : []);
-      const locationData = locationResults?.data || (Array.isArray(locationResults) ? locationResults : []);
+      const locationData =
+        locationResults?.data || (Array.isArray(locationResults) ? locationResults : []);
 
       // Combine and deduplicate
       const resultsMap = new Map();
       const allResults = [...titleData, ...descData, ...locationData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
       });
 
       // Filter: Only return events where user is organizer OR attendee
-      const filteredResults = Array.from(resultsMap.values()).filter(event =>
-        event.organizer_id === userId || attendeeEventIds.includes(event.id)
+      const filteredResults = Array.from(resultsMap.values()).filter(
+        (event) => event.organizer_id === userId || attendeeEventIds.includes(event.id),
       );
 
       return filteredResults;
@@ -551,24 +645,30 @@ export class SearchService {
     }
   }
 
-  private async searchVideos(workspaceId: string, query: string, filters: SearchFilters, userId: string) {
+  private async searchVideos(
+    workspaceId: string,
+    query: string,
+    filters: SearchFilters,
+    userId: string,
+  ) {
     try {
       const searchPattern = `%${query}%`;
 
       // Get video calls where user is a participant
-      const participantCallsResult = await this.db.table('video_call_participants')
+      const participantCallsResult = await this.db
+        .table('video_call_participants')
         .select('video_call_id')
         .where('user_id', '=', userId)
         .execute();
 
-      const participantData = participantCallsResult?.data || (Array.isArray(participantCallsResult) ? participantCallsResult : []);
+      const participantData =
+        participantCallsResult?.data ||
+        (Array.isArray(participantCallsResult) ? participantCallsResult : []);
       const participantCallIds = participantData.map((p: any) => p.video_call_id);
 
       // Helper to build base query
       const buildBaseQuery = () => {
-        let q = this.db.table('video_calls')
-          .select('*')
-          .where('workspace_id', '=', workspaceId);
+        let q = this.db.table('video_calls').select('*').where('workspace_id', '=', workspaceId);
 
         // IMPORTANT: Only show video calls where user is host OR participant
         // Note: Will filter in code after query
@@ -589,7 +689,9 @@ export class SearchService {
       const titleResults = await buildBaseQuery().where('title', 'ILIKE', searchPattern).execute();
 
       // Search in description
-      const descResults = await buildBaseQuery().where('description', 'ILIKE', searchPattern).execute();
+      const descResults = await buildBaseQuery()
+        .where('description', 'ILIKE', searchPattern)
+        .execute();
 
       // Extract data from database response format
       const titleData = titleResults?.data || (Array.isArray(titleResults) ? titleResults : []);
@@ -599,15 +701,16 @@ export class SearchService {
       const resultsMap = new Map();
       const allResults = [...titleData, ...descData];
 
-      allResults.forEach(item => {
+      allResults.forEach((item) => {
         if (!resultsMap.has(item.id)) {
           resultsMap.set(item.id, item);
         }
       });
 
       // Filter: Only return video calls where user is host OR participant
-      const filteredResults = Array.from(resultsMap.values()).filter(videoCall =>
-        videoCall.host_user_id === userId || participantCallIds.includes(videoCall.id)
+      const filteredResults = Array.from(resultsMap.values()).filter(
+        (videoCall) =>
+          videoCall.host_user_id === userId || participantCallIds.includes(videoCall.id),
       );
 
       return filteredResults;
@@ -654,7 +757,11 @@ export class SearchService {
     }
 
     // Tag matches get lower score
-    if (item.tags && Array.isArray(item.tags) && item.tags.some((tag: string) => tag.toLowerCase().includes(queryLower))) {
+    if (
+      item.tags &&
+      Array.isArray(item.tags) &&
+      item.tags.some((tag: string) => tag.toLowerCase().includes(queryLower))
+    ) {
       score += 25;
       hasTextMatch = true;
     }
@@ -687,14 +794,14 @@ export class SearchService {
 
     // Content type priority (only applied if there's a text match)
     const typePriority: { [key: string]: number } = {
-      'projects': 10,
-      'tasks': 10,
-      'notes': 8,
-      'files': 8,
-      'folders': 5,
-      'messages': 6,
-      'events': 7,
-      'videos': 8
+      projects: 10,
+      tasks: 10,
+      notes: 8,
+      files: 8,
+      folders: 5,
+      messages: 6,
+      events: 7,
+      videos: 8,
     };
     score += typePriority[contentType] || 0;
 
@@ -712,11 +819,11 @@ export class SearchService {
     const searchResults = await this.universalSearch(
       workspaceId,
       { query, limit: 5 } as SearchQueryDto,
-      userId
+      userId,
     );
 
     // Extract suggestions from results
-    searchResults.data.forEach(item => {
+    searchResults.data.forEach((item) => {
       if (item.title && !suggestions.includes(item.title)) {
         suggestions.push(item.title);
       }
@@ -736,11 +843,12 @@ export class SearchService {
     query: string,
     resultCount: number,
     contentTypes: string[],
-    filters: SearchFilters
+    filters: SearchFilters,
   ): Promise<void> {
     try {
       // Check if the same query was searched recently (within last 5 minutes)
-      const recentSearch = await this.db.table('search_history')
+      const recentSearch = await this.db
+        .table('search_history')
         .select('id', 'created_at')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -751,7 +859,8 @@ export class SearchService {
 
       const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
       // Extract data from database response format { data: [...], count: n }
-      const recentSearchData = recentSearch?.data || (Array.isArray(recentSearch) ? recentSearch : [recentSearch]);
+      const recentSearchData =
+        recentSearch?.data || (Array.isArray(recentSearch) ? recentSearch : [recentSearch]);
       const recentSearchResult = recentSearchData[0];
 
       // Don't save duplicate if searched within 5 minutes
@@ -760,19 +869,21 @@ export class SearchService {
       }
 
       // Insert new search history
-      await this.db.table('search_history')
+      await this.db
+        .table('search_history')
         .insert({
           workspace_id: workspaceId,
           user_id: userId,
           query,
           result_count: resultCount,
           content_types: contentTypes,
-          filters: filters || {}
+          filters: filters || {},
         })
         .execute();
 
       // Keep only last 50 searches per user in workspace (cleanup old searches)
-      const allSearches = await this.db.table('search_history')
+      const allSearches = await this.db
+        .table('search_history')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -780,14 +891,12 @@ export class SearchService {
         .execute();
 
       // Extract data from database response format { data: [...], count: n }
-      const searches = allSearches?.data || (Array.isArray(allSearches) ? allSearches : [allSearches]);
+      const searches =
+        allSearches?.data || (Array.isArray(allSearches) ? allSearches : [allSearches]);
 
       if (searches.length > 50) {
-        const idsToDelete = searches.slice(50).map(s => s.id);
-        await this.db.table('search_history')
-          .delete()
-          .whereIn('id', idsToDelete)
-          .execute();
+        const idsToDelete = searches.slice(50).map((s) => s.id);
+        await this.db.table('search_history').delete().whereIn('id', idsToDelete).execute();
       }
     } catch (error) {
       // Don't fail the search if history save fails
@@ -800,7 +909,8 @@ export class SearchService {
    */
   async getRecentSearches(workspaceId: string, userId: string, limit: number = 10) {
     try {
-      const result = await this.db.table('search_history')
+      const result = await this.db
+        .table('search_history')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -822,14 +932,14 @@ export class SearchService {
             result_count: search.result_count,
             content_types: search.content_types || [],
             filters: search.filters || {},
-            created_at: search.created_at
+            created_at: search.created_at,
           });
         }
       }
 
       return {
         data: uniqueSearches,
-        total: uniqueSearches.length
+        total: uniqueSearches.length,
       };
     } catch (error) {
       console.error('Error fetching recent searches:', error);
@@ -842,7 +952,8 @@ export class SearchService {
    */
   async clearSearchHistory(workspaceId: string, userId: string, query?: string) {
     try {
-      let deleteQuery = this.db.table('search_history')
+      let deleteQuery = this.db
+        .table('search_history')
         .delete()
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId);
@@ -858,7 +969,7 @@ export class SearchService {
         success: true,
         message: query
           ? `Search history for "${query}" cleared successfully`
-          : 'All search history cleared successfully'
+          : 'All search history cleared successfully',
       };
     } catch (error) {
       console.error('Error clearing search history:', error);
@@ -872,7 +983,8 @@ export class SearchService {
   async getPopularSearches(workspaceId: string, limit: number = 10) {
     try {
       // Get all searches, group by query, and count
-      const result = await this.db.table('search_history')
+      const result = await this.db
+        .table('search_history')
         .select('query')
         .where('workspace_id', '=', workspaceId)
         .where('created_at', '>=', new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()) // Last 30 days
@@ -883,7 +995,7 @@ export class SearchService {
 
       // Count occurrences
       const queryCount = new Map<string, number>();
-      searches.forEach(search => {
+      searches.forEach((search) => {
         const count = queryCount.get(search.query) || 0;
         queryCount.set(search.query, count + 1);
       });
@@ -896,7 +1008,7 @@ export class SearchService {
 
       return {
         data: popular,
-        total: popular.length
+        total: popular.length,
       };
     } catch (error) {
       console.error('Error fetching popular searches:', error);
@@ -912,18 +1024,34 @@ export class SearchService {
   async createSavedSearch(workspaceId: string, userId: string, data: any) {
     try {
       // Debug: Log the raw data received
-      console.log('[CreateSavedSearch] RAW data received:', JSON.stringify(data).substring(0, 1000));
-      console.log('[CreateSavedSearch] Received resultsSnapshot type:', typeof data.resultsSnapshot);
-      console.log('[CreateSavedSearch] Received resultsSnapshot length:', data.resultsSnapshot?.length);
+      console.log(
+        '[CreateSavedSearch] RAW data received:',
+        JSON.stringify(data).substring(0, 1000),
+      );
+      console.log(
+        '[CreateSavedSearch] Received resultsSnapshot type:',
+        typeof data.resultsSnapshot,
+      );
+      console.log(
+        '[CreateSavedSearch] Received resultsSnapshot length:',
+        data.resultsSnapshot?.length,
+      );
 
       if (data.resultsSnapshot && data.resultsSnapshot.length > 0) {
-        console.log('[CreateSavedSearch] First result object:', JSON.stringify(data.resultsSnapshot[0]));
+        console.log(
+          '[CreateSavedSearch] First result object:',
+          JSON.stringify(data.resultsSnapshot[0]),
+        );
         console.log('[CreateSavedSearch] First result type:', typeof data.resultsSnapshot[0]);
-        console.log('[CreateSavedSearch] First result keys:', Object.keys(data.resultsSnapshot[0] || {}));
+        console.log(
+          '[CreateSavedSearch] First result keys:',
+          Object.keys(data.resultsSnapshot[0] || {}),
+        );
       }
 
       // Try direct insertion with raw data
-      const savedSearch = await this.db.table('saved_searches')
+      const savedSearch = await this.db
+        .table('saved_searches')
         .insert({
           workspace_id: workspaceId,
           user_id: userId,
@@ -936,7 +1064,7 @@ export class SearchService {
           result_count: data.resultsSnapshot?.length || 0,
           tags: data.tags || [],
           is_notification_enabled: data.isNotificationEnabled || false,
-          shared_with: []
+          shared_with: [],
         })
         .execute();
 
@@ -946,7 +1074,7 @@ export class SearchService {
       return {
         success: true,
         message: 'Search saved successfully',
-        data: savedSearch
+        data: savedSearch,
       };
     } catch (error) {
       console.error('Error creating saved search:', error);
@@ -959,7 +1087,8 @@ export class SearchService {
    */
   async getSavedSearches(workspaceId: string, userId: string) {
     try {
-      const result = await this.db.table('saved_searches')
+      const result = await this.db
+        .table('saved_searches')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -971,7 +1100,7 @@ export class SearchService {
 
       return {
         data: searches,
-        total: searches.length
+        total: searches.length,
       };
     } catch (error) {
       console.error('Error fetching saved searches:', error);
@@ -984,7 +1113,8 @@ export class SearchService {
    */
   async getSavedSearchById(workspaceId: string, userId: string, searchId: string) {
     try {
-      const result = await this.db.table('saved_searches')
+      const result = await this.db
+        .table('saved_searches')
         .select('*')
         .where('id', '=', searchId)
         .where('workspace_id', '=', workspaceId)
@@ -1015,7 +1145,7 @@ export class SearchService {
       await this.getSavedSearchById(workspaceId, userId, searchId);
 
       const updateData: any = {
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       if (updates.name !== undefined) updateData.name = updates.name;
@@ -1024,9 +1154,11 @@ export class SearchService {
       if (updates.mode !== undefined) updateData.mode = updates.mode;
       if (updates.filters !== undefined) updateData.filters = updates.filters;
       if (updates.tags !== undefined) updateData.tags = updates.tags;
-      if (updates.isNotificationEnabled !== undefined) updateData.is_notification_enabled = updates.isNotificationEnabled;
+      if (updates.isNotificationEnabled !== undefined)
+        updateData.is_notification_enabled = updates.isNotificationEnabled;
 
-      await this.db.table('saved_searches')
+      await this.db
+        .table('saved_searches')
         .update(updateData)
         .where('id', '=', searchId)
         .where('workspace_id', '=', workspaceId)
@@ -1035,7 +1167,7 @@ export class SearchService {
 
       return {
         success: true,
-        message: 'Saved search updated successfully'
+        message: 'Saved search updated successfully',
       };
     } catch (error) {
       console.error('Error updating saved search:', error);
@@ -1051,7 +1183,8 @@ export class SearchService {
       // Verify ownership
       await this.getSavedSearchById(workspaceId, userId, searchId);
 
-      await this.db.table('saved_searches')
+      await this.db
+        .table('saved_searches')
         .delete()
         .where('id', '=', searchId)
         .where('workspace_id', '=', workspaceId)
@@ -1060,7 +1193,7 @@ export class SearchService {
 
       return {
         success: true,
-        message: 'Saved search deleted successfully'
+        message: 'Saved search deleted successfully',
       };
     } catch (error) {
       console.error('Error deleting saved search:', error);
@@ -1082,10 +1215,11 @@ export class SearchService {
       // Merge with new user IDs (remove duplicates)
       const updatedSharedWith = Array.from(new Set([...currentSharedWith, ...userIds]));
 
-      await this.db.table('saved_searches')
+      await this.db
+        .table('saved_searches')
         .update({
           shared_with: updatedSharedWith,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
         .where('id', '=', searchId)
         .where('workspace_id', '=', workspaceId)
@@ -1095,7 +1229,7 @@ export class SearchService {
       return {
         success: true,
         message: 'Saved search shared successfully',
-        shared_with: updatedSharedWith
+        shared_with: updatedSharedWith,
       };
     } catch (error) {
       console.error('Error sharing saved search:', error);
@@ -1110,7 +1244,8 @@ export class SearchService {
     try {
       // Note: database may not support JSON array contains queries directly
       // We'll fetch all saved searches and filter in code
-      const result = await this.db.table('saved_searches')
+      const result = await this.db
+        .table('saved_searches')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .orderBy('created_at', 'DESC')
@@ -1127,7 +1262,7 @@ export class SearchService {
 
       return {
         data: sharedSearches,
-        total: sharedSearches.length
+        total: sharedSearches.length,
       };
     } catch (error) {
       console.error('Error fetching shared saved searches:', error);

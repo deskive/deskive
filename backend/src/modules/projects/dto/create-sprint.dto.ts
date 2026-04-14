@@ -4,7 +4,7 @@ import { IsString, IsOptional, IsDateString, IsEnum } from 'class-validator';
 export enum SprintStatus {
   PLANNING = 'planning',
   ACTIVE = 'active',
-  COMPLETED = 'completed'
+  COMPLETED = 'completed',
 }
 
 export class CreateSprintDto {
@@ -25,11 +25,11 @@ export class CreateSprintDto {
   @IsDateString()
   end_date: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Sprint status',
     enum: SprintStatus,
     example: SprintStatus.PLANNING,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(SprintStatus)

@@ -27,7 +27,14 @@ export const MEDIA_TEMPLATES = [
         name: 'Video Type',
         type: 'select',
         description: 'Type of video production',
-        options: ['Commercial', 'Corporate', 'Documentary', 'Music Video', 'Short Film', 'Social Media'],
+        options: [
+          'Commercial',
+          'Corporate',
+          'Documentary',
+          'Music Video',
+          'Short Film',
+          'Social Media',
+        ],
         isRequired: true,
       },
       {
@@ -964,7 +971,13 @@ export const MEDIA_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['development', 'pre_production', 'production', 'post_production', 'distribution'],
+        statuses: [
+          'development',
+          'pre_production',
+          'production',
+          'post_production',
+          'distribution',
+        ],
       },
     },
     settings: {

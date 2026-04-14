@@ -155,7 +155,8 @@ export function generateRSS(channel: RSSChannel): string {
       <link>${escapeXml(image.link)}</link>`;
     if (image.width) xml += `\n      <width>${image.width}</width>`;
     if (image.height) xml += `\n      <height>${image.height}</height>`;
-    if (image.description) xml += `\n      <description>${escapeXml(image.description)}</description>`;
+    if (image.description)
+      xml += `\n      <description>${escapeXml(image.description)}</description>`;
     xml += `\n    </image>`;
   }
 
@@ -173,7 +174,8 @@ export function generateRSS(channel: RSSChannel): string {
     }
     if (item.guid) xml += `\n      <guid isPermaLink="false">${escapeXml(item.guid)}</guid>`;
     if (item.pubDate) xml += `\n      <pubDate>${formatRSSDate(item.pubDate)}</pubDate>`;
-    if (item.content) xml += `\n      <content:encoded><![CDATA[${item.content}]]></content:encoded>`;
+    if (item.content)
+      xml += `\n      <content:encoded><![CDATA[${item.content}]]></content:encoded>`;
     if (item.enclosure) {
       xml += `\n      <enclosure url="${escapeXml(item.enclosure.url)}" length="${item.enclosure.length}" type="${escapeXml(item.enclosure.type)}" />`;
     }
@@ -191,15 +193,7 @@ export function generateRSS(channel: RSSChannel): string {
  * Generate Atom 1.0 feed XML
  */
 export function generateAtom(channel: RSSChannel): string {
-  const {
-    title,
-    description,
-    link,
-    lastBuildDate = new Date(),
-    items,
-    author,
-    image,
-  } = channel;
+  const { title, description, link, lastBuildDate = new Date(), items, author, image } = channel;
 
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">

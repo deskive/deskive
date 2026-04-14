@@ -1,4 +1,11 @@
-import { Injectable, NotFoundException, BadRequestException, Logger, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { ApprovalsService } from '../approvals/approvals.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
@@ -8,7 +15,15 @@ import { CreateTimeEntryDto, StartTimerDto } from './dto/create-time-entry.dto';
 import { CreateBillingRateDto } from './dto/create-billing-rate.dto';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
-import { Budget, BudgetExpense, TimeEntry, BillingRate, BudgetCategory, BudgetSummary, TaskAssigneeRate } from './entities/budget.entity';
+import {
+  Budget,
+  BudgetExpense,
+  TimeEntry,
+  BillingRate,
+  BudgetCategory,
+  BudgetSummary,
+  TaskAssigneeRate,
+} from './entities/budget.entity';
 import { camelCase } from 'change-case';
 
 @Injectable()
@@ -23,7 +38,11 @@ export class BudgetService {
 
   // ==================== BUDGETS ====================
 
-  async createBudget(workspaceId: string, userId: string, createBudgetDto: CreateBudgetDto): Promise<Budget> {
+  async createBudget(
+    workspaceId: string,
+    userId: string,
+    createBudgetDto: CreateBudgetDto,
+  ): Promise<Budget> {
     try {
       const budgetData = {
         workspace_id: workspaceId,
@@ -62,7 +81,7 @@ export class BudgetService {
 
       const results = await query.execute();
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get budgets:', error);
       throw new BadRequestException('Failed to get budgets');
@@ -92,7 +111,11 @@ export class BudgetService {
     }
   }
 
-  async updateBudget(workspaceId: string, budgetId: string, updateBudgetDto: UpdateBudgetDto): Promise<Budget> {
+  async updateBudget(
+    workspaceId: string,
+    budgetId: string,
+    updateBudgetDto: UpdateBudgetDto,
+  ): Promise<Budget> {
     try {
       // Check if budget exists
       await this.getBudgetById(workspaceId, budgetId);
@@ -102,12 +125,15 @@ export class BudgetService {
       };
 
       if (updateBudgetDto.name) updateData.name = updateBudgetDto.name;
-      if (updateBudgetDto.description !== undefined) updateData.description = updateBudgetDto.description;
+      if (updateBudgetDto.description !== undefined)
+        updateData.description = updateBudgetDto.description;
       if (updateBudgetDto.totalBudget) updateData.total_budget = updateBudgetDto.totalBudget;
       if (updateBudgetDto.currency) updateData.currency = updateBudgetDto.currency;
-      if (updateBudgetDto.startDate !== undefined) updateData.start_date = updateBudgetDto.startDate;
+      if (updateBudgetDto.startDate !== undefined)
+        updateData.start_date = updateBudgetDto.startDate;
       if (updateBudgetDto.endDate !== undefined) updateData.end_date = updateBudgetDto.endDate;
-      if (updateBudgetDto.alertThreshold !== undefined) updateData.alert_threshold = updateBudgetDto.alertThreshold;
+      if (updateBudgetDto.alertThreshold !== undefined)
+        updateData.alert_threshold = updateBudgetDto.alertThreshold;
       if (updateBudgetDto.status) updateData.status = updateBudgetDto.status;
 
       await this.db.update('budgets', { id: budgetId }, updateData);
@@ -125,11 +151,15 @@ export class BudgetService {
       // Check if budget exists
       await this.getBudgetById(workspaceId, budgetId);
 
-      await this.db.update('budgets', { id: budgetId }, {
-        is_deleted: true,
-        deleted_at: new Date().toISOString(),
-        deleted_by: userId,
-      });
+      await this.db.update(
+        'budgets',
+        { id: budgetId },
+        {
+          is_deleted: true,
+          deleted_at: new Date().toISOString(),
+          deleted_by: userId,
+        },
+      );
     } catch (error) {
       this.logger.error('Failed to delete budget:', error);
       if (error instanceof NotFoundException) throw error;
@@ -166,7 +196,7 @@ export class BudgetService {
 
       // Calculate total spent (only approved expenses) - ensure amounts are numbers
       const totalSpent = expenses
-        .filter(exp => exp.approved === true)
+        .filter((exp) => exp.approved === true)
         .reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
 
       // Determine new status
@@ -175,16 +205,24 @@ export class BudgetService {
         newStatus = 'exceeded';
       } else if (totalSpent >= totalBudget * 0.9) {
         // Keep current status but log warning (90% threshold)
-        this.logger.warn(`Budget ${budgetId} is at ${Math.round((totalSpent / totalBudget) * 100)}% capacity`);
+        this.logger.warn(
+          `Budget ${budgetId} is at ${Math.round((totalSpent / totalBudget) * 100)}% capacity`,
+        );
       }
 
       // Update status if changed
       if (newStatus !== budget.status) {
-        await this.db.update('budgets', { id: budgetId }, {
-          status: newStatus,
-          updated_at: new Date().toISOString(),
-        });
-        this.logger.log(`Budget ${budgetId} status updated from '${budget.status}' to '${newStatus}'`);
+        await this.db.update(
+          'budgets',
+          { id: budgetId },
+          {
+            status: newStatus,
+            updated_at: new Date().toISOString(),
+          },
+        );
+        this.logger.log(
+          `Budget ${budgetId} status updated from '${budget.status}' to '${newStatus}'`,
+        );
       }
     } catch (error) {
       this.logger.error('Failed to update budget status:', error);
@@ -213,10 +251,11 @@ export class BudgetService {
       const costAnalysis = this.calculateCostAnalysis(categories, expenses);
 
       // Calculate category breakdown
-      const categoryBreakdown = categories.map(category => {
-        const categoryExpenses = expenses.filter(exp => exp.categoryId === category.id);
+      const categoryBreakdown = categories.map((category) => {
+        const categoryExpenses = expenses.filter((exp) => exp.categoryId === category.id);
         const spent = categoryExpenses.reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
-        const percentage = category.allocatedAmount > 0 ? (spent / category.allocatedAmount) * 100 : 0;
+        const percentage =
+          category.allocatedAmount > 0 ? (spent / category.allocatedAmount) * 100 : 0;
 
         return {
           category,
@@ -232,8 +271,8 @@ export class BudgetService {
       });
 
       const timeEntries = (timeEntriesResult as any).data || timeEntriesResult;
-      const taskIds = expenses.filter(exp => exp.taskId).map(exp => exp.taskId);
-      const timeEntryCount = timeEntries.filter(entry => taskIds.includes(entry.task_id)).length;
+      const taskIds = expenses.filter((exp) => exp.taskId).map((exp) => exp.taskId);
+      const timeEntryCount = timeEntries.filter((entry) => taskIds.includes(entry.task_id)).length;
 
       // Get recent expenses (last 10)
       const recentExpenses = expenses
@@ -267,7 +306,7 @@ export class BudgetService {
 
     // Map expenses to categories
     const expensesByCategory = {};
-    expenses.forEach(exp => {
+    expenses.forEach((exp) => {
       if (!expensesByCategory[exp.categoryId]) {
         expensesByCategory[exp.categoryId] = [];
       }
@@ -275,7 +314,7 @@ export class BudgetService {
     });
 
     // Analyze each category
-    categories.forEach(category => {
+    categories.forEach((category) => {
       const categoryExpenses = expensesByCategory[category.id] || [];
       const spent = categoryExpenses.reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
       const allocated = Number(category.allocatedAmount || 0);
@@ -284,7 +323,7 @@ export class BudgetService {
       // Aggregate by nature
       analysis[costNature].allocated += allocated;
       analysis[costNature].spent += spent;
-      analysis[costNature].remaining += (allocated - spent);
+      analysis[costNature].remaining += allocated - spent;
 
       // Track breakdown
       analysis.breakdown[costNature].push({
@@ -300,7 +339,11 @@ export class BudgetService {
     return analysis;
   }
 
-  async getVariableCostProjection(workspaceId: string, budgetId: string, projectionMonths: number = 3): Promise<any> {
+  async getVariableCostProjection(
+    workspaceId: string,
+    budgetId: string,
+    projectionMonths: number = 3,
+  ): Promise<any> {
     try {
       const budget = await this.getBudgetById(workspaceId, budgetId);
 
@@ -313,11 +356,13 @@ export class BudgetService {
         .where('is_deleted', '=', false)
         .execute();
 
-      const categories = ((categoriesResult as any).data || categoriesResult).map(c => this.transformToCamelCase(c));
+      const categories = ((categoriesResult as any).data || categoriesResult).map((c) =>
+        this.transformToCamelCase(c),
+      );
 
       // Calculate projections for each category
       const projections = await Promise.all(
-        categories.map(async category => {
+        categories.map(async (category) => {
           // Get expenses for this category
           const expensesResult = await this.db
             .table('budget_expenses')
@@ -326,10 +371,15 @@ export class BudgetService {
             .where('is_deleted', '=', false)
             .execute();
 
-          const categoryExpenses = ((expensesResult as any).data || expensesResult).map(e => this.transformToCamelCase(e));
+          const categoryExpenses = ((expensesResult as any).data || expensesResult).map((e) =>
+            this.transformToCamelCase(e),
+          );
 
           // Calculate monthly average
-          const totalSpent = categoryExpenses.reduce((sum, exp) => sum + Number(exp.amount || 0), 0);
+          const totalSpent = categoryExpenses.reduce(
+            (sum, exp) => sum + Number(exp.amount || 0),
+            0,
+          );
           const monthlyAverage = totalSpent / (projectionMonths || 1);
 
           return {
@@ -340,9 +390,10 @@ export class BudgetService {
             monthlyAverage,
             projectedTotal: monthlyAverage * projectionMonths,
             allocatedAmount: Number(category.allocatedAmount || 0),
-            projectedOverage: (monthlyAverage * projectionMonths) - Number(category.allocatedAmount || 0),
+            projectedOverage:
+              monthlyAverage * projectionMonths - Number(category.allocatedAmount || 0),
           };
-        })
+        }),
       );
 
       return {
@@ -361,7 +412,10 @@ export class BudgetService {
 
   // ==================== CATEGORIES ====================
 
-  async createCategory(budgetId: string, createCategoryDto: CreateCategoryDto): Promise<BudgetCategory> {
+  async createCategory(
+    budgetId: string,
+    createCategoryDto: CreateCategoryDto,
+  ): Promise<BudgetCategory> {
     try {
       const categoryData = {
         budget_id: budgetId,
@@ -389,7 +443,8 @@ export class BudgetService {
           category_id: result.id,
           task_id: null, // Fixed costs are not task-specific
           title: `${createCategoryDto.name} - Fixed Cost`,
-          description: createCategoryDto.description || `Fixed cost allocation for ${createCategoryDto.name}`,
+          description:
+            createCategoryDto.description || `Fixed cost allocation for ${createCategoryDto.name}`,
           amount: createCategoryDto.allocatedAmount,
           currency: budgetCurrency,
           quantity: 1,
@@ -405,7 +460,9 @@ export class BudgetService {
         };
 
         await this.db.insert('budget_expenses', fixedExpenseData);
-        this.logger.log(`✅ Created fixed cost expense for ${createCategoryDto.name}: ${createCategoryDto.allocatedAmount} ${budgetCurrency}`);
+        this.logger.log(
+          `✅ Created fixed cost expense for ${createCategoryDto.name}: ${createCategoryDto.allocatedAmount} ${budgetCurrency}`,
+        );
       }
 
       return category;
@@ -415,7 +472,12 @@ export class BudgetService {
     }
   }
 
-  async updateCategory(budgetId: string, categoryId: string, userId: string, updateDto: UpdateCategoryDto): Promise<BudgetCategory> {
+  async updateCategory(
+    budgetId: string,
+    categoryId: string,
+    userId: string,
+    updateDto: UpdateCategoryDto,
+  ): Promise<BudgetCategory> {
     try {
       // Verify category exists and belongs to this budget
       const categoryResult = await this.db
@@ -438,7 +500,8 @@ export class BudgetService {
 
       if (updateDto.name) updateData.name = updateDto.name;
       if (updateDto.description !== undefined) updateData.description = updateDto.description;
-      if (updateDto.allocatedAmount !== undefined) updateData.allocated_amount = updateDto.allocatedAmount;
+      if (updateDto.allocatedAmount !== undefined)
+        updateData.allocated_amount = updateDto.allocatedAmount;
       if (updateDto.categoryType) updateData.category_type = updateDto.categoryType;
       if (updateDto.costNature) updateData.cost_nature = updateDto.costNature;
       if (updateDto.color !== undefined) updateData.color = updateDto.color;
@@ -489,15 +552,19 @@ export class BudgetService {
       const expenses = (expensesResult as any).data || expensesResult;
       if (expenses && expenses.length > 0) {
         throw new BadRequestException(
-          'Cannot delete category with existing expenses. Please delete or reassign expenses first.'
+          'Cannot delete category with existing expenses. Please delete or reassign expenses first.',
         );
       }
 
       // Soft delete
-      await this.db.update('budget_categories', { id: categoryId }, {
-        is_deleted: true,
-        deleted_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'budget_categories',
+        { id: categoryId },
+        {
+          is_deleted: true,
+          deleted_at: new Date().toISOString(),
+        },
+      );
 
       this.logger.log(`Category ${categoryId} deleted by user ${userId}`);
     } catch (error) {
@@ -517,7 +584,7 @@ export class BudgetService {
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get categories:', error);
       throw new BadRequestException('Failed to get categories');
@@ -526,7 +593,11 @@ export class BudgetService {
 
   // ==================== EXPENSES ====================
 
-  async createExpense(workspaceId: string, userId: string, createExpenseDto: CreateExpenseDto): Promise<BudgetExpense> {
+  async createExpense(
+    workspaceId: string,
+    userId: string,
+    createExpenseDto: CreateExpenseDto,
+  ): Promise<BudgetExpense> {
     try {
       // Get budget to determine currency
       const budget = await this.getBudgetById(workspaceId, createExpenseDto.budgetId);
@@ -615,7 +686,7 @@ export class BudgetService {
           const overage = newCategorySpent - categoryAllocated;
           this.logger.warn(
             `Category "${categoryName}" is over budget by ${overage}. ` +
-            `Allocated: ${categoryAllocated}, Spent: ${newCategorySpent}`
+              `Allocated: ${categoryAllocated}, Spent: ${newCategorySpent}`,
           );
         }
       }
@@ -633,7 +704,8 @@ export class BudgetService {
             {
               requestTypeId,
               title: `Expense: ${createExpenseDto.title}`,
-              description: createExpenseDto.description || `Expense approval for ${createExpenseDto.title}`,
+              description:
+                createExpenseDto.description || `Expense approval for ${createExpenseDto.title}`,
               data: {
                 expenseId: expense.id,
                 amount: createExpenseDto.amount,
@@ -643,7 +715,7 @@ export class BudgetService {
                 expenseDate: createExpenseDto.expenseDate,
               },
               attachments: createExpenseDto.receiptUrl ? [createExpenseDto.receiptUrl] : [],
-              priority: createExpenseDto.amount > 1000 ? 'high' as any : 'normal' as any,
+              priority: createExpenseDto.amount > 1000 ? ('high' as any) : ('normal' as any),
               approverIds: approvers.length > 0 ? approvers : undefined,
             },
             userId,
@@ -654,7 +726,9 @@ export class BudgetService {
             approval_request_id: approvalRequest.id,
           });
 
-          this.logger.log(`Created approval request ${approvalRequest.id} for expense ${expense.id}`);
+          this.logger.log(
+            `Created approval request ${approvalRequest.id} for expense ${expense.id}`,
+          );
         } catch (approvalError) {
           this.logger.error('Failed to create approval request:', approvalError);
           // Don't fail the entire expense creation if approval request fails
@@ -678,20 +752,28 @@ export class BudgetService {
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get expenses:', error);
       throw new BadRequestException('Failed to get expenses');
     }
   }
 
-  async approveExpense(workspaceId: string, expenseId: string, userId: string): Promise<BudgetExpense> {
+  async approveExpense(
+    workspaceId: string,
+    expenseId: string,
+    userId: string,
+  ): Promise<BudgetExpense> {
     try {
-      await this.db.update('budget_expenses', { id: expenseId }, {
-        approved: true,
-        approved_by: userId,
-        approved_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'budget_expenses',
+        { id: expenseId },
+        {
+          approved: true,
+          approved_by: userId,
+          approved_at: new Date().toISOString(),
+        },
+      );
 
       const result = await this.db.findOne('budget_expenses', { id: expenseId });
       return this.transformToCamelCase(result);
@@ -703,15 +785,22 @@ export class BudgetService {
 
   // ==================== TIME ENTRIES ====================
 
-  async createTimeEntry(workspaceId: string, userId: string, createTimeEntryDto: CreateTimeEntryDto): Promise<TimeEntry> {
+  async createTimeEntry(
+    workspaceId: string,
+    userId: string,
+    createTimeEntryDto: CreateTimeEntryDto,
+  ): Promise<TimeEntry> {
     try {
       const startTime = new Date(createTimeEntryDto.startTime);
       const endTime = createTimeEntryDto.endTime ? new Date(createTimeEntryDto.endTime) : null;
-      const durationSeconds = endTime ? Math.floor((endTime.getTime() - startTime.getTime()) / 1000) : 0;
+      const durationSeconds = endTime
+        ? Math.floor((endTime.getTime() - startTime.getTime()) / 1000)
+        : 0;
 
       // Get billing rate for user
       const billingRate = await this.getActiveBillingRate(workspaceId, userId);
-      const billedAmount = billingRate && endTime ? (durationSeconds / 3600) * billingRate.hourlyRate : null;
+      const billedAmount =
+        billingRate && endTime ? (durationSeconds / 3600) * billingRate.hourlyRate : null;
 
       // Get budget currency from task
       let budgetCurrency = 'USD';
@@ -757,17 +846,31 @@ export class BudgetService {
     }
   }
 
-  async startTimer(workspaceId: string, userId: string, startTimerDto: StartTimerDto): Promise<TimeEntry> {
+  async startTimer(
+    workspaceId: string,
+    userId: string,
+    startTimerDto: StartTimerDto,
+  ): Promise<TimeEntry> {
     try {
       // Stop any running timers for THIS USER on THIS TASK (allow multiple users to have timers on same task)
-      await this.stopRunningTimerForUserOnTask(workspaceId, startTimerDto.taskId, startTimerDto.assigneeId);
+      await this.stopRunningTimerForUserOnTask(
+        workspaceId,
+        startTimerDto.taskId,
+        startTimerDto.assigneeId,
+      );
 
       // Get task-specific rate for this assignee (if exists)
       let hourlyRate = startTimerDto.hourlyRate;
-      const taskRate = await this.getTaskAssigneeRate(workspaceId, startTimerDto.taskId, startTimerDto.assigneeId);
+      const taskRate = await this.getTaskAssigneeRate(
+        workspaceId,
+        startTimerDto.taskId,
+        startTimerDto.assigneeId,
+      );
       if (taskRate) {
         hourlyRate = taskRate.hourlyRate;
-        this.logger.log(`Using task-specific rate for assignee ${startTimerDto.assigneeId}: ${hourlyRate}`);
+        this.logger.log(
+          `Using task-specific rate for assignee ${startTimerDto.assigneeId}: ${hourlyRate}`,
+        );
       }
 
       // Get budget currency from task
@@ -842,12 +945,16 @@ export class BudgetService {
       const billedAmount = timeEntry.billing_rate ? durationHours * timeEntry.billing_rate : null;
 
       // Update time entry
-      await this.db.update('time_entries', { id: timeEntryId }, {
-        end_time: endTime.toISOString(),
-        duration_seconds: durationSeconds,
-        billed_amount: billedAmount,
-        is_running: false,
-      });
+      await this.db.update(
+        'time_entries',
+        { id: timeEntryId },
+        {
+          end_time: endTime.toISOString(),
+          duration_seconds: durationSeconds,
+          billed_amount: billedAmount,
+          is_running: false,
+        },
+      );
 
       // Auto-create expenses for all allocated categories
       if (timeEntry.billable) {
@@ -907,7 +1014,7 @@ export class BudgetService {
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get all running timers for task:', error);
       return [];
@@ -929,16 +1036,22 @@ export class BudgetService {
 
       const results = await query.execute();
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get time entries:', error);
       throw new BadRequestException('Failed to get time entries');
     }
   }
 
-  async getAllTimeEntriesForBudget(workspaceId: string, budgetId: string, taskId?: string): Promise<TimeEntry[]> {
+  async getAllTimeEntriesForBudget(
+    workspaceId: string,
+    budgetId: string,
+    taskId?: string,
+  ): Promise<TimeEntry[]> {
     try {
-      this.logger.log(`🔍 Getting time entries for budget: ${budgetId}, taskFilter: ${taskId || 'all'}`);
+      this.logger.log(
+        `🔍 Getting time entries for budget: ${budgetId}, taskFilter: ${taskId || 'all'}`,
+      );
 
       // Get budget to find project
       const budget = await this.getBudgetById(workspaceId, budgetId);
@@ -985,7 +1098,7 @@ export class BudgetService {
       }
 
       this.logger.log(`✓ Returning ${filteredEntries.length} time entries for budget ${budgetId}`);
-      return filteredEntries.map(r => this.transformToCamelCase(r));
+      return filteredEntries.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get all time entries for budget:', error);
       return [];
@@ -1009,7 +1122,11 @@ export class BudgetService {
     }
   }
 
-  private async stopRunningTimerForUserOnTask(workspaceId: string, taskId: string, userId: string): Promise<void> {
+  private async stopRunningTimerForUserOnTask(
+    workspaceId: string,
+    taskId: string,
+    userId: string,
+  ): Promise<void> {
     try {
       // Stop running timer for THIS specific user on THIS task (allow other users to keep their timers running)
       const runningTimersResult = await this.db.findMany('time_entries', {
@@ -1028,12 +1145,16 @@ export class BudgetService {
         const durationHours = durationSeconds / 3600;
         const billedAmount = timer.billing_rate ? durationHours * timer.billing_rate : null;
 
-        await this.db.update('time_entries', { id: timer.id }, {
-          end_time: endTime.toISOString(),
-          duration_seconds: durationSeconds,
-          billed_amount: billedAmount,
-          is_running: false,
-        });
+        await this.db.update(
+          'time_entries',
+          { id: timer.id },
+          {
+            end_time: endTime.toISOString(),
+            duration_seconds: durationSeconds,
+            billed_amount: billedAmount,
+            is_running: false,
+          },
+        );
 
         // Auto-create expenses for all allocated categories
         if (timer.billable) {
@@ -1062,12 +1183,16 @@ export class BudgetService {
         const durationHours = durationSeconds / 3600;
         const billedAmount = timer.billing_rate ? durationHours * timer.billing_rate : null;
 
-        await this.db.update('time_entries', { id: timer.id }, {
-          end_time: endTime.toISOString(),
-          duration_seconds: durationSeconds,
-          billed_amount: billedAmount,
-          is_running: false,
-        });
+        await this.db.update(
+          'time_entries',
+          { id: timer.id },
+          {
+            end_time: endTime.toISOString(),
+            duration_seconds: durationSeconds,
+            billed_amount: billedAmount,
+            is_running: false,
+          },
+        );
 
         // Auto-create expenses for all allocated categories
         if (timer.billable) {
@@ -1082,10 +1207,12 @@ export class BudgetService {
   private async createExpensesFromTaskAllocations(
     workspaceId: string,
     timeEntry: any,
-    durationHours: number
+    durationHours: number,
   ): Promise<void> {
     try {
-      this.logger.log(`🔄 Creating expenses for time entry ${timeEntry.id}, duration: ${durationHours.toFixed(2)} hours`);
+      this.logger.log(
+        `🔄 Creating expenses for time entry ${timeEntry.id}, duration: ${durationHours.toFixed(2)} hours`,
+      );
 
       // Get task to find budget
       const task = await this.db.findOne('tasks', {
@@ -1128,12 +1255,24 @@ export class BudgetService {
       this.logger.log(`✓ Found budget: ${budget.name}, currency: ${budget.currency}`);
 
       // Get task allocations with category details
-      this.logger.log(`🔍 Searching for task allocations - TaskID: ${task.id}, BudgetID: ${budget.id}`);
+      this.logger.log(
+        `🔍 Searching for task allocations - TaskID: ${task.id}, BudgetID: ${budget.id}`,
+      );
 
       const allocationsResult = await this.db
         .table('task_budget_allocations')
-        .select('task_budget_allocations.*', 'budget_categories.name as category_name', 'budget_categories.cost_nature', 'budget_categories.category_type')
-        .leftJoin('budget_categories', 'task_budget_allocations.category_id', '=', 'budget_categories.id')
+        .select(
+          'task_budget_allocations.*',
+          'budget_categories.name as category_name',
+          'budget_categories.cost_nature',
+          'budget_categories.category_type',
+        )
+        .leftJoin(
+          'budget_categories',
+          'task_budget_allocations.category_id',
+          '=',
+          'budget_categories.id',
+        )
         .where('task_budget_allocations.task_id', '=', task.id)
         .where('task_budget_allocations.budget_id', '=', budget.id)
         .execute();
@@ -1142,7 +1281,9 @@ export class BudgetService {
       this.logger.log(`📊 Query returned: ${JSON.stringify(allocations)}`);
 
       if (!allocations || allocations.length === 0) {
-        this.logger.error(`❌ No task allocations found for task: ${task.id}, budget: ${budget.id}`);
+        this.logger.error(
+          `❌ No task allocations found for task: ${task.id}, budget: ${budget.id}`,
+        );
         this.logger.error(`   Task title: ${task.title}`);
         this.logger.error(`   Budget name: ${budget.name}`);
         this.logger.error(`   Please allocate budget categories to this task first.`);
@@ -1156,7 +1297,9 @@ export class BudgetService {
         const allAllocs = (allAllocationsForTask as any).data || allAllocationsForTask;
         this.logger.log(`   🔍 Total allocations for this task (any budget): ${allAllocs.length}`);
         if (allAllocs.length > 0) {
-          this.logger.log(`   Found allocations with budget_ids: ${allAllocs.map(a => a.budget_id).join(', ')}`);
+          this.logger.log(
+            `   Found allocations with budget_ids: ${allAllocs.map((a) => a.budget_id).join(', ')}`,
+          );
         }
 
         return;
@@ -1165,11 +1308,15 @@ export class BudgetService {
       this.logger.log(`✓ Found ${allocations.length} category allocations for task`);
 
       // Filter only VARIABLE cost categories - fixed costs are added separately, not from time tracking
-      const variableAllocations = allocations.filter(a => a.cost_nature === 'variable');
-      this.logger.log(`✓ Filtered to ${variableAllocations.length} VARIABLE cost categories (skipping fixed costs)`);
+      const variableAllocations = allocations.filter((a) => a.cost_nature === 'variable');
+      this.logger.log(
+        `✓ Filtered to ${variableAllocations.length} VARIABLE cost categories (skipping fixed costs)`,
+      );
 
       if (variableAllocations.length === 0) {
-        this.logger.log(`ℹ️  No variable cost categories to create expenses for. Fixed costs are added when categories are created.`);
+        this.logger.log(
+          `ℹ️  No variable cost categories to create expenses for. Fixed costs are added when categories are created.`,
+        );
         return;
       }
 
@@ -1178,29 +1325,28 @@ export class BudgetService {
 
       // Create expenses ONLY for VARIABLE cost categories
       for (const allocation of variableAllocations) {
-        let expenseAmount: number;
-        let quantity: number;
-        let unitPrice: number;
-        let unitOfMeasure: string;
-        let description: string;
-
         // Variable costs: Calculate based on hours worked
         // If hourly rate is set in timer, use it; otherwise calculate from allocated amount
 
         // Convert database values to numbers and handle null/undefined
         const billingRate = timeEntry.billing_rate ? Number(timeEntry.billing_rate) : null;
-        const allocatedAmount = allocation.allocated_amount ? Number(allocation.allocated_amount) : 0;
+        const allocatedAmount = allocation.allocated_amount
+          ? Number(allocation.allocated_amount)
+          : 0;
 
         // Calculate hourly rate with proper fallbacks and avoid division by zero
-        const hourlyRate = billingRate !== null
-          ? billingRate
-          : (durationHours > 0 ? allocatedAmount / durationHours : 0);
+        const hourlyRate =
+          billingRate !== null
+            ? billingRate
+            : durationHours > 0
+              ? allocatedAmount / durationHours
+              : 0;
 
-        expenseAmount = durationHours * hourlyRate;
-        quantity = durationHours;
-        unitPrice = hourlyRate;
-        unitOfMeasure = 'hours';
-        description = `${allocation.category_name} - ${durationHours.toFixed(2)} hours @ ${hourlyRate.toFixed(2)}/hr`;
+        const expenseAmount = durationHours * hourlyRate;
+        const quantity = durationHours;
+        const unitPrice = hourlyRate;
+        const unitOfMeasure = 'hours';
+        const description = `${allocation.category_name} - ${durationHours.toFixed(2)} hours @ ${hourlyRate.toFixed(2)}/hr`;
 
         // Create expense
         const expenseData = {
@@ -1208,7 +1354,9 @@ export class BudgetService {
           category_id: allocation.category_id,
           task_id: task.id,
           title: `${taskName} - ${allocation.category_name}`,
-          description: timeEntry.description ? `${description} - ${timeEntry.description}` : description,
+          description: timeEntry.description
+            ? `${description} - ${timeEntry.description}`
+            : description,
           amount: expenseAmount,
           currency: timeEntry.currency || budget.currency || 'USD',
           quantity,
@@ -1223,12 +1371,18 @@ export class BudgetService {
           created_by: timeEntry.user_id,
         };
 
-        this.logger.log(`📝 Creating expense: ${expenseData.title}, Amount: ${expenseData.amount}, Currency: ${expenseData.currency}`);
+        this.logger.log(
+          `📝 Creating expense: ${expenseData.title}, Amount: ${expenseData.amount}, Currency: ${expenseData.currency}`,
+        );
         const createdExpense = await this.db.insert('budget_expenses', expenseData);
-        this.logger.log(`✅ Created ${allocation.cost_nature} expense for category: ${allocation.category_name}, ID: ${createdExpense.id}`);
+        this.logger.log(
+          `✅ Created ${allocation.cost_nature} expense for category: ${allocation.category_name}, ID: ${createdExpense.id}`,
+        );
       }
 
-      this.logger.log(`✅ Successfully created ${variableAllocations.length} VARIABLE cost expenses for time entry: ${timeEntry.id}`);
+      this.logger.log(
+        `✅ Successfully created ${variableAllocations.length} VARIABLE cost expenses for time entry: ${timeEntry.id}`,
+      );
     } catch (error) {
       this.logger.error('❌ Failed to create expenses from task allocations:', error);
       this.logger.error('Error details:', error.stack);
@@ -1238,7 +1392,11 @@ export class BudgetService {
 
   // ==================== BILLING RATES ====================
 
-  async createBillingRate(workspaceId: string, userId: string, createBillingRateDto: CreateBillingRateDto): Promise<BillingRate> {
+  async createBillingRate(
+    workspaceId: string,
+    userId: string,
+    createBillingRateDto: CreateBillingRateDto,
+  ): Promise<BillingRate> {
     try {
       const rateData = {
         workspace_id: workspaceId,
@@ -1270,7 +1428,7 @@ export class BudgetService {
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get billing rates:', error);
       throw new BadRequestException('Failed to get billing rates');
@@ -1281,7 +1439,9 @@ export class BudgetService {
 
   async createTaskAllocations(workspaceId: string, userId: string, createDto: any): Promise<any[]> {
     try {
-      this.logger.log(`📋 Creating/updating task allocations - TaskID: ${createDto.taskId}, BudgetID: ${createDto.budgetId}, Allocations: ${createDto.allocations.length}`);
+      this.logger.log(
+        `📋 Creating/updating task allocations - TaskID: ${createDto.taskId}, BudgetID: ${createDto.budgetId}, Allocations: ${createDto.allocations.length}`,
+      );
 
       const results = [];
 
@@ -1298,12 +1458,18 @@ export class BudgetService {
 
         if (existing && existing.length > 0) {
           // Update existing allocation
-          this.logger.log(`  ➜ Updating allocation: CategoryID: ${allocation.categoryId}, Amount: ${allocation.allocatedAmount}`);
-          await this.db.update('task_budget_allocations', { id: existing[0].id }, {
-            allocated_amount: allocation.allocatedAmount,
-            notes: allocation.notes || null,
-            updated_at: new Date().toISOString(),
-          });
+          this.logger.log(
+            `  ➜ Updating allocation: CategoryID: ${allocation.categoryId}, Amount: ${allocation.allocatedAmount}`,
+          );
+          await this.db.update(
+            'task_budget_allocations',
+            { id: existing[0].id },
+            {
+              allocated_amount: allocation.allocatedAmount,
+              notes: allocation.notes || null,
+              updated_at: new Date().toISOString(),
+            },
+          );
 
           const updated = await this.db.findOne('task_budget_allocations', { id: existing[0].id });
           this.logger.log(`  ✅ Updated allocation ID: ${existing[0].id}`);
@@ -1319,7 +1485,9 @@ export class BudgetService {
             created_by: userId,
           };
 
-          this.logger.log(`  ➜ Creating new allocation: CategoryID: ${allocation.categoryId}, Amount: ${allocation.allocatedAmount}`);
+          this.logger.log(
+            `  ➜ Creating new allocation: CategoryID: ${allocation.categoryId}, Amount: ${allocation.allocatedAmount}`,
+          );
           const result = await this.db.insert('task_budget_allocations', allocationData);
           this.logger.log(`  ✅ Created allocation ID: ${result.id}`);
           results.push(this.transformToCamelCase(result));
@@ -1339,13 +1507,24 @@ export class BudgetService {
     try {
       const results = await this.db
         .table('task_budget_allocations')
-        .select('task_budget_allocations.*', 'budget_categories.name as category_name', 'budget_categories.cost_nature', 'budget_categories.category_type', 'budget_categories.color')
-        .leftJoin('budget_categories', 'task_budget_allocations.category_id', '=', 'budget_categories.id')
+        .select(
+          'task_budget_allocations.*',
+          'budget_categories.name as category_name',
+          'budget_categories.cost_nature',
+          'budget_categories.category_type',
+          'budget_categories.color',
+        )
+        .leftJoin(
+          'budget_categories',
+          'task_budget_allocations.category_id',
+          '=',
+          'budget_categories.id',
+        )
         .where('task_budget_allocations.task_id', '=', taskId)
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get task allocations:', error);
       throw new BadRequestException('Failed to get task allocations');
@@ -1356,26 +1535,45 @@ export class BudgetService {
     try {
       const results = await this.db
         .table('task_budget_allocations')
-        .select('task_budget_allocations.*', 'budget_categories.name as category_name', 'budget_categories.cost_nature', 'budget_categories.category_type', 'budget_categories.color')
-        .leftJoin('budget_categories', 'task_budget_allocations.category_id', '=', 'budget_categories.id')
+        .select(
+          'task_budget_allocations.*',
+          'budget_categories.name as category_name',
+          'budget_categories.cost_nature',
+          'budget_categories.category_type',
+          'budget_categories.color',
+        )
+        .leftJoin(
+          'budget_categories',
+          'task_budget_allocations.category_id',
+          '=',
+          'budget_categories.id',
+        )
         .where('task_budget_allocations.budget_id', '=', budgetId)
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get allocations for budget:', error);
       throw new BadRequestException('Failed to get allocations for budget');
     }
   }
 
-  async updateTaskAllocation(workspaceId: string, allocationId: string, updateDto: any): Promise<any> {
+  async updateTaskAllocation(
+    workspaceId: string,
+    allocationId: string,
+    updateDto: any,
+  ): Promise<any> {
     try {
-      await this.db.update('task_budget_allocations', { id: allocationId }, {
-        allocated_amount: updateDto.allocatedAmount,
-        notes: updateDto.notes || null,
-        updated_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'task_budget_allocations',
+        { id: allocationId },
+        {
+          allocated_amount: updateDto.allocatedAmount,
+          notes: updateDto.notes || null,
+          updated_at: new Date().toISOString(),
+        },
+      );
 
       const result = await this.db.findOne('task_budget_allocations', { id: allocationId });
       return this.transformToCamelCase(result);
@@ -1400,7 +1598,12 @@ export class BudgetService {
 
   // ==================== TASK ASSIGNEE RATES ====================
 
-  async setTaskAssigneeRates(workspaceId: string, userId: string, taskId: string, rates: Array<{ userId: string; hourlyRate: number; currency?: string; notes?: string }>): Promise<TaskAssigneeRate[]> {
+  async setTaskAssigneeRates(
+    workspaceId: string,
+    userId: string,
+    taskId: string,
+    rates: Array<{ userId: string; hourlyRate: number; currency?: string; notes?: string }>,
+  ): Promise<TaskAssigneeRate[]> {
     try {
       const results = [];
 
@@ -1484,14 +1687,18 @@ export class BudgetService {
         .execute();
 
       const data = (results as any).data || results;
-      return data.map(r => this.transformToCamelCase(r));
+      return data.map((r) => this.transformToCamelCase(r));
     } catch (error) {
       this.logger.error('Failed to get task assignee rates:', error);
       throw new BadRequestException('Failed to get task assignee rates');
     }
   }
 
-  async getTaskAssigneeRate(workspaceId: string, taskId: string, userId: string): Promise<TaskAssigneeRate | null> {
+  async getTaskAssigneeRate(
+    workspaceId: string,
+    taskId: string,
+    userId: string,
+  ): Promise<TaskAssigneeRate | null> {
     try {
       const result = await this.db
         .table('task_assignee_rates')
@@ -1526,7 +1733,10 @@ export class BudgetService {
     }
   }
 
-  async getActiveBillingRateForUser(workspaceId: string, userId: string): Promise<BillingRate | null> {
+  async getActiveBillingRateForUser(
+    workspaceId: string,
+    userId: string,
+  ): Promise<BillingRate | null> {
     try {
       const today = new Date().toISOString().split('T')[0];
 
@@ -1543,9 +1753,7 @@ export class BudgetService {
 
       const userRate = (userRateResult as any).data || userRateResult;
       if (userRate && userRate.length > 0) {
-        const validRate = userRate.find(rate =>
-          !rate.effective_to || rate.effective_to >= today
-        );
+        const validRate = userRate.find((rate) => !rate.effective_to || rate.effective_to >= today);
         if (validRate) return this.transformToCamelCase(validRate);
       }
 
@@ -1556,7 +1764,10 @@ export class BudgetService {
     }
   }
 
-  private async getActiveBillingRate(workspaceId: string, userId: string): Promise<BillingRate | null> {
+  private async getActiveBillingRate(
+    workspaceId: string,
+    userId: string,
+  ): Promise<BillingRate | null> {
     return this.getActiveBillingRateForUser(workspaceId, userId);
   }
 
@@ -1654,7 +1865,11 @@ export class BudgetService {
     }
   }
 
-  async handleExpenseApproval(workspaceId: string, expenseId: string, approverId: string): Promise<void> {
+  async handleExpenseApproval(
+    workspaceId: string,
+    expenseId: string,
+    approverId: string,
+  ): Promise<void> {
     try {
       // Get expense to retrieve budget_id
       const expenseResult = await this.db
@@ -1685,7 +1900,11 @@ export class BudgetService {
     }
   }
 
-  async handleExpenseRejection(workspaceId: string, expenseId: string, reason: string): Promise<void> {
+  async handleExpenseRejection(
+    workspaceId: string,
+    expenseId: string,
+    reason: string,
+  ): Promise<void> {
     try {
       await this.db.update('budget_expenses', expenseId, {
         approved: false,
@@ -1712,8 +1931,14 @@ export class BudgetService {
       let value = obj[key];
 
       // Convert numeric fields from strings to numbers
-      if (key === 'amount' || key === 'total_budget' || key === 'allocated_amount' ||
-          key === 'alert_threshold' || key === 'hourly_rate' || key === 'hours') {
+      if (
+        key === 'amount' ||
+        key === 'total_budget' ||
+        key === 'allocated_amount' ||
+        key === 'alert_threshold' ||
+        key === 'hourly_rate' ||
+        key === 'hours'
+      ) {
         value = value !== null && value !== undefined ? Number(value) : value;
       }
 

@@ -16,7 +16,14 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response, Request } from 'express';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { AutoPilotService } from './autopilot.service';
@@ -46,15 +53,21 @@ export class AutoPilotController {
   @Post('execute')
   @ApiOperation({
     summary: 'Execute AutoPilot command',
-    description: 'Process a natural language command and execute the corresponding actions'
+    description: 'Process a natural language command and execute the corresponding actions',
   })
-  @ApiResponse({ status: 200, description: 'Command executed successfully', type: AutoPilotResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Command executed successfully',
+    type: AutoPilotResponseDto,
+  })
   @ApiResponse({ status: 400, description: 'Invalid command' })
   async executeCommand(
     @Body() dto: ExecuteCommandDto,
     @CurrentUser('sub') userId: string,
   ): Promise<AutoPilotResponseDto> {
-    this.logger.log(`[AutoPilot] Execute command request - userId: ${userId}, command: ${dto.command?.substring(0, 50)}...`);
+    this.logger.log(
+      `[AutoPilot] Execute command request - userId: ${userId}, command: ${dto.command?.substring(0, 50)}...`,
+    );
     try {
       const result = await this.autoPilotService.executeCommand(dto, userId);
       this.logger.log(`[AutoPilot] Execute command completed - success: ${result.success}`);
@@ -68,7 +81,7 @@ export class AutoPilotController {
   @Post('execute/stream')
   @ApiOperation({
     summary: 'Execute AutoPilot command with streaming',
-    description: 'Process a natural language command and stream the response in real-time'
+    description: 'Process a natural language command and stream the response in real-time',
   })
   async executeCommandStream(
     @Body() dto: ExecuteCommandDto,
@@ -76,7 +89,9 @@ export class AutoPilotController {
     @Res() res: Response,
     @Req() req: Request,
   ): Promise<void> {
-    this.logger.log(`[AutoPilot] Stream execute request - userId: ${userId}, command: ${dto.command?.substring(0, 50)}...`);
+    this.logger.log(
+      `[AutoPilot] Stream execute request - userId: ${userId}, command: ${dto.command?.substring(0, 50)}...`,
+    );
 
     // Get user language from Accept-Language header or default to 'en'
     const acceptLanguage = req.headers['accept-language'] || 'en';
@@ -97,7 +112,12 @@ export class AutoPilotController {
       };
 
       // Execute with streaming
-      const result = await this.autoPilotService.executeCommandStream(dto, userId, onStream, userLanguage);
+      const result = await this.autoPilotService.executeCommandStream(
+        dto,
+        userId,
+        onStream,
+        userLanguage,
+      );
 
       // Send final result
       res.write(`data: ${JSON.stringify({ type: 'complete', data: result })}\n\n`);
@@ -113,7 +133,7 @@ export class AutoPilotController {
   @Post('preview')
   @ApiOperation({
     summary: 'Preview AutoPilot actions',
-    description: 'Preview what actions would be taken without executing them'
+    description: 'Preview what actions would be taken without executing them',
   })
   @ApiResponse({ status: 200, description: 'Actions previewed', type: AutoPilotResponseDto })
   async previewCommand(
@@ -126,7 +146,7 @@ export class AutoPilotController {
   @Get('history/:sessionId')
   @ApiOperation({
     summary: 'Get conversation history',
-    description: 'Retrieve the conversation history for a session'
+    description: 'Retrieve the conversation history for a session',
   })
   @ApiResponse({ status: 200, description: 'Conversation history', type: [ConversationMessage] })
   async getHistory(
@@ -140,7 +160,7 @@ export class AutoPilotController {
   @Post('feedback')
   @ApiOperation({
     summary: 'Provide feedback on action',
-    description: 'Submit feedback on whether an action was helpful'
+    description: 'Submit feedback on whether an action was helpful',
   })
   @ApiResponse({ status: 200, description: 'Feedback submitted' })
   async provideFeedback(
@@ -153,7 +173,7 @@ export class AutoPilotController {
   @Get('capabilities')
   @ApiOperation({
     summary: 'Get AutoPilot capabilities',
-    description: 'List all available tools and what AutoPilot can do'
+    description: 'List all available tools and what AutoPilot can do',
   })
   @ApiResponse({ status: 200, description: 'List of capabilities', type: [AutoPilotCapability] })
   async getCapabilities(): Promise<AutoPilotCapability[]> {
@@ -163,21 +183,28 @@ export class AutoPilotController {
   @Get('suggestions')
   @ApiOperation({
     summary: 'Get smart suggestions',
-    description: 'Get contextual suggestions based on user data (overdue tasks, upcoming events, etc.)'
+    description:
+      'Get contextual suggestions based on user data (overdue tasks, upcoming events, etc.)',
   })
-  @ApiResponse({ status: 200, description: 'List of smart suggestions', type: SmartSuggestionsResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'List of smart suggestions',
+    type: SmartSuggestionsResponseDto,
+  })
   async getSmartSuggestions(
     @Query('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ): Promise<SmartSuggestionsResponseDto> {
-    this.logger.log(`[AutoPilot] Get smart suggestions - userId: ${userId}, workspaceId: ${workspaceId}`);
+    this.logger.log(
+      `[AutoPilot] Get smart suggestions - userId: ${userId}, workspaceId: ${workspaceId}`,
+    );
     return this.autoPilotService.getSmartSuggestions(userId, workspaceId);
   }
 
   @Get('test-ai')
   @ApiOperation({
     summary: 'Test AI connection',
-    description: 'Test if the AI service is working'
+    description: 'Test if the AI service is working',
   })
   async testAI(): Promise<{ success: boolean; message: string }> {
     this.logger.log('[AutoPilot] Testing AI connection...');
@@ -193,7 +220,7 @@ export class AutoPilotController {
   @Post('sessions/new')
   @ApiOperation({
     summary: 'Create new session',
-    description: 'Start a new AutoPilot conversation session'
+    description: 'Start a new AutoPilot conversation session',
   })
   @ApiResponse({ status: 200, description: 'New session created' })
   async createSession(
@@ -206,7 +233,8 @@ export class AutoPilotController {
   @Post('sessions/resume')
   @ApiOperation({
     summary: 'Get or resume session',
-    description: 'Resume an existing session or create a new one if none exists. This ensures the user continues their previous conversation.'
+    description:
+      'Resume an existing session or create a new one if none exists. This ensures the user continues their previous conversation.',
   })
   @ApiResponse({ status: 200, description: 'Session ID returned' })
   async getOrCreateSession(
@@ -219,7 +247,7 @@ export class AutoPilotController {
   @Post('sessions/:sessionId/clear')
   @ApiOperation({
     summary: 'Clear session memory',
-    description: 'Clear the conversation memory for a session'
+    description: 'Clear the conversation memory for a session',
   })
   @ApiResponse({ status: 200, description: 'Session cleared' })
   async clearSession(
@@ -232,28 +260,30 @@ export class AutoPilotController {
   @Get('sessions')
   @ApiOperation({
     summary: 'List all sessions',
-    description: 'Get all conversation sessions for the current user in a workspace'
+    description: 'Get all conversation sessions for the current user in a workspace',
   })
   @ApiResponse({ status: 200, description: 'List of sessions' })
   async listSessions(
     @Query('workspaceId') workspaceId: string,
     @Query('limit') limit: number,
     @CurrentUser('sub') userId: string,
-  ): Promise<{
-    id: string;
-    sessionId: string;
-    title: string;
-    messageCount: number;
-    createdAt: string;
-    updatedAt: string;
-  }[]> {
+  ): Promise<
+    {
+      id: string;
+      sessionId: string;
+      title: string;
+      messageCount: number;
+      createdAt: string;
+      updatedAt: string;
+    }[]
+  > {
     return this.autoPilotService.getUserSessions(workspaceId, userId, limit || 20);
   }
 
   @Post('sessions/:sessionId/delete')
   @ApiOperation({
     summary: 'Delete session',
-    description: 'Delete a conversation session permanently'
+    description: 'Delete a conversation session permanently',
   })
   @ApiResponse({ status: 200, description: 'Session deleted' })
   async deleteSession(
@@ -267,7 +297,7 @@ export class AutoPilotController {
   @UseInterceptors(FileInterceptor('file'))
   @ApiOperation({
     summary: 'Extract text from PDF',
-    description: 'Upload a PDF file and extract its text content'
+    description: 'Upload a PDF file and extract its text content',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
@@ -287,7 +317,9 @@ export class AutoPilotController {
     @UploadedFile() file: Express.Multer.File,
     @CurrentUser('sub') userId: string,
   ): Promise<{ text: string; numPages: number; info: any }> {
-    this.logger.log(`[AutoPilot] PDF extraction request - userId: ${userId}, file: ${file?.originalname}`);
+    this.logger.log(
+      `[AutoPilot] PDF extraction request - userId: ${userId}, file: ${file?.originalname}`,
+    );
 
     if (!file) {
       throw new BadRequestException('No file uploaded');
@@ -309,7 +341,7 @@ export class AutoPilotController {
   @Get('scheduled-actions')
   @ApiOperation({
     summary: 'Get pending scheduled actions',
-    description: 'Get all pending scheduled actions for a user in a workspace'
+    description: 'Get all pending scheduled actions for a user in a workspace',
   })
   @ApiResponse({ status: 200, description: 'List of scheduled actions' })
   async getScheduledActions(
@@ -317,7 +349,9 @@ export class AutoPilotController {
     @CurrentUser('sub') userId: string,
   ): Promise<{ data: ScheduledAction[] }> {
     this.logger.log(`[AutoPilot] >>>>>> GET SCHEDULED ACTIONS API CALLED <<<<<<`);
-    this.logger.log(`[AutoPilot] Get scheduled actions - userId: ${userId}, workspaceId: ${workspaceId}`);
+    this.logger.log(
+      `[AutoPilot] Get scheduled actions - userId: ${userId}, workspaceId: ${workspaceId}`,
+    );
     if (!workspaceId) {
       this.logger.error(`[AutoPilot] workspaceId is missing!`);
       throw new BadRequestException('workspaceId is required');
@@ -331,14 +365,16 @@ export class AutoPilotController {
   @Post('scheduled-actions/:actionId/cancel')
   @ApiOperation({
     summary: 'Cancel a scheduled action',
-    description: 'Cancel a pending scheduled action'
+    description: 'Cancel a pending scheduled action',
   })
   @ApiResponse({ status: 200, description: 'Action cancelled' })
   async cancelScheduledAction(
     @Param('actionId') actionId: string,
     @CurrentUser('sub') userId: string,
   ): Promise<{ success: boolean }> {
-    this.logger.log(`[AutoPilot] Cancel scheduled action - actionId: ${actionId}, userId: ${userId}`);
+    this.logger.log(
+      `[AutoPilot] Cancel scheduled action - actionId: ${actionId}, userId: ${userId}`,
+    );
     const success = await this.scheduledActionsService.cancelAction(actionId, userId);
     return { success };
   }
@@ -346,7 +382,7 @@ export class AutoPilotController {
   @Post('scheduled-actions/trigger')
   @ApiOperation({
     summary: 'Manually trigger scheduled actions processing',
-    description: 'Debug endpoint to manually trigger processing of due scheduled actions'
+    description: 'Debug endpoint to manually trigger processing of due scheduled actions',
   })
   @ApiResponse({ status: 200, description: 'Processing triggered' })
   async triggerScheduledActions(): Promise<{ processed: number }> {
@@ -357,12 +393,15 @@ export class AutoPilotController {
   @Get('scheduled-actions/debug')
   @ApiOperation({
     summary: 'Debug: Get ALL scheduled actions',
-    description: 'Debug endpoint to get ALL scheduled actions regardless of status (no auth required for debugging)'
+    description:
+      'Debug endpoint to get ALL scheduled actions regardless of status (no auth required for debugging)',
   })
   @ApiResponse({ status: 200, description: 'All scheduled actions' })
-  async debugGetAllActions(
-    @Query('workspaceId') workspaceId?: string,
-  ): Promise<{ data: ScheduledAction[]; count: number; workspaceBreakdown: Record<string, number> }> {
+  async debugGetAllActions(@Query('workspaceId') workspaceId?: string): Promise<{
+    data: ScheduledAction[];
+    count: number;
+    workspaceBreakdown: Record<string, number>;
+  }> {
     this.logger.log(`[AutoPilot] Debug: Getting ALL scheduled actions`);
     const actions = await this.scheduledActionsService.getAllActions(workspaceId);
 

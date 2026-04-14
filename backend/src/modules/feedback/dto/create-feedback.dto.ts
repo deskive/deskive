@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsEnum, IsArray, ValidateNested, MinLength, MaxLength, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsArray,
+  ValidateNested,
+  MinLength,
+  MaxLength,
+  IsNumber,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -79,7 +88,8 @@ export class CreateFeedbackDto {
 
   @ApiProperty({
     description: 'Detailed description of the feedback',
-    example: 'When I open the settings screen and tap on notifications, the app crashes immediately.',
+    example:
+      'When I open the settings screen and tap on notifications, the app crashes immediately.',
     minLength: 20,
   })
   @IsString()

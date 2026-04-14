@@ -91,13 +91,17 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
     const callId = client.callId;
 
     if (userId && callId) {
-      this.logger.log(`User ${userId} disconnected from call ${callId} - updating participant status`);
+      this.logger.log(
+        `User ${userId} disconnected from call ${callId} - updating participant status`,
+      );
 
       try {
         // IMPORTANT: Update the database to mark participant as left
         // This handles the case where user closes browser/tab and the API call doesn't complete
         await this.videoCallsService.leaveCall(callId, userId);
-        this.logger.log(`✅ Successfully updated participant status for user ${userId} in call ${callId}`);
+        this.logger.log(
+          `✅ Successfully updated participant status for user ${userId} in call ${callId}`,
+        );
       } catch (error) {
         this.logger.error(`❌ Failed to update participant status on disconnect: ${error.message}`);
         // Continue with cleanup even if leaveCall fails
@@ -127,7 +131,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
     const { callId } = data;
     const userId = client.userId;
 
-    this.logger.log(`🚪 [call:join] Socket ${client.id} attempting to join call ${callId}, userId: ${userId}`);
+    this.logger.log(
+      `🚪 [call:join] Socket ${client.id} attempting to join call ${callId}, userId: ${userId}`,
+    );
 
     if (!userId) {
       this.logger.warn(`🚪 [call:join] Rejected - no userId on socket`);
@@ -207,7 +213,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
     }
 
     try {
-      this.logger.log(`📵 [VideoCallsGateway] User ${userId} declined call ${callId} from ${callerUserId}`);
+      this.logger.log(
+        `📵 [VideoCallsGateway] User ${userId} declined call ${callId} from ${callerUserId}`,
+      );
 
       // Call the service method to properly decline the call
       // This updates the participant status to 'declined' and checks if call should end
@@ -218,7 +226,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
       try {
         const call = await this.videoCallsService.getCallById(callId, userId);
         isGroupCall = call?.is_group_call || false;
-        this.logger.log(`📋 [VideoCallsGateway] Call type: ${isGroupCall ? 'Group' : 'One-to-One'}`);
+        this.logger.log(
+          `📋 [VideoCallsGateway] Call type: ${isGroupCall ? 'Group' : 'One-to-One'}`,
+        );
       } catch (error) {
         this.logger.warn(`⚠️ [VideoCallsGateway] Could not fetch call details: ${error.message}`);
         // Continue with default isGroupCall = false
@@ -226,7 +236,12 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
 
       // Get user info for the person who declined
       const declinedByUser = await this.db.getUserById(userId);
-      const declinedByName = declinedByUser?.metadata?.name || (declinedByUser as any)?.fullName || declinedByUser?.name || declinedByUser?.email?.split('@')[0] || 'Someone';
+      const declinedByName =
+        declinedByUser?.metadata?.name ||
+        (declinedByUser as any)?.fullName ||
+        declinedByUser?.name ||
+        declinedByUser?.email?.split('@')[0] ||
+        'Someone';
 
       this.logger.log(`👤 [VideoCallsGateway] Declined by: ${declinedByName}`);
 
@@ -234,7 +249,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
       const connectedSockets = Array.from(this.connectedParticipants.values());
       const callerSockets = connectedSockets.filter((socket) => socket.userId === callerUserId);
 
-      this.logger.log(`🔌 [VideoCallsGateway] Found ${callerSockets.length} socket(s) for caller ${callerUserId}`);
+      this.logger.log(
+        `🔌 [VideoCallsGateway] Found ${callerSockets.length} socket(s) for caller ${callerUserId}`,
+      );
 
       if (callerSockets.length > 0) {
         // Send decline notification to all caller's connected devices
@@ -260,9 +277,13 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
           });
         });
 
-        this.logger.log(`✅ [VideoCallsGateway] Sent call declined notification to caller ${callerUserId}`);
+        this.logger.log(
+          `✅ [VideoCallsGateway] Sent call declined notification to caller ${callerUserId}`,
+        );
       } else {
-        this.logger.warn(`⚠️ [VideoCallsGateway] Caller ${callerUserId} is not connected to WebSocket`);
+        this.logger.warn(
+          `⚠️ [VideoCallsGateway] Caller ${callerUserId} is not connected to WebSocket`,
+        );
       }
 
       // Also send call:ended to the decliner to update their sidebar
@@ -300,9 +321,7 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
     try {
       const { callId, participantId, mediaType, enabled } = data;
 
-      this.logger.log(
-        `User ${userId} toggled ${mediaType} to ${enabled} in call ${callId}`,
-      );
+      this.logger.log(`User ${userId} toggled ${mediaType} to ${enabled} in call ${callId}`);
 
       // Update participant state in database
       const updateData: any = {};
@@ -314,12 +333,7 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
         updateData.is_screen_sharing = enabled;
       }
 
-      await this.videoCallsService.updateParticipant(
-        callId,
-        participantId,
-        userId,
-        updateData,
-      );
+      await this.videoCallsService.updateParticipant(callId, participantId, userId, updateData);
 
       // Broadcast to other participants
       client.to(`call:${callId}`).emit('participant:media_updated', {
@@ -627,7 +641,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
 
       if (userSockets.length > 0) {
         userSockets.forEach((socket) => {
-          this.logger.log(`📤 [VideoCallsGateway] Sending ${event} to user ${userId} (socket: ${socket.id})`);
+          this.logger.log(
+            `📤 [VideoCallsGateway] Sending ${event} to user ${userId} (socket: ${socket.id})`,
+          );
           socket.emit(event, {
             ...data,
             timestamp: new Date().toISOString(),
@@ -671,8 +687,10 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
     this.logger.log(`🔌 [VideoCallsGateway] Total connected sockets: ${connectedSockets.length}`);
 
     // Log all connected user IDs for debugging
-    const connectedUserIds = connectedSockets.map(s => s.userId).filter(Boolean);
-    this.logger.log(`👥 [VideoCallsGateway] Connected user IDs: ${JSON.stringify(connectedUserIds)}`);
+    const connectedUserIds = connectedSockets.map((s) => s.userId).filter(Boolean);
+    this.logger.log(
+      `👥 [VideoCallsGateway] Connected user IDs: ${JSON.stringify(connectedUserIds)}`,
+    );
 
     for (const userId of userIds) {
       this.logger.log(`🔍 [VideoCallsGateway] Processing notification for user: ${userId}`);
@@ -685,7 +703,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
 
       // Find all sockets for this user
       const userSockets = connectedSockets.filter((socket) => socket.userId === userId);
-      this.logger.log(`🔌 [VideoCallsGateway] Found ${userSockets.length} socket(s) for user ${userId}`);
+      this.logger.log(
+        `🔌 [VideoCallsGateway] Found ${userSockets.length} socket(s) for user ${userId}`,
+      );
 
       if (userSockets.length > 0) {
         // Send notification to all user's connected devices
@@ -704,7 +724,9 @@ export class VideoCallsGateway implements OnGatewayConnection, OnGatewayDisconne
           };
 
           this.logger.log(`📤 [VideoCallsGateway] Emitting 'call:incoming' to socket ${socket.id}`);
-          this.logger.log(`📋 [VideoCallsGateway] Payload: ${JSON.stringify(notificationPayload, null, 2)}`);
+          this.logger.log(
+            `📋 [VideoCallsGateway] Payload: ${JSON.stringify(notificationPayload, null, 2)}`,
+          );
 
           socket.emit('call:incoming', notificationPayload);
 

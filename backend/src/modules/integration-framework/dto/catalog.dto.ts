@@ -45,7 +45,31 @@ export class IntegrationFiltersDto {
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ enum: ['COMMUNICATION', 'FILE_STORAGE', 'CALENDAR', 'EMAIL', 'PROJECT_MANAGEMENT', 'CRM', 'DEVELOPMENT', 'ANALYTICS', 'MARKETING', 'DOCUMENTATION', 'DESIGN', 'TIME_TRACKING', 'VIDEO_CONFERENCING', 'AUTOMATION', 'PRODUCTIVITY', 'HR', 'FINANCE', 'SUPPORT', 'SECURITY', 'ECOMMERCE', 'OTHER'] })
+  @ApiPropertyOptional({
+    enum: [
+      'COMMUNICATION',
+      'FILE_STORAGE',
+      'CALENDAR',
+      'EMAIL',
+      'PROJECT_MANAGEMENT',
+      'CRM',
+      'DEVELOPMENT',
+      'ANALYTICS',
+      'MARKETING',
+      'DOCUMENTATION',
+      'DESIGN',
+      'TIME_TRACKING',
+      'VIDEO_CONFERENCING',
+      'AUTOMATION',
+      'PRODUCTIVITY',
+      'HR',
+      'FINANCE',
+      'SUPPORT',
+      'SECURITY',
+      'ECOMMERCE',
+      'OTHER',
+    ],
+  })
   @IsOptional()
   @IsString()
   category?: IntegrationCategory;

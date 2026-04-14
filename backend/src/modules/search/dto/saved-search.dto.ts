@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsBoolean, IsArray, IsEnum, Allow } from 'class-validator';
+import {
+  IsString,
+  IsNotEmpty,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsEnum,
+  Allow,
+} from 'class-validator';
 
 export enum SearchType {
   ALL = 'all',
@@ -9,20 +17,23 @@ export enum SearchType {
   PROJECTS = 'projects',
   NOTES = 'notes',
   CALENDAR = 'calendar',
-  VIDEOS = 'videos'
+  VIDEOS = 'videos',
 }
 
 export enum SearchMode {
   FULL_TEXT = 'full-text',
   SEMANTIC = 'semantic',
-  HYBRID = 'hybrid'
+  HYBRID = 'hybrid',
 }
 
 /**
  * DTO for creating a saved search
  */
 export class CreateSavedSearchDto {
-  @ApiProperty({ description: 'User-defined name for the saved search', example: 'My Important Files' })
+  @ApiProperty({
+    description: 'User-defined name for the saved search',
+    example: 'My Important Files',
+  })
   @IsString()
   @IsNotEmpty()
   name: string;
@@ -35,7 +46,7 @@ export class CreateSavedSearchDto {
   @ApiProperty({
     description: 'Search type',
     enum: SearchType,
-    example: SearchType.ALL
+    example: SearchType.ALL,
   })
   @IsEnum(SearchType)
   @IsNotEmpty()
@@ -44,7 +55,7 @@ export class CreateSavedSearchDto {
   @ApiProperty({
     description: 'Search mode',
     enum: SearchMode,
-    example: SearchMode.HYBRID
+    example: SearchMode.HYBRID,
   })
   @IsEnum(SearchMode)
   @IsNotEmpty()
@@ -54,7 +65,7 @@ export class CreateSavedSearchDto {
     description: 'Search filters (JSON object)',
     example: { dateRange: { from: '2025-01-01' }, authors: ['user-123'] },
     required: false,
-    additionalProperties: true
+    additionalProperties: true,
   })
   @IsOptional()
   filters?: Record<string, any>;
@@ -62,7 +73,7 @@ export class CreateSavedSearchDto {
   @ApiProperty({
     description: 'User tags for organization',
     example: ['work', 'important'],
-    required: false
+    required: false,
   })
   @IsArray()
   @IsOptional()
@@ -71,7 +82,7 @@ export class CreateSavedSearchDto {
   @ApiProperty({
     description: 'Enable notifications for new matching results',
     example: false,
-    required: false
+    required: false,
   })
   @IsBoolean()
   @IsOptional()
@@ -80,7 +91,7 @@ export class CreateSavedSearchDto {
   @ApiProperty({
     description: 'Snapshot of current search results to save',
     example: [],
-    required: false
+    required: false,
   })
   @Allow()
   resultsSnapshot?: any[];
@@ -103,7 +114,7 @@ export class UpdateSavedSearchDto {
   @ApiProperty({
     description: 'Search type',
     enum: SearchType,
-    required: false
+    required: false,
   })
   @IsEnum(SearchType)
   @IsOptional()
@@ -112,7 +123,7 @@ export class UpdateSavedSearchDto {
   @ApiProperty({
     description: 'Search mode',
     enum: SearchMode,
-    required: false
+    required: false,
   })
   @IsEnum(SearchMode)
   @IsOptional()
@@ -121,14 +132,14 @@ export class UpdateSavedSearchDto {
   @ApiProperty({
     description: 'Search filters (JSON object)',
     required: false,
-    additionalProperties: true
+    additionalProperties: true,
   })
   @IsOptional()
   filters?: Record<string, any>;
 
   @ApiProperty({
     description: 'User tags for organization',
-    required: false
+    required: false,
   })
   @IsArray()
   @IsOptional()
@@ -136,7 +147,7 @@ export class UpdateSavedSearchDto {
 
   @ApiProperty({
     description: 'Enable notifications for new matching results',
-    required: false
+    required: false,
   })
   @IsBoolean()
   @IsOptional()
@@ -149,7 +160,7 @@ export class UpdateSavedSearchDto {
 export class ShareSavedSearchDto {
   @ApiProperty({
     description: 'Array of user IDs to share with',
-    example: ['user-123', 'user-456']
+    example: ['user-123', 'user-456'],
   })
   @IsArray()
   @IsNotEmpty()

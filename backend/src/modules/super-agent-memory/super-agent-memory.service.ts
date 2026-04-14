@@ -94,7 +94,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
    */
   private async testEmbeddingsAPI(): Promise<void> {
     if (!this.isInitialized) {
-      this.logger.warn('[SuperAgentMemory] ⚠️  Vector collection not initialized - skipping embeddings test');
+      this.logger.warn(
+        '[SuperAgentMemory] ⚠️  Vector collection not initialized - skipping embeddings test',
+      );
       return;
     }
 
@@ -108,10 +110,12 @@ export class SuperAgentMemoryService implements OnModuleInit {
       if (errorMessage.includes('AI feature may not be enabled')) {
         this.logger.warn(
           '[SuperAgentMemory] ⚠️  AI/Embeddings feature NOT ENABLED on database. ' +
-          'Enable it at: OPENAI_API_KEY in .env'
+            'Enable it at: OPENAI_API_KEY in .env',
         );
       } else {
-        this.logger.warn('[SuperAgentMemory] ⚠️  Embeddings test failed - semantic search disabled');
+        this.logger.warn(
+          '[SuperAgentMemory] ⚠️  Embeddings test failed - semantic search disabled',
+        );
         this.logger.debug('[SuperAgentMemory] Error:', errorMessage);
       }
       // Note: We don't disable the whole service, just semantic search
@@ -123,11 +127,15 @@ export class SuperAgentMemoryService implements OnModuleInit {
    */
   private async ensureCollection(): Promise<void> {
     try {
-      this.logger.log(`[SuperAgentMemory] Ensuring vector collection: ${this.collectionName} (${this.embeddingSize} dimensions)`);
+      this.logger.log(
+        `[SuperAgentMemory] Ensuring vector collection: ${this.collectionName} (${this.embeddingSize} dimensions)`,
+      );
 
       // Check if Qdrant service is ready
       if (!this.qdrantService.isReady()) {
-        this.logger.warn(`[SuperAgentMemory] ⚠️  Qdrant service not ready - semantic search disabled`);
+        this.logger.warn(
+          `[SuperAgentMemory] ⚠️  Qdrant service not ready - semantic search disabled`,
+        );
         this.isInitialized = false;
         return;
       }
@@ -139,9 +147,13 @@ export class SuperAgentMemoryService implements OnModuleInit {
       });
 
       this.isInitialized = true;
-      this.logger.log(`[SuperAgentMemory] ✅ Vector collection ready: ${this.collectionName} (${this.embeddingSize}D)`);
+      this.logger.log(
+        `[SuperAgentMemory] ✅ Vector collection ready: ${this.collectionName} (${this.embeddingSize}D)`,
+      );
     } catch (error) {
-      this.logger.warn(`[SuperAgentMemory] ⚠️  Vector database not available - semantic search disabled`);
+      this.logger.warn(
+        `[SuperAgentMemory] ⚠️  Vector database not available - semantic search disabled`,
+      );
       this.logger.debug(`[SuperAgentMemory] Error details:`, error);
       // Allow service to start without Qdrant - will fall back to database-only
       this.isInitialized = false;
@@ -211,7 +223,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
       // Store vector embedding in Qdrant if available
       if (this.isInitialized) {
         try {
-          this.logger.log(`[SuperAgentMemory] Generating embedding for memory content (${dto.content.length} chars)...`);
+          this.logger.log(
+            `[SuperAgentMemory] Generating embedding for memory content (${dto.content.length} chars)...`,
+          );
           const embedding = await this.generateEmbedding(dto.content);
           this.logger.log(`[SuperAgentMemory] Embedding generated: ${embedding.length} dimensions`);
 
@@ -230,16 +244,25 @@ export class SuperAgentMemoryService implements OnModuleInit {
             },
           };
 
-          this.logger.log(`[SuperAgentMemory] Upserting vector to Qdrant: ID=${memoryId}, dimensions=${embedding.length}`);
+          this.logger.log(
+            `[SuperAgentMemory] Upserting vector to Qdrant: ID=${memoryId}, dimensions=${embedding.length}`,
+          );
           await this.qdrantService.upsertVectors(this.collectionName, [vectorPayload]);
 
           // Update database with embedding_id
-          await this.db.update('agent_memory', { id: memoryId }, {
-            embedding_id: memoryId,
-            updated_at: new Date().toISOString(),
-          });
+          await this.db.update(
+            'agent_memory',
+            { id: memoryId },
+            {
+              embedding_id: memoryId,
+              updated_at: new Date().toISOString(),
+            },
+          );
         } catch (embedError) {
-          this.logger.warn(`[SuperAgentMemory] Failed to store embedding, continuing with DB-only:`, embedError);
+          this.logger.warn(
+            `[SuperAgentMemory] Failed to store embedding, continuing with DB-only:`,
+            embedError,
+          );
         }
       }
 
@@ -299,21 +322,26 @@ export class SuperAgentMemoryService implements OnModuleInit {
         // Update existing preference
         const newConfidence = Math.min(
           1.0,
-          (existing.confidence || 0.5) + ((dto.confidence || 0.1) * 0.5)
+          (existing.confidence || 0.5) + (dto.confidence || 0.1) * 0.5,
         );
-        const learnedFrom = [
-          ...(existing.learned_from || []),
-          ...(dto.learnedFrom || []),
-        ].slice(-50); // Keep last 50 sources
+        const learnedFrom = [...(existing.learned_from || []), ...(dto.learnedFrom || [])].slice(
+          -50,
+        ); // Keep last 50 sources
 
-        await this.db.update('agent_memory_preferences', { id: existing.id }, {
-          preference_value: dto.preferenceValue,
-          confidence: newConfidence,
-          learned_from: learnedFrom,
-          updated_at: now,
-        });
+        await this.db.update(
+          'agent_memory_preferences',
+          { id: existing.id },
+          {
+            preference_value: dto.preferenceValue,
+            confidence: newConfidence,
+            learned_from: learnedFrom,
+            updated_at: now,
+          },
+        );
 
-        this.logger.log(`[SuperAgentMemory] Updated preference: ${dto.preferenceKey} (confidence: ${newConfidence.toFixed(2)})`);
+        this.logger.log(
+          `[SuperAgentMemory] Updated preference: ${dto.preferenceKey} (confidence: ${newConfidence.toFixed(2)})`,
+        );
         return existing.id;
       } else {
         // Create new preference
@@ -357,7 +385,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
           this.logger.log(`[SuperAgentMemory] 🔍 Using VECTOR SEARCH for query: "${dto.query}"`);
 
           const queryEmbedding = await this.generateEmbedding(dto.query);
-          this.logger.log(`[SuperAgentMemory] Generated embedding vector (${queryEmbedding.length} dimensions)`);
+          this.logger.log(
+            `[SuperAgentMemory] Generated embedding vector (${queryEmbedding.length} dimensions)`,
+          );
 
           // Build Qdrant filter - SIMPLIFIED to test
           const filter: Record<string, any> = {
@@ -367,7 +397,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
             ],
           };
 
-          this.logger.log(`[SuperAgentMemory] Filter criteria: workspace_id=${dto.workspaceId}, user_id=${dto.userId}`);
+          this.logger.log(
+            `[SuperAgentMemory] Filter criteria: workspace_id=${dto.workspaceId}, user_id=${dto.userId}`,
+          );
 
           if (!dto.includeInactive) {
             filter.must.push({ key: 'is_active', match: { value: true } });
@@ -386,7 +418,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
           }
 
           // Search Qdrant with filters
-          this.logger.log(`[SuperAgentMemory] Searching vector database with ${filter.must.length} filters...`);
+          this.logger.log(
+            `[SuperAgentMemory] Searching vector database with ${filter.must.length} filters...`,
+          );
           const vectorSearchResponse = await this.qdrantService.searchVectors(
             this.collectionName,
             queryEmbedding,
@@ -397,15 +431,23 @@ export class SuperAgentMemoryService implements OnModuleInit {
             },
           );
 
-          this.logger.log(`[SuperAgentMemory] Vector search response type: ${typeof vectorSearchResponse}, isArray: ${Array.isArray(vectorSearchResponse)}`);
+          this.logger.log(
+            `[SuperAgentMemory] Vector search response type: ${typeof vectorSearchResponse}, isArray: ${Array.isArray(vectorSearchResponse)}`,
+          );
 
           // Qdrant client returns array directly
-          const vectorResults: any[] = Array.isArray(vectorSearchResponse) ? vectorSearchResponse : [];
+          const vectorResults: any[] = Array.isArray(vectorSearchResponse)
+            ? vectorSearchResponse
+            : [];
 
-          this.logger.log(`[SuperAgentMemory] ✅ Found ${vectorResults.length} results from Qdrant`);
+          this.logger.log(
+            `[SuperAgentMemory] ✅ Found ${vectorResults.length} results from Qdrant`,
+          );
 
           if (vectorResults.length === 0) {
-            this.logger.log(`[SuperAgentMemory] ℹ️  No semantic matches found - this is normal if no memories have been stored yet`);
+            this.logger.log(
+              `[SuperAgentMemory] ℹ️  No semantic matches found - this is normal if no memories have been stored yet`,
+            );
             return [];
           }
 
@@ -416,25 +458,35 @@ export class SuperAgentMemoryService implements OnModuleInit {
             const record = await this.db.findOne('agent_memory', { id: vr.id });
             if (record) {
               results.push(this.mapToSearchResult(record, vr.score));
-              this.logger.log(`[SuperAgentMemory]   - Memory "${record.content.substring(0, 50)}..." (score: ${vr.score.toFixed(3)})`);
+              this.logger.log(
+                `[SuperAgentMemory]   - Memory "${record.content.substring(0, 50)}..." (score: ${vr.score.toFixed(3)})`,
+              );
 
               // Update access stats
               await this.updateAccessStats(vr.id);
             }
           }
 
-          this.logger.log(`[SuperAgentMemory] ✅ VECTOR SEARCH COMPLETE - Returning ${results.length} memories`);
+          this.logger.log(
+            `[SuperAgentMemory] ✅ VECTOR SEARCH COMPLETE - Returning ${results.length} memories`,
+          );
           return results;
         } catch (embedError) {
-          this.logger.warn(`[SuperAgentMemory] ⚠️  Vector search failed, falling back to DATABASE search`);
+          this.logger.warn(
+            `[SuperAgentMemory] ⚠️  Vector search failed, falling back to DATABASE search`,
+          );
           this.logger.warn(`[SuperAgentMemory] Error: ${embedError.message}`);
         }
       } else {
-        this.logger.log(`[SuperAgentMemory] ℹ️  Vector search not initialized - using DATABASE search`);
+        this.logger.log(
+          `[SuperAgentMemory] ℹ️  Vector search not initialized - using DATABASE search`,
+        );
       }
 
       // Fallback to database-only search
-      this.logger.log(`[SuperAgentMemory] 🔍 Using DATABASE SEARCH (keyword matching) for query: "${dto.query}"`);
+      this.logger.log(
+        `[SuperAgentMemory] 🔍 Using DATABASE SEARCH (keyword matching) for query: "${dto.query}"`,
+      );
 
       const conditions: Record<string, any> = {
         workspace_id: dto.workspaceId,
@@ -459,14 +511,16 @@ export class SuperAgentMemoryService implements OnModuleInit {
         limit: dto.limit || 10,
       });
 
-      this.logger.log(`[SuperAgentMemory] Found ${dbResults.data?.length || 0} total memories, filtering by keyword match...`);
+      this.logger.log(
+        `[SuperAgentMemory] Found ${dbResults.data?.length || 0} total memories, filtering by keyword match...`,
+      );
 
       for (const record of dbResults.data || []) {
         // Simple keyword matching for relevance score
         const contentLower = record.content.toLowerCase();
         const queryLower = dto.query.toLowerCase();
         const queryWords = queryLower.split(/\s+/);
-        const matchCount = queryWords.filter(w => contentLower.includes(w)).length;
+        const matchCount = queryWords.filter((w) => contentLower.includes(w)).length;
         const score = matchCount / queryWords.length;
 
         if (score > 0) {
@@ -475,7 +529,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
         }
       }
 
-      this.logger.log(`[SuperAgentMemory] ✅ DATABASE SEARCH COMPLETE - Returning ${results.length} keyword-matched memories`);
+      this.logger.log(
+        `[SuperAgentMemory] ✅ DATABASE SEARCH COMPLETE - Returning ${results.length} keyword-matched memories`,
+      );
       return results.sort((a, b) => b.score - a.score).slice(0, dto.limit || 10);
     } catch (error) {
       this.logger.error(`[SuperAgentMemory] Failed to search memories:`, error);
@@ -517,11 +573,7 @@ export class SuperAgentMemoryService implements OnModuleInit {
   /**
    * Get a single preference value
    */
-  async getPreference(
-    workspaceId: string,
-    userId: string,
-    key: string,
-  ): Promise<any | null> {
+  async getPreference(workspaceId: string, userId: string, key: string): Promise<any | null> {
     try {
       const record = await this.db.findOne('agent_memory_preferences', {
         workspace_id: workspaceId,
@@ -579,10 +631,7 @@ export class SuperAgentMemoryService implements OnModuleInit {
   /**
    * Build a context string for AI prompt injection
    */
-  buildMemoryContext(
-    memories: MemorySearchResultDto[],
-    preferences: UserPreferenceDto[],
-  ): string {
+  buildMemoryContext(memories: MemorySearchResultDto[], preferences: UserPreferenceDto[]): string {
     if (memories.length === 0 && preferences.length === 0) {
       return '';
     }
@@ -604,9 +653,11 @@ export class SuperAgentMemoryService implements OnModuleInit {
     // Add user preferences
     if (preferences.length > 0) {
       lines.push('USER PREFERENCES (learned patterns):');
-      for (const pref of preferences.filter(p => p.confidence >= 0.5)) {
+      for (const pref of preferences.filter((p) => p.confidence >= 0.5)) {
         const confidence = `(confidence: ${(pref.confidence * 100).toFixed(0)}%)`;
-        lines.push(`- ${pref.preferenceKey}: ${JSON.stringify(pref.preferenceValue)} ${confidence}`);
+        lines.push(
+          `- ${pref.preferenceKey}: ${JSON.stringify(pref.preferenceValue)} ${confidence}`,
+        );
       }
       lines.push('');
     }
@@ -630,10 +681,14 @@ export class SuperAgentMemoryService implements OnModuleInit {
 
       const newImportance = Math.max(1, Math.min(10, record.importance + delta));
 
-      await this.db.update('agent_memory', { id: memoryId }, {
-        importance: newImportance,
-        updated_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'agent_memory',
+        { id: memoryId },
+        {
+          importance: newImportance,
+          updated_at: new Date().toISOString(),
+        },
+      );
 
       // Update Qdrant payload if available
       if (this.isInitialized && record.embedding_id) {
@@ -672,10 +727,14 @@ export class SuperAgentMemoryService implements OnModuleInit {
    */
   async deactivateMemory(memoryId: string): Promise<void> {
     try {
-      await this.db.update('agent_memory', { id: memoryId }, {
-        is_active: false,
-        updated_at: new Date().toISOString(),
-      });
+      await this.db.update(
+        'agent_memory',
+        { id: memoryId },
+        {
+          is_active: false,
+          updated_at: new Date().toISOString(),
+        },
+      );
 
       // Update Qdrant if available
       if (this.isInitialized) {
@@ -700,7 +759,8 @@ export class SuperAgentMemoryService implements OnModuleInit {
       const now = new Date().toISOString();
 
       // Find expired memories
-      const query = this.db.table('agent_memory')
+      const query = this.db
+        .table('agent_memory')
         .where('expires_at', '<', now)
         .where('is_active', '=', true);
 
@@ -754,7 +814,9 @@ export class SuperAgentMemoryService implements OnModuleInit {
         }
       }
 
-      this.logger.log(`[SuperAgentMemory] Deleted all memories for user ${userId} in workspace ${workspaceId}`);
+      this.logger.log(
+        `[SuperAgentMemory] Deleted all memories for user ${userId} in workspace ${workspaceId}`,
+      );
       return true;
     } catch (error) {
       this.logger.error(`[SuperAgentMemory] Failed to delete user memories:`, error);
@@ -773,10 +835,14 @@ export class SuperAgentMemoryService implements OnModuleInit {
     try {
       const record = await this.db.findOne('agent_memory', { id: memoryId });
       if (record) {
-        await this.db.update('agent_memory', { id: memoryId }, {
-          access_count: (record.access_count || 0) + 1,
-          last_accessed_at: new Date().toISOString(),
-        });
+        await this.db.update(
+          'agent_memory',
+          { id: memoryId },
+          {
+            access_count: (record.access_count || 0) + 1,
+            last_accessed_at: new Date().toISOString(),
+          },
+        );
       }
     } catch (error) {
       // Silent fail - stats are not critical
@@ -892,11 +958,15 @@ export class SuperAgentMemoryService implements OnModuleInit {
     avgImportance: number;
   }> {
     try {
-      const memories = await this.db.findMany('agent_memory', {
-        workspace_id: workspaceId,
-        user_id: userId,
-        is_active: true,
-      }, { limit: 1000 });
+      const memories = await this.db.findMany(
+        'agent_memory',
+        {
+          workspace_id: workspaceId,
+          user_id: userId,
+          is_active: true,
+        },
+        { limit: 1000 },
+      );
 
       const preferences = await this.db.findMany('agent_memory_preferences', {
         workspace_id: workspaceId,

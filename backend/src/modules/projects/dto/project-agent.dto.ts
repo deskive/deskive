@@ -49,9 +49,28 @@ export class TaskAgentResponseDto {
 
   @ApiProperty({
     description: 'The action that was performed',
-    enum: ['create', 'update', 'delete', 'move', 'batch_create', 'batch_update', 'batch_delete', 'list', 'unknown'],
+    enum: [
+      'create',
+      'update',
+      'delete',
+      'move',
+      'batch_create',
+      'batch_update',
+      'batch_delete',
+      'list',
+      'unknown',
+    ],
   })
-  action: 'create' | 'update' | 'delete' | 'move' | 'batch_create' | 'batch_update' | 'batch_delete' | 'list' | 'unknown';
+  action:
+    | 'create'
+    | 'update'
+    | 'delete'
+    | 'move'
+    | 'batch_create'
+    | 'batch_update'
+    | 'batch_delete'
+    | 'list'
+    | 'unknown';
 
   @ApiProperty({ description: 'Human-readable message about the result' })
   message: string;

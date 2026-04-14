@@ -140,7 +140,13 @@ async function issueRefreshToken(
 export async function registerUser(
   pool: Pool,
   cfg: AuthConfig,
-  data: { email: string; password: string; name?: string; metadata?: Record<string, any>; frontendUrl?: string },
+  data: {
+    email: string;
+    password: string;
+    name?: string;
+    metadata?: Record<string, any>;
+    frontendUrl?: string;
+  },
 ): Promise<AuthSession & { requiresVerification: boolean }> {
   const email = data.email.toLowerCase().trim();
   if (!email || !data.password) {
@@ -271,7 +277,10 @@ export async function refreshSessionFn(
     throw err;
   }
   // Rotate: revoke old, issue new
-  await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "token_hash" = $1', [hash]);
+  await pool.query(
+    'UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "token_hash" = $1',
+    [hash],
+  );
   const row = result.rows[0];
   const user = rowToUser(row);
   const accessToken = signAccessToken(user, cfg);
@@ -319,7 +328,9 @@ export async function resetPasswordFn(
     [hash, result.rows[0].id],
   );
   // Revoke all existing refresh tokens for safety
-  await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "user_id" = $1', [result.rows[0].id]);
+  await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "user_id" = $1', [
+    result.rows[0].id,
+  ]);
   return { success: true };
 }
 
@@ -330,7 +341,9 @@ export async function changePasswordFn(
   currentPassword: string,
   newPassword: string,
 ): Promise<{ success: boolean }> {
-  const result = await pool.query('SELECT password_hash FROM "users" WHERE "id" = $1 LIMIT 1', [userId]);
+  const result = await pool.query('SELECT password_hash FROM "users" WHERE "id" = $1 LIMIT 1', [
+    userId,
+  ]);
   if (result.rows.length === 0) {
     throw new Error('User not found');
   }
@@ -345,10 +358,7 @@ export async function changePasswordFn(
   return { success: true };
 }
 
-export async function verifyEmailFn(
-  pool: Pool,
-  token: string,
-): Promise<{ success: boolean }> {
+export async function verifyEmailFn(pool: Pool, token: string): Promise<{ success: boolean }> {
   const result = await pool.query(
     `UPDATE "users"
      SET "email_verified" = true,
@@ -416,7 +426,11 @@ export async function deleteUserFn(pool: Pool, userId: string): Promise<{ succes
   return { success: true };
 }
 
-export async function banUserFn(pool: Pool, userId: string, reason?: string): Promise<{ success: boolean }> {
+export async function banUserFn(
+  pool: Pool,
+  userId: string,
+  reason?: string,
+): Promise<{ success: boolean }> {
   // Set both `is_banned` (boolean style) and `banned_until` (timestamp
   // style) so legacy admin code that filters on either name sees the
   // user as suspended.
@@ -428,7 +442,9 @@ export async function banUserFn(pool: Pool, userId: string, reason?: string): Pr
      WHERE "id" = $2`,
     [reason || null, userId],
   );
-  await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "user_id" = $1', [userId]);
+  await pool.query('UPDATE "auth_refresh_tokens" SET "revoked_at" = now() WHERE "user_id" = $1', [
+    userId,
+  ]);
   return { success: true };
 }
 

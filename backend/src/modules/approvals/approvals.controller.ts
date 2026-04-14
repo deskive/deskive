@@ -10,13 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiBearerAuth,
-  ApiResponse,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ApprovalsService } from './approvals.service';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
@@ -115,7 +109,11 @@ export class ApprovalsController {
   @ApiQuery({ name: 'requestTypeId', required: false, description: 'Filter by request type' })
   @ApiQuery({ name: 'requesterId', required: false, description: 'Filter by requester' })
   @ApiQuery({ name: 'priority', required: false, description: 'Filter by priority' })
-  @ApiQuery({ name: 'pendingMyApproval', required: false, description: 'Show only pending my approval' })
+  @ApiQuery({
+    name: 'pendingMyApproval',
+    required: false,
+    description: 'Show only pending my approval',
+  })
   @ApiQuery({ name: 'page', required: false, description: 'Page number' })
   @ApiQuery({ name: 'limit', required: false, description: 'Items per page' })
   @ApiResponse({ status: 200, description: 'List of approval requests' })

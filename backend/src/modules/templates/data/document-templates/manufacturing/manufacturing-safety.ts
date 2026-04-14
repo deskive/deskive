@@ -20,15 +20,30 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
         { insert: '\nInspector: ' },
         { insert: '{{inspector_name}}', attributes: { bold: true } },
         { insert: '\n\nGeneral Housekeeping\n', attributes: { bold: true } },
-        { insert: '☐ Floors clean and dry\n☐ Aisles and walkways clear\n☐ Proper storage of materials\n☐ Waste disposed properly\n☐ Emergency exits accessible\n\n' },
+        {
+          insert:
+            '☐ Floors clean and dry\n☐ Aisles and walkways clear\n☐ Proper storage of materials\n☐ Waste disposed properly\n☐ Emergency exits accessible\n\n',
+        },
         { insert: 'Fire Safety\n', attributes: { bold: true } },
-        { insert: '☐ Fire extinguishers accessible and inspected\n☐ Emergency exits marked and illuminated\n☐ Fire alarm system operational\n☐ Flammable materials stored properly\n☐ No smoking rules enforced\n\n' },
+        {
+          insert:
+            '☐ Fire extinguishers accessible and inspected\n☐ Emergency exits marked and illuminated\n☐ Fire alarm system operational\n☐ Flammable materials stored properly\n☐ No smoking rules enforced\n\n',
+        },
         { insert: 'Personal Protective Equipment\n', attributes: { bold: true } },
-        { insert: '☐ Required PPE available\n☐ PPE in good condition\n☐ Employees wearing required PPE\n☐ PPE storage adequate\n\n' },
+        {
+          insert:
+            '☐ Required PPE available\n☐ PPE in good condition\n☐ Employees wearing required PPE\n☐ PPE storage adequate\n\n',
+        },
         { insert: 'Machine Safety\n', attributes: { bold: true } },
-        { insert: '☐ Machine guards in place\n☐ Emergency stops functional\n☐ Lockout/tagout procedures followed\n☐ Warning signs visible\n\n' },
+        {
+          insert:
+            '☐ Machine guards in place\n☐ Emergency stops functional\n☐ Lockout/tagout procedures followed\n☐ Warning signs visible\n\n',
+        },
         { insert: 'Electrical Safety\n', attributes: { bold: true } },
-        { insert: '☐ No exposed wiring\n☐ Electrical panels accessible\n☐ GFCIs functioning\n☐ Cords in good condition\n\n' },
+        {
+          insert:
+            '☐ No exposed wiring\n☐ Electrical panels accessible\n☐ GFCIs functioning\n☐ Cords in good condition\n\n',
+        },
         { insert: 'Findings and Recommendations\n', attributes: { bold: true } },
         { insert: '{{findings}}\n\n' },
         { insert: 'Corrective Actions Required\n', attributes: { bold: true } },
@@ -46,9 +61,18 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
     ],
     signatureFields: [
       { id: 'inspector', label: 'Inspector', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'supervisor', label: 'Supervisor', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'supervisor',
+        label: 'Supervisor',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Incident Report Form',
@@ -67,7 +91,10 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
         { insert: '\nIncident Type: ' },
         { insert: '{{incident_type}}', attributes: { bold: true } },
         { insert: '\n\nIncident Details\n', attributes: { bold: true } },
-        { insert: 'Date: {{incident_date}}\nTime: {{incident_time}}\nLocation: {{location}}\nDepartment: {{department}}\n\n' },
+        {
+          insert:
+            'Date: {{incident_date}}\nTime: {{incident_time}}\nLocation: {{location}}\nDepartment: {{department}}\n\n',
+        },
         { insert: 'Person(s) Involved\n', attributes: { bold: true } },
         { insert: '{{persons_involved}}\n\n' },
         { insert: 'Witness(es)\n', attributes: { bold: true } },
@@ -89,7 +116,13 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
     },
     placeholders: [
       { key: 'incident_number', type: 'text', label: 'Incident Number', required: true },
-      { key: 'incident_type', type: 'select', label: 'Incident Type', required: true, options: ['Injury', 'Near Miss', 'Property Damage', 'Environmental', 'Security'] },
+      {
+        key: 'incident_type',
+        type: 'select',
+        label: 'Incident Type',
+        required: true,
+        options: ['Injury', 'Near Miss', 'Property Damage', 'Environmental', 'Security'],
+      },
       { key: 'incident_date', type: 'date', label: 'Incident Date', required: true },
       { key: 'incident_time', type: 'text', label: 'Incident Time', required: true },
       { key: 'location', type: 'text', label: 'Location', required: true },
@@ -100,14 +133,38 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'injuries_damage', type: 'textarea', label: 'Injuries/Damage', required: false },
       { key: 'immediate_actions', type: 'textarea', label: 'Immediate Actions', required: true },
       { key: 'root_cause', type: 'textarea', label: 'Root Cause', required: false },
-      { key: 'preventive_measures', type: 'textarea', label: 'Preventive Measures', required: false },
+      {
+        key: 'preventive_measures',
+        type: 'textarea',
+        label: 'Preventive Measures',
+        required: false,
+      },
     ],
     signatureFields: [
-      { id: 'reported_by', label: 'Reported By', required: true, position: { page: 1, x: 50, y: 680 } },
-      { id: 'supervisor', label: 'Supervisor', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'safety_manager', label: 'Safety Manager', required: true, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'reported_by',
+        label: 'Reported By',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
+      {
+        id: 'supervisor',
+        label: 'Supervisor',
+        required: true,
+        position: { page: 1, x: 50, y: 710 },
+      },
+      {
+        id: 'safety_manager',
+        label: 'Safety Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Lockout/Tagout Procedure',
@@ -126,13 +183,19 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
         { insert: '\nEffective Date: ' },
         { insert: '{{effective_date}}', attributes: { bold: true } },
         { insert: '\n\nEquipment Information\n', attributes: { bold: true } },
-        { insert: 'Equipment Name: {{equipment_name}}\nEquipment ID: {{equipment_id}}\nLocation: {{location}}\n\n' },
+        {
+          insert:
+            'Equipment Name: {{equipment_name}}\nEquipment ID: {{equipment_id}}\nLocation: {{location}}\n\n',
+        },
         { insert: 'Energy Sources\n', attributes: { bold: true } },
         { insert: '{{energy_sources}}\n\n' },
         { insert: 'Required Lockout Devices\n', attributes: { bold: true } },
         { insert: '{{lockout_devices}}\n\n' },
         { insert: 'Lockout Procedure Steps\n', attributes: { bold: true } },
-        { insert: '1. Notify affected employees\n2. Shut down equipment using normal procedures\n3. Isolate all energy sources\n4. Apply lockout devices\n5. Release stored energy\n6. Verify isolation\n\n' },
+        {
+          insert:
+            '1. Notify affected employees\n2. Shut down equipment using normal procedures\n3. Isolate all energy sources\n4. Apply lockout devices\n5. Release stored energy\n6. Verify isolation\n\n',
+        },
         { insert: 'Specific Instructions\n', attributes: { bold: true } },
         { insert: '{{specific_instructions}}\n\n' },
         { insert: 'Restoration Procedure\n', attributes: { bold: true } },
@@ -151,15 +214,44 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'location', type: 'text', label: 'Location', required: true },
       { key: 'energy_sources', type: 'textarea', label: 'Energy Sources', required: true },
       { key: 'lockout_devices', type: 'textarea', label: 'Lockout Devices', required: true },
-      { key: 'specific_instructions', type: 'textarea', label: 'Specific Instructions', required: true },
-      { key: 'restoration_procedure', type: 'textarea', label: 'Restoration Procedure', required: true },
-      { key: 'authorized_personnel', type: 'textarea', label: 'Authorized Personnel', required: true },
+      {
+        key: 'specific_instructions',
+        type: 'textarea',
+        label: 'Specific Instructions',
+        required: true,
+      },
+      {
+        key: 'restoration_procedure',
+        type: 'textarea',
+        label: 'Restoration Procedure',
+        required: true,
+      },
+      {
+        key: 'authorized_personnel',
+        type: 'textarea',
+        label: 'Authorized Personnel',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'prepared_by', label: 'Prepared By', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'safety_approval', label: 'Safety Approval', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'prepared_by',
+        label: 'Prepared By',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'safety_approval',
+        label: 'Safety Approval',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Job Hazard Analysis',
@@ -178,7 +270,10 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nJob Information\n', attributes: { bold: true } },
-        { insert: 'Job Title: {{job_title}}\nDepartment: {{department}}\nLocation: {{location}}\n\n' },
+        {
+          insert:
+            'Job Title: {{job_title}}\nDepartment: {{department}}\nLocation: {{location}}\n\n',
+        },
         { insert: 'Required PPE\n', attributes: { bold: true } },
         { insert: '{{required_ppe}}\n\n' },
         { insert: 'Job Steps and Hazard Analysis\n', attributes: { bold: true } },
@@ -199,16 +294,45 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'department', type: 'text', label: 'Department', required: true },
       { key: 'location', type: 'text', label: 'Location', required: true },
       { key: 'required_ppe', type: 'textarea', label: 'Required PPE', required: true },
-      { key: 'job_steps_analysis', type: 'textarea', label: 'Job Steps and Hazards', required: true },
-      { key: 'training_requirements', type: 'textarea', label: 'Training Requirements', required: true },
-      { key: 'emergency_procedures', type: 'textarea', label: 'Emergency Procedures', required: true },
+      {
+        key: 'job_steps_analysis',
+        type: 'textarea',
+        label: 'Job Steps and Hazards',
+        required: true,
+      },
+      {
+        key: 'training_requirements',
+        type: 'textarea',
+        label: 'Training Requirements',
+        required: true,
+      },
+      {
+        key: 'emergency_procedures',
+        type: 'textarea',
+        label: 'Emergency Procedures',
+        required: true,
+      },
     ],
     signatureFields: [
       { id: 'analyst', label: 'Analyst', required: true, position: { page: 1, x: 50, y: 680 } },
-      { id: 'supervisor', label: 'Supervisor', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'safety_manager', label: 'Safety Manager', required: true, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'supervisor',
+        label: 'Supervisor',
+        required: true,
+        position: { page: 1, x: 50, y: 710 },
+      },
+      {
+        id: 'safety_manager',
+        label: 'Safety Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Safety Data Sheet Summary',
@@ -223,13 +347,22 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       ops: [
         { insert: 'SAFETY DATA SHEET SUMMARY', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nProduct Information\n', attributes: { bold: true } },
-        { insert: 'Product Name: {{product_name}}\nManufacturer: {{manufacturer}}\nProduct ID: {{product_id}}\nRevision Date: {{revision_date}}\n\n' },
+        {
+          insert:
+            'Product Name: {{product_name}}\nManufacturer: {{manufacturer}}\nProduct ID: {{product_id}}\nRevision Date: {{revision_date}}\n\n',
+        },
         { insert: 'Hazard Identification\n', attributes: { bold: true } },
-        { insert: 'Signal Word: {{signal_word}}\nHazard Statements: {{hazard_statements}}\nPictograms: {{pictograms}}\n\n' },
+        {
+          insert:
+            'Signal Word: {{signal_word}}\nHazard Statements: {{hazard_statements}}\nPictograms: {{pictograms}}\n\n',
+        },
         { insert: 'Composition\n', attributes: { bold: true } },
         { insert: '{{composition}}\n\n' },
         { insert: 'First Aid Measures\n', attributes: { bold: true } },
-        { insert: 'Eye Contact: {{first_aid_eyes}}\nSkin Contact: {{first_aid_skin}}\nInhalation: {{first_aid_inhalation}}\nIngestion: {{first_aid_ingestion}}\n\n' },
+        {
+          insert:
+            'Eye Contact: {{first_aid_eyes}}\nSkin Contact: {{first_aid_skin}}\nInhalation: {{first_aid_inhalation}}\nIngestion: {{first_aid_ingestion}}\n\n',
+        },
         { insert: 'Fire Fighting Measures\n', attributes: { bold: true } },
         { insert: '{{fire_fighting}}\n\n' },
         { insert: 'Handling and Storage\n', attributes: { bold: true } },
@@ -248,7 +381,13 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'manufacturer', type: 'text', label: 'Manufacturer', required: true },
       { key: 'product_id', type: 'text', label: 'Product ID', required: true },
       { key: 'revision_date', type: 'date', label: 'Revision Date', required: true },
-      { key: 'signal_word', type: 'select', label: 'Signal Word', required: true, options: ['Danger', 'Warning', 'None'] },
+      {
+        key: 'signal_word',
+        type: 'select',
+        label: 'Signal Word',
+        required: true,
+        options: ['Danger', 'Warning', 'None'],
+      },
       { key: 'hazard_statements', type: 'textarea', label: 'Hazard Statements', required: true },
       { key: 'pictograms', type: 'textarea', label: 'Pictograms', required: true },
       { key: 'composition', type: 'textarea', label: 'Composition', required: true },
@@ -258,12 +397,21 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'first_aid_ingestion', type: 'textarea', label: 'Ingestion', required: true },
       { key: 'fire_fighting', type: 'textarea', label: 'Fire Fighting', required: true },
       { key: 'handling_storage', type: 'textarea', label: 'Handling/Storage', required: true },
-      { key: 'personal_protection', type: 'textarea', label: 'Personal Protection', required: true },
+      {
+        key: 'personal_protection',
+        type: 'textarea',
+        label: 'Personal Protection',
+        required: true,
+      },
       { key: 'spill_procedures', type: 'textarea', label: 'Spill Procedures', required: true },
       { key: 'emergency_contact', type: 'text', label: 'Emergency Contact', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'PPE Issue Record',
@@ -278,14 +426,20 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       ops: [
         { insert: 'PPE ISSUE RECORD', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nEmployee Information\n', attributes: { bold: true } },
-        { insert: 'Employee Name: {{employee_name}}\nEmployee ID: {{employee_id}}\nDepartment: {{department}}\nJob Title: {{job_title}}\n\n' },
+        {
+          insert:
+            'Employee Name: {{employee_name}}\nEmployee ID: {{employee_id}}\nDepartment: {{department}}\nJob Title: {{job_title}}\n\n',
+        },
         { insert: 'PPE Issued\n', attributes: { bold: true } },
         { insert: 'Date Issued: {{issue_date}}\nIssued By: {{issued_by}}\n\n' },
         { insert: 'Items Issued\n', attributes: { bold: true } },
         { insert: '{{items_list}}\n\n' },
         { insert: 'Employee Acknowledgment\n', attributes: { bold: true } },
         { insert: 'I acknowledge receipt of the above PPE items and agree to:\n' },
-        { insert: '• Use the PPE as required for my job duties\n• Inspect PPE before each use\n• Report any damage or defects immediately\n• Return PPE upon termination or when replacement is needed\n• Follow all PPE care and maintenance guidelines\n\n' },
+        {
+          insert:
+            '• Use the PPE as required for my job duties\n• Inspect PPE before each use\n• Report any damage or defects immediately\n• Return PPE upon termination or when replacement is needed\n• Follow all PPE care and maintenance guidelines\n\n',
+        },
         { insert: '\nEmployee Signature: _______________________  Date: ____________\n' },
         { insert: 'Issuer Signature: _______________________  Date: ____________\n' },
       ],
@@ -303,7 +457,11 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { id: 'employee', label: 'Employee', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'issuer', label: 'Issuer', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Safety Training Record',
@@ -318,15 +476,24 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       ops: [
         { insert: 'SAFETY TRAINING RECORD', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nTraining Information\n', attributes: { bold: true } },
-        { insert: 'Training Title: {{training_title}}\nTraining Date: {{training_date}}\nDuration: {{duration}}\nTrainer: {{trainer_name}}\nLocation: {{location}}\n\n' },
+        {
+          insert:
+            'Training Title: {{training_title}}\nTraining Date: {{training_date}}\nDuration: {{duration}}\nTrainer: {{trainer_name}}\nLocation: {{location}}\n\n',
+        },
         { insert: 'Training Content\n', attributes: { bold: true } },
         { insert: '{{training_content}}\n\n' },
         { insert: 'Attendee Information\n', attributes: { bold: true } },
-        { insert: 'Name: {{attendee_name}}\nEmployee ID: {{employee_id}}\nDepartment: {{department}}\n\n' },
+        {
+          insert:
+            'Name: {{attendee_name}}\nEmployee ID: {{employee_id}}\nDepartment: {{department}}\n\n',
+        },
         { insert: 'Assessment Results\n', attributes: { bold: true } },
         { insert: 'Test Score: {{test_score}}\nResult: {{result}}\n\n' },
         { insert: 'Certification\n', attributes: { bold: true } },
-        { insert: 'Certification Valid Until: {{valid_until}}\nRefresher Required: {{refresher_required}}\n\n' },
+        {
+          insert:
+            'Certification Valid Until: {{valid_until}}\nRefresher Required: {{refresher_required}}\n\n',
+        },
         { insert: '\nAttendee Signature: _______________________  Date: ____________\n' },
         { insert: 'Trainer Signature: _______________________  Date: ____________\n' },
       ],
@@ -342,14 +509,30 @@ export const MANUFACTURING_SAFETY_TEMPLATES = [
       { key: 'employee_id', type: 'text', label: 'Employee ID', required: true },
       { key: 'department', type: 'text', label: 'Department', required: true },
       { key: 'test_score', type: 'text', label: 'Test Score', required: false },
-      { key: 'result', type: 'select', label: 'Result', required: true, options: ['Pass', 'Fail', 'N/A'] },
+      {
+        key: 'result',
+        type: 'select',
+        label: 'Result',
+        required: true,
+        options: ['Pass', 'Fail', 'N/A'],
+      },
       { key: 'valid_until', type: 'date', label: 'Valid Until', required: false },
-      { key: 'refresher_required', type: 'select', label: 'Refresher Required', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'refresher_required',
+        type: 'select',
+        label: 'Refresher Required',
+        required: true,
+        options: ['Yes', 'No'],
+      },
     ],
     signatureFields: [
       { id: 'attendee', label: 'Attendee', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'trainer', label: 'Trainer', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

@@ -21,7 +21,17 @@ import {
   ApiQuery,
 } from '@nestjs/swagger';
 import { ChatService } from './chat.service';
-import { CreateChannelDto, SendMessageDto, UpdateMessageDto, CreateConversationDto, UpdateChannelDto, VotePollDto, ScheduleMessageDto, UpdateScheduledMessageDto, QueryScheduledMessagesDto } from './dto';
+import {
+  CreateChannelDto,
+  SendMessageDto,
+  UpdateMessageDto,
+  CreateConversationDto,
+  UpdateChannelDto,
+  VotePollDto,
+  ScheduleMessageDto,
+  UpdateScheduledMessageDto,
+  QueryScheduledMessagesDto,
+} from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -62,10 +72,7 @@ export class ChatController {
   @ApiOperation({ summary: 'Get all channels in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'List of channels user has access to' })
-  async getChannels(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getChannels(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const channels = await this.chatService.getChannels(workspaceId, userId);
     return { data: channels };
   }
@@ -88,10 +95,7 @@ export class ChatController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'channelId', description: 'Channel ID' })
   @ApiResponse({ status: 200, description: 'Channel details' })
-  async getChannel(
-    @Param('channelId') channelId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getChannel(@Param('channelId') channelId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.getChannel(channelId, userId);
   }
 
@@ -113,10 +117,7 @@ export class ChatController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'channelId', description: 'Channel ID' })
   @ApiResponse({ status: 200, description: 'Channel deleted successfully' })
-  async deleteChannel(
-    @Param('channelId') channelId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async deleteChannel(@Param('channelId') channelId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.deleteChannel(channelId, userId);
   }
 
@@ -127,10 +128,7 @@ export class ChatController {
   @ApiResponse({ status: 201, description: 'Successfully joined channel' })
   @ApiResponse({ status: 403, description: 'Not a workspace member' })
   @ApiResponse({ status: 404, description: 'Channel not found' })
-  async joinChannel(
-    @Param('channelId') channelId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async joinChannel(@Param('channelId') channelId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.joinChannel(channelId, userId);
   }
 
@@ -139,10 +137,7 @@ export class ChatController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'channelId', description: 'Channel ID' })
   @ApiResponse({ status: 200, description: 'Successfully left channel' })
-  async leaveChannel(
-    @Param('channelId') channelId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async leaveChannel(@Param('channelId') channelId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.leaveChannel(channelId, userId);
   }
 
@@ -209,7 +204,7 @@ export class ChatController {
       channelId,
       userId,
       parseInt(limit),
-      parseInt(offset)
+      parseInt(offset),
     );
   }
 
@@ -226,20 +221,22 @@ export class ChatController {
   ) {
     const message = await this.chatService.sendMessage(
       { ...sendMessageDto, channel_id: channelId },
-      userId
+      userId,
     );
 
     // Trigger bot execution asynchronously (don't block response)
-    this.botExecutionService.evaluateAndExecute({
-      messageId: message.id,
-      messageContent: sendMessageDto.content,
-      messageContentHtml: sendMessageDto.content_html,
-      channelId,
-      workspaceId,
-      userId,
-    }).catch(err => {
-      console.error('[ChatController] Bot execution error:', err.message);
-    });
+    this.botExecutionService
+      .evaluateAndExecute({
+        messageId: message.id,
+        messageContent: sendMessageDto.content,
+        messageContentHtml: sendMessageDto.content_html,
+        channelId,
+        workspaceId,
+        userId,
+      })
+      .catch((err) => {
+        console.error('[ChatController] Bot execution error:', err.message);
+      });
 
     return message;
   }
@@ -301,11 +298,11 @@ export class ChatController {
           // Bot may have been deleted, skip it
           return null;
         }
-      })
+      }),
     );
 
     // Filter out null values (deleted bots)
-    return { data: bots.filter(bot => bot !== null) };
+    return { data: bots.filter((bot) => bot !== null) };
   }
 
   // Conversation endpoints
@@ -392,7 +389,7 @@ export class ChatController {
       conversationId,
       userId,
       parseInt(limit),
-      parseInt(offset)
+      parseInt(offset),
     );
   }
 
@@ -409,20 +406,22 @@ export class ChatController {
   ) {
     const message = await this.chatService.sendMessage(
       { ...sendMessageDto, conversation_id: conversationId },
-      userId
+      userId,
     );
 
     // Trigger bot execution asynchronously (don't block response)
-    this.botExecutionService.evaluateAndExecute({
-      messageId: message.id,
-      messageContent: sendMessageDto.content,
-      messageContentHtml: sendMessageDto.content_html,
-      conversationId,
-      workspaceId,
-      userId,
-    }).catch(err => {
-      console.error('[ChatController] Bot execution error:', err.message);
-    });
+    this.botExecutionService
+      .evaluateAndExecute({
+        messageId: message.id,
+        messageContent: sendMessageDto.content,
+        messageContentHtml: sendMessageDto.content_html,
+        conversationId,
+        workspaceId,
+        userId,
+      })
+      .catch((err) => {
+        console.error('[ChatController] Bot execution error:', err.message);
+      });
 
     return message;
   }
@@ -476,7 +475,8 @@ export class ChatController {
     @Param('conversationId') conversationId: string,
   ) {
     // Get installations for this conversation
-    const installations = await this.botInstallationsService.getInstallationsForConversation(conversationId);
+    const installations =
+      await this.botInstallationsService.getInstallationsForConversation(conversationId);
 
     // Get full bot details for each installation
     const bots = await Promise.all(
@@ -496,11 +496,11 @@ export class ChatController {
           // Bot may have been deleted, skip it
           return null;
         }
-      })
+      }),
     );
 
     // Filter out null values (deleted bots)
-    return { data: bots.filter(bot => bot !== null) };
+    return { data: bots.filter((bot) => bot !== null) };
   }
 
   // Message operations
@@ -522,10 +522,7 @@ export class ChatController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'messageId', description: 'Message ID' })
   @ApiResponse({ status: 200, description: 'Message deleted successfully' })
-  async deleteMessage(
-    @Param('messageId') messageId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async deleteMessage(@Param('messageId') messageId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.deleteMessage(messageId, userId);
   }
 
@@ -564,10 +561,7 @@ export class ChatController {
   @ApiParam({ name: 'messageId', description: 'Message ID' })
   @ApiResponse({ status: 201, description: 'Message bookmarked successfully' })
   @ApiResponse({ status: 404, description: 'Message not found' })
-  async bookmarkMessage(
-    @Param('messageId') messageId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async bookmarkMessage(@Param('messageId') messageId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.bookmarkMessage(messageId, userId);
   }
 
@@ -577,10 +571,7 @@ export class ChatController {
   @ApiParam({ name: 'messageId', description: 'Message ID' })
   @ApiResponse({ status: 200, description: 'Bookmark removed successfully' })
   @ApiResponse({ status: 404, description: 'Message not found' })
-  async removeBookmark(
-    @Param('messageId') messageId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async removeBookmark(@Param('messageId') messageId: string, @CurrentUser('sub') userId: string) {
     return this.chatService.removeBookmark(messageId, userId);
   }
 
@@ -595,9 +586,9 @@ export class ChatController {
       type: 'object',
       properties: {
         data: { type: 'array', items: { type: 'object' } },
-        total: { type: 'number' }
-      }
-    }
+        total: { type: 'number' },
+      },
+    },
   })
   async getBookmarkedMessages(
     @Param('conversationId') conversationId: string,
@@ -622,9 +613,9 @@ export class ChatController {
         total: { type: 'number' },
         page: { type: 'number' },
         limit: { type: 'number' },
-        totalPages: { type: 'number' }
-      }
-    }
+        totalPages: { type: 'number' },
+      },
+    },
   })
   async getChannelBookmarkedMessages(
     @Param('channelId') channelId: string,
@@ -636,13 +627,15 @@ export class ChatController {
       channelId,
       userId,
       parseInt(page),
-      parseInt(limit)
+      parseInt(limit),
     );
   }
 
   // Pin message endpoints
   @Post('conversations/:conversationId/messages/:messageId/pin')
-  @ApiOperation({ summary: 'Pin a message in a conversation (unpins any previously pinned message)' })
+  @ApiOperation({
+    summary: 'Pin a message in a conversation (unpins any previously pinned message)',
+  })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'conversationId', description: 'Conversation ID' })
   @ApiParam({ name: 'messageId', description: 'Message ID to pin' })
@@ -764,7 +757,11 @@ export class ChatController {
   @Get('scheduled-messages')
   @ApiOperation({ summary: 'Get user scheduled messages' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'status', required: false, description: 'Filter by status (pending, sent, cancelled, failed)' })
+  @ApiQuery({
+    name: 'status',
+    required: false,
+    description: 'Filter by status (pending, sent, cancelled, failed)',
+  })
   @ApiQuery({ name: 'channelId', required: false, description: 'Filter by channel ID' })
   @ApiQuery({ name: 'conversationId', required: false, description: 'Filter by conversation ID' })
   @ApiQuery({ name: 'limit', required: false, description: 'Number of messages to fetch' })
@@ -796,7 +793,10 @@ export class ChatController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'scheduledMessageId', description: 'Scheduled message ID' })
   @ApiResponse({ status: 200, description: 'Scheduled message updated successfully' })
-  @ApiResponse({ status: 400, description: 'Cannot update non-pending message or invalid scheduled time' })
+  @ApiResponse({
+    status: 400,
+    description: 'Cannot update non-pending message or invalid scheduled time',
+  })
   @ApiResponse({ status: 404, description: 'Scheduled message not found' })
   async updateScheduledMessage(
     @Param('scheduledMessageId') scheduledMessageId: string,

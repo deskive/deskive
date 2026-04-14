@@ -124,11 +124,7 @@ export class FormsService {
   /**
    * Get all forms in a workspace
    */
-  async findAll(
-    workspaceId: string,
-    userId: string,
-    status?: FormStatus,
-  ): Promise<FormTemplate[]> {
+  async findAll(workspaceId: string, userId: string, status?: FormStatus): Promise<FormTemplate[]> {
     let query = this.db
       .table('form_templates')
       .select('*')
@@ -139,9 +135,7 @@ export class FormsService {
       query = query.where('status', '=', status);
     }
 
-    const results = await query
-      .orderBy('created_at', 'DESC')
-      .execute();
+    const results = await query.orderBy('created_at', 'DESC').execute();
 
     return (results.data || []).map((form: any) => this.transformFormToCamelCase(form));
   }
@@ -391,7 +385,11 @@ export class FormsService {
   /**
    * Get all share links for a form
    */
-  async getShareLinks(formId: string, workspaceId: string, userId: string): Promise<FormShareLink[]> {
+  async getShareLinks(
+    formId: string,
+    workspaceId: string,
+    userId: string,
+  ): Promise<FormShareLink[]> {
     // Verify form exists
     await this.findOne(formId, workspaceId, userId);
 

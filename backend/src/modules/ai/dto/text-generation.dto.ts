@@ -12,7 +12,7 @@ export enum TextType {
   NEWSLETTER = 'newsletter',
   CREATIVE_WRITING = 'creative_writing',
   TECHNICAL_DOCUMENTATION = 'technical_documentation',
-  GENERAL = 'general'
+  GENERAL = 'general',
 }
 
 export enum ToneOfVoice {
@@ -25,7 +25,7 @@ export enum ToneOfVoice {
   EDUCATIONAL = 'educational',
   HUMOROUS = 'humorous',
   INSPIRING = 'inspiring',
-  URGENT = 'urgent'
+  URGENT = 'urgent',
 }
 
 export enum TargetAudience {
@@ -38,35 +38,38 @@ export enum TargetAudience {
   GEN_Z = 'gen_z',
   BUSINESS_OWNERS = 'business_owners',
   TECHNICAL_EXPERTS = 'technical_experts',
-  CUSTOMERS = 'customers'
+  CUSTOMERS = 'customers',
 }
 
 export class GenerateTextDto {
-  @ApiProperty({ description: 'The prompt or topic for text generation', example: 'Write about sustainable living practices' })
+  @ApiProperty({
+    description: 'The prompt or topic for text generation',
+    example: 'Write about sustainable living practices',
+  })
   @IsString()
   prompt: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Type of text to generate',
     enum: TextType,
-    example: TextType.BLOG_POST
+    example: TextType.BLOG_POST,
   })
   @IsEnum(TextType)
   text_type: TextType;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Tone of voice for the content',
     enum: ToneOfVoice,
-    example: ToneOfVoice.FRIENDLY
+    example: ToneOfVoice.FRIENDLY,
   })
   @IsOptional()
   @IsEnum(ToneOfVoice)
   tone?: ToneOfVoice;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Target audience',
     enum: TargetAudience,
-    example: TargetAudience.GENERAL_PUBLIC
+    example: TargetAudience.GENERAL_PUBLIC,
   })
   @IsOptional()
   @IsEnum(TargetAudience)
@@ -82,7 +85,10 @@ export class GenerateTextDto {
   @IsString()
   language?: string;
 
-  @ApiPropertyOptional({ description: 'Keywords to include in the content', example: ['sustainability', 'environment', 'green living'] })
+  @ApiPropertyOptional({
+    description: 'Keywords to include in the content',
+    example: ['sustainability', 'environment', 'green living'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

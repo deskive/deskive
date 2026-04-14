@@ -34,10 +34,7 @@ export class CatalogService {
    */
   async countIntegrations(): Promise<number> {
     try {
-      const result = await this.db
-        .table(this.tableName)
-        .select('id')
-        .execute();
+      const result = await this.db.table(this.tableName).select('id').execute();
       const arr = Array.isArray(result?.data) ? result.data : [];
       return arr.length;
     } catch {
@@ -209,11 +206,7 @@ export class CatalogService {
    */
   async getById(id: string): Promise<IntegrationCatalogResponseDto> {
     try {
-      const result = await this.db
-        .table(this.tableName)
-        .select('*')
-        .where('id', '=', id)
-        .execute();
+      const result = await this.db.table(this.tableName).select('*').where('id', '=', id).execute();
 
       const resultArray = Array.isArray(result?.data) ? result.data : [];
 
@@ -337,8 +330,10 @@ export class CatalogService {
       if (dto.logoUrl !== undefined) updateData.logo_url = dto.logoUrl;
       if (dto.authConfig !== undefined) updateData.auth_config = JSON.stringify(dto.authConfig);
       if (dto.apiConfig !== undefined) updateData.api_config = JSON.stringify(dto.apiConfig);
-      if (dto.webhookConfig !== undefined) updateData.webhook_config = JSON.stringify(dto.webhookConfig);
-      if (dto.capabilities !== undefined) updateData.capabilities = JSON.stringify(dto.capabilities);
+      if (dto.webhookConfig !== undefined)
+        updateData.webhook_config = JSON.stringify(dto.webhookConfig);
+      if (dto.capabilities !== undefined)
+        updateData.capabilities = JSON.stringify(dto.capabilities);
       if (dto.features !== undefined) updateData.features = JSON.stringify(dto.features);
       if (dto.isActive !== undefined) updateData.is_active = dto.isActive;
       if (dto.isVerified !== undefined) updateData.is_verified = dto.isVerified;

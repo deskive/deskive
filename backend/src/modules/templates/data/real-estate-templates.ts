@@ -1178,7 +1178,14 @@ export const REAL_ESTATE_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['planning', 'permitting', 'demolition', 'construction', 'finishing', 'completed'],
+        statuses: [
+          'planning',
+          'permitting',
+          'demolition',
+          'construction',
+          'finishing',
+          'completed',
+        ],
       },
     },
     settings: {

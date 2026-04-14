@@ -45,6 +45,31 @@ services:
     volumes:
       - qdrant_data:/qdrant/storage
 
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: deskive-meilisearch
+    restart: unless-stopped
+    ports:
+      - "${MEILISEARCH_PORT:-7700}:7700"
+    environment:
+      MEILI_MASTER_KEY: ${MEILISEARCH_MASTER_KEY:-test_master_key}
+      MEILI_ENV: development
+    volumes:
+      - meilisearch_data:/meili_data
+
+  typesense:
+    image: typesense/typesense:27.1
+    container_name: deskive-typesense
+    restart: unless-stopped
+    ports:
+      - "${TYPESENSE_PORT:-8108}:8108"
+    environment:
+      TYPESENSE_API_KEY: ${TYPESENSE_API_KEY:-test_api_key}
+      TYPESENSE_DATA_DIR: /data
+    volumes:
+      - typesense_data:/data
+    command: --data-dir /data --api-key=${TYPESENSE_API_KEY:-test_api_key}
+
   backend:
     build:
       context: ./backend
@@ -69,6 +94,11 @@ services:
       REDIS_PORT: 6379
       QDRANT_HOST: qdrant
       QDRANT_PORT: 6333
+      MEILISEARCH_HOST: http://meilisearch:7700
+      MEILISEARCH_MASTER_KEY: ${MEILISEARCH_MASTER_KEY:-test_master_key}
+      TYPESENSE_HOST: http://typesense:8108
+      TYPESENSE_API_KEY: ${TYPESENSE_API_KEY:-test_api_key}
+      SEARCH_PROVIDER: ${SEARCH_PROVIDER:-pg-trgm}
       FRONTEND_URL: http://localhost:5175
       CORS_ORIGIN: http://localhost:5175,http://localhost:5173
       JWT_SECRET: ${JWT_SECRET:-your_jwt_secret_min32chars_change_me_in_production}
@@ -115,4 +145,8 @@ volumes:
   redis_data:
     driver: local
   qdrant_data:
+    driver: local
+  meilisearch_data:
+    driver: local
+  typesense_data:
     driver: local

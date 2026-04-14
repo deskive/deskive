@@ -160,7 +160,9 @@ export interface VideoProvider {
  */
 export class VideoProviderNotSupportedError extends Error {
   constructor(provider: string, operation: string) {
-    super(`Operation "${operation}" is not supported by the "${provider}" video provider. See MIGRATION.md for provider capabilities.`);
+    super(
+      `Operation "${operation}" is not supported by the "${provider}" video provider. See MIGRATION.md for provider capabilities.`,
+    );
     this.name = 'VideoProviderNotSupportedError';
   }
 }
@@ -170,7 +172,9 @@ export class VideoProviderNotSupportedError extends Error {
  */
 export class VideoProviderNotConfiguredError extends Error {
   constructor(provider: string, missingVars: string[]) {
-    super(`Video provider "${provider}" is selected but the following env vars are missing: ${missingVars.join(', ')}. See MIGRATION.md.`);
+    super(
+      `Video provider "${provider}" is selected but the following env vars are missing: ${missingVars.join(', ')}. See MIGRATION.md.`,
+    );
     this.name = 'VideoProviderNotConfiguredError';
   }
 }

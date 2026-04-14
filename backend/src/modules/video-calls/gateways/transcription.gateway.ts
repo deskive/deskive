@@ -11,7 +11,10 @@ import { Server, Socket } from 'socket.io';
 import { Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { RealtimeTranscriptionService, TranscriptionEvent } from '../services/realtime-transcription.service';
+import {
+  RealtimeTranscriptionService,
+  TranscriptionEvent,
+} from '../services/realtime-transcription.service';
 import { DatabaseService } from '../../database/database.service';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -65,7 +68,9 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
   async handleConnection(client: AuthenticatedSocket) {
     try {
       const token = this.extractTokenFromSocket(client);
-      this.logger.debug(`Transcription connection attempt - ${client.id}, token present: ${!!token}`);
+      this.logger.debug(
+        `Transcription connection attempt - ${client.id}, token present: ${!!token}`,
+      );
 
       if (!token) {
         this.logger.warn(`Transcription connection rejected: No token - ${client.id}`);
@@ -83,7 +88,9 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
       client.userId = payload.sub;
       this.connectedClients.set(client.id, client);
 
-      this.logger.log(`✅ User ${client.userId} connected to transcription namespace - ${client.id}`);
+      this.logger.log(
+        `✅ User ${client.userId} connected to transcription namespace - ${client.id}`,
+      );
     } catch (error) {
       this.logger.error('Connection error:', error);
       client.disconnect();
@@ -114,7 +121,9 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
       const { callId, language = 'en' } = data;
       const userId = client.userId;
 
-      this.logger.log(`[transcription:start] User ${userId} requesting transcription for call ${callId}`);
+      this.logger.log(
+        `[transcription:start] User ${userId} requesting transcription for call ${callId}`,
+      );
 
       if (!userId || !callId) {
         this.logger.warn('[transcription:start] Missing userId or callId');
@@ -125,7 +134,10 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
       const openaiKey = this.configService.get<string>('OPENAI_API_KEY');
       if (!openaiKey) {
         this.logger.error('[transcription:start] OPENAI_API_KEY not configured in environment');
-        return { success: false, error: 'Transcription service not configured. Please contact administrator.' };
+        return {
+          success: false,
+          error: 'Transcription service not configured. Please contact administrator.',
+        };
       }
 
       // Create unique session ID
@@ -308,8 +320,8 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
 
       // Combine all transcripts
       const fullText = transcripts
-        .filter(t => t.isFinal)
-        .map(t => `[${new Date(t.timestamp).toLocaleTimeString()}] ${t.speakerName}: ${t.text}`)
+        .filter((t) => t.isFinal)
+        .map((t) => `[${new Date(t.timestamp).toLocaleTimeString()}] ${t.speakerName}: ${t.text}`)
         .join('\n');
 
       // Get call info
@@ -383,7 +395,9 @@ export class TranscriptionGateway implements OnGatewayConnection, OnGatewayDisco
         this.callTranscripts.set(callId, callTranscripts);
 
         // Broadcast final transcript to all participants
-        this.server.to(`transcription:${callId}`).emit('transcription:completed', transcriptMessage);
+        this.server
+          .to(`transcription:${callId}`)
+          .emit('transcription:completed', transcriptMessage);
         break;
 
       case 'error':

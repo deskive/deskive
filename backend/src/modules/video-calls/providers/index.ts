@@ -58,7 +58,9 @@ export function createVideoProvider(config: ConfigService): VideoProvider {
     case '':
       return new NoneProvider();
     default:
-      log.warn(`Unknown VIDEO_PROVIDER="${choice}". Falling back to "none". Valid values: jitsi, livekit, daily, agora, whereby, none.`);
+      log.warn(
+        `Unknown VIDEO_PROVIDER="${choice}". Falling back to "none". Valid values: jitsi, livekit, daily, agora, whereby, none.`,
+      );
       return new NoneProvider();
   }
 }

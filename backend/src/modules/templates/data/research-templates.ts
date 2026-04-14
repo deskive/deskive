@@ -27,7 +27,14 @@ export const RESEARCH_TEMPLATES = [
         name: 'Research Method',
         type: 'multiselect',
         description: 'Methods to use',
-        options: ['Interviews', 'Surveys', 'Usability Testing', 'Diary Study', 'Focus Groups', 'Card Sorting'],
+        options: [
+          'Interviews',
+          'Surveys',
+          'Usability Testing',
+          'Diary Study',
+          'Focus Groups',
+          'Card Sorting',
+        ],
         isRequired: true,
       },
       {
@@ -45,8 +52,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Define research objectives',
-              description:
-                'Clearly articulate what you want to learn.',
+              description: 'Clearly articulate what you want to learn.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -59,8 +65,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Choose research methods',
-              description:
-                'Select appropriate research methodologies.',
+              description: 'Select appropriate research methodologies.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -68,8 +73,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create research plan',
-              description:
-                'Document detailed research plan and timeline.',
+              description: 'Document detailed research plan and timeline.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -77,8 +81,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Define participant criteria',
-              description:
-                'Create screener and selection criteria.',
+              description: 'Create screener and selection criteria.',
               assigneeRole: 'member',
               dueOffset: 5,
               priority: 'high',
@@ -86,8 +89,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create discussion guide',
-              description:
-                'Develop interview or test script.',
+              description: 'Develop interview or test script.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -101,8 +103,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Create screener survey',
-              description:
-                'Build screening questionnaire.',
+              description: 'Build screening questionnaire.',
               assigneeRole: 'member',
               dueOffset: 8,
               priority: 'high',
@@ -110,8 +111,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Source participants',
-              description:
-                'Recruit through panels, customers, or outreach.',
+              description: 'Recruit through panels, customers, or outreach.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -119,8 +119,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Screen and select',
-              description:
-                'Review screener responses and select participants.',
+              description: 'Review screener responses and select participants.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'high',
@@ -128,8 +127,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Schedule sessions',
-              description:
-                'Book sessions with selected participants.',
+              description: 'Book sessions with selected participants.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -137,8 +135,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Send confirmations',
-              description:
-                'Send session details and reminders.',
+              description: 'Send session details and reminders.',
               assigneeRole: 'member',
               dueOffset: 22,
               priority: 'medium',
@@ -152,8 +149,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Pilot session',
-              description:
-                'Run pilot to test guide and setup.',
+              description: 'Run pilot to test guide and setup.',
               assigneeRole: 'lead',
               dueOffset: 24,
               priority: 'high',
@@ -161,8 +157,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Refine based on pilot',
-              description:
-                'Adjust approach based on pilot learnings.',
+              description: 'Adjust approach based on pilot learnings.',
               assigneeRole: 'lead',
               dueOffset: 25,
               priority: 'high',
@@ -170,8 +165,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Conduct research sessions',
-              description:
-                'Run interviews/tests with all participants.',
+              description: 'Run interviews/tests with all participants.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -179,8 +173,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Take session notes',
-              description:
-                'Document observations during each session.',
+              description: 'Document observations during each session.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -188,8 +181,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Send thank you and incentives',
-              description:
-                'Thank participants and send compensation.',
+              description: 'Thank participants and send compensation.',
               assigneeRole: 'member',
               dueOffset: 36,
               priority: 'medium',
@@ -203,8 +195,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Organize data',
-              description:
-                'Compile all notes, recordings, and artifacts.',
+              description: 'Compile all notes, recordings, and artifacts.',
               assigneeRole: 'member',
               dueOffset: 38,
               priority: 'high',
@@ -212,8 +203,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Code and tag data',
-              description:
-                'Apply thematic coding to qualitative data.',
+              description: 'Apply thematic coding to qualitative data.',
               assigneeRole: 'member',
               dueOffset: 42,
               priority: 'high',
@@ -221,8 +211,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Identify patterns',
-              description:
-                'Find themes, patterns, and insights.',
+              description: 'Find themes, patterns, and insights.',
               assigneeRole: 'member',
               dueOffset: 45,
               priority: 'high',
@@ -230,8 +219,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Affinity mapping',
-              description:
-                'Group insights using affinity diagram.',
+              description: 'Group insights using affinity diagram.',
               assigneeRole: 'member',
               dueOffset: 47,
               priority: 'medium',
@@ -239,8 +227,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Develop key insights',
-              description:
-                'Synthesize into actionable insights.',
+              description: 'Synthesize into actionable insights.',
               assigneeRole: 'lead',
               dueOffset: 50,
               priority: 'high',
@@ -254,8 +241,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Create findings deck',
-              description:
-                'Build presentation with key findings.',
+              description: 'Build presentation with key findings.',
               assigneeRole: 'member',
               dueOffset: 55,
               priority: 'high',
@@ -263,8 +249,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Write detailed report',
-              description:
-                'Document full research report.',
+              description: 'Document full research report.',
               assigneeRole: 'member',
               dueOffset: 58,
               priority: 'high',
@@ -272,8 +257,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create artifacts',
-              description:
-                'Build personas, journey maps, or other deliverables.',
+              description: 'Build personas, journey maps, or other deliverables.',
               assigneeRole: 'member',
               dueOffset: 60,
               priority: 'medium',
@@ -281,8 +265,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Present to stakeholders',
-              description:
-                'Share findings with team and stakeholders.',
+              description: 'Share findings with team and stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 63,
               priority: 'high',
@@ -290,8 +273,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Archive research',
-              description:
-                'Store research in repository for future reference.',
+              description: 'Store research in repository for future reference.',
               assigneeRole: 'member',
               dueOffset: 65,
               priority: 'medium',
@@ -352,8 +334,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Define research questions',
-              description:
-                'Identify key questions to answer.',
+              description: 'Identify key questions to answer.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -361,8 +342,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Identify data sources',
-              description:
-                'Map primary and secondary data sources.',
+              description: 'Map primary and secondary data sources.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'high',
@@ -370,8 +350,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create research plan',
-              description:
-                'Document methodology and timeline.',
+              description: 'Document methodology and timeline.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -385,8 +364,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Market sizing',
-              description:
-                'Calculate TAM, SAM, SOM.',
+              description: 'Calculate TAM, SAM, SOM.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -399,8 +377,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Industry trends analysis',
-              description:
-                'Research current and emerging trends.',
+              description: 'Research current and emerging trends.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -408,8 +385,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Growth drivers and barriers',
-              description:
-                'Identify factors affecting market growth.',
+              description: 'Identify factors affecting market growth.',
               assigneeRole: 'member',
               dueOffset: 17,
               priority: 'high',
@@ -417,8 +393,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Regulatory landscape',
-              description:
-                'Review relevant regulations and compliance.',
+              description: 'Review relevant regulations and compliance.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'medium',
@@ -432,8 +407,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Identify competitors',
-              description:
-                'Map direct and indirect competitors.',
+              description: 'Map direct and indirect competitors.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -441,8 +415,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Competitor profiling',
-              description:
-                'Deep dive into key competitors.',
+              description: 'Deep dive into key competitors.',
               assigneeRole: 'member',
               dueOffset: 25,
               priority: 'high',
@@ -456,8 +429,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Competitive positioning map',
-              description:
-                'Create visual positioning analysis.',
+              description: 'Create visual positioning analysis.',
               assigneeRole: 'member',
               dueOffset: 27,
               priority: 'high',
@@ -465,8 +437,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'SWOT analysis',
-              description:
-                'Analyze strengths, weaknesses, opportunities, threats.',
+              description: 'Analyze strengths, weaknesses, opportunities, threats.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'high',
@@ -480,8 +451,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Customer segmentation',
-              description:
-                'Define and profile customer segments.',
+              description: 'Define and profile customer segments.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -489,8 +459,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Buyer persona development',
-              description:
-                'Create detailed buyer personas.',
+              description: 'Create detailed buyer personas.',
               assigneeRole: 'member',
               dueOffset: 33,
               priority: 'high',
@@ -498,8 +467,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Customer needs analysis',
-              description:
-                'Identify key pain points and needs.',
+              description: 'Identify key pain points and needs.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -513,8 +481,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Synthesize findings',
-              description:
-                'Combine all research into coherent insights.',
+              description: 'Combine all research into coherent insights.',
               assigneeRole: 'lead',
               dueOffset: 40,
               priority: 'high',
@@ -522,8 +489,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Develop recommendations',
-              description:
-                'Create strategic recommendations.',
+              description: 'Create strategic recommendations.',
               assigneeRole: 'lead',
               dueOffset: 43,
               priority: 'high',
@@ -531,8 +497,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create report',
-              description:
-                'Write comprehensive market research report.',
+              description: 'Write comprehensive market research report.',
               assigneeRole: 'member',
               dueOffset: 48,
               priority: 'high',
@@ -540,8 +505,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create executive summary',
-              description:
-                'Write concise executive summary.',
+              description: 'Write concise executive summary.',
               assigneeRole: 'lead',
               dueOffset: 50,
               priority: 'high',
@@ -549,8 +513,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Present findings',
-              description:
-                'Present to stakeholders.',
+              description: 'Present to stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 52,
               priority: 'high',
@@ -611,8 +574,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Define problem statement',
-              description:
-                'Clearly state what problem you are solving.',
+              description: 'Clearly state what problem you are solving.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -620,8 +582,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Form hypothesis',
-              description:
-                'Write testable hypothesis statement.',
+              description: 'Write testable hypothesis statement.',
               assigneeRole: 'lead',
               dueOffset: 2,
               priority: 'high',
@@ -629,8 +590,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Define success metrics',
-              description:
-                'Identify primary and guardrail metrics.',
+              description: 'Identify primary and guardrail metrics.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -644,8 +604,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Design variants',
-              description:
-                'Create control and treatment variants.',
+              description: 'Create control and treatment variants.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -653,8 +612,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Calculate sample size',
-              description:
-                'Determine required sample size for significance.',
+              description: 'Determine required sample size for significance.',
               assigneeRole: 'member',
               dueOffset: 5,
               priority: 'high',
@@ -662,8 +620,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Define targeting',
-              description:
-                'Specify which users will be included.',
+              description: 'Specify which users will be included.',
               assigneeRole: 'lead',
               dueOffset: 6,
               priority: 'high',
@@ -671,8 +628,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Set up tracking',
-              description:
-                'Implement event tracking for metrics.',
+              description: 'Implement event tracking for metrics.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -680,8 +636,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'QA test setup',
-              description:
-                'Verify variants and tracking work correctly.',
+              description: 'Verify variants and tracking work correctly.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -695,8 +650,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Launch experiment',
-              description:
-                'Start the A/B test.',
+              description: 'Start the A/B test.',
               assigneeRole: 'lead',
               dueOffset: 14,
               priority: 'high',
@@ -704,8 +658,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Monitor for issues',
-              description:
-                'Check for bugs or data issues.',
+              description: 'Check for bugs or data issues.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -713,8 +666,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Check early metrics',
-              description:
-                'Verify data is flowing correctly.',
+              description: 'Verify data is flowing correctly.',
               assigneeRole: 'member',
               dueOffset: 16,
               priority: 'high',
@@ -722,8 +674,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Weekly status check',
-              description:
-                'Review test progress and any concerns.',
+              description: 'Review test progress and any concerns.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'medium',
@@ -737,8 +688,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Pull test results',
-              description:
-                'Export data at end of test period.',
+              description: 'Export data at end of test period.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'high',
@@ -746,8 +696,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Statistical analysis',
-              description:
-                'Run significance tests and analysis.',
+              description: 'Run significance tests and analysis.',
               assigneeRole: 'member',
               dueOffset: 38,
               priority: 'high',
@@ -760,8 +709,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Segment analysis',
-              description:
-                'Analyze results by user segments.',
+              description: 'Analyze results by user segments.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'medium',
@@ -769,8 +717,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Document findings',
-              description:
-                'Write up analysis and conclusions.',
+              description: 'Write up analysis and conclusions.',
               assigneeRole: 'member',
               dueOffset: 42,
               priority: 'high',
@@ -784,8 +731,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Review with stakeholders',
-              description:
-                'Present results to decision makers.',
+              description: 'Present results to decision makers.',
               assigneeRole: 'lead',
               dueOffset: 44,
               priority: 'high',
@@ -793,8 +739,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Make ship decision',
-              description:
-                'Decide whether to ship, iterate, or kill.',
+              description: 'Decide whether to ship, iterate, or kill.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -802,8 +747,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Implement decision',
-              description:
-                'Roll out winner or plan next steps.',
+              description: 'Roll out winner or plan next steps.',
               assigneeRole: 'member',
               dueOffset: 50,
               priority: 'high',
@@ -811,8 +755,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Archive experiment',
-              description:
-                'Document learnings for future reference.',
+              description: 'Document learnings for future reference.',
               assigneeRole: 'member',
               dueOffset: 52,
               priority: 'medium',
@@ -874,8 +817,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Define business question',
-              description:
-                'Clearly state what decision this analysis supports.',
+              description: 'Clearly state what decision this analysis supports.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -883,8 +825,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Identify data requirements',
-              description:
-                'List what data is needed.',
+              description: 'List what data is needed.',
               assigneeRole: 'member',
               dueOffset: 2,
               priority: 'high',
@@ -892,8 +833,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Define success criteria',
-              description:
-                'How will we know analysis is complete and useful?',
+              description: 'How will we know analysis is complete and useful?',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -907,8 +847,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Identify data sources',
-              description:
-                'Map where required data lives.',
+              description: 'Map where required data lives.',
               assigneeRole: 'member',
               dueOffset: 5,
               priority: 'high',
@@ -916,8 +855,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Extract data',
-              description:
-                'Pull data from identified sources.',
+              description: 'Pull data from identified sources.',
               assigneeRole: 'member',
               dueOffset: 8,
               priority: 'high',
@@ -925,8 +863,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Data cleaning',
-              description:
-                'Clean and prepare data for analysis.',
+              description: 'Clean and prepare data for analysis.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -940,8 +877,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Data validation',
-              description:
-                'Verify data quality and accuracy.',
+              description: 'Verify data quality and accuracy.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -955,8 +891,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Exploratory analysis',
-              description:
-                'Initial exploration and pattern finding.',
+              description: 'Initial exploration and pattern finding.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'high',
@@ -964,8 +899,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Core analysis',
-              description:
-                'Perform main analysis to answer questions.',
+              description: 'Perform main analysis to answer questions.',
               assigneeRole: 'member',
               dueOffset: 25,
               priority: 'high',
@@ -973,8 +907,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Statistical testing',
-              description:
-                'Run statistical tests if needed.',
+              description: 'Run statistical tests if needed.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'medium',
@@ -982,8 +915,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Validate findings',
-              description:
-                'Cross-check and validate results.',
+              description: 'Cross-check and validate results.',
               assigneeRole: 'member',
               dueOffset: 30,
               priority: 'high',
@@ -997,8 +929,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Create visualizations',
-              description:
-                'Build charts and graphs.',
+              description: 'Build charts and graphs.',
               assigneeRole: 'member',
               dueOffset: 33,
               priority: 'high',
@@ -1006,8 +937,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Build dashboard',
-              description:
-                'Create interactive dashboard if needed.',
+              description: 'Create interactive dashboard if needed.',
               assigneeRole: 'member',
               dueOffset: 38,
               priority: 'medium',
@@ -1015,8 +945,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Write analysis report',
-              description:
-                'Document methodology, findings, and recommendations.',
+              description: 'Document methodology, findings, and recommendations.',
               assigneeRole: 'member',
               dueOffset: 40,
               priority: 'high',
@@ -1024,8 +953,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create presentation',
-              description:
-                'Build presentation for stakeholders.',
+              description: 'Build presentation for stakeholders.',
               assigneeRole: 'member',
               dueOffset: 42,
               priority: 'high',
@@ -1039,8 +967,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Present to stakeholders',
-              description:
-                'Present findings and recommendations.',
+              description: 'Present findings and recommendations.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -1048,8 +975,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Answer questions',
-              description:
-                'Address stakeholder questions.',
+              description: 'Address stakeholder questions.',
               assigneeRole: 'lead',
               dueOffset: 46,
               priority: 'high',
@@ -1057,8 +983,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Hand off deliverables',
-              description:
-                'Deliver reports, dashboards, and data.',
+              description: 'Deliver reports, dashboards, and data.',
               assigneeRole: 'member',
               dueOffset: 48,
               priority: 'high',
@@ -1113,8 +1038,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Define analysis objectives',
-              description:
-                'What decisions will this analysis inform?',
+              description: 'What decisions will this analysis inform?',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -1122,8 +1046,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Identify competitors',
-              description:
-                'List direct and indirect competitors.',
+              description: 'List direct and indirect competitors.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'high',
@@ -1131,8 +1054,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Define comparison criteria',
-              description:
-                'Decide what dimensions to compare.',
+              description: 'Decide what dimensions to compare.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -1146,8 +1068,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Website and product analysis',
-              description:
-                'Deep dive into competitor products.',
+              description: 'Deep dive into competitor products.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -1155,8 +1076,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Pricing research',
-              description:
-                'Analyze competitor pricing models.',
+              description: 'Analyze competitor pricing models.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -1164,8 +1084,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Marketing analysis',
-              description:
-                'Study competitor marketing strategies.',
+              description: 'Study competitor marketing strategies.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -1173,8 +1092,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Review competitor content',
-              description:
-                'Analyze blogs, social, and thought leadership.',
+              description: 'Analyze blogs, social, and thought leadership.',
               assigneeRole: 'member',
               dueOffset: 16,
               priority: 'medium',
@@ -1182,8 +1100,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Customer reviews analysis',
-              description:
-                'Review what customers say about competitors.',
+              description: 'Review what customers say about competitors.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'high',
@@ -1197,8 +1114,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Feature comparison matrix',
-              description:
-                'Create detailed feature comparison.',
+              description: 'Create detailed feature comparison.',
               assigneeRole: 'member',
               dueOffset: 22,
               priority: 'high',
@@ -1206,8 +1122,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Pricing comparison',
-              description:
-                'Build pricing comparison table.',
+              description: 'Build pricing comparison table.',
               assigneeRole: 'member',
               dueOffset: 24,
               priority: 'high',
@@ -1215,8 +1130,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Positioning map',
-              description:
-                'Create competitive positioning diagram.',
+              description: 'Create competitive positioning diagram.',
               assigneeRole: 'member',
               dueOffset: 26,
               priority: 'high',
@@ -1224,8 +1138,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Strengths and weaknesses',
-              description:
-                'Document competitor strengths and gaps.',
+              description: 'Document competitor strengths and gaps.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -1239,8 +1152,7 @@ export const RESEARCH_TEMPLATES = [
           tasks: [
             {
               title: 'Identify opportunities',
-              description:
-                'Find gaps and opportunities in market.',
+              description: 'Find gaps and opportunities in market.',
               assigneeRole: 'lead',
               dueOffset: 32,
               priority: 'high',
@@ -1248,8 +1160,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Develop recommendations',
-              description:
-                'Create strategic recommendations.',
+              description: 'Create strategic recommendations.',
               assigneeRole: 'lead',
               dueOffset: 35,
               priority: 'high',
@@ -1257,8 +1168,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Create battle cards',
-              description:
-                'Build sales battle cards vs competitors.',
+              description: 'Build sales battle cards vs competitors.',
               assigneeRole: 'member',
               dueOffset: 38,
               priority: 'medium',
@@ -1266,8 +1176,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Final report',
-              description:
-                'Compile comprehensive competitive analysis report.',
+              description: 'Compile comprehensive competitive analysis report.',
               assigneeRole: 'member',
               dueOffset: 42,
               priority: 'high',
@@ -1275,8 +1184,7 @@ export const RESEARCH_TEMPLATES = [
             },
             {
               title: 'Present findings',
-              description:
-                'Share analysis with stakeholders.',
+              description: 'Share analysis with stakeholders.',
               assigneeRole: 'lead',
               dueOffset: 45,
               priority: 'high',
@@ -2002,7 +1910,13 @@ export const RESEARCH_TEMPLATES = [
         name: 'Effect Size Type',
         type: 'select',
         description: 'Type of effect size',
-        options: ['Odds Ratio', 'Risk Ratio', 'Mean Difference', 'Standardized Mean Difference', 'Correlation'],
+        options: [
+          'Odds Ratio',
+          'Risk Ratio',
+          'Mean Difference',
+          'Standardized Mean Difference',
+          'Correlation',
+        ],
         isRequired: true,
       },
     ],
@@ -2241,7 +2155,14 @@ export const RESEARCH_TEMPLATES = [
         name: 'Methodology',
         type: 'select',
         description: 'Qualitative approach',
-        options: ['Grounded Theory', 'Phenomenology', 'Ethnography', 'Narrative', 'Case Study', 'Thematic Analysis'],
+        options: [
+          'Grounded Theory',
+          'Phenomenology',
+          'Ethnography',
+          'Narrative',
+          'Case Study',
+          'Thematic Analysis',
+        ],
         isRequired: true,
       },
     ],
@@ -2472,7 +2393,13 @@ export const RESEARCH_TEMPLATES = [
         name: 'Study Design',
         type: 'select',
         description: 'Type of quantitative design',
-        options: ['Cross-sectional', 'Longitudinal', 'Experimental', 'Quasi-experimental', 'Correlational'],
+        options: [
+          'Cross-sectional',
+          'Longitudinal',
+          'Experimental',
+          'Quasi-experimental',
+          'Correlational',
+        ],
         isRequired: true,
       },
     ],
@@ -2711,7 +2638,13 @@ export const RESEARCH_TEMPLATES = [
         name: 'Design Type',
         type: 'select',
         description: 'Mixed methods design',
-        options: ['Convergent', 'Explanatory Sequential', 'Exploratory Sequential', 'Embedded', 'Transformative'],
+        options: [
+          'Convergent',
+          'Explanatory Sequential',
+          'Exploratory Sequential',
+          'Embedded',
+          'Transformative',
+        ],
         isRequired: true,
       },
     ],
@@ -3130,8 +3063,7 @@ export const RESEARCH_TEMPLATES = [
   {
     name: 'Interview Study',
     slug: 'interview-study',
-    description:
-      'In-depth interview study to gather rich qualitative data from participants.',
+    description: 'In-depth interview study to gather rich qualitative data from participants.',
     category: 'research',
     icon: 'Mic',
     color: '#F97316',
@@ -3581,7 +3513,13 @@ export const RESEARCH_TEMPLATES = [
       { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Case Type', type: 'select', description: 'Type of case study', options: ['Single Case', 'Multiple Case', 'Embedded', 'Holistic'], isRequired: true },
+      {
+        name: 'Case Type',
+        type: 'select',
+        description: 'Type of case study',
+        options: ['Single Case', 'Multiple Case', 'Embedded', 'Holistic'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -3589,42 +3527,143 @@ export const RESEARCH_TEMPLATES = [
           name: 'Case Study Design',
           description: 'Design the case study',
           tasks: [
-            { title: 'Define research questions', description: 'Formulate case study questions.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['design', 'questions'] },
-            { title: 'Select case(s)', description: 'Choose appropriate case(s) for study.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['design', 'selection'] },
-            { title: 'Define unit of analysis', description: 'Specify what the case represents.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['design', 'unit'] },
-            { title: 'Develop case study protocol', description: 'Create detailed procedures.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['design', 'protocol'] },
+            {
+              title: 'Define research questions',
+              description: 'Formulate case study questions.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['design', 'questions'],
+            },
+            {
+              title: 'Select case(s)',
+              description: 'Choose appropriate case(s) for study.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['design', 'selection'],
+            },
+            {
+              title: 'Define unit of analysis',
+              description: 'Specify what the case represents.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['design', 'unit'],
+            },
+            {
+              title: 'Develop case study protocol',
+              description: 'Create detailed procedures.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['design', 'protocol'],
+            },
           ],
         },
         {
           name: 'Data Collection',
           description: 'Collect case study data',
           tasks: [
-            { title: 'Document review', description: 'Collect and review documents.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['collection', 'documents'] },
-            { title: 'Conduct interviews', description: 'Interview key informants.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['collection', 'interviews'] },
-            { title: 'Direct observation', description: 'Observe case in context.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['collection', 'observation'] },
-            { title: 'Compile case database', description: 'Organize all evidence.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['collection', 'database'] },
+            {
+              title: 'Document review',
+              description: 'Collect and review documents.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['collection', 'documents'],
+            },
+            {
+              title: 'Conduct interviews',
+              description: 'Interview key informants.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['collection', 'interviews'],
+            },
+            {
+              title: 'Direct observation',
+              description: 'Observe case in context.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['collection', 'observation'],
+            },
+            {
+              title: 'Compile case database',
+              description: 'Organize all evidence.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['collection', 'database'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze case data',
           tasks: [
-            { title: 'Pattern matching', description: 'Compare patterns with predictions.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['analysis', 'patterns'] },
-            { title: 'Cross-case synthesis', description: 'Analyze across cases if applicable.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['analysis', 'cross-case'] },
-            { title: 'Develop explanations', description: 'Build theoretical explanations.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['analysis', 'theory'] },
+            {
+              title: 'Pattern matching',
+              description: 'Compare patterns with predictions.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['analysis', 'patterns'],
+            },
+            {
+              title: 'Cross-case synthesis',
+              description: 'Analyze across cases if applicable.',
+              assigneeRole: 'member',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['analysis', 'cross-case'],
+            },
+            {
+              title: 'Develop explanations',
+              description: 'Build theoretical explanations.',
+              assigneeRole: 'lead',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['analysis', 'theory'],
+            },
           ],
         },
         {
           name: 'Writing',
           description: 'Write case study report',
           tasks: [
-            { title: 'Write case narrative', description: 'Develop detailed case description.', assigneeRole: 'member', dueOffset: 80, priority: 'high', labels: ['writing', 'narrative'] },
-            { title: 'Present findings', description: 'Document key findings.', assigneeRole: 'member', dueOffset: 88, priority: 'high', labels: ['writing', 'findings'] },
-            { title: 'Draw conclusions', description: 'Synthesize conclusions.', assigneeRole: 'lead', dueOffset: 95, priority: 'high', labels: ['writing', 'conclusions'] },
+            {
+              title: 'Write case narrative',
+              description: 'Develop detailed case description.',
+              assigneeRole: 'member',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['writing', 'narrative'],
+            },
+            {
+              title: 'Present findings',
+              description: 'Document key findings.',
+              assigneeRole: 'member',
+              dueOffset: 88,
+              priority: 'high',
+              labels: ['writing', 'findings'],
+            },
+            {
+              title: 'Draw conclusions',
+              description: 'Synthesize conclusions.',
+              assigneeRole: 'lead',
+              dueOffset: 95,
+              priority: 'high',
+              labels: ['writing', 'conclusions'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['design', 'data-collection', 'analysis', 'writing', 'completed'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['design', 'data-collection', 'analysis', 'writing', 'completed'],
+      },
     },
     settings: { chainOfEvidence: true, triangulation: true },
   },
@@ -3633,7 +3672,8 @@ export const RESEARCH_TEMPLATES = [
   {
     name: 'Ethnographic Study',
     slug: 'ethnographic-study',
-    description: 'Ethnographic research immersing in a cultural setting to understand practices and meanings.',
+    description:
+      'Ethnographic research immersing in a cultural setting to understand practices and meanings.',
     category: 'research',
     icon: 'Globe',
     color: '#DC2626',
@@ -3655,41 +3695,135 @@ export const RESEARCH_TEMPLATES = [
           name: 'Preparation',
           description: 'Prepare for fieldwork',
           tasks: [
-            { title: 'Define research focus', description: 'Identify cultural phenomenon to study.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['preparation', 'focus'] },
-            { title: 'Gain site access', description: 'Negotiate entry to field site.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['preparation', 'access'] },
-            { title: 'Build rapport', description: 'Establish relationships with participants.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['preparation', 'rapport'] },
+            {
+              title: 'Define research focus',
+              description: 'Identify cultural phenomenon to study.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['preparation', 'focus'],
+            },
+            {
+              title: 'Gain site access',
+              description: 'Negotiate entry to field site.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['preparation', 'access'],
+            },
+            {
+              title: 'Build rapport',
+              description: 'Establish relationships with participants.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['preparation', 'rapport'],
+            },
           ],
         },
         {
           name: 'Fieldwork',
           description: 'Conduct ethnographic fieldwork',
           tasks: [
-            { title: 'Participant observation', description: 'Observe and participate in activities.', assigneeRole: 'lead', dueOffset: 60, priority: 'high', labels: ['fieldwork', 'observation'] },
-            { title: 'Write field notes', description: 'Document daily observations.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['fieldwork', 'notes'] },
-            { title: 'Conduct interviews', description: 'Interview community members.', assigneeRole: 'lead', dueOffset: 75, priority: 'high', labels: ['fieldwork', 'interviews'] },
-            { title: 'Collect artifacts', description: 'Gather cultural artifacts and documents.', assigneeRole: 'lead', dueOffset: 80, priority: 'medium', labels: ['fieldwork', 'artifacts'] },
+            {
+              title: 'Participant observation',
+              description: 'Observe and participate in activities.',
+              assigneeRole: 'lead',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['fieldwork', 'observation'],
+            },
+            {
+              title: 'Write field notes',
+              description: 'Document daily observations.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['fieldwork', 'notes'],
+            },
+            {
+              title: 'Conduct interviews',
+              description: 'Interview community members.',
+              assigneeRole: 'lead',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['fieldwork', 'interviews'],
+            },
+            {
+              title: 'Collect artifacts',
+              description: 'Gather cultural artifacts and documents.',
+              assigneeRole: 'lead',
+              dueOffset: 80,
+              priority: 'medium',
+              labels: ['fieldwork', 'artifacts'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze ethnographic data',
           tasks: [
-            { title: 'Code field notes', description: 'Apply codes to observations.', assigneeRole: 'lead', dueOffset: 95, priority: 'high', labels: ['analysis', 'coding'] },
-            { title: 'Identify cultural themes', description: 'Develop cultural themes.', assigneeRole: 'lead', dueOffset: 105, priority: 'high', labels: ['analysis', 'themes'] },
-            { title: 'Develop cultural portrait', description: 'Create holistic description.', assigneeRole: 'lead', dueOffset: 115, priority: 'high', labels: ['analysis', 'portrait'] },
+            {
+              title: 'Code field notes',
+              description: 'Apply codes to observations.',
+              assigneeRole: 'lead',
+              dueOffset: 95,
+              priority: 'high',
+              labels: ['analysis', 'coding'],
+            },
+            {
+              title: 'Identify cultural themes',
+              description: 'Develop cultural themes.',
+              assigneeRole: 'lead',
+              dueOffset: 105,
+              priority: 'high',
+              labels: ['analysis', 'themes'],
+            },
+            {
+              title: 'Develop cultural portrait',
+              description: 'Create holistic description.',
+              assigneeRole: 'lead',
+              dueOffset: 115,
+              priority: 'high',
+              labels: ['analysis', 'portrait'],
+            },
           ],
         },
         {
           name: 'Writing',
           description: 'Write ethnography',
           tasks: [
-            { title: 'Write thick description', description: 'Develop rich narrative.', assigneeRole: 'lead', dueOffset: 130, priority: 'high', labels: ['writing', 'description'] },
-            { title: 'Integrate theory', description: 'Connect to theoretical frameworks.', assigneeRole: 'lead', dueOffset: 140, priority: 'high', labels: ['writing', 'theory'] },
-            { title: 'Finalize ethnography', description: 'Complete final manuscript.', assigneeRole: 'lead', dueOffset: 150, priority: 'high', labels: ['writing', 'finalization'] },
+            {
+              title: 'Write thick description',
+              description: 'Develop rich narrative.',
+              assigneeRole: 'lead',
+              dueOffset: 130,
+              priority: 'high',
+              labels: ['writing', 'description'],
+            },
+            {
+              title: 'Integrate theory',
+              description: 'Connect to theoretical frameworks.',
+              assigneeRole: 'lead',
+              dueOffset: 140,
+              priority: 'high',
+              labels: ['writing', 'theory'],
+            },
+            {
+              title: 'Finalize ethnography',
+              description: 'Complete final manuscript.',
+              assigneeRole: 'lead',
+              dueOffset: 150,
+              priority: 'high',
+              labels: ['writing', 'finalization'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['preparation', 'fieldwork', 'analysis', 'writing', 'completed'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['preparation', 'fieldwork', 'analysis', 'writing', 'completed'],
+      },
     },
     settings: { prolongedEngagement: true, reflexivity: true },
   },
@@ -3698,7 +3832,8 @@ export const RESEARCH_TEMPLATES = [
   {
     name: 'Action Research',
     slug: 'action-research',
-    description: 'Collaborative action research to solve practical problems while generating knowledge.',
+    description:
+      'Collaborative action research to solve practical problems while generating knowledge.',
     category: 'research',
     icon: 'RefreshCw',
     color: '#2563EB',
@@ -3712,7 +3847,12 @@ export const RESEARCH_TEMPLATES = [
       { id: 'completed', name: 'Completed', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Action Cycles', type: 'number', description: 'Number of action cycles planned', isRequired: true },
+      {
+        name: 'Action Cycles',
+        type: 'number',
+        description: 'Number of action cycles planned',
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -3720,41 +3860,135 @@ export const RESEARCH_TEMPLATES = [
           name: 'Planning Phase',
           description: 'Plan the action research',
           tasks: [
-            { title: 'Identify problem', description: 'Define the practical problem to address.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning', 'problem'] },
-            { title: 'Form collaborative team', description: 'Engage stakeholders as co-researchers.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['planning', 'collaboration'] },
-            { title: 'Develop action plan', description: 'Design intervention strategy.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['planning', 'intervention'] },
+            {
+              title: 'Identify problem',
+              description: 'Define the practical problem to address.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'problem'],
+            },
+            {
+              title: 'Form collaborative team',
+              description: 'Engage stakeholders as co-researchers.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'collaboration'],
+            },
+            {
+              title: 'Develop action plan',
+              description: 'Design intervention strategy.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['planning', 'intervention'],
+            },
           ],
         },
         {
           name: 'Action Phase',
           description: 'Implement the intervention',
           tasks: [
-            { title: 'Implement intervention', description: 'Put action plan into practice.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['action', 'implementation'] },
-            { title: 'Document implementation', description: 'Record what actually happens.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['action', 'documentation'] },
-            { title: 'Adapt as needed', description: 'Make adjustments during implementation.', assigneeRole: 'lead', dueOffset: 40, priority: 'medium', labels: ['action', 'adaptation'] },
+            {
+              title: 'Implement intervention',
+              description: 'Put action plan into practice.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['action', 'implementation'],
+            },
+            {
+              title: 'Document implementation',
+              description: 'Record what actually happens.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['action', 'documentation'],
+            },
+            {
+              title: 'Adapt as needed',
+              description: 'Make adjustments during implementation.',
+              assigneeRole: 'lead',
+              dueOffset: 40,
+              priority: 'medium',
+              labels: ['action', 'adaptation'],
+            },
           ],
         },
         {
           name: 'Observation Phase',
           description: 'Observe and collect data',
           tasks: [
-            { title: 'Collect data on outcomes', description: 'Gather evidence of effects.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['observation', 'data'] },
-            { title: 'Monitor unintended effects', description: 'Watch for unexpected outcomes.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['observation', 'effects'] },
-            { title: 'Gather stakeholder feedback', description: 'Get input from participants.', assigneeRole: 'member', dueOffset: 58, priority: 'high', labels: ['observation', 'feedback'] },
+            {
+              title: 'Collect data on outcomes',
+              description: 'Gather evidence of effects.',
+              assigneeRole: 'member',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['observation', 'data'],
+            },
+            {
+              title: 'Monitor unintended effects',
+              description: 'Watch for unexpected outcomes.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['observation', 'effects'],
+            },
+            {
+              title: 'Gather stakeholder feedback',
+              description: 'Get input from participants.',
+              assigneeRole: 'member',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['observation', 'feedback'],
+            },
           ],
         },
         {
           name: 'Reflection Phase',
           description: 'Reflect and plan next cycle',
           tasks: [
-            { title: 'Analyze outcomes', description: 'Evaluate what happened.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['reflection', 'analysis'] },
-            { title: 'Reflect with team', description: 'Collaborative reflection session.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['reflection', 'collaboration'] },
-            { title: 'Document learnings', description: 'Record insights and knowledge.', assigneeRole: 'member', dueOffset: 75, priority: 'high', labels: ['reflection', 'documentation'] },
-            { title: 'Plan next cycle', description: 'Design next action cycle.', assigneeRole: 'lead', dueOffset: 80, priority: 'high', labels: ['reflection', 'planning'] },
+            {
+              title: 'Analyze outcomes',
+              description: 'Evaluate what happened.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['reflection', 'analysis'],
+            },
+            {
+              title: 'Reflect with team',
+              description: 'Collaborative reflection session.',
+              assigneeRole: 'lead',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['reflection', 'collaboration'],
+            },
+            {
+              title: 'Document learnings',
+              description: 'Record insights and knowledge.',
+              assigneeRole: 'member',
+              dueOffset: 75,
+              priority: 'high',
+              labels: ['reflection', 'documentation'],
+            },
+            {
+              title: 'Plan next cycle',
+              description: 'Design next action cycle.',
+              assigneeRole: 'lead',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['reflection', 'planning'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['planning', 'action', 'observation', 'reflection', 'completed'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'action', 'observation', 'reflection', 'completed'],
+      },
     },
     settings: { cyclicalProcess: true, participatory: true },
   },
@@ -3777,7 +4011,13 @@ export const RESEARCH_TEMPLATES = [
       { id: 'reporting', name: 'Reporting', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Design Type', type: 'select', description: 'Experimental design type', options: ['Between-subjects', 'Within-subjects', 'Mixed', 'Factorial'], isRequired: true },
+      {
+        name: 'Design Type',
+        type: 'select',
+        description: 'Experimental design type',
+        options: ['Between-subjects', 'Within-subjects', 'Mixed', 'Factorial'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -3785,52 +4025,181 @@ export const RESEARCH_TEMPLATES = [
           name: 'Experimental Design',
           description: 'Design the experiment',
           tasks: [
-            { title: 'Define hypotheses', description: 'State null and alternative hypotheses.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['design', 'hypotheses'] },
-            { title: 'Identify variables', description: 'Define IV, DV, and control variables.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['design', 'variables'] },
-            { title: 'Select design type', description: 'Choose experimental design.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['design', 'methodology'] },
-            { title: 'Plan randomization', description: 'Design random assignment procedure.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['design', 'randomization'] },
+            {
+              title: 'Define hypotheses',
+              description: 'State null and alternative hypotheses.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['design', 'hypotheses'],
+            },
+            {
+              title: 'Identify variables',
+              description: 'Define IV, DV, and control variables.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['design', 'variables'],
+            },
+            {
+              title: 'Select design type',
+              description: 'Choose experimental design.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['design', 'methodology'],
+            },
+            {
+              title: 'Plan randomization',
+              description: 'Design random assignment procedure.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['design', 'randomization'],
+            },
           ],
         },
         {
           name: 'Preparation',
           description: 'Prepare for experiment',
           tasks: [
-            { title: 'Develop materials', description: 'Create experimental materials.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['preparation', 'materials'] },
-            { title: 'Set up lab environment', description: 'Configure experimental setting.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['preparation', 'setup'] },
-            { title: 'Pilot test', description: 'Run pilot experiment.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['preparation', 'pilot'] },
-            { title: 'Recruit participants', description: 'Recruit experimental subjects.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['preparation', 'recruitment'] },
+            {
+              title: 'Develop materials',
+              description: 'Create experimental materials.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['preparation', 'materials'],
+            },
+            {
+              title: 'Set up lab environment',
+              description: 'Configure experimental setting.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['preparation', 'setup'],
+            },
+            {
+              title: 'Pilot test',
+              description: 'Run pilot experiment.',
+              assigneeRole: 'member',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['preparation', 'pilot'],
+            },
+            {
+              title: 'Recruit participants',
+              description: 'Recruit experimental subjects.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['preparation', 'recruitment'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Run the experiment',
           tasks: [
-            { title: 'Randomize participants', description: 'Assign to conditions.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['execution', 'randomization'] },
-            { title: 'Administer treatments', description: 'Deliver experimental conditions.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['execution', 'treatment'] },
-            { title: 'Collect measures', description: 'Record dependent variables.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['execution', 'measurement'] },
-            { title: 'Debrief participants', description: 'Provide debriefing.', assigneeRole: 'member', dueOffset: 58, priority: 'medium', labels: ['execution', 'debrief'] },
+            {
+              title: 'Randomize participants',
+              description: 'Assign to conditions.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['execution', 'randomization'],
+            },
+            {
+              title: 'Administer treatments',
+              description: 'Deliver experimental conditions.',
+              assigneeRole: 'member',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['execution', 'treatment'],
+            },
+            {
+              title: 'Collect measures',
+              description: 'Record dependent variables.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['execution', 'measurement'],
+            },
+            {
+              title: 'Debrief participants',
+              description: 'Provide debriefing.',
+              assigneeRole: 'member',
+              dueOffset: 58,
+              priority: 'medium',
+              labels: ['execution', 'debrief'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze experimental data',
           tasks: [
-            { title: 'Check manipulation', description: 'Verify manipulation effectiveness.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['analysis', 'manipulation'] },
-            { title: 'Run statistical tests', description: 'Conduct planned analyses.', assigneeRole: 'member', dueOffset: 68, priority: 'high', labels: ['analysis', 'statistics'] },
-            { title: 'Calculate effect sizes', description: 'Determine effect magnitudes.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['analysis', 'effects'] },
+            {
+              title: 'Check manipulation',
+              description: 'Verify manipulation effectiveness.',
+              assigneeRole: 'member',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['analysis', 'manipulation'],
+            },
+            {
+              title: 'Run statistical tests',
+              description: 'Conduct planned analyses.',
+              assigneeRole: 'member',
+              dueOffset: 68,
+              priority: 'high',
+              labels: ['analysis', 'statistics'],
+            },
+            {
+              title: 'Calculate effect sizes',
+              description: 'Determine effect magnitudes.',
+              assigneeRole: 'member',
+              dueOffset: 72,
+              priority: 'high',
+              labels: ['analysis', 'effects'],
+            },
           ],
         },
         {
           name: 'Reporting',
           description: 'Report results',
           tasks: [
-            { title: 'Write results', description: 'Document findings.', assigneeRole: 'member', dueOffset: 80, priority: 'high', labels: ['reporting', 'results'] },
-            { title: 'Discuss implications', description: 'Interpret findings.', assigneeRole: 'lead', dueOffset: 88, priority: 'high', labels: ['reporting', 'discussion'] },
-            { title: 'Submit paper', description: 'Finalize and submit.', assigneeRole: 'lead', dueOffset: 95, priority: 'high', labels: ['reporting', 'submission'] },
+            {
+              title: 'Write results',
+              description: 'Document findings.',
+              assigneeRole: 'member',
+              dueOffset: 80,
+              priority: 'high',
+              labels: ['reporting', 'results'],
+            },
+            {
+              title: 'Discuss implications',
+              description: 'Interpret findings.',
+              assigneeRole: 'lead',
+              dueOffset: 88,
+              priority: 'high',
+              labels: ['reporting', 'discussion'],
+            },
+            {
+              title: 'Submit paper',
+              description: 'Finalize and submit.',
+              assigneeRole: 'lead',
+              dueOffset: 95,
+              priority: 'high',
+              labels: ['reporting', 'submission'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['design', 'preparation', 'execution', 'analysis', 'reporting'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['design', 'preparation', 'execution', 'analysis', 'reporting'],
+      },
     },
     settings: { preregistration: true, blindingRequired: true },
   },
@@ -3853,7 +4222,13 @@ export const RESEARCH_TEMPLATES = [
       { id: 'analysis', name: 'Analysis', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Trial Phase', type: 'select', description: 'Clinical trial phase', options: ['Phase I', 'Phase II', 'Phase III', 'Phase IV'], isRequired: true },
+      {
+        name: 'Trial Phase',
+        type: 'select',
+        description: 'Clinical trial phase',
+        options: ['Phase I', 'Phase II', 'Phase III', 'Phase IV'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -3861,51 +4236,173 @@ export const RESEARCH_TEMPLATES = [
           name: 'Protocol Development',
           description: 'Develop trial protocol',
           tasks: [
-            { title: 'Define endpoints', description: 'Specify primary and secondary endpoints.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['protocol', 'endpoints'] },
-            { title: 'Design trial', description: 'Create detailed trial design.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['protocol', 'design'] },
-            { title: 'Write protocol', description: 'Complete full protocol document.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['protocol', 'documentation'] },
-            { title: 'Statistical analysis plan', description: 'Develop SAP.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['protocol', 'statistics'] },
+            {
+              title: 'Define endpoints',
+              description: 'Specify primary and secondary endpoints.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['protocol', 'endpoints'],
+            },
+            {
+              title: 'Design trial',
+              description: 'Create detailed trial design.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['protocol', 'design'],
+            },
+            {
+              title: 'Write protocol',
+              description: 'Complete full protocol document.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['protocol', 'documentation'],
+            },
+            {
+              title: 'Statistical analysis plan',
+              description: 'Develop SAP.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['protocol', 'statistics'],
+            },
           ],
         },
         {
           name: 'Regulatory Approval',
           description: 'Obtain approvals',
           tasks: [
-            { title: 'IRB submission', description: 'Submit to ethics board.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['approval', 'irb'] },
-            { title: 'Regulatory filing', description: 'Submit to regulatory agency.', assigneeRole: 'lead', dueOffset: 50, priority: 'high', labels: ['approval', 'regulatory'] },
-            { title: 'Site agreements', description: 'Execute site contracts.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['approval', 'sites'] },
+            {
+              title: 'IRB submission',
+              description: 'Submit to ethics board.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['approval', 'irb'],
+            },
+            {
+              title: 'Regulatory filing',
+              description: 'Submit to regulatory agency.',
+              assigneeRole: 'lead',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['approval', 'regulatory'],
+            },
+            {
+              title: 'Site agreements',
+              description: 'Execute site contracts.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['approval', 'sites'],
+            },
           ],
         },
         {
           name: 'Enrollment',
           description: 'Recruit and enroll participants',
           tasks: [
-            { title: 'Screen participants', description: 'Screen against eligibility.', assigneeRole: 'member', dueOffset: 90, priority: 'high', labels: ['enrollment', 'screening'] },
-            { title: 'Informed consent', description: 'Obtain consent.', assigneeRole: 'member', dueOffset: 95, priority: 'high', labels: ['enrollment', 'consent'] },
-            { title: 'Baseline assessments', description: 'Conduct baseline measures.', assigneeRole: 'member', dueOffset: 100, priority: 'high', labels: ['enrollment', 'baseline'] },
-            { title: 'Randomize participants', description: 'Assign to arms.', assigneeRole: 'member', dueOffset: 105, priority: 'high', labels: ['enrollment', 'randomization'] },
+            {
+              title: 'Screen participants',
+              description: 'Screen against eligibility.',
+              assigneeRole: 'member',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['enrollment', 'screening'],
+            },
+            {
+              title: 'Informed consent',
+              description: 'Obtain consent.',
+              assigneeRole: 'member',
+              dueOffset: 95,
+              priority: 'high',
+              labels: ['enrollment', 'consent'],
+            },
+            {
+              title: 'Baseline assessments',
+              description: 'Conduct baseline measures.',
+              assigneeRole: 'member',
+              dueOffset: 100,
+              priority: 'high',
+              labels: ['enrollment', 'baseline'],
+            },
+            {
+              title: 'Randomize participants',
+              description: 'Assign to arms.',
+              assigneeRole: 'member',
+              dueOffset: 105,
+              priority: 'high',
+              labels: ['enrollment', 'randomization'],
+            },
           ],
         },
         {
           name: 'Treatment Phase',
           description: 'Administer treatment',
           tasks: [
-            { title: 'Administer interventions', description: 'Deliver treatments per protocol.', assigneeRole: 'member', dueOffset: 150, priority: 'high', labels: ['treatment', 'intervention'] },
-            { title: 'Safety monitoring', description: 'Monitor adverse events.', assigneeRole: 'member', dueOffset: 160, priority: 'high', labels: ['treatment', 'safety'] },
-            { title: 'Follow-up visits', description: 'Conduct protocol visits.', assigneeRole: 'member', dueOffset: 180, priority: 'high', labels: ['treatment', 'follow-up'] },
+            {
+              title: 'Administer interventions',
+              description: 'Deliver treatments per protocol.',
+              assigneeRole: 'member',
+              dueOffset: 150,
+              priority: 'high',
+              labels: ['treatment', 'intervention'],
+            },
+            {
+              title: 'Safety monitoring',
+              description: 'Monitor adverse events.',
+              assigneeRole: 'member',
+              dueOffset: 160,
+              priority: 'high',
+              labels: ['treatment', 'safety'],
+            },
+            {
+              title: 'Follow-up visits',
+              description: 'Conduct protocol visits.',
+              assigneeRole: 'member',
+              dueOffset: 180,
+              priority: 'high',
+              labels: ['treatment', 'follow-up'],
+            },
           ],
         },
         {
           name: 'Analysis and Reporting',
           description: 'Analyze and report',
           tasks: [
-            { title: 'Database lock', description: 'Lock database for analysis.', assigneeRole: 'lead', dueOffset: 200, priority: 'high', labels: ['analysis', 'data'] },
-            { title: 'Primary analysis', description: 'Conduct primary endpoint analysis.', assigneeRole: 'member', dueOffset: 210, priority: 'high', labels: ['analysis', 'primary'] },
-            { title: 'Clinical study report', description: 'Write CSR.', assigneeRole: 'lead', dueOffset: 230, priority: 'high', labels: ['analysis', 'reporting'] },
+            {
+              title: 'Database lock',
+              description: 'Lock database for analysis.',
+              assigneeRole: 'lead',
+              dueOffset: 200,
+              priority: 'high',
+              labels: ['analysis', 'data'],
+            },
+            {
+              title: 'Primary analysis',
+              description: 'Conduct primary endpoint analysis.',
+              assigneeRole: 'member',
+              dueOffset: 210,
+              priority: 'high',
+              labels: ['analysis', 'primary'],
+            },
+            {
+              title: 'Clinical study report',
+              description: 'Write CSR.',
+              assigneeRole: 'lead',
+              dueOffset: 230,
+              priority: 'high',
+              labels: ['analysis', 'reporting'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['protocol', 'approval', 'enrollment', 'treatment', 'analysis'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['protocol', 'approval', 'enrollment', 'treatment', 'analysis'],
+      },
     },
     settings: { gcp: true, dsmb: true },
   },
@@ -3928,7 +4425,12 @@ export const RESEARCH_TEMPLATES = [
       { id: 'decision', name: 'Decision', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Primary Metric', type: 'text', description: 'Main success metric', isRequired: true },
+      {
+        name: 'Primary Metric',
+        type: 'text',
+        description: 'Main success metric',
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -3936,50 +4438,165 @@ export const RESEARCH_TEMPLATES = [
           name: 'Hypothesis',
           description: 'Define test hypothesis',
           tasks: [
-            { title: 'Identify opportunity', description: 'Find area for improvement.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['hypothesis', 'opportunity'] },
-            { title: 'Write hypothesis', description: 'Formulate testable hypothesis.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['hypothesis', 'documentation'] },
-            { title: 'Define metrics', description: 'Specify success metrics.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['hypothesis', 'metrics'] },
+            {
+              title: 'Identify opportunity',
+              description: 'Find area for improvement.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['hypothesis', 'opportunity'],
+            },
+            {
+              title: 'Write hypothesis',
+              description: 'Formulate testable hypothesis.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['hypothesis', 'documentation'],
+            },
+            {
+              title: 'Define metrics',
+              description: 'Specify success metrics.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['hypothesis', 'metrics'],
+            },
           ],
         },
         {
           name: 'Test Design',
           description: 'Design the experiment',
           tasks: [
-            { title: 'Design variants', description: 'Create A and B versions.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['design', 'variants'] },
-            { title: 'Calculate sample size', description: 'Determine required sample.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['design', 'statistics'] },
-            { title: 'Set up tracking', description: 'Implement event tracking.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['design', 'tracking'] },
-            { title: 'QA test', description: 'Verify test setup.', assigneeRole: 'member', dueOffset: 18, priority: 'high', labels: ['design', 'qa'] },
+            {
+              title: 'Design variants',
+              description: 'Create A and B versions.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['design', 'variants'],
+            },
+            {
+              title: 'Calculate sample size',
+              description: 'Determine required sample.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['design', 'statistics'],
+            },
+            {
+              title: 'Set up tracking',
+              description: 'Implement event tracking.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['design', 'tracking'],
+            },
+            {
+              title: 'QA test',
+              description: 'Verify test setup.',
+              assigneeRole: 'member',
+              dueOffset: 18,
+              priority: 'high',
+              labels: ['design', 'qa'],
+            },
           ],
         },
         {
           name: 'Running Test',
           description: 'Execute the test',
           tasks: [
-            { title: 'Launch test', description: 'Start the experiment.', assigneeRole: 'lead', dueOffset: 20, priority: 'high', labels: ['running', 'launch'] },
-            { title: 'Monitor health', description: 'Check for issues.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['running', 'monitoring'] },
-            { title: 'Wait for significance', description: 'Allow test to reach sample size.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['running', 'duration'] },
+            {
+              title: 'Launch test',
+              description: 'Start the experiment.',
+              assigneeRole: 'lead',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['running', 'launch'],
+            },
+            {
+              title: 'Monitor health',
+              description: 'Check for issues.',
+              assigneeRole: 'member',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['running', 'monitoring'],
+            },
+            {
+              title: 'Wait for significance',
+              description: 'Allow test to reach sample size.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['running', 'duration'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze results',
           tasks: [
-            { title: 'Run statistical analysis', description: 'Calculate significance.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['analysis', 'statistics'] },
-            { title: 'Segment analysis', description: 'Analyze by user segments.', assigneeRole: 'member', dueOffset: 48, priority: 'medium', labels: ['analysis', 'segments'] },
-            { title: 'Document findings', description: 'Write up results.', assigneeRole: 'member', dueOffset: 52, priority: 'high', labels: ['analysis', 'documentation'] },
+            {
+              title: 'Run statistical analysis',
+              description: 'Calculate significance.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['analysis', 'statistics'],
+            },
+            {
+              title: 'Segment analysis',
+              description: 'Analyze by user segments.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'medium',
+              labels: ['analysis', 'segments'],
+            },
+            {
+              title: 'Document findings',
+              description: 'Write up results.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['analysis', 'documentation'],
+            },
           ],
         },
         {
           name: 'Decision',
           description: 'Make and implement decision',
           tasks: [
-            { title: 'Review with stakeholders', description: 'Present results.', assigneeRole: 'lead', dueOffset: 55, priority: 'high', labels: ['decision', 'review'] },
-            { title: 'Make decision', description: 'Decide ship/iterate/kill.', assigneeRole: 'lead', dueOffset: 57, priority: 'high', labels: ['decision', 'conclusion'] },
-            { title: 'Implement winner', description: 'Roll out winning variant.', assigneeRole: 'member', dueOffset: 62, priority: 'high', labels: ['decision', 'implementation'] },
+            {
+              title: 'Review with stakeholders',
+              description: 'Present results.',
+              assigneeRole: 'lead',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['decision', 'review'],
+            },
+            {
+              title: 'Make decision',
+              description: 'Decide ship/iterate/kill.',
+              assigneeRole: 'lead',
+              dueOffset: 57,
+              priority: 'high',
+              labels: ['decision', 'conclusion'],
+            },
+            {
+              title: 'Implement winner',
+              description: 'Roll out winning variant.',
+              assigneeRole: 'member',
+              dueOffset: 62,
+              priority: 'high',
+              labels: ['decision', 'implementation'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['hypothesis', 'design', 'running', 'analysis', 'decision'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['hypothesis', 'design', 'running', 'analysis', 'decision'],
+      },
     },
     settings: { experimentTracking: true, statisticalRigor: true },
   },
@@ -4002,7 +4619,13 @@ export const RESEARCH_TEMPLATES = [
       { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Research Methods', type: 'multiselect', description: 'Methods to use', options: ['Interviews', 'Surveys', 'Usability Testing', 'Diary Study', 'Card Sorting'], isRequired: true },
+      {
+        name: 'Research Methods',
+        type: 'multiselect',
+        description: 'Methods to use',
+        options: ['Interviews', 'Surveys', 'Usability Testing', 'Diary Study', 'Card Sorting'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -4010,49 +4633,157 @@ export const RESEARCH_TEMPLATES = [
           name: 'Research Planning',
           description: 'Plan the research',
           tasks: [
-            { title: 'Define objectives', description: 'Clarify research goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning', 'objectives'] },
-            { title: 'Select methods', description: 'Choose research methods.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['planning', 'methods'] },
-            { title: 'Create research plan', description: 'Document full plan.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning', 'documentation'] },
+            {
+              title: 'Define objectives',
+              description: 'Clarify research goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'objectives'],
+            },
+            {
+              title: 'Select methods',
+              description: 'Choose research methods.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'methods'],
+            },
+            {
+              title: 'Create research plan',
+              description: 'Document full plan.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning', 'documentation'],
+            },
           ],
         },
         {
           name: 'Participant Recruiting',
           description: 'Recruit participants',
           tasks: [
-            { title: 'Define criteria', description: 'Specify participant requirements.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['recruiting', 'criteria'] },
-            { title: 'Recruit participants', description: 'Source and schedule participants.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['recruiting', 'sourcing'] },
-            { title: 'Screen participants', description: 'Verify fit.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['recruiting', 'screening'] },
+            {
+              title: 'Define criteria',
+              description: 'Specify participant requirements.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['recruiting', 'criteria'],
+            },
+            {
+              title: 'Recruit participants',
+              description: 'Source and schedule participants.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['recruiting', 'sourcing'],
+            },
+            {
+              title: 'Screen participants',
+              description: 'Verify fit.',
+              assigneeRole: 'member',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['recruiting', 'screening'],
+            },
           ],
         },
         {
           name: 'Conducting Research',
           description: 'Execute research sessions',
           tasks: [
-            { title: 'Conduct sessions', description: 'Run all research sessions.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['research', 'sessions'] },
-            { title: 'Take notes', description: 'Document observations.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['research', 'notes'] },
-            { title: 'Collect artifacts', description: 'Gather recordings and materials.', assigneeRole: 'member', dueOffset: 45, priority: 'medium', labels: ['research', 'artifacts'] },
+            {
+              title: 'Conduct sessions',
+              description: 'Run all research sessions.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['research', 'sessions'],
+            },
+            {
+              title: 'Take notes',
+              description: 'Document observations.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['research', 'notes'],
+            },
+            {
+              title: 'Collect artifacts',
+              description: 'Gather recordings and materials.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'medium',
+              labels: ['research', 'artifacts'],
+            },
           ],
         },
         {
           name: 'Synthesis',
           description: 'Synthesize findings',
           tasks: [
-            { title: 'Analyze data', description: 'Code and analyze data.', assigneeRole: 'member', dueOffset: 52, priority: 'high', labels: ['synthesis', 'analysis'] },
-            { title: 'Identify insights', description: 'Extract key insights.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['synthesis', 'insights'] },
-            { title: 'Create artifacts', description: 'Build personas, journey maps.', assigneeRole: 'member', dueOffset: 65, priority: 'high', labels: ['synthesis', 'artifacts'] },
+            {
+              title: 'Analyze data',
+              description: 'Code and analyze data.',
+              assigneeRole: 'member',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['synthesis', 'analysis'],
+            },
+            {
+              title: 'Identify insights',
+              description: 'Extract key insights.',
+              assigneeRole: 'lead',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['synthesis', 'insights'],
+            },
+            {
+              title: 'Create artifacts',
+              description: 'Build personas, journey maps.',
+              assigneeRole: 'member',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['synthesis', 'artifacts'],
+            },
           ],
         },
         {
           name: 'Delivery',
           description: 'Deliver findings',
           tasks: [
-            { title: 'Create presentation', description: 'Build findings deck.', assigneeRole: 'member', dueOffset: 72, priority: 'high', labels: ['delivery', 'presentation'] },
-            { title: 'Present to stakeholders', description: 'Share findings.', assigneeRole: 'lead', dueOffset: 78, priority: 'high', labels: ['delivery', 'presentation'] },
-            { title: 'Archive research', description: 'Store in repository.', assigneeRole: 'member', dueOffset: 82, priority: 'medium', labels: ['delivery', 'archive'] },
+            {
+              title: 'Create presentation',
+              description: 'Build findings deck.',
+              assigneeRole: 'member',
+              dueOffset: 72,
+              priority: 'high',
+              labels: ['delivery', 'presentation'],
+            },
+            {
+              title: 'Present to stakeholders',
+              description: 'Share findings.',
+              assigneeRole: 'lead',
+              dueOffset: 78,
+              priority: 'high',
+              labels: ['delivery', 'presentation'],
+            },
+            {
+              title: 'Archive research',
+              description: 'Store in repository.',
+              assigneeRole: 'member',
+              dueOffset: 82,
+              priority: 'medium',
+              labels: ['delivery', 'archive'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['planning', 'recruiting', 'research', 'synthesis', 'delivery'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'recruiting', 'research', 'synthesis', 'delivery'],
+      },
     },
     settings: { participantTracking: true, insightRepository: true },
   },
@@ -4075,7 +4806,12 @@ export const RESEARCH_TEMPLATES = [
       { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Consumer Segment', type: 'text', description: 'Target consumer segment', isRequired: true },
+      {
+        name: 'Consumer Segment',
+        type: 'text',
+        description: 'Target consumer segment',
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -4083,49 +4819,157 @@ export const RESEARCH_TEMPLATES = [
           name: 'Research Planning',
           description: 'Plan consumer research',
           tasks: [
-            { title: 'Define research questions', description: 'Identify what to learn.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning', 'questions'] },
-            { title: 'Select methodology', description: 'Choose research approach.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning', 'methodology'] },
-            { title: 'Design research instruments', description: 'Create surveys or guides.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['planning', 'instruments'] },
+            {
+              title: 'Define research questions',
+              description: 'Identify what to learn.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'questions'],
+            },
+            {
+              title: 'Select methodology',
+              description: 'Choose research approach.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'methodology'],
+            },
+            {
+              title: 'Design research instruments',
+              description: 'Create surveys or guides.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['planning', 'instruments'],
+            },
           ],
         },
         {
           name: 'Data Collection',
           description: 'Collect consumer data',
           tasks: [
-            { title: 'Recruit consumers', description: 'Find target consumers.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['research', 'recruitment'] },
-            { title: 'Conduct research', description: 'Execute research activities.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['research', 'execution'] },
-            { title: 'Collect behavioral data', description: 'Gather purchase and usage data.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['research', 'behavioral'] },
+            {
+              title: 'Recruit consumers',
+              description: 'Find target consumers.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['research', 'recruitment'],
+            },
+            {
+              title: 'Conduct research',
+              description: 'Execute research activities.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['research', 'execution'],
+            },
+            {
+              title: 'Collect behavioral data',
+              description: 'Gather purchase and usage data.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['research', 'behavioral'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze consumer data',
           tasks: [
-            { title: 'Analyze survey data', description: 'Process quantitative data.', assigneeRole: 'member', dueOffset: 48, priority: 'high', labels: ['analysis', 'quantitative'] },
-            { title: 'Analyze qualitative data', description: 'Code and theme qualitative data.', assigneeRole: 'member', dueOffset: 55, priority: 'high', labels: ['analysis', 'qualitative'] },
-            { title: 'Segment analysis', description: 'Analyze by consumer segments.', assigneeRole: 'member', dueOffset: 60, priority: 'high', labels: ['analysis', 'segmentation'] },
+            {
+              title: 'Analyze survey data',
+              description: 'Process quantitative data.',
+              assigneeRole: 'member',
+              dueOffset: 48,
+              priority: 'high',
+              labels: ['analysis', 'quantitative'],
+            },
+            {
+              title: 'Analyze qualitative data',
+              description: 'Code and theme qualitative data.',
+              assigneeRole: 'member',
+              dueOffset: 55,
+              priority: 'high',
+              labels: ['analysis', 'qualitative'],
+            },
+            {
+              title: 'Segment analysis',
+              description: 'Analyze by consumer segments.',
+              assigneeRole: 'member',
+              dueOffset: 60,
+              priority: 'high',
+              labels: ['analysis', 'segmentation'],
+            },
           ],
         },
         {
           name: 'Insights Development',
           description: 'Develop consumer insights',
           tasks: [
-            { title: 'Identify key insights', description: 'Extract actionable insights.', assigneeRole: 'lead', dueOffset: 68, priority: 'high', labels: ['insights', 'key-findings'] },
-            { title: 'Develop personas', description: 'Create consumer personas.', assigneeRole: 'member', dueOffset: 73, priority: 'high', labels: ['insights', 'personas'] },
-            { title: 'Map consumer journey', description: 'Document decision journey.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['insights', 'journey'] },
+            {
+              title: 'Identify key insights',
+              description: 'Extract actionable insights.',
+              assigneeRole: 'lead',
+              dueOffset: 68,
+              priority: 'high',
+              labels: ['insights', 'key-findings'],
+            },
+            {
+              title: 'Develop personas',
+              description: 'Create consumer personas.',
+              assigneeRole: 'member',
+              dueOffset: 73,
+              priority: 'high',
+              labels: ['insights', 'personas'],
+            },
+            {
+              title: 'Map consumer journey',
+              description: 'Document decision journey.',
+              assigneeRole: 'member',
+              dueOffset: 78,
+              priority: 'high',
+              labels: ['insights', 'journey'],
+            },
           ],
         },
         {
           name: 'Delivery',
           description: 'Deliver insights',
           tasks: [
-            { title: 'Create report', description: 'Write insights report.', assigneeRole: 'member', dueOffset: 85, priority: 'high', labels: ['delivery', 'report'] },
-            { title: 'Present findings', description: 'Share with stakeholders.', assigneeRole: 'lead', dueOffset: 92, priority: 'high', labels: ['delivery', 'presentation'] },
-            { title: 'Develop recommendations', description: 'Create strategic recommendations.', assigneeRole: 'lead', dueOffset: 98, priority: 'high', labels: ['delivery', 'recommendations'] },
+            {
+              title: 'Create report',
+              description: 'Write insights report.',
+              assigneeRole: 'member',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['delivery', 'report'],
+            },
+            {
+              title: 'Present findings',
+              description: 'Share with stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 92,
+              priority: 'high',
+              labels: ['delivery', 'presentation'],
+            },
+            {
+              title: 'Develop recommendations',
+              description: 'Create strategic recommendations.',
+              assigneeRole: 'lead',
+              dueOffset: 98,
+              priority: 'high',
+              labels: ['delivery', 'recommendations'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['planning', 'research', 'analysis', 'insights', 'delivery'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'research', 'analysis', 'insights', 'delivery'],
+      },
     },
     settings: { consumerPanels: true, behavioralData: true },
   },
@@ -4148,7 +4992,13 @@ export const RESEARCH_TEMPLATES = [
       { id: 'delivery', name: 'Delivery', order: 4, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Focus Area', type: 'select', description: 'Primary focus', options: ['Product', 'Pricing', 'Marketing', 'Technology', 'Full Business'], isRequired: false },
+      {
+        name: 'Focus Area',
+        type: 'select',
+        description: 'Primary focus',
+        options: ['Product', 'Pricing', 'Marketing', 'Technology', 'Full Business'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -4156,50 +5006,165 @@ export const RESEARCH_TEMPLATES = [
           name: 'Scoping',
           description: 'Define research scope',
           tasks: [
-            { title: 'Identify competitors', description: 'List direct and indirect competitors.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['scoping', 'competitors'] },
-            { title: 'Define analysis framework', description: 'Decide comparison dimensions.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['scoping', 'framework'] },
-            { title: 'Prioritize competitors', description: 'Focus on key competitors.', assigneeRole: 'lead', dueOffset: 8, priority: 'high', labels: ['scoping', 'prioritization'] },
+            {
+              title: 'Identify competitors',
+              description: 'List direct and indirect competitors.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['scoping', 'competitors'],
+            },
+            {
+              title: 'Define analysis framework',
+              description: 'Decide comparison dimensions.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['scoping', 'framework'],
+            },
+            {
+              title: 'Prioritize competitors',
+              description: 'Focus on key competitors.',
+              assigneeRole: 'lead',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['scoping', 'prioritization'],
+            },
           ],
         },
         {
           name: 'Research',
           description: 'Gather competitive intelligence',
           tasks: [
-            { title: 'Product analysis', description: 'Analyze competitor products.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['research', 'product'] },
-            { title: 'Pricing analysis', description: 'Research pricing strategies.', assigneeRole: 'member', dueOffset: 20, priority: 'high', labels: ['research', 'pricing'] },
-            { title: 'Marketing analysis', description: 'Study marketing approaches.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['research', 'marketing'] },
-            { title: 'Customer feedback', description: 'Analyze competitor reviews.', assigneeRole: 'member', dueOffset: 30, priority: 'medium', labels: ['research', 'feedback'] },
+            {
+              title: 'Product analysis',
+              description: 'Analyze competitor products.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['research', 'product'],
+            },
+            {
+              title: 'Pricing analysis',
+              description: 'Research pricing strategies.',
+              assigneeRole: 'member',
+              dueOffset: 20,
+              priority: 'high',
+              labels: ['research', 'pricing'],
+            },
+            {
+              title: 'Marketing analysis',
+              description: 'Study marketing approaches.',
+              assigneeRole: 'member',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['research', 'marketing'],
+            },
+            {
+              title: 'Customer feedback',
+              description: 'Analyze competitor reviews.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['research', 'feedback'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze competitive position',
           tasks: [
-            { title: 'Feature comparison', description: 'Create feature matrix.', assigneeRole: 'member', dueOffset: 38, priority: 'high', labels: ['analysis', 'features'] },
-            { title: 'SWOT analysis', description: 'Analyze strengths and weaknesses.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['analysis', 'swot'] },
-            { title: 'Positioning map', description: 'Create competitive positioning.', assigneeRole: 'member', dueOffset: 46, priority: 'high', labels: ['analysis', 'positioning'] },
+            {
+              title: 'Feature comparison',
+              description: 'Create feature matrix.',
+              assigneeRole: 'member',
+              dueOffset: 38,
+              priority: 'high',
+              labels: ['analysis', 'features'],
+            },
+            {
+              title: 'SWOT analysis',
+              description: 'Analyze strengths and weaknesses.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['analysis', 'swot'],
+            },
+            {
+              title: 'Positioning map',
+              description: 'Create competitive positioning.',
+              assigneeRole: 'member',
+              dueOffset: 46,
+              priority: 'high',
+              labels: ['analysis', 'positioning'],
+            },
           ],
         },
         {
           name: 'Strategy',
           description: 'Develop strategic response',
           tasks: [
-            { title: 'Identify opportunities', description: 'Find competitive gaps.', assigneeRole: 'lead', dueOffset: 52, priority: 'high', labels: ['strategy', 'opportunities'] },
-            { title: 'Develop recommendations', description: 'Create strategic recommendations.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['strategy', 'recommendations'] },
-            { title: 'Create battle cards', description: 'Build sales enablement tools.', assigneeRole: 'member', dueOffset: 63, priority: 'medium', labels: ['strategy', 'sales'] },
+            {
+              title: 'Identify opportunities',
+              description: 'Find competitive gaps.',
+              assigneeRole: 'lead',
+              dueOffset: 52,
+              priority: 'high',
+              labels: ['strategy', 'opportunities'],
+            },
+            {
+              title: 'Develop recommendations',
+              description: 'Create strategic recommendations.',
+              assigneeRole: 'lead',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['strategy', 'recommendations'],
+            },
+            {
+              title: 'Create battle cards',
+              description: 'Build sales enablement tools.',
+              assigneeRole: 'member',
+              dueOffset: 63,
+              priority: 'medium',
+              labels: ['strategy', 'sales'],
+            },
           ],
         },
         {
           name: 'Delivery',
           description: 'Deliver analysis',
           tasks: [
-            { title: 'Write report', description: 'Document full analysis.', assigneeRole: 'member', dueOffset: 70, priority: 'high', labels: ['delivery', 'report'] },
-            { title: 'Present findings', description: 'Share with stakeholders.', assigneeRole: 'lead', dueOffset: 78, priority: 'high', labels: ['delivery', 'presentation'] },
-            { title: 'Set up monitoring', description: 'Establish ongoing tracking.', assigneeRole: 'member', dueOffset: 82, priority: 'medium', labels: ['delivery', 'monitoring'] },
+            {
+              title: 'Write report',
+              description: 'Document full analysis.',
+              assigneeRole: 'member',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['delivery', 'report'],
+            },
+            {
+              title: 'Present findings',
+              description: 'Share with stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 78,
+              priority: 'high',
+              labels: ['delivery', 'presentation'],
+            },
+            {
+              title: 'Set up monitoring',
+              description: 'Establish ongoing tracking.',
+              assigneeRole: 'member',
+              dueOffset: 82,
+              priority: 'medium',
+              labels: ['delivery', 'monitoring'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['scoping', 'research', 'analysis', 'strategy', 'delivery'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['scoping', 'research', 'analysis', 'strategy', 'delivery'],
+      },
     },
     settings: { competitiveIntelligence: true, salesEnablement: true },
   },
@@ -4230,50 +5195,165 @@ export const RESEARCH_TEMPLATES = [
           name: 'Scoping',
           description: 'Define analysis scope',
           tasks: [
-            { title: 'Define industry boundaries', description: 'Specify industry scope.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['scoping', 'boundaries'] },
-            { title: 'Identify key questions', description: 'List analysis questions.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['scoping', 'questions'] },
-            { title: 'Map data sources', description: 'Identify information sources.', assigneeRole: 'member', dueOffset: 8, priority: 'high', labels: ['scoping', 'sources'] },
+            {
+              title: 'Define industry boundaries',
+              description: 'Specify industry scope.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['scoping', 'boundaries'],
+            },
+            {
+              title: 'Identify key questions',
+              description: 'List analysis questions.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['scoping', 'questions'],
+            },
+            {
+              title: 'Map data sources',
+              description: 'Identify information sources.',
+              assigneeRole: 'member',
+              dueOffset: 8,
+              priority: 'high',
+              labels: ['scoping', 'sources'],
+            },
           ],
         },
         {
           name: 'Research',
           description: 'Gather industry data',
           tasks: [
-            { title: 'Market size research', description: 'Determine market size and growth.', assigneeRole: 'member', dueOffset: 15, priority: 'high', labels: ['research', 'market-size'] },
-            { title: 'Industry structure', description: 'Map industry participants.', assigneeRole: 'member', dueOffset: 22, priority: 'high', labels: ['research', 'structure'] },
-            { title: 'Regulatory environment', description: 'Research regulations.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['research', 'regulatory'] },
-            { title: 'Technology landscape', description: 'Analyze technology trends.', assigneeRole: 'member', dueOffset: 32, priority: 'medium', labels: ['research', 'technology'] },
+            {
+              title: 'Market size research',
+              description: 'Determine market size and growth.',
+              assigneeRole: 'member',
+              dueOffset: 15,
+              priority: 'high',
+              labels: ['research', 'market-size'],
+            },
+            {
+              title: 'Industry structure',
+              description: 'Map industry participants.',
+              assigneeRole: 'member',
+              dueOffset: 22,
+              priority: 'high',
+              labels: ['research', 'structure'],
+            },
+            {
+              title: 'Regulatory environment',
+              description: 'Research regulations.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['research', 'regulatory'],
+            },
+            {
+              title: 'Technology landscape',
+              description: 'Analyze technology trends.',
+              assigneeRole: 'member',
+              dueOffset: 32,
+              priority: 'medium',
+              labels: ['research', 'technology'],
+            },
           ],
         },
         {
           name: 'Analysis',
           description: 'Analyze industry dynamics',
           tasks: [
-            { title: 'Porter five forces', description: 'Conduct five forces analysis.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['analysis', 'five-forces'] },
-            { title: 'PESTEL analysis', description: 'Analyze macro environment.', assigneeRole: 'member', dueOffset: 45, priority: 'high', labels: ['analysis', 'pestel'] },
-            { title: 'Value chain analysis', description: 'Map industry value chain.', assigneeRole: 'member', dueOffset: 50, priority: 'high', labels: ['analysis', 'value-chain'] },
+            {
+              title: 'Porter five forces',
+              description: 'Conduct five forces analysis.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['analysis', 'five-forces'],
+            },
+            {
+              title: 'PESTEL analysis',
+              description: 'Analyze macro environment.',
+              assigneeRole: 'member',
+              dueOffset: 45,
+              priority: 'high',
+              labels: ['analysis', 'pestel'],
+            },
+            {
+              title: 'Value chain analysis',
+              description: 'Map industry value chain.',
+              assigneeRole: 'member',
+              dueOffset: 50,
+              priority: 'high',
+              labels: ['analysis', 'value-chain'],
+            },
           ],
         },
         {
           name: 'Synthesis',
           description: 'Synthesize findings',
           tasks: [
-            { title: 'Identify key drivers', description: 'Determine industry drivers.', assigneeRole: 'lead', dueOffset: 58, priority: 'high', labels: ['synthesis', 'drivers'] },
-            { title: 'Forecast trends', description: 'Project future developments.', assigneeRole: 'lead', dueOffset: 65, priority: 'high', labels: ['synthesis', 'forecasting'] },
-            { title: 'Strategic implications', description: 'Draw strategic conclusions.', assigneeRole: 'lead', dueOffset: 70, priority: 'high', labels: ['synthesis', 'strategy'] },
+            {
+              title: 'Identify key drivers',
+              description: 'Determine industry drivers.',
+              assigneeRole: 'lead',
+              dueOffset: 58,
+              priority: 'high',
+              labels: ['synthesis', 'drivers'],
+            },
+            {
+              title: 'Forecast trends',
+              description: 'Project future developments.',
+              assigneeRole: 'lead',
+              dueOffset: 65,
+              priority: 'high',
+              labels: ['synthesis', 'forecasting'],
+            },
+            {
+              title: 'Strategic implications',
+              description: 'Draw strategic conclusions.',
+              assigneeRole: 'lead',
+              dueOffset: 70,
+              priority: 'high',
+              labels: ['synthesis', 'strategy'],
+            },
           ],
         },
         {
           name: 'Delivery',
           description: 'Deliver analysis',
           tasks: [
-            { title: 'Write industry report', description: 'Document full analysis.', assigneeRole: 'member', dueOffset: 78, priority: 'high', labels: ['delivery', 'report'] },
-            { title: 'Create executive summary', description: 'Write executive brief.', assigneeRole: 'lead', dueOffset: 85, priority: 'high', labels: ['delivery', 'summary'] },
-            { title: 'Present findings', description: 'Share with stakeholders.', assigneeRole: 'lead', dueOffset: 90, priority: 'high', labels: ['delivery', 'presentation'] },
+            {
+              title: 'Write industry report',
+              description: 'Document full analysis.',
+              assigneeRole: 'member',
+              dueOffset: 78,
+              priority: 'high',
+              labels: ['delivery', 'report'],
+            },
+            {
+              title: 'Create executive summary',
+              description: 'Write executive brief.',
+              assigneeRole: 'lead',
+              dueOffset: 85,
+              priority: 'high',
+              labels: ['delivery', 'summary'],
+            },
+            {
+              title: 'Present findings',
+              description: 'Share with stakeholders.',
+              assigneeRole: 'lead',
+              dueOffset: 90,
+              priority: 'high',
+              labels: ['delivery', 'presentation'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['scoping', 'research', 'analysis', 'synthesis', 'delivery'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['scoping', 'research', 'analysis', 'synthesis', 'delivery'],
+      },
     },
     settings: { frameworkBased: true, dataVisualization: true },
   },

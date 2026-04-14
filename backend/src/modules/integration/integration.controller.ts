@@ -24,17 +24,19 @@ export class IntegrationController {
     @Body() body: { channel_id?: string; conversation_id?: string },
     @CurrentUser('sub') userId: string,
   ) {
-    return this.integrationService.createVideoCall(workspaceId, body.channel_id, body.conversation_id, userId);
+    return this.integrationService.createVideoCall(
+      workspaceId,
+      body.channel_id,
+      body.conversation_id,
+      userId,
+    );
   }
 
   @Post('video-calls/:sessionId/join')
   @ApiOperation({ summary: 'Join a video call session' })
   @ApiParam({ name: 'sessionId', description: 'Video call session ID' })
   @ApiResponse({ status: 200, description: 'Joined video call' })
-  async joinVideoCall(
-    @Param('sessionId') sessionId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async joinVideoCall(@Param('sessionId') sessionId: string, @CurrentUser('sub') userId: string) {
     return this.integrationService.joinVideoCall(sessionId, userId);
   }
 
@@ -42,10 +44,7 @@ export class IntegrationController {
   @ApiOperation({ summary: 'End a video call session' })
   @ApiParam({ name: 'sessionId', description: 'Video call session ID' })
   @ApiResponse({ status: 200, description: 'Video call ended' })
-  async endVideoCall(
-    @Param('sessionId') sessionId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async endVideoCall(@Param('sessionId') sessionId: string, @CurrentUser('sub') userId: string) {
     return this.integrationService.endVideoCall(sessionId, userId);
   }
 
@@ -56,9 +55,7 @@ export class IntegrationController {
   @Post('ai/generate-text')
   @ApiOperation({ summary: 'Generate text using AI' })
   @ApiResponse({ status: 200, description: 'Text generated' })
-  async generateText(
-    @Body() body: { prompt: string; options?: any },
-  ) {
+  async generateText(@Body() body: { prompt: string; options?: any }) {
     return this.integrationService.generateText(body.prompt, body.options);
   }
 
@@ -74,9 +71,7 @@ export class IntegrationController {
   @Post('ai/meeting-notes')
   @ApiOperation({ summary: 'Generate meeting notes from transcript' })
   @ApiResponse({ status: 200, description: 'Meeting notes generated' })
-  async generateMeetingNotes(
-    @Body() body: { transcript: string },
-  ) {
+  async generateMeetingNotes(@Body() body: { transcript: string }) {
     return this.integrationService.generateMeetingNotes(body.transcript);
   }
 
@@ -84,7 +79,11 @@ export class IntegrationController {
   @ApiOperation({ summary: 'Analyze content' })
   @ApiResponse({ status: 200, description: 'Content analyzed' })
   async analyzeContent(
-    @Body() body: { content: string; analysis_type?: 'sentiment' | 'readability' | 'seo' | 'engagement' | 'all' },
+    @Body()
+    body: {
+      content: string;
+      analysis_type?: 'sentiment' | 'readability' | 'seo' | 'engagement' | 'all';
+    },
   ) {
     return this.integrationService.analyzeContent(body.content, body.analysis_type || 'all');
   }
@@ -96,9 +95,7 @@ export class IntegrationController {
   @Post('email/send')
   @ApiOperation({ summary: 'Send notification email' })
   @ApiResponse({ status: 200, description: 'Email sent' })
-  async sendEmail(
-    @Body() body: { to: string | string[]; subject: string; content: string },
-  ) {
+  async sendEmail(@Body() body: { to: string | string[]; subject: string; content: string }) {
     return this.integrationService.sendNotificationEmail(body.to, body.subject, body.content);
   }
 
@@ -117,7 +114,12 @@ export class IntegrationController {
     if (body.user_ids) {
       return this.integrationService.sendPushNotification(body.user_ids, body.title, body.body);
     } else {
-      return this.integrationService.sendWorkspaceNotification(workspaceId, body.title, body.body, userId);
+      return this.integrationService.sendWorkspaceNotification(
+        workspaceId,
+        body.title,
+        body.body,
+        userId,
+      );
     }
   }
 

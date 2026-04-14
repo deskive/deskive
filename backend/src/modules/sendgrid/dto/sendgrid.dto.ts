@@ -1,4 +1,13 @@
-import { IsString, IsOptional, IsBoolean, IsEmail, IsArray, ValidateNested, IsDateString, IsNumber } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsEmail,
+  IsArray,
+  ValidateNested,
+  IsDateString,
+  IsNumber,
+} from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -217,7 +226,10 @@ export class ListTemplatesResponseDto {
 }
 
 export class ListTemplatesQueryDto {
-  @ApiPropertyOptional({ description: 'Template generations to include (legacy, dynamic)', default: 'dynamic' })
+  @ApiPropertyOptional({
+    description: 'Template generations to include (legacy, dynamic)',
+    default: 'dynamic',
+  })
   @IsOptional()
   @IsString()
   generations?: string;
@@ -317,7 +329,10 @@ export class BulkEmailRecipientDto {
 }
 
 export class SendBulkEmailDto {
-  @ApiProperty({ description: 'List of recipients with optional template data', type: [BulkEmailRecipientDto] })
+  @ApiProperty({
+    description: 'List of recipients with optional template data',
+    type: [BulkEmailRecipientDto],
+  })
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => BulkEmailRecipientDto)

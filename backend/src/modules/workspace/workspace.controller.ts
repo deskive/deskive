@@ -24,7 +24,13 @@ import {
 } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { WorkspaceService } from './workspace.service';
-import { CreateWorkspaceDto, UpdateWorkspaceDto, InviteMemberDto, UpdateMemberRoleDto, UpdateWorkspaceSettingsDto } from './dto';
+import {
+  CreateWorkspaceDto,
+  UpdateWorkspaceDto,
+  InviteMemberDto,
+  UpdateMemberRoleDto,
+  UpdateWorkspaceSettingsDto,
+} from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { RoleGuard } from '../../common/guards/role.guard';
@@ -43,10 +49,7 @@ export class WorkspaceController {
   @ApiOperation({ summary: 'Create a new workspace' })
   @ApiResponse({ status: 201, description: 'Workspace created successfully' })
   @ApiResponse({ status: 409, description: 'Workspace name already exists' })
-  async create(
-    @Body() createWorkspaceDto: CreateWorkspaceDto,
-    @CurrentUser() user: any,
-  ) {
+  async create(@Body() createWorkspaceDto: CreateWorkspaceDto, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     console.log('[WorkspaceController.create] User from token:', user);
     console.log('[WorkspaceController.create] Using userId:', userId);
@@ -69,10 +72,7 @@ export class WorkspaceController {
   })
   @ApiResponse({ status: 201, description: 'Logo uploaded successfully' })
   @UseInterceptors(FileInterceptor('file'))
-  async uploadLogo(
-    @UploadedFile() file: Express.Multer.File,
-    @CurrentUser() user: any,
-  ) {
+  async uploadLogo(@UploadedFile() file: Express.Multer.File, @CurrentUser() user: any) {
     if (!file) {
       throw new BadRequestException('No file uploaded');
     }
@@ -97,10 +97,7 @@ export class WorkspaceController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Workspace details' })
   @ApiResponse({ status: 404, description: 'Workspace not found' })
-  async findOne(
-    @Param('workspaceId') id: string,
-    @CurrentUser() user: any,
-  ) {
+  async findOne(@Param('workspaceId') id: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.findOne(id, userId);
   }
@@ -128,10 +125,7 @@ export class WorkspaceController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Workspace deleted successfully' })
   @ApiResponse({ status: 403, description: 'Only owner can delete workspace' })
-  async remove(
-    @Param('workspaceId') id: string,
-    @CurrentUser() user: any,
-  ) {
+  async remove(@Param('workspaceId') id: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.remove(id, userId);
   }
@@ -157,10 +151,7 @@ export class WorkspaceController {
   @ApiOperation({ summary: 'Get all members of the workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'List of workspace members' })
-  async getMembers(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser() user: any,
-  ) {
+  async getMembers(@Param('workspaceId') workspaceId: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.getMembers(workspaceId, userId);
   }
@@ -180,7 +171,12 @@ export class WorkspaceController {
     @CurrentUser() user: any,
   ) {
     const userId = user.sub || user.userId;
-    return this.workspaceService.updateMemberRole(workspaceId, memberId, updateMemberRoleDto, userId);
+    return this.workspaceService.updateMemberRole(
+      workspaceId,
+      memberId,
+      updateMemberRoleDto,
+      userId,
+    );
   }
 
   @Delete(':workspaceId/members/:memberId')
@@ -212,14 +208,11 @@ export class WorkspaceController {
       properties: {
         total_members: { type: 'number', description: 'Total number of members in the workspace' },
         active_members: { type: 'number', description: 'Number of active members' },
-        pending_invitations: { type: 'number', description: 'Number of pending invitations' }
-      }
-    }
+        pending_invitations: { type: 'number', description: 'Number of pending invitations' },
+      },
+    },
   })
-  async getWorkspaceStats(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser() user: any,
-  ) {
+  async getWorkspaceStats(@Param('workspaceId') workspaceId: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.getWorkspaceStats(workspaceId, userId);
   }
@@ -240,15 +233,12 @@ export class WorkspaceController {
         role: { type: 'string', enum: ['owner', 'admin', 'member', 'viewer'] },
         permissions: { type: 'array', items: { type: 'string' } },
         joined_at: { type: 'string', format: 'date-time' },
-        is_active: { type: 'boolean' }
-      }
-    }
+        is_active: { type: 'boolean' },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Membership not found' })
-  async getCurrentMembership(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser() user: any,
-  ) {
+  async getCurrentMembership(@Param('workspaceId') workspaceId: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.getCurrentMembership(workspaceId, userId);
   }
@@ -260,10 +250,7 @@ export class WorkspaceController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Member presence status retrieved successfully' })
   @ApiResponse({ status: 403, description: 'User is not a workspace member' })
-  async getMemberPresence(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser() user: any,
-  ) {
+  async getMemberPresence(@Param('workspaceId') workspaceId: string, @CurrentUser() user: any) {
     const userId = user.sub || user.userId;
     return this.workspaceService.getMemberPresence(workspaceId, userId);
   }
@@ -292,11 +279,11 @@ export class WorkspaceController {
             id: { type: 'string' },
             name: { type: 'string' },
             email: { type: 'string' },
-            avatar: { type: 'string' }
-          }
-        }
-      }
-    }
+            avatar: { type: 'string' },
+          },
+        },
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Member not found' })
   async getMemberById(
@@ -373,5 +360,4 @@ export class WorkspaceController {
     const userId = user.sub || user.userId;
     return this.workspaceService.resendInvitation(workspaceId, invitationId, userId);
   }
-
 }

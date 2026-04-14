@@ -608,6 +608,7 @@ export const confirm = (
       cleanup();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { createRoot } = require('react-dom/client');
     const reactRoot = createRoot(container);
 
@@ -652,6 +653,7 @@ export const alert = (
       cleanup();
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { createRoot } = require('react-dom/client');
     const reactRoot = createRoot(container);
 

@@ -7,21 +7,21 @@ import { IsString, IsOptional, IsArray, IsBoolean, IsObject } from 'class-valida
 export class ExecuteCommandDto {
   @ApiProperty({
     description: 'Natural language command to execute',
-    example: 'Schedule a meeting with John tomorrow at 2pm about the marketing project'
+    example: 'Schedule a meeting with John tomorrow at 2pm about the marketing project',
   })
   @IsString()
   command: string;
 
   @ApiProperty({
     description: 'Workspace ID for context',
-    example: 'workspace-uuid'
+    example: 'workspace-uuid',
   })
   @IsString()
   workspaceId: string;
 
   @ApiProperty({
     description: 'Optional session ID for conversation continuity',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +30,7 @@ export class ExecuteCommandDto {
   @ApiProperty({
     description: 'Additional context for the command',
     required: false,
-    example: { currentView: 'calendar', selectedProjectId: 'project-uuid' }
+    example: { currentView: 'calendar', selectedProjectId: 'project-uuid' },
   })
   @IsOptional()
   @IsObject()
@@ -38,7 +38,7 @@ export class ExecuteCommandDto {
 
   @ApiProperty({
     description: 'Whether to execute actions or just preview them',
-    default: true
+    default: true,
   })
   @IsOptional()
   @IsBoolean()

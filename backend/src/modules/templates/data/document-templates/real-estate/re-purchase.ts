@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const RE_PURCHASE_TEMPLATES = [
   {
@@ -24,19 +21,34 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: 'BUYER:\n', attributes: { bold: true } },
         { insert: '{{buyer_name}}\n{{buyer_address}}\n\n' },
         { insert: '1. PROPERTY\n', attributes: { bold: true } },
-        { insert: 'Address: {{property_address}}\nLegal Description: {{legal_description}}\nProperty Type: {{property_type}}\n\n' },
+        {
+          insert:
+            'Address: {{property_address}}\nLegal Description: {{legal_description}}\nProperty Type: {{property_type}}\n\n',
+        },
         { insert: '2. PURCHASE PRICE\n', attributes: { bold: true } },
         { insert: 'Purchase Price: {{purchase_price}}\n\n' },
         { insert: '3. EARNEST MONEY DEPOSIT\n', attributes: { bold: true } },
-        { insert: 'Amount: {{earnest_money}}\nPayable to: {{escrow_agent}}\nDue within {{deposit_days}} days of acceptance\n\n' },
+        {
+          insert:
+            'Amount: {{earnest_money}}\nPayable to: {{escrow_agent}}\nDue within {{deposit_days}} days of acceptance\n\n',
+        },
         { insert: '4. FINANCING\n', attributes: { bold: true } },
-        { insert: 'Type: {{financing_type}}\nLoan Amount: {{loan_amount}}\nFinancing Contingency: {{financing_contingency}}\n\n' },
+        {
+          insert:
+            'Type: {{financing_type}}\nLoan Amount: {{loan_amount}}\nFinancing Contingency: {{financing_contingency}}\n\n',
+        },
         { insert: '5. CLOSING\n', attributes: { bold: true } },
         { insert: 'Closing Date: {{closing_date}}\nClosing Agent: {{closing_agent}}\n\n' },
         { insert: '6. TITLE\n', attributes: { bold: true } },
-        { insert: 'Seller shall convey marketable title by {{deed_type}}.\nTitle Company: {{title_company}}\n\n' },
+        {
+          insert:
+            'Seller shall convey marketable title by {{deed_type}}.\nTitle Company: {{title_company}}\n\n',
+        },
         { insert: '7. INSPECTION CONTINGENCY\n', attributes: { bold: true } },
-        { insert: 'Buyer has {{inspection_days}} days for inspections.\nInspection Types: {{inspection_types}}\n\n' },
+        {
+          insert:
+            'Buyer has {{inspection_days}} days for inspections.\nInspection Types: {{inspection_types}}\n\n',
+        },
         { insert: '8. APPRAISAL CONTINGENCY\n', attributes: { bold: true } },
         { insert: '{{appraisal_contingency}}\n\n' },
         { insert: '9. PROPERTY CONDITION\n', attributes: { bold: true } },
@@ -48,9 +60,15 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: '12. POSSESSION\n', attributes: { bold: true } },
         { insert: 'Possession Date: {{possession_date}}\n\n' },
         { insert: '13. CLOSING COSTS\n', attributes: { bold: true } },
-        { insert: 'Buyer Pays: {{buyer_closing_costs}}\nSeller Pays: {{seller_closing_costs}}\nSeller Concessions: {{seller_concessions}}\n\n' },
+        {
+          insert:
+            'Buyer Pays: {{buyer_closing_costs}}\nSeller Pays: {{seller_closing_costs}}\nSeller Concessions: {{seller_concessions}}\n\n',
+        },
         { insert: '14. PRORATIONS\n', attributes: { bold: true } },
-        { insert: 'Property taxes, HOA dues, and utilities shall be prorated as of closing date.\n\n' },
+        {
+          insert:
+            'Property taxes, HOA dues, and utilities shall be prorated as of closing date.\n\n',
+        },
         { insert: '15. DEFAULT\n', attributes: { bold: true } },
         { insert: '{{default_terms}}\n\n' },
         { insert: '16. GOVERNING LAW\n', attributes: { bold: true } },
@@ -68,36 +86,94 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'buyer_address', type: 'text', label: 'Buyer Address', required: true },
       { key: 'property_address', type: 'text', label: 'Property Address', required: true },
       { key: 'legal_description', type: 'textarea', label: 'Legal Description', required: true },
-      { key: 'property_type', type: 'select', label: 'Property Type', required: true, options: ['Single Family', 'Condo', 'Townhouse', 'Multi-Family', 'Land', 'Commercial'] },
+      {
+        key: 'property_type',
+        type: 'select',
+        label: 'Property Type',
+        required: true,
+        options: ['Single Family', 'Condo', 'Townhouse', 'Multi-Family', 'Land', 'Commercial'],
+      },
       { key: 'purchase_price', type: 'currency', label: 'Purchase Price', required: true },
       { key: 'earnest_money', type: 'currency', label: 'Earnest Money', required: true },
       { key: 'escrow_agent', type: 'text', label: 'Escrow Agent', required: true },
       { key: 'deposit_days', type: 'number', label: 'Deposit Due (Days)', required: true },
-      { key: 'financing_type', type: 'select', label: 'Financing Type', required: true, options: ['Conventional', 'FHA', 'VA', 'Cash', 'Owner Financing'] },
+      {
+        key: 'financing_type',
+        type: 'select',
+        label: 'Financing Type',
+        required: true,
+        options: ['Conventional', 'FHA', 'VA', 'Cash', 'Owner Financing'],
+      },
       { key: 'loan_amount', type: 'currency', label: 'Loan Amount', required: false },
-      { key: 'financing_contingency', type: 'text', label: 'Financing Contingency', required: false },
+      {
+        key: 'financing_contingency',
+        type: 'text',
+        label: 'Financing Contingency',
+        required: false,
+      },
       { key: 'closing_date', type: 'date', label: 'Closing Date', required: true },
       { key: 'closing_agent', type: 'text', label: 'Closing Agent', required: true },
-      { key: 'deed_type', type: 'select', label: 'Deed Type', required: true, options: ['Warranty Deed', 'Quitclaim Deed', 'Special Warranty Deed'] },
+      {
+        key: 'deed_type',
+        type: 'select',
+        label: 'Deed Type',
+        required: true,
+        options: ['Warranty Deed', 'Quitclaim Deed', 'Special Warranty Deed'],
+      },
       { key: 'title_company', type: 'text', label: 'Title Company', required: true },
       { key: 'inspection_days', type: 'number', label: 'Inspection Period (Days)', required: true },
       { key: 'inspection_types', type: 'textarea', label: 'Inspection Types', required: true },
-      { key: 'appraisal_contingency', type: 'textarea', label: 'Appraisal Contingency', required: false },
-      { key: 'property_condition', type: 'select', label: 'Property Condition', required: true, options: ['As-Is', 'Per Inspection', 'Move-In Ready'] },
+      {
+        key: 'appraisal_contingency',
+        type: 'textarea',
+        label: 'Appraisal Contingency',
+        required: false,
+      },
+      {
+        key: 'property_condition',
+        type: 'select',
+        label: 'Property Condition',
+        required: true,
+        options: ['As-Is', 'Per Inspection', 'Move-In Ready'],
+      },
       { key: 'inclusions', type: 'textarea', label: 'Inclusions', required: false },
       { key: 'exclusions', type: 'textarea', label: 'Exclusions', required: false },
       { key: 'possession_date', type: 'date', label: 'Possession Date', required: true },
-      { key: 'buyer_closing_costs', type: 'textarea', label: 'Buyer Closing Costs', required: true },
-      { key: 'seller_closing_costs', type: 'textarea', label: 'Seller Closing Costs', required: true },
+      {
+        key: 'buyer_closing_costs',
+        type: 'textarea',
+        label: 'Buyer Closing Costs',
+        required: true,
+      },
+      {
+        key: 'seller_closing_costs',
+        type: 'textarea',
+        label: 'Seller Closing Costs',
+        required: true,
+      },
       { key: 'seller_concessions', type: 'currency', label: 'Seller Concessions', required: false },
       { key: 'default_terms', type: 'textarea', label: 'Default Terms', required: true },
       { key: 'governing_state', type: 'text', label: 'Governing State', required: true },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Land Purchase Agreement',
@@ -119,7 +195,10 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: 'BUYER: ', attributes: { bold: true } },
         { insert: '{{buyer_name}}\n\n' },
         { insert: '1. PROPERTY DESCRIPTION\n', attributes: { bold: true } },
-        { insert: 'Legal Description: {{legal_description}}\nParcel Number: {{parcel_number}}\nAcreage: {{acreage}} acres\nZoning: {{zoning}}\n\n' },
+        {
+          insert:
+            'Legal Description: {{legal_description}}\nParcel Number: {{parcel_number}}\nAcreage: {{acreage}} acres\nZoning: {{zoning}}\n\n',
+        },
         { insert: '2. PURCHASE PRICE\n', attributes: { bold: true } },
         { insert: 'Total Price: {{purchase_price}}\nPrice Per Acre: {{price_per_acre}}\n\n' },
         { insert: '3. DEPOSIT\n', attributes: { bold: true } },
@@ -127,7 +206,10 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: '4. FINANCING\n', attributes: { bold: true } },
         { insert: '{{financing_terms}}\n\n' },
         { insert: '5. DUE DILIGENCE PERIOD\n', attributes: { bold: true } },
-        { insert: 'Days: {{due_diligence_days}}\nBuyer may investigate: {{due_diligence_items}}\n\n' },
+        {
+          insert:
+            'Days: {{due_diligence_days}}\nBuyer may investigate: {{due_diligence_items}}\n\n',
+        },
         { insert: '6. SURVEY\n', attributes: { bold: true } },
         { insert: 'Survey Required: {{survey_required}}\nPaid by: {{survey_paid_by}}\n\n' },
         { insert: '7. ENVIRONMENTAL\n', attributes: { bold: true } },
@@ -159,10 +241,32 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'deposit_due', type: 'date', label: 'Deposit Due Date', required: true },
       { key: 'financing_terms', type: 'textarea', label: 'Financing Terms', required: true },
       { key: 'due_diligence_days', type: 'number', label: 'Due Diligence Days', required: true },
-      { key: 'due_diligence_items', type: 'textarea', label: 'Due Diligence Items', required: true },
-      { key: 'survey_required', type: 'select', label: 'Survey Required', required: true, options: ['Yes', 'No'] },
-      { key: 'survey_paid_by', type: 'select', label: 'Survey Paid By', required: false, options: ['Buyer', 'Seller', 'Split'] },
-      { key: 'environmental_assessment', type: 'textarea', label: 'Environmental Assessment', required: false },
+      {
+        key: 'due_diligence_items',
+        type: 'textarea',
+        label: 'Due Diligence Items',
+        required: true,
+      },
+      {
+        key: 'survey_required',
+        type: 'select',
+        label: 'Survey Required',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'survey_paid_by',
+        type: 'select',
+        label: 'Survey Paid By',
+        required: false,
+        options: ['Buyer', 'Seller', 'Split'],
+      },
+      {
+        key: 'environmental_assessment',
+        type: 'textarea',
+        label: 'Environmental Assessment',
+        required: false,
+      },
       { key: 'known_easements', type: 'textarea', label: 'Known Easements', required: false },
       { key: 'encumbrances', type: 'textarea', label: 'Encumbrances', required: false },
       { key: 'road_access', type: 'text', label: 'Road Access', required: true },
@@ -172,10 +276,24 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'title_insurance', type: 'text', label: 'Title Insurance', required: true },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Offer to Purchase',
@@ -193,7 +311,10 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: 'TO: {{seller_name}} ("Seller")\n\n' },
         { insert: 'FROM: {{buyer_name}} ("Buyer")\n\n' },
         { insert: 'PROPERTY: {{property_address}}\n\n' },
-        { insert: 'The undersigned Buyer hereby offers to purchase the above-described property on the following terms:\n\n' },
+        {
+          insert:
+            'The undersigned Buyer hereby offers to purchase the above-described property on the following terms:\n\n',
+        },
         { insert: '1. PURCHASE PRICE: ', attributes: { bold: true } },
         { insert: '{{purchase_price}}\n\n' },
         { insert: '2. EARNEST MONEY: ', attributes: { bold: true } },
@@ -234,7 +355,13 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'deposit_days', type: 'number', label: 'Deposit Days', required: true },
       { key: 'down_payment', type: 'currency', label: 'Down Payment', required: true },
       { key: 'financing_type', type: 'text', label: 'Financing Type', required: true },
-      { key: 'financing_contingency', type: 'select', label: 'Financing Contingency', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'financing_contingency',
+        type: 'select',
+        label: 'Financing Contingency',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'closing_date', type: 'date', label: 'Closing Date', required: true },
       { key: 'inspection_days', type: 'number', label: 'Inspection Days', required: true },
       { key: 'inclusions', type: 'textarea', label: 'Inclusions', required: false },
@@ -246,10 +373,24 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'buyer_email', type: 'email', label: 'Buyer Email', required: true },
     ],
     signatureFields: [
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 600 } },
-      { id: 'seller_signature', label: 'Seller Signature', required: false, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Counter Offer',
@@ -265,7 +406,10 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: 'COUNTER OFFER\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nDate: {{counter_date}}\nCounter Offer #: {{counter_number}}\n\n' },
         { insert: 'Property: {{property_address}}\n\n' },
-        { insert: 'In response to the offer dated {{original_offer_date}} from {{buyer_name}}, {{seller_name}} makes the following counter offer:\n\n' },
+        {
+          insert:
+            'In response to the offer dated {{original_offer_date}} from {{buyer_name}}, {{seller_name}} makes the following counter offer:\n\n',
+        },
         { insert: '1. PURCHASE PRICE\n', attributes: { bold: true } },
         { insert: 'Original: {{original_price}}\nCounter: {{counter_price}}\n\n' },
         { insert: '2. EARNEST MONEY\n', attributes: { bold: true } },
@@ -275,7 +419,10 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: '4. OTHER MODIFIED TERMS\n', attributes: { bold: true } },
         { insert: '{{modified_terms}}\n\n' },
         { insert: '5. TERMS THAT REMAIN UNCHANGED\n', attributes: { bold: true } },
-        { insert: 'All other terms of the original offer remain in effect unless specifically modified above.\n\n' },
+        {
+          insert:
+            'All other terms of the original offer remain in effect unless specifically modified above.\n\n',
+        },
         { insert: '6. EXPIRATION\n', attributes: { bold: true } },
         { insert: 'This counter offer expires on {{expiration_date}} at {{expiration_time}}\n\n' },
         { insert: 'SELLER: _________________________ Date: _____________\n\n' },
@@ -296,7 +443,12 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'seller_name', type: 'text', label: 'Seller Name', required: true },
       { key: 'original_price', type: 'currency', label: 'Original Price', required: true },
       { key: 'counter_price', type: 'currency', label: 'Counter Price', required: true },
-      { key: 'original_earnest', type: 'currency', label: 'Original Earnest Money', required: true },
+      {
+        key: 'original_earnest',
+        type: 'currency',
+        label: 'Original Earnest Money',
+        required: true,
+      },
       { key: 'counter_earnest', type: 'currency', label: 'Counter Earnest Money', required: true },
       { key: 'original_closing', type: 'date', label: 'Original Closing Date', required: true },
       { key: 'counter_closing', type: 'date', label: 'Counter Closing Date', required: true },
@@ -305,10 +457,24 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'expiration_time', type: 'text', label: 'Expiration Time', required: true },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller Signature', required: true, position: { page: 1, x: 100, y: 600 } },
-      { id: 'buyer_signature', label: 'Buyer Signature', required: false, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: false,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Quitclaim Deed',
@@ -334,15 +500,27 @@ export const RE_PURCHASE_TEMPLATES = [
         { insert: '{{legal_description}}\n\n' },
         { insert: 'Property Address: {{property_address}}\nParcel Number: {{parcel_number}}\n\n' },
         { insert: 'GRANT:\n', attributes: { bold: true } },
-        { insert: 'Grantor hereby QUITCLAIMS, RELEASES, AND CONVEYS to Grantee all of Grantor\'s right, title, and interest in and to the above-described property.\n\n' },
+        {
+          insert:
+            "Grantor hereby QUITCLAIMS, RELEASES, AND CONVEYS to Grantee all of Grantor's right, title, and interest in and to the above-described property.\n\n",
+        },
         { insert: 'This deed is made without any warranties whatsoever, express or implied.\n\n' },
         { insert: 'IN WITNESS WHEREOF, Grantor has executed this deed.\n\n' },
         { insert: 'GRANTOR:\n', attributes: { bold: true } },
-        { insert: 'Signature: _________________________\nPrint Name: {{grantor_name}}\nDate: {{deed_date}}\n\n' },
+        {
+          insert:
+            'Signature: _________________________\nPrint Name: {{grantor_name}}\nDate: {{deed_date}}\n\n',
+        },
         { insert: 'STATE OF {{notary_state}}\nCOUNTY OF {{notary_county}}\n\n' },
         { insert: 'NOTARY ACKNOWLEDGMENT\n', attributes: { bold: true } },
-        { insert: 'Before me, the undersigned notary public, on this _____ day of ____________, 20____, personally appeared {{grantor_name}}, known to me (or proved on the basis of satisfactory evidence) to be the person whose name is subscribed to this instrument and acknowledged execution thereof.\n\n' },
-        { insert: 'Notary Public: _________________________\nMy Commission Expires: _____________\n[SEAL]\n' },
+        {
+          insert:
+            'Before me, the undersigned notary public, on this _____ day of ____________, 20____, personally appeared {{grantor_name}}, known to me (or proved on the basis of satisfactory evidence) to be the person whose name is subscribed to this instrument and acknowledged execution thereof.\n\n',
+        },
+        {
+          insert:
+            'Notary Public: _________________________\nMy Commission Expires: _____________\n[SEAL]\n',
+        },
       ],
     },
     placeholders: [
@@ -359,9 +537,23 @@ export const RE_PURCHASE_TEMPLATES = [
       { key: 'notary_county', type: 'text', label: 'Notary County', required: true },
     ],
     signatureFields: [
-      { id: 'grantor_signature', label: 'Grantor Signature', required: true, position: { page: 1, x: 100, y: 600 } },
-      { id: 'notary_signature', label: 'Notary Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'grantor_signature',
+        label: 'Grantor Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 600 },
+      },
+      {
+        id: 'notary_signature',
+        label: 'Notary Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

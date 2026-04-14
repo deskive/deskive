@@ -147,9 +147,14 @@ export class DropboxService {
     }
 
     // Check if token is expired or about to expire
-    if (connection.expires_at && this.oauthService.isTokenExpired(new Date(connection.expires_at))) {
+    if (
+      connection.expires_at &&
+      this.oauthService.isTokenExpired(new Date(connection.expires_at))
+    ) {
       if (!connection.refresh_token) {
-        throw new BadRequestException('Access token expired and no refresh token available. Please reconnect Dropbox.');
+        throw new BadRequestException(
+          'Access token expired and no refresh token available. Please reconnect Dropbox.',
+        );
       }
 
       // Refresh the token
@@ -208,7 +213,7 @@ export class DropboxService {
       limit?: number;
       includeDeleted?: boolean;
       recursive?: boolean;
-    } = {}
+    } = {},
   ): Promise<ListFilesResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -327,23 +332,19 @@ export class DropboxService {
   async downloadFile(
     userId: string,
     workspaceId: string,
-    path: string
+    path: string,
   ): Promise<{ buffer: Buffer; mimeType: string; fileName: string }> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     try {
-      const response = await axios.post(
-        `${this.DROPBOX_CONTENT_BASE}/files/download`,
-        null,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Dropbox-API-Arg': JSON.stringify({ path }),
-            'Content-Type': '', // Dropbox requires empty or no Content-Type
-          },
-          responseType: 'arraybuffer',
-        }
-      );
+      const response = await axios.post(`${this.DROPBOX_CONTENT_BASE}/files/download`, null, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Dropbox-API-Arg': JSON.stringify({ path }),
+          'Content-Type': '', // Dropbox requires empty or no Content-Type
+        },
+        responseType: 'arraybuffer',
+      });
 
       // Parse metadata from header
       const metadata = JSON.parse(response.headers['dropbox-api-result'] || '{}');
@@ -371,7 +372,7 @@ export class DropboxService {
     userId: string,
     workspaceId: string,
     path: string,
-    autoRename: boolean = false
+    autoRename: boolean = false,
   ): Promise<DropboxFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -404,29 +405,25 @@ export class DropboxService {
       mode?: 'add' | 'overwrite' | 'update';
       autoRename?: boolean;
       mute?: boolean;
-    }
+    },
   ): Promise<DropboxFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
     const { path, mode = 'add', autoRename = true, mute = false } = options;
 
     try {
-      const response = await axios.post(
-        `${this.DROPBOX_CONTENT_BASE}/files/upload`,
-        file.buffer,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/octet-stream',
-            'Dropbox-API-Arg': JSON.stringify({
-              path,
-              mode,
-              autorename: autoRename,
-              mute,
-            }),
-          },
-        }
-      );
+      const response = await axios.post(`${this.DROPBOX_CONTENT_BASE}/files/upload`, file.buffer, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/octet-stream',
+          'Dropbox-API-Arg': JSON.stringify({
+            path,
+            mode,
+            autorename: autoRename,
+            mute,
+          }),
+        },
+      });
 
       return this.transformFile(response.data);
     } catch (error) {
@@ -461,7 +458,7 @@ export class DropboxService {
     workspaceId: string,
     fromPath: string,
     toPath: string,
-    autoRename: boolean = false
+    autoRename: boolean = false,
   ): Promise<DropboxFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -487,7 +484,7 @@ export class DropboxService {
     workspaceId: string,
     fromPath: string,
     toPath: string,
-    autoRename: boolean = false
+    autoRename: boolean = false,
   ): Promise<DropboxFileDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -516,7 +513,7 @@ export class DropboxService {
       requestedVisibility?: 'public' | 'team_only' | 'password';
       expires?: string;
       linkPassword?: string;
-    } = {}
+    } = {},
   ): Promise<DropboxShareLinkResponseDto> {
     const accessToken = await this.getValidAccessToken(userId, workspaceId);
 
@@ -552,10 +549,14 @@ export class DropboxService {
         settings.link_password = linkPassword;
       }
 
-      const response = await this.makeApiRequest(accessToken, '/sharing/create_shared_link_with_settings', {
-        path,
-        settings,
-      });
+      const response = await this.makeApiRequest(
+        accessToken,
+        '/sharing/create_shared_link_with_settings',
+        {
+          path,
+          settings,
+        },
+      );
 
       return {
         url: response.data.url,
@@ -588,7 +589,7 @@ export class DropboxService {
     userId: string,
     workspaceId: string,
     path: string,
-    targetFolderId?: string
+    targetFolderId?: string,
   ): Promise<{
     success: boolean;
     deskiveFileId: string;
@@ -602,14 +603,19 @@ export class DropboxService {
 
     // Upload to Deskive storage via database
     const storagePath = `workspaces/${workspaceId}/files/${targetFolderId || 'imports'}/${Date.now()}_${fileName}`;
-    const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile('deskive-files', buffer, storagePath, {
-      contentType: mimeType,
-      metadata: {
-        originalName: fileName,
-        importedFrom: 'dropbox',
-        dropboxPath: path,
+    const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile(
+      'deskive-files',
+      buffer,
+      storagePath,
+      {
+        contentType: mimeType,
+        metadata: {
+          originalName: fileName,
+          importedFrom: 'dropbox',
+          dropboxPath: path,
+        },
       },
-    });
+    );
 
     // Create file record in Deskive
     const fileRecord = await this.db.insert('files', {
@@ -648,7 +654,7 @@ export class DropboxService {
     userId: string,
     workspaceId: string,
     deskiveFileId: string,
-    targetPath?: string
+    targetPath?: string,
   ): Promise<{
     success: boolean;
     dropboxPath: string;
@@ -667,10 +673,14 @@ export class DropboxService {
     // Get file URL
     let fileUrl = fileRecord.url;
     if (!fileUrl && fileRecord.storage_path) {
-      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl('files', fileRecord.storage_path);
-      fileUrl = typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
-        ? publicUrlResult.publicUrl
-        : publicUrlResult;
+      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl(
+        'files',
+        fileRecord.storage_path,
+      );
+      fileUrl =
+        typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
+          ? publicUrlResult.publicUrl
+          : publicUrlResult;
     }
 
     if (!fileUrl) {
@@ -681,7 +691,7 @@ export class DropboxService {
     let fileBuffer: Buffer;
     try {
       const response = await axios.get(fileUrl, {
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
       });
       fileBuffer = Buffer.from(response.data);
     } catch (error) {
@@ -705,7 +715,7 @@ export class DropboxService {
         path: dropboxPath,
         mode: 'add',
         autoRename: true,
-      }
+      },
     );
 
     this.logger.log(`Exported file "${fileRecord.name}" to Dropbox: ${uploadedFile.pathDisplay}`);
@@ -719,22 +729,14 @@ export class DropboxService {
 
   // ==================== Helper Methods ====================
 
-  private async makeApiRequest(
-    accessToken: string,
-    endpoint: string,
-    data: any
-  ): Promise<any> {
+  private async makeApiRequest(accessToken: string, endpoint: string, data: any): Promise<any> {
     try {
-      const response = await axios.post(
-        `${this.DROPBOX_API_BASE}${endpoint}`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      const response = await axios.post(`${this.DROPBOX_API_BASE}${endpoint}`, data, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+      });
 
       return response;
     } catch (error) {
@@ -763,7 +765,7 @@ export class DropboxService {
   private transformFile(file: any): DropboxFileDto {
     const isFolder = file['.tag'] === 'folder';
     const name = file.name || '';
-    const mimeType = isFolder ? 'folder' : (mime.lookup(name) || 'application/octet-stream');
+    const mimeType = isFolder ? 'folder' : mime.lookup(name) || 'application/octet-stream';
 
     return {
       id: file.id || file.path_lower,
@@ -802,7 +804,12 @@ export class DropboxService {
     if (mimeType.includes('document') || mimeType.includes('text/')) {
       return DropboxFileType.DOCUMENT;
     }
-    if (mimeType.includes('zip') || mimeType.includes('tar') || mimeType.includes('rar') || mimeType.includes('7z')) {
+    if (
+      mimeType.includes('zip') ||
+      mimeType.includes('tar') ||
+      mimeType.includes('rar') ||
+      mimeType.includes('7z')
+    ) {
       return DropboxFileType.ARCHIVE;
     }
 

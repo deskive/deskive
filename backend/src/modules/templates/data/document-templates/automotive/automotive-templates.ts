@@ -15,11 +15,20 @@ export const AUTOMOTIVE_TEMPLATES = [
         { insert: 'VEHICLE SALES AGREEMENT', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nAgreement Date: ' },
         { insert: '{{agreement_date}}', attributes: { bold: true } },
-        { insert: '\n\nSeller: {{seller_name}}\nAddress: {{seller_address}}\n\nBuyer: {{buyer_name}}\nAddress: {{buyer_address}}\n\n' },
+        {
+          insert:
+            '\n\nSeller: {{seller_name}}\nAddress: {{seller_address}}\n\nBuyer: {{buyer_name}}\nAddress: {{buyer_address}}\n\n',
+        },
         { insert: 'Vehicle Information\n', attributes: { bold: true } },
-        { insert: 'Year: {{year}}\nMake: {{make}}\nModel: {{model}}\nVIN: {{vin}}\nColor: {{color}}\nMileage: {{mileage}}\n\n' },
+        {
+          insert:
+            'Year: {{year}}\nMake: {{make}}\nModel: {{model}}\nVIN: {{vin}}\nColor: {{color}}\nMileage: {{mileage}}\n\n',
+        },
         { insert: 'Sale Price\n', attributes: { bold: true } },
-        { insert: 'Vehicle Price: {{vehicle_price}}\nTrade-In Value: {{trade_in}}\nDown Payment: {{down_payment}}\nTaxes & Fees: {{taxes_fees}}\nTotal Due: {{total_due}}\n\n' },
+        {
+          insert:
+            'Vehicle Price: {{vehicle_price}}\nTrade-In Value: {{trade_in}}\nDown Payment: {{down_payment}}\nTaxes & Fees: {{taxes_fees}}\nTotal Due: {{total_due}}\n\n',
+        },
         { insert: 'Payment Terms\n', attributes: { bold: true } },
         { insert: '{{payment_terms}}\n\n' },
         { insert: 'Warranty Information\n', attributes: { bold: true } },
@@ -55,7 +64,11 @@ export const AUTOMOTIVE_TEMPLATES = [
       { id: 'seller', label: 'Seller', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'buyer', label: 'Buyer', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Repair Order',
@@ -74,9 +87,15 @@ export const AUTOMOTIVE_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nCustomer Information\n', attributes: { bold: true } },
-        { insert: 'Name: {{customer_name}}\nPhone: {{customer_phone}}\nEmail: {{customer_email}}\n\n' },
+        {
+          insert:
+            'Name: {{customer_name}}\nPhone: {{customer_phone}}\nEmail: {{customer_email}}\n\n',
+        },
         { insert: 'Vehicle Information\n', attributes: { bold: true } },
-        { insert: 'Year/Make/Model: {{vehicle_ymm}}\nVIN: {{vin}}\nLicense Plate: {{license}}\nMileage In: {{mileage_in}}\n\n' },
+        {
+          insert:
+            'Year/Make/Model: {{vehicle_ymm}}\nVIN: {{vin}}\nLicense Plate: {{license}}\nMileage In: {{mileage_in}}\n\n',
+        },
         { insert: 'Customer Concern\n', attributes: { bold: true } },
         { insert: '{{customer_concern}}\n\n' },
         { insert: 'Technician Diagnosis\n', attributes: { bold: true } },
@@ -88,7 +107,10 @@ export const AUTOMOTIVE_TEMPLATES = [
         { insert: 'Labor\n', attributes: { bold: true } },
         { insert: '{{labor_list}}\n\n' },
         { insert: 'Estimate\n', attributes: { bold: true } },
-        { insert: 'Parts Total: {{parts_total}}\nLabor Total: {{labor_total}}\nShop Supplies: {{shop_supplies}}\nTax: {{tax}}\nTotal Estimate: {{total_estimate}}\n\n' },
+        {
+          insert:
+            'Parts Total: {{parts_total}}\nLabor Total: {{labor_total}}\nShop Supplies: {{shop_supplies}}\nTax: {{tax}}\nTotal Estimate: {{total_estimate}}\n\n',
+        },
         { insert: 'Authorization\n', attributes: { bold: true } },
         { insert: 'I authorize the above repairs.\n\n' },
         { insert: '\nCustomer Signature: _______________________  Date: ____________\n' },
@@ -107,7 +129,12 @@ export const AUTOMOTIVE_TEMPLATES = [
       { key: 'mileage_in', type: 'text', label: 'Mileage In', required: true },
       { key: 'customer_concern', type: 'textarea', label: 'Customer Concern', required: true },
       { key: 'diagnosis', type: 'textarea', label: 'Diagnosis', required: true },
-      { key: 'recommended_repairs', type: 'textarea', label: 'Recommended Repairs', required: true },
+      {
+        key: 'recommended_repairs',
+        type: 'textarea',
+        label: 'Recommended Repairs',
+        required: true,
+      },
       { key: 'parts_list', type: 'textarea', label: 'Parts List', required: true },
       { key: 'labor_list', type: 'textarea', label: 'Labor List', required: true },
       { key: 'parts_total', type: 'text', label: 'Parts Total', required: true },
@@ -119,7 +146,11 @@ export const AUTOMOTIVE_TEMPLATES = [
     signatureFields: [
       { id: 'customer', label: 'Customer', required: true, position: { page: 1, x: 50, y: 700 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Vehicle Inspection Report',
@@ -135,7 +166,10 @@ export const AUTOMOTIVE_TEMPLATES = [
         { insert: 'VEHICLE INSPECTION REPORT', attributes: { bold: true, size: 'huge' } },
         { insert: '\n\nInspection Date: ' },
         { insert: '{{inspection_date}}', attributes: { bold: true } },
-        { insert: '\n\nVehicle: {{vehicle_ymm}}\nVIN: {{vin}}\nMileage: {{mileage}}\nCustomer: {{customer_name}}\n\n' },
+        {
+          insert:
+            '\n\nVehicle: {{vehicle_ymm}}\nVIN: {{vin}}\nMileage: {{mileage}}\nCustomer: {{customer_name}}\n\n',
+        },
         { insert: 'Exterior\n', attributes: { bold: true } },
         { insert: '{{exterior_inspection}}\n\n' },
         { insert: 'Interior\n', attributes: { bold: true } },
@@ -167,13 +201,28 @@ export const AUTOMOTIVE_TEMPLATES = [
       { key: 'undervehicle_inspection', type: 'textarea', label: 'Under Vehicle', required: true },
       { key: 'brake_inspection', type: 'textarea', label: 'Brakes', required: true },
       { key: 'tire_inspection', type: 'textarea', label: 'Tires', required: true },
-      { key: 'overall_condition', type: 'select', label: 'Overall Condition', required: true, options: ['Excellent', 'Good', 'Fair', 'Poor'] },
+      {
+        key: 'overall_condition',
+        type: 'select',
+        label: 'Overall Condition',
+        required: true,
+        options: ['Excellent', 'Good', 'Fair', 'Poor'],
+      },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: true },
     ],
     signatureFields: [
-      { id: 'technician', label: 'Technician', required: true, position: { page: 1, x: 50, y: 700 } },
+      {
+        id: 'technician',
+        label: 'Technician',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Vehicle Rental Agreement',
@@ -191,11 +240,20 @@ export const AUTOMOTIVE_TEMPLATES = [
         { insert: '{{agreement_number}}', attributes: { bold: true } },
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
-        { insert: '\n\nRental Company: {{company_name}}\n\nRenter: {{renter_name}}\nLicense #: {{license_number}}\nPhone: {{phone}}\n\n' },
+        {
+          insert:
+            '\n\nRental Company: {{company_name}}\n\nRenter: {{renter_name}}\nLicense #: {{license_number}}\nPhone: {{phone}}\n\n',
+        },
         { insert: 'Vehicle Information\n', attributes: { bold: true } },
-        { insert: 'Vehicle: {{vehicle_info}}\nLicense Plate: {{plate}}\nMileage Out: {{mileage_out}}\nFuel Level Out: {{fuel_out}}\n\n' },
+        {
+          insert:
+            'Vehicle: {{vehicle_info}}\nLicense Plate: {{plate}}\nMileage Out: {{mileage_out}}\nFuel Level Out: {{fuel_out}}\n\n',
+        },
         { insert: 'Rental Period\n', attributes: { bold: true } },
-        { insert: 'Pick-up: {{pickup_datetime}}\nReturn: {{return_datetime}}\nPick-up Location: {{pickup_location}}\nReturn Location: {{return_location}}\n\n' },
+        {
+          insert:
+            'Pick-up: {{pickup_datetime}}\nReturn: {{return_datetime}}\nPick-up Location: {{pickup_location}}\nReturn Location: {{return_location}}\n\n',
+        },
         { insert: 'Rates and Charges\n', attributes: { bold: true } },
         { insert: '{{rates_charges}}\n\n' },
         { insert: 'Insurance Coverage\n', attributes: { bold: true } },
@@ -229,6 +287,10 @@ export const AUTOMOTIVE_TEMPLATES = [
       { id: 'renter', label: 'Renter', required: true, position: { page: 1, x: 50, y: 700 } },
       { id: 'agent', label: 'Agent', required: true, position: { page: 1, x: 50, y: 730 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

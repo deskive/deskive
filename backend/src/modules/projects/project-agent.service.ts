@@ -68,7 +68,14 @@ export interface ProjectAgentRequest {
 
 export interface ProjectAgentResponse {
   success: boolean;
-  action: 'create' | 'update' | 'delete' | 'batch_create' | 'batch_update' | 'batch_delete' | 'unknown';
+  action:
+    | 'create'
+    | 'update'
+    | 'delete'
+    | 'batch_create'
+    | 'batch_update'
+    | 'batch_delete'
+    | 'unknown';
   message: string;
   data?: any;
   error?: string;
@@ -139,7 +146,14 @@ interface BatchDeleteItem {
 }
 
 interface ParsedIntent {
-  action: 'create' | 'update' | 'delete' | 'batch_create' | 'batch_update' | 'batch_delete' | 'unknown';
+  action:
+    | 'create'
+    | 'update'
+    | 'delete'
+    | 'batch_create'
+    | 'batch_update'
+    | 'batch_delete'
+    | 'unknown';
 
   // Single operation fields
   projectName?: string;
@@ -178,9 +192,7 @@ export class ProjectAgentService {
   ): Promise<ProjectAgentResponse> {
     const { prompt, workspaceId } = request;
 
-    this.logger.log(
-      `[ProjectAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`,
-    );
+    this.logger.log(`[ProjectAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`);
 
     try {
       // Step 1: Store user message in conversation memory (async, don't wait)
@@ -198,10 +210,7 @@ export class ProjectAgentService {
       );
 
       // Step 3: Get existing projects for context
-      const existingProjects = await this.getExistingProjects(
-        workspaceId,
-        userId,
-      );
+      const existingProjects = await this.getExistingProjects(workspaceId, userId);
 
       // Step 4: Get workspace members for user ID resolution
       const workspaceMembers = await this.getWorkspaceMembers(workspaceId, userId);
@@ -214,9 +223,7 @@ export class ProjectAgentService {
         conversationHistory,
       );
 
-      this.logger.log(
-        `[ProjectAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`,
-      );
+      this.logger.log(`[ProjectAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`);
 
       if (parsedIntent.action === 'unknown') {
         // Store failed response in memory
@@ -238,19 +245,23 @@ export class ProjectAgentService {
       }
 
       // Step 6: Resolve user names to IDs before executing
-      if (parsedIntent.action === 'create' || parsedIntent.action === 'update' || parsedIntent.action === 'delete') {
+      if (
+        parsedIntent.action === 'create' ||
+        parsedIntent.action === 'update' ||
+        parsedIntent.action === 'delete'
+      ) {
         // Single operation
         if (parsedIntent.details) {
           this.resolveUserIds(parsedIntent.details, workspaceMembers);
         }
       } else if (parsedIntent.action === 'batch_create') {
         // Batch create
-        parsedIntent.batch_create?.forEach(item => {
+        parsedIntent.batch_create?.forEach((item) => {
           this.resolveUserIds(item.details, workspaceMembers);
         });
       } else if (parsedIntent.action === 'batch_update') {
         // Batch update
-        parsedIntent.batch_update?.forEach(item => {
+        parsedIntent.batch_update?.forEach((item) => {
           this.resolveUserIds(item.updates as ProjectDetails, workspaceMembers);
         });
       }
@@ -272,10 +283,7 @@ export class ProjectAgentService {
 
       return result;
     } catch (error) {
-      this.logger.error(
-        `[ProjectAgent] Error processing command: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[ProjectAgent] Error processing command: ${error.message}`, error.stack);
       return {
         success: false,
         action: 'unknown',
@@ -288,11 +296,7 @@ export class ProjectAgentService {
   /**
    * Store user message in conversation memory (fire and forget)
    */
-  private storeUserMessage(
-    content: string,
-    workspaceId: string,
-    userId: string,
-  ): void {
+  private storeUserMessage(content: string, workspaceId: string, userId: string): void {
     // Fire and forget - don't block the main flow
     this.conversationMemoryService
       .storeMessage({
@@ -414,10 +418,7 @@ export class ProjectAgentService {
   /**
    * Get existing projects in the workspace for context
    */
-  private async getExistingProjects(
-    workspaceId: string,
-    userId: string,
-  ): Promise<any[]> {
+  private async getExistingProjects(workspaceId: string, userId: string): Promise<any[]> {
     try {
       const projects = await this.projectsService.findAll(workspaceId, userId);
       return projects.map((p) => ({
@@ -433,9 +434,7 @@ export class ProjectAgentService {
         budget: p.budget,
       }));
     } catch (error) {
-      this.logger.warn(
-        `[ProjectAgent] Could not fetch existing projects: ${error.message}`,
-      );
+      this.logger.warn(`[ProjectAgent] Could not fetch existing projects: ${error.message}`);
       return [];
     }
   }
@@ -450,7 +449,8 @@ export class ProjectAgentService {
   ): Promise<WorkspaceMember[]> {
     try {
       // Step 1: Get member IDs from workspace_members table
-      const membersResult = await this.db.table('workspace_members')
+      const membersResult = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('is_active', '=', true)
@@ -474,7 +474,9 @@ export class ProjectAgentService {
               role: member.role,
             };
           } catch (error) {
-            this.logger.warn(`[ProjectAgent] Could not fetch user details for ${member.user_id}: ${error.message}`);
+            this.logger.warn(
+              `[ProjectAgent] Could not fetch user details for ${member.user_id}: ${error.message}`,
+            );
             return {
               user_id: member.user_id,
               name: null,
@@ -483,15 +485,15 @@ export class ProjectAgentService {
               role: member.role,
             };
           }
-        })
+        }),
       );
 
-      this.logger.log(`[ProjectAgent] Resolved names for members: ${JSON.stringify(membersWithNames.map(m => ({ id: m.user_id, name: m.name })))}`);
+      this.logger.log(
+        `[ProjectAgent] Resolved names for members: ${JSON.stringify(membersWithNames.map((m) => ({ id: m.user_id, name: m.name })))}`,
+      );
       return membersWithNames;
     } catch (error) {
-      this.logger.warn(
-        `[ProjectAgent] Could not fetch workspace members: ${error.message}`,
-      );
+      this.logger.warn(`[ProjectAgent] Could not fetch workspace members: ${error.message}`);
       return [];
     }
   }
@@ -501,10 +503,7 @@ export class ProjectAgentService {
    * AI should return user_ids directly, but this serves as validation and fallback
    * Note: owner_id is NOT handled here - it's always set to the current user in createProject
    */
-  private resolveUserIds(
-    details: ProjectDetails,
-    members: WorkspaceMember[],
-  ): void {
+  private resolveUserIds(details: ProjectDetails, members: WorkspaceMember[]): void {
     // Remove any owner_id from AI response - owner is always the creating user
     if (details.owner_id) {
       this.logger.log(`[ProjectAgent] Ignoring owner_id from AI - will use current user as owner`);
@@ -515,21 +514,27 @@ export class ProjectAgentService {
     if (details.lead_id) {
       if (this.isValidUUID(details.lead_id)) {
         // Verify this UUID exists in workspace members
-        const memberExists = members.some(m => m.user_id === details.lead_id);
+        const memberExists = members.some((m) => m.user_id === details.lead_id);
         if (memberExists) {
           this.logger.log(`[ProjectAgent] lead_id "${details.lead_id}" is valid workspace member`);
         } else {
-          this.logger.warn(`[ProjectAgent] lead_id "${details.lead_id}" is not a workspace member, removing`);
+          this.logger.warn(
+            `[ProjectAgent] lead_id "${details.lead_id}" is not a workspace member, removing`,
+          );
           delete details.lead_id;
         }
       } else {
         // AI returned a name instead of UUID - try to resolve it (fallback)
         const resolvedId = this.findUserIdByNameOrEmail(details.lead_id, members);
         if (resolvedId) {
-          this.logger.log(`[ProjectAgent] Resolved lead name "${details.lead_id}" to user ID: ${resolvedId}`);
+          this.logger.log(
+            `[ProjectAgent] Resolved lead name "${details.lead_id}" to user ID: ${resolvedId}`,
+          );
           details.lead_id = resolvedId;
         } else {
-          this.logger.warn(`[ProjectAgent] Could not resolve lead "${details.lead_id}" to a workspace member`);
+          this.logger.warn(
+            `[ProjectAgent] Could not resolve lead "${details.lead_id}" to a workspace member`,
+          );
           delete details.lead_id;
         }
       }
@@ -541,7 +546,7 @@ export class ProjectAgentService {
         .map((idOrName: string) => {
           if (this.isValidUUID(idOrName)) {
             // Verify this UUID exists in workspace members
-            const memberExists = members.some(m => m.user_id === idOrName);
+            const memberExists = members.some((m) => m.user_id === idOrName);
             if (memberExists) {
               return idOrName;
             }
@@ -551,10 +556,14 @@ export class ProjectAgentService {
           // AI returned a name instead of UUID - try to resolve it (fallback)
           const resolvedId = this.findUserIdByNameOrEmail(idOrName, members);
           if (resolvedId) {
-            this.logger.log(`[ProjectAgent] Resolved assignee name "${idOrName}" to user ID: ${resolvedId}`);
+            this.logger.log(
+              `[ProjectAgent] Resolved assignee name "${idOrName}" to user ID: ${resolvedId}`,
+            );
             return resolvedId;
           }
-          this.logger.warn(`[ProjectAgent] Could not resolve assignee "${idOrName}" to a workspace member`);
+          this.logger.warn(
+            `[ProjectAgent] Could not resolve assignee "${idOrName}" to a workspace member`,
+          );
           return null;
         })
         .filter((id: string | null): id is string => id !== null);
@@ -574,10 +583,7 @@ export class ProjectAgentService {
   /**
    * Find user ID by name, username, or email (case-insensitive, partial match)
    */
-  private findUserIdByNameOrEmail(
-    searchTerm: string,
-    members: WorkspaceMember[],
-  ): string | null {
+  private findUserIdByNameOrEmail(searchTerm: string, members: WorkspaceMember[]): string | null {
     const normalizedSearch = searchTerm.toLowerCase().trim();
 
     // First try exact match on name
@@ -618,7 +624,11 @@ export class ProjectAgentService {
     // Try if search term contains part of the name (e.g., "sohag" matches "Sohag Abdullah")
     for (const member of members) {
       const nameParts = member.name?.toLowerCase().split(/\s+/) || [];
-      if (nameParts.some((part: string) => part === normalizedSearch || normalizedSearch.includes(part))) {
+      if (
+        nameParts.some(
+          (part: string) => part === normalizedSearch || normalizedSearch.includes(part),
+        )
+      ) {
         return member.user_id;
       }
     }
@@ -657,7 +667,8 @@ export class ProjectAgentService {
         : 'No members available';
 
     // Build conversation history context from Qdrant semantic search results
-    const conversationContext = this.conversationMemoryService.buildContextFromHistory(conversationHistory);
+    const conversationContext =
+      this.conversationMemoryService.buildContextFromHistory(conversationHistory);
 
     const aiPrompt = `You are a project management assistant with access to conversation history. Analyze the user's command and extract their intent to create, update, or delete projects. You can handle SINGLE or BATCH operations.
 
@@ -802,7 +813,7 @@ IMPORTANT RULES:
       }
 
       // Clean up the response - remove any markdown formatting
-      let cleanedContent = responseText
+      const cleanedContent = responseText
         .trim()
         .replace(/^```json\s*/i, '')
         .replace(/^```\s*/i, '')
@@ -909,8 +920,7 @@ IMPORTANT RULES:
     if (details.end_date) dto.end_date = details.end_date;
 
     // Metrics - optional, can be undefined
-    if (details.estimated_hours !== undefined)
-      dto.estimated_hours = details.estimated_hours;
+    if (details.estimated_hours !== undefined) dto.estimated_hours = details.estimated_hours;
     if (details.budget !== undefined) dto.budget = details.budget;
 
     // Kanban stages - provide default stages if not specified
@@ -987,11 +997,7 @@ IMPORTANT RULES:
 
       this.logger.log(`[ProjectAgent] Creating project with DTO: ${JSON.stringify(createDto)}`);
 
-      const project = await this.projectsService.create(
-        workspaceId,
-        createDto,
-        userId,
-      );
+      const project = await this.projectsService.create(workspaceId, createDto, userId);
 
       // Build a human-readable summary of what was created
       const summary = this.buildCreationSummary(createDto);
@@ -1024,9 +1030,7 @@ IMPORTANT RULES:
         },
       };
     } catch (error) {
-      this.logger.error(
-        `[ProjectAgent] Create project failed: ${error.message}`,
-      );
+      this.logger.error(`[ProjectAgent] Create project failed: ${error.message}`);
       return {
         success: false,
         action: 'create',
@@ -1047,13 +1051,10 @@ IMPORTANT RULES:
     if (dto.status) parts.push(`Status: ${dto.status}`);
     if (dto.start_date) parts.push(`Start: ${dto.start_date}`);
     if (dto.end_date) parts.push(`End: ${dto.end_date}`);
-    if (dto.estimated_hours)
-      parts.push(`Estimated: ${dto.estimated_hours} hours`);
+    if (dto.estimated_hours) parts.push(`Estimated: ${dto.estimated_hours} hours`);
     if (dto.budget) parts.push(`Budget: $${dto.budget}`);
     if (dto.kanban_stages && dto.kanban_stages.length > 0) {
-      parts.push(
-        `Stages: ${dto.kanban_stages.map((s) => s.name).join(', ')}`,
-      );
+      parts.push(`Stages: ${dto.kanban_stages.map((s) => s.name).join(', ')}`);
     }
 
     return parts.length > 0 ? ` (${parts.join(', ')})` : '';
@@ -1062,10 +1063,7 @@ IMPORTANT RULES:
   /**
    * Update an existing project
    */
-  private async updateProject(
-    intent: ParsedIntent,
-    userId: string,
-  ): Promise<ProjectAgentResponse> {
+  private async updateProject(intent: ParsedIntent, userId: string): Promise<ProjectAgentResponse> {
     const { projectId, projectName, details } = intent;
 
     if (!projectId) {
@@ -1085,8 +1083,7 @@ IMPORTANT RULES:
     if (details.description) updateFields.description = details.description;
     if (details.type) updateFields.type = mapToProjectType(details.type);
     if (details.status) updateFields.status = mapToProjectStatus(details.status);
-    if (details.priority)
-      updateFields.priority = mapToProjectPriority(details.priority);
+    if (details.priority) updateFields.priority = mapToProjectPriority(details.priority);
 
     // People
     if (details.owner_id) updateFields.owner_id = details.owner_id;
@@ -1102,8 +1099,7 @@ IMPORTANT RULES:
     if (details.budget !== undefined) updateFields.budget = details.budget;
 
     // Configuration
-    if (details.is_template !== undefined)
-      updateFields.is_template = details.is_template;
+    if (details.is_template !== undefined) updateFields.is_template = details.is_template;
 
     // Kanban stages
     if (details.kanban_stages && details.kanban_stages.length > 0) {
@@ -1136,11 +1132,7 @@ IMPORTANT RULES:
     }
 
     try {
-      const project = await this.projectsService.update(
-        projectId,
-        updateFields,
-        userId,
-      );
+      const project = await this.projectsService.update(projectId, updateFields, userId);
 
       const changesDescription = Object.entries(updateFields)
         .map(([key, value]) => {
@@ -1179,9 +1171,7 @@ IMPORTANT RULES:
         },
       };
     } catch (error) {
-      this.logger.error(
-        `[ProjectAgent] Update project failed: ${error.message}`,
-      );
+      this.logger.error(`[ProjectAgent] Update project failed: ${error.message}`);
       return {
         success: false,
         action: 'update',
@@ -1194,10 +1184,7 @@ IMPORTANT RULES:
   /**
    * Delete a project
    */
-  private async deleteProject(
-    intent: ParsedIntent,
-    userId: string,
-  ): Promise<ProjectAgentResponse> {
+  private async deleteProject(intent: ParsedIntent, userId: string): Promise<ProjectAgentResponse> {
     const { projectId, projectName } = intent;
 
     if (!projectId) {
@@ -1222,9 +1209,7 @@ IMPORTANT RULES:
         },
       };
     } catch (error) {
-      this.logger.error(
-        `[ProjectAgent] Delete project failed: ${error.message}`,
-      );
+      this.logger.error(`[ProjectAgent] Delete project failed: ${error.message}`);
       return {
         success: false,
         action: 'delete',
@@ -1286,7 +1271,9 @@ IMPORTANT RULES:
 
         this.logger.log(`[ProjectAgent] Created project: ${project.name}`);
       } catch (error) {
-        this.logger.error(`[ProjectAgent] Failed to create project ${item.details.name}: ${error.message}`);
+        this.logger.error(
+          `[ProjectAgent] Failed to create project ${item.details.name}: ${error.message}`,
+        );
         results.push({
           success: false,
           error: error.message,
@@ -1295,8 +1282,8 @@ IMPORTANT RULES:
       }
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
+    const successCount = results.filter((r) => r.success).length;
+    const failCount = results.filter((r) => !r.success).length;
 
     return {
       success: successCount > 0,
@@ -1352,16 +1339,20 @@ IMPORTANT RULES:
         if (item.updates.description) updateFields.description = item.updates.description;
         if (item.updates.type) updateFields.type = mapToProjectType(item.updates.type);
         if (item.updates.status) updateFields.status = mapToProjectStatus(item.updates.status);
-        if (item.updates.priority) updateFields.priority = mapToProjectPriority(item.updates.priority);
+        if (item.updates.priority)
+          updateFields.priority = mapToProjectPriority(item.updates.priority);
         if (item.updates.lead_id) updateFields.lead_id = item.updates.lead_id;
         if (item.updates.start_date) updateFields.start_date = item.updates.start_date;
         if (item.updates.end_date) updateFields.end_date = item.updates.end_date;
-        if (item.updates.estimated_hours !== undefined) updateFields.estimated_hours = item.updates.estimated_hours;
+        if (item.updates.estimated_hours !== undefined)
+          updateFields.estimated_hours = item.updates.estimated_hours;
         if (item.updates.budget !== undefined) updateFields.budget = item.updates.budget;
-        if (item.updates.is_template !== undefined) updateFields.is_template = item.updates.is_template;
+        if (item.updates.is_template !== undefined)
+          updateFields.is_template = item.updates.is_template;
         if (item.updates.kanban_stages) updateFields.kanban_stages = item.updates.kanban_stages;
         if (item.updates.attachments) updateFields.attachments = item.updates.attachments;
-        if (item.updates.collaborative_data) updateFields.collaborative_data = item.updates.collaborative_data;
+        if (item.updates.collaborative_data)
+          updateFields.collaborative_data = item.updates.collaborative_data;
 
         if (Object.keys(updateFields).length === 0) {
           results.push({
@@ -1388,7 +1379,9 @@ IMPORTANT RULES:
 
         this.logger.log(`[ProjectAgent] Updated project: ${project.name}`);
       } catch (error) {
-        this.logger.error(`[ProjectAgent] Failed to update project ${item.projectName}: ${error.message}`);
+        this.logger.error(
+          `[ProjectAgent] Failed to update project ${item.projectName}: ${error.message}`,
+        );
         results.push({
           success: false,
           error: error.message,
@@ -1397,8 +1390,8 @@ IMPORTANT RULES:
       }
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
+    const successCount = results.filter((r) => r.success).length;
+    const failCount = results.filter((r) => !r.success).length;
 
     return {
       success: successCount > 0,
@@ -1433,7 +1426,8 @@ IMPORTANT RULES:
 
     this.logger.log(`[ProjectAgent] Batch deleting ${items.length} projects`);
 
-    const results: Array<{ success: boolean; projectId?: string; error?: string; name?: string }> = [];
+    const results: Array<{ success: boolean; projectId?: string; error?: string; name?: string }> =
+      [];
 
     // Delete projects sequentially
     for (const item of items) {
@@ -1457,7 +1451,9 @@ IMPORTANT RULES:
 
         this.logger.log(`[ProjectAgent] Deleted project: ${item.projectName}`);
       } catch (error) {
-        this.logger.error(`[ProjectAgent] Failed to delete project ${item.projectName}: ${error.message}`);
+        this.logger.error(
+          `[ProjectAgent] Failed to delete project ${item.projectName}: ${error.message}`,
+        );
         results.push({
           success: false,
           error: error.message,
@@ -1466,8 +1462,8 @@ IMPORTANT RULES:
       }
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
+    const successCount = results.filter((r) => r.success).length;
+    const failCount = results.filter((r) => !r.success).length;
 
     return {
       success: successCount > 0,

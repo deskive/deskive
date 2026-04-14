@@ -101,9 +101,7 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
     scheduledAt: Date,
     description?: string,
   ): Promise<ScheduledAction> {
-    this.logger.log(
-      `[ScheduledActions] Scheduling ${actionType} for ${scheduledAt.toISOString()}`,
-    );
+    this.logger.log(`[ScheduledActions] Scheduling ${actionType} for ${scheduledAt.toISOString()}`);
     this.logger.log(`[ScheduledActions] WorkspaceId: ${workspaceId}, UserId: ${userId}`);
     this.logger.log(`[ScheduledActions] ActionConfig: ${JSON.stringify(actionConfig)}`);
 
@@ -127,12 +125,18 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
       this.logger.log(`[ScheduledActions] Insert result: ${JSON.stringify(insertedData)}`);
 
       if (!insertedData || !insertedData.id) {
-        this.logger.error(`[ScheduledActions] Insert returned invalid data: ${JSON.stringify(insertedData)}`);
-        throw new Error('Failed to create scheduled action - invalid response from database. The scheduled_actions table may not exist. Run migrations.');
+        this.logger.error(
+          `[ScheduledActions] Insert returned invalid data: ${JSON.stringify(insertedData)}`,
+        );
+        throw new Error(
+          'Failed to create scheduled action - invalid response from database. The scheduled_actions table may not exist. Run migrations.',
+        );
       }
 
       const transformedAction = this.transformAction(insertedData);
-      this.logger.log(`[ScheduledActions] Transformed action: ${JSON.stringify(transformedAction)}`);
+      this.logger.log(
+        `[ScheduledActions] Transformed action: ${JSON.stringify(transformedAction)}`,
+      );
 
       return transformedAction;
     } catch (error) {
@@ -140,7 +144,9 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
       this.logger.error(`[ScheduledActions] Error stack: ${error.stack}`);
       // Provide more helpful error message
       if (error.message?.includes('relation') && error.message?.includes('does not exist')) {
-        throw new Error('The scheduled_actions table does not exist. Please run database migrations.');
+        throw new Error(
+          'The scheduled_actions table does not exist. Please run database migrations.',
+        );
       }
       throw error;
     }
@@ -152,8 +158,14 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
    * @param userId - The user ID (optional, if not provided returns all workspace actions)
    * @param includeRecent - If true, also include actions executed in the last 7 days
    */
-  async getPendingActions(workspaceId: string, userId?: string, includeRecent: boolean = true): Promise<ScheduledAction[]> {
-    this.logger.log(`[ScheduledActions] Getting actions for workspace: ${workspaceId}, userId: ${userId || 'ALL'}, includeRecent: ${includeRecent}`);
+  async getPendingActions(
+    workspaceId: string,
+    userId?: string,
+    includeRecent: boolean = true,
+  ): Promise<ScheduledAction[]> {
+    this.logger.log(
+      `[ScheduledActions] Getting actions for workspace: ${workspaceId}, userId: ${userId || 'ALL'}, includeRecent: ${includeRecent}`,
+    );
 
     try {
       // Build query for pending actions
@@ -190,7 +202,9 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
 
       const recentResult = await recentQuery.execute();
 
-      this.logger.log(`[ScheduledActions] Total actions in DB for user/workspace: ${recentResult?.data?.length || 0}`);
+      this.logger.log(
+        `[ScheduledActions] Total actions in DB for user/workspace: ${recentResult?.data?.length || 0}`,
+      );
 
       // Filter for non-pending actions that were updated in the last 7 days
       const recentActions = (recentResult?.data || [])
@@ -202,11 +216,15 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
         })
         .map(this.transformAction);
 
-      this.logger.log(`[ScheduledActions] Found ${recentActions.length} recent (non-pending) actions`);
+      this.logger.log(
+        `[ScheduledActions] Found ${recentActions.length} recent (non-pending) actions`,
+      );
 
       // Combine and sort by scheduled_at descending
       const allActions = [...pendingActions, ...recentActions];
-      allActions.sort((a, b) => new Date(b.scheduledAt).getTime() - new Date(a.scheduledAt).getTime());
+      allActions.sort(
+        (a, b) => new Date(b.scheduledAt).getTime() - new Date(a.scheduledAt).getTime(),
+      );
 
       this.logger.log(`[ScheduledActions] Total actions: ${allActions.length}`);
       return allActions;
@@ -225,12 +243,12 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
    * Get ALL scheduled actions (for debugging)
    */
   async getAllActions(workspaceId?: string): Promise<ScheduledAction[]> {
-    this.logger.log(`[ScheduledActions] Getting ALL actions${workspaceId ? ` for workspace: ${workspaceId}` : ''}`);
+    this.logger.log(
+      `[ScheduledActions] Getting ALL actions${workspaceId ? ` for workspace: ${workspaceId}` : ''}`,
+    );
 
     try {
-      let query = this.db
-        .table('scheduled_actions')
-        .select('*');
+      let query = this.db.table('scheduled_actions').select('*');
 
       if (workspaceId) {
         query = query.where('workspace_id', '=', workspaceId);
@@ -304,14 +322,18 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
       if (allPending.length > 0) {
         // Log details of each pending action
         allPending.forEach((action: any, index: number) => {
-          this.logger.log(`[ScheduledActions] Action ${index + 1}: id=${action.id}, scheduled_at=${action.scheduled_at}, type=${action.action_type}, retry_count=${action.retry_count}`);
+          this.logger.log(
+            `[ScheduledActions] Action ${index + 1}: id=${action.id}, scheduled_at=${action.scheduled_at}, type=${action.action_type}, retry_count=${action.retry_count}`,
+          );
         });
       }
 
       const dueActions = allPending.filter((action: any) => {
         const scheduledAt = new Date(action.scheduled_at);
         const isDue = scheduledAt <= now;
-        this.logger.log(`[ScheduledActions] Action ${action.id}: scheduled=${scheduledAt.toISOString()}, now=${now.toISOString()}, isDue=${isDue}`);
+        this.logger.log(
+          `[ScheduledActions] Action ${action.id}: scheduled=${scheduledAt.toISOString()}, now=${now.toISOString()}, isDue=${isDue}`,
+        );
         return isDue;
       });
 
@@ -326,7 +348,9 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
     } catch (error) {
       // Table might not exist yet - this is OK, just log and continue
       if (error.message?.includes('relation') || error.message?.includes('does not exist')) {
-        this.logger.warn('[ScheduledActions] Table scheduled_actions may not exist yet. Run migrations.');
+        this.logger.warn(
+          '[ScheduledActions] Table scheduled_actions may not exist yet. Run migrations.',
+        );
       } else {
         this.logger.error(`[ScheduledActions] Error processing pending actions: ${error.message}`);
         this.logger.error(`[ScheduledActions] Stack: ${error.stack}`);
@@ -434,7 +458,9 @@ export class ScheduledActionsService implements OnModuleInit, OnModuleDestroy {
 
     this.logger.log(`[ScheduledActions] Sending scheduled email to: ${toArray.join(', ')}`);
     this.logger.log(`[ScheduledActions] Subject: ${subject}`);
-    this.logger.log(`[ScheduledActions] User ID: ${action.user_id}, Workspace ID: ${action.workspace_id}`);
+    this.logger.log(
+      `[ScheduledActions] User ID: ${action.user_id}, Workspace ID: ${action.workspace_id}`,
+    );
 
     try {
       const result = await this.emailService.sendEmail(action.user_id, action.workspace_id, {

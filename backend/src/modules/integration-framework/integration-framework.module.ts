@@ -18,16 +18,8 @@ import * as seedData from './seed/integrations.seed.json';
     ConfigModule,
   ],
   controllers: [IntegrationFrameworkController],
-  providers: [
-    CatalogService,
-    ConnectionService,
-    GenericOAuthService,
-  ],
-  exports: [
-    CatalogService,
-    ConnectionService,
-    GenericOAuthService,
-  ],
+  providers: [CatalogService, ConnectionService, GenericOAuthService],
+  exports: [CatalogService, ConnectionService, GenericOAuthService],
 })
 export class IntegrationFrameworkModule implements OnModuleInit {
   private readonly logger = new Logger(IntegrationFrameworkModule.name);

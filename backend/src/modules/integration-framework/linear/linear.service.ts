@@ -37,7 +37,7 @@ export class LinearService {
           Authorization: connection.access_token,
           'Content-Type': 'application/json',
         },
-      }
+      },
     );
 
     return response.data.data;

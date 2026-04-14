@@ -915,6 +915,7 @@ export const MessageInput = forwardRef<MessageInputRef, MessageInputProps>(({
     // Convert mention blots to mention-highlight format for storage and rendering
     // The mention blot HTML can be:
     // - <span class="mention-blot" data-mention="username">@username</span>
+    // eslint-disable-next-line no-irregular-whitespace
     // - <span class="mention-blot" data-mention="username">﻿<span>@username</span>﻿</span> (nested)
     let processed = html.replace(
       /<span[^>]*class="mention-blot"[^>]*data-mention="([^"]+)"[^>]*>[\s\S]*?<\/span>/gi,

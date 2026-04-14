@@ -117,9 +117,7 @@ export class ProvidersHealthService {
     issue: number;
   }): ProviderHealth {
     const explicit = this.config.get<string>(args.envVar);
-    const missing = args.requiredEnvVars.filter(
-      (k) => !this.config.get<string>(k),
-    );
+    const missing = args.requiredEnvVars.filter((k) => !this.config.get<string>(k));
     const selected = explicit || args.currentHardcoded;
 
     if (args.requiredEnvVars.length > 0 && missing.length > 0) {

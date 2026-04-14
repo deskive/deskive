@@ -1,10 +1,19 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, IsDateString, IsInt, IsEnum, Min, Max } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsDateString,
+  IsInt,
+  IsEnum,
+  Min,
+  Max,
+} from 'class-validator';
 
 export enum AccessLevel {
   VIEW = 'view',
   DOWNLOAD = 'download',
-  EDIT = 'edit'
+  EDIT = 'edit',
 }
 
 export class CreateShareLinkDto {
@@ -12,7 +21,7 @@ export class CreateShareLinkDto {
     description: 'Access level for the share link',
     enum: AccessLevel,
     default: AccessLevel.VIEW,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(AccessLevel)
@@ -21,7 +30,7 @@ export class CreateShareLinkDto {
   @ApiProperty({
     description: 'Password protection for the link (optional)',
     example: 'secret123',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -30,7 +39,7 @@ export class CreateShareLinkDto {
   @ApiProperty({
     description: 'Expiration date for the link',
     example: '2024-12-31T23:59:59.000Z',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsDateString()
@@ -39,7 +48,7 @@ export class CreateShareLinkDto {
   @ApiProperty({
     description: 'Maximum number of downloads allowed (null for unlimited)',
     example: 10,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsInt()
@@ -52,7 +61,7 @@ export class UpdateShareLinkDto {
   @ApiProperty({
     description: 'Access level for the share link',
     enum: AccessLevel,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(AccessLevel)
@@ -60,7 +69,7 @@ export class UpdateShareLinkDto {
 
   @ApiProperty({
     description: 'Password protection for the link (set to empty string to remove)',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -68,7 +77,7 @@ export class UpdateShareLinkDto {
 
   @ApiProperty({
     description: 'Expiration date for the link (set to null to remove)',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsDateString()
@@ -76,7 +85,7 @@ export class UpdateShareLinkDto {
 
   @ApiProperty({
     description: 'Maximum number of downloads allowed',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsInt()
@@ -86,7 +95,7 @@ export class UpdateShareLinkDto {
 
   @ApiProperty({
     description: 'Whether the link is active',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -96,7 +105,7 @@ export class UpdateShareLinkDto {
 export class VerifySharePasswordDto {
   @ApiProperty({
     description: 'Password to verify',
-    example: 'secret123'
+    example: 'secret123',
   })
   @IsString()
   password: string;

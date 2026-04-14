@@ -1,7 +1,24 @@
-import { Injectable, UnauthorizedException, BadRequestException, NotFoundException, InternalServerErrorException, ConflictException, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  UnauthorizedException,
+  BadRequestException,
+  NotFoundException,
+  InternalServerErrorException,
+  ConflictException,
+  Logger,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DatabaseService } from '../database/database.service';
-import { RegisterDto, LoginDto, PasswordResetRequestDto, PasswordResetConfirmDto, ChangePasswordDto, VerifyEmailDto, ResendEmailVerificationDto, UpdateProfileDto } from './dto/auth.dto';
+import {
+  RegisterDto,
+  LoginDto,
+  PasswordResetRequestDto,
+  PasswordResetConfirmDto,
+  ChangePasswordDto,
+  VerifyEmailDto,
+  ResendEmailVerificationDto,
+  UpdateProfileDto,
+} from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,15 +53,16 @@ export class AuthService {
       // - password validation based on settings
       // - requireEmailVerification (sends email if true)
       // - defaultRole
-      const response = await this.db /* TODO: replace authClient */.auth.register({
-        email: dto.email,
-        password: dto.password,
-        name: dto.name,
-        metadata: {
-          username: dto.username,
-        },
-        frontendUrl: verificationUrl, // For email verification redirect
-      });
+      const response = await this.db /* TODO: replace authClient */.auth
+        .register({
+          email: dto.email,
+          password: dto.password,
+          name: dto.name,
+          metadata: {
+            username: dto.username,
+          },
+          frontendUrl: verificationUrl, // For email verification redirect
+        });
 
       if (!response || !response.user) {
         throw new BadRequestException('Registration failed');
@@ -102,11 +120,14 @@ export class AuthService {
         // but querying public.users directly is clearer.
         userCheckResult = await this.db.raw(
           'SELECT id, email, email_confirmed_at FROM "users" WHERE LOWER(email) = LOWER($1)',
-          [dto.email]
+          [dto.email],
         );
 
         // DEBUG LOG - Remove this after testing
-        this.logger.log(`Email verification check for ${dto.email}:`, JSON.stringify(userCheckResult, null, 2));
+        this.logger.log(
+          `Email verification check for ${dto.email}:`,
+          JSON.stringify(userCheckResult, null, 2),
+        );
       } catch (queryError) {
         // If query fails, continue to login attempt (user might not exist)
         this.logger.warn('User check query failed, continuing to login:', queryError);
@@ -123,16 +144,18 @@ export class AuthService {
         if (!userRecord.email_confirmed_at) {
           this.logger.warn(`Login attempt with unverified email: ${dto.email}`);
           throw new UnauthorizedException(
-            'Please verify your email address before logging in. Check your inbox for the confirmation link.'
+            'Please verify your email address before logging in. Check your inbox for the confirmation link.',
           );
         } else {
-          this.logger.log(`Email is verified for ${dto.email}, email_confirmed_at: ${userRecord.email_confirmed_at}`);
+          this.logger.log(
+            `Email is verified for ${dto.email}, email_confirmed_at: ${userRecord.email_confirmed_at}`,
+          );
         }
       }
 
       // NOW attempt database sign in (email is verified or user doesn't exist)
       // TODO: implement password verification with bcrypt
-      const response = await this.db.findOne("users", { email: dto.email }); // was: this.db.signIn(dto.email, dto.password);
+      const response = await this.db.findOne('users', { email: dto.email }); // was: this.db.signIn(dto.email, dto.password);
 
       this.logger.log('Login response:', response);
 
@@ -193,15 +216,21 @@ export class AuthService {
 
       // Handle database API errors
       if (error.status === 401 || error.code === 'HTTP_401' || error.details?.statusCode === 401) {
-        throw new UnauthorizedException('Invalid email or password. Please check your credentials and try again.');
+        throw new UnauthorizedException(
+          'Invalid email or password. Please check your credentials and try again.',
+        );
       }
       if (error.response?.status === 401) {
-        throw new UnauthorizedException('Invalid email or password. Please check your credentials and try again.');
+        throw new UnauthorizedException(
+          'Invalid email or password. Please check your credentials and try again.',
+        );
       }
       if (error.response?.status === 400 || error.status === 400) {
         throw new BadRequestException('Invalid login data');
       }
-      throw new UnauthorizedException('Invalid email or password. Please check your credentials and try again.');
+      throw new UnauthorizedException(
+        'Invalid email or password. Please check your credentials and try again.',
+      );
     }
   }
 
@@ -257,7 +286,8 @@ export class AuthService {
   async refreshToken(refreshToken: string) {
     try {
       // Use database to refresh the token
-      const response = await this.db /* TODO: replace authClient */.auth.refreshToken(refreshToken);
+      const response = await this.db /* TODO: replace authClient */.auth
+        .refreshToken(refreshToken);
 
       return {
         access_token: (response as any).token || (response as any).accessToken,
@@ -269,7 +299,7 @@ export class AuthService {
     }
   }
 
-  async logout(userId: string) { // eslint-disable-line @typescript-eslint/no-unused-vars
+  async logout(userId: string) {
     try {
       // Note: We don't have the user's database token stored, so we can't Call database's signOut
       // The frontend will clear its local tokens, which is sufficient for logout
@@ -277,20 +307,20 @@ export class AuthService {
       // 1. Store user tokens in Redis/cache and clear them here
       // 2. Maintain a token blacklist
       // 3. Use refresh tokens with expiry
-      
+
       // TODO: In future if possible - Clear any cached user tokens from Redis/cache when implemented
       // TODO: Add token to blacklist if using that pattern
-      
+
       return {
         success: true,
-        message: 'Logged out successfully'
+        message: 'Logged out successfully',
       };
     } catch (error) {
       this.logger.error('Logout error:', error);
-      
+
       return {
         success: true,
-        message: 'Logged out successfully'
+        message: 'Logged out successfully',
       };
     }
   }
@@ -299,7 +329,7 @@ export class AuthService {
     try {
       // Use the database service's getUserById method
       const userProfile = await this.db.getUserById(userId);
-      
+
       if (!userProfile) {
         // Fallback to JWT data if getUserById fails
         return {
@@ -314,7 +344,7 @@ export class AuthService {
             bio: null,
             location: null,
             website: null,
-          }
+          },
         };
       }
 
@@ -322,7 +352,8 @@ export class AuthService {
       const metadata = userProfile.metadata || {};
 
       // Extract global role from database
-      const globalRole = userProfile.role || metadata.role || userProfile.app_metadata?.role || 'member';
+      const globalRole =
+        userProfile.role || metadata.role || userProfile.app_metadata?.role || 'member';
 
       this.logger.log('[validateUser] User data:', JSON.stringify(userProfile, null, 2));
       this.logger.log('[validateUser] User metadata:', JSON.stringify(metadata, null, 2));
@@ -335,7 +366,8 @@ export class AuthService {
 
       // Check if we got minimal data from SDK (only metadata fields)
       // If so, merge with JWT payload data for more complete profile
-      const hasCompleteProfile = userProfile.email && (userProfile.name || (userProfile as any).fullName || metadata.name);
+      const hasCompleteProfile =
+        userProfile.email && (userProfile.name || (userProfile as any).fullName || metadata.name);
 
       if (!hasCompleteProfile && jwtPayload) {
         // SDK returned minimal data, merge with JWT payload
@@ -343,7 +375,12 @@ export class AuthService {
           user: {
             id: userProfile.id || userId,
             email: jwtPayload.email || userProfile.email || null,
-            name: jwtPayload.name || metadata.name || (userProfile as any).fullName || userProfile.name || null,
+            name:
+              jwtPayload.name ||
+              metadata.name ||
+              (userProfile as any).fullName ||
+              userProfile.name ||
+              null,
             username: jwtPayload.username || userProfile.username || metadata.username || null,
             profileImage: metadata.avatarUrl || userProfile.avatar_url || null,
             avatar_url: metadata.avatarUrl || userProfile.avatar_url || null,
@@ -362,7 +399,7 @@ export class AuthService {
             role: globalRole,
             metadata: userProfile.metadata || {},
             app_metadata: userProfile.app_metadata || {},
-          }
+          },
         };
       }
 
@@ -392,7 +429,7 @@ export class AuthService {
           // Additional data from metadata JSONB fields if needed
           metadata: userProfile.metadata || {},
           app_metadata: userProfile.app_metadata || {},
-        }
+        },
       };
     } catch (error) {
       this.logger.error('Validate user error:', error);
@@ -409,7 +446,7 @@ export class AuthService {
           bio: null,
           location: null,
           website: null,
-        }
+        },
       };
     }
   }
@@ -444,7 +481,7 @@ export class AuthService {
       this.logger.log(`Updating profile for user ${userId} with data:`, updateData);
 
       // Update the user profile in database
-      const updateResult = await this.db.update("users", userId, updateData);
+      const updateResult = await this.db.update('users', userId, updateData);
 
       this.logger.log('Update result:', updateResult);
 
@@ -478,7 +515,7 @@ export class AuthService {
         message: error.message,
         statusCode: error.statusCode,
         response: error.response,
-        stack: error.stack
+        stack: error.stack,
       });
       if (error.response?.status === 404) {
         throw new NotFoundException('User not found');
@@ -510,7 +547,7 @@ export class AuthService {
             originalName: file.originalname,
             type: 'avatar',
           },
-        }
+        },
       );
 
       this.logger.log('Profile image uploaded to storage');
@@ -552,7 +589,7 @@ export class AuthService {
       const baseUrl = process.env.FRONTEND_URL || 'http://localhost:3000';
       const frontendUrl = `${baseUrl}/reset-password`;
       // TODO: implement password reset (was: this.db.client.auth.requestPasswordReset(dto.email, frontendUrl))
-      await this.db.raw("SELECT 1", []);
+      await this.db.raw('SELECT 1', []);
 
       return {
         success: true,
@@ -573,7 +610,7 @@ export class AuthService {
       // Use the database's resetPassword method
       // This properly validates the token and hashes the password
       // TODO: implement password reset confirmation (was: this.db.client.auth.resetPassword({token, newPassword}))
-      await this.db.raw("SELECT 1", []);
+      await this.db.raw('SELECT 1', []);
 
       return {
         success: true,
@@ -598,7 +635,7 @@ export class AuthService {
 
       // Verify current password by attempting to sign in
       try {
-        await this.db.findOne("users", { email: user.email }); // TODO: verify currentPassword with bcrypt
+        await this.db.findOne('users', { email: user.email }); // TODO: verify currentPassword with bcrypt
       } catch (error) {
         throw new BadRequestException('Current password is incorrect');
       }
@@ -607,7 +644,7 @@ export class AuthService {
       // The SDK changePassword endpoint requires user auth context,
       // so we use updateUser with service key which has admin access
       // TODO: implement change password (was: this.db.client.auth.changePassword({currentPassword, newPassword, userId}))
-      await this.db.raw("SELECT 1", []);
+      await this.db.raw('SELECT 1', []);
 
       return {
         success: true,
@@ -626,7 +663,8 @@ export class AuthService {
     try {
       // Use database to verify the email token
       // database handles token validation and updates user's email_verified status
-      await this.db /* TODO: replace authClient */.auth.verifyEmail(dto.token);
+      await this.db /* TODO: replace authClient */.auth
+        .verifyEmail(dto.token);
 
       return {
         success: true,
@@ -651,22 +689,23 @@ export class AuthService {
       // Use the database's resendEmailVerification method
       // This handles everything: checking if user exists, generating token, sending email
       // TODO: implement email verification resend (was: this.db.client.auth.resendEmailVerification(dto.email))
-      await this.db.raw("SELECT 1", []);
+      await this.db.raw('SELECT 1', []);
 
       return {
         success: true,
-        message: 'If the email exists in our system and is not already verified, you will receive verification instructions.',
+        message:
+          'If the email exists in our system and is not already verified, you will receive verification instructions.',
       };
     } catch (error) {
       this.logger.error('Resend email verification error:', error);
       // Don't expose internal errors - return success message for security
       return {
         success: true,
-        message: 'If the email exists in our system and is not already verified, you will receive verification instructions.',
+        message:
+          'If the email exists in our system and is not already verified, you will receive verification instructions.',
       };
     }
   }
-
 
   // ==================== OAuth Methods ====================
 
@@ -678,7 +717,8 @@ export class AuthService {
       // Ensure the redirect URL includes the callback path
       const baseUrl = frontendUrl || process.env.FRONTEND_URL || 'http://localhost:5175';
       const redirectUrl = baseUrl.endsWith('/auth/callback') ? baseUrl : `${baseUrl}/auth/callback`;
-      return await this.db /* TODO: replace authClient */.auth.getOAuthUrl('github', redirectUrl);
+      return await this.db /* TODO: replace authClient */.auth
+        .getOAuthUrl('github', redirectUrl);
     } catch (error) {
       this.logger.error('Failed to get GitHub OAuth URL:', error);
       throw new BadRequestException('GitHub OAuth is not available');
@@ -693,7 +733,8 @@ export class AuthService {
       // Ensure the redirect URL includes the callback path
       const baseUrl = frontendUrl || process.env.FRONTEND_URL || 'http://localhost:5175';
       const redirectUrl = baseUrl.endsWith('/auth/callback') ? baseUrl : `${baseUrl}/auth/callback`;
-      return await this.db /* TODO: replace authClient */.auth.getOAuthUrl('google', redirectUrl);
+      return await this.db /* TODO: replace authClient */.auth
+        .getOAuthUrl('google', redirectUrl);
     } catch (error) {
       this.logger.error('Failed to get Google OAuth URL:', error);
       throw new BadRequestException('Google OAuth is not available');
@@ -708,7 +749,8 @@ export class AuthService {
       // Ensure the redirect URL includes the callback path
       const baseUrl = frontendUrl || process.env.FRONTEND_URL || 'http://localhost:5175';
       const redirectUrl = baseUrl.endsWith('/auth/callback') ? baseUrl : `${baseUrl}/auth/callback`;
-      return await this.db /* TODO: replace authClient */.auth.getOAuthUrl('apple', redirectUrl);
+      return await this.db /* TODO: replace authClient */.auth
+        .getOAuthUrl('apple', redirectUrl);
     } catch (error) {
       this.logger.error('Failed to get Apple OAuth URL:', error);
       throw new BadRequestException('Apple OAuth is not available');
@@ -805,8 +847,8 @@ export class AuthService {
             settings: {
               push: true,
               email: true,
-              inApp: true
-            }
+              inApp: true,
+            },
           },
           {
             id: 'tasks',
@@ -815,8 +857,8 @@ export class AuthService {
             settings: {
               push: true,
               email: true,
-              inApp: true
-            }
+              inApp: true,
+            },
           },
           {
             id: 'calendar',
@@ -825,8 +867,8 @@ export class AuthService {
             settings: {
               push: true,
               email: true,
-              inApp: true
-            }
+              inApp: true,
+            },
           },
           {
             id: 'workspace',
@@ -835,9 +877,9 @@ export class AuthService {
             settings: {
               push: true,
               email: true,
-              inApp: true
-            }
-          }
+              inApp: true,
+            },
+          },
         ],
         generalSettings: {
           sound: true,
@@ -846,9 +888,9 @@ export class AuthService {
           quietHours: {
             enabled: false,
             startTime: '22:00',
-            endTime: '08:00'
-          }
-        }
+            endTime: '08:00',
+          },
+        },
       };
 
       // Create default user settings
@@ -863,11 +905,13 @@ export class AuthService {
         privacy: {},
         editor_preferences: {},
         dashboard_layout: {},
-        sidebar_collapsed: false
+        sidebar_collapsed: false,
       };
 
       await this.db.insert('user_settings', userSettings);
-      this.logger.log(`Created default user settings for user ${userId} with timezone ${userTimezone}`);
+      this.logger.log(
+        `Created default user settings for user ${userId} with timezone ${userTimezone}`,
+      );
     } catch (error) {
       this.logger.error(`Failed to create default user settings for user ${userId}:`, error);
       // Don't throw - user creation should succeed even if settings creation fails
@@ -904,7 +948,7 @@ export class AuthService {
 
       // Step 0: Verify password using database login
       try {
-        await this.db.findOne("users", { email }); // TODO: verify password with bcrypt
+        await this.db.findOne('users', { email }); // TODO: verify password with bcrypt
         this.logger.log(`Password verified for user ${userId}`);
       } catch (error) {
         this.logger.warn(`Password verification failed for user ${userId}`);
@@ -914,10 +958,7 @@ export class AuthService {
       // Step 1: Delete workspaces where user is the owner
       // This will cascade delete related workspace data
       this.logger.log(`Deleting workspaces owned by user ${userId}`);
-      await this.db.table('workspaces')
-        .where('owner_id', '=', userId)
-        .delete()
-        .execute();
+      await this.db.table('workspaces').where('owner_id', '=', userId).delete().execute();
 
       // Step 2: Delete user memberships and associations
       const membershipTables = [
@@ -926,16 +967,13 @@ export class AuthService {
         'channel_members',
         'conversation_members',
         'event_attendees',
-        'video_call_participants'
+        'video_call_participants',
       ];
 
       for (const table of membershipTables) {
         this.logger.log(`Deleting from ${table} for user ${userId}`);
         try {
-          await this.db.table(table)
-            .where('user_id', '=', userId)
-            .delete()
-            .execute();
+          await this.db.table(table).where('user_id', '=', userId).delete().execute();
         } catch (error) {
           this.logger.warn(`Table ${table} might not exist or delete failed:`, error.message);
         }
@@ -958,16 +996,13 @@ export class AuthService {
         'activity_logs',
         'user_activity_logs',
         'search_history',
-        'saved_searches'
+        'saved_searches',
       ];
 
       for (const table of contentTables) {
         this.logger.log(`Deleting from ${table} for user ${userId}`);
         try {
-          await this.db.table(table)
-            .where('user_id', '=', userId)
-            .delete()
-            .execute();
+          await this.db.table(table).where('user_id', '=', userId).delete().execute();
         } catch (error) {
           this.logger.warn(`Table ${table} might not exist or delete failed:`, error.message);
         }
@@ -982,16 +1017,13 @@ export class AuthService {
         'device_tokens',
         'password_reset_tokens',
         'email_verification_tokens',
-        'ai_usage_stats'
+        'ai_usage_stats',
       ];
 
       for (const table of settingsTables) {
         this.logger.log(`Deleting from ${table} for user ${userId}`);
         try {
-          await this.db.table(table)
-            .where('user_id', '=', userId)
-            .delete()
-            .execute();
+          await this.db.table(table).where('user_id', '=', userId).delete().execute();
         } catch (error) {
           this.logger.warn(`Table ${table} might not exist or delete failed:`, error.message);
         }
@@ -1001,7 +1033,7 @@ export class AuthService {
       this.logger.log(`Deleting user ${userId} from auth service system`);
       try {
         // TODO: implement user deletion
-      await this.db.raw("DELETE FROM users WHERE id = $1", [userId]);
+        await this.db.raw('DELETE FROM users WHERE id = $1', [userId]);
         this.logger.log(`Successfully deleted user ${userId} from auth service system`);
       } catch (error) {
         this.logger.error(`Failed to delete user from auth service system:`, error);
@@ -1012,11 +1044,13 @@ export class AuthService {
 
       return {
         message: 'Account successfully deleted. All your data has been permanently removed.',
-        success: true
+        success: true,
       };
     } catch (error) {
       this.logger.error(`Failed to delete account for user ${userId}:`, error);
-      throw new InternalServerErrorException('Failed to delete account. Please try again or contact support.');
+      throw new InternalServerErrorException(
+        'Failed to delete account. Please try again or contact support.',
+      );
     }
   }
 
@@ -1035,7 +1069,7 @@ export class AuthService {
       feedbackResponse?: string;
       wasRetained: boolean;
       deletedAccount: boolean;
-    }
+    },
   ) {
     try {
       this.logger.log(`Submitting deletion feedback for user ${userId}`);
@@ -1063,7 +1097,8 @@ export class AuthService {
         priority: priority,
       };
 
-      const result = await this.db.table('account_deletion_feedback')
+      const result = await this.db
+        .table('account_deletion_feedback')
         .insert(feedbackData)
         .execute();
 
@@ -1099,7 +1134,8 @@ export class AuthService {
     try {
       this.logger.log('Fetching deletion feedback with query:', query);
 
-      let queryBuilder = this.db.table('account_deletion_feedback')
+      let queryBuilder = this.db
+        .table('account_deletion_feedback')
         .select('*')
         .orderBy('created_at', 'desc');
 
@@ -1131,9 +1167,7 @@ export class AuthService {
       const result = await queryBuilder.execute();
 
       // Get total count for pagination
-      const countResult = await this.db.table('account_deletion_feedback')
-        .select('id')
-        .execute();
+      const countResult = await this.db.table('account_deletion_feedback').select('id').execute();
 
       return {
         data: result.data || [],
@@ -1152,7 +1186,8 @@ export class AuthService {
    */
   async getDeletionFeedbackById(feedbackId: string) {
     try {
-      const result = await this.db.table('account_deletion_feedback')
+      const result = await this.db
+        .table('account_deletion_feedback')
         .select('*')
         .where('id', '=', feedbackId)
         .execute();
@@ -1181,7 +1216,7 @@ export class AuthService {
       status?: string;
       priority?: string;
       adminNotes?: string;
-    }
+    },
   ) {
     try {
       this.logger.log(`Updating deletion feedback ${feedbackId} by admin ${adminUserId}`);
@@ -1192,7 +1227,11 @@ export class AuthService {
 
       if (data.status) {
         updateData.status = data.status;
-        if (data.status === 'reviewed' || data.status === 'actioned' || data.status === 'resolved') {
+        if (
+          data.status === 'reviewed' ||
+          data.status === 'actioned' ||
+          data.status === 'resolved'
+        ) {
           updateData.reviewed_at = new Date().toISOString();
           updateData.reviewed_by = adminUserId;
         }
@@ -1204,7 +1243,8 @@ export class AuthService {
         updateData.admin_notes = data.adminNotes;
       }
 
-      await this.db.table('account_deletion_feedback')
+      await this.db
+        .table('account_deletion_feedback')
         .update(updateData)
         .where('id', '=', feedbackId)
         .execute();
@@ -1222,9 +1262,7 @@ export class AuthService {
    */
   async getDeletionFeedbackStats() {
     try {
-      const allFeedback = await this.db.table('account_deletion_feedback')
-        .select('*')
-        .execute();
+      const allFeedback = await this.db.table('account_deletion_feedback').select('*').execute();
 
       const data = allFeedback.data || [];
 
@@ -1268,5 +1306,46 @@ export class AuthService {
       this.logger.error(`Failed to fetch deletion feedback stats: ${error.message}`, error.stack);
       throw new InternalServerErrorException('Failed to fetch deletion feedback statistics');
     }
+  }
+
+  /**
+   * Sign a user in via magic link. Called by SsoController after the
+   * magic-link JWT has been verified. Finds the user by email (or
+   * creates a minimal record on first magic-link login) and issues a
+   * real access token.
+   */
+  async authenticateViaMagicLink(email: string) {
+    const normalized = email.toLowerCase().trim();
+    let user = await this.db.findOne('users', { email: normalized });
+    if (!user) {
+      // password_hash stays NULL — the user cannot log in via
+      // password until they set one (users.password_hash is nullable
+      // in the schema). email_verified is set true because the user
+      // proved control of the inbox by clicking the magic-link.
+      const inserted: any = await this.db.query(
+        `INSERT INTO users (email, email_verified, email_confirmed_at, created_at, updated_at)
+         VALUES (LOWER($1), true, NOW(), NOW(), NOW())
+         RETURNING id, email, email_verified`,
+        [normalized],
+      );
+      user = inserted?.rows?.[0];
+      if (!user) {
+        throw new InternalServerErrorException('Failed to create user during magic-link login');
+      }
+      this.logger.log(`Magic-link auto-provisioned user ${normalized}`);
+    }
+    const access_token = this.jwtService.sign({
+      sub: user.id,
+      email: user.email,
+      loginMethod: 'magic-link',
+    });
+    return {
+      user: {
+        id: user.id,
+        email: user.email,
+        emailVerified: user.email_verified ?? true,
+      },
+      access_token,
+    };
   }
 }

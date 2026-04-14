@@ -37,6 +37,12 @@ import { WebSocketModule } from '../../common/gateways/websocket.module';
     RealtimeTranscriptionService,
     MeetingIntelligenceService,
   ],
-  exports: [VideoCallsService, LivekitVideoService, VideoCallsGateway, RealtimeTranscriptionService, MeetingIntelligenceService],
+  exports: [
+    VideoCallsService,
+    LivekitVideoService,
+    VideoCallsGateway,
+    RealtimeTranscriptionService,
+    MeetingIntelligenceService,
+  ],
 })
 export class VideoCallsModule {}

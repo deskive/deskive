@@ -34,7 +34,9 @@ export enum CustomFieldType {
  * Option for select/multi-select fields (when creating - id is optional)
  */
 export class CreateSelectOptionDto {
-  @ApiPropertyOptional({ description: 'Unique identifier for the option (auto-generated if not provided)' })
+  @ApiPropertyOptional({
+    description: 'Unique identifier for the option (auto-generated if not provided)',
+  })
   @IsOptional()
   @IsString()
   id?: string;
@@ -126,7 +128,7 @@ export class CreateCustomFieldDto {
 
   @ApiProperty({
     description: 'Type of the custom field',
-    enum: CustomFieldType
+    enum: CustomFieldType,
   })
   @IsEnum(CustomFieldType)
   fieldType: CustomFieldType;
@@ -138,7 +140,7 @@ export class CreateCustomFieldDto {
 
   @ApiPropertyOptional({
     description: 'Options for select/multi-select fields',
-    type: [CreateSelectOptionDto]
+    type: [CreateSelectOptionDto],
   })
   @IsOptional()
   @IsArray()
@@ -167,7 +169,7 @@ export class CreateCustomFieldDto {
 
   @ApiPropertyOptional({
     description: 'Additional field settings',
-    type: FieldSettingsDto
+    type: FieldSettingsDto,
   })
   @IsOptional()
   @ValidateNested()
@@ -191,7 +193,7 @@ export class UpdateCustomFieldDto {
 
   @ApiPropertyOptional({
     description: 'Options for select/multi-select fields',
-    type: [SelectOptionDto]
+    type: [SelectOptionDto],
   })
   @IsOptional()
   @IsArray()
@@ -220,7 +222,7 @@ export class UpdateCustomFieldDto {
 
   @ApiPropertyOptional({
     description: 'Additional field settings',
-    type: FieldSettingsDto
+    type: FieldSettingsDto,
   })
   @IsOptional()
   @ValidateNested()
@@ -246,7 +248,7 @@ export class CustomFieldValueDto {
 export class UpdateTaskCustomFieldsDto {
   @ApiProperty({
     description: 'Object containing field ID to value mappings',
-    example: { 'field-uuid-1': 'text value', 'field-uuid-2': 100 }
+    example: { 'field-uuid-1': 'text value', 'field-uuid-2': 100 },
   })
   @IsObject()
   customFields: Record<string, any>;
@@ -305,7 +307,7 @@ export class CustomFieldDefinitionResponseDto {
 export class ReorderCustomFieldsDto {
   @ApiProperty({
     description: 'Array of field IDs in the new order',
-    type: [String]
+    type: [String],
   })
   @IsArray()
   @IsUUID('4', { each: true })

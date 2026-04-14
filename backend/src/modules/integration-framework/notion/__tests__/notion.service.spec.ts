@@ -71,11 +71,7 @@ describe('NotionService - Actions', () => {
           .matchHeader('notion-version', '2022-06-28')
           .reply(testCase.mock.status, testCase.mock.response);
 
-        const result = await service.createPage(
-          'user-123',
-          'workspace-456',
-          testCase.input
-        );
+        const result = await service.createPage('user-123', 'workspace-456', testCase.input);
 
         expect(result).toMatchObject(testCase.expected.data);
       });

@@ -45,12 +45,15 @@ export class DropboxOAuthService {
     const clientSecret = this.configService.get<string>('DROPBOX_CLIENT_SECRET');
 
     if (!clientId || !clientSecret) {
-      throw new Error('Dropbox OAuth credentials not configured. Please set DROPBOX_CLIENT_ID and DROPBOX_CLIENT_SECRET');
+      throw new Error(
+        'Dropbox OAuth credentials not configured. Please set DROPBOX_CLIENT_ID and DROPBOX_CLIENT_SECRET',
+      );
     }
 
     const apiUrl = this.configService.get<string>('API_URL') || 'http://localhost:3002';
-    const redirectUri = this.configService.get<string>('DROPBOX_OAUTH_REDIRECT_URI')
-      || `${apiUrl}/api/v1/integrations/dropbox/callback`;
+    const redirectUri =
+      this.configService.get<string>('DROPBOX_OAUTH_REDIRECT_URI') ||
+      `${apiUrl}/api/v1/integrations/dropbox/callback`;
 
     return { clientId, clientSecret, redirectUri };
   }
@@ -74,7 +77,12 @@ export class DropboxOAuthService {
   /**
    * Decode and validate state parameter
    */
-  decodeState(state: string): { userId: string; workspaceId: string; returnUrl?: string; timestamp: number } {
+  decodeState(state: string): {
+    userId: string;
+    workspaceId: string;
+    returnUrl?: string;
+    timestamp: number;
+  } {
     try {
       const decoded = Buffer.from(state, 'base64url').toString('utf-8');
       const stateData = JSON.parse(decoded);
@@ -86,7 +94,9 @@ export class DropboxOAuthService {
         throw new Error('State parameter expired. Please try again.');
       }
 
-      this.logger.log(`State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`);
+      this.logger.log(
+        `State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`,
+      );
       return stateData;
     } catch (error) {
       this.logger.error('Failed to decode state parameter:', error);
@@ -97,7 +107,11 @@ export class DropboxOAuthService {
   /**
    * Generate Dropbox OAuth authorization URL
    */
-  getAuthorizationUrl(userId: string, workspaceId: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { clientId, redirectUri } = this.getClientCredentials();
     const state = this.generateState(userId, workspaceId, returnUrl);
 
@@ -125,7 +139,8 @@ export class DropboxOAuthService {
     try {
       this.logger.log('Exchanging authorization code for tokens...');
 
-      const response = await axios.post(this.DROPBOX_TOKEN_URL,
+      const response = await axios.post(
+        this.DROPBOX_TOKEN_URL,
         new URLSearchParams({
           code,
           grant_type: 'authorization_code',
@@ -134,9 +149,9 @@ export class DropboxOAuthService {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
           },
-        }
+        },
       );
 
       const data = response.data;
@@ -156,8 +171,13 @@ export class DropboxOAuthService {
 
       return tokens;
     } catch (error) {
-      this.logger.error('Failed to exchange code for tokens:', error.response?.data || error.message);
-      throw new Error(`Failed to exchange authorization code: ${error.response?.data?.error_description || error.message}`);
+      this.logger.error(
+        'Failed to exchange code for tokens:',
+        error.response?.data || error.message,
+      );
+      throw new Error(
+        `Failed to exchange authorization code: ${error.response?.data?.error_description || error.message}`,
+      );
     }
   }
 
@@ -170,7 +190,8 @@ export class DropboxOAuthService {
     try {
       this.logger.log('Refreshing access token...');
 
-      const response = await axios.post(this.DROPBOX_TOKEN_URL,
+      const response = await axios.post(
+        this.DROPBOX_TOKEN_URL,
         new URLSearchParams({
           refresh_token: refreshToken,
           grant_type: 'refresh_token',
@@ -178,9 +199,9 @@ export class DropboxOAuthService {
         {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
+            Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
           },
-        }
+        },
       );
 
       const data = response.data;
@@ -200,7 +221,9 @@ export class DropboxOAuthService {
       return tokens;
     } catch (error) {
       this.logger.error('Failed to refresh access token:', error.response?.data || error.message);
-      throw new Error(`Failed to refresh access token: ${error.response?.data?.error_description || error.message}`);
+      throw new Error(
+        `Failed to refresh access token: ${error.response?.data?.error_description || error.message}`,
+      );
     }
   }
 

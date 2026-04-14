@@ -1,12 +1,54 @@
-import { Controller, Post, Body, Get, Put, Delete, Patch, Param, UseGuards, Request, UseInterceptors, UploadedFile, BadRequestException, Query, Res, HttpCode, HttpStatus } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Delete,
+  Patch,
+  Param,
+  UseGuards,
+  Request,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+  Query,
+  Res,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiConsumes, ApiBody, ApiQuery, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+  ApiQuery,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import * as multer from 'multer';
 import { AuthService } from './auth.service';
-import { RegisterDto, LoginDto, RefreshTokenDto, UpdateProfileDto, PasswordResetRequestDto, PasswordResetConfirmDto, ChangePasswordDto, VerifyEmailDto, ResendEmailVerificationDto, DeleteAccountDto } from './dto/auth.dto';
+import {
+  RegisterDto,
+  LoginDto,
+  RefreshTokenDto,
+  UpdateProfileDto,
+  PasswordResetRequestDto,
+  PasswordResetConfirmDto,
+  ChangePasswordDto,
+  VerifyEmailDto,
+  ResendEmailVerificationDto,
+  DeleteAccountDto,
+} from './dto/auth.dto';
 import { OAuthCallbackDto } from './dto/oauth.dto';
-import { SubmitDeletionFeedbackDto, UpdateDeletionFeedbackDto, GetDeletionFeedbackQueryDto, DeletionFeedbackResponseDto } from './dto/deletion-feedback.dto';
+import {
+  SubmitDeletionFeedbackDto,
+  UpdateDeletionFeedbackDto,
+  GetDeletionFeedbackQueryDto,
+  DeletionFeedbackResponseDto,
+} from './dto/deletion-feedback.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @ApiTags('Authentication')
@@ -184,7 +226,11 @@ export class AuthController {
   @Get('oauth/github')
   @HttpCode(HttpStatus.FOUND)
   @ApiOperation({ summary: 'Initiate GitHub OAuth flow via OAuth' })
-  @ApiQuery({ name: 'frontendUrl', required: false, description: 'Frontend URL for redirect after auth' })
+  @ApiQuery({
+    name: 'frontendUrl',
+    required: false,
+    description: 'Frontend URL for redirect after auth',
+  })
   async githubOAuth(@Request() req, @Res() res: Response) {
     const frontendUrl = this.getFrontendUrl(req);
     const authUrl = await this.authService.getGitHubAuthUrl(frontendUrl);
@@ -194,7 +240,11 @@ export class AuthController {
   @Get('oauth/google')
   @HttpCode(HttpStatus.FOUND)
   @ApiOperation({ summary: 'Initiate Google OAuth flow via OAuth' })
-  @ApiQuery({ name: 'frontendUrl', required: false, description: 'Frontend URL for redirect after auth' })
+  @ApiQuery({
+    name: 'frontendUrl',
+    required: false,
+    description: 'Frontend URL for redirect after auth',
+  })
   async googleOAuth(@Request() req, @Res() res: Response) {
     const frontendUrl = this.getFrontendUrl(req);
     const authUrl = await this.authService.getGoogleAuthUrl(frontendUrl);
@@ -204,7 +254,11 @@ export class AuthController {
   @Get('oauth/apple')
   @HttpCode(HttpStatus.FOUND)
   @ApiOperation({ summary: 'Initiate Apple OAuth flow via OAuth' })
-  @ApiQuery({ name: 'frontendUrl', required: false, description: 'Frontend URL for redirect after auth' })
+  @ApiQuery({
+    name: 'frontendUrl',
+    required: false,
+    description: 'Frontend URL for redirect after auth',
+  })
   async appleOAuth(@Request() req, @Res() res: Response) {
     const frontendUrl = this.getFrontendUrl(req);
     const authUrl = await this.authService.getAppleAuthUrl(frontendUrl);
@@ -270,7 +324,11 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get deletion feedback by ID (admin only)' })
-  @ApiResponse({ status: 200, description: 'Feedback retrieved successfully', type: DeletionFeedbackResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Feedback retrieved successfully',
+    type: DeletionFeedbackResponseDto,
+  })
   async getDeletionFeedbackById(@Request() req, @Param('id') id: string) {
     // TODO: Add admin role check
     return await this.authService.getDeletionFeedbackById(id);
@@ -280,11 +338,15 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update deletion feedback (admin only)' })
-  @ApiResponse({ status: 200, description: 'Feedback updated successfully', type: DeletionFeedbackResponseDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Feedback updated successfully',
+    type: DeletionFeedbackResponseDto,
+  })
   async updateDeletionFeedback(
     @Request() req,
     @Param('id') id: string,
-    @Body() dto: UpdateDeletionFeedbackDto
+    @Body() dto: UpdateDeletionFeedbackDto,
   ) {
     // TODO: Add admin role check
     const adminUserId = req.user.sub || req.user.userId;

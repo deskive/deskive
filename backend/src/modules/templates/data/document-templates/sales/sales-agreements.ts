@@ -69,7 +69,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '{{governing_law}}', attributes: { bold: true } },
         { insert: '.\n\n' },
         { insert: '9. Entire Agreement', attributes: { header: 2 } },
-        { insert: '\nThis Agreement constitutes the entire agreement between the parties and supersedes all prior agreements and understandings.\n\n' },
+        {
+          insert:
+            '\nThis Agreement constitutes the entire agreement between the parties and supersedes all prior agreements and understandings.\n\n',
+        },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
         { insert: 'Seller:\n' },
@@ -90,11 +93,29 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'buyer_address', label: 'Buyer Address', type: 'textarea', required: true },
       { key: 'products_services', label: 'Products/Services', type: 'textarea', required: true },
       { key: 'total_price', label: 'Total Price', type: 'currency', required: true },
-      { key: 'payment_terms', label: 'Payment Terms', type: 'select', required: true, options: ['Net 30', 'Net 60', 'Due on Delivery', '50% Deposit, 50% on Delivery'] },
-      { key: 'payment_method', label: 'Payment Method', type: 'select', required: true, options: ['Wire Transfer', 'Check', 'Credit Card', 'ACH'] },
+      {
+        key: 'payment_terms',
+        label: 'Payment Terms',
+        type: 'select',
+        required: true,
+        options: ['Net 30', 'Net 60', 'Due on Delivery', '50% Deposit, 50% on Delivery'],
+      },
+      {
+        key: 'payment_method',
+        label: 'Payment Method',
+        type: 'select',
+        required: true,
+        options: ['Wire Transfer', 'Check', 'Credit Card', 'ACH'],
+      },
       { key: 'delivery_date', label: 'Delivery Date', type: 'date', required: true },
       { key: 'delivery_location', label: 'Delivery Location', type: 'text', required: true },
-      { key: 'shipping_terms', label: 'Shipping Terms', type: 'select', required: true, options: ['FOB Origin', 'FOB Destination', 'CIF', 'DDP'] },
+      {
+        key: 'shipping_terms',
+        label: 'Shipping Terms',
+        type: 'select',
+        required: true,
+        options: ['FOB Origin', 'FOB Destination', 'CIF', 'DDP'],
+      },
       { key: 'warranty_terms', label: 'Warranty Terms', type: 'textarea', required: true },
       { key: 'liability_terms', label: 'Liability Terms', type: 'textarea', required: true },
       { key: 'ip_terms', label: 'IP Terms', type: 'textarea', required: true },
@@ -106,7 +127,11 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'buyer_title', label: 'Buyer Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Distribution Agreement',
@@ -142,7 +167,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '{{territory}}', attributes: { bold: true } },
         { insert: '\n\n' },
         { insert: '4. Term', attributes: { header: 2 } },
-        { insert: '\nThis Agreement shall commence on the Effective Date and continue for a period of ' },
+        {
+          insert:
+            '\nThis Agreement shall commence on the Effective Date and continue for a period of ',
+        },
         { insert: '{{term_length}}', attributes: { bold: true } },
         { insert: ', unless terminated earlier.\n\n' },
         { insert: '5. Pricing and Payment', attributes: { header: 2 } },
@@ -166,7 +194,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '{{ip_terms}}' },
         { insert: '\n\n' },
         { insert: '9. Confidentiality', attributes: { header: 2 } },
-        { insert: '\nBoth parties agree to maintain confidentiality of proprietary information shared under this Agreement.\n\n' },
+        {
+          insert:
+            '\nBoth parties agree to maintain confidentiality of proprietary information shared under this Agreement.\n\n',
+        },
         { insert: '10. Termination', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{termination_terms}}' },
@@ -177,8 +208,14 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '.\n\n' },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
-        { insert: 'Supplier:\nSignature: _________________ Date: _________\nName: {{supplier_signatory}}\nTitle: {{supplier_title}}\n\n' },
-        { insert: 'Distributor:\nSignature: _________________ Date: _________\nName: {{distributor_signatory}}\nTitle: {{distributor_title}}\n' },
+        {
+          insert:
+            'Supplier:\nSignature: _________________ Date: _________\nName: {{supplier_signatory}}\nTitle: {{supplier_title}}\n\n',
+        },
+        {
+          insert:
+            'Distributor:\nSignature: _________________ Date: _________\nName: {{distributor_signatory}}\nTitle: {{distributor_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -186,8 +223,19 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'supplier_company', label: 'Supplier Company', type: 'text', required: true },
       { key: 'supplier_address', label: 'Supplier Address', type: 'textarea', required: true },
       { key: 'distributor_company', label: 'Distributor Company', type: 'text', required: true },
-      { key: 'distributor_address', label: 'Distributor Address', type: 'textarea', required: true },
-      { key: 'exclusivity', label: 'Exclusivity', type: 'select', required: true, options: ['exclusive', 'non-exclusive'] },
+      {
+        key: 'distributor_address',
+        label: 'Distributor Address',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        key: 'exclusivity',
+        label: 'Exclusivity',
+        type: 'select',
+        required: true,
+        options: ['exclusive', 'non-exclusive'],
+      },
       { key: 'products', label: 'Products', type: 'textarea', required: true },
       { key: 'territory', label: 'Territory', type: 'text', required: true },
       { key: 'term_length', label: 'Term Length', type: 'text', required: true },
@@ -201,11 +249,20 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'governing_law', label: 'Governing Law', type: 'text', required: true },
       { key: 'supplier_signatory', label: 'Supplier Signatory', type: 'text', required: true },
       { key: 'supplier_title', label: 'Supplier Title', type: 'text', required: true },
-      { key: 'distributor_signatory', label: 'Distributor Signatory', type: 'text', required: true },
+      {
+        key: 'distributor_signatory',
+        label: 'Distributor Signatory',
+        type: 'text',
+        required: true,
+      },
       { key: 'distributor_title', label: 'Distributor Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Reseller Agreement',
@@ -228,7 +285,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: 'Reseller: ', attributes: { bold: true } },
         { insert: '{{reseller_company}}\n{{reseller_address}}\n\n' },
         { insert: '1. Appointment', attributes: { header: 2 } },
-        { insert: '\nVendor appoints Reseller as an authorized reseller of the Products described herein.\n\n' },
+        {
+          insert:
+            '\nVendor appoints Reseller as an authorized reseller of the Products described herein.\n\n',
+        },
         { insert: '2. Products', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{products}}' },
@@ -264,11 +324,20 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '{{termination_terms}}' },
         { insert: '\n\n' },
         { insert: '9. Confidentiality', attributes: { header: 2 } },
-        { insert: '\nReseller agrees to maintain confidentiality of pricing, customer data, and proprietary information.\n\n' },
+        {
+          insert:
+            '\nReseller agrees to maintain confidentiality of pricing, customer data, and proprietary information.\n\n',
+        },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
-        { insert: 'Vendor:\nSignature: _________________ Date: _________\nName: {{vendor_signatory}}\nTitle: {{vendor_title}}\n\n' },
-        { insert: 'Reseller:\nSignature: _________________ Date: _________\nName: {{reseller_signatory}}\nTitle: {{reseller_title}}\n' },
+        {
+          insert:
+            'Vendor:\nSignature: _________________ Date: _________\nName: {{vendor_signatory}}\nTitle: {{vendor_title}}\n\n',
+        },
+        {
+          insert:
+            'Reseller:\nSignature: _________________ Date: _________\nName: {{reseller_signatory}}\nTitle: {{reseller_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -282,7 +351,12 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'map_policy', label: 'MAP Policy', type: 'text', required: true },
       { key: 'fulfillment_terms', label: 'Fulfillment Terms', type: 'textarea', required: true },
       { key: 'return_policy', label: 'Return Policy', type: 'textarea', required: true },
-      { key: 'branding_guidelines', label: 'Branding Guidelines', type: 'textarea', required: true },
+      {
+        key: 'branding_guidelines',
+        label: 'Branding Guidelines',
+        type: 'textarea',
+        required: true,
+      },
       { key: 'support_terms', label: 'Support Terms', type: 'textarea', required: true },
       { key: 'term', label: 'Term', type: 'text', required: true },
       { key: 'termination_terms', label: 'Termination Terms', type: 'textarea', required: true },
@@ -292,7 +366,11 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'reseller_title', label: 'Reseller Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Commission Agreement',
@@ -371,8 +449,14 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
-        { insert: 'Company:\nSignature: _________________ Date: _________\nName: {{company_signatory}}\nTitle: {{company_title}}\n\n' },
-        { insert: 'Sales Representative:\nSignature: _________________ Date: _________\nName: {{rep_name}}\n' },
+        {
+          insert:
+            'Company:\nSignature: _________________ Date: _________\nName: {{company_signatory}}\nTitle: {{company_title}}\n\n',
+        },
+        {
+          insert:
+            'Sales Representative:\nSignature: _________________ Date: _________\nName: {{rep_name}}\n',
+        },
       ],
     },
     placeholders: [
@@ -388,7 +472,13 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'tier3_rate', label: 'Tier 3 Rate', type: 'text', required: true },
       { key: 'tier4_rate', label: 'Tier 4 Rate', type: 'text', required: true },
       { key: 'base_compensation', label: 'Base Compensation', type: 'currency', required: true },
-      { key: 'pay_period', label: 'Pay Period', type: 'select', required: true, options: ['month', 'bi-weekly', 'week'] },
+      {
+        key: 'pay_period',
+        label: 'Pay Period',
+        type: 'select',
+        required: true,
+        options: ['month', 'bi-weekly', 'week'],
+      },
       { key: 'draw_terms', label: 'Draw Terms', type: 'text', required: true },
       { key: 'qualifying_sales', label: 'Qualifying Sales', type: 'textarea', required: true },
       { key: 'payment_schedule', label: 'Payment Schedule', type: 'text', required: true },
@@ -402,7 +492,11 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'company_title', label: 'Company Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Referral Agreement',
@@ -425,7 +519,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: 'Referrer: ', attributes: { bold: true } },
         { insert: '{{referrer_name}}\n{{referrer_address}}\n\n' },
         { insert: '1. Purpose', attributes: { header: 2 } },
-        { insert: '\nThis Agreement establishes the terms under which Referrer will refer potential customers to Company.\n\n' },
+        {
+          insert:
+            '\nThis Agreement establishes the terms under which Referrer will refer potential customers to Company.\n\n',
+        },
         { insert: '2. Referral Process', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '{{referral_process}}' },
@@ -461,13 +558,25 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '{{termination_terms}}' },
         { insert: '\n\n' },
         { insert: '8. Non-Exclusivity', attributes: { header: 2 } },
-        { insert: '\nThis is a non-exclusive agreement. Both parties may enter into similar arrangements with others.\n\n' },
+        {
+          insert:
+            '\nThis is a non-exclusive agreement. Both parties may enter into similar arrangements with others.\n\n',
+        },
         { insert: '9. Confidentiality', attributes: { header: 2 } },
-        { insert: '\nBoth parties agree to maintain confidentiality regarding the terms of this Agreement and any proprietary information shared.\n\n' },
+        {
+          insert:
+            '\nBoth parties agree to maintain confidentiality regarding the terms of this Agreement and any proprietary information shared.\n\n',
+        },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
-        { insert: 'Company:\nSignature: _________________ Date: _________\nName: {{company_signatory}}\nTitle: {{company_title}}\n\n' },
-        { insert: 'Referrer:\nSignature: _________________ Date: _________\nName: {{referrer_signatory}}\nTitle: {{referrer_title}}\n' },
+        {
+          insert:
+            'Company:\nSignature: _________________ Date: _________\nName: {{company_signatory}}\nTitle: {{company_title}}\n\n',
+        },
+        {
+          insert:
+            'Referrer:\nSignature: _________________ Date: _________\nName: {{referrer_signatory}}\nTitle: {{referrer_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -477,12 +586,35 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'referrer_name', label: 'Referrer Name', type: 'text', required: true },
       { key: 'referrer_address', label: 'Referrer Address', type: 'textarea', required: true },
       { key: 'referral_process', label: 'Referral Process', type: 'textarea', required: true },
-      { key: 'qualifying_criteria', label: 'Qualifying Criteria', type: 'textarea', required: true },
-      { key: 'fee_structure', label: 'Fee Structure', type: 'select', required: true, options: ['Flat Fee', 'Percentage of Sale', 'Tiered'] },
+      {
+        key: 'qualifying_criteria',
+        label: 'Qualifying Criteria',
+        type: 'textarea',
+        required: true,
+      },
+      {
+        key: 'fee_structure',
+        label: 'Fee Structure',
+        type: 'select',
+        required: true,
+        options: ['Flat Fee', 'Percentage of Sale', 'Tiered'],
+      },
       { key: 'fee_amount', label: 'Fee Amount', type: 'text', required: true },
-      { key: 'payment_trigger', label: 'Payment Trigger', type: 'select', required: true, options: ['Upon Signing', 'Upon Payment Received', 'After 30 Days'] },
+      {
+        key: 'payment_trigger',
+        label: 'Payment Trigger',
+        type: 'select',
+        required: true,
+        options: ['Upon Signing', 'Upon Payment Received', 'After 30 Days'],
+      },
       { key: 'payment_schedule', label: 'Payment Schedule', type: 'text', required: true },
-      { key: 'payment_method', label: 'Payment Method', type: 'select', required: true, options: ['Check', 'Wire Transfer', 'ACH', 'PayPal'] },
+      {
+        key: 'payment_method',
+        label: 'Payment Method',
+        type: 'select',
+        required: true,
+        options: ['Check', 'Wire Transfer', 'ACH', 'PayPal'],
+      },
       { key: 'exclusions', label: 'Exclusions', type: 'textarea', required: true },
       { key: 'term', label: 'Term', type: 'text', required: true },
       { key: 'termination_terms', label: 'Termination Terms', type: 'textarea', required: true },
@@ -492,7 +624,11 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'referrer_title', label: 'Referrer Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Purchase Order',
@@ -524,9 +660,18 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Line | Item Number | Description | Qty | Unit Price | Total |\n' },
         { insert: '|------|-------------|-------------|-----|------------|-------|\n' },
-        { insert: '| 1 | {{item_1_num}} | {{item_1_desc}} | {{item_1_qty}} | {{item_1_price}} | {{item_1_total}} |\n' },
-        { insert: '| 2 | {{item_2_num}} | {{item_2_desc}} | {{item_2_qty}} | {{item_2_price}} | {{item_2_total}} |\n' },
-        { insert: '| 3 | {{item_3_num}} | {{item_3_desc}} | {{item_3_qty}} | {{item_3_price}} | {{item_3_total}} |\n' },
+        {
+          insert:
+            '| 1 | {{item_1_num}} | {{item_1_desc}} | {{item_1_qty}} | {{item_1_price}} | {{item_1_total}} |\n',
+        },
+        {
+          insert:
+            '| 2 | {{item_2_num}} | {{item_2_desc}} | {{item_2_qty}} | {{item_2_price}} | {{item_2_total}} |\n',
+        },
+        {
+          insert:
+            '| 3 | {{item_3_num}} | {{item_3_desc}} | {{item_3_qty}} | {{item_3_price}} | {{item_3_total}} |\n',
+        },
         { insert: '\n' },
         { insert: '                                    Subtotal: ', attributes: { bold: true } },
         { insert: '{{subtotal}}\n' },
@@ -552,7 +697,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Terms and Conditions', attributes: { header: 2 } },
         { insert: '\n{{terms_conditions}}\n\n' },
-        { insert: 'Authorized By:\nSignature: _________________ Date: _________\nName: {{authorized_name}}\nTitle: {{authorized_title}}\n' },
+        {
+          insert:
+            'Authorized By:\nSignature: _________________ Date: _________\nName: {{authorized_name}}\nTitle: {{authorized_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -570,15 +718,36 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'shipping', label: 'Shipping', type: 'currency', required: true },
       { key: 'total', label: 'Total', type: 'currency', required: true },
       { key: 'delivery_date', label: 'Delivery Date', type: 'date', required: true },
-      { key: 'shipping_method', label: 'Shipping Method', type: 'select', required: true, options: ['Standard Ground', 'Express', 'Overnight', 'Freight'] },
-      { key: 'payment_terms', label: 'Payment Terms', type: 'select', required: true, options: ['Net 30', 'Net 60', 'Due on Receipt', '2/10 Net 30'] },
-      { key: 'special_instructions', label: 'Special Instructions', type: 'textarea', required: false },
+      {
+        key: 'shipping_method',
+        label: 'Shipping Method',
+        type: 'select',
+        required: true,
+        options: ['Standard Ground', 'Express', 'Overnight', 'Freight'],
+      },
+      {
+        key: 'payment_terms',
+        label: 'Payment Terms',
+        type: 'select',
+        required: true,
+        options: ['Net 30', 'Net 60', 'Due on Receipt', '2/10 Net 30'],
+      },
+      {
+        key: 'special_instructions',
+        label: 'Special Instructions',
+        type: 'textarea',
+        required: false,
+      },
       { key: 'terms_conditions', label: 'Terms & Conditions', type: 'textarea', required: true },
       { key: 'authorized_name', label: 'Authorized Name', type: 'text', required: true },
       { key: 'authorized_title', label: 'Authorized Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Sales Contract',
@@ -659,8 +828,14 @@ export const SALES_AGREEMENTS_TEMPLATES = [
         { insert: '\n\n' },
         { insert: 'Signatures', attributes: { header: 2 } },
         { insert: '\n\n' },
-        { insert: 'Seller:\nSignature: _________________ Date: _________\nName: {{seller_signatory}}\nTitle: {{seller_title}}\n\n' },
-        { insert: 'Buyer:\nSignature: _________________ Date: _________\nName: {{buyer_signatory}}\nTitle: {{buyer_title}}\n' },
+        {
+          insert:
+            'Seller:\nSignature: _________________ Date: _________\nName: {{seller_signatory}}\nTitle: {{seller_title}}\n\n',
+        },
+        {
+          insert:
+            'Buyer:\nSignature: _________________ Date: _________\nName: {{buyer_signatory}}\nTitle: {{buyer_title}}\n',
+        },
       ],
     },
     placeholders: [
@@ -674,7 +849,13 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'buyer_tax_id', label: 'Buyer Tax ID', type: 'text', required: true },
       { key: 'subject_matter', label: 'Subject Matter', type: 'textarea', required: true },
       { key: 'contract_price', label: 'Contract Price', type: 'currency', required: true },
-      { key: 'price_type', label: 'Price Type', type: 'select', required: true, options: ['Fixed', 'Variable', 'Cost Plus'] },
+      {
+        key: 'price_type',
+        label: 'Price Type',
+        type: 'select',
+        required: true,
+        options: ['Fixed', 'Variable', 'Cost Plus'],
+      },
       { key: 'price_inclusions', label: 'Price Inclusions', type: 'textarea', required: true },
       { key: 'payment_terms', label: 'Payment Terms', type: 'textarea', required: true },
       { key: 'delivery_terms', label: 'Delivery Terms', type: 'text', required: true },
@@ -693,6 +874,10 @@ export const SALES_AGREEMENTS_TEMPLATES = [
       { key: 'buyer_title', label: 'Buyer Title', type: 'text', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

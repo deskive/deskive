@@ -43,7 +43,7 @@ export class SearchHistoryResponseDto {
   @ApiProperty({
     description: 'Applied filters',
     type: 'object',
-    additionalProperties: true
+    additionalProperties: true,
   })
   filters: Record<string, any>;
 

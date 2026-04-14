@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsUUID, IsBoolean, IsOptional, IsEnum, IsArray, IsDateString } from 'class-validator';
+import {
+  IsString,
+  IsUUID,
+  IsBoolean,
+  IsOptional,
+  IsEnum,
+  IsArray,
+  IsDateString,
+} from 'class-validator';
 
 export enum BriefingType {
   DAILY = 'daily',

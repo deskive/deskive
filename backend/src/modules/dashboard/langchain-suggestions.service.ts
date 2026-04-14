@@ -114,9 +114,7 @@ export class LangChainSuggestionsService {
 
       return aiSuggestions;
     } catch (error) {
-      this.logger.error(
-        `[LangChain] Error generating suggestions: ${error.message}`,
-      );
+      this.logger.error(`[LangChain] Error generating suggestions: ${error.message}`);
       return {
         suggestions: [],
         insights: [],
@@ -133,9 +131,7 @@ export class LangChainSuggestionsService {
 
     // Tasks summary
     if (context.tasks.overdue.length > 0) {
-      summary.push(
-        `URGENT: ${context.tasks.overdue.length} overdue task(s) need attention`,
-      );
+      summary.push(`URGENT: ${context.tasks.overdue.length} overdue task(s) need attention`);
       const topOverdue = context.tasks.overdue.slice(0, 3);
       topOverdue.forEach((task) => {
         const daysOverdue = Math.ceil(
@@ -148,16 +144,12 @@ export class LangChainSuggestionsService {
     }
 
     if (context.tasks.dueSoon.length > 0) {
-      summary.push(
-        `UPCOMING: ${context.tasks.dueSoon.length} task(s) due within 3 days`,
-      );
+      summary.push(`UPCOMING: ${context.tasks.dueSoon.length} task(s) due within 3 days`);
     }
 
     // Meetings summary
     if (context.meetings.active.length > 0) {
-      summary.push(
-        `ACTIVE NOW: ${context.meetings.active.length} meeting(s) in progress`,
-      );
+      summary.push(`ACTIVE NOW: ${context.meetings.active.length} meeting(s) in progress`);
       context.meetings.active.forEach((meeting) => {
         summary.push(`  - "${meeting.title}" is currently active`);
       });
@@ -189,26 +181,18 @@ export class LangChainSuggestionsService {
 
     // Projects summary
     if (context.projects.atRisk.length > 0) {
-      summary.push(
-        `AT RISK: ${context.projects.atRisk.length} project(s) may need intervention`,
-      );
+      summary.push(`AT RISK: ${context.projects.atRisk.length} project(s) may need intervention`);
       context.projects.atRisk.forEach((project) => {
-        summary.push(
-          `  - "${project.name}": ${project.riskReason || 'behind schedule'}`,
-        );
+        summary.push(`  - "${project.name}": ${project.riskReason || 'behind schedule'}`);
       });
     }
 
     // Team summary (for admins/owners)
     if (context.team.inactiveMembers.length > 0) {
-      summary.push(
-        `TEAM: ${context.team.inactiveMembers.length} member(s) have been inactive`,
-      );
+      summary.push(`TEAM: ${context.team.inactiveMembers.length} member(s) have been inactive`);
     }
 
-    return summary.length > 0
-      ? summary.join('\n')
-      : 'No immediate items requiring attention.';
+    return summary.length > 0 ? summary.join('\n') : 'No immediate items requiring attention.';
   }
 
   /**
@@ -224,9 +208,10 @@ export class LangChainSuggestionsService {
       now.getHours() < 12 ? 'morning' : now.getHours() < 17 ? 'afternoon' : 'evening';
     const dayOfWeek = now.toLocaleDateString('en-US', { weekday: 'long' });
 
-    const languageInstruction = userLanguage === 'ja'
-      ? 'IMPORTANT: Respond in Japanese. All titles, descriptions, action labels, and recommendations must be in Japanese (日本語).'
-      : 'Respond in English.';
+    const languageInstruction =
+      userLanguage === 'ja'
+        ? 'IMPORTANT: Respond in Japanese. All titles, descriptions, action labels, and recommendations must be in Japanese (日本語).'
+        : 'Respond in English.';
 
     const systemPrompt = `You are an intelligent productivity assistant analyzing a user's workspace to provide actionable suggestions.
 
@@ -294,41 +279,32 @@ RULES:
 6. priorityScore is 0-100 based on overall urgency level`;
 
     try {
-      const messages = [
-        new SystemMessage(systemPrompt),
-        new HumanMessage(userPrompt),
-      ];
+      const messages = [new SystemMessage(systemPrompt), new HumanMessage(userPrompt)];
 
       const response = await this.chatModel.invoke(messages);
       const responseText =
-        typeof response.content === 'string'
-          ? response.content
-          : JSON.stringify(response.content);
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
 
       const parsed = this.parseAIResponse(responseText);
 
       // Transform AI suggestions to proper format
-      const suggestions: Suggestion[] = parsed.suggestions.map(
-        (s: any, index: number) => ({
-          id: s.id || `langchain-${Date.now()}-${index}`,
-          type: this.mapSuggestionType(s.type),
-          priority: s.priority || 'medium',
-          title: s.title,
-          description: s.description,
-          actionLabel: s.actionLabel || 'View Details',
-          actionUrl: this.generateActionUrl(s.type, context),
-          metadata: {
-            aiRecommendation: s.aiRecommendation,
-            generatedBy: 'langchain-openai',
-            confidence: parsed.priorityScore / 100,
-          },
-          createdAt: new Date().toISOString(),
-        }),
-      );
+      const suggestions: Suggestion[] = parsed.suggestions.map((s: any, index: number) => ({
+        id: s.id || `langchain-${Date.now()}-${index}`,
+        type: this.mapSuggestionType(s.type),
+        priority: s.priority || 'medium',
+        title: s.title,
+        description: s.description,
+        actionLabel: s.actionLabel || 'View Details',
+        actionUrl: this.generateActionUrl(s.type, context),
+        metadata: {
+          aiRecommendation: s.aiRecommendation,
+          generatedBy: 'langchain-openai',
+          confidence: parsed.priorityScore / 100,
+        },
+        createdAt: new Date().toISOString(),
+      }));
 
-      this.logger.log(
-        `[LangChain] Generated ${suggestions.length} AI suggestions`,
-      );
+      this.logger.log(`[LangChain] Generated ${suggestions.length} AI suggestions`);
 
       return {
         suggestions,
@@ -360,9 +336,7 @@ RULES:
 
       return JSON.parse(cleanedContent);
     } catch (error) {
-      this.logger.warn(
-        `[LangChain] Failed to parse AI response: ${error.message}`,
-      );
+      this.logger.warn(`[LangChain] Failed to parse AI response: ${error.message}`);
       return {
         suggestions: [],
         insights: [],
@@ -436,9 +410,10 @@ RULES:
     }
 
     try {
-      const languageInstruction = userLanguage === 'ja'
-        ? '\n\nIMPORTANT: Respond in Japanese. All text fields (title, description, actionLabel, recommendation) must be in Japanese (日本語).'
-        : '';
+      const languageInstruction =
+        userLanguage === 'ja'
+          ? '\n\nIMPORTANT: Respond in Japanese. All text fields (title, description, actionLabel, recommendation) must be in Japanese (日本語).'
+          : '';
 
       let prompt = '';
 
@@ -480,9 +455,7 @@ Respond with JSON only:
 
       const response = await this.chatModel.invoke([new HumanMessage(prompt)]);
       const responseText =
-        typeof response.content === 'string'
-          ? response.content
-          : JSON.stringify(response.content);
+        typeof response.content === 'string' ? response.content : JSON.stringify(response.content);
 
       const parsed = this.parseAIResponse(responseText);
       return {
@@ -492,9 +465,7 @@ Respond with JSON only:
         recommendation: parsed.recommendation || null,
       };
     } catch (error) {
-      this.logger.error(
-        `[LangChain] Failed to enhance suggestion: ${error.message}`,
-      );
+      this.logger.error(`[LangChain] Failed to enhance suggestion: ${error.message}`);
       return null;
     }
   }

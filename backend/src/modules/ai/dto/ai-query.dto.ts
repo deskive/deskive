@@ -1,4 +1,13 @@
-import { IsOptional, IsNumber, IsString, IsEnum, IsDateString, IsArray, Min, Max } from 'class-validator';
+import {
+  IsOptional,
+  IsNumber,
+  IsString,
+  IsEnum,
+  IsDateString,
+  IsArray,
+  Min,
+  Max,
+} from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 
@@ -12,12 +21,12 @@ export enum AIServiceType {
   RECIPE = 'recipe',
   TRAVEL_PLAN = 'travel_plan',
   WORKOUT_PLAN = 'workout_plan',
-  MEAL_PLAN = 'meal_plan'
+  MEAL_PLAN = 'meal_plan',
 }
 
 export enum SortOrder {
   ASC = 'asc',
-  DESC = 'desc'
+  DESC = 'desc',
 }
 
 export enum UsagePeriod {
@@ -25,7 +34,7 @@ export enum UsagePeriod {
   WEEKLY = 'weekly',
   MONTHLY = 'monthly',
   YEARLY = 'yearly',
-  ALL_TIME = 'all_time'
+  ALL_TIME = 'all_time',
 }
 
 export class AIQueryDto {
@@ -44,17 +53,21 @@ export class AIQueryDto {
   @Max(100)
   limit?: number = 10;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Sort order',
     enum: SortOrder,
     example: SortOrder.DESC,
-    default: SortOrder.DESC
+    default: SortOrder.DESC,
   })
   @IsOptional()
   @IsEnum(SortOrder)
   sort_order?: SortOrder = SortOrder.DESC;
 
-  @ApiPropertyOptional({ description: 'Field to sort by', example: 'created_at', default: 'created_at' })
+  @ApiPropertyOptional({
+    description: 'Field to sort by',
+    example: 'created_at',
+    default: 'created_at',
+  })
   @IsOptional()
   @IsString()
   sort_by?: string = 'created_at';
@@ -64,21 +77,27 @@ export class AIQueryDto {
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by AI service type',
     enum: AIServiceType,
-    example: AIServiceType.TEXT_GENERATION
+    example: AIServiceType.TEXT_GENERATION,
   })
   @IsOptional()
   @IsEnum(AIServiceType)
   service_type?: AIServiceType;
 
-  @ApiPropertyOptional({ description: 'Filter by creation date (start)', example: '2024-01-01T00:00:00Z' })
+  @ApiPropertyOptional({
+    description: 'Filter by creation date (start)',
+    example: '2024-01-01T00:00:00Z',
+  })
   @IsOptional()
   @IsDateString()
   date_from?: string;
 
-  @ApiPropertyOptional({ description: 'Filter by creation date (end)', example: '2024-12-31T23:59:59Z' })
+  @ApiPropertyOptional({
+    description: 'Filter by creation date (end)',
+    example: '2024-12-31T23:59:59Z',
+  })
   @IsOptional()
   @IsDateString()
   date_to?: string;
@@ -103,11 +122,11 @@ export class AIQueryDto {
 }
 
 export class AIUsageQueryDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Usage period to query',
     enum: UsagePeriod,
     example: UsagePeriod.MONTHLY,
-    default: UsagePeriod.MONTHLY
+    default: UsagePeriod.MONTHLY,
   })
   @IsOptional()
   @IsEnum(UsagePeriod)
@@ -123,11 +142,11 @@ export class AIUsageQueryDto {
   @IsDateString()
   end_date?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by specific AI service types',
     enum: AIServiceType,
     isArray: true,
-    example: [AIServiceType.TEXT_GENERATION, AIServiceType.IMAGE_GENERATION]
+    example: [AIServiceType.TEXT_GENERATION, AIServiceType.IMAGE_GENERATION],
   })
   @IsOptional()
   @IsArray()
@@ -163,17 +182,21 @@ export class ChatSessionQueryDto {
   @Max(100)
   limit?: number = 20;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Sort order',
     enum: SortOrder,
     example: SortOrder.DESC,
-    default: SortOrder.DESC
+    default: SortOrder.DESC,
   })
   @IsOptional()
   @IsEnum(SortOrder)
   sort_order?: SortOrder = SortOrder.DESC;
 
-  @ApiPropertyOptional({ description: 'Field to sort by', example: 'updated_at', default: 'updated_at' })
+  @ApiPropertyOptional({
+    description: 'Field to sort by',
+    example: 'updated_at',
+    default: 'updated_at',
+  })
   @IsOptional()
   @IsString()
   sort_by?: string = 'updated_at';
@@ -193,12 +216,18 @@ export class ChatSessionQueryDto {
   @IsOptional()
   include_archived?: boolean = false;
 
-  @ApiPropertyOptional({ description: 'Filter by creation date (start)', example: '2024-01-01T00:00:00Z' })
+  @ApiPropertyOptional({
+    description: 'Filter by creation date (start)',
+    example: '2024-01-01T00:00:00Z',
+  })
   @IsOptional()
   @IsDateString()
   date_from?: string;
 
-  @ApiPropertyOptional({ description: 'Filter by creation date (end)', example: '2024-12-31T23:59:59Z' })
+  @ApiPropertyOptional({
+    description: 'Filter by creation date (end)',
+    example: '2024-12-31T23:59:59Z',
+  })
   @IsOptional()
   @IsDateString()
   date_to?: string;

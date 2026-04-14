@@ -68,16 +68,23 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
         return;
       }
 
-      this.logger.log(`[Scheduler] Processing ${pendingNotifications.length} scheduled notification(s)`);
+      this.logger.log(
+        `[Scheduler] Processing ${pendingNotifications.length} scheduled notification(s)`,
+      );
 
       for (const notification of pendingNotifications) {
         await this.processScheduledNotification(notification);
         this.processedCount++;
       }
 
-      this.logger.log(`[Scheduler] Completed processing ${pendingNotifications.length} notification(s)`);
+      this.logger.log(
+        `[Scheduler] Completed processing ${pendingNotifications.length} notification(s)`,
+      );
     } catch (error) {
-      this.logger.error(`[Scheduler] Error processing scheduled notifications: ${error.message}`, error.stack);
+      this.logger.error(
+        `[Scheduler] Error processing scheduled notifications: ${error.message}`,
+        error.stack,
+      );
     } finally {
       this.isProcessing = false;
     }
@@ -107,11 +114,11 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       const notifications = Array.isArray(oldNotifications.data)
         ? oldNotifications.data
         : Array.isArray(oldNotifications)
-        ? oldNotifications
-        : [];
+          ? oldNotifications
+          : [];
 
       const toDelete = notifications.filter(
-        (n) => new Date(n.sent_at || n.updated_at) < thirtyDaysAgo
+        (n) => new Date(n.sent_at || n.updated_at) < thirtyDaysAgo,
       );
 
       if (toDelete.length === 0) {
@@ -161,7 +168,10 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
         await this.retryFailedNotification(notification);
       }
     } catch (error) {
-      this.logger.error(`[Retry] Error retrying failed notifications: ${error.message}`, error.stack);
+      this.logger.error(
+        `[Retry] Error retrying failed notifications: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
@@ -179,7 +189,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       // This can be expanded to send digest emails/notifications
       // For now, just log stats
       const stats = await this.getSchedulerStats();
-      this.logger.log(`[Digest] Daily stats - Pending: ${stats.pending}, Sent: ${stats.sent}, Failed: ${stats.failed}`);
+      this.logger.log(
+        `[Digest] Daily stats - Pending: ${stats.pending}, Sent: ${stats.sent}, Failed: ${stats.failed}`,
+      );
     } catch (error) {
       this.logger.error(`[Digest] Error processing daily digest: ${error.message}`, error.stack);
     }
@@ -203,8 +215,8 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       const notifications = Array.isArray(result.data)
         ? result.data
         : Array.isArray(result)
-        ? result
-        : [];
+          ? result
+          : [];
 
       // Filter notifications that are due (scheduled_at <= now)
       // Also ensure notification was created at least 30 seconds ago to prevent
@@ -219,7 +231,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
         // Skip if notification was just created (within last 30 seconds)
         // This prevents race conditions where a notification is picked up immediately after creation
         if (createdAt > thirtySecondsAgo) {
-          this.logger.debug(`[Scheduler] Skipping recently created notification ${n.id} - created ${createdAt.toISOString()}`);
+          this.logger.debug(
+            `[Scheduler] Skipping recently created notification ${n.id} - created ${createdAt.toISOString()}`,
+          );
           return false;
         }
 
@@ -238,7 +252,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
     const notificationId = notification.id;
 
     try {
-      this.logger.log(`[Process] Sending scheduled notification ${notificationId} to user ${notification.user_id}`);
+      this.logger.log(
+        `[Process] Sending scheduled notification ${notificationId} to user ${notification.user_id}`,
+      );
 
       // Send the actual notification
       await this.notificationsService.sendNotification({
@@ -263,7 +279,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
 
       this.logger.log(`[Process] Successfully sent notification ${notificationId}`);
     } catch (error) {
-      this.logger.error(`[Process] Failed to send notification ${notificationId}: ${error.message}`);
+      this.logger.error(
+        `[Process] Failed to send notification ${notificationId}: ${error.message}`,
+      );
 
       // Update failure status
       const retryCount = (notification.retry_count || 0) + 1;
@@ -293,8 +311,8 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       const notifications = Array.isArray(result.data)
         ? result.data
         : Array.isArray(result)
-        ? result
-        : [];
+          ? result
+          : [];
 
       // Filter notifications with failed attempts but retries remaining
       return notifications.filter((n) => {
@@ -313,7 +331,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
    * Retry a failed notification
    */
   private async retryFailedNotification(notification: any): Promise<void> {
-    this.logger.log(`[Retry] Retrying notification ${notification.id} (attempt ${(notification.retry_count || 0) + 1})`);
+    this.logger.log(
+      `[Retry] Retrying notification ${notification.id} (attempt ${(notification.retry_count || 0) + 1})`,
+    );
     await this.processScheduledNotification(notification);
   }
 
@@ -326,7 +346,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       const overdueNotifications = await this.getPendingScheduledNotifications(now);
 
       if (overdueNotifications.length > 0) {
-        this.logger.warn(`[Startup] Found ${overdueNotifications.length} overdue notification(s), processing...`);
+        this.logger.warn(
+          `[Startup] Found ${overdueNotifications.length} overdue notification(s), processing...`,
+        );
         for (const notification of overdueNotifications) {
           await this.processScheduledNotification(notification);
         }
@@ -343,7 +365,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
   /**
    * Schedule a new notification
    */
-  async scheduleNotification(dto: CreateScheduledNotificationDto): Promise<ScheduledNotificationResponseDto> {
+  async scheduleNotification(
+    dto: CreateScheduledNotificationDto,
+  ): Promise<ScheduledNotificationResponseDto> {
     try {
       const now = new Date().toISOString();
       const targetUsers = dto.user_ids || [dto.user_id];
@@ -381,7 +405,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
         });
 
         results.push(this.formatScheduledNotification(notification));
-        this.logger.log(`Scheduled notification ${notification.id} for user ${userId} at ${dto.scheduled_at}`);
+        this.logger.log(
+          `Scheduled notification ${notification.id} for user ${userId} at ${dto.scheduled_at}`,
+        );
       }
 
       // Return single result if only one user, otherwise return first
@@ -465,7 +491,13 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
     query: QueryScheduledNotificationsDto,
   ): Promise<PaginatedScheduledNotificationsDto> {
     try {
-      const { page = 1, limit = 20, sort_by = 'scheduled_at', sort_order = 'asc', ...filters } = query;
+      const {
+        page = 1,
+        limit = 20,
+        sort_by = 'scheduled_at',
+        sort_order = 'asc',
+        ...filters
+      } = query;
       const offset = (page - 1) * limit;
 
       // Build query conditions
@@ -488,8 +520,8 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       let notifications = Array.isArray(result.data)
         ? result.data
         : Array.isArray(result)
-        ? result
-        : [];
+          ? result
+          : [];
 
       // Manual date filtering
       if (filters.scheduled_after) {
@@ -512,7 +544,9 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       });
 
       const total = notifications.length;
-      const pendingCount = notifications.filter((n) => n.schedule_status === ScheduleStatus.PENDING).length;
+      const pendingCount = notifications.filter(
+        (n) => n.schedule_status === ScheduleStatus.PENDING,
+      ).length;
 
       // Apply pagination
       notifications = notifications.slice(offset, offset + limit);
@@ -543,8 +577,8 @@ export class NotificationSchedulerService implements OnModuleInit, OnModuleDestr
       const notifications = Array.isArray(allScheduled.data)
         ? allScheduled.data
         : Array.isArray(allScheduled)
-        ? allScheduled
-        : [];
+          ? allScheduled
+          : [];
 
       const pending = notifications.filter((n) => n.schedule_status === ScheduleStatus.PENDING);
       const sent = notifications.filter((n) => n.schedule_status === ScheduleStatus.SENT);

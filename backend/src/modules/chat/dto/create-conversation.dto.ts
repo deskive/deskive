@@ -15,7 +15,7 @@ export class CreateConversationDto {
   @ApiProperty({
     description: 'Participant user ID (only one other user allowed for direct conversations)',
     type: [String],
-    example: ['550e8400-e29b-41d4-a716-446655440000']
+    example: ['550e8400-e29b-41d4-a716-446655440000'],
   })
   @IsArray()
   @ArrayMinSize(1, { message: 'At least one participant is required' })

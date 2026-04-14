@@ -1,5 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsBoolean, IsArray, IsObject, IsUUID, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsBoolean,
+  IsArray,
+  IsObject,
+  IsUUID,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class NoteAttachmentsDto {
@@ -7,7 +15,7 @@ export class NoteAttachmentsDto {
     description: 'Array of note attachment UUIDs',
     example: ['550e8400-e29b-41d4-a716-446655440000'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -18,7 +26,7 @@ export class NoteAttachmentsDto {
     description: 'Array of file attachment UUIDs',
     example: ['660e8400-e29b-41d4-a716-446655440001'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -29,7 +37,7 @@ export class NoteAttachmentsDto {
     description: 'Array of event attachment UUIDs',
     example: ['770e8400-e29b-41d4-a716-446655440002'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -44,7 +52,7 @@ export class CreateNoteDto {
 
   @ApiProperty({
     description: 'Note content as raw HTML',
-    example: '<p>Meeting notes...</p>'
+    example: '<p>Meeting notes...</p>',
   })
   @IsString()
   content: string;
@@ -87,8 +95,8 @@ export class CreateNoteDto {
     example: {
       note_attachment: ['550e8400-e29b-41d4-a716-446655440000'],
       file_attachment: ['660e8400-e29b-41d4-a716-446655440001'],
-      event_attachment: ['770e8400-e29b-41d4-a716-446655440002']
-    }
+      event_attachment: ['770e8400-e29b-41d4-a716-446655440002'],
+    },
   })
   @IsOptional()
   @ValidateNested()

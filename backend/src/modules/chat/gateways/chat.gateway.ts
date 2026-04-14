@@ -49,7 +49,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     try {
       // Extract token from multiple sources
       const token = this.extractTokenFromSocket(client);
-      
+
       if (!token) {
         this.logger.warn(`Chat connection rejected: No token provided - ${client.id}`);
         client.disconnect();
@@ -78,7 +78,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
       // Join workspace room
       client.join(`workspace:${workspaceId}`);
-      
+
       // Store connection
       this.connectedUsers.set(client.id, client);
 
@@ -89,7 +89,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         userId: client.userId,
         socketId: client.id,
       });
-
     } catch (error) {
       this.logger.error('Connection error:', error);
       client.disconnect();
@@ -116,7 +115,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('join_channel')
   async handleJoinChannel(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId: string }
+    @MessageBody() data: { channelId: string },
   ) {
     if (!client.userId || !data.channelId) {
       return;
@@ -136,7 +135,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         channelId: data.channelId,
         success: true,
       });
-
     } catch (error) {
       client.emit('error', { message: 'Failed to join channel' });
     }
@@ -145,7 +143,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('leave_channel')
   async handleLeaveChannel(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId: string }
+    @MessageBody() data: { channelId: string },
   ) {
     if (!client.userId || !data.channelId) {
       return;
@@ -169,7 +167,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('join_conversation')
   async handleJoinConversation(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { conversationId: string }
+    @MessageBody() data: { conversationId: string },
   ) {
     if (!client.userId || !data.conversationId) {
       return;
@@ -191,7 +189,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       });
 
       this.logger.log(`User ${client.userId} joined conversation ${data.conversationId}`);
-
     } catch (error) {
       client.emit('error', { message: 'Failed to join conversation' });
     }
@@ -200,7 +197,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('leave_conversation')
   async handleLeaveConversation(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { conversationId: string }
+    @MessageBody() data: { conversationId: string },
   ) {
     if (!client.userId || !data.conversationId) {
       return;
@@ -224,7 +221,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('send_message')
   async handleSendMessage(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: SendMessageDto & { channelId?: string; conversationId?: string }
+    @MessageBody() data: SendMessageDto & { channelId?: string; conversationId?: string },
   ) {
     if (!client.userId) {
       return;
@@ -237,15 +234,15 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
           channel_id: data.channelId,
           conversation_id: data.conversationId,
         },
-        client.userId
+        client.userId,
       );
 
       // Broadcast to appropriate room
       const room = data.channelId
         ? `channel:${data.channelId}`
         : data.conversationId
-        ? `conversation:${data.conversationId}`
-        : `workspace:${client.workspaceId}`;
+          ? `conversation:${data.conversationId}`
+          : `workspace:${client.workspaceId}`;
 
       this.server.to(room).emit('message:new', {
         ...message,
@@ -254,33 +251,40 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
       // Process bot message handler for DMs asynchronously
       if (client.workspaceId && data.conversationId && this.botMessageHandler) {
-        this.logger.debug(`[ChatGateway] Calling bot message handler for conversation ${data.conversationId}`);
-        this.botMessageHandler.processMessage(
-          client.workspaceId,
-          data.conversationId,
-          message.id,
-          client.userId,
-          data.content || '',
-        ).catch(err => this.logger.error('Bot message handler error:', err));
+        this.logger.debug(
+          `[ChatGateway] Calling bot message handler for conversation ${data.conversationId}`,
+        );
+        this.botMessageHandler
+          .processMessage(
+            client.workspaceId,
+            data.conversationId,
+            message.id,
+            client.userId,
+            data.content || '',
+          )
+          .catch((err) => this.logger.error('Bot message handler error:', err));
       } else {
-        this.logger.debug(`[ChatGateway] Bot message handler NOT called - workspaceId: ${client.workspaceId}, conversationId: ${data.conversationId}, handler exists: ${!!this.botMessageHandler}`);
+        this.logger.debug(
+          `[ChatGateway] Bot message handler NOT called - workspaceId: ${client.workspaceId}, conversationId: ${data.conversationId}, handler exists: ${!!this.botMessageHandler}`,
+        );
       }
 
       // Evaluate bot triggers asynchronously (don't block message sending)
       if (client.workspaceId && this.botExecutionService) {
-        this.botExecutionService.evaluateAndExecute({
-          messageId: message.id,
-          messageContent: data.content,
-          messageContentHtml: data.content_html,
-          channelId: data.channelId,
-          conversationId: data.conversationId,
-          workspaceId: client.workspaceId,
-          userId: client.userId,
-          mentions: data.mentions,
-          isThread: !!data.parent_id,
-        }).catch(err => this.logger.error('Bot execution error:', err));
+        this.botExecutionService
+          .evaluateAndExecute({
+            messageId: message.id,
+            messageContent: data.content,
+            messageContentHtml: data.content_html,
+            channelId: data.channelId,
+            conversationId: data.conversationId,
+            workspaceId: client.workspaceId,
+            userId: client.userId,
+            mentions: data.mentions,
+            isThread: !!data.parent_id,
+          })
+          .catch((err) => this.logger.error('Bot execution error:', err));
       }
-
     } catch (error) {
       client.emit('error', { message: 'Failed to send message' });
     }
@@ -289,7 +293,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('typing_start')
   handleTypingStart(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId?: string; conversationId?: string }
+    @MessageBody() data: { channelId?: string; conversationId?: string },
   ) {
     if (!client.userId) {
       this.logger.warn('typing_start received but no userId on socket');
@@ -299,8 +303,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const room = data.channelId
       ? `channel:${data.channelId}`
       : data.conversationId
-      ? `conversation:${data.conversationId}`
-      : null;
+        ? `conversation:${data.conversationId}`
+        : null;
 
     this.logger.log(`⌨️ User ${client.userId} started typing in room: ${room}`);
 
@@ -320,7 +324,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('typing_stop')
   handleTypingStop(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId?: string; conversationId?: string }
+    @MessageBody() data: { channelId?: string; conversationId?: string },
   ) {
     if (!client.userId) {
       this.logger.warn('typing_stop received but no userId on socket');
@@ -330,8 +334,8 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const room = data.channelId
       ? `channel:${data.channelId}`
       : data.conversationId
-      ? `conversation:${data.conversationId}`
-      : null;
+        ? `conversation:${data.conversationId}`
+        : null;
 
     this.logger.log(`⌨️ User ${client.userId} stopped typing in room: ${room}`);
 
@@ -351,18 +355,14 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('add_reaction')
   async handleAddReaction(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { messageId: string; emoji: string }
+    @MessageBody() data: { messageId: string; emoji: string },
   ) {
     if (!client.userId) {
       return;
     }
 
     try {
-      const result = await this.chatService.addReaction(
-        data.messageId,
-        data.emoji,
-        client.userId
-      );
+      const result = await this.chatService.addReaction(data.messageId, data.emoji, client.userId);
 
       // Broadcast appropriate event based on whether reaction was added or removed (toggle)
       if (result.removed) {
@@ -381,7 +381,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
           reaction: result.reaction,
         });
       }
-
     } catch (error) {
       client.emit('error', { message: 'Failed to add reaction' });
     }
@@ -390,18 +389,14 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('remove_reaction')
   async handleRemoveReaction(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { messageId: string; emoji: string }
+    @MessageBody() data: { messageId: string; emoji: string },
   ) {
     if (!client.userId) {
       return;
     }
 
     try {
-      await this.chatService.removeReaction(
-        data.messageId,
-        data.emoji,
-        client.userId
-      );
+      await this.chatService.removeReaction(data.messageId, data.emoji, client.userId);
 
       // Broadcast reaction removal to workspace
       this.server.to(`workspace:${client.workspaceId}`).emit('reaction_removed', {
@@ -409,7 +404,6 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
         emoji: data.emoji,
         userId: client.userId,
       });
-
     } catch (error) {
       client.emit('error', { message: 'Failed to remove reaction' });
     }
@@ -418,24 +412,19 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('mark_channel_read')
   async handleMarkChannelRead(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { channelId: string; messageId?: string }
+    @MessageBody() data: { channelId: string; messageId?: string },
   ) {
     if (!client.userId || !data.channelId) {
       return;
     }
 
     try {
-      await this.chatService.markChannelAsRead(
-        data.channelId,
-        data.messageId,
-        client.userId
-      );
+      await this.chatService.markChannelAsRead(data.channelId, data.messageId, client.userId);
 
       client.emit('channel_marked_read', {
         channelId: data.channelId,
         success: true,
       });
-
     } catch (error) {
       client.emit('error', { message: 'Failed to mark channel as read' });
     }
@@ -444,7 +433,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('mark_conversation_read')
   async handleMarkConversationRead(
     @ConnectedSocket() client: AuthenticatedSocket,
-    @MessageBody() data: { conversationId: string; messageId?: string }
+    @MessageBody() data: { conversationId: string; messageId?: string },
   ) {
     if (!client.userId || !data.conversationId) {
       return;
@@ -454,14 +443,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       await this.chatService.markConversationAsRead(
         data.conversationId,
         data.messageId,
-        client.userId
+        client.userId,
       );
 
       client.emit('conversation_marked_read', {
         conversationId: data.conversationId,
         success: true,
       });
-
     } catch (error) {
       client.emit('error', { message: 'Failed to mark conversation as read' });
     }
@@ -482,11 +470,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   private extractTokenFromSocket(client: Socket): string | null {
     // Try multiple sources for the token
-    const token = 
-      client.handshake.auth?.token || 
+    const token =
+      client.handshake.auth?.token ||
       client.handshake.headers?.authorization?.replace('Bearer ', '') ||
       client.handshake.query?.token;
-      
+
     return typeof token === 'string' ? token : null;
   }
 

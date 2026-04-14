@@ -231,7 +231,7 @@ export class CalendarInsightsDto {
     type: [AIInsightDto],
     example: [
       { type: 'pattern', message: 'Heavy afternoon schedule detected' },
-      { type: 'suggestion', message: 'Reserve mornings for focused tasks' }
+      { type: 'suggestion', message: 'Reserve mornings for focused tasks' },
     ],
   })
   aiInsights: AIInsightDto[];

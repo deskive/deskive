@@ -2,77 +2,78 @@ import { IsString, IsOptional, IsObject, IsBoolean, IsArray } from 'class-valida
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class PushSubscriptionKeys {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'P256DH key for push encryption',
-    example: 'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U'
+    example:
+      'BEl62iUYgUivxIkv69yViEuiBIa-Ib9-SkvMeAtA3LFgDzkrxZJjSgSnfckjBJuBkr3qBUYIHBQFLXYp5Nksh8U',
   })
   @IsString()
   p256dh: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Auth key for push authentication',
-    example: 'tBHItJI5svbpez7KI4CCXg'
+    example: 'tBHItJI5svbpez7KI4CCXg',
   })
   @IsString()
   auth: string;
 }
 
 export class PushSubscriptionDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Push service endpoint URL',
-    example: 'https://fcm.googleapis.com/fcm/send/cOvd3I_Eq9Y:APA91bFQc9bThL...'
+    example: 'https://fcm.googleapis.com/fcm/send/cOvd3I_Eq9Y:APA91bFQc9bThL...',
   })
   @IsString()
   endpoint: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Expiration time (usually null)',
-    example: null
+    example: null,
   })
   @IsOptional()
   expirationTime?: number | null;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Subscription keys',
-    type: PushSubscriptionKeys
+    type: PushSubscriptionKeys,
   })
   @IsObject()
   keys: PushSubscriptionKeys;
 }
 
 export class SubscribePushDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Push subscription object',
-    type: PushSubscriptionDto
+    type: PushSubscriptionDto,
   })
   @IsObject()
   subscription: PushSubscriptionDto;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Device information',
     example: {
       userAgent: 'Mozilla/5.0...',
       platform: 'web',
-      deviceType: 'desktop'
-    }
+      deviceType: 'desktop',
+    },
   })
   @IsOptional()
   @IsObject()
   device_info?: Record<string, any>;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Notification types to subscribe to',
     type: [String],
-    example: ['reminder', 'health', 'fitness']
+    example: ['reminder', 'health', 'fitness'],
   })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   notification_types?: string[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Whether to enable notifications by default',
-    example: true
+    example: true,
   })
   @IsOptional()
   @IsBoolean()
@@ -80,16 +81,16 @@ export class SubscribePushDto {
 }
 
 export class UnsubscribePushDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Push subscription endpoint to unsubscribe',
-    example: 'https://fcm.googleapis.com/fcm/send/cOvd3I_Eq9Y:APA91bFQc9bThL...'
+    example: 'https://fcm.googleapis.com/fcm/send/cOvd3I_Eq9Y:APA91bFQc9bThL...',
   })
   @IsString()
   endpoint: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Reason for unsubscribing',
-    example: 'user_request'
+    example: 'user_request',
   })
   @IsOptional()
   @IsString()
@@ -97,10 +98,10 @@ export class UnsubscribePushDto {
 }
 
 export class BulkActionDto {
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Array of notification IDs to perform bulk action on',
     type: [String],
-    example: ['notif_123', 'notif_456']
+    example: ['notif_123', 'notif_456'],
   })
   @IsArray()
   @IsString({ each: true })
@@ -149,13 +150,13 @@ export class NotificationResponseDto {
 
   @ApiPropertyOptional({
     example: true,
-    description: 'Whether to show browser notification (controlled by push setting)'
+    description: 'Whether to show browser notification (controlled by push setting)',
   })
   shouldShowBrowserNotification?: boolean;
 
   @ApiPropertyOptional({
     example: true,
-    description: 'Whether notification sound is enabled (controlled by sound setting)'
+    description: 'Whether notification sound is enabled (controlled by sound setting)',
   })
   soundEnabled?: boolean;
 }

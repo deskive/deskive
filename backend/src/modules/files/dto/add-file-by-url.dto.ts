@@ -5,7 +5,7 @@ export class AddFileByUrlDto {
   @ApiProperty({
     description: 'Direct URL to the file',
     example: 'https://example.com/files/document.pdf',
-    required: true
+    required: true,
   })
   @IsUrl()
   url: string;
@@ -13,7 +13,7 @@ export class AddFileByUrlDto {
   @ApiProperty({
     description: 'File name',
     example: 'document.pdf',
-    required: true
+    required: true,
   })
   @IsString()
   name: string;
@@ -21,14 +21,14 @@ export class AddFileByUrlDto {
   @ApiProperty({
     description: 'Workspace ID',
     example: 'uuid-here',
-    required: true
+    required: true,
   })
   @IsUUID()
   workspace_id: string;
 
   @ApiPropertyOptional({
     description: 'Storage path where file is located',
-    example: 'workspace_id/folder/document.pdf'
+    example: 'workspace_id/folder/document.pdf',
   })
   @IsOptional()
   @IsString()
@@ -36,7 +36,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'MIME type of the file',
-    example: 'application/pdf'
+    example: 'application/pdf',
   })
   @IsOptional()
   @IsString()
@@ -44,7 +44,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'File size in bytes',
-    example: 1024000
+    example: 1024000,
   })
   @IsOptional()
   @IsNumber()
@@ -52,7 +52,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'Parent folder ID',
-    example: 'uuid-here'
+    example: 'uuid-here',
   })
   @IsOptional()
   @IsUUID()
@@ -60,7 +60,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'File description',
-    example: 'Important project document'
+    example: 'Important project document',
   })
   @IsOptional()
   @IsString()
@@ -69,14 +69,14 @@ export class AddFileByUrlDto {
   @ApiPropertyOptional({
     description: 'File tags (comma-separated or JSON array)',
     example: 'important,project,draft',
-    type: String
+    type: String,
   })
   @IsOptional()
   tags?: string | string[];
 
   @ApiPropertyOptional({
     description: 'Whether file should be publicly accessible',
-    example: false
+    example: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -84,7 +84,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'Whether this is an AI-generated file',
-    example: false
+    example: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -92,7 +92,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'File hash for deduplication',
-    example: 'sha256:abcd1234...'
+    example: 'sha256:abcd1234...',
   })
   @IsOptional()
   @IsString()
@@ -100,7 +100,7 @@ export class AddFileByUrlDto {
 
   @ApiPropertyOptional({
     description: 'Additional metadata',
-    example: { source: 'ai_generation', model: 'dall-e-3' }
+    example: { source: 'ai_generation', model: 'dall-e-3' },
   })
   @IsOptional()
   metadata?: any;

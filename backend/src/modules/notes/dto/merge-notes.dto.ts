@@ -5,7 +5,7 @@ export class MergeNotesDto {
   @ApiProperty({
     description: 'Array of note IDs to merge (minimum 2 notes)',
     example: ['uuid-1', 'uuid-2', 'uuid-3'],
-    type: [String]
+    type: [String],
   })
   @IsArray()
   @IsUUID('4', { each: true })
@@ -15,7 +15,7 @@ export class MergeNotesDto {
   @ApiProperty({
     description: 'Title for the merged note (optional, defaults to "Merged Note")',
     example: 'Combined Meeting Notes',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -25,7 +25,7 @@ export class MergeNotesDto {
     description: 'Include note headers and metadata (title, date, author) for each note',
     example: true,
     required: false,
-    default: false
+    default: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -35,7 +35,7 @@ export class MergeNotesDto {
     description: 'Add horizontal dividers between notes',
     example: true,
     required: false,
-    default: false
+    default: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -45,7 +45,7 @@ export class MergeNotesDto {
     description: 'Sort notes by creation date (oldest first) before merging',
     example: false,
     required: false,
-    default: false
+    default: false,
   })
   @IsOptional()
   @IsBoolean()

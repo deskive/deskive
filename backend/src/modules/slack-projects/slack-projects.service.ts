@@ -82,7 +82,12 @@ export class SlackProjectsService {
   /**
    * Create new project from Slack
    */
-  private async createProject(teamId: string, slackUserId: string, channelId: string, projectName: string | null) {
+  private async createProject(
+    teamId: string,
+    slackUserId: string,
+    channelId: string,
+    projectName: string | null,
+  ) {
     try {
       this.logger.log(`Creating project for team ${teamId}, user ${slackUserId}`);
 
@@ -101,7 +106,8 @@ export class SlackProjectsService {
       }
 
       // Get user's workspace
-      const workspaceResult = await this.db.table('workspace_members')
+      const workspaceResult = await this.db
+        .table('workspace_members')
         .select('workspace_id')
         .where('user_id', '=', deskiveUserId)
         .where('is_active', '=', true)
@@ -123,7 +129,14 @@ export class SlackProjectsService {
 
       // If no project name provided, open modal
       if (!projectName) {
-        return await this.openCreateProjectModal(slackClient, teamId, slackUserId, workspaceId, channelId, userName);
+        return await this.openCreateProjectModal(
+          slackClient,
+          teamId,
+          slackUserId,
+          workspaceId,
+          channelId,
+          userName,
+        );
       }
 
       // Create project
@@ -138,7 +151,8 @@ export class SlackProjectsService {
         updated_at: new Date().toISOString(),
       };
 
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .insert(projectData)
         .returning('*')
         .execute();
@@ -148,7 +162,8 @@ export class SlackProjectsService {
       this.logger.log(`Project created: ${project.id}`);
 
       // Add user as project member
-      await this.db.table('project_members')
+      await this.db
+        .table('project_members')
         .insert({
           project_id: project.id,
           user_id: deskiveUserId,
@@ -161,7 +176,8 @@ export class SlackProjectsService {
         .execute();
 
       // Link project to Slack
-      await this.db.table('slack_project_links')
+      await this.db
+        .table('slack_project_links')
         .insert({
           project_id: project.id,
           team_id: teamId,
@@ -261,7 +277,12 @@ export class SlackProjectsService {
   /**
    * Open project creation in Deskive web UI (called directly from slash command)
    */
-  private async openProjectCreationInBrowser(teamId: string, slackUserId: string, channelId: string, projectName: string | null) {
+  private async openProjectCreationInBrowser(
+    teamId: string,
+    slackUserId: string,
+    channelId: string,
+    projectName: string | null,
+  ) {
     try {
       // Get Deskive user ID
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
@@ -269,9 +290,10 @@ export class SlackProjectsService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
@@ -279,7 +301,8 @@ export class SlackProjectsService {
       const installation = await this.getInstallation(teamId);
 
       // Get user's workspace
-      const workspaceResult = await this.db.table('workspace_members')
+      const workspaceResult = await this.db
+        .table('workspace_members')
         .select('workspace_id')
         .where('user_id', '=', deskiveUserId)
         .where('is_active', '=', true)
@@ -359,7 +382,14 @@ export class SlackProjectsService {
   /**
    * Open browser UI to create project with full form (DEPRECATED - kept for old flow)
    */
-  private async openCreateProjectModal(slackClient: WebClient, teamId: string, slackUserId: string, workspaceId: string, channelId: string, userName: string) {
+  private async openCreateProjectModal(
+    slackClient: WebClient,
+    teamId: string,
+    slackUserId: string,
+    workspaceId: string,
+    channelId: string,
+    userName: string,
+  ) {
     try {
       // Get Deskive user ID
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(slackUserId, teamId);
@@ -367,9 +397,10 @@ export class SlackProjectsService {
       if (!deskiveUserId) {
         return {
           response_type: 'ephemeral',
-          text: '❌ You need to be invited to the Deskive workspace first.\n\n' +
-                'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
-                'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
+          text:
+            '❌ You need to be invited to the Deskive workspace first.\n\n' +
+            'Please ask your workspace admin to invite you via email to the Deskive workspace.\n\n' +
+            'Once you accept the invitation and create your Deskive account, you can use Slack commands.',
         };
       }
 
@@ -433,7 +464,11 @@ export class SlackProjectsService {
   /**
    * Generate temporary auth token for browser access
    */
-  private async generateTempAuthToken(deskiveUserId: string, slackTeamId: string, slackUserId: string): Promise<string> {
+  private async generateTempAuthToken(
+    deskiveUserId: string,
+    slackTeamId: string,
+    slackUserId: string,
+  ): Promise<string> {
     try {
       const payload = {
         sub: deskiveUserId,
@@ -473,7 +508,8 @@ export class SlackProjectsService {
       }
 
       // Get user's projects via Slack links
-      const linksResult = await this.db.table('slack_project_links')
+      const linksResult = await this.db
+        .table('slack_project_links')
         .select('project_id', 'created_at', 'channel_id')
         .where('team_id', '=', teamId)
         .where('creator_slack_user_id', '=', slackUserId)
@@ -492,7 +528,8 @@ export class SlackProjectsService {
 
       // Get project details
       const projectIds = links.map((l) => l.project_id);
-      const projectsResult = await this.db.table('projects')
+      const projectsResult = await this.db
+        .table('projects')
         .select('id', 'name', 'status', 'workspace_id', 'created_at')
         .whereIn('id', projectIds)
         .execute();
@@ -517,7 +554,8 @@ export class SlackProjectsService {
         const proj = projects.find((p) => p.id === link.project_id);
         const url = `${appUrl}/workspaces/${proj?.workspace_id || 'unknown'}/projects/${link.project_id}`;
 
-        const statusEmoji = proj?.status === 'active' ? '🟢' : proj?.status === 'completed' ? '✅' : '⏸️';
+        const statusEmoji =
+          proj?.status === 'active' ? '🟢' : proj?.status === 'completed' ? '✅' : '⏸️';
 
         blocks.push({
           type: 'section',
@@ -623,13 +661,19 @@ export class SlackProjectsService {
   /**
    * Open modal to share project with Deskive users
    */
-  private async openShareModal(teamId: string, slackUserId: string, projectId: string, triggerId: string) {
+  private async openShareModal(
+    teamId: string,
+    slackUserId: string,
+    projectId: string,
+    triggerId: string,
+  ) {
     try {
       const installation = await this.getInstallation(teamId);
       const slackClient = new WebClient(installation.bot_token);
 
       // Get project details
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .select('id', 'name', 'workspace_id')
         .where('id', '=', projectId)
         .execute();
@@ -642,23 +686,26 @@ export class SlackProjectsService {
       }
 
       // Get Deskive users in this workspace with Slack linked (excluding current user)
-      const workspaceMembersResult = await this.db.table('workspace_members')
+      const workspaceMembersResult = await this.db
+        .table('workspace_members')
         .select('user_id')
         .where('workspace_id', '=', project.workspace_id)
         .where('is_active', '=', true)
         .execute();
 
-      const deskiveUserIds = workspaceMembersResult.data?.map(m => m.user_id) || [];
+      const deskiveUserIds = workspaceMembersResult.data?.map((m) => m.user_id) || [];
 
       // Get Slack mappings for these users
-      const slackMappingsResult = await this.db.table('slack_user_mappings')
+      const slackMappingsResult = await this.db
+        .table('slack_user_mappings')
         .select('slack_user_id', 'deskive_user_id', 'slack_name')
         .whereIn('deskive_user_id', deskiveUserIds)
         .where('slack_team_id', '=', teamId)
         .where('is_active', '=', true)
         .execute();
 
-      const availableUsers = slackMappingsResult.data?.filter(u => u.slack_user_id !== slackUserId) || [];
+      const availableUsers =
+        slackMappingsResult.data?.filter((u) => u.slack_user_id !== slackUserId) || [];
 
       if (availableUsers.length === 0) {
         await slackClient.chat.postEphemeral({
@@ -675,7 +722,11 @@ export class SlackProjectsService {
         view: {
           type: 'modal',
           callback_id: 'share_project_modal',
-          private_metadata: JSON.stringify({ projectId, workspaceId: project.workspace_id, teamId }),
+          private_metadata: JSON.stringify({
+            projectId,
+            workspaceId: project.workspace_id,
+            teamId,
+          }),
           title: {
             type: 'plain_text',
             text: 'Share Project',
@@ -781,7 +832,8 @@ export class SlackProjectsService {
       }
 
       // Convert Slack user IDs to Deskive user IDs
-      const mappingsResult = await this.db.table('slack_user_mappings')
+      const mappingsResult = await this.db
+        .table('slack_user_mappings')
         .select('deskive_user_id', 'slack_user_id')
         .whereIn('slack_user_id', selectedSlackUsers)
         .where('slack_team_id', '=', teamId)
@@ -794,7 +846,8 @@ export class SlackProjectsService {
       const slackClient = new WebClient(installation.bot_token);
 
       // Get project details
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .select('name')
         .where('id', '=', projectId)
         .execute();
@@ -807,7 +860,8 @@ export class SlackProjectsService {
       const sharePromises = userMappings.map(async (mapping) => {
         try {
           // Add to project_members table
-          await this.db.table('project_members')
+          await this.db
+            .table('project_members')
             .insert({
               project_id: projectId,
               user_id: mapping.deskive_user_id,
@@ -875,13 +929,19 @@ export class SlackProjectsService {
   /**
    * Open modal to add task to project
    */
-  private async openAddTaskModal(teamId: string, slackUserId: string, projectId: string, triggerId: string) {
+  private async openAddTaskModal(
+    teamId: string,
+    slackUserId: string,
+    projectId: string,
+    triggerId: string,
+  ) {
     try {
       const installation = await this.getInstallation(teamId);
       const slackClient = new WebClient(installation.bot_token);
 
       // Get project details
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .select('name', 'kanban_stages')
         .where('id', '=', projectId)
         .execute();
@@ -893,13 +953,14 @@ export class SlackProjectsService {
       }
 
       const stages = project.kanban_stages || [];
-      const stageOptions = stages.map(stage => ({
+      const stageOptions = stages.map((stage) => ({
         text: { type: 'plain_text', text: stage.name },
         value: stage.id,
       }));
 
       // Get project members
-      const membersResult = await this.db.table('project_members')
+      const membersResult = await this.db
+        .table('project_members')
         .select('user_id')
         .where('project_id', '=', projectId)
         .where('is_active', '=', true)
@@ -914,7 +975,12 @@ export class SlackProjectsService {
           const userProfile = await this.db.getUserById(member.user_id);
           if (userProfile) {
             const metadata = userProfile.metadata || {};
-            const userName = metadata.name || (userProfile as any).fullName || userProfile.name || userProfile.email || 'Unknown User';
+            const userName =
+              metadata.name ||
+              (userProfile as any).fullName ||
+              userProfile.name ||
+              userProfile.email ||
+              'Unknown User';
             assigneeOptions.push({
               text: { type: 'plain_text' as const, text: userName },
               value: member.user_id,
@@ -1033,9 +1099,15 @@ export class SlackProjectsService {
                 type: 'multi_static_select',
                 action_id: 'assignees_select',
                 placeholder: { type: 'plain_text', text: 'Select project members...' },
-                options: assigneeOptions.length > 0 ? assigneeOptions : [
-                  { text: { type: 'plain_text' as const, text: 'No members found' }, value: 'none' }
-                ],
+                options:
+                  assigneeOptions.length > 0
+                    ? assigneeOptions
+                    : [
+                        {
+                          text: { type: 'plain_text' as const, text: 'No members found' },
+                          value: 'none',
+                        },
+                      ],
               },
             },
           ],
@@ -1062,9 +1134,17 @@ export class SlackProjectsService {
       const status = values.task_stage.stage_select.selected_option.value;
       const priority = values.task_priority?.priority_select?.selected_option?.value || 'medium';
       const dueDate = values.task_due_date?.due_date_picker?.selected_date || null;
-      const assignedDeskiveUsers = values.task_assignees?.assignees_select?.selected_options?.map(opt => opt.value) || [];
+      const assignedDeskiveUsers =
+        values.task_assignees?.assignees_select?.selected_options?.map((opt) => opt.value) || [];
 
-      this.logger.log('Add task submission:', { projectId, taskName, status, priority, dueDate, assignees: assignedDeskiveUsers });
+      this.logger.log('Add task submission:', {
+        projectId,
+        taskName,
+        status,
+        priority,
+        dueDate,
+        assignees: assignedDeskiveUsers,
+      });
 
       // Get Deskive user ID (creator)
       const deskiveUserId = await this.getDeskiveUserIdFromSlack(user.id, teamId);
@@ -1079,7 +1159,8 @@ export class SlackProjectsService {
         : [deskiveUserId, ...assignedDeskiveUsers];
 
       // Get workspace ID from project
-      const projectResult = await this.db.table('projects')
+      const projectResult = await this.db
+        .table('projects')
         .select('workspace_id', 'name')
         .where('id', '=', projectId)
         .execute();
@@ -1091,7 +1172,8 @@ export class SlackProjectsService {
       }
 
       // Create task
-      const taskResult = await this.db.table('tasks')
+      const taskResult = await this.db
+        .table('tasks')
         .insert({
           project_id: projectId,
           title: taskName,
@@ -1119,18 +1201,20 @@ export class SlackProjectsService {
       const appUrl = this.configService.get('FRONTEND_URL') || 'http://localhost:5173';
       const taskUrl = `${appUrl}/workspaces/${project.workspace_id}/projects/${projectId}?task=${task.id}`;
 
-      const statusEmoji = {
-        todo: '⬜',
-        in_progress: '🔵',
-        in_review: '🟡',
-        done: '✅',
-      }[status] || '⬜';
+      const statusEmoji =
+        {
+          todo: '⬜',
+          in_progress: '🔵',
+          in_review: '🟡',
+          done: '✅',
+        }[status] || '⬜';
 
-      const priorityEmoji = {
-        high: '🔴',
-        medium: '🟡',
-        low: '🟢',
-      }[priority] || '🟡';
+      const priorityEmoji =
+        {
+          high: '🔴',
+          medium: '🟡',
+          low: '🟢',
+        }[priority] || '🟡';
 
       await slackClient.chat.postMessage({
         channel: user.id,
@@ -1172,7 +1256,9 @@ export class SlackProjectsService {
         const details = [];
         if (taskDescription) {
           const cleanDescription = this.stripHtml(taskDescription);
-          details.push(`📝 *Description:* ${cleanDescription.substring(0, 300)}${cleanDescription.length > 300 ? '...' : ''}`);
+          details.push(
+            `📝 *Description:* ${cleanDescription.substring(0, 300)}${cleanDescription.length > 300 ? '...' : ''}`,
+          );
         }
         if (dueDate) {
           details.push(`⏰ *Due Date:* ${new Date(dueDate).toLocaleDateString()}`);
@@ -1212,10 +1298,14 @@ export class SlackProjectsService {
    * Helper: Get Deskive user ID from Slack user ID
    * If no mapping exists, creates one for users already in the workspace
    */
-  private async getDeskiveUserIdFromSlack(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async getDeskiveUserIdFromSlack(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Check for existing mapping
-      const mappingResult = await this.db.table('slack_user_mappings')
+      const mappingResult = await this.db
+        .table('slack_user_mappings')
         .select('deskive_user_id')
         .where('slack_user_id', '=', slackUserId)
         .where('slack_team_id', '=', slackTeamId)
@@ -1227,7 +1317,9 @@ export class SlackProjectsService {
       }
 
       // 2. No mapping found - try to create one for existing workspace members
-      this.logger.log(`[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`);
+      this.logger.log(
+        `[Mapping] No mapping found for Slack user ${slackUserId}, checking if user is in workspace...`,
+      );
       return await this.createMappingForExistingUser(slackUserId, slackTeamId);
     } catch (error) {
       this.logger.error('Error getting Deskive user ID:', error);
@@ -1238,7 +1330,10 @@ export class SlackProjectsService {
   /**
    * Create mapping for a user who's already in the workspace (invited via Deskive)
    */
-  private async createMappingForExistingUser(slackUserId: string, slackTeamId: string): Promise<string | null> {
+  private async createMappingForExistingUser(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<string | null> {
     try {
       // 1. Get Slack user email
       const slackUserInfo = await this.getSlackUserInfo(slackUserId, slackTeamId);
@@ -1268,7 +1363,9 @@ export class SlackProjectsService {
       // 4. Check if user is a member of the workspace
       const isMember = await this.isUserInWorkspace(workspaceId, deskiveUserId);
       if (!isMember) {
-        this.logger.log(`[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`);
+        this.logger.log(
+          `[Mapping] User ${deskiveUserId} is not a member of workspace ${workspaceId}`,
+        );
         return null;
       }
 
@@ -1277,7 +1374,9 @@ export class SlackProjectsService {
       // 5. Create the mapping
       await this.createUserMapping(deskiveUserId, slackUserId, slackTeamId, email, name, avatar);
 
-      this.logger.log(`[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`);
+      this.logger.log(
+        `[Mapping] ✅ Successfully created mapping: ${slackUserId} → ${deskiveUserId}`,
+      );
       return deskiveUserId;
     } catch (error) {
       this.logger.error('[Mapping] Error creating mapping for existing user:', error);
@@ -1288,7 +1387,10 @@ export class SlackProjectsService {
   /**
    * Get Slack user information (email, name, avatar)
    */
-  private async getSlackUserInfo(slackUserId: string, slackTeamId: string): Promise<{ email: string; name: string; avatar: string } | null> {
+  private async getSlackUserInfo(
+    slackUserId: string,
+    slackTeamId: string,
+  ): Promise<{ email: string; name: string; avatar: string } | null> {
     try {
       const installation = await this.getInstallation(slackTeamId);
       const slackClient = new WebClient(installation.bot_token);
@@ -1316,7 +1418,8 @@ export class SlackProjectsService {
   private async findDeskiveUserByEmail(email: string): Promise<string | null> {
     try {
       // Query users table directly using database query builder
-      const result = await this.db.table('users')
+      const result = await this.db
+        .table('users')
         .select('id')
         .where('email', '=', email)
         .limit(1)
@@ -1334,7 +1437,8 @@ export class SlackProjectsService {
    */
   private async getSlackWorkspaceId(teamId: string): Promise<string | null> {
     try {
-      const result = await this.db.table('workspaces')
+      const result = await this.db
+        .table('workspaces')
         .select('id')
         .where('metadata', '@>', JSON.stringify({ slack_team_id: teamId }))
         .execute();
@@ -1351,7 +1455,8 @@ export class SlackProjectsService {
    */
   private async isUserInWorkspace(workspaceId: string, userId: string): Promise<boolean> {
     try {
-      const result = await this.db.table('workspace_members')
+      const result = await this.db
+        .table('workspace_members')
         .select('id')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -1374,7 +1479,7 @@ export class SlackProjectsService {
     slackTeamId: string,
     slackEmail: string,
     slackName: string,
-    slackAvatar: string
+    slackAvatar: string,
   ): Promise<void> {
     try {
       const mappingData = {
@@ -1388,12 +1493,10 @@ export class SlackProjectsService {
         onboarding_completed: true,
         is_active: true,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
-      await this.db.table('slack_user_mappings')
-        .insert(mappingData)
-        .execute();
+      await this.db.table('slack_user_mappings').insert(mappingData).execute();
 
       this.logger.log(`Created user mapping: ${slackUserId} → ${deskiveUserId}`);
     } catch (error) {
@@ -1411,7 +1514,8 @@ export class SlackProjectsService {
    * Helper: Get Slack installation
    */
   private async getInstallation(teamId: string) {
-    const result = await this.db.table('slack_whiteboard_installations')
+    const result = await this.db
+      .table('slack_whiteboard_installations')
       .select('*')
       .where('team_id', '=', teamId)
       .where('is_active', '=', true)

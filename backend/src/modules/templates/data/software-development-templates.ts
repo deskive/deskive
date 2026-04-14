@@ -94,8 +94,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Commit to sprint backlog',
-              description:
-                'Team commits to delivering selected user stories within the sprint.',
+              description: 'Team commits to delivering selected user stories within the sprint.',
               assigneeRole: 'member',
               dueOffset: 1,
               priority: 'high',
@@ -123,16 +122,14 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Update sprint board',
-              description:
-                'Keep the sprint board updated with accurate task status and progress.',
+              description: 'Keep the sprint board updated with accurate task status and progress.',
               assigneeRole: 'member',
               priority: 'medium',
               labels: ['recurring'],
             },
             {
               title: 'Code review queue',
-              description:
-                'Review and approve pending pull requests to maintain flow.',
+              description: 'Review and approve pending pull requests to maintain flow.',
               assigneeRole: 'member',
               priority: 'medium',
               labels: ['recurring', 'code-review'],
@@ -145,8 +142,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Sprint review/demo',
-              description:
-                'Demonstrate completed work to stakeholders and gather feedback.',
+              description: 'Demonstrate completed work to stakeholders and gather feedback.',
               assigneeRole: 'lead',
               dueOffset: 10,
               priority: 'high',
@@ -177,8 +173,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Update velocity metrics',
-              description:
-                'Calculate completed story points and update velocity chart.',
+              description: 'Calculate completed story points and update velocity chart.',
               assigneeRole: 'lead',
               dueOffset: 10,
               priority: 'medium',
@@ -265,8 +260,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Define testing scope',
-              description:
-                'Identify which features and areas will be tested during the bug bash.',
+              description: 'Identify which features and areas will be tested during the bug bash.',
               assigneeRole: 'lead',
               dueOffset: -2,
               priority: 'high',
@@ -302,8 +296,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Schedule and invite participants',
-              description:
-                'Set the bug bash time window and invite team members.',
+              description: 'Set the bug bash time window and invite team members.',
               assigneeRole: 'lead',
               dueOffset: -2,
               priority: 'medium',
@@ -317,8 +310,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Test: User Authentication',
-              description:
-                'Test login, logout, password reset, 2FA, and session management.',
+              description: 'Test login, logout, password reset, 2FA, and session management.',
               assigneeRole: 'member',
               dueOffset: 0,
               priority: 'high',
@@ -333,8 +325,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Test: Core Features',
-              description:
-                'Test main application features and workflows.',
+              description: 'Test main application features and workflows.',
               assigneeRole: 'member',
               dueOffset: 0,
               priority: 'high',
@@ -348,8 +339,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Test: Edge Cases',
-              description:
-                'Test boundary conditions, empty states, and error handling.',
+              description: 'Test boundary conditions, empty states, and error handling.',
               assigneeRole: 'member',
               dueOffset: 0,
               priority: 'medium',
@@ -363,8 +353,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Test: Mobile Responsiveness',
-              description:
-                'Test application on various screen sizes and devices.',
+              description: 'Test application on various screen sizes and devices.',
               assigneeRole: 'member',
               dueOffset: 0,
               priority: 'medium',
@@ -377,8 +366,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Test: Performance',
-              description:
-                'Test application performance under various conditions.',
+              description: 'Test application performance under various conditions.',
               assigneeRole: 'member',
               dueOffset: 0,
               priority: 'medium',
@@ -397,8 +385,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Triage reported bugs',
-              description:
-                'Review all reported bugs, confirm reproduction, and assign severity.',
+              description: 'Review all reported bugs, confirm reproduction, and assign severity.',
               assigneeRole: 'lead',
               dueOffset: 1,
               priority: 'high',
@@ -421,8 +408,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create bug bash summary',
-              description:
-                'Document findings, statistics, and action items from the bug bash.',
+              description: 'Document findings, statistics, and action items from the bug bash.',
               assigneeRole: 'lead',
               dueOffset: 2,
               priority: 'medium',
@@ -527,8 +513,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'UI/UX design',
-              description:
-                'Create wireframes and high-fidelity designs for the feature.',
+              description: 'Create wireframes and high-fidelity designs for the feature.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -542,8 +527,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Break down into tasks',
-              description:
-                'Decompose the feature into implementable tasks with estimates.',
+              description: 'Decompose the feature into implementable tasks with estimates.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'medium',
@@ -557,8 +541,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Setup development branch',
-              description:
-                'Create feature branch and setup development environment.',
+              description: 'Create feature branch and setup development environment.',
               assigneeRole: 'owner',
               dueOffset: 8,
               priority: 'medium',
@@ -566,8 +549,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Backend implementation',
-              description:
-                'Implement backend logic, API endpoints, and database changes.',
+              description: 'Implement backend logic, API endpoints, and database changes.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -581,8 +563,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Frontend implementation',
-              description:
-                'Implement UI components, state management, and API integration.',
+              description: 'Implement UI components, state management, and API integration.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'high',
@@ -596,8 +577,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Integration testing',
-              description:
-                'Test frontend-backend integration and end-to-end flows.',
+              description: 'Test frontend-backend integration and end-to-end flows.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -611,8 +591,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Code review',
-              description:
-                'Review code for quality, security, and best practices.',
+              description: 'Review code for quality, security, and best practices.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -626,8 +605,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'QA testing',
-              description:
-                'Comprehensive testing against acceptance criteria.',
+              description: 'Comprehensive testing against acceptance criteria.',
               assigneeRole: 'member',
               dueOffset: 24,
               priority: 'high',
@@ -641,8 +619,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Performance testing',
-              description:
-                'Verify feature performs within acceptable limits.',
+              description: 'Verify feature performs within acceptable limits.',
               assigneeRole: 'member',
               dueOffset: 25,
               priority: 'medium',
@@ -650,8 +627,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Security review',
-              description:
-                'Review feature for security vulnerabilities.',
+              description: 'Review feature for security vulnerabilities.',
               assigneeRole: 'lead',
               dueOffset: 25,
               priority: 'high',
@@ -665,8 +641,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Write documentation',
-              description:
-                'Create user documentation and update technical docs.',
+              description: 'Create user documentation and update technical docs.',
               assigneeRole: 'member',
               dueOffset: 26,
               priority: 'medium',
@@ -679,8 +654,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Prepare release notes',
-              description:
-                'Write release notes highlighting the new feature.',
+              description: 'Write release notes highlighting the new feature.',
               assigneeRole: 'lead',
               dueOffset: 27,
               priority: 'medium',
@@ -688,8 +662,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Deploy to staging',
-              description:
-                'Deploy feature to staging environment for final validation.',
+              description: 'Deploy feature to staging environment for final validation.',
               assigneeRole: 'owner',
               dueOffset: 27,
               priority: 'high',
@@ -697,8 +670,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Deploy to production',
-              description:
-                'Deploy feature to production with monitoring.',
+              description: 'Deploy feature to production with monitoring.',
               assigneeRole: 'owner',
               dueOffset: 28,
               priority: 'high',
@@ -715,7 +687,15 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['planning', 'design', 'development', 'review', 'testing', 'documentation', 'done'],
+        statuses: [
+          'planning',
+          'design',
+          'development',
+          'review',
+          'testing',
+          'documentation',
+          'done',
+        ],
       },
     },
     settings: {
@@ -772,8 +752,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Define API requirements',
-              description:
-                'Gather requirements and define what the API needs to accomplish.',
+              description: 'Gather requirements and define what the API needs to accomplish.',
               assigneeRole: 'lead',
               dueOffset: 2,
               priority: 'high',
@@ -786,8 +765,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Design API schema',
-              description:
-                'Define request/response schemas, data types, and validation rules.',
+              description: 'Define request/response schemas, data types, and validation rules.',
               assigneeRole: 'owner',
               dueOffset: 4,
               priority: 'high',
@@ -801,8 +779,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create OpenAPI/Swagger spec',
-              description:
-                'Write OpenAPI specification for the API endpoints.',
+              description: 'Write OpenAPI specification for the API endpoints.',
               assigneeRole: 'owner',
               dueOffset: 5,
               priority: 'high',
@@ -810,8 +787,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Design authentication flow',
-              description:
-                'Define authentication and authorization requirements.',
+              description: 'Define authentication and authorization requirements.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -830,8 +806,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Setup API project structure',
-              description:
-                'Create project structure, configure routing, and setup middleware.',
+              description: 'Create project structure, configure routing, and setup middleware.',
               assigneeRole: 'owner',
               dueOffset: 6,
               priority: 'high',
@@ -845,8 +820,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Implement authentication',
-              description:
-                'Implement authentication middleware and guards.',
+              description: 'Implement authentication middleware and guards.',
               assigneeRole: 'owner',
               dueOffset: 8,
               priority: 'high',
@@ -860,8 +834,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Implement CRUD endpoints',
-              description:
-                'Create core CRUD operations for the resource.',
+              description: 'Create core CRUD operations for the resource.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -876,8 +849,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Implement validation',
-              description:
-                'Add request validation using DTOs and validation pipes.',
+              description: 'Add request validation using DTOs and validation pipes.',
               assigneeRole: 'member',
               dueOffset: 13,
               priority: 'high',
@@ -885,8 +857,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Add pagination and filtering',
-              description:
-                'Implement pagination, sorting, and filtering for list endpoints.',
+              description: 'Implement pagination, sorting, and filtering for list endpoints.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'medium',
@@ -900,8 +871,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Write unit tests',
-              description:
-                'Write unit tests for service layer and utilities.',
+              description: 'Write unit tests for service layer and utilities.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -914,8 +884,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Write integration tests',
-              description:
-                'Write integration tests for API endpoints.',
+              description: 'Write integration tests for API endpoints.',
               assigneeRole: 'member',
               dueOffset: 17,
               priority: 'high',
@@ -929,8 +898,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create Postman collection',
-              description:
-                'Create Postman collection for manual testing and sharing.',
+              description: 'Create Postman collection for manual testing and sharing.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'medium',
@@ -938,8 +906,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Load testing',
-              description:
-                'Perform load testing to verify API performance.',
+              description: 'Perform load testing to verify API performance.',
               assigneeRole: 'owner',
               dueOffset: 19,
               priority: 'medium',
@@ -953,8 +920,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Generate API documentation',
-              description:
-                'Generate and review auto-generated API documentation.',
+              description: 'Generate and review auto-generated API documentation.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -962,8 +928,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Write usage examples',
-              description:
-                'Create code examples for common use cases.',
+              description: 'Create code examples for common use cases.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'medium',
@@ -976,8 +941,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Document error codes',
-              description:
-                'Create comprehensive error code documentation.',
+              description: 'Create comprehensive error code documentation.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'medium',
@@ -985,8 +949,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'API review and approval',
-              description:
-                'Final review of API design and documentation.',
+              description: 'Final review of API design and documentation.',
               assigneeRole: 'lead',
               dueOffset: 22,
               priority: 'high',
@@ -1030,7 +993,14 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
         name: 'Debt Type',
         type: 'select',
         description: 'Type of technical debt',
-        options: ['Code Quality', 'Architecture', 'Dependencies', 'Testing', 'Documentation', 'Performance'],
+        options: [
+          'Code Quality',
+          'Architecture',
+          'Dependencies',
+          'Testing',
+          'Documentation',
+          'Performance',
+        ],
         isRequired: false,
       },
       {
@@ -1063,8 +1033,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Run code quality analysis',
-              description:
-                'Run static analysis tools to identify code quality issues.',
+              description: 'Run static analysis tools to identify code quality issues.',
               assigneeRole: 'owner',
               dueOffset: 2,
               priority: 'high',
@@ -1078,8 +1047,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Audit dependencies',
-              description:
-                'Review and document outdated or vulnerable dependencies.',
+              description: 'Review and document outdated or vulnerable dependencies.',
               assigneeRole: 'owner',
               dueOffset: 2,
               priority: 'high',
@@ -1093,8 +1061,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Review TODO/FIXME comments',
-              description:
-                'Search codebase for TODO, FIXME, HACK comments.',
+              description: 'Search codebase for TODO, FIXME, HACK comments.',
               assigneeRole: 'member',
               dueOffset: 1,
               priority: 'medium',
@@ -1102,8 +1069,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Identify code duplication',
-              description:
-                'Find and document duplicated code that should be refactored.',
+              description: 'Find and document duplicated code that should be refactored.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'medium',
@@ -1111,8 +1077,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Document architectural issues',
-              description:
-                'Identify and document architectural problems and anti-patterns.',
+              description: 'Identify and document architectural problems and anti-patterns.',
               assigneeRole: 'lead',
               dueOffset: 4,
               priority: 'high',
@@ -1126,8 +1091,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Categorize debt items',
-              description:
-                'Group identified issues by type and severity.',
+              description: 'Group identified issues by type and severity.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -1140,8 +1104,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create prioritization matrix',
-              description:
-                'Prioritize items based on impact vs effort.',
+              description: 'Prioritize items based on impact vs effort.',
               assigneeRole: 'lead',
               dueOffset: 6,
               priority: 'high',
@@ -1149,8 +1112,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Get stakeholder approval',
-              description:
-                'Review prioritized list with stakeholders and get approval.',
+              description: 'Review prioritized list with stakeholders and get approval.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'medium',
@@ -1158,8 +1120,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create refactoring plan',
-              description:
-                'Create detailed plan for addressing priority items.',
+              description: 'Create detailed plan for addressing priority items.',
               assigneeRole: 'lead',
               dueOffset: 8,
               priority: 'high',
@@ -1173,8 +1134,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Update dependencies',
-              description:
-                'Update outdated and vulnerable dependencies.',
+              description: 'Update outdated and vulnerable dependencies.',
               assigneeRole: 'owner',
               dueOffset: 10,
               priority: 'high',
@@ -1188,8 +1148,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Fix critical code issues',
-              description:
-                'Address high-priority code quality issues.',
+              description: 'Address high-priority code quality issues.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -1202,8 +1161,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Refactor duplicated code',
-              description:
-                'Extract common code into reusable utilities/components.',
+              description: 'Extract common code into reusable utilities/components.',
               assigneeRole: 'member',
               dueOffset: 16,
               priority: 'medium',
@@ -1211,8 +1169,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Improve test coverage',
-              description:
-                'Add tests for untested critical paths.',
+              description: 'Add tests for untested critical paths.',
               assigneeRole: 'member',
               dueOffset: 18,
               priority: 'medium',
@@ -1225,8 +1182,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Update documentation',
-              description:
-                'Update or create missing documentation.',
+              description: 'Update or create missing documentation.',
               assigneeRole: 'member',
               dueOffset: 19,
               priority: 'low',
@@ -1240,8 +1196,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Run regression tests',
-              description:
-                'Ensure refactoring did not break existing functionality.',
+              description: 'Ensure refactoring did not break existing functionality.',
               assigneeRole: 'member',
               dueOffset: 20,
               priority: 'high',
@@ -1254,8 +1209,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Verify code quality improvements',
-              description:
-                'Re-run code analysis to verify improvements.',
+              description: 'Re-run code analysis to verify improvements.',
               assigneeRole: 'owner',
               dueOffset: 21,
               priority: 'high',
@@ -1268,8 +1222,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Performance validation',
-              description:
-                'Ensure refactoring did not negatively impact performance.',
+              description: 'Ensure refactoring did not negatively impact performance.',
               assigneeRole: 'owner',
               dueOffset: 21,
               priority: 'medium',
@@ -1277,8 +1230,7 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
             },
             {
               title: 'Create summary report',
-              description:
-                'Document what was done and improvements achieved.',
+              description: 'Document what was done and improvements achieved.',
               assigneeRole: 'lead',
               dueOffset: 22,
               priority: 'medium',
@@ -1327,7 +1279,13 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
         name: 'PR Size',
         type: 'select',
         description: 'Size of the pull request',
-        options: ['XS (< 10 lines)', 'S (10-50 lines)', 'M (50-200 lines)', 'L (200-500 lines)', 'XL (> 500 lines)'],
+        options: [
+          'XS (< 10 lines)',
+          'S (10-50 lines)',
+          'M (50-200 lines)',
+          'L (200-500 lines)',
+          'XL (> 500 lines)',
+        ],
         isRequired: false,
       },
       {
@@ -1346,7 +1304,8 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
           tasks: [
             {
               title: 'Define code review guidelines',
-              description: 'Document team standards for code review including what to look for and response times.',
+              description:
+                'Document team standards for code review including what to look for and response times.',
               assigneeRole: 'lead',
               dueOffset: 2,
               priority: 'high',
@@ -1898,7 +1857,13 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
         name: 'Framework',
         type: 'select',
         description: 'Development framework',
-        options: ['React Native', 'Flutter', 'Native iOS', 'Native Android', 'Kotlin Multiplatform'],
+        options: [
+          'React Native',
+          'Flutter',
+          'Native iOS',
+          'Native Android',
+          'Kotlin Multiplatform',
+        ],
         isRequired: false,
       },
     ],
@@ -2467,7 +2432,14 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['planning', 'assessment', 'analysis', 'remediation', 'verification', 'completed'],
+        statuses: [
+          'planning',
+          'assessment',
+          'analysis',
+          'remediation',
+          'verification',
+          'completed',
+        ],
       },
     },
     settings: {
@@ -3273,7 +3245,14 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
         name: 'Model Type',
         type: 'select',
         description: 'Type of ML model',
-        options: ['Classification', 'Regression', 'Clustering', 'NLP', 'Computer Vision', 'Recommendation'],
+        options: [
+          'Classification',
+          'Regression',
+          'Clustering',
+          'NLP',
+          'Computer Vision',
+          'Recommendation',
+        ],
         isRequired: false,
       },
       {
@@ -3439,7 +3418,14 @@ export const SOFTWARE_DEVELOPMENT_TEMPLATES = [
       ],
       settings: {
         defaultView: 'board',
-        statuses: ['data_prep', 'feature_eng', 'training', 'evaluation', 'deployment', 'monitoring'],
+        statuses: [
+          'data_prep',
+          'feature_eng',
+          'training',
+          'evaluation',
+          'deployment',
+          'monitoring',
+        ],
       },
     },
     settings: {

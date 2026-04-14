@@ -3,10 +3,7 @@
  * Financial analysis, investment, and audit documentation
  */
 
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const FINANCE_ANALYSIS_TEMPLATES = [
   {
@@ -33,33 +30,70 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Metric | Current | Prior | Industry Avg |' },
         { insert: '\n|--------|---------|-------|--------------|' },
-        { insert: '\n| Gross Profit Margin | {{gross_margin_current}}% | {{gross_margin_prior}}% | {{gross_margin_industry}}% |' },
-        { insert: '\n| Operating Margin | {{operating_margin_current}}% | {{operating_margin_prior}}% | {{operating_margin_industry}}% |' },
-        { insert: '\n| Net Profit Margin | {{net_margin_current}}% | {{net_margin_prior}}% | {{net_margin_industry}}% |' },
-        { insert: '\n| Return on Assets | {{roa_current}}% | {{roa_prior}}% | {{roa_industry}}% |' },
-        { insert: '\n| Return on Equity | {{roe_current}}% | {{roe_prior}}% | {{roe_industry}}% |' },
+        {
+          insert:
+            '\n| Gross Profit Margin | {{gross_margin_current}}% | {{gross_margin_prior}}% | {{gross_margin_industry}}% |',
+        },
+        {
+          insert:
+            '\n| Operating Margin | {{operating_margin_current}}% | {{operating_margin_prior}}% | {{operating_margin_industry}}% |',
+        },
+        {
+          insert:
+            '\n| Net Profit Margin | {{net_margin_current}}% | {{net_margin_prior}}% | {{net_margin_industry}}% |',
+        },
+        {
+          insert: '\n| Return on Assets | {{roa_current}}% | {{roa_prior}}% | {{roa_industry}}% |',
+        },
+        {
+          insert: '\n| Return on Equity | {{roe_current}}% | {{roe_prior}}% | {{roe_industry}}% |',
+        },
         { insert: '\n\nLiquidity Analysis' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Metric | Current | Prior | Industry Avg |' },
         { insert: '\n|--------|---------|-------|--------------|' },
-        { insert: '\n| Current Ratio | {{current_ratio_current}} | {{current_ratio_prior}} | {{current_ratio_industry}} |' },
-        { insert: '\n| Quick Ratio | {{quick_ratio_current}} | {{quick_ratio_prior}} | {{quick_ratio_industry}} |' },
-        { insert: '\n| Cash Ratio | {{cash_ratio_current}} | {{cash_ratio_prior}} | {{cash_ratio_industry}} |' },
+        {
+          insert:
+            '\n| Current Ratio | {{current_ratio_current}} | {{current_ratio_prior}} | {{current_ratio_industry}} |',
+        },
+        {
+          insert:
+            '\n| Quick Ratio | {{quick_ratio_current}} | {{quick_ratio_prior}} | {{quick_ratio_industry}} |',
+        },
+        {
+          insert:
+            '\n| Cash Ratio | {{cash_ratio_current}} | {{cash_ratio_prior}} | {{cash_ratio_industry}} |',
+        },
         { insert: '\n\nEfficiency Metrics' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Metric | Current | Prior | Industry Avg |' },
         { insert: '\n|--------|---------|-------|--------------|' },
-        { insert: '\n| Inventory Turnover | {{inv_turnover_current}} | {{inv_turnover_prior}} | {{inv_turnover_industry}} |' },
-        { insert: '\n| Receivables Turnover | {{ar_turnover_current}} | {{ar_turnover_prior}} | {{ar_turnover_industry}} |' },
-        { insert: '\n| Payables Turnover | {{ap_turnover_current}} | {{ap_turnover_prior}} | {{ap_turnover_industry}} |' },
-        { insert: '\n| Asset Turnover | {{asset_turnover_current}} | {{asset_turnover_prior}} | {{asset_turnover_industry}} |' },
+        {
+          insert:
+            '\n| Inventory Turnover | {{inv_turnover_current}} | {{inv_turnover_prior}} | {{inv_turnover_industry}} |',
+        },
+        {
+          insert:
+            '\n| Receivables Turnover | {{ar_turnover_current}} | {{ar_turnover_prior}} | {{ar_turnover_industry}} |',
+        },
+        {
+          insert:
+            '\n| Payables Turnover | {{ap_turnover_current}} | {{ap_turnover_prior}} | {{ap_turnover_industry}} |',
+        },
+        {
+          insert:
+            '\n| Asset Turnover | {{asset_turnover_current}} | {{asset_turnover_prior}} | {{asset_turnover_industry}} |',
+        },
         { insert: '\n\nLeverage Metrics' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Metric | Current | Prior | Industry Avg |' },
         { insert: '\n|--------|---------|-------|--------------|' },
         { insert: '\n| Debt to Equity | {{de_current}} | {{de_prior}} | {{de_industry}} |' },
         { insert: '\n| Debt to Assets | {{da_current}}% | {{da_prior}}% | {{da_industry}}% |' },
-        { insert: '\n| Interest Coverage | {{interest_cov_current}} | {{interest_cov_prior}} | {{interest_cov_industry}} |' },
+        {
+          insert:
+            '\n| Interest Coverage | {{interest_cov_current}} | {{interest_cov_prior}} | {{interest_cov_industry}} |',
+        },
         { insert: '\n\nKey Findings' },
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n{{key_findings}}' },
@@ -75,12 +109,37 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'prepared_by', type: 'text', label: 'Prepared By', required: true },
       { key: 'report_date', type: 'date', label: 'Report Date', required: true },
       { key: 'executive_summary', type: 'textarea', label: 'Executive Summary', required: true },
-      { key: 'gross_margin_current', type: 'number', label: 'Gross Margin Current', required: true },
+      {
+        key: 'gross_margin_current',
+        type: 'number',
+        label: 'Gross Margin Current',
+        required: true,
+      },
       { key: 'gross_margin_prior', type: 'number', label: 'Gross Margin Prior', required: true },
-      { key: 'gross_margin_industry', type: 'number', label: 'Gross Margin Industry', required: false },
-      { key: 'operating_margin_current', type: 'number', label: 'Operating Margin Current', required: true },
-      { key: 'operating_margin_prior', type: 'number', label: 'Operating Margin Prior', required: true },
-      { key: 'operating_margin_industry', type: 'number', label: 'Operating Margin Industry', required: false },
+      {
+        key: 'gross_margin_industry',
+        type: 'number',
+        label: 'Gross Margin Industry',
+        required: false,
+      },
+      {
+        key: 'operating_margin_current',
+        type: 'number',
+        label: 'Operating Margin Current',
+        required: true,
+      },
+      {
+        key: 'operating_margin_prior',
+        type: 'number',
+        label: 'Operating Margin Prior',
+        required: true,
+      },
+      {
+        key: 'operating_margin_industry',
+        type: 'number',
+        label: 'Operating Margin Industry',
+        required: false,
+      },
       { key: 'net_margin_current', type: 'number', label: 'Net Margin Current', required: true },
       { key: 'net_margin_prior', type: 'number', label: 'Net Margin Prior', required: true },
       { key: 'net_margin_industry', type: 'number', label: 'Net Margin Industry', required: false },
@@ -90,36 +149,106 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'roe_current', type: 'number', label: 'ROE Current', required: true },
       { key: 'roe_prior', type: 'number', label: 'ROE Prior', required: true },
       { key: 'roe_industry', type: 'number', label: 'ROE Industry', required: false },
-      { key: 'current_ratio_current', type: 'number', label: 'Current Ratio Current', required: true },
+      {
+        key: 'current_ratio_current',
+        type: 'number',
+        label: 'Current Ratio Current',
+        required: true,
+      },
       { key: 'current_ratio_prior', type: 'number', label: 'Current Ratio Prior', required: true },
-      { key: 'current_ratio_industry', type: 'number', label: 'Current Ratio Industry', required: false },
+      {
+        key: 'current_ratio_industry',
+        type: 'number',
+        label: 'Current Ratio Industry',
+        required: false,
+      },
       { key: 'quick_ratio_current', type: 'number', label: 'Quick Ratio Current', required: true },
       { key: 'quick_ratio_prior', type: 'number', label: 'Quick Ratio Prior', required: true },
-      { key: 'quick_ratio_industry', type: 'number', label: 'Quick Ratio Industry', required: false },
+      {
+        key: 'quick_ratio_industry',
+        type: 'number',
+        label: 'Quick Ratio Industry',
+        required: false,
+      },
       { key: 'cash_ratio_current', type: 'number', label: 'Cash Ratio Current', required: true },
       { key: 'cash_ratio_prior', type: 'number', label: 'Cash Ratio Prior', required: true },
       { key: 'cash_ratio_industry', type: 'number', label: 'Cash Ratio Industry', required: false },
-      { key: 'inv_turnover_current', type: 'number', label: 'Inventory Turnover Current', required: true },
-      { key: 'inv_turnover_prior', type: 'number', label: 'Inventory Turnover Prior', required: true },
-      { key: 'inv_turnover_industry', type: 'number', label: 'Inventory Turnover Industry', required: false },
+      {
+        key: 'inv_turnover_current',
+        type: 'number',
+        label: 'Inventory Turnover Current',
+        required: true,
+      },
+      {
+        key: 'inv_turnover_prior',
+        type: 'number',
+        label: 'Inventory Turnover Prior',
+        required: true,
+      },
+      {
+        key: 'inv_turnover_industry',
+        type: 'number',
+        label: 'Inventory Turnover Industry',
+        required: false,
+      },
       { key: 'ar_turnover_current', type: 'number', label: 'AR Turnover Current', required: true },
       { key: 'ar_turnover_prior', type: 'number', label: 'AR Turnover Prior', required: true },
-      { key: 'ar_turnover_industry', type: 'number', label: 'AR Turnover Industry', required: false },
+      {
+        key: 'ar_turnover_industry',
+        type: 'number',
+        label: 'AR Turnover Industry',
+        required: false,
+      },
       { key: 'ap_turnover_current', type: 'number', label: 'AP Turnover Current', required: true },
       { key: 'ap_turnover_prior', type: 'number', label: 'AP Turnover Prior', required: true },
-      { key: 'ap_turnover_industry', type: 'number', label: 'AP Turnover Industry', required: false },
-      { key: 'asset_turnover_current', type: 'number', label: 'Asset Turnover Current', required: true },
-      { key: 'asset_turnover_prior', type: 'number', label: 'Asset Turnover Prior', required: true },
-      { key: 'asset_turnover_industry', type: 'number', label: 'Asset Turnover Industry', required: false },
+      {
+        key: 'ap_turnover_industry',
+        type: 'number',
+        label: 'AP Turnover Industry',
+        required: false,
+      },
+      {
+        key: 'asset_turnover_current',
+        type: 'number',
+        label: 'Asset Turnover Current',
+        required: true,
+      },
+      {
+        key: 'asset_turnover_prior',
+        type: 'number',
+        label: 'Asset Turnover Prior',
+        required: true,
+      },
+      {
+        key: 'asset_turnover_industry',
+        type: 'number',
+        label: 'Asset Turnover Industry',
+        required: false,
+      },
       { key: 'de_current', type: 'number', label: 'Debt to Equity Current', required: true },
       { key: 'de_prior', type: 'number', label: 'Debt to Equity Prior', required: true },
       { key: 'de_industry', type: 'number', label: 'Debt to Equity Industry', required: false },
       { key: 'da_current', type: 'number', label: 'Debt to Assets Current', required: true },
       { key: 'da_prior', type: 'number', label: 'Debt to Assets Prior', required: true },
       { key: 'da_industry', type: 'number', label: 'Debt to Assets Industry', required: false },
-      { key: 'interest_cov_current', type: 'number', label: 'Interest Coverage Current', required: true },
-      { key: 'interest_cov_prior', type: 'number', label: 'Interest Coverage Prior', required: true },
-      { key: 'interest_cov_industry', type: 'number', label: 'Interest Coverage Industry', required: false },
+      {
+        key: 'interest_cov_current',
+        type: 'number',
+        label: 'Interest Coverage Current',
+        required: true,
+      },
+      {
+        key: 'interest_cov_prior',
+        type: 'number',
+        label: 'Interest Coverage Prior',
+        required: true,
+      },
+      {
+        key: 'interest_cov_industry',
+        type: 'number',
+        label: 'Interest Coverage Industry',
+        required: false,
+      },
       { key: 'key_findings', type: 'textarea', label: 'Key Findings', required: true },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: true },
     ],
@@ -197,8 +326,19 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'department', type: 'text', label: 'Department', required: true },
       { key: 'proposal_date', type: 'date', label: 'Proposal Date', required: true },
       { key: 'executive_summary', type: 'textarea', label: 'Executive Summary', required: true },
-      { key: 'total_investment', type: 'currency', label: 'Total Investment Required', required: true },
-      { key: 'investment_type', type: 'select', label: 'Investment Type', required: true, options: ['Capital Equipment', 'Technology', 'Real Estate', 'Acquisition', 'R&D', 'Other'] },
+      {
+        key: 'total_investment',
+        type: 'currency',
+        label: 'Total Investment Required',
+        required: true,
+      },
+      {
+        key: 'investment_type',
+        type: 'select',
+        label: 'Investment Type',
+        required: true,
+        options: ['Capital Equipment', 'Technology', 'Real Estate', 'Acquisition', 'R&D', 'Other'],
+      },
       { key: 'project_timeline', type: 'text', label: 'Project Timeline', required: true },
       { key: 'business_case', type: 'textarea', label: 'Business Case', required: true },
       { key: 'revenue_y1', type: 'currency', label: 'Revenue Year 1', required: true },
@@ -225,9 +365,24 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'recommendation', type: 'textarea', label: 'Recommendation', required: true },
     ],
     signatureFields: [
-      { id: 'dept_manager_signature', label: 'Department Manager Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'finance_signature', label: 'Finance Director Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'executive_signature', label: 'Executive Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'dept_manager_signature',
+        label: 'Department Manager Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'finance_signature',
+        label: 'Finance Director Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'executive_signature',
+        label: 'Executive Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -291,7 +446,10 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n☐ Bank statements (last 6 months)' },
         { insert: '\n\nCertification' },
         { insert: '\n', attributes: { header: 2 } },
-        { insert: '\nI certify that all information provided is true and complete. I authorize the lender to verify all information and obtain credit reports.' },
+        {
+          insert:
+            '\nI certify that all information provided is true and complete. I authorize the lender to verify all information and obtain credit reports.',
+        },
         { insert: '\n\nApplicant Signature: _____________________ Date: _________' },
         { insert: '\n' },
       ],
@@ -299,7 +457,20 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
     placeholders: [
       { key: 'application_date', type: 'date', label: 'Application Date', required: true },
       { key: 'applicant_name', type: 'text', label: 'Applicant Name', required: true },
-      { key: 'business_type', type: 'select', label: 'Business Type', required: true, options: ['Sole Proprietorship', 'Partnership', 'LLC', 'Corporation', 'S-Corporation', 'Individual'] },
+      {
+        key: 'business_type',
+        type: 'select',
+        label: 'Business Type',
+        required: true,
+        options: [
+          'Sole Proprietorship',
+          'Partnership',
+          'LLC',
+          'Corporation',
+          'S-Corporation',
+          'Individual',
+        ],
+      },
       { key: 'tax_id', type: 'text', label: 'Tax ID/SSN', required: true },
       { key: 'years_in_business', type: 'number', label: 'Years in Business', required: true },
       { key: 'address', type: 'textarea', label: 'Address', required: true },
@@ -324,7 +495,12 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'ref_2_phone', type: 'phone', label: 'Reference 2 Phone', required: true },
     ],
     signatureFields: [
-      { id: 'applicant_signature', label: 'Applicant Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'applicant_signature',
+        label: 'Applicant Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -356,9 +532,18 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Category | Q1 | Q2 | Q3 | Q4 | Total |' },
         { insert: '\n|----------|-----|-----|-----|-----|-------|' },
-        { insert: '\n| Product Sales | {{prod_q1}} | {{prod_q2}} | {{prod_q3}} | {{prod_q4}} | {{prod_total}} |' },
-        { insert: '\n| Service Revenue | {{svc_q1}} | {{svc_q2}} | {{svc_q3}} | {{svc_q4}} | {{svc_total}} |' },
-        { insert: '\n| Other Revenue | {{other_q1}} | {{other_q2}} | {{other_q3}} | {{other_q4}} | {{other_total}} |' },
+        {
+          insert:
+            '\n| Product Sales | {{prod_q1}} | {{prod_q2}} | {{prod_q3}} | {{prod_q4}} | {{prod_total}} |',
+        },
+        {
+          insert:
+            '\n| Service Revenue | {{svc_q1}} | {{svc_q2}} | {{svc_q3}} | {{svc_q4}} | {{svc_total}} |',
+        },
+        {
+          insert:
+            '\n| Other Revenue | {{other_q1}} | {{other_q2}} | {{other_q3}} | {{other_q4}} | {{other_total}} |',
+        },
         { insert: '\n| ' },
         { insert: 'Total Revenue', attributes: { bold: true } },
         { insert: ' | {{rev_q1}} | {{rev_q2}} | {{rev_q3}} | {{rev_q4}} | ' },
@@ -368,10 +553,22 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Category | Q1 | Q2 | Q3 | Q4 | Total |' },
         { insert: '\n|----------|-----|-----|-----|-----|-------|' },
-        { insert: '\n| COGS | {{cogs_q1}} | {{cogs_q2}} | {{cogs_q3}} | {{cogs_q4}} | {{cogs_total}} |' },
-        { insert: '\n| Personnel | {{pers_q1}} | {{pers_q2}} | {{pers_q3}} | {{pers_q4}} | {{pers_total}} |' },
-        { insert: '\n| Marketing | {{mktg_q1}} | {{mktg_q2}} | {{mktg_q3}} | {{mktg_q4}} | {{mktg_total}} |' },
-        { insert: '\n| Operations | {{ops_q1}} | {{ops_q2}} | {{ops_q3}} | {{ops_q4}} | {{ops_total}} |' },
+        {
+          insert:
+            '\n| COGS | {{cogs_q1}} | {{cogs_q2}} | {{cogs_q3}} | {{cogs_q4}} | {{cogs_total}} |',
+        },
+        {
+          insert:
+            '\n| Personnel | {{pers_q1}} | {{pers_q2}} | {{pers_q3}} | {{pers_q4}} | {{pers_total}} |',
+        },
+        {
+          insert:
+            '\n| Marketing | {{mktg_q1}} | {{mktg_q2}} | {{mktg_q3}} | {{mktg_q4}} | {{mktg_total}} |',
+        },
+        {
+          insert:
+            '\n| Operations | {{ops_q1}} | {{ops_q2}} | {{ops_q3}} | {{ops_q4}} | {{ops_total}} |',
+        },
         { insert: '\n| ' },
         { insert: 'Total Expenses', attributes: { bold: true } },
         { insert: ' | {{exp_q1}} | {{exp_q2}} | {{exp_q3}} | {{exp_q4}} | ' },
@@ -381,8 +578,14 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Metric | Q1 | Q2 | Q3 | Q4 | Total |' },
         { insert: '\n|--------|-----|-----|-----|-----|-------|' },
-        { insert: '\n| Gross Profit | {{gp_q1}} | {{gp_q2}} | {{gp_q3}} | {{gp_q4}} | {{gp_total}} |' },
-        { insert: '\n| Operating Profit | {{op_q1}} | {{op_q2}} | {{op_q3}} | {{op_q4}} | {{op_total}} |' },
+        {
+          insert:
+            '\n| Gross Profit | {{gp_q1}} | {{gp_q2}} | {{gp_q3}} | {{gp_q4}} | {{gp_total}} |',
+        },
+        {
+          insert:
+            '\n| Operating Profit | {{op_q1}} | {{op_q2}} | {{op_q3}} | {{op_q4}} | {{op_total}} |',
+        },
         { insert: '\n| ' },
         { insert: 'Net Profit', attributes: { bold: true } },
         { insert: ' | {{np_q1}} | {{np_q2}} | {{np_q3}} | {{np_q4}} | ' },
@@ -467,7 +670,12 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'np_q4', type: 'currency', label: 'Net Profit Q4', required: true },
       { key: 'np_total', type: 'currency', label: 'Net Profit Total', required: true },
       { key: 'gross_margin', type: 'number', label: 'Projected Gross Margin', required: true },
-      { key: 'operating_margin', type: 'number', label: 'Projected Operating Margin', required: true },
+      {
+        key: 'operating_margin',
+        type: 'number',
+        label: 'Projected Operating Margin',
+        required: true,
+      },
       { key: 'net_margin', type: 'number', label: 'Projected Net Margin', required: true },
       { key: 'yoy_growth', type: 'number', label: 'YoY Growth', required: true },
       { key: 'risks', type: 'textarea', label: 'Risks & Sensitivities', required: true },
@@ -541,7 +749,20 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       ],
     },
     placeholders: [
-      { key: 'audit_type', type: 'select', label: 'Audit Type', required: true, options: ['Financial', 'Operational', 'Compliance', 'IT/Systems', 'Internal Control', 'Fraud'] },
+      {
+        key: 'audit_type',
+        type: 'select',
+        label: 'Audit Type',
+        required: true,
+        options: [
+          'Financial',
+          'Operational',
+          'Compliance',
+          'IT/Systems',
+          'Internal Control',
+          'Fraud',
+        ],
+      },
       { key: 'audit_period', type: 'text', label: 'Audit Period', required: true },
       { key: 'report_date', type: 'date', label: 'Report Date', required: true },
       { key: 'auditor_name', type: 'text', label: 'Auditor Name', required: true },
@@ -554,28 +775,101 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'low_cat', type: 'text', label: 'Low Priority Category', required: true },
       { key: 'low_count', type: 'number', label: 'Low Priority Count', required: true },
       { key: 'finding_1_title', type: 'text', label: 'Finding 1 Title', required: true },
-      { key: 'finding_1_priority', type: 'select', label: 'Finding 1 Priority', required: true, options: ['High', 'Medium', 'Low'] },
-      { key: 'finding_1_observation', type: 'textarea', label: 'Finding 1 Observation', required: true },
+      {
+        key: 'finding_1_priority',
+        type: 'select',
+        label: 'Finding 1 Priority',
+        required: true,
+        options: ['High', 'Medium', 'Low'],
+      },
+      {
+        key: 'finding_1_observation',
+        type: 'textarea',
+        label: 'Finding 1 Observation',
+        required: true,
+      },
       { key: 'finding_1_risk', type: 'textarea', label: 'Finding 1 Risk', required: true },
-      { key: 'finding_1_recommendation', type: 'textarea', label: 'Finding 1 Recommendation', required: true },
-      { key: 'finding_1_response', type: 'textarea', label: 'Finding 1 Management Response', required: false },
+      {
+        key: 'finding_1_recommendation',
+        type: 'textarea',
+        label: 'Finding 1 Recommendation',
+        required: true,
+      },
+      {
+        key: 'finding_1_response',
+        type: 'textarea',
+        label: 'Finding 1 Management Response',
+        required: false,
+      },
       { key: 'finding_2_title', type: 'text', label: 'Finding 2 Title', required: false },
-      { key: 'finding_2_priority', type: 'select', label: 'Finding 2 Priority', required: false, options: ['High', 'Medium', 'Low'] },
-      { key: 'finding_2_observation', type: 'textarea', label: 'Finding 2 Observation', required: false },
+      {
+        key: 'finding_2_priority',
+        type: 'select',
+        label: 'Finding 2 Priority',
+        required: false,
+        options: ['High', 'Medium', 'Low'],
+      },
+      {
+        key: 'finding_2_observation',
+        type: 'textarea',
+        label: 'Finding 2 Observation',
+        required: false,
+      },
       { key: 'finding_2_risk', type: 'textarea', label: 'Finding 2 Risk', required: false },
-      { key: 'finding_2_recommendation', type: 'textarea', label: 'Finding 2 Recommendation', required: false },
-      { key: 'finding_2_response', type: 'textarea', label: 'Finding 2 Management Response', required: false },
+      {
+        key: 'finding_2_recommendation',
+        type: 'textarea',
+        label: 'Finding 2 Recommendation',
+        required: false,
+      },
+      {
+        key: 'finding_2_response',
+        type: 'textarea',
+        label: 'Finding 2 Management Response',
+        required: false,
+      },
       { key: 'finding_3_title', type: 'text', label: 'Finding 3 Title', required: false },
-      { key: 'finding_3_priority', type: 'select', label: 'Finding 3 Priority', required: false, options: ['High', 'Medium', 'Low'] },
-      { key: 'finding_3_observation', type: 'textarea', label: 'Finding 3 Observation', required: false },
+      {
+        key: 'finding_3_priority',
+        type: 'select',
+        label: 'Finding 3 Priority',
+        required: false,
+        options: ['High', 'Medium', 'Low'],
+      },
+      {
+        key: 'finding_3_observation',
+        type: 'textarea',
+        label: 'Finding 3 Observation',
+        required: false,
+      },
       { key: 'finding_3_risk', type: 'textarea', label: 'Finding 3 Risk', required: false },
-      { key: 'finding_3_recommendation', type: 'textarea', label: 'Finding 3 Recommendation', required: false },
-      { key: 'finding_3_response', type: 'textarea', label: 'Finding 3 Management Response', required: false },
+      {
+        key: 'finding_3_recommendation',
+        type: 'textarea',
+        label: 'Finding 3 Recommendation',
+        required: false,
+      },
+      {
+        key: 'finding_3_response',
+        type: 'textarea',
+        label: 'Finding 3 Management Response',
+        required: false,
+      },
       { key: 'conclusion', type: 'textarea', label: 'Conclusion', required: true },
     ],
     signatureFields: [
-      { id: 'auditor_signature', label: 'Auditor Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'management_signature', label: 'Management Acknowledgment', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'auditor_signature',
+        label: 'Auditor Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'management_signature',
+        label: 'Management Acknowledgment',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -604,11 +898,26 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Category | Budget | Actual | Variance | % Var |' },
         { insert: '\n|----------|--------|--------|----------|-------|' },
-        { insert: '\n| Direct Materials | {{mat_budget}} | {{mat_actual}} | {{mat_var}} | {{mat_pct}}% |' },
-        { insert: '\n| Direct Labor | {{labor_budget}} | {{labor_actual}} | {{labor_var}} | {{labor_pct}}% |' },
-        { insert: '\n| Manufacturing OH | {{mfg_budget}} | {{mfg_actual}} | {{mfg_var}} | {{mfg_pct}}% |' },
-        { insert: '\n| Selling Expenses | {{sell_budget}} | {{sell_actual}} | {{sell_var}} | {{sell_pct}}% |' },
-        { insert: '\n| Admin Expenses | {{admin_budget}} | {{admin_actual}} | {{admin_var}} | {{admin_pct}}% |' },
+        {
+          insert:
+            '\n| Direct Materials | {{mat_budget}} | {{mat_actual}} | {{mat_var}} | {{mat_pct}}% |',
+        },
+        {
+          insert:
+            '\n| Direct Labor | {{labor_budget}} | {{labor_actual}} | {{labor_var}} | {{labor_pct}}% |',
+        },
+        {
+          insert:
+            '\n| Manufacturing OH | {{mfg_budget}} | {{mfg_actual}} | {{mfg_var}} | {{mfg_pct}}% |',
+        },
+        {
+          insert:
+            '\n| Selling Expenses | {{sell_budget}} | {{sell_actual}} | {{sell_var}} | {{sell_pct}}% |',
+        },
+        {
+          insert:
+            '\n| Admin Expenses | {{admin_budget}} | {{admin_actual}} | {{admin_var}} | {{admin_pct}}% |',
+        },
         { insert: '\n| ' },
         { insert: 'TOTAL', attributes: { bold: true } },
         { insert: ' | ' },
@@ -687,13 +996,38 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
       { key: 'cpu_variance', type: 'currency', label: 'Cost Per Unit Variance', required: true },
       { key: 'mat_price_var', type: 'currency', label: 'Material Price Variance', required: true },
       { key: 'mat_qty_var', type: 'currency', label: 'Material Quantity Variance', required: true },
-      { key: 'mat_explanation', type: 'textarea', label: 'Material Variance Explanation', required: true },
+      {
+        key: 'mat_explanation',
+        type: 'textarea',
+        label: 'Material Variance Explanation',
+        required: true,
+      },
       { key: 'labor_rate_var', type: 'currency', label: 'Labor Rate Variance', required: true },
-      { key: 'labor_eff_var', type: 'currency', label: 'Labor Efficiency Variance', required: true },
-      { key: 'labor_explanation', type: 'textarea', label: 'Labor Variance Explanation', required: true },
-      { key: 'oh_spend_var', type: 'currency', label: 'Overhead Spending Variance', required: true },
+      {
+        key: 'labor_eff_var',
+        type: 'currency',
+        label: 'Labor Efficiency Variance',
+        required: true,
+      },
+      {
+        key: 'labor_explanation',
+        type: 'textarea',
+        label: 'Labor Variance Explanation',
+        required: true,
+      },
+      {
+        key: 'oh_spend_var',
+        type: 'currency',
+        label: 'Overhead Spending Variance',
+        required: true,
+      },
       { key: 'oh_vol_var', type: 'currency', label: 'Overhead Volume Variance', required: true },
-      { key: 'oh_explanation', type: 'textarea', label: 'Overhead Variance Explanation', required: true },
+      {
+        key: 'oh_explanation',
+        type: 'textarea',
+        label: 'Overhead Variance Explanation',
+        required: true,
+      },
       { key: 'key_findings', type: 'textarea', label: 'Key Findings', required: true },
       { key: 'recommendations', type: 'textarea', label: 'Recommendations', required: true },
     ],
@@ -723,7 +1057,9 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '\n', attributes: { header: 2 } },
         { insert: '\n| Component | Current Period | Prior Period | Change |' },
         { insert: '\n|-----------|----------------|--------------|--------|' },
-        { insert: '\n| Cash & Equivalents | {{cash_current}} | {{cash_prior}} | {{cash_change}} |' },
+        {
+          insert: '\n| Cash & Equivalents | {{cash_current}} | {{cash_prior}} | {{cash_change}} |',
+        },
         { insert: '\n| Accounts Receivable | {{ar_current}} | {{ar_prior}} | {{ar_change}} |' },
         { insert: '\n| Inventory | {{inv_current}} | {{inv_prior}} | {{inv_change}} |' },
         { insert: '\n| Other Current Assets | {{oca_current}} | {{oca_prior}} | {{oca_change}} |' },
@@ -733,7 +1069,10 @@ export const FINANCE_ANALYSIS_TEMPLATES = [
         { insert: '{{tca_current}}', attributes: { bold: true } },
         { insert: ' | {{tca_prior}} | {{tca_change}} |' },
         { insert: '\n| Accounts Payable | {{ap_current}} | {{ap_prior}} | {{ap_change}} |' },
-        { insert: '\n| Accrued Expenses | {{accrued_current}} | {{accrued_prior}} | {{accrued_change}} |' },
+        {
+          insert:
+            '\n| Accrued Expenses | {{accrued_current}} | {{accrued_prior}} | {{accrued_change}} |',
+        },
         { insert: '\n| Short-term Debt | {{std_current}} | {{std_prior}} | {{std_change}} |' },
         { insert: '\n| Other Current Liab | {{ocl_current}} | {{ocl_prior}} | {{ocl_change}} |' },
         { insert: '\n| ' },

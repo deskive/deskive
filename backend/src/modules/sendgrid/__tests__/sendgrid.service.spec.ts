@@ -235,9 +235,7 @@ describe('SendGridService', () => {
 
       it('should send email with text content', async () => {
         nock('https://api.sendgrid.com')
-          .post('/v3/mail/send', (body) =>
-            body.content.some((c: any) => c.type === 'text/plain'),
-          )
+          .post('/v3/mail/send', (body) => body.content.some((c: any) => c.type === 'text/plain'))
           .reply(202, null, { 'x-message-id': 'msg-124' });
 
         const result = await service.sendEmail(mockUserId, mockWorkspaceId, {
@@ -251,9 +249,10 @@ describe('SendGridService', () => {
 
       it('should send email with CC and BCC', async () => {
         nock('https://api.sendgrid.com')
-          .post('/v3/mail/send', (body) =>
-            body.personalizations[0].cc?.length > 0 &&
-            body.personalizations[0].bcc?.length > 0
+          .post(
+            '/v3/mail/send',
+            (body) =>
+              body.personalizations[0].cc?.length > 0 && body.personalizations[0].bcc?.length > 0,
           )
           .reply(202, null, { 'x-message-id': 'msg-125' });
 
@@ -270,9 +269,11 @@ describe('SendGridService', () => {
 
       it('should send email with template', async () => {
         nock('https://api.sendgrid.com')
-          .post('/v3/mail/send', (body) =>
-            body.template_id === 'd-template123' &&
-            body.personalizations[0].dynamic_template_data?.name === 'John'
+          .post(
+            '/v3/mail/send',
+            (body) =>
+              body.template_id === 'd-template123' &&
+              body.personalizations[0].dynamic_template_data?.name === 'John',
           )
           .reply(202, null, { 'x-message-id': 'msg-126' });
 
@@ -415,10 +416,7 @@ describe('SendGridService', () => {
           _metadata: { count: 2 },
         };
 
-        nock('https://api.sendgrid.com')
-          .get('/v3/templates')
-          .query(true)
-          .reply(200, mockTemplates);
+        nock('https://api.sendgrid.com').get('/v3/templates').query(true).reply(200, mockTemplates);
 
         const result = await service.listTemplates(mockUserId, mockWorkspaceId);
 
@@ -455,14 +453,10 @@ describe('SendGridService', () => {
           name: 'Welcome Email',
           generation: 'dynamic',
           updated_at: '2024-01-01T00:00:00Z',
-          versions: [
-            { id: 'v1', name: 'Version 1', subject: 'Welcome!', active: 1 },
-          ],
+          versions: [{ id: 'v1', name: 'Version 1', subject: 'Welcome!', active: 1 }],
         };
 
-        nock('https://api.sendgrid.com')
-          .get('/v3/templates/d-template1')
-          .reply(200, mockTemplate);
+        nock('https://api.sendgrid.com').get('/v3/templates/d-template1').reply(200, mockTemplate);
 
         const result = await service.getTemplate(mockUserId, mockWorkspaceId, 'd-template1');
 
@@ -476,9 +470,9 @@ describe('SendGridService', () => {
           .get('/v3/templates/invalid')
           .reply(404, { errors: [{ message: 'Template not found' }] });
 
-        await expect(
-          service.getTemplate(mockUserId, mockWorkspaceId, 'invalid'),
-        ).rejects.toThrow(NotFoundException);
+        await expect(service.getTemplate(mockUserId, mockWorkspaceId, 'invalid')).rejects.toThrow(
+          NotFoundException,
+        );
       });
     });
   });
@@ -531,10 +525,7 @@ describe('SendGridService', () => {
           },
         ];
 
-        nock('https://api.sendgrid.com')
-          .get('/v3/stats')
-          .query(true)
-          .reply(200, mockStats);
+        nock('https://api.sendgrid.com').get('/v3/stats').query(true).reply(200, mockStats);
 
         const result = await service.getStats(mockUserId, mockWorkspaceId, {
           startDate: '2024-01-01',
@@ -601,9 +592,9 @@ describe('SendGridService', () => {
         .query(true)
         .reply(401, { errors: [{ message: 'Invalid API key' }] });
 
-      await expect(
-        service.listTemplates(mockUserId, mockWorkspaceId),
-      ).rejects.toThrow(BadRequestException);
+      await expect(service.listTemplates(mockUserId, mockWorkspaceId)).rejects.toThrow(
+        BadRequestException,
+      );
     });
 
     it('should throw NotFoundException when not connected', async () => {

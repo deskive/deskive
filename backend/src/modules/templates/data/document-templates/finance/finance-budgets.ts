@@ -30,27 +30,60 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Category | Q1 | Q2 | Q3 | Q4 | Annual |\n' },
         { insert: '|----------|----|----|----|----|--------|\n' },
-        { insert: '| Product Sales | {{rev_prod_q1}} | {{rev_prod_q2}} | {{rev_prod_q3}} | {{rev_prod_q4}} | {{rev_prod_total}} |\n' },
-        { insert: '| Service Revenue | {{rev_serv_q1}} | {{rev_serv_q2}} | {{rev_serv_q3}} | {{rev_serv_q4}} | {{rev_serv_total}} |\n' },
-        { insert: '| Other Income | {{rev_other_q1}} | {{rev_other_q2}} | {{rev_other_q3}} | {{rev_other_q4}} | {{rev_other_total}} |\n' },
-        { insert: '| Total Revenue | {{rev_total_q1}} | {{rev_total_q2}} | {{rev_total_q3}} | {{rev_total_q4}} | {{rev_total}} |\n' },
+        {
+          insert:
+            '| Product Sales | {{rev_prod_q1}} | {{rev_prod_q2}} | {{rev_prod_q3}} | {{rev_prod_q4}} | {{rev_prod_total}} |\n',
+        },
+        {
+          insert:
+            '| Service Revenue | {{rev_serv_q1}} | {{rev_serv_q2}} | {{rev_serv_q3}} | {{rev_serv_q4}} | {{rev_serv_total}} |\n',
+        },
+        {
+          insert:
+            '| Other Income | {{rev_other_q1}} | {{rev_other_q2}} | {{rev_other_q3}} | {{rev_other_q4}} | {{rev_other_total}} |\n',
+        },
+        {
+          insert:
+            '| Total Revenue | {{rev_total_q1}} | {{rev_total_q2}} | {{rev_total_q3}} | {{rev_total_q4}} | {{rev_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Operating Expenses', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '| Category | Q1 | Q2 | Q3 | Q4 | Annual |\n' },
         { insert: '|----------|----|----|----|----|--------|\n' },
-        { insert: '| Salaries & Wages | {{exp_sal_q1}} | {{exp_sal_q2}} | {{exp_sal_q3}} | {{exp_sal_q4}} | {{exp_sal_total}} |\n' },
-        { insert: '| Rent & Utilities | {{exp_rent_q1}} | {{exp_rent_q2}} | {{exp_rent_q3}} | {{exp_rent_q4}} | {{exp_rent_total}} |\n' },
-        { insert: '| Marketing | {{exp_mkt_q1}} | {{exp_mkt_q2}} | {{exp_mkt_q3}} | {{exp_mkt_q4}} | {{exp_mkt_total}} |\n' },
-        { insert: '| Technology | {{exp_tech_q1}} | {{exp_tech_q2}} | {{exp_tech_q3}} | {{exp_tech_q4}} | {{exp_tech_total}} |\n' },
-        { insert: '| Other Expenses | {{exp_other_q1}} | {{exp_other_q2}} | {{exp_other_q3}} | {{exp_other_q4}} | {{exp_other_total}} |\n' },
-        { insert: '| Total Expenses | {{exp_total_q1}} | {{exp_total_q2}} | {{exp_total_q3}} | {{exp_total_q4}} | {{exp_total}} |\n' },
+        {
+          insert:
+            '| Salaries & Wages | {{exp_sal_q1}} | {{exp_sal_q2}} | {{exp_sal_q3}} | {{exp_sal_q4}} | {{exp_sal_total}} |\n',
+        },
+        {
+          insert:
+            '| Rent & Utilities | {{exp_rent_q1}} | {{exp_rent_q2}} | {{exp_rent_q3}} | {{exp_rent_q4}} | {{exp_rent_total}} |\n',
+        },
+        {
+          insert:
+            '| Marketing | {{exp_mkt_q1}} | {{exp_mkt_q2}} | {{exp_mkt_q3}} | {{exp_mkt_q4}} | {{exp_mkt_total}} |\n',
+        },
+        {
+          insert:
+            '| Technology | {{exp_tech_q1}} | {{exp_tech_q2}} | {{exp_tech_q3}} | {{exp_tech_q4}} | {{exp_tech_total}} |\n',
+        },
+        {
+          insert:
+            '| Other Expenses | {{exp_other_q1}} | {{exp_other_q2}} | {{exp_other_q3}} | {{exp_other_q4}} | {{exp_other_total}} |\n',
+        },
+        {
+          insert:
+            '| Total Expenses | {{exp_total_q1}} | {{exp_total_q2}} | {{exp_total_q3}} | {{exp_total_q4}} | {{exp_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Net Income', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '| | Q1 | Q2 | Q3 | Q4 | Annual |\n' },
         { insert: '|----------|----|----|----|----|--------|\n' },
-        { insert: '| Net Income | {{net_q1}} | {{net_q2}} | {{net_q3}} | {{net_q4}} | {{net_total}} |\n' },
+        {
+          insert:
+            '| Net Income | {{net_q1}} | {{net_q2}} | {{net_q3}} | {{net_q4}} | {{net_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Key Assumptions', attributes: { header: 2 } },
         { insert: '\n' },
@@ -73,7 +106,11 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'assumptions', label: 'Key Assumptions', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Department Budget',
@@ -111,9 +148,15 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Category | Monthly | Annual | Notes |\n' },
         { insert: '|----------|---------|--------|-------|\n' },
-        { insert: '| Supplies | {{supplies_monthly}} | {{supplies_annual}} | {{supplies_notes}} |\n' },
+        {
+          insert:
+            '| Supplies | {{supplies_monthly}} | {{supplies_annual}} | {{supplies_notes}} |\n',
+        },
         { insert: '| Equipment | {{equip_monthly}} | {{equip_annual}} | {{equip_notes}} |\n' },
-        { insert: '| Training | {{training_monthly}} | {{training_annual}} | {{training_notes}} |\n' },
+        {
+          insert:
+            '| Training | {{training_monthly}} | {{training_annual}} | {{training_notes}} |\n',
+        },
         { insert: '| Travel | {{travel_monthly}} | {{travel_annual}} | {{travel_notes}} |\n' },
         { insert: '| Other | {{other_monthly}} | {{other_annual}} | {{other_notes}} |\n' },
         { insert: '\nTotal Operating: ' },
@@ -151,7 +194,11 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'justification', label: 'Justification', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Project Budget',
@@ -186,11 +233,17 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '| Category | Budgeted | Actual | Variance |\n' },
         { insert: '|----------|----------|--------|----------|\n' },
         { insert: '| Labor | {{labor_budget}} | {{labor_actual}} | {{labor_variance}} |\n' },
-        { insert: '| Materials | {{materials_budget}} | {{materials_actual}} | {{materials_variance}} |\n' },
+        {
+          insert:
+            '| Materials | {{materials_budget}} | {{materials_actual}} | {{materials_variance}} |\n',
+        },
         { insert: '| Equipment | {{equip_budget}} | {{equip_actual}} | {{equip_variance}} |\n' },
         { insert: '| Subcontractors | {{sub_budget}} | {{sub_actual}} | {{sub_variance}} |\n' },
         { insert: '| Travel | {{travel_budget}} | {{travel_actual}} | {{travel_variance}} |\n' },
-        { insert: '| Contingency | {{contingency_budget}} | {{contingency_actual}} | {{contingency_variance}} |\n' },
+        {
+          insert:
+            '| Contingency | {{contingency_budget}} | {{contingency_actual}} | {{contingency_variance}} |\n',
+        },
         { insert: '| Total | {{total_budget}} | {{total_actual}} | {{total_variance}} |\n' },
         { insert: '\n' },
         { insert: 'Detailed Breakdown', attributes: { header: 2 } },
@@ -227,7 +280,11 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'assumptions_risks', label: 'Assumptions & Risks', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Cash Flow Forecast',
@@ -255,11 +312,24 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Source | Month 1 | Month 2 | Month 3 | Total |\n' },
         { insert: '|--------|---------|---------|---------|-------|\n' },
-        { insert: '| Customer Collections | {{coll_m1}} | {{coll_m2}} | {{coll_m3}} | {{coll_total}} |\n' },
-        { insert: '| Investment Income | {{inv_m1}} | {{inv_m2}} | {{inv_m3}} | {{inv_total}} |\n' },
-        { insert: '| Loan Proceeds | {{loan_m1}} | {{loan_m2}} | {{loan_m3}} | {{loan_total}} |\n' },
-        { insert: '| Other Inflows | {{other_in_m1}} | {{other_in_m2}} | {{other_in_m3}} | {{other_in_total}} |\n' },
-        { insert: '| Total Inflows | {{inflow_m1}} | {{inflow_m2}} | {{inflow_m3}} | {{inflow_total}} |\n' },
+        {
+          insert:
+            '| Customer Collections | {{coll_m1}} | {{coll_m2}} | {{coll_m3}} | {{coll_total}} |\n',
+        },
+        {
+          insert: '| Investment Income | {{inv_m1}} | {{inv_m2}} | {{inv_m3}} | {{inv_total}} |\n',
+        },
+        {
+          insert: '| Loan Proceeds | {{loan_m1}} | {{loan_m2}} | {{loan_m3}} | {{loan_total}} |\n',
+        },
+        {
+          insert:
+            '| Other Inflows | {{other_in_m1}} | {{other_in_m2}} | {{other_in_m3}} | {{other_in_total}} |\n',
+        },
+        {
+          insert:
+            '| Total Inflows | {{inflow_m1}} | {{inflow_m2}} | {{inflow_m3}} | {{inflow_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Cash Outflows', attributes: { header: 2 } },
         { insert: '\n' },
@@ -267,11 +337,23 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '|----------|---------|---------|---------|-------|\n' },
         { insert: '| Payroll | {{pay_m1}} | {{pay_m2}} | {{pay_m3}} | {{pay_total}} |\n' },
         { insert: '| Rent | {{rent_m1}} | {{rent_m2}} | {{rent_m3}} | {{rent_total}} |\n' },
-        { insert: '| Vendors/Suppliers | {{vendor_m1}} | {{vendor_m2}} | {{vendor_m3}} | {{vendor_total}} |\n' },
-        { insert: '| Loan Payments | {{loan_pay_m1}} | {{loan_pay_m2}} | {{loan_pay_m3}} | {{loan_pay_total}} |\n' },
+        {
+          insert:
+            '| Vendors/Suppliers | {{vendor_m1}} | {{vendor_m2}} | {{vendor_m3}} | {{vendor_total}} |\n',
+        },
+        {
+          insert:
+            '| Loan Payments | {{loan_pay_m1}} | {{loan_pay_m2}} | {{loan_pay_m3}} | {{loan_pay_total}} |\n',
+        },
         { insert: '| Taxes | {{tax_m1}} | {{tax_m2}} | {{tax_m3}} | {{tax_total}} |\n' },
-        { insert: '| Other Outflows | {{other_out_m1}} | {{other_out_m2}} | {{other_out_m3}} | {{other_out_total}} |\n' },
-        { insert: '| Total Outflows | {{outflow_m1}} | {{outflow_m2}} | {{outflow_m3}} | {{outflow_total}} |\n' },
+        {
+          insert:
+            '| Other Outflows | {{other_out_m1}} | {{other_out_m2}} | {{other_out_m3}} | {{other_out_total}} |\n',
+        },
+        {
+          insert:
+            '| Total Outflows | {{outflow_m1}} | {{outflow_m2}} | {{outflow_m3}} | {{outflow_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Net Cash Flow', attributes: { header: 2 } },
         { insert: '\n' },
@@ -301,7 +383,11 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'notes', label: 'Notes', type: 'textarea', required: false },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'landscape', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'landscape',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Budget Variance Report',
@@ -332,19 +418,43 @@ export const FINANCE_BUDGETS_TEMPLATES = [
         { insert: '\n' },
         { insert: '| Category | Budget | Actual | Variance | % Var |\n' },
         { insert: '|----------|--------|--------|----------|-------|\n' },
-        { insert: '| {{rev_cat_1}} | {{rev_bud_1}} | {{rev_act_1}} | {{rev_var_1}} | {{rev_pct_1}} |\n' },
-        { insert: '| {{rev_cat_2}} | {{rev_bud_2}} | {{rev_act_2}} | {{rev_var_2}} | {{rev_pct_2}} |\n' },
-        { insert: '| {{rev_cat_3}} | {{rev_bud_3}} | {{rev_act_3}} | {{rev_var_3}} | {{rev_pct_3}} |\n' },
-        { insert: '| Total Revenue | {{rev_bud_total}} | {{rev_act_total}} | {{rev_var_total}} | {{rev_pct_total}} |\n' },
+        {
+          insert:
+            '| {{rev_cat_1}} | {{rev_bud_1}} | {{rev_act_1}} | {{rev_var_1}} | {{rev_pct_1}} |\n',
+        },
+        {
+          insert:
+            '| {{rev_cat_2}} | {{rev_bud_2}} | {{rev_act_2}} | {{rev_var_2}} | {{rev_pct_2}} |\n',
+        },
+        {
+          insert:
+            '| {{rev_cat_3}} | {{rev_bud_3}} | {{rev_act_3}} | {{rev_var_3}} | {{rev_pct_3}} |\n',
+        },
+        {
+          insert:
+            '| Total Revenue | {{rev_bud_total}} | {{rev_act_total}} | {{rev_var_total}} | {{rev_pct_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Expense Variance', attributes: { header: 2 } },
         { insert: '\n' },
         { insert: '| Category | Budget | Actual | Variance | % Var |\n' },
         { insert: '|----------|--------|--------|----------|-------|\n' },
-        { insert: '| {{exp_cat_1}} | {{exp_bud_1}} | {{exp_act_1}} | {{exp_var_1}} | {{exp_pct_1}} |\n' },
-        { insert: '| {{exp_cat_2}} | {{exp_bud_2}} | {{exp_act_2}} | {{exp_var_2}} | {{exp_pct_2}} |\n' },
-        { insert: '| {{exp_cat_3}} | {{exp_bud_3}} | {{exp_act_3}} | {{exp_var_3}} | {{exp_pct_3}} |\n' },
-        { insert: '| Total Expenses | {{exp_bud_total}} | {{exp_act_total}} | {{exp_var_total}} | {{exp_pct_total}} |\n' },
+        {
+          insert:
+            '| {{exp_cat_1}} | {{exp_bud_1}} | {{exp_act_1}} | {{exp_var_1}} | {{exp_pct_1}} |\n',
+        },
+        {
+          insert:
+            '| {{exp_cat_2}} | {{exp_bud_2}} | {{exp_act_2}} | {{exp_var_2}} | {{exp_pct_2}} |\n',
+        },
+        {
+          insert:
+            '| {{exp_cat_3}} | {{exp_bud_3}} | {{exp_act_3}} | {{exp_var_3}} | {{exp_pct_3}} |\n',
+        },
+        {
+          insert:
+            '| Total Expenses | {{exp_bud_total}} | {{exp_act_total}} | {{exp_var_total}} | {{exp_pct_total}} |\n',
+        },
         { insert: '\n' },
         { insert: 'Net Income', attributes: { header: 2 } },
         { insert: '\n' },
@@ -378,7 +488,11 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'corrective_actions', label: 'Corrective Actions', type: 'textarea', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Capital Expenditure Request',
@@ -464,8 +578,20 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'department', label: 'Department', type: 'text', required: true },
       { key: 'requestor', label: 'Requestor', type: 'text', required: true },
       { key: 'project_name', label: 'Project Name', type: 'text', required: true },
-      { key: 'category', label: 'Category', type: 'select', required: true, options: ['Equipment', 'Technology', 'Facilities', 'Vehicles', 'Other'] },
-      { key: 'priority', label: 'Priority', type: 'select', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
+      {
+        key: 'category',
+        label: 'Category',
+        type: 'select',
+        required: true,
+        options: ['Equipment', 'Technology', 'Facilities', 'Vehicles', 'Other'],
+      },
+      {
+        key: 'priority',
+        label: 'Priority',
+        type: 'select',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
       { key: 'description', label: 'Description', type: 'textarea', required: true },
       { key: 'justification', label: 'Justification', type: 'textarea', required: true },
       { key: 'total_investment', label: 'Total Investment', type: 'currency', required: true },
@@ -480,6 +606,10 @@ export const FINANCE_BUDGETS_TEMPLATES = [
       { key: 'ceo_threshold', label: 'CEO Threshold', type: 'currency', required: true },
     ],
     signatureFields: [],
-    settings: { paperSize: 'letter', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'letter',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

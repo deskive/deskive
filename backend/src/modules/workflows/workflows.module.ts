@@ -1,6 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { WorkflowsController, AutomationTemplatesController, WorkflowWebhooksController } from './workflows.controller';
+import {
+  WorkflowsController,
+  AutomationTemplatesController,
+  WorkflowWebhooksController,
+} from './workflows.controller';
 import { WorkflowsService } from './services/workflows.service';
 import { WorkflowExecutorService } from './services/workflow-executor.service';
 import { ConditionEvaluatorService } from './services/condition-evaluator.service';
@@ -20,11 +24,7 @@ import { VideoCallsModule } from '../video-calls/video-calls.module';
     forwardRef(() => EmailModule),
     forwardRef(() => VideoCallsModule),
   ],
-  controllers: [
-    WorkflowsController,
-    AutomationTemplatesController,
-    WorkflowWebhooksController,
-  ],
+  controllers: [WorkflowsController, AutomationTemplatesController, WorkflowWebhooksController],
   providers: [
     WorkflowsService,
     WorkflowExecutorService,

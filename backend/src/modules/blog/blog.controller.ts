@@ -1,8 +1,35 @@
-import { Controller, Get, Post, Put, Delete, Body, Param, Query, Req, UseGuards, Ip, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery, ApiConsumes } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Body,
+  Param,
+  Query,
+  Req,
+  UseGuards,
+  Ip,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiQuery,
+  ApiConsumes,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { BlogService } from './blog.service';
-import { CreateBlogPostDto, UpdateBlogPostDto, CreateCommentDto, CreateRatingDto } from './dto/blog.dto';
+import {
+  CreateBlogPostDto,
+  UpdateBlogPostDto,
+  CreateCommentDto,
+  CreateRatingDto,
+} from './dto/blog.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import * as multer from 'multer';
 
@@ -26,10 +53,18 @@ export class BlogController {
     const posts = await this.blogService.getPublishedPosts(
       page ? parseInt(page) : 1,
       limit ? parseInt(limit) : 12,
-      search
+      search,
     );
 
-    return { data: posts, pagination: { total: posts.length, page: parseInt(page || '1'), limit: parseInt(limit || '12'), totalPages: 1 } };
+    return {
+      data: posts,
+      pagination: {
+        total: posts.length,
+        page: parseInt(page || '1'),
+        limit: parseInt(limit || '12'),
+        totalPages: 1,
+      },
+    };
   }
 
   @Get('posts/featured')
@@ -49,10 +84,7 @@ export class BlogController {
   @Get('posts/:postId/related')
   @ApiOperation({ summary: 'Get related posts' })
   @ApiQuery({ name: 'limit', required: false })
-  async getRelatedPosts(
-    @Param('postId') postId: string,
-    @Query('limit') limit?: string
-  ) {
+  async getRelatedPosts(@Param('postId') postId: string, @Query('limit') limit?: string) {
     const posts = await this.blogService.getRelatedPosts(postId, limit ? parseInt(limit) : 4);
     return { data: posts };
   }
@@ -91,19 +123,13 @@ export class BlogController {
 
   @Post('posts/:postId/comments')
   @ApiOperation({ summary: 'Add comment to post' })
-  async createComment(
-    @Param('postId') postId: string,
-    @Body() dto: CreateCommentDto
-  ) {
+  async createComment(@Param('postId') postId: string, @Body() dto: CreateCommentDto) {
     return this.blogService.createComment(postId, dto);
   }
 
   @Post('posts/:postId/like')
   @ApiOperation({ summary: 'Toggle like on post' })
-  async toggleLike(
-    @Param('postId') postId: string,
-    @Ip() ip: string
-  ) {
+  async toggleLike(@Param('postId') postId: string, @Ip() ip: string) {
     return this.blogService.toggleLike(postId, ip);
   }
 
@@ -122,11 +148,7 @@ export class BlogController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update blog post (Admin only)' })
-  async updatePost(
-    @Req() req,
-    @Param('postId') postId: string,
-    @Body() dto: UpdateBlogPostDto
-  ) {
+  async updatePost(@Req() req, @Param('postId') postId: string, @Body() dto: UpdateBlogPostDto) {
     const authorId = req.user.sub || req.user.userId;
     return this.blogService.updatePost(postId, authorId, dto);
   }
@@ -174,7 +196,7 @@ export class BlogController {
         cb(null, true);
       },
       limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
-    })
+    }),
   )
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
@@ -191,7 +213,7 @@ export class BlogController {
     @Param('postId') postId: string,
     @Body() dto: CreateRatingDto,
     @Req() req: any,
-    @Ip() ip: string
+    @Ip() ip: string,
   ) {
     const userId = req.user?.sub || req.user?.userId;
     return this.blogService.createRating(postId, dto, userId, ip);
@@ -206,11 +228,7 @@ export class BlogController {
 
   @Get('posts/:postId/ratings/me')
   @ApiOperation({ summary: 'Get my rating for a post' })
-  async getUserRating(
-    @Param('postId') postId: string,
-    @Req() req: any,
-    @Ip() ip: string
-  ) {
+  async getUserRating(@Param('postId') postId: string, @Req() req: any, @Ip() ip: string) {
     const userId = req.user?.sub || req.user?.userId;
     return this.blogService.getUserRating(postId, userId, ip);
   }

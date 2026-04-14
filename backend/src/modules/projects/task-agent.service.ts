@@ -51,7 +51,16 @@ export interface TaskAgentRequest {
 
 export interface TaskAgentResponse {
   success: boolean;
-  action: 'create' | 'update' | 'delete' | 'move' | 'batch_create' | 'batch_update' | 'batch_delete' | 'list' | 'unknown';
+  action:
+    | 'create'
+    | 'update'
+    | 'delete'
+    | 'move'
+    | 'batch_create'
+    | 'batch_update'
+    | 'batch_delete'
+    | 'list'
+    | 'unknown';
   message: string;
   data?: any;
   error?: string;
@@ -97,7 +106,16 @@ interface BatchDeleteTaskItem {
 }
 
 interface ParsedTaskIntent {
-  action: 'create' | 'update' | 'delete' | 'move' | 'batch_create' | 'batch_update' | 'batch_delete' | 'list' | 'unknown';
+  action:
+    | 'create'
+    | 'update'
+    | 'delete'
+    | 'move'
+    | 'batch_create'
+    | 'batch_update'
+    | 'batch_delete'
+    | 'list'
+    | 'unknown';
 
   // Single operation fields
   taskTitle?: string;
@@ -140,15 +158,10 @@ export class TaskAgentService {
    * Main entry point for the Task AI Agent
    * Receives natural language prompt and executes the appropriate task action
    */
-  async processCommand(
-    request: TaskAgentRequest,
-    userId: string,
-  ): Promise<TaskAgentResponse> {
+  async processCommand(request: TaskAgentRequest, userId: string): Promise<TaskAgentResponse> {
     const { prompt, workspaceId, projectId } = request;
 
-    this.logger.log(
-      `[TaskAgent] Processing command: "${prompt}" for project: ${projectId}`,
-    );
+    this.logger.log(`[TaskAgent] Processing command: "${prompt}" for project: ${projectId}`);
 
     try {
       // Step 1: Store user message in conversation memory (async, don't wait)
@@ -191,9 +204,7 @@ export class TaskAgentService {
         conversationHistory,
       );
 
-      this.logger.log(
-        `[TaskAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`,
-      );
+      this.logger.log(`[TaskAgent] Parsed intent: ${JSON.stringify(parsedIntent)}`);
 
       if (parsedIntent.action === 'unknown') {
         this.storeAssistantMessage(
@@ -234,10 +245,7 @@ export class TaskAgentService {
 
       return result;
     } catch (error) {
-      this.logger.error(
-        `[TaskAgent] Error processing command: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[TaskAgent] Error processing command: ${error.message}`, error.stack);
       return {
         success: false,
         action: 'unknown',
@@ -332,10 +340,7 @@ export class TaskAgentService {
   /**
    * Get existing tasks in the project for context
    */
-  private async getExistingTasks(
-    projectId: string,
-    userId: string,
-  ): Promise<any[]> {
+  private async getExistingTasks(projectId: string, userId: string): Promise<any[]> {
     try {
       const tasks = await this.projectsService.getTasks(projectId, userId);
       return tasks.map((t) => ({
@@ -351,9 +356,7 @@ export class TaskAgentService {
         labels: t.labels || [],
       }));
     } catch (error) {
-      this.logger.warn(
-        `[TaskAgent] Could not fetch existing tasks: ${error.message}`,
-      );
+      this.logger.warn(`[TaskAgent] Could not fetch existing tasks: ${error.message}`);
       return [];
     }
   }
@@ -366,7 +369,8 @@ export class TaskAgentService {
     _userId: string,
   ): Promise<WorkspaceMember[]> {
     try {
-      const membersResult = await this.db.table('workspace_members')
+      const membersResult = await this.db
+        .table('workspace_members')
         .select('*')
         .where('workspace_id', '=', workspaceId)
         .where('is_active', '=', true)
@@ -397,14 +401,12 @@ export class TaskAgentService {
               role: member.role,
             };
           }
-        })
+        }),
       );
 
       return membersWithNames;
     } catch (error) {
-      this.logger.warn(
-        `[TaskAgent] Could not fetch workspace members: ${error.message}`,
-      );
+      this.logger.warn(`[TaskAgent] Could not fetch workspace members: ${error.message}`);
       return [];
     }
   }
@@ -473,9 +475,7 @@ export class TaskAgentService {
       { id: 'in_progress', name: 'In Progress' },
       { id: 'done', name: 'Done' },
     ];
-    const stagesList = kanbanStages
-      .map((s: any) => `- "${s.name}" (ID: ${s.id})`)
-      .join('\n');
+    const stagesList = kanbanStages.map((s: any) => `- "${s.name}" (ID: ${s.id})`).join('\n');
 
     // Build existing tasks context
     const tasksList =
@@ -500,7 +500,8 @@ export class TaskAgentService {
         : 'No members available';
 
     // Build conversation history context
-    const conversationContext = this.conversationMemoryService.buildContextFromHistory(conversationHistory);
+    const conversationContext =
+      this.conversationMemoryService.buildContextFromHistory(conversationHistory);
 
     const aiPrompt = `You are a task management assistant for project "${project.name}". Analyze the user's command and extract their intent to create, update, delete, or move tasks. You can handle SINGLE or BATCH operations.
 
@@ -669,7 +670,7 @@ IMPORTANT RULES:
       }
 
       // Clean up the response
-      let cleanedContent = responseText
+      const cleanedContent = responseText
         .trim()
         .replace(/^```json\s*/i, '')
         .replace(/^```\s*/i, '')
@@ -703,35 +704,23 @@ IMPORTANT RULES:
   /**
    * Resolve user names to IDs in the parsed intent
    */
-  private resolveUserIdsInIntent(
-    intent: ParsedTaskIntent,
-    members: WorkspaceMember[],
-  ): void {
+  private resolveUserIdsInIntent(intent: ParsedTaskIntent, members: WorkspaceMember[]): void {
     // Single operation
     if (intent.details?.assigned_to) {
-      intent.details.assigned_to = this.resolveAssigneeIds(
-        intent.details.assigned_to,
-        members,
-      );
+      intent.details.assigned_to = this.resolveAssigneeIds(intent.details.assigned_to, members);
     }
 
     // Batch create
     intent.batch_create?.forEach((item) => {
       if (item.details.assigned_to) {
-        item.details.assigned_to = this.resolveAssigneeIds(
-          item.details.assigned_to,
-          members,
-        );
+        item.details.assigned_to = this.resolveAssigneeIds(item.details.assigned_to, members);
       }
     });
 
     // Batch update
     intent.batch_update?.forEach((item) => {
       if (item.updates.assigned_to) {
-        item.updates.assigned_to = this.resolveAssigneeIds(
-          item.updates.assigned_to,
-          members,
-        );
+        item.updates.assigned_to = this.resolveAssigneeIds(item.updates.assigned_to, members);
       }
     });
   }
@@ -739,10 +728,7 @@ IMPORTANT RULES:
   /**
    * Resolve array of assignee IDs/names to valid user IDs
    */
-  private resolveAssigneeIds(
-    assignees: string[],
-    members: WorkspaceMember[],
-  ): string[] {
+  private resolveAssigneeIds(assignees: string[], members: WorkspaceMember[]): string[] {
     return assignees
       .map((idOrName) => {
         if (this.isValidUUID(idOrName)) {
@@ -765,10 +751,7 @@ IMPORTANT RULES:
   /**
    * Find user ID by name, username, or email
    */
-  private findUserIdByNameOrEmail(
-    searchTerm: string,
-    members: WorkspaceMember[],
-  ): string | null {
+  private findUserIdByNameOrEmail(searchTerm: string, members: WorkspaceMember[]): string | null {
     const normalizedSearch = searchTerm.toLowerCase().trim();
 
     // Exact match on name
@@ -881,7 +864,8 @@ IMPORTANT RULES:
       if (details.sprint_id) createDto.sprint_id = details.sprint_id;
       if (details.parent_task_id) createDto.parent_task_id = details.parent_task_id;
       if (details.due_date) createDto.due_date = details.due_date;
-      if (details.estimated_hours !== undefined) createDto.estimated_hours = details.estimated_hours;
+      if (details.estimated_hours !== undefined)
+        createDto.estimated_hours = details.estimated_hours;
       if (details.story_points !== undefined) createDto.story_points = details.story_points;
       if (details.attachments) createDto.attachments = details.attachments;
 
@@ -966,7 +950,8 @@ IMPORTANT RULES:
     if (details?.priority) updateFields.priority = mapToTaskPriority(details.priority);
     if (details?.assigned_to) updateFields.assigned_to = details.assigned_to;
     if (details?.due_date) updateFields.due_date = details.due_date;
-    if (details?.estimated_hours !== undefined) updateFields.estimated_hours = details.estimated_hours;
+    if (details?.estimated_hours !== undefined)
+      updateFields.estimated_hours = details.estimated_hours;
     if (details?.story_points !== undefined) updateFields.story_points = details.story_points;
     if (details?.labels) updateFields.labels = details.labels;
     if (details?.sprint_id) updateFields.sprint_id = details.sprint_id;
@@ -1044,7 +1029,8 @@ IMPORTANT RULES:
       return {
         success: false,
         action: 'move',
-        message: 'Please specify where to move the task. For example: "Move to done" or "Move to in progress"',
+        message:
+          'Please specify where to move the task. For example: "Move to done" or "Move to in progress"',
         error: 'MISSING_STATUS',
       };
     }
@@ -1142,9 +1128,7 @@ IMPORTANT RULES:
       let filteredTasks = tasks;
 
       if (intent.filters?.priority) {
-        filteredTasks = filteredTasks.filter(
-          (t) => t.priority === intent.filters?.priority,
-        );
+        filteredTasks = filteredTasks.filter((t) => t.priority === intent.filters?.priority);
       }
 
       if (intent.filters?.assignee) {
@@ -1226,8 +1210,10 @@ IMPORTANT RULES:
         };
 
         if (item.details.due_date) createDto.due_date = item.details.due_date;
-        if (item.details.estimated_hours !== undefined) createDto.estimated_hours = item.details.estimated_hours;
-        if (item.details.story_points !== undefined) createDto.story_points = item.details.story_points;
+        if (item.details.estimated_hours !== undefined)
+          createDto.estimated_hours = item.details.estimated_hours;
+        if (item.details.story_points !== undefined)
+          createDto.story_points = item.details.story_points;
 
         const task = await this.projectsService.createTask(projectId, createDto, userId);
 
@@ -1244,7 +1230,9 @@ IMPORTANT RULES:
 
         this.logger.log(`[TaskAgent] Created task: ${task.title}`);
       } catch (error) {
-        this.logger.error(`[TaskAgent] Failed to create task ${item.details.title}: ${error.message}`);
+        this.logger.error(
+          `[TaskAgent] Failed to create task ${item.details.title}: ${error.message}`,
+        );
         results.push({
           success: false,
           error: error.message,
@@ -1386,7 +1374,8 @@ IMPORTANT RULES:
 
     this.logger.log(`[TaskAgent] Batch deleting ${items.length} tasks`);
 
-    const results: Array<{ success: boolean; taskId?: string; error?: string; title?: string }> = [];
+    const results: Array<{ success: boolean; taskId?: string; error?: string; title?: string }> =
+      [];
 
     for (const item of items) {
       try {

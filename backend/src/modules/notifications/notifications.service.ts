@@ -1,4 +1,11 @@
-import { Injectable, NotFoundException, BadRequestException, Logger, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  Logger,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationsGateway } from './notifications.gateway';
 import { FirebaseService } from './firebase.service';
@@ -25,11 +32,14 @@ export interface NotificationPreferences {
     email: boolean;
     in_app: boolean;
   };
-  types: Record<string, {
-    push: boolean;
-    email: boolean;
-    in_app: boolean;
-  }>;
+  types: Record<
+    string,
+    {
+      push: boolean;
+      email: boolean;
+      in_app: boolean;
+    }
+  >;
   quiet_hours?: {
     start?: string;
     end?: string;
@@ -72,9 +82,20 @@ export class NotificationsService {
   // NOTIFICATION OPERATIONS
   // =============================================
 
-  async sendNotification(createNotificationDto: CreateNotificationDto): Promise<NotificationResponseDto | NotificationResponseDto[]> {
+  async sendNotification(
+    createNotificationDto: CreateNotificationDto,
+  ): Promise<NotificationResponseDto | NotificationResponseDto[]> {
     try {
-      const { user_id, user_ids, send_push, send_email, push_config, email_config, force_send, ...notificationData } = createNotificationDto;
+      const {
+        user_id,
+        user_ids,
+        send_push,
+        send_email,
+        push_config,
+        email_config,
+        force_send,
+        ...notificationData
+      } = createNotificationDto;
 
       // Determine target users
       const targetUsers = user_ids || (user_id ? [user_id] : []);
@@ -88,11 +109,17 @@ export class NotificationsService {
       for (const userId of targetUsers) {
         // Check user preferences before sending (skip if force_send is true)
         const preferences = await this.getNotificationPreferences(userId);
-        const shouldCreateInApp = force_send || await this.shouldCreateInAppNotification(userId, createNotificationDto, preferences);
-        const shouldSendPush = force_send || await this.shouldSendPushNotification(userId, createNotificationDto, preferences);
+        const shouldCreateInApp =
+          force_send ||
+          (await this.shouldCreateInAppNotification(userId, createNotificationDto, preferences));
+        const shouldSendPush =
+          force_send ||
+          (await this.shouldSendPushNotification(userId, createNotificationDto, preferences));
 
         if (!shouldCreateInApp) {
-          this.logger.warn(`❌ In-app notification blocked by user preferences for user ${userId} - Type: ${createNotificationDto.type}, Title: "${createNotificationDto.title}"`);
+          this.logger.warn(
+            `❌ In-app notification blocked by user preferences for user ${userId} - Type: ${createNotificationDto.type}, Title: "${createNotificationDto.title}"`,
+          );
           continue;
         }
 
@@ -100,7 +127,9 @@ export class NotificationsService {
           this.logger.log(`📢 Force sending notification to user ${userId} (mention notification)`);
         }
 
-        this.logger.log(`✅ Creating in-app notification for user ${userId} - Type: ${createNotificationDto.type}, Title: "${createNotificationDto.title}"`);
+        this.logger.log(
+          `✅ Creating in-app notification for user ${userId} - Type: ${createNotificationDto.type}, Title: "${createNotificationDto.title}"`,
+        );
 
         // Always create in-app notification if inApp is enabled
         const inAppNotification = await this.createInAppNotification(userId, notificationData);
@@ -115,17 +144,25 @@ export class NotificationsService {
             soundEnabled: preferences.metadata?.sound ?? true, // Frontend will use this for sound control
           });
         } catch (realtimeError) {
-          this.logger.warn(`⚠️ Failed to emit realtime notification (Socket.IO), continuing with other channels: ${realtimeError.message}`);
+          this.logger.warn(
+            `⚠️ Failed to emit realtime notification (Socket.IO), continuing with other channels: ${realtimeError.message}`,
+          );
         }
 
         if (shouldSendPush) {
-          this.logger.log(`✅ Push enabled - frontend will show browser notification for user ${userId}`);
+          this.logger.log(
+            `✅ Push enabled - frontend will show browser notification for user ${userId}`,
+          );
         } else {
-          this.logger.debug(`⏭️ Push disabled - frontend will skip browser notification for user ${userId}`);
+          this.logger.debug(
+            `⏭️ Push disabled - frontend will skip browser notification for user ${userId}`,
+          );
         }
 
         // Send push notification to mobile devices if enabled
-        this.logger.debug(`🔍 FCM Check - shouldSendPush: ${shouldSendPush}, send_push: ${send_push}, preferences.global.push: ${preferences.global.push}`);
+        this.logger.debug(
+          `🔍 FCM Check - shouldSendPush: ${shouldSendPush}, send_push: ${send_push}, preferences.global.push: ${preferences.global.push}`,
+        );
         if (shouldSendPush && send_push && preferences.global.push) {
           this.logger.log(`📲 Calling sendPushNotification for user ${userId}`);
           await this.sendPushNotification(userId, createNotificationDto, push_config);
@@ -146,10 +183,19 @@ export class NotificationsService {
     }
   }
 
-  async getNotifications(userId: string, query: NotificationQueryDto): Promise<PaginatedNotificationsDto> {
+  async getNotifications(
+    userId: string,
+    query: NotificationQueryDto,
+  ): Promise<PaginatedNotificationsDto> {
     try {
-      console.log("query to get notification",query)
-      const { page = 1, limit = 20, sort_by = 'created_at', sort_order = 'desc', ...filters } = query;
+      console.log('query to get notification', query);
+      const {
+        page = 1,
+        limit = 20,
+        sort_by = 'created_at',
+        sort_order = 'desc',
+        ...filters
+      } = query;
       const offset = (page - 1) * limit;
 
       // Build conditions object for simpler querying
@@ -172,17 +218,24 @@ export class NotificationsService {
       }
 
       // Use findMany for simpler query execution
-      console.log('[DB] findMany notifications with conditions:', JSON.stringify(conditions, null, 2));
+      console.log(
+        '[DB] findMany notifications with conditions:',
+        JSON.stringify(conditions, null, 2),
+      );
       const result = await this.db.findMany('notifications', conditions);
       console.log('[DB] findMany result type:', typeof result);
       console.log('[DB] findMany result.data?:', result.data ? 'exists' : 'null/undefined');
       console.log('[DB] findMany raw result:', JSON.stringify(result, null, 2).substring(0, 500));
-      let notifications = Array.isArray(result.data) ? result.data : (Array.isArray(result) ? result : []);
+      let notifications = Array.isArray(result.data)
+        ? result.data
+        : Array.isArray(result)
+          ? result
+          : [];
       console.log('[DB] notifications array length:', notifications.length);
 
       // Filter out scheduled notifications that haven't been sent yet
       // These should only be visible after they've been processed by the scheduler
-      notifications = notifications.filter(n => {
+      notifications = notifications.filter((n) => {
         // If it's a scheduled notification, only show it if it has been sent
         if (n.is_scheduled === true) {
           return n.is_sent === true;
@@ -195,26 +248,27 @@ export class NotificationsService {
       // Manual filtering for complex conditions
       if (filters.search) {
         const searchLower = filters.search.toLowerCase();
-        notifications = notifications.filter(n =>
-          n.title?.toLowerCase().includes(searchLower) ||
-          n.message?.toLowerCase().includes(searchLower)
+        notifications = notifications.filter(
+          (n) =>
+            n.title?.toLowerCase().includes(searchLower) ||
+            n.message?.toLowerCase().includes(searchLower),
         );
       }
 
       if (filters.start_date) {
         const startDate = new Date(filters.start_date);
-        notifications = notifications.filter(n => new Date(n.created_at) >= startDate);
+        notifications = notifications.filter((n) => new Date(n.created_at) >= startDate);
       }
 
       if (filters.end_date) {
         const endDate = new Date(filters.end_date + 'T23:59:59.999Z');
-        notifications = notifications.filter(n => new Date(n.created_at) <= endDate);
+        notifications = notifications.filter((n) => new Date(n.created_at) <= endDate);
       }
 
       if (filters.has_action !== undefined) {
         notifications = filters.has_action
-          ? notifications.filter(n => n.action_url)
-          : notifications.filter(n => !n.action_url);
+          ? notifications.filter((n) => n.action_url)
+          : notifications.filter((n) => !n.action_url);
       }
 
       // Sort
@@ -268,7 +322,12 @@ export class NotificationsService {
       });
 
       // Emit real-time update for read status
-      await this.notificationsGateway.emitNotificationReadToUser(userId, notificationId, true, readAt);
+      await this.notificationsGateway.emitNotificationReadToUser(
+        userId,
+        notificationId,
+        true,
+        readAt,
+      );
 
       return this.formatNotification(updatedNotification);
     } catch (error) {
@@ -327,7 +386,10 @@ export class NotificationsService {
     }
   }
 
-  async bulkMarkAsRead(userId: string, bulkActionDto: BulkActionDto): Promise<{ success: number; failed: number }> {
+  async bulkMarkAsRead(
+    userId: string,
+    bulkActionDto: BulkActionDto,
+  ): Promise<{ success: number; failed: number }> {
     try {
       let success = 0;
       let failed = 0;
@@ -337,7 +399,9 @@ export class NotificationsService {
           await this.markAsRead(userId, notificationId);
           success++;
         } catch (error) {
-          this.logger.warn(`Failed to mark notification ${notificationId} as read: ${error.message}`);
+          this.logger.warn(
+            `Failed to mark notification ${notificationId} as read: ${error.message}`,
+          );
           failed++;
         }
       }
@@ -360,8 +424,8 @@ export class NotificationsService {
       const notifications = Array.isArray(readNotifications.data)
         ? readNotifications.data
         : Array.isArray(readNotifications)
-        ? readNotifications
-        : [];
+          ? readNotifications
+          : [];
 
       if (notifications.length === 0) {
         this.logger.log(`No read notifications to delete for user ${userId}`);
@@ -395,8 +459,8 @@ export class NotificationsService {
       const notifications = Array.isArray(unreadNotifications.data)
         ? unreadNotifications.data
         : Array.isArray(unreadNotifications)
-        ? unreadNotifications
-        : [];
+          ? unreadNotifications
+          : [];
 
       if (notifications.length === 0) {
         this.logger.log(`No unread notifications to mark as read for user ${userId}`);
@@ -407,13 +471,17 @@ export class NotificationsService {
       const readAt = new Date().toISOString();
 
       // Use bulk update with conditions
-      await this.db.updateMany('notifications', {
-        user_id: userId,
-        is_read: false,
-      }, {
-        is_read: true,
-        read_at: readAt,
-      });
+      await this.db.updateMany(
+        'notifications',
+        {
+          user_id: userId,
+          is_read: false,
+        },
+        {
+          is_read: true,
+          read_at: readAt,
+        },
+      );
 
       this.logger.log(`Marked ${count} notifications as read for user ${userId}`);
       return { updated: count };
@@ -436,13 +504,16 @@ export class NotificationsService {
 
       if (userSettings && userSettings.notifications) {
         // Parse and map the notification settings to our format
-        const notifSettings = typeof userSettings.notifications === 'string'
-          ? JSON.parse(userSettings.notifications)
-          : userSettings.notifications;
+        const notifSettings =
+          typeof userSettings.notifications === 'string'
+            ? JSON.parse(userSettings.notifications)
+            : userSettings.notifications;
 
         // Get user's timezone from user_settings (defaults to UTC if not set)
         const userTimezone = userSettings.timezone || 'UTC';
-        this.logger.log(`[Preferences] Loading notification preferences for user ${userId} with timezone: ${userTimezone}`);
+        this.logger.log(
+          `[Preferences] Loading notification preferences for user ${userId} with timezone: ${userTimezone}`,
+        );
 
         return this.mapUserSettingsToPreferences(userId, notifSettings, userTimezone);
       }
@@ -465,7 +536,11 @@ export class NotificationsService {
     }
   }
 
-  private mapUserSettingsToPreferences(userId: string, notifSettings: any, userTimezone: string = 'UTC'): NotificationPreferences {
+  private mapUserSettingsToPreferences(
+    userId: string,
+    notifSettings: any,
+    userTimezone: string = 'UTC',
+  ): NotificationPreferences {
     // Map the user_settings notification structure to NotificationPreferences format
     const categories = notifSettings.categories || [];
     const generalSettings = notifSettings.generalSettings || {};
@@ -482,17 +557,23 @@ export class NotificationsService {
     });
 
     // Map quiet hours if enabled - use user's timezone
-    const quiet_hours = generalSettings.quietHours?.enabled ? {
-      start: generalSettings.quietHours.startTime || '22:00',
-      end: generalSettings.quietHours.endTime || '08:00',
-      days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
-      timezone: userTimezone, // Use user's timezone instead of hardcoded UTC
-    } : undefined;
+    const quiet_hours = generalSettings.quietHours?.enabled
+      ? {
+          start: generalSettings.quietHours.startTime || '22:00',
+          end: generalSettings.quietHours.endTime || '08:00',
+          days: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'],
+          timezone: userTimezone, // Use user's timezone instead of hardcoded UTC
+        }
+      : undefined;
 
     if (quiet_hours) {
-      this.logger.log(`[Preferences] ✅ Quiet hours configured: ${quiet_hours.start}-${quiet_hours.end} in timezone ${quiet_hours.timezone}`);
+      this.logger.log(
+        `[Preferences] ✅ Quiet hours configured: ${quiet_hours.start}-${quiet_hours.end} in timezone ${quiet_hours.timezone}`,
+      );
     } else {
-      this.logger.warn(`[Preferences] ❌ Quiet hours NOT configured or disabled. quietHours.enabled = ${generalSettings.quietHours?.enabled}`);
+      this.logger.warn(
+        `[Preferences] ❌ Quiet hours NOT configured or disabled. quietHours.enabled = ${generalSettings.quietHours?.enabled}`,
+      );
     }
 
     return {
@@ -517,17 +598,21 @@ export class NotificationsService {
     };
   }
 
-  async updateNotificationPreferences(userId: string, updatePreferencesDto: UpdatePreferencesDto): Promise<NotificationPreferences> {
+  async updateNotificationPreferences(
+    userId: string,
+    updatePreferencesDto: UpdatePreferencesDto,
+  ): Promise<NotificationPreferences> {
     try {
       const currentPreferences = await this.getNotificationPreferences(userId);
-      
+
       // Merge with new preferences
       const mergedTypes = { ...currentPreferences.types };
-      
+
       // Handle type-specific preferences merge
       if (updatePreferencesDto.types) {
-        Object.keys(updatePreferencesDto.types).forEach(type => {
-          const typePrefs = updatePreferencesDto.types![type as keyof typeof updatePreferencesDto.types];
+        Object.keys(updatePreferencesDto.types).forEach((type) => {
+          const typePrefs =
+            updatePreferencesDto.types![type as keyof typeof updatePreferencesDto.types];
           if (typePrefs) {
             mergedTypes[type] = {
               push: typePrefs.push ?? mergedTypes[type]?.push ?? true,
@@ -585,7 +670,10 @@ export class NotificationsService {
   // PUSH SUBSCRIPTION MANAGEMENT
   // =============================================
 
-  async subscribeToPush(userId: string, subscribePushDto: SubscribePushDto): Promise<{ success: boolean; subscription_id: string }> {
+  async subscribeToPush(
+    userId: string,
+    subscribePushDto: SubscribePushDto,
+  ): Promise<{ success: boolean; subscription_id: string }> {
     try {
       const subscriptionData: Omit<PushSubscription, 'id' | 'created_at' | 'updated_at'> = {
         user_id: userId,
@@ -632,7 +720,10 @@ export class NotificationsService {
     }
   }
 
-  async unsubscribeFromPush(userId: string, unsubscribePushDto: UnsubscribePushDto): Promise<{ success: boolean }> {
+  async unsubscribeFromPush(
+    userId: string,
+    unsubscribePushDto: UnsubscribePushDto,
+  ): Promise<{ success: boolean }> {
     try {
       const subscription = await this.db.findOne('health_metrics', {
         user_id: userId,
@@ -670,7 +761,10 @@ export class NotificationsService {
   // HELPER METHODS
   // =============================================
 
-  private async createInAppNotification(userId: string, notificationData: Partial<CreateNotificationDto>): Promise<NotificationResponseDto> {
+  private async createInAppNotification(
+    userId: string,
+    notificationData: Partial<CreateNotificationDto>,
+  ): Promise<NotificationResponseDto> {
     const now = new Date().toISOString();
     const notification = await this.db.insert('notifications', {
       user_id: userId,
@@ -690,7 +784,11 @@ export class NotificationsService {
     return this.formatNotification(notification);
   }
 
-  private async sendPushNotification(userId: string, notificationData: CreateNotificationDto, config?: Record<string, any>): Promise<void> {
+  private async sendPushNotification(
+    userId: string,
+    notificationData: CreateNotificationDto,
+    config?: Record<string, any>,
+  ): Promise<void> {
     try {
       // Get user preferences for sound setting
       const preferences = await this.getNotificationPreferences(userId);
@@ -705,7 +803,11 @@ export class NotificationsService {
           'metadata.enabled': true,
         });
 
-        const subscriptionsData = Array.isArray(subscriptions.data) ? subscriptions.data : (Array.isArray(subscriptions) ? subscriptions : []);
+        const subscriptionsData = Array.isArray(subscriptions.data)
+          ? subscriptions.data
+          : Array.isArray(subscriptions)
+            ? subscriptions
+            : [];
 
         // Send push notification to web via database (existing code - DO NOT CHANGE)
         if (subscriptionsData.length > 0) {
@@ -720,11 +822,18 @@ export class NotificationsService {
             ...config,
           };
 
-          await /* TODO: use Firebase directly */ this.db.sendPushNotification(userId, pushData.title, pushData.body, pushData.data);
+          await /* TODO: use Firebase directly */ this.db.sendPushNotification(
+            userId,
+            pushData.title,
+            pushData.body,
+            pushData.data,
+          );
           this.logger.log(`✅ Web push notification sent to user ${userId}`);
         }
       } catch (webPushError) {
-        this.logger.warn(`⚠️ Web push notification failed (table may not exist), continuing with FCM: ${webPushError.message}`);
+        this.logger.warn(
+          `⚠️ Web push notification failed (table may not exist), continuing with FCM: ${webPushError.message}`,
+        );
       }
 
       // NEW: Send FCM notification to mobile devices (Flutter app)
@@ -738,30 +847,33 @@ export class NotificationsService {
           sound_enabled: soundEnabled.toString(), // Include sound preference (FCM requires string values)
         },
       });
-
     } catch (error) {
       this.logger.error(`Failed to send push notification: ${error.message}`, error.stack);
       // Don't throw error here as it shouldn't block the main notification flow
     }
   }
 
-  private async sendEmailNotification(userId: string, notificationData: CreateNotificationDto, config?: Record<string, any>): Promise<void> {
+  private async sendEmailNotification(
+    userId: string,
+    notificationData: CreateNotificationDto,
+    config?: Record<string, any>,
+  ): Promise<void> {
     try {
       // Get user email from auth system
       const user = await this.db.getUserById(userId);
-      
+
       if (!user?.email) {
         this.logger.warn(`No email found for user ${userId}`);
         return;
       }
 
       const emailContent = this.buildEmailContent(notificationData, config);
-      
+
       await /* TODO: use EmailService */ this.db.sendEmail(
         user.email,
         notificationData.title,
         emailContent.html,
-        emailContent.text
+        emailContent.text,
       );
 
       this.logger.log(`Email notification sent to user ${userId}`);
@@ -771,7 +883,10 @@ export class NotificationsService {
     }
   }
 
-  private async emitRealtimeNotification(userId: string, notification: NotificationResponseDto): Promise<void> {
+  private async emitRealtimeNotification(
+    userId: string,
+    notification: NotificationResponseDto,
+  ): Promise<void> {
     try {
       // Emit via NotificationsGateway which uses Socket.IO for real-time delivery
       await this.notificationsGateway.emitNotificationToUser(userId, notification);
@@ -787,22 +902,28 @@ export class NotificationsService {
   private async shouldCreateInAppNotification(
     userId: string,
     notificationData: CreateNotificationDto,
-    preferences: NotificationPreferences
+    preferences: NotificationPreferences,
   ): Promise<boolean> {
     try {
-      this.logger.debug(`[InApp Check] User: ${userId}, Type: ${notificationData.type}, Title: ${notificationData.title}`);
+      this.logger.debug(
+        `[InApp Check] User: ${userId}, Type: ${notificationData.type}, Title: ${notificationData.title}`,
+      );
 
       // Check Do Not Disturb mode first
       if (preferences.metadata?.doNotDisturb) {
         if (notificationData.priority !== NotificationPriority.URGENT) {
-          this.logger.warn(`❌ In-app notification blocked: Do Not Disturb is enabled for user ${userId}`);
+          this.logger.warn(
+            `❌ In-app notification blocked: Do Not Disturb is enabled for user ${userId}`,
+          );
           return false;
         }
       }
 
       // Check global in-app preferences
       if (!preferences.global.in_app) {
-        this.logger.warn(`❌ In-app notification blocked: In-app notifications disabled globally for user ${userId}`);
+        this.logger.warn(
+          `❌ In-app notification blocked: In-app notifications disabled globally for user ${userId}`,
+        );
         return false;
       }
 
@@ -811,7 +932,9 @@ export class NotificationsService {
       const typePrefs = preferences.types[notifType] || preferences.types[notificationData.type];
 
       if (typePrefs && !typePrefs.in_app) {
-        this.logger.warn(`❌ In-app notification blocked: ${notificationData.type} in-app disabled for user ${userId}`);
+        this.logger.warn(
+          `❌ In-app notification blocked: ${notificationData.type} in-app disabled for user ${userId}`,
+        );
         return false;
       }
 
@@ -823,17 +946,23 @@ export class NotificationsService {
 
         const messagesPrefs = preferences.types['messages'];
         if (messagesPrefs && !messagesPrefs.in_app) {
-          this.logger.warn(`❌ In-app notification blocked: messages category disabled for user ${userId}`);
+          this.logger.warn(
+            `❌ In-app notification blocked: messages category disabled for user ${userId}`,
+          );
           return false;
         }
 
         if (isDirectMessage && !preferences.metadata?.directMessages) {
-          this.logger.warn(`❌ In-app notification blocked: Direct messages disabled for user ${userId}`);
+          this.logger.warn(
+            `❌ In-app notification blocked: Direct messages disabled for user ${userId}`,
+          );
           return false;
         }
 
         if (isChannelMessage && !preferences.metadata?.channelMessages) {
-          this.logger.warn(`❌ In-app notification blocked: Channel messages disabled for user ${userId}`);
+          this.logger.warn(
+            `❌ In-app notification blocked: Channel messages disabled for user ${userId}`,
+          );
           return false;
         }
       }
@@ -845,10 +974,14 @@ export class NotificationsService {
 
         if (inQuietHours) {
           if (notificationData.priority !== NotificationPriority.URGENT) {
-            this.logger.warn(`❌ In-app notification blocked: Quiet hours active for user ${userId}`);
+            this.logger.warn(
+              `❌ In-app notification blocked: Quiet hours active for user ${userId}`,
+            );
             return false;
           } else {
-            this.logger.log(`[InApp Check] Quiet hours active but notification is URGENT - allowing`);
+            this.logger.log(
+              `[InApp Check] Quiet hours active but notification is URGENT - allowing`,
+            );
           }
         }
       }
@@ -857,15 +990,22 @@ export class NotificationsService {
       const todayCount = await this.getTodayNotificationCount(userId);
       if (todayCount >= preferences.daily_limit) {
         if (notificationData.priority !== NotificationPriority.URGENT) {
-          this.logger.warn(`❌ In-app notification blocked: Daily limit reached for user ${userId}`);
+          this.logger.warn(
+            `❌ In-app notification blocked: Daily limit reached for user ${userId}`,
+          );
           return false;
         }
       }
 
-      this.logger.log(`✅ In-app notification allowed for user ${userId}: ${notificationData.type}`);
+      this.logger.log(
+        `✅ In-app notification allowed for user ${userId}: ${notificationData.type}`,
+      );
       return true;
     } catch (error) {
-      this.logger.error(`Error checking in-app notification preferences: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error checking in-app notification preferences: ${error.message}`,
+        error.stack,
+      );
       return true; // Default to allow if there's an error
     }
   }
@@ -874,22 +1014,28 @@ export class NotificationsService {
   private async shouldSendPushNotification(
     userId: string,
     notificationData: CreateNotificationDto,
-    preferences: NotificationPreferences
+    preferences: NotificationPreferences,
   ): Promise<boolean> {
     try {
-      this.logger.debug(`[Push Check] User: ${userId}, Type: ${notificationData.type}, Title: ${notificationData.title}`);
+      this.logger.debug(
+        `[Push Check] User: ${userId}, Type: ${notificationData.type}, Title: ${notificationData.title}`,
+      );
 
       // Check Do Not Disturb mode first
       if (preferences.metadata?.doNotDisturb) {
         if (notificationData.priority !== NotificationPriority.URGENT) {
-          this.logger.warn(`❌ Push notification blocked: Do Not Disturb is enabled for user ${userId}`);
+          this.logger.warn(
+            `❌ Push notification blocked: Do Not Disturb is enabled for user ${userId}`,
+          );
           return false;
         }
       }
 
       // Check global push preferences
       if (!preferences.global.push) {
-        this.logger.debug(`⏭️ Push notification skipped: Push notifications disabled globally for user ${userId}`);
+        this.logger.debug(
+          `⏭️ Push notification skipped: Push notifications disabled globally for user ${userId}`,
+        );
         return false;
       }
 
@@ -898,7 +1044,9 @@ export class NotificationsService {
       const typePrefs = preferences.types[notifType] || preferences.types[notificationData.type];
 
       if (typePrefs && !typePrefs.push) {
-        this.logger.debug(`⏭️ Push notification skipped: ${notificationData.type} push disabled for user ${userId}`);
+        this.logger.debug(
+          `⏭️ Push notification skipped: ${notificationData.type} push disabled for user ${userId}`,
+        );
         return false;
       }
 
@@ -910,17 +1058,23 @@ export class NotificationsService {
 
         const messagesPrefs = preferences.types['messages'];
         if (messagesPrefs && !messagesPrefs.push) {
-          this.logger.debug(`⏭️ Push notification skipped: messages push disabled for user ${userId}`);
+          this.logger.debug(
+            `⏭️ Push notification skipped: messages push disabled for user ${userId}`,
+          );
           return false;
         }
 
         if (isDirectMessage && !preferences.metadata?.directMessages) {
-          this.logger.debug(`⏭️ Push notification skipped: Direct messages disabled for user ${userId}`);
+          this.logger.debug(
+            `⏭️ Push notification skipped: Direct messages disabled for user ${userId}`,
+          );
           return false;
         }
 
         if (isChannelMessage && !preferences.metadata?.channelMessages) {
-          this.logger.debug(`⏭️ Push notification skipped: Channel messages disabled for user ${userId}`);
+          this.logger.debug(
+            `⏭️ Push notification skipped: Channel messages disabled for user ${userId}`,
+          );
           return false;
         }
       }
@@ -935,7 +1089,9 @@ export class NotificationsService {
             this.logger.warn(`⏭️ Push notification skipped: Quiet hours active for user ${userId}`);
             return false;
           } else {
-            this.logger.log(`[Push Check] Quiet hours active but notification is URGENT - allowing`);
+            this.logger.log(
+              `[Push Check] Quiet hours active but notification is URGENT - allowing`,
+            );
           }
         }
       } else {
@@ -945,7 +1101,10 @@ export class NotificationsService {
       this.logger.log(`✅ Push notification allowed for user ${userId}: ${notificationData.type}`);
       return true;
     } catch (error) {
-      this.logger.error(`Error checking push notification preferences: ${error.message}`, error.stack);
+      this.logger.error(
+        `Error checking push notification preferences: ${error.message}`,
+        error.stack,
+      );
       return false; // Default to not send push if there's an error
     }
   }
@@ -957,9 +1116,13 @@ export class NotificationsService {
         is_read: false,
         is_archived: false,
       });
-      const unreadData = Array.isArray(unreadNotifications.data) ? unreadNotifications.data : (Array.isArray(unreadNotifications) ? unreadNotifications : []);
+      const unreadData = Array.isArray(unreadNotifications.data)
+        ? unreadNotifications.data
+        : Array.isArray(unreadNotifications)
+          ? unreadNotifications
+          : [];
       // Filter out scheduled notifications that haven't been sent yet
-      const visibleUnread = unreadData.filter(n => {
+      const visibleUnread = unreadData.filter((n) => {
         if (n.is_scheduled === true) {
           return n.is_sent === true;
         }
@@ -976,15 +1139,16 @@ export class NotificationsService {
     try {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      
+
       // Use SDK query builder for date comparison
-      const query = this.db.table('notifications')
+      const query = this.db
+        .table('notifications')
         .where('user_id', userId)
         .gte('created_at', today);
-      
+
       const result = await query.execute();
       const notifications = result.data;
-      
+
       return notifications.length;
     } catch (error) {
       this.logger.error(`Failed to get today's notification count: ${error.message}`, error.stack);
@@ -1006,22 +1170,26 @@ export class NotificationsService {
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
-        weekday: 'long'
+        weekday: 'long',
       });
 
       const parts = formatter.formatToParts(now);
-      const hour = parts.find(p => p.type === 'hour')?.value || '00';
-      const minute = parts.find(p => p.type === 'minute')?.value || '00';
-      const weekday = parts.find(p => p.type === 'weekday')?.value || '';
+      const hour = parts.find((p) => p.type === 'hour')?.value || '00';
+      const minute = parts.find((p) => p.type === 'minute')?.value || '00';
+      const weekday = parts.find((p) => p.type === 'weekday')?.value || '';
 
       const currentTime = `${hour}:${minute}`; // HH:MM format in user's timezone
       const currentDay = weekday.toLowerCase();
 
-      this.logger.log(`[Quiet Hours Check] User timezone: ${userTimezone}, Current time: ${currentTime}, Day: ${currentDay}, Quiet hours: ${quietHours.start} - ${quietHours.end}`);
+      this.logger.log(
+        `[Quiet Hours Check] User timezone: ${userTimezone}, Current time: ${currentTime}, Day: ${currentDay}, Quiet hours: ${quietHours.start} - ${quietHours.end}`,
+      );
 
       // Check if current day is in quiet hours days
       if (!quietHours.days.includes(currentDay)) {
-        this.logger.debug(`[Quiet Hours Check] Not in quiet hours - today (${currentDay}) not in configured days`);
+        this.logger.debug(
+          `[Quiet Hours Check] Not in quiet hours - today (${currentDay}) not in configured days`,
+        );
         return false;
       }
 
@@ -1029,9 +1197,13 @@ export class NotificationsService {
       const isInRange = currentTime >= quietHours.start && currentTime <= quietHours.end;
 
       if (isInRange) {
-        this.logger.warn(`[Quiet Hours Check] ⏰ IN QUIET HOURS - Current: ${currentTime}, Range: ${quietHours.start}-${quietHours.end}`);
+        this.logger.warn(
+          `[Quiet Hours Check] ⏰ IN QUIET HOURS - Current: ${currentTime}, Range: ${quietHours.start}-${quietHours.end}`,
+        );
       } else {
-        this.logger.log(`[Quiet Hours Check] Not in quiet hours - Current: ${currentTime}, Range: ${quietHours.start}-${quietHours.end}`);
+        this.logger.log(
+          `[Quiet Hours Check] Not in quiet hours - Current: ${currentTime}, Range: ${quietHours.start}-${quietHours.end}`,
+        );
       }
 
       return isInRange;
@@ -1041,9 +1213,12 @@ export class NotificationsService {
     }
   }
 
-  private buildEmailContent(notificationData: CreateNotificationDto, config?: Record<string, any>): { html: string; text: string } {
+  private buildEmailContent(
+    notificationData: CreateNotificationDto,
+    config?: Record<string, any>,
+  ): { html: string; text: string } {
     const text = `${notificationData.title}${notificationData.message ? '\n\n' + notificationData.message : ''}`;
-    
+
     const html = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
         <h2 style="color: #333;">${notificationData.title}</h2>
@@ -1065,10 +1240,13 @@ export class NotificationsService {
     return {
       user_id: userId,
       global: defaultChannelPrefs,
-      types: Object.values(NotificationType).reduce((acc, type) => {
-        acc[type] = defaultChannelPrefs;
-        return acc;
-      }, {} as Record<string, { push: boolean; email: boolean; in_app: boolean }>),
+      types: Object.values(NotificationType).reduce(
+        (acc, type) => {
+          acc[type] = defaultChannelPrefs;
+          return acc;
+        },
+        {} as Record<string, { push: boolean; email: boolean; in_app: boolean }>,
+      ),
       daily_limit: 50,
       grouping: {
         group_similar: true,
@@ -1105,9 +1283,14 @@ export class NotificationsService {
   /**
    * Register FCM token for mobile device (called on Flutter app login)
    */
-  async registerFcmToken(userId: string, registerDto: RegisterFcmTokenDto): Promise<FcmTokenResponseDto> {
+  async registerFcmToken(
+    userId: string,
+    registerDto: RegisterFcmTokenDto,
+  ): Promise<FcmTokenResponseDto> {
     try {
-      this.logger.log(`📱 Registering FCM token for user ${userId}, platform: ${registerDto.platform}`);
+      this.logger.log(
+        `📱 Registering FCM token for user ${userId}, platform: ${registerDto.platform}`,
+      );
 
       // Check if token already exists
       const existingToken = await this.db.findOne('device_tokens', {
@@ -1166,7 +1349,10 @@ export class NotificationsService {
   /**
    * Unregister FCM token (called on Flutter app logout)
    */
-  async unregisterFcmToken(userId: string, unregisterDto: UnregisterFcmTokenDto): Promise<FcmTokenResponseDto> {
+  async unregisterFcmToken(
+    userId: string,
+    unregisterDto: UnregisterFcmTokenDto,
+  ): Promise<FcmTokenResponseDto> {
     try {
       this.logger.log(`📱 Unregistering FCM token for user ${userId}`);
 
@@ -1227,15 +1413,17 @@ export class NotificationsService {
       const tokens = Array.isArray(tokensResult.data)
         ? tokensResult.data
         : Array.isArray(tokensResult)
-        ? tokensResult
-        : [];
+          ? tokensResult
+          : [];
 
       if (tokens.length === 0) {
         this.logger.debug(`⏭️ No active FCM tokens found for user ${userId}`);
         return;
       }
 
-      this.logger.log(`📱 Sending FCM notification to ${tokens.length} device(s) for user ${userId}`);
+      this.logger.log(
+        `📱 Sending FCM notification to ${tokens.length} device(s) for user ${userId}`,
+      );
 
       // Convert data to string format (FCM requires string values)
       const stringData: Record<string, string> = {};
@@ -1318,7 +1506,9 @@ export class NotificationsService {
     },
   ): Promise<void> {
     try {
-      this.logger.log(`📞 [NotificationsService] Sending incoming call notification to ${userIds.length} users`);
+      this.logger.log(
+        `📞 [NotificationsService] Sending incoming call notification to ${userIds.length} users`,
+      );
 
       // Check if Firebase is initialized
       if (!this.firebaseService.isInitialized()) {
@@ -1338,8 +1528,8 @@ export class NotificationsService {
         const tokens = Array.isArray(tokensResult.data)
           ? tokensResult.data
           : Array.isArray(tokensResult)
-          ? tokensResult
-          : [];
+            ? tokensResult
+            : [];
 
         allTokens.push(...tokens.map((t) => t.fcm_token));
       }
@@ -1349,7 +1539,9 @@ export class NotificationsService {
         return;
       }
 
-      this.logger.log(`📱 Sending data-only FCM to ${allTokens.length} device(s) for incoming call`);
+      this.logger.log(
+        `📱 Sending data-only FCM to ${allTokens.length} device(s) for incoming call`,
+      );
 
       // Prepare data-only payload (all values must be strings)
       const dataPayload: Record<string, string> = {
@@ -1382,7 +1574,10 @@ export class NotificationsService {
         await this.cleanupInvalidTokens(result.invalidTokens);
       }
     } catch (error) {
-      this.logger.error(`❌ Failed to send incoming call notification: ${error.message}`, error.stack);
+      this.logger.error(
+        `❌ Failed to send incoming call notification: ${error.message}`,
+        error.stack,
+      );
       // Don't throw error here as it shouldn't block the main flow
     }
   }

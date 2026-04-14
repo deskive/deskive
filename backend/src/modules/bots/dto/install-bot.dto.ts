@@ -74,7 +74,10 @@ export class TestBotDto {
   @IsUUID()
   conversationId?: string;
 
-  @ApiPropertyOptional({ description: 'Actually execute actions (dry run if false)', default: false })
+  @ApiPropertyOptional({
+    description: 'Actually execute actions (dry run if false)',
+    default: false,
+  })
   @IsOptional()
   @IsBoolean()
   executeActions?: boolean;

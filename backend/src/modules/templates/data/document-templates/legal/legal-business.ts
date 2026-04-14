@@ -1,7 +1,4 @@
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const LEGAL_BUSINESS_TEMPLATES = [
   {
@@ -18,33 +15,67 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'ARTICLES OF INCORPORATION\n', attributes: { bold: true, size: 'huge' } },
         { insert: '\nOF\n' },
         { insert: '{{corporation_name}}\n\n', attributes: { bold: true, size: 'large' } },
-        { insert: 'The undersigned incorporator(s) hereby adopt the following Articles of Incorporation:\n\n' },
+        {
+          insert:
+            'The undersigned incorporator(s) hereby adopt the following Articles of Incorporation:\n\n',
+        },
         { insert: 'ARTICLE I - NAME\n', attributes: { bold: true } },
         { insert: 'The name of the corporation shall be: {{corporation_name}}\n\n' },
         { insert: 'ARTICLE II - PURPOSE\n', attributes: { bold: true } },
-        { insert: 'The purpose of the corporation is to engage in any lawful activity for which corporations may be organized under the laws of {{state_of_incorporation}}.\n\n' },
+        {
+          insert:
+            'The purpose of the corporation is to engage in any lawful activity for which corporations may be organized under the laws of {{state_of_incorporation}}.\n\n',
+        },
         { insert: 'ARTICLE III - REGISTERED AGENT\n', attributes: { bold: true } },
-        { insert: 'Registered Agent: {{registered_agent}}\nRegistered Office: {{registered_office}}\n\n' },
+        {
+          insert:
+            'Registered Agent: {{registered_agent}}\nRegistered Office: {{registered_office}}\n\n',
+        },
         { insert: 'ARTICLE IV - AUTHORIZED SHARES\n', attributes: { bold: true } },
-        { insert: 'The corporation is authorized to issue:\nTotal Shares: {{total_shares}}\nPar Value: {{par_value}}\n\nShare Classes:\n{{share_classes}}\n\n' },
+        {
+          insert:
+            'The corporation is authorized to issue:\nTotal Shares: {{total_shares}}\nPar Value: {{par_value}}\n\nShare Classes:\n{{share_classes}}\n\n',
+        },
         { insert: 'ARTICLE V - INCORPORATOR(S)\n', attributes: { bold: true } },
         { insert: '{{incorporators}}\n\n' },
         { insert: 'ARTICLE VI - DIRECTORS\n', attributes: { bold: true } },
         { insert: 'Initial Directors:\n{{initial_directors}}\n\n' },
         { insert: 'ARTICLE VII - INDEMNIFICATION\n', attributes: { bold: true } },
-        { insert: 'The corporation shall indemnify its directors and officers to the fullest extent permitted by law.\n\n' },
+        {
+          insert:
+            'The corporation shall indemnify its directors and officers to the fullest extent permitted by law.\n\n',
+        },
         { insert: 'ARTICLE VIII - LIMITATION OF LIABILITY\n', attributes: { bold: true } },
-        { insert: 'Directors shall not be personally liable for monetary damages except as required by law.\n\n' },
-        { insert: 'IN WITNESS WHEREOF, the incorporator(s) have executed these Articles on {{execution_date}}.\n\n' },
+        {
+          insert:
+            'Directors shall not be personally liable for monetary damages except as required by law.\n\n',
+        },
+        {
+          insert:
+            'IN WITNESS WHEREOF, the incorporator(s) have executed these Articles on {{execution_date}}.\n\n',
+        },
         { insert: 'INCORPORATOR:\n', attributes: { bold: true } },
-        { insert: 'Signature: _________________________\nPrint Name: {{incorporator_name}}\nAddress: {{incorporator_address}}\n' },
+        {
+          insert:
+            'Signature: _________________________\nPrint Name: {{incorporator_name}}\nAddress: {{incorporator_address}}\n',
+        },
       ],
     },
     placeholders: [
       { key: 'corporation_name', type: 'text', label: 'Corporation Name', required: true },
-      { key: 'state_of_incorporation', type: 'text', label: 'State of Incorporation', required: true },
+      {
+        key: 'state_of_incorporation',
+        type: 'text',
+        label: 'State of Incorporation',
+        required: true,
+      },
       { key: 'registered_agent', type: 'text', label: 'Registered Agent', required: true },
-      { key: 'registered_office', type: 'text', label: 'Registered Office Address', required: true },
+      {
+        key: 'registered_office',
+        type: 'text',
+        label: 'Registered Office Address',
+        required: true,
+      },
       { key: 'total_shares', type: 'number', label: 'Total Authorized Shares', required: true },
       { key: 'par_value', type: 'text', label: 'Par Value', required: true },
       { key: 'share_classes', type: 'textarea', label: 'Share Classes', required: false },
@@ -55,9 +86,18 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'incorporator_address', type: 'text', label: 'Incorporator Address', required: true },
     ],
     signatureFields: [
-      { id: 'incorporator_signature', label: 'Incorporator Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'incorporator_signature',
+        label: 'Incorporator Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Operating Agreement (LLC)',
@@ -77,7 +117,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '{{effective_date}}', attributes: { bold: true } },
         { insert: ' by and among the Members listed below.\n\n' },
         { insert: 'ARTICLE I - ORGANIZATION\n', attributes: { bold: true } },
-        { insert: 'Name: {{llc_name}}, LLC\nState of Formation: {{state_of_formation}}\nDate of Formation: {{formation_date}}\nPrincipal Office: {{principal_office}}\n\n' },
+        {
+          insert:
+            'Name: {{llc_name}}, LLC\nState of Formation: {{state_of_formation}}\nDate of Formation: {{formation_date}}\nPrincipal Office: {{principal_office}}\n\n',
+        },
         { insert: 'ARTICLE II - PURPOSE\n', attributes: { bold: true } },
         { insert: '{{business_purpose}}\n\n' },
         { insert: 'ARTICLE III - MEMBERS\n', attributes: { bold: true } },
@@ -85,13 +128,19 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'ARTICLE IV - CAPITAL CONTRIBUTIONS\n', attributes: { bold: true } },
         { insert: '{{capital_contributions}}\n\n' },
         { insert: 'ARTICLE V - PROFIT AND LOSS ALLOCATION\n', attributes: { bold: true } },
-        { insert: 'Profits and losses shall be allocated to Members in proportion to their membership interests.\n\n' },
+        {
+          insert:
+            'Profits and losses shall be allocated to Members in proportion to their membership interests.\n\n',
+        },
         { insert: 'ARTICLE VI - DISTRIBUTIONS\n', attributes: { bold: true } },
         { insert: '{{distribution_terms}}\n\n' },
         { insert: 'ARTICLE VII - MANAGEMENT\n', attributes: { bold: true } },
         { insert: 'Management Type: {{management_type}}\n{{management_details}}\n\n' },
         { insert: 'ARTICLE VIII - MEETINGS AND VOTING\n', attributes: { bold: true } },
-        { insert: 'Voting Rights: Based on membership percentage\nQuorum: {{quorum_requirement}}%\nMajor decisions require: {{major_decision_threshold}}% approval\n\n' },
+        {
+          insert:
+            'Voting Rights: Based on membership percentage\nQuorum: {{quorum_requirement}}%\nMajor decisions require: {{major_decision_threshold}}% approval\n\n',
+        },
         { insert: 'ARTICLE IX - TRANSFER OF INTERESTS\n', attributes: { bold: true } },
         { insert: '{{transfer_restrictions}}\n\n' },
         { insert: 'ARTICLE X - DISSOLUTION\n', attributes: { bold: true } },
@@ -109,21 +158,66 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'formation_date', type: 'date', label: 'Formation Date', required: true },
       { key: 'principal_office', type: 'text', label: 'Principal Office', required: true },
       { key: 'business_purpose', type: 'textarea', label: 'Business Purpose', required: true },
-      { key: 'member_list', type: 'textarea', label: 'Member List with Percentages', required: true },
-      { key: 'capital_contributions', type: 'textarea', label: 'Capital Contributions', required: true },
+      {
+        key: 'member_list',
+        type: 'textarea',
+        label: 'Member List with Percentages',
+        required: true,
+      },
+      {
+        key: 'capital_contributions',
+        type: 'textarea',
+        label: 'Capital Contributions',
+        required: true,
+      },
       { key: 'distribution_terms', type: 'textarea', label: 'Distribution Terms', required: true },
-      { key: 'management_type', type: 'select', label: 'Management Type', required: true, options: ['Member-Managed', 'Manager-Managed'] },
+      {
+        key: 'management_type',
+        type: 'select',
+        label: 'Management Type',
+        required: true,
+        options: ['Member-Managed', 'Manager-Managed'],
+      },
       { key: 'management_details', type: 'textarea', label: 'Management Details', required: true },
-      { key: 'quorum_requirement', type: 'number', label: 'Quorum Requirement (%)', required: true },
-      { key: 'major_decision_threshold', type: 'number', label: 'Major Decision Threshold (%)', required: true },
-      { key: 'transfer_restrictions', type: 'textarea', label: 'Transfer Restrictions', required: true },
+      {
+        key: 'quorum_requirement',
+        type: 'number',
+        label: 'Quorum Requirement (%)',
+        required: true,
+      },
+      {
+        key: 'major_decision_threshold',
+        type: 'number',
+        label: 'Major Decision Threshold (%)',
+        required: true,
+      },
+      {
+        key: 'transfer_restrictions',
+        type: 'textarea',
+        label: 'Transfer Restrictions',
+        required: true,
+      },
       { key: 'dissolution_events', type: 'textarea', label: 'Dissolution Events', required: true },
     ],
     signatureFields: [
-      { id: 'member1_signature', label: 'Member 1 Signature', required: true, position: { page: 1, x: 100, y: 680 } },
-      { id: 'member2_signature', label: 'Member 2 Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'member1_signature',
+        label: 'Member 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 680 },
+      },
+      {
+        id: 'member2_signature',
+        label: 'Member 2 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Corporate Bylaws',
@@ -140,14 +234,20 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '\nOF\n' },
         { insert: '{{corporation_name}}\n\n', attributes: { bold: true, size: 'large' } },
         { insert: 'ARTICLE I - OFFICES\n', attributes: { bold: true } },
-        { insert: 'Principal Office: {{principal_office}}\nOther Offices: The corporation may have offices at such other places as the Board may determine.\n\n' },
+        {
+          insert:
+            'Principal Office: {{principal_office}}\nOther Offices: The corporation may have offices at such other places as the Board may determine.\n\n',
+        },
         { insert: 'ARTICLE II - SHAREHOLDERS\n', attributes: { bold: true } },
         { insert: 'Section 2.1 Annual Meeting\n', attributes: { bold: true } },
         { insert: 'The annual meeting shall be held on {{annual_meeting_date}} each year.\n\n' },
         { insert: 'Section 2.2 Special Meetings\n', attributes: { bold: true } },
         { insert: 'Special meetings may be called by {{special_meeting_callers}}.\n\n' },
         { insert: 'Section 2.3 Notice\n', attributes: { bold: true } },
-        { insert: 'Written notice shall be given not less than {{notice_days}} days before the meeting.\n\n' },
+        {
+          insert:
+            'Written notice shall be given not less than {{notice_days}} days before the meeting.\n\n',
+        },
         { insert: 'Section 2.4 Quorum\n', attributes: { bold: true } },
         { insert: 'A quorum consists of {{shareholder_quorum}}% of the outstanding shares.\n\n' },
         { insert: 'ARTICLE III - BOARD OF DIRECTORS\n', attributes: { bold: true } },
@@ -156,7 +256,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'Section 3.2 Term\n', attributes: { bold: true } },
         { insert: 'Directors serve for {{director_term}} year terms.\n\n' },
         { insert: 'Section 3.3 Meetings\n', attributes: { bold: true } },
-        { insert: 'Regular meetings: {{regular_meeting_schedule}}\nBoard quorum: {{board_quorum}} directors\n\n' },
+        {
+          insert:
+            'Regular meetings: {{regular_meeting_schedule}}\nBoard quorum: {{board_quorum}} directors\n\n',
+        },
         { insert: 'ARTICLE IV - OFFICERS\n', attributes: { bold: true } },
         { insert: 'Section 4.1 Officers\n', attributes: { bold: true } },
         { insert: 'Officers shall include: {{officer_positions}}\n\n' },
@@ -165,7 +268,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'ARTICLE V - STOCK\n', attributes: { bold: true } },
         { insert: '{{stock_provisions}}\n\n' },
         { insert: 'ARTICLE VI - AMENDMENTS\n', attributes: { bold: true } },
-        { insert: 'These Bylaws may be amended by a {{amendment_threshold}}% vote of shareholders.\n\n' },
+        {
+          insert:
+            'These Bylaws may be amended by a {{amendment_threshold}}% vote of shareholders.\n\n',
+        },
         { insert: 'Adopted by the Board of Directors on {{adoption_date}}.\n\n' },
         { insert: 'Secretary: _________________________\n' },
       ],
@@ -174,22 +280,51 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'corporation_name', type: 'text', label: 'Corporation Name', required: true },
       { key: 'principal_office', type: 'text', label: 'Principal Office', required: true },
       { key: 'annual_meeting_date', type: 'text', label: 'Annual Meeting Date', required: true },
-      { key: 'special_meeting_callers', type: 'text', label: 'Who Can Call Special Meetings', required: true },
+      {
+        key: 'special_meeting_callers',
+        type: 'text',
+        label: 'Who Can Call Special Meetings',
+        required: true,
+      },
       { key: 'notice_days', type: 'number', label: 'Notice Days', required: true },
-      { key: 'shareholder_quorum', type: 'number', label: 'Shareholder Quorum (%)', required: true },
+      {
+        key: 'shareholder_quorum',
+        type: 'number',
+        label: 'Shareholder Quorum (%)',
+        required: true,
+      },
       { key: 'board_size', type: 'number', label: 'Board Size', required: true },
       { key: 'director_term', type: 'number', label: 'Director Term (Years)', required: true },
-      { key: 'regular_meeting_schedule', type: 'text', label: 'Regular Meeting Schedule', required: true },
+      {
+        key: 'regular_meeting_schedule',
+        type: 'text',
+        label: 'Regular Meeting Schedule',
+        required: true,
+      },
       { key: 'board_quorum', type: 'number', label: 'Board Quorum', required: true },
       { key: 'officer_positions', type: 'text', label: 'Officer Positions', required: true },
       { key: 'stock_provisions', type: 'textarea', label: 'Stock Provisions', required: true },
-      { key: 'amendment_threshold', type: 'number', label: 'Amendment Threshold (%)', required: true },
+      {
+        key: 'amendment_threshold',
+        type: 'number',
+        label: 'Amendment Threshold (%)',
+        required: true,
+      },
       { key: 'adoption_date', type: 'date', label: 'Adoption Date', required: true },
     ],
     signatureFields: [
-      { id: 'secretary_signature', label: 'Secretary Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'secretary_signature',
+        label: 'Secretary Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Board Resolution',
@@ -222,9 +357,15 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '{{resolution_text}}\n\n' },
         { insert: 'FURTHER RESOLVED:\n', attributes: { bold: true } },
         { insert: '{{further_resolved}}\n\n' },
-        { insert: 'Vote: {{vote_result}}\nFor: {{votes_for}}\nAgainst: {{votes_against}}\nAbstaining: {{votes_abstaining}}\n\n' },
+        {
+          insert:
+            'Vote: {{vote_result}}\nFor: {{votes_for}}\nAgainst: {{votes_against}}\nAbstaining: {{votes_abstaining}}\n\n',
+        },
         { insert: 'CERTIFICATION\n', attributes: { bold: true } },
-        { insert: 'I, the undersigned Secretary of {{company_name}}, certify that this is a true and correct copy of a resolution duly adopted by the Board of Directors.\n\n' },
+        {
+          insert:
+            'I, the undersigned Secretary of {{company_name}}, certify that this is a true and correct copy of a resolution duly adopted by the Board of Directors.\n\n',
+        },
         { insert: 'Secretary Signature: _________________________\nDate: _____________\n\n' },
         { insert: '[CORPORATE SEAL]\n' },
       ],
@@ -232,22 +373,43 @@ export const LEGAL_BUSINESS_TEMPLATES = [
     placeholders: [
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
       { key: 'meeting_date', type: 'date', label: 'Meeting Date', required: true },
-      { key: 'meeting_type', type: 'select', label: 'Meeting Type', required: true, options: ['Regular Meeting', 'Special Meeting', 'Annual Meeting', 'Written Consent'] },
+      {
+        key: 'meeting_type',
+        type: 'select',
+        label: 'Meeting Type',
+        required: true,
+        options: ['Regular Meeting', 'Special Meeting', 'Annual Meeting', 'Written Consent'],
+      },
       { key: 'meeting_location', type: 'text', label: 'Meeting Location', required: true },
       { key: 'directors_present', type: 'textarea', label: 'Directors Present', required: true },
       { key: 'directors_absent', type: 'textarea', label: 'Directors Absent', required: false },
       { key: 'whereas_clauses', type: 'textarea', label: 'Whereas Clauses', required: true },
       { key: 'resolution_text', type: 'textarea', label: 'Resolution Text', required: true },
       { key: 'further_resolved', type: 'textarea', label: 'Further Resolved', required: false },
-      { key: 'vote_result', type: 'select', label: 'Vote Result', required: true, options: ['Unanimous', 'Majority', 'Failed'] },
+      {
+        key: 'vote_result',
+        type: 'select',
+        label: 'Vote Result',
+        required: true,
+        options: ['Unanimous', 'Majority', 'Failed'],
+      },
       { key: 'votes_for', type: 'number', label: 'Votes For', required: true },
       { key: 'votes_against', type: 'number', label: 'Votes Against', required: true },
       { key: 'votes_abstaining', type: 'number', label: 'Votes Abstaining', required: true },
     ],
     signatureFields: [
-      { id: 'secretary_signature', label: 'Secretary Signature', required: true, position: { page: 1, x: 100, y: 680 } },
+      {
+        id: 'secretary_signature',
+        label: 'Secretary Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 680 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Shareholder Agreement',
@@ -269,7 +431,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'SHAREHOLDERS:\n', attributes: { bold: true } },
         { insert: '{{shareholder_list}}\n\n' },
         { insert: '1. PURPOSE\n', attributes: { bold: true } },
-        { insert: 'This Agreement establishes the rights and obligations of the Shareholders regarding their ownership of {{company_name}}.\n\n' },
+        {
+          insert:
+            'This Agreement establishes the rights and obligations of the Shareholders regarding their ownership of {{company_name}}.\n\n',
+        },
         { insert: '2. SHARE OWNERSHIP\n', attributes: { bold: true } },
         { insert: '{{ownership_structure}}\n\n' },
         { insert: '3. BOARD REPRESENTATION\n', attributes: { bold: true } },
@@ -277,7 +442,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '4. VOTING RIGHTS\n', attributes: { bold: true } },
         { insert: '{{voting_rights}}\n\n' },
         { insert: '5. TRANSFER RESTRICTIONS\n', attributes: { bold: true } },
-        { insert: 'Right of First Refusal: {{rofr_terms}}\nTag-Along Rights: {{tag_along_terms}}\nDrag-Along Rights: {{drag_along_terms}}\n\n' },
+        {
+          insert:
+            'Right of First Refusal: {{rofr_terms}}\nTag-Along Rights: {{tag_along_terms}}\nDrag-Along Rights: {{drag_along_terms}}\n\n',
+        },
         { insert: '6. PREEMPTIVE RIGHTS\n', attributes: { bold: true } },
         { insert: '{{preemptive_rights}}\n\n' },
         { insert: '7. DIVIDENDS\n', attributes: { bold: true } },
@@ -301,24 +469,74 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
       { key: 'company_address', type: 'text', label: 'Company Address', required: true },
       { key: 'shareholder_list', type: 'textarea', label: 'Shareholder List', required: true },
-      { key: 'ownership_structure', type: 'textarea', label: 'Ownership Structure', required: true },
-      { key: 'board_representation', type: 'textarea', label: 'Board Representation', required: true },
+      {
+        key: 'ownership_structure',
+        type: 'textarea',
+        label: 'Ownership Structure',
+        required: true,
+      },
+      {
+        key: 'board_representation',
+        type: 'textarea',
+        label: 'Board Representation',
+        required: true,
+      },
       { key: 'voting_rights', type: 'textarea', label: 'Voting Rights', required: true },
-      { key: 'rofr_terms', type: 'textarea', label: 'Right of First Refusal Terms', required: true },
+      {
+        key: 'rofr_terms',
+        type: 'textarea',
+        label: 'Right of First Refusal Terms',
+        required: true,
+      },
       { key: 'tag_along_terms', type: 'textarea', label: 'Tag-Along Rights Terms', required: true },
-      { key: 'drag_along_terms', type: 'textarea', label: 'Drag-Along Rights Terms', required: true },
+      {
+        key: 'drag_along_terms',
+        type: 'textarea',
+        label: 'Drag-Along Rights Terms',
+        required: true,
+      },
       { key: 'preemptive_rights', type: 'textarea', label: 'Preemptive Rights', required: true },
       { key: 'dividend_policy', type: 'textarea', label: 'Dividend Policy', required: true },
       { key: 'non_compete_terms', type: 'textarea', label: 'Non-Compete Terms', required: false },
-      { key: 'dispute_resolution', type: 'select', label: 'Dispute Resolution', required: true, options: ['Mediation', 'Arbitration', 'Litigation'] },
-      { key: 'termination_conditions', type: 'textarea', label: 'Termination Conditions', required: true },
+      {
+        key: 'dispute_resolution',
+        type: 'select',
+        label: 'Dispute Resolution',
+        required: true,
+        options: ['Mediation', 'Arbitration', 'Litigation'],
+      },
+      {
+        key: 'termination_conditions',
+        type: 'textarea',
+        label: 'Termination Conditions',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'company_signature', label: 'Company Signature', required: true, position: { page: 1, x: 100, y: 660 } },
-      { id: 'shareholder1_signature', label: 'Shareholder 1 Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'shareholder2_signature', label: 'Shareholder 2 Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'company_signature',
+        label: 'Company Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 660 },
+      },
+      {
+        id: 'shareholder1_signature',
+        label: 'Shareholder 1 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'shareholder2_signature',
+        label: 'Shareholder 2 Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Stock Purchase Agreement',
@@ -342,19 +560,31 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'COMPANY:\n', attributes: { bold: true } },
         { insert: '{{company_name}}\n\n' },
         { insert: '1. SALE OF SHARES\n', attributes: { bold: true } },
-        { insert: 'Seller agrees to sell and Buyer agrees to purchase:\nNumber of Shares: {{number_of_shares}}\nClass: {{share_class}}\nPercentage of Outstanding: {{percentage_outstanding}}%\n\n' },
+        {
+          insert:
+            'Seller agrees to sell and Buyer agrees to purchase:\nNumber of Shares: {{number_of_shares}}\nClass: {{share_class}}\nPercentage of Outstanding: {{percentage_outstanding}}%\n\n',
+        },
         { insert: '2. PURCHASE PRICE\n', attributes: { bold: true } },
-        { insert: 'Total Purchase Price: {{purchase_price}}\nPrice Per Share: {{price_per_share}}\n\n' },
+        {
+          insert:
+            'Total Purchase Price: {{purchase_price}}\nPrice Per Share: {{price_per_share}}\n\n',
+        },
         { insert: '3. PAYMENT TERMS\n', attributes: { bold: true } },
         { insert: '{{payment_terms}}\n\n' },
         { insert: '4. CLOSING\n', attributes: { bold: true } },
         { insert: 'Closing Date: {{closing_date}}\nClosing Location: {{closing_location}}\n\n' },
         { insert: '5. REPRESENTATIONS OF SELLER\n', attributes: { bold: true } },
         { insert: 'Seller represents and warrants that:\n' },
-        { insert: '- Seller owns the Shares free and clear of liens\n- Seller has authority to sell the Shares\n- There are no pending claims against the Shares\n\n' },
+        {
+          insert:
+            '- Seller owns the Shares free and clear of liens\n- Seller has authority to sell the Shares\n- There are no pending claims against the Shares\n\n',
+        },
         { insert: '6. REPRESENTATIONS OF BUYER\n', attributes: { bold: true } },
         { insert: 'Buyer represents and warrants that:\n' },
-        { insert: '- Buyer has authority to purchase the Shares\n- Buyer is acquiring Shares for investment purposes\n- Buyer is an accredited investor: {{accredited_investor}}\n\n' },
+        {
+          insert:
+            '- Buyer has authority to purchase the Shares\n- Buyer is acquiring Shares for investment purposes\n- Buyer is an accredited investor: {{accredited_investor}}\n\n',
+        },
         { insert: '7. CONDITIONS TO CLOSING\n', attributes: { bold: true } },
         { insert: '{{closing_conditions}}\n\n' },
         { insert: '8. POST-CLOSING OBLIGATIONS\n', attributes: { bold: true } },
@@ -375,22 +605,57 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
       { key: 'number_of_shares', type: 'number', label: 'Number of Shares', required: true },
       { key: 'share_class', type: 'text', label: 'Share Class', required: true },
-      { key: 'percentage_outstanding', type: 'number', label: 'Percentage of Outstanding', required: true },
+      {
+        key: 'percentage_outstanding',
+        type: 'number',
+        label: 'Percentage of Outstanding',
+        required: true,
+      },
       { key: 'purchase_price', type: 'currency', label: 'Total Purchase Price', required: true },
       { key: 'price_per_share', type: 'currency', label: 'Price Per Share', required: true },
       { key: 'payment_terms', type: 'textarea', label: 'Payment Terms', required: true },
       { key: 'closing_date', type: 'date', label: 'Closing Date', required: true },
       { key: 'closing_location', type: 'text', label: 'Closing Location', required: true },
-      { key: 'accredited_investor', type: 'select', label: 'Accredited Investor', required: true, options: ['Yes', 'No'] },
-      { key: 'closing_conditions', type: 'textarea', label: 'Conditions to Closing', required: true },
-      { key: 'post_closing_obligations', type: 'textarea', label: 'Post-Closing Obligations', required: false },
+      {
+        key: 'accredited_investor',
+        type: 'select',
+        label: 'Accredited Investor',
+        required: true,
+        options: ['Yes', 'No'],
+      },
+      {
+        key: 'closing_conditions',
+        type: 'textarea',
+        label: 'Conditions to Closing',
+        required: true,
+      },
+      {
+        key: 'post_closing_obligations',
+        type: 'textarea',
+        label: 'Post-Closing Obligations',
+        required: false,
+      },
       { key: 'governing_state', type: 'text', label: 'Governing State', required: true },
     ],
     signatureFields: [
-      { id: 'seller_signature', label: 'Seller Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'buyer_signature', label: 'Buyer Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'seller_signature',
+        label: 'Seller Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'buyer_signature',
+        label: 'Buyer Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Indemnification Agreement',
@@ -410,26 +675,53 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'COMPANY:\n', attributes: { bold: true } },
         { insert: '{{company_name}}\n{{company_address}}\n\n' },
         { insert: 'INDEMNITEE:\n', attributes: { bold: true } },
-        { insert: '{{indemnitee_name}}\n{{indemnitee_address}}\nPosition: {{indemnitee_position}}\n\n' },
+        {
+          insert:
+            '{{indemnitee_name}}\n{{indemnitee_address}}\nPosition: {{indemnitee_position}}\n\n',
+        },
         { insert: '1. INDEMNIFICATION\n', attributes: { bold: true } },
-        { insert: 'The Company shall indemnify Indemnitee to the fullest extent permitted by law against all expenses, liabilities, and losses incurred in connection with any proceeding by reason of Indemnitee\'s position as {{indemnitee_position}}.\n\n' },
+        {
+          insert:
+            "The Company shall indemnify Indemnitee to the fullest extent permitted by law against all expenses, liabilities, and losses incurred in connection with any proceeding by reason of Indemnitee's position as {{indemnitee_position}}.\n\n",
+        },
         { insert: '2. ADVANCEMENT OF EXPENSES\n', attributes: { bold: true } },
-        { insert: 'The Company shall advance expenses incurred by Indemnitee within {{advance_days}} days of receipt of documentation.\n\n' },
+        {
+          insert:
+            'The Company shall advance expenses incurred by Indemnitee within {{advance_days}} days of receipt of documentation.\n\n',
+        },
         { insert: '3. PROCEDURE FOR INDEMNIFICATION\n', attributes: { bold: true } },
-        { insert: 'Indemnitee shall notify the Company within {{notification_days}} days of becoming aware of any proceeding.\n\n' },
+        {
+          insert:
+            'Indemnitee shall notify the Company within {{notification_days}} days of becoming aware of any proceeding.\n\n',
+        },
         { insert: '4. DETERMINATION OF ENTITLEMENT\n', attributes: { bold: true } },
         { insert: 'Determination of entitlement shall be made by: {{determination_method}}\n\n' },
         { insert: '5. EXCLUSIONS\n', attributes: { bold: true } },
         { insert: 'Indemnification shall not be provided for:\n' },
-        { insert: '- Claims initiated by Indemnitee (except certain circumstances)\n- Actions resulting from intentional misconduct or fraud\n- Matters for which indemnification is prohibited by law\n\n' },
+        {
+          insert:
+            '- Claims initiated by Indemnitee (except certain circumstances)\n- Actions resulting from intentional misconduct or fraud\n- Matters for which indemnification is prohibited by law\n\n',
+        },
         { insert: '6. D&O INSURANCE\n', attributes: { bold: true } },
-        { insert: 'The Company shall maintain directors and officers liability insurance in the amount of at least {{insurance_amount}} for the duration of Indemnitee\'s service.\n\n' },
+        {
+          insert:
+            "The Company shall maintain directors and officers liability insurance in the amount of at least {{insurance_amount}} for the duration of Indemnitee's service.\n\n",
+        },
         { insert: '7. CONTRIBUTION\n', attributes: { bold: true } },
-        { insert: 'If indemnification is not permitted, the Company shall contribute to the amount paid or payable.\n\n' },
+        {
+          insert:
+            'If indemnification is not permitted, the Company shall contribute to the amount paid or payable.\n\n',
+        },
         { insert: '8. TERM\n', attributes: { bold: true } },
-        { insert: 'This Agreement shall continue until {{term_end}} or as long as Indemnitee may be subject to any proceeding.\n\n' },
+        {
+          insert:
+            'This Agreement shall continue until {{term_end}} or as long as Indemnitee may be subject to any proceeding.\n\n',
+        },
         { insert: '9. SEVERABILITY\n', attributes: { bold: true } },
-        { insert: 'If any provision is invalid, the remaining provisions shall remain in effect.\n\n' },
+        {
+          insert:
+            'If any provision is invalid, the remaining provisions shall remain in effect.\n\n',
+        },
         { insert: 'IN WITNESS WHEREOF:\n\n', attributes: { bold: true } },
         { insert: 'COMPANY: _________________________ Date: _____________\n' },
         { insert: 'INDEMNITEE: _________________________ Date: _____________\n' },
@@ -444,15 +736,35 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'indemnitee_position', type: 'text', label: 'Indemnitee Position', required: true },
       { key: 'advance_days', type: 'number', label: 'Expense Advance Days', required: true },
       { key: 'notification_days', type: 'number', label: 'Notification Days', required: true },
-      { key: 'determination_method', type: 'select', label: 'Determination Method', required: true, options: ['Board of Directors', 'Independent Counsel', 'Shareholder Vote'] },
+      {
+        key: 'determination_method',
+        type: 'select',
+        label: 'Determination Method',
+        required: true,
+        options: ['Board of Directors', 'Independent Counsel', 'Shareholder Vote'],
+      },
       { key: 'insurance_amount', type: 'currency', label: 'D&O Insurance Amount', required: true },
       { key: 'term_end', type: 'text', label: 'Term End', required: true },
     ],
     signatureFields: [
-      { id: 'company_signature', label: 'Company Signature', required: true, position: { page: 1, x: 100, y: 700 } },
-      { id: 'indemnitee_signature', label: 'Indemnitee Signature', required: true, position: { page: 1, x: 100, y: 740 } },
+      {
+        id: 'company_signature',
+        label: 'Company Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
+      {
+        id: 'indemnitee_signature',
+        label: 'Indemnitee Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Consent to Electronic Records',
@@ -465,42 +777,88 @@ export const LEGAL_BUSINESS_TEMPLATES = [
     isFeatured: false,
     content: {
       ops: [
-        { insert: 'CONSENT TO ELECTRONIC RECORDS AND SIGNATURES\n', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: 'CONSENT TO ELECTRONIC RECORDS AND SIGNATURES\n',
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '\n{{company_name}}\n\n' },
-        { insert: 'This Consent to Electronic Records and Signatures ("Consent") governs your receipt of electronic communications from {{company_name}} ("Company").\n\n' },
+        {
+          insert:
+            'This Consent to Electronic Records and Signatures ("Consent") governs your receipt of electronic communications from {{company_name}} ("Company").\n\n',
+        },
         { insert: '1. SCOPE OF CONSENT\n', attributes: { bold: true } },
-        { insert: 'By providing your consent, you agree to receive the following in electronic form:\n' },
-        { insert: '- Contracts and agreements\n- Notices and disclosures\n- Statements and records\n- Transaction confirmations\n- Privacy policies and terms updates\n- Other communications related to your relationship with Company\n\n' },
+        {
+          insert:
+            'By providing your consent, you agree to receive the following in electronic form:\n',
+        },
+        {
+          insert:
+            '- Contracts and agreements\n- Notices and disclosures\n- Statements and records\n- Transaction confirmations\n- Privacy policies and terms updates\n- Other communications related to your relationship with Company\n\n',
+        },
         { insert: '2. HARDWARE AND SOFTWARE REQUIREMENTS\n', attributes: { bold: true } },
         { insert: 'To access electronic records, you need:\n{{system_requirements}}\n\n' },
         { insert: '3. HOW TO WITHDRAW CONSENT\n', attributes: { bold: true } },
-        { insert: 'You may withdraw consent at any time by:\n{{withdrawal_method}}\n\nNote: Withdrawal may affect your ability to use certain services.\n\n' },
+        {
+          insert:
+            'You may withdraw consent at any time by:\n{{withdrawal_method}}\n\nNote: Withdrawal may affect your ability to use certain services.\n\n',
+        },
         { insert: '4. HOW TO UPDATE YOUR CONTACT INFORMATION\n', attributes: { bold: true } },
-        { insert: 'You are responsible for maintaining current contact information. Update your information by:\n{{update_method}}\n\n' },
+        {
+          insert:
+            'You are responsible for maintaining current contact information. Update your information by:\n{{update_method}}\n\n',
+        },
         { insert: '5. OBTAINING PAPER COPIES\n', attributes: { bold: true } },
-        { insert: 'You may request paper copies by:\n{{paper_copy_method}}\nFee for paper copies: {{paper_copy_fee}}\n\n' },
+        {
+          insert:
+            'You may request paper copies by:\n{{paper_copy_method}}\nFee for paper copies: {{paper_copy_fee}}\n\n',
+        },
         { insert: '6. CONSENT ACKNOWLEDGMENT\n', attributes: { bold: true } },
         { insert: 'By signing below, I acknowledge that:\n' },
-        { insert: '- I have read and understand this Consent\n- I consent to receive electronic records and communications\n- I can access the electronic records in the format provided\n- I understand I may withdraw consent at any time\n\n' },
+        {
+          insert:
+            '- I have read and understand this Consent\n- I consent to receive electronic records and communications\n- I can access the electronic records in the format provided\n- I understand I may withdraw consent at any time\n\n',
+        },
         { insert: 'Contact Email: {{contact_email}}\n\n' },
-        { insert: 'Signature: _________________________\nPrint Name: {{signatory_name}}\nDate: {{consent_date}}\n' },
+        {
+          insert:
+            'Signature: _________________________\nPrint Name: {{signatory_name}}\nDate: {{consent_date}}\n',
+        },
       ],
     },
     placeholders: [
       { key: 'company_name', type: 'text', label: 'Company Name', required: true },
-      { key: 'system_requirements', type: 'textarea', label: 'System Requirements', required: true },
+      {
+        key: 'system_requirements',
+        type: 'textarea',
+        label: 'System Requirements',
+        required: true,
+      },
       { key: 'withdrawal_method', type: 'textarea', label: 'Withdrawal Method', required: true },
       { key: 'update_method', type: 'textarea', label: 'Contact Update Method', required: true },
-      { key: 'paper_copy_method', type: 'textarea', label: 'Paper Copy Request Method', required: true },
+      {
+        key: 'paper_copy_method',
+        type: 'textarea',
+        label: 'Paper Copy Request Method',
+        required: true,
+      },
       { key: 'paper_copy_fee', type: 'text', label: 'Paper Copy Fee', required: true },
       { key: 'contact_email', type: 'email', label: 'Contact Email', required: true },
       { key: 'signatory_name', type: 'text', label: 'Signatory Name', required: true },
       { key: 'consent_date', type: 'date', label: 'Consent Date', required: true },
     ],
     signatureFields: [
-      { id: 'signatory_signature', label: 'Signatory Signature', required: true, position: { page: 1, x: 100, y: 700 } },
+      {
+        id: 'signatory_signature',
+        label: 'Signatory Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Letter of Intent (LOI)',
@@ -520,15 +878,27 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: 'RE: ', attributes: { bold: true } },
         { insert: '{{transaction_description}}\n\n' },
         { insert: 'Dear {{recipient_name}},\n\n' },
-        { insert: 'This Letter of Intent ("LOI") outlines the principal terms pursuant to which {{sender_company}} ("Buyer") proposes to {{transaction_type}} with {{recipient_company}} ("Seller").\n\n' },
+        {
+          insert:
+            'This Letter of Intent ("LOI") outlines the principal terms pursuant to which {{sender_company}} ("Buyer") proposes to {{transaction_type}} with {{recipient_company}} ("Seller").\n\n',
+        },
         { insert: '1. TRANSACTION OVERVIEW\n', attributes: { bold: true } },
         { insert: '{{transaction_overview}}\n\n' },
         { insert: '2. PURCHASE PRICE\n', attributes: { bold: true } },
-        { insert: 'Proposed Purchase Price: {{purchase_price}}\nPayment Structure: {{payment_structure}}\n\n' },
+        {
+          insert:
+            'Proposed Purchase Price: {{purchase_price}}\nPayment Structure: {{payment_structure}}\n\n',
+        },
         { insert: '3. DUE DILIGENCE\n', attributes: { bold: true } },
-        { insert: 'Due Diligence Period: {{due_diligence_period}}\nDue Diligence Access: {{due_diligence_access}}\n\n' },
+        {
+          insert:
+            'Due Diligence Period: {{due_diligence_period}}\nDue Diligence Access: {{due_diligence_access}}\n\n',
+        },
         { insert: '4. EXCLUSIVITY\n', attributes: { bold: true } },
-        { insert: 'Seller agrees to grant Buyer exclusive negotiating rights for {{exclusivity_period}} days from the date of this LOI.\n\n' },
+        {
+          insert:
+            'Seller agrees to grant Buyer exclusive negotiating rights for {{exclusivity_period}} days from the date of this LOI.\n\n',
+        },
         { insert: '5. CONDITIONS TO CLOSING\n', attributes: { bold: true } },
         { insert: '{{closing_conditions}}\n\n' },
         { insert: '6. TARGET CLOSING DATE\n', attributes: { bold: true } },
@@ -536,15 +906,23 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '7. CONFIDENTIALITY\n', attributes: { bold: true } },
         { insert: 'The terms of this LOI shall remain confidential.\n\n' },
         { insert: '8. NON-BINDING NATURE\n', attributes: { bold: true } },
-        { insert: 'Except for the provisions regarding exclusivity, confidentiality, and expenses, this LOI is non-binding and does not create any legal obligation.\n\n' },
+        {
+          insert:
+            'Except for the provisions regarding exclusivity, confidentiality, and expenses, this LOI is non-binding and does not create any legal obligation.\n\n',
+        },
         { insert: '9. EXPENSES\n', attributes: { bold: true } },
-        { insert: 'Each party shall bear its own expenses in connection with this transaction.\n\n' },
+        {
+          insert: 'Each party shall bear its own expenses in connection with this transaction.\n\n',
+        },
         { insert: '10. EXPIRATION\n', attributes: { bold: true } },
         { insert: 'This LOI shall expire if not accepted by {{expiration_date}}.\n\n' },
         { insert: 'We look forward to working with you on this transaction.\n\n' },
         { insert: 'Sincerely,\n\n{{sender_name}}\n{{sender_title}}\n{{sender_company}}\n\n' },
         { insert: 'AGREED AND ACCEPTED:\n\n', attributes: { bold: true } },
-        { insert: 'Signature: _________________________\nName: {{recipient_signatory}}\nTitle: {{recipient_title}}\nDate: _____________\n' },
+        {
+          insert:
+            'Signature: _________________________\nName: {{recipient_signatory}}\nTitle: {{recipient_title}}\nDate: _____________\n',
+        },
       ],
     },
     placeholders: [
@@ -554,15 +932,46 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'recipient_name', type: 'text', label: 'Recipient Name', required: true },
       { key: 'recipient_company', type: 'text', label: 'Recipient Company', required: true },
       { key: 'recipient_address', type: 'text', label: 'Recipient Address', required: true },
-      { key: 'transaction_description', type: 'text', label: 'Transaction Description', required: true },
-      { key: 'transaction_type', type: 'select', label: 'Transaction Type', required: true, options: ['acquire', 'merge', 'invest in', 'partner with'] },
-      { key: 'transaction_overview', type: 'textarea', label: 'Transaction Overview', required: true },
+      {
+        key: 'transaction_description',
+        type: 'text',
+        label: 'Transaction Description',
+        required: true,
+      },
+      {
+        key: 'transaction_type',
+        type: 'select',
+        label: 'Transaction Type',
+        required: true,
+        options: ['acquire', 'merge', 'invest in', 'partner with'],
+      },
+      {
+        key: 'transaction_overview',
+        type: 'textarea',
+        label: 'Transaction Overview',
+        required: true,
+      },
       { key: 'purchase_price', type: 'currency', label: 'Purchase Price', required: true },
       { key: 'payment_structure', type: 'textarea', label: 'Payment Structure', required: true },
       { key: 'due_diligence_period', type: 'text', label: 'Due Diligence Period', required: true },
-      { key: 'due_diligence_access', type: 'textarea', label: 'Due Diligence Access', required: true },
-      { key: 'exclusivity_period', type: 'number', label: 'Exclusivity Period (Days)', required: true },
-      { key: 'closing_conditions', type: 'textarea', label: 'Conditions to Closing', required: true },
+      {
+        key: 'due_diligence_access',
+        type: 'textarea',
+        label: 'Due Diligence Access',
+        required: true,
+      },
+      {
+        key: 'exclusivity_period',
+        type: 'number',
+        label: 'Exclusivity Period (Days)',
+        required: true,
+      },
+      {
+        key: 'closing_conditions',
+        type: 'textarea',
+        label: 'Conditions to Closing',
+        required: true,
+      },
       { key: 'target_closing_date', type: 'date', label: 'Target Closing Date', required: true },
       { key: 'expiration_date', type: 'date', label: 'Expiration Date', required: true },
       { key: 'sender_name', type: 'text', label: 'Sender Name', required: true },
@@ -571,9 +980,18 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'recipient_title', type: 'text', label: 'Recipient Title', required: true },
     ],
     signatureFields: [
-      { id: 'recipient_signature', label: 'Recipient Signature', required: true, position: { page: 1, x: 100, y: 720 } },
+      {
+        id: 'recipient_signature',
+        label: 'Recipient Signature',
+        required: true,
+        position: { page: 1, x: 100, y: 720 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
   {
     name: 'Cease and Desist Letter',
@@ -593,7 +1011,10 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '{{recipient_name}}\n{{recipient_address}}\n\n' },
         { insert: 'RE: CEASE AND DESIST - {{subject_matter}}\n\n', attributes: { bold: true } },
         { insert: 'Dear {{recipient_name}}:\n\n' },
-        { insert: 'This letter serves as a formal CEASE AND DESIST demand regarding your unlawful conduct.\n\n' },
+        {
+          insert:
+            'This letter serves as a formal CEASE AND DESIST demand regarding your unlawful conduct.\n\n',
+        },
         { insert: 'BACKGROUND\n', attributes: { bold: true } },
         { insert: '{{background_facts}}\n\n' },
         { insert: 'UNLAWFUL CONDUCT\n', attributes: { bold: true } },
@@ -605,11 +1026,17 @@ export const LEGAL_BUSINESS_TEMPLATES = [
         { insert: '{{compliance_deadline}}', attributes: { bold: true } },
         { insert: ' to comply with the above demands.\n\n' },
         { insert: 'CONSEQUENCES OF NON-COMPLIANCE\n', attributes: { bold: true } },
-        { insert: 'If you fail to comply, {{sender_name}} will have no choice but to pursue all available legal remedies, including:\n{{consequences}}\n\n' },
+        {
+          insert:
+            'If you fail to comply, {{sender_name}} will have no choice but to pursue all available legal remedies, including:\n{{consequences}}\n\n',
+        },
         { insert: 'PRESERVATION OF EVIDENCE\n', attributes: { bold: true } },
         { insert: 'You are hereby notified to preserve all evidence related to this matter.\n\n' },
         { insert: 'RIGHTS RESERVED\n', attributes: { bold: true } },
-        { insert: 'This letter is not intended as a complete statement of the facts or law, and all rights and remedies are expressly reserved.\n\n' },
+        {
+          insert:
+            'This letter is not intended as a complete statement of the facts or law, and all rights and remedies are expressly reserved.\n\n',
+        },
         { insert: 'Govern yourself accordingly.\n\n' },
         { insert: 'Sincerely,\n\n{{sender_name}}\n' },
       ],
@@ -619,7 +1046,13 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'sender_address', type: 'text', label: 'Sender Address', required: true },
       { key: 'sender_email', type: 'email', label: 'Sender Email', required: true },
       { key: 'letter_date', type: 'date', label: 'Letter Date', required: true },
-      { key: 'delivery_method', type: 'select', label: 'Delivery Method', required: true, options: ['Certified Mail, Return Receipt Requested', 'Email', 'Hand Delivery', 'FedEx'] },
+      {
+        key: 'delivery_method',
+        type: 'select',
+        label: 'Delivery Method',
+        required: true,
+        options: ['Certified Mail, Return Receipt Requested', 'Email', 'Hand Delivery', 'FedEx'],
+      },
       { key: 'recipient_name', type: 'text', label: 'Recipient Name', required: true },
       { key: 'recipient_address', type: 'text', label: 'Recipient Address', required: true },
       { key: 'subject_matter', type: 'text', label: 'Subject Matter', required: true },
@@ -627,9 +1060,18 @@ export const LEGAL_BUSINESS_TEMPLATES = [
       { key: 'legal_violations', type: 'textarea', label: 'Legal Violations', required: true },
       { key: 'specific_demands', type: 'textarea', label: 'Specific Demands', required: true },
       { key: 'compliance_deadline', type: 'date', label: 'Compliance Deadline', required: true },
-      { key: 'consequences', type: 'textarea', label: 'Consequences of Non-Compliance', required: true },
+      {
+        key: 'consequences',
+        type: 'textarea',
+        label: 'Consequences of Non-Compliance',
+        required: true,
+      },
     ],
     signatureFields: [],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 1, right: 1, bottom: 1, left: 1 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 1, right: 1, bottom: 1, left: 1 },
+    },
   },
 ];

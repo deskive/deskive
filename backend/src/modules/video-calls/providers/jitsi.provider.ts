@@ -69,7 +69,9 @@ export class JitsiProvider implements VideoProvider {
     this.privateKey = config.get<string>('JITSI_PRIVATE_KEY');
     this.keyId = config.get<string>('JITSI_KEY_ID');
 
-    this.logger.log(`Jitsi provider configured: ${this.domain}${this.appId ? ' (JaaS)' : ' (anonymous, public)'}`);
+    this.logger.log(
+      `Jitsi provider configured: ${this.domain}${this.appId ? ' (JaaS)' : ' (anonymous, public)'}`,
+    );
   }
 
   isAvailable(): boolean {
@@ -98,12 +100,14 @@ export class JitsiProvider implements VideoProvider {
    * Jitsi room names must be unique-ish and URL-safe.
    */
   private sanitize(name: string): string {
-    return name
-      .replace(/[^a-zA-Z0-9_-]/g, '-')
-      .replace(/-+/g, '-')
-      .replace(/^-|-$/g, '')
-      .toLowerCase()
-      .slice(0, 60) || `room-${Date.now()}`;
+    return (
+      name
+        .replace(/[^a-zA-Z0-9_-]/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '')
+        .toLowerCase()
+        .slice(0, 60) || `room-${Date.now()}`
+    );
   }
 
   private buildRoomUrl(roomId: string): string {
@@ -130,14 +134,16 @@ export class JitsiProvider implements VideoProvider {
   }
 
   async getRoom(roomId: string): Promise<VideoRoom | null> {
-    return this.knownRooms.get(roomId) ?? {
-      // Even if we didn't track it, we can synthesize a record because
-      // Jitsi rooms are URL-addressable - any room name "exists".
-      roomId,
-      roomName: roomId,
-      createdAt: new Date().toISOString(),
-      joinUrl: this.buildRoomUrl(roomId),
-    };
+    return (
+      this.knownRooms.get(roomId) ?? {
+        // Even if we didn't track it, we can synthesize a record because
+        // Jitsi rooms are URL-addressable - any room name "exists".
+        roomId,
+        roomName: roomId,
+        createdAt: new Date().toISOString(),
+        joinUrl: this.buildRoomUrl(roomId),
+      }
+    );
   }
 
   async listRooms(): Promise<VideoRoom[]> {
@@ -164,7 +170,8 @@ export class JitsiProvider implements VideoProvider {
     }
 
     // JaaS / authenticated mode: sign a JWT with the private key.
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const jwt = require('jsonwebtoken');
     const ttlSeconds = this.parseTtl(options.ttl ?? '24h');
     const exp = Math.floor(Date.now() / 1000) + ttlSeconds;
@@ -235,11 +242,16 @@ export class JitsiProvider implements VideoProvider {
     if (!m) return 24 * 60 * 60;
     const n = parseInt(m[1], 10);
     switch (m[2]) {
-      case 'd': return n * 86400;
-      case 'h': return n * 3600;
-      case 'm': return n * 60;
-      case 's': return n;
-      default: return n;
+      case 'd':
+        return n * 86400;
+      case 'h':
+        return n * 3600;
+      case 'm':
+        return n * 60;
+      case 's':
+        return n;
+      default:
+        return n;
     }
   }
 }

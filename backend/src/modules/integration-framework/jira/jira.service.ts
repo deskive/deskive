@@ -28,7 +28,13 @@ export class JiraService {
     return connection;
   }
 
-  private async makeRequest(method: string, endpoint: string, connection: any, cloudId: string, data?: any) {
+  private async makeRequest(
+    method: string,
+    endpoint: string,
+    connection: any,
+    cloudId: string,
+    data?: any,
+  ) {
     const response = await axios({
       method,
       url: `${this.JIRA_API_BASE}/${cloudId}${endpoint}`,
@@ -47,12 +53,22 @@ export class JiraService {
 
   async createIssue(userId: string, workspaceId: string, cloudId: string, issueData: any) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', '/rest/api/3/issue', connection, cloudId, { fields: issueData });
+    return this.makeRequest('POST', '/rest/api/3/issue', connection, cloudId, {
+      fields: issueData,
+    });
   }
 
-  async updateIssue(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string, updates: any) {
+  async updateIssue(
+    userId: string,
+    workspaceId: string,
+    cloudId: string,
+    issueIdOrKey: string,
+    updates: any,
+  ) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('PUT', `/rest/api/3/issue/${issueIdOrKey}`, connection, cloudId, { fields: updates });
+    return this.makeRequest('PUT', `/rest/api/3/issue/${issueIdOrKey}`, connection, cloudId, {
+      fields: updates,
+    });
   }
 
   async getIssue(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string) {
@@ -62,7 +78,10 @@ export class JiraService {
 
   async searchIssues(userId: string, workspaceId: string, cloudId: string, jql: string) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', '/rest/api/3/search', connection, cloudId, { jql, maxResults: 50 });
+    return this.makeRequest('POST', '/rest/api/3/search', connection, cloudId, {
+      jql,
+      maxResults: 50,
+    });
   }
 
   async deleteIssue(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string) {
@@ -72,16 +91,37 @@ export class JiraService {
 
   // ==================== COMMENT ACTIONS ====================
 
-  async addComment(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string, body: string) {
+  async addComment(
+    userId: string,
+    workspaceId: string,
+    cloudId: string,
+    issueIdOrKey: string,
+    body: string,
+  ) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', `/rest/api/3/issue/${issueIdOrKey}/comment`, connection, cloudId, {
-      body: { type: 'doc', version: 1, content: [{ type: 'paragraph', content: [{ type: 'text', text: body }] }] },
-    });
+    return this.makeRequest(
+      'POST',
+      `/rest/api/3/issue/${issueIdOrKey}/comment`,
+      connection,
+      cloudId,
+      {
+        body: {
+          type: 'doc',
+          version: 1,
+          content: [{ type: 'paragraph', content: [{ type: 'text', text: body }] }],
+        },
+      },
+    );
   }
 
   async getComments(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('GET', `/rest/api/3/issue/${issueIdOrKey}/comment`, connection, cloudId);
+    return this.makeRequest(
+      'GET',
+      `/rest/api/3/issue/${issueIdOrKey}/comment`,
+      connection,
+      cloudId,
+    );
   }
 
   // ==================== PROJECT ACTIONS ====================
@@ -98,14 +138,31 @@ export class JiraService {
 
   // ==================== TRANSITION ACTIONS ====================
 
-  async transitionIssue(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string, transitionId: string) {
+  async transitionIssue(
+    userId: string,
+    workspaceId: string,
+    cloudId: string,
+    issueIdOrKey: string,
+    transitionId: string,
+  ) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', `/rest/api/3/issue/${issueIdOrKey}/transitions`, connection, cloudId, { transition: { id: transitionId } });
+    return this.makeRequest(
+      'POST',
+      `/rest/api/3/issue/${issueIdOrKey}/transitions`,
+      connection,
+      cloudId,
+      { transition: { id: transitionId } },
+    );
   }
 
   async getTransitions(userId: string, workspaceId: string, cloudId: string, issueIdOrKey: string) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('GET', `/rest/api/3/issue/${issueIdOrKey}/transitions`, connection, cloudId);
+    return this.makeRequest(
+      'GET',
+      `/rest/api/3/issue/${issueIdOrKey}/transitions`,
+      connection,
+      cloudId,
+    );
   }
 
   // ==================== USER ACTIONS ====================
