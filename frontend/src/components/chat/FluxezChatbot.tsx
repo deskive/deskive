@@ -101,7 +101,7 @@ interface deskiveChatbotProps {
  * }
  * ```
  */
-export const deskiveChatbot: React.FC<deskiveChatbotProps> = ({
+export const DeskiveChatbot: React.FC<deskiveChatbotProps> = ({
   debug = false,
   position = 'bottom-right',
   primaryColor = '#2563EB',
@@ -520,4 +520,4 @@ export const usedeskiveChatbot = () => {
   return window.deskiveChatbot || null;
 };
 
-export default deskiveChatbot;
+export default DeskiveChatbot;
