@@ -300,6 +300,25 @@ Deskive vem com mais de 40 módulos integrados nestas categorias:
 
 [Ver documentação detalhada de recursos &rarr;](https://github.com/deskive/deskive/wiki)
 
+## Provedores Plugáveis
+
+Cada serviço de backend pode ser substituído por meio de uma única variável de ambiente. Os padrões mantêm o Deskive executável sem credenciais de nuvem; troque por um provedor gerenciado quando estiver pronto.
+
+| Domínio | Variável de ambiente | Provedores incluídos |
+|---|---|---|
+| **Armazenamento** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs` (padrão), `s3`, `r2`, `minio`, `b2`, `gcs`, `azure`, `none` |
+| **E-mail** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`, `resend`, `sendgrid`, `postmark`, `ses`, `mailgun`, `none` |
+| **Push** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`, `fcm`, `onesignal`, `expo`, `none` |
+| **Busca** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm` (padrão, sem infraestrutura extra), `meilisearch`, `typesense`, `none` |
+| **Auth / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`, `google`, `github`, `magic-link` (sem senha, baseado em JWT) |
+| **Vídeo** | `VIDEO_PROVIDER` | `livekit`, `jitsi`, `daily`, `agora`, `whereby`, `none` |
+| **IA** | `AI_PROVIDER` | `openai`, `anthropic`, `gemini`, `groq`, `ollama` (local) |
+
+- **Busca por palavra-chave e semântica coexistem.** O `SearchProviderService` cuida da busca por trigramas/facetada; o `SearchService` continua lidando com a busca vetorial/semântica do Qdrant.
+- **SDKs opcionais são carregados sob demanda** — `@azure/storage-blob`, `@google-cloud/storage`, `firebase-admin`, `livekit-server-sdk` e `agora-token` são `optionalDependencies`, portanto escolher `local-fs` / `smtp` / `webpush` / `pg-trgm` não adiciona nenhum custo de instalação.
+- **Smoke tests** são enviados com cada adaptador (`backend/scripts/smoke-test-*-providers.ts`) — 27 / 45 / 61 / 55 / 37 asserções para armazenamento / e-mail / push / busca / auth respectivamente, todas passando.
+- **Documentação completa:** veja `backend/docs/providers/` para variáveis de ambiente e configuração por provedor.
+
 ## i18n
 
 Deskive suporta múltiplos idiomas via react-i18next:
