@@ -84,11 +84,8 @@ const IncomingCallWindow = lazy(() => import('./pages/video-call/IncomingCallWin
 const WhiteboardPage = lazy(() => import('./pages/whiteboard').then(m => ({ default: m.WhiteboardPage })));
 
 // Public Pages
-const PricingPage = lazy(() => import('./pages/public/PricingPage'));
 const DownloadsPage = lazy(() => import('./pages/public/DownloadsPage'));
-const PublicSupportPage = lazy(() => import('./pages/public/SupportPage'));
 const FeaturesPage = lazy(() => import('./pages/public/FeaturesPage'));
-const TutorialPage = lazy(() => import('./pages/TutorialPage'));
 const SharedFilePage = lazy(() => import('./pages/shared/SharedFilePage'));
 
 // Slack Integration Pages
@@ -101,12 +98,7 @@ const SlackCalendarSuccess = lazy(() => import('./pages/slack/SlackCalendarSucce
 const SlackCalendarOnboarding = lazy(() => import('./pages/slack/SlackCalendarOnboarding'));
 
 // Product Pages
-const ChatProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.ChatProductPage })));
-const ProjectsProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.ProjectsProductPage })));
-const FilesProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.FilesProductPage })));
-const CalendarProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.CalendarProductPage })));
-const NotesProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.NotesProductPage })));
-const VideoCallsProductPage = lazy(() => import('./pages/public/products').then(m => ({ default: m.VideoCallsProductPage })));
+const ProductDetailPage = lazy(() => import('./pages/public/products/ProductDetailPage'));
 
 // Feature Detail Pages
 const AIChatFeature = lazy(() => import('./pages/features/AIChatFeature'));
@@ -119,25 +111,10 @@ const VideoCallsFeature = lazy(() => import('./pages/features/VideoCallsFeature'
 const IntegrationsFeature = lazy(() => import('./pages/features/IntegrationsFeature'));
 const AutomationFeature = lazy(() => import('./pages/features/AutomationFeature'));
 
-// Legal Pages
-const PrivacyPage = lazy(() => import('./pages/public/PrivacyPage'));
-const TermsPage = lazy(() => import('./pages/public/TermsPage'));
-const CookiesPage = lazy(() => import('./pages/public/CookiesPage'));
-const DataDeletionPage = lazy(() => import('./pages/public/DataDeletionPage'));
-
 // Company Pages
 const CareersPage = lazy(() => import('./pages/company/CareersPage'));
 const PressPage = lazy(() => import('./pages/company/PressPage'));
 const ChangelogPage = lazy(() => import('./pages/company/ChangelogPage'));
-
-// Blog Pages
-const BlogListPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogListPage })));
-const BlogPostPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogPostPage })));
-const BlogCategoryPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogCategoryPage })));
-const BlogTagPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogTagPage })));
-const BlogAuthorPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogAuthorPage })));
-const BlogSearchPage = lazy(() => import('./pages/blog').then(m => ({ default: m.BlogSearchPage })));
-const CreateBlogPage = lazy(() => import('./pages/blog').then(m => ({ default: m.CreateBlogPage })));
 
 // Document Builder Pages
 const DocumentBuilder = lazy(() => import('./pages/documents').then(m => ({ default: m.DocumentBuilder })));
@@ -147,8 +124,6 @@ const DocumentDetail = lazy(() => import('./pages/documents').then(m => ({ defau
 
 // Admin Pages
 const AdminDashboard = lazy(() => import('./pages/admin').then(m => ({ default: m.AdminDashboard })));
-const BlogManagement = lazy(() => import('./pages/admin').then(m => ({ default: m.BlogManagement })));
-const BlogEditor = lazy(() => import('./pages/admin').then(m => ({ default: m.BlogEditor })));
 const UserManagement = lazy(() => import('./pages/admin').then(m => ({ default: m.UserManagement })));
 const OrganizationManagement = lazy(() => import('./pages/admin').then(m => ({ default: m.OrganizationManagement })));
 const SystemSettings = lazy(() => import('./pages/admin').then(m => ({ default: m.SystemSettings })));
@@ -298,10 +273,7 @@ function App() {
 
                             {/* Public Routes */}
                             <Route path="/home" element={<HomePage />} />
-                            <Route path="/pricing" element={<PricingPage />} />
                             <Route path="/downloads" element={<DownloadsPage />} />
-                            <Route path="/support" element={<PublicSupportPage />} />
-                            <Route path="/tutorial" element={<TutorialPage />} />
 
                             {/* Slack Integration Routes */}
                             <Route path="/slack/onboarding" element={<SlackOnboarding />} />
@@ -313,12 +285,7 @@ function App() {
                             <Route path="/slack/calendar-onboarding" element={<SlackCalendarOnboarding />} />
 
                             {/* Product Detail Routes */}
-                            <Route path="/products/chat" element={<ChatProductPage />} />
-                            <Route path="/products/projects" element={<ProjectsProductPage />} />
-                            <Route path="/products/files" element={<FilesProductPage />} />
-                            <Route path="/products/calendar" element={<CalendarProductPage />} />
-                            <Route path="/products/notes" element={<NotesProductPage />} />
-                            <Route path="/products/video-calls" element={<VideoCallsProductPage />} />
+                            <Route path="/products/:slug" element={<ProductDetailPage />} />
 
                             {/* Features Hub */}
                             <Route path="/features" element={<FeaturesPage />} />
@@ -333,12 +300,6 @@ function App() {
                             <Route path="/features/video-calls" element={<VideoCallsFeature />} />
                             <Route path="/features/integrations" element={<IntegrationsFeature />} />
                             <Route path="/features/automation" element={<AutomationFeature />} />
-
-                            {/* Legal Routes */}
-                            <Route path="/privacy" element={<PrivacyPage />} />
-                            <Route path="/terms" element={<TermsPage />} />
-                            <Route path="/cookies" element={<CookiesPage />} />
-                            <Route path="/data-deletion" element={<DataDeletionPage />} />
 
                             {/* Company Routes */}
                             <Route path="/careers" element={<CareersPage />} />
@@ -359,16 +320,6 @@ function App() {
                             {/* Invitation Routes */}
                             <Route path="/invitation/accept" element={<AcceptInvitation />} />
                             <Route path="/invite/:token" element={<AcceptInvitation />} />
-
-                            {/* Blog Routes */}
-                            <Route path="/blog" element={<BlogListPage />} />
-                            <Route path="/blog/create" element={<CreateBlogPage />} />
-                            <Route path="/blog/edit/:postId" element={<CreateBlogPage />} />
-                            <Route path="/blog/search" element={<BlogSearchPage />} />
-                            <Route path="/blog/category/:categorySlug" element={<BlogCategoryPage />} />
-                            <Route path="/blog/tag/:tagSlug" element={<BlogTagPage />} />
-                            <Route path="/blog/author/:authorId" element={<BlogAuthorPage />} />
-                            <Route path="/blog/:slug" element={<BlogPostPage />} />
 
                             {/* Semi-Protected Routes */}
                             <Route path="/create-workspace" element={<CreateWorkspace />} />
@@ -395,16 +346,6 @@ function App() {
 
                             {/* Incoming Call Window */}
                             <Route path="/incoming-call" element={<IncomingCallWindow />} />
-
-                            {/* Admin Blog Route (Standalone) */}
-                            <Route
-                              path="/admin/blog"
-                              element={
-                                <ProtectedRoute requiredRole="ADMIN">
-                                  <BlogManagement />
-                                </ProtectedRoute>
-                              }
-                            />
 
                             {/* Admin Routes */}
                             <Route

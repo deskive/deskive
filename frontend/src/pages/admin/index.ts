@@ -6,10 +6,6 @@
 // Main Dashboard
 export { default as AdminDashboard } from './AdminDashboard';
 
-// Blog Management
-export { default as BlogManagement } from './blog/BlogManagement';
-export { default as BlogEditor } from './blog/BlogEditor';
-
 // User Management
 export { default as UserManagement } from './users/UserManagement';
 

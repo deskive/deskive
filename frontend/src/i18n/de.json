@@ -5139,6 +5139,87 @@
       }
     }
   },
+  "productDetail": {
+    "keyFeatures": "Hauptfunktionen",
+    "chat": {
+      "name": "Chat",
+      "tagline": "Team-Messaging in Echtzeit.",
+      "description": "Strukturierte Konversationen mit Kanälen, Threads, Direktnachrichten, Erwähnungen und Dateifreigabe — gemacht für Teams, die schnell vorankommen.",
+      "features": {
+        "0": "Kanäle und verschachtelte Konversationen",
+        "1": "Direktnachrichten und Gruppenchats",
+        "2": "Erwähnungen, Reaktionen und Lesezeichen",
+        "3": "Datei-Anhänge und Rich Media",
+        "4": "Nachrichtensuche im gesamten Workspace",
+        "5": "Geplante Nachrichten und Erinnerungen"
+      }
+    },
+    "projects": {
+      "name": "Projekte",
+      "tagline": "Kanban-Boards und Aufgabenverwaltung.",
+      "description": "Plane Arbeit, verfolge Fortschritte und liefere pünktlich — mit flexiblen Boards, Aufgaben, Unteraufgaben und individuellen Workflows.",
+      "features": {
+        "0": "Kanban-Boards mit Drag-and-Drop",
+        "1": "Aufgaben, Unteraufgaben und Checklisten",
+        "2": "Verantwortliche, Fälligkeitsdaten und Prioritäten",
+        "3": "Labels, Filter und benutzerdefinierte Felder",
+        "4": "Kommentare und Aktivitätsverlauf",
+        "5": "Listen-, Board- und Timeline-Ansichten"
+      }
+    },
+    "files": {
+      "name": "Dateien",
+      "tagline": "Cloud-Speicher mit Versionskontrolle.",
+      "description": "Ein gemeinsames Workspace-Laufwerk für jedes Projekt — Dateien jeder Art hochladen, anzeigen, organisieren und gemeinsam bearbeiten.",
+      "features": {
+        "0": "Ordnerhierarchien und Tagging",
+        "1": "Vorschauen für Dokumente, Bilder und Videos",
+        "2": "Versionsverlauf und Wiederherstellung",
+        "3": "Feingranulare Freigabeberechtigungen",
+        "4": "Linkbasiertes Teilen mit Ablaufdatum",
+        "5": "Papierkorb und Wiederherstellung"
+      }
+    },
+    "calendar": {
+      "name": "Kalender",
+      "tagline": "Terminplanung ohne Kopfschmerzen.",
+      "description": "Persönliche und gemeinsame Kalender mit intelligenter Verfügbarkeit, wiederkehrenden Ereignissen und Meeting-Planung.",
+      "features": {
+        "0": "Tages-, Wochen- und Monatsansicht",
+        "1": "Wiederkehrende und ganztägige Termine",
+        "2": "Gemeinsame Team-Kalender",
+        "3": "Meeting-Einladungen und Zusagen",
+        "4": "Verfügbarkeit und Beschäftigt-Status",
+        "5": "Erinnerungen und Benachrichtigungen"
+      }
+    },
+    "notes": {
+      "name": "Notizen",
+      "tagline": "Block-basierte Dokumente für dein Team.",
+      "description": "Dokumentation, Spezifikationen und Wissen schreiben, organisieren und gemeinsam bearbeiten — mit einem leistungsstarken Block-Editor.",
+      "features": {
+        "0": "Block-Editor im Notion-Stil",
+        "1": "Kollaboratives Bearbeiten in Echtzeit",
+        "2": "Erwähnungen und Inline-Einbettungen",
+        "3": "Verschachtelte Seiten und Workspaces",
+        "4": "Vorlagen für gängige Dokumente",
+        "5": "Kommentare und Vorschläge"
+      }
+    },
+    "videoCalls": {
+      "name": "Videoanrufe",
+      "tagline": "HD-Videomeetings, integriert.",
+      "description": "Starte sichere Videoanrufe mit geringer Latenz direkt aus Chat, Kalender oder über einen geteilten Meeting-Link.",
+      "features": {
+        "0": "Einzel- und Gruppenanrufe",
+        "1": "Bildschirmfreigabe und Präsentationsmodus",
+        "2": "Chat und Reaktionen während des Anrufs",
+        "3": "Meeting-Links für externe Gäste",
+        "4": "Hintergrundunschärfe und virtuelle Hintergründe",
+        "5": "Aufzeichnungsunterstützung"
+      }
+    }
+  },
   "cta": {
     "readyToStart": {
       "title": "Ready to get started?",

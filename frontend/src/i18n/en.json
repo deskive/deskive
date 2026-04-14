@@ -5139,6 +5139,87 @@
       }
     }
   },
+  "productDetail": {
+    "keyFeatures": "Key features",
+    "chat": {
+      "name": "Chat",
+      "tagline": "Real-time team messaging.",
+      "description": "Organized conversations with channels, threads, direct messages, mentions, and file sharing — built for teams that move fast.",
+      "features": {
+        "0": "Channels and threaded conversations",
+        "1": "Direct messages and group chats",
+        "2": "Mentions, reactions, and bookmarks",
+        "3": "File attachments and rich media",
+        "4": "Message search across the workspace",
+        "5": "Scheduled messages and reminders"
+      }
+    },
+    "projects": {
+      "name": "Projects",
+      "tagline": "Kanban boards and task management.",
+      "description": "Plan work, track progress, and ship on time with flexible boards, tasks, subtasks, and custom workflows.",
+      "features": {
+        "0": "Kanban boards with drag-and-drop",
+        "1": "Tasks, subtasks, and checklists",
+        "2": "Assignees, due dates, and priorities",
+        "3": "Labels, filters, and custom fields",
+        "4": "Comments and activity history",
+        "5": "List, board, and timeline views"
+      }
+    },
+    "files": {
+      "name": "Files",
+      "tagline": "Cloud storage with version control.",
+      "description": "A shared workspace drive for every project — upload, preview, organize, and collaborate on any file type.",
+      "features": {
+        "0": "Folder hierarchies and tagging",
+        "1": "File previews for docs, images, and video",
+        "2": "Version history and restore",
+        "3": "Granular share permissions",
+        "4": "Link-based sharing with expiry",
+        "5": "Trash and recovery"
+      }
+    },
+    "calendar": {
+      "name": "Calendar",
+      "tagline": "Scheduling without the headache.",
+      "description": "Personal and shared calendars with smart availability, recurring events, and meeting scheduling.",
+      "features": {
+        "0": "Day, week, and month views",
+        "1": "Recurring and all-day events",
+        "2": "Shared team calendars",
+        "3": "Meeting invitations and RSVPs",
+        "4": "Availability and busy-status",
+        "5": "Reminders and notifications"
+      }
+    },
+    "notes": {
+      "name": "Notes",
+      "tagline": "Block-based docs for your team.",
+      "description": "Write, organize, and collaborate on documentation, specs, and knowledge with a powerful block editor.",
+      "features": {
+        "0": "Notion-style block editor",
+        "1": "Real-time collaborative editing",
+        "2": "Mentions and inline embeds",
+        "3": "Nested pages and workspaces",
+        "4": "Templates for common docs",
+        "5": "Comments and suggestions"
+      }
+    },
+    "videoCalls": {
+      "name": "Video Calls",
+      "tagline": "HD video meetings, built in.",
+      "description": "Launch secure, low-latency video calls directly from chat, calendar, or a shared meeting link.",
+      "features": {
+        "0": "One-on-one and group calls",
+        "1": "Screen sharing and presenter mode",
+        "2": "In-call chat and reactions",
+        "3": "Meeting links for external guests",
+        "4": "Background blur and virtual backgrounds",
+        "5": "Recording support"
+      }
+    }
+  },
   "cta": {
     "readyToStart": {
       "title": "Ready to get started?",

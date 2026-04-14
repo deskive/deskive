@@ -268,27 +268,6 @@ const ModernHeader: React.FC = () => {
                       })}
                     </div>
 
-                    {/* Bottom CTA */}
-                    <div className="mt-7 pt-7 border-t border-gray-200 flex items-center justify-between bg-gradient-to-r from-sky-50/50 to-blue-50/50 rounded-xl p-5">
-                      <div>
-                        <h4 className="font-black text-gray-900 mb-1">
-                          <FormattedMessage id="cta.readyToStart.title" />
-                        </h4>
-                        <p className="text-sm text-gray-600 font-medium">
-                          <FormattedMessage id="cta.readyToStart.subtitle" />
-                        </p>
-                      </div>
-                      <Button
-                        onClick={() => {
-                          setShowProductsMenu(false);
-                          handleGetStarted();
-                        }}
-                        className="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:via-sky-700 hover:to-blue-700 text-white font-bold shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 transition-all duration-300 group"
-                      >
-                        {intl.formatMessage({ id: 'navigation.getStarted' })}
-                        <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                      </Button>
-                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -301,26 +280,6 @@ const ModernHeader: React.FC = () => {
               {intl.formatMessage({ id: 'navigation.features' })}
             </button>
 
-            <button
-              onClick={() => handleNavClick('#pricing')}
-              className="text-gray-700 hover:text-gray-900 font-semibold px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 whitespace-nowrap"
-            >
-              {intl.formatMessage({ id: 'navigation.pricing' })}
-            </button>
-
-            <button
-              onClick={() => handleNavClick('/blog')}
-              className="text-gray-700 hover:text-gray-900 font-semibold px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 whitespace-nowrap"
-            >
-              {intl.formatMessage({ id: 'navigation.blog' })}
-            </button>
-
-            <button
-              onClick={() => handleNavClick('/tutorial')}
-              className="text-gray-700 hover:text-gray-900 font-semibold px-3 py-2 rounded-lg hover:bg-gray-50 transition-all duration-200 whitespace-nowrap"
-            >
-              {intl.formatMessage({ id: 'navigation.tutorial', defaultMessage: 'Tutorial' })}
-            </button>
           </nav>
 
           {/* Desktop CTA Buttons / User Profile */}
@@ -385,12 +344,6 @@ const ModernHeader: React.FC = () => {
                 {intl.formatMessage({ id: 'navigation.signIn' })}
               </Button>
               <Button
-                onClick={() => handleNavClick('/downloads')}
-                className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold px-3 xl:px-4 py-2 border-0 rounded-lg shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:scale-105 transition-all duration-300 whitespace-nowrap text-sm"
-              >
-                {intl.formatMessage({ id: 'navigation.download' })}
-              </Button>
-              <Button
                 className="bg-gradient-to-r from-sky-500 via-sky-600 to-blue-600 hover:from-sky-600 hover:via-sky-700 hover:to-blue-700 text-white font-bold px-4 xl:px-5 py-2 border-0 rounded-lg shadow-lg shadow-sky-500/30 hover:shadow-sky-500/50 hover:scale-105 transition-all duration-300 group whitespace-nowrap text-sm"
                 onClick={handleGetStarted}
               >
@@ -421,10 +374,6 @@ const ModernHeader: React.FC = () => {
             {[
               { labelId: 'navigation.home', href: '#home' },
               { labelId: 'navigation.features', href: '#use-cases' },
-              { labelId: 'navigation.pricing', href: '#pricing' },
-              { labelId: 'navigation.download', href: '/downloads' },
-              { labelId: 'navigation.blog', href: '/blog' },
-              { labelId: 'navigation.tutorial', href: '/tutorial' },
             ].map((item) => (
               <button
                 key={item.labelId}
