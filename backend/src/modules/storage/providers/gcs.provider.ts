@@ -62,7 +62,7 @@ export class GcsProvider implements StorageProvider {
       throw new StorageProviderNotConfiguredError('gcs', ['GCS_PROJECT_ID']);
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const sdk = require('@google-cloud/storage');
       this.storageClass = sdk.Storage;
       this.client = new sdk.Storage({
@@ -79,12 +79,7 @@ export class GcsProvider implements StorageProvider {
     }
   }
 
-  async put(
-    bucket: string,
-    key: string,
-    body: Buffer,
-    options?: PutOptions,
-  ): Promise<PutResult> {
+  async put(bucket: string, key: string, body: Buffer, options?: PutOptions): Promise<PutResult> {
     this.loadSdk();
     const file = this.client.bucket(bucket).file(key);
     await file.save(body, {
@@ -135,16 +130,15 @@ export class GcsProvider implements StorageProvider {
     return `https://storage.googleapis.com/${bucket}/${key}`;
   }
 
-  async getSignedUrl(
-    bucket: string,
-    key: string,
-    expiresInSeconds: number,
-  ): Promise<string> {
+  async getSignedUrl(bucket: string, key: string, expiresInSeconds: number): Promise<string> {
     this.loadSdk();
-    const [url] = await this.client.bucket(bucket).file(key).getSignedUrl({
-      action: 'read',
-      expires: Date.now() + expiresInSeconds * 1000,
-    });
+    const [url] = await this.client
+      .bucket(bucket)
+      .file(key)
+      .getSignedUrl({
+        action: 'read',
+        expires: Date.now() + expiresInSeconds * 1000,
+      });
     return url;
   }
 }

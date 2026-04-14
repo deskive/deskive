@@ -31,12 +31,7 @@ import { ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as crypto from 'crypto';
-import {
-  ListedObject,
-  PutOptions,
-  PutResult,
-  StorageProvider,
-} from './storage-provider.interface';
+import { ListedObject, PutOptions, PutResult, StorageProvider } from './storage-provider.interface';
 
 export class LocalFsProvider implements StorageProvider {
   readonly name = 'local-fs' as const;
@@ -47,22 +42,17 @@ export class LocalFsProvider implements StorageProvider {
   private readonly signingKey: string;
 
   constructor(config: ConfigService) {
-    this.basePath = path.resolve(
-      config.get<string>('LOCAL_FS_PATH', './data/uploads'),
-    );
+    this.basePath = path.resolve(config.get<string>('LOCAL_FS_PATH', './data/uploads'));
     this.publicUrlPrefix = config
       .get<string>('LOCAL_FS_PUBLIC_URL', '/uploads')
       .replace(/\/+$/, '');
     this.signingKey =
-      config.get<string>('LOCAL_FS_SIGNING_KEY') ??
-      crypto.randomBytes(32).toString('hex');
+      config.get<string>('LOCAL_FS_SIGNING_KEY') ?? crypto.randomBytes(32).toString('hex');
 
     // Ensure the base directory exists.
     try {
       fs.mkdirSync(this.basePath, { recursive: true });
-      this.logger.log(
-        `LocalFs provider: ${this.basePath} served at ${this.publicUrlPrefix}`,
-      );
+      this.logger.log(`LocalFs provider: ${this.basePath} served at ${this.publicUrlPrefix}`);
     } catch (e: any) {
       this.logger.warn(
         `LocalFs provider: failed to create base path ${this.basePath}: ${e.message}`,
@@ -96,12 +86,7 @@ export class LocalFsProvider implements StorageProvider {
     return joined;
   }
 
-  async put(
-    bucket: string,
-    key: string,
-    body: Buffer,
-    options?: PutOptions,
-  ): Promise<PutResult> {
+  async put(bucket: string, key: string, body: Buffer, options?: PutOptions): Promise<PutResult> {
     const fullPath = this.resolvePath(bucket, key);
     fs.mkdirSync(path.dirname(fullPath), { recursive: true });
     fs.writeFileSync(fullPath, body);
@@ -189,17 +174,10 @@ export class LocalFsProvider implements StorageProvider {
     return `${this.publicUrlPrefix}/${safeBucket}/${key.replace(/^\/+/, '')}`;
   }
 
-  async getSignedUrl(
-    bucket: string,
-    key: string,
-    expiresInSeconds: number,
-  ): Promise<string> {
+  async getSignedUrl(bucket: string, key: string, expiresInSeconds: number): Promise<string> {
     const expiresAt = Math.floor(Date.now() / 1000) + expiresInSeconds;
     const payload = `${bucket}/${key}:${expiresAt}`;
-    const sig = crypto
-      .createHmac('sha256', this.signingKey)
-      .update(payload)
-      .digest('hex');
+    const sig = crypto.createHmac('sha256', this.signingKey).update(payload).digest('hex');
     const base = this.getPublicUrl(bucket, key);
     return `${base}?exp=${expiresAt}&sig=${sig}`;
   }
@@ -208,12 +186,7 @@ export class LocalFsProvider implements StorageProvider {
    * Verify a signed URL. Exposed for the static-serve controller that
    * validates incoming ?exp + ?sig query params before reading the file.
    */
-  verifySignature(
-    bucket: string,
-    key: string,
-    expiresAt: number,
-    sig: string,
-  ): boolean {
+  verifySignature(bucket: string, key: string, expiresAt: number, sig: string): boolean {
     if (Math.floor(Date.now() / 1000) > expiresAt) return false;
     const expected = crypto
       .createHmac('sha256', this.signingKey)
@@ -221,10 +194,7 @@ export class LocalFsProvider implements StorageProvider {
       .digest('hex');
     // Constant-time compare
     try {
-      return crypto.timingSafeEqual(
-        Buffer.from(expected),
-        Buffer.from(sig),
-      );
+      return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(sig));
     } catch {
       return false;
     }

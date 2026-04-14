@@ -68,15 +68,7 @@ export interface ListedObject {
  */
 export interface StorageProvider {
   /** Stable provider name for logging / clients. */
-  readonly name:
-    | 'local-fs'
-    | 's3'
-    | 'r2'
-    | 'minio'
-    | 'b2'
-    | 'gcs'
-    | 'azure'
-    | 'none';
+  readonly name: 'local-fs' | 's3' | 'r2' | 'minio' | 'b2' | 'gcs' | 'azure' | 'none';
 
   /** True if the provider has the credentials it needs to function. */
   isAvailable(): boolean;

@@ -76,11 +76,7 @@ export class StorageService implements OnModuleInit {
     return this.provider.getPublicUrl(bucket, path);
   }
 
-  async createSignedUrl(
-    bucket: string,
-    path: string,
-    expiresIn: number = 3600,
-  ): Promise<string> {
+  async createSignedUrl(bucket: string, path: string, expiresIn: number = 3600): Promise<string> {
     return this.provider.getSignedUrl(bucket, path, expiresIn);
   }
 

@@ -23,11 +23,7 @@ import { NoneStorageProvider } from './none.provider';
 const log = new Logger('StorageProviderFactory');
 
 export function createStorageProvider(config: ConfigService): StorageProvider {
-  let choice = (
-    config.get<string>('STORAGE_PROVIDER') || ''
-  )
-    .toLowerCase()
-    .trim();
+  let choice = (config.get<string>('STORAGE_PROVIDER') || '').toLowerCase().trim();
 
   // Legacy shim: if no STORAGE_PROVIDER but R2 env vars exist, infer r2.
   if (!choice) {

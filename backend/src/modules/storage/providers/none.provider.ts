@@ -61,11 +61,7 @@ export class NoneStorageProvider implements StorageProvider {
   getPublicUrl(_bucket: string, _key: string): string {
     return '';
   }
-  async getSignedUrl(
-    _bucket: string,
-    _key: string,
-    _expiresInSeconds: number,
-  ): Promise<string> {
+  async getSignedUrl(_bucket: string, _key: string, _expiresInSeconds: number): Promise<string> {
     return this.fail('getSignedUrl');
   }
 }

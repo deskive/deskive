@@ -70,8 +70,7 @@ export class S3Provider implements StorageProvider {
     this.logger = new Logger(`S3Provider(${flavor})`);
 
     // Pull STORAGE_* with legacy R2_* fallback for flavor=r2 only.
-    const getS = <T = string>(key: string, def?: T) =>
-      config.get<T>(key, def as T);
+    const getS = <T = string>(key: string, def?: T) => config.get<T>(key, def as T);
 
     this.accessKeyId =
       getS<string>('STORAGE_ACCESS_KEY_ID', '') ||
@@ -85,14 +84,12 @@ export class S3Provider implements StorageProvider {
       (flavor === 'r2' ? getS<string>('R2_PUBLIC_URL') : undefined) ||
       undefined;
     this.forcePathStyle =
-      String(getS<string>('STORAGE_FORCE_PATH_STYLE', 'false')).toLowerCase() ===
-      'true';
+      String(getS<string>('STORAGE_FORCE_PATH_STYLE', 'false')).toLowerCase() === 'true';
 
     // Endpoint resolution per-flavor:
     let endpoint = getS<string>('STORAGE_ENDPOINT') || undefined;
     if (!endpoint && flavor === 'r2') {
-      const accountId =
-        getS<string>('R2_ACCOUNT_ID') || getS<string>('STORAGE_ACCOUNT_ID');
+      const accountId = getS<string>('R2_ACCOUNT_ID') || getS<string>('STORAGE_ACCOUNT_ID');
       if (accountId) {
         endpoint = `https://${accountId}.r2.cloudflarestorage.com`;
       }
@@ -100,9 +97,7 @@ export class S3Provider implements StorageProvider {
     this.endpoint = endpoint;
 
     if (this.isAvailable()) {
-      this.logger.log(
-        `${flavor} configured (endpoint=${this.endpoint ?? '[aws default]'})`,
-      );
+      this.logger.log(`${flavor} configured (endpoint=${this.endpoint ?? '[aws default]'})`);
     } else {
       this.logger.warn(
         `${flavor} selected but credentials missing (STORAGE_ACCESS_KEY_ID / STORAGE_SECRET_ACCESS_KEY)`,
@@ -124,8 +119,7 @@ export class S3Provider implements StorageProvider {
     this.client = new S3Client({
       region: this.region,
       endpoint: this.endpoint,
-      forcePathStyle:
-        this.forcePathStyle || this.name === 'minio' ? true : undefined,
+      forcePathStyle: this.forcePathStyle || this.name === 'minio' ? true : undefined,
       credentials: {
         accessKeyId: this.accessKeyId,
         secretAccessKey: this.secretAccessKey,
@@ -142,12 +136,7 @@ export class S3Provider implements StorageProvider {
     return out;
   }
 
-  async put(
-    bucket: string,
-    key: string,
-    body: Buffer,
-    options?: PutOptions,
-  ): Promise<PutResult> {
+  async put(bucket: string, key: string, body: Buffer, options?: PutOptions): Promise<PutResult> {
     await this.getClient().send(
       new PutObjectCommand({
         Bucket: bucket,
@@ -167,9 +156,7 @@ export class S3Provider implements StorageProvider {
   }
 
   async get(bucket: string, key: string): Promise<Buffer> {
-    const res = await this.getClient().send(
-      new GetObjectCommand({ Bucket: bucket, Key: key }),
-    );
+    const res = await this.getClient().send(new GetObjectCommand({ Bucket: bucket, Key: key }));
     const stream = res.Body as any;
     const chunks: Buffer[] = [];
     for await (const chunk of stream) chunks.push(Buffer.from(chunk));
@@ -177,16 +164,12 @@ export class S3Provider implements StorageProvider {
   }
 
   async delete(bucket: string, key: string): Promise<void> {
-    await this.getClient().send(
-      new DeleteObjectCommand({ Bucket: bucket, Key: key }),
-    );
+    await this.getClient().send(new DeleteObjectCommand({ Bucket: bucket, Key: key }));
   }
 
   async exists(bucket: string, key: string): Promise<boolean> {
     try {
-      await this.getClient().send(
-        new HeadObjectCommand({ Bucket: bucket, Key: key }),
-      );
+      await this.getClient().send(new HeadObjectCommand({ Bucket: bucket, Key: key }));
       return true;
     } catch (e: any) {
       if (e.name === 'NotFound' || e.$metadata?.httpStatusCode === 404) {
@@ -220,11 +203,7 @@ export class S3Provider implements StorageProvider {
     return `https://${bucket}.s3.${this.region}.amazonaws.com/${key}`;
   }
 
-  async getSignedUrl(
-    bucket: string,
-    key: string,
-    expiresInSeconds: number,
-  ): Promise<string> {
+  async getSignedUrl(bucket: string, key: string, expiresInSeconds: number): Promise<string> {
     const command = new GetObjectCommand({ Bucket: bucket, Key: key });
     return getSignedUrl(this.getClient(), command, {
       expiresIn: expiresInSeconds,

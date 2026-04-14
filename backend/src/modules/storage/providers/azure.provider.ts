@@ -32,18 +32,13 @@ export class AzureProvider implements StorageProvider {
   private sharedKeyCredential: any;
 
   constructor(config: ConfigService) {
-    this.connectionString = config.get<string>(
-      'AZURE_STORAGE_CONNECTION_STRING',
-      '',
-    );
+    this.connectionString = config.get<string>('AZURE_STORAGE_CONNECTION_STRING', '');
     this.publicUrl = config.get<string>('STORAGE_PUBLIC_URL');
 
     if (this.isAvailable()) {
       this.logger.log('Azure Blob configured');
     } else {
-      this.logger.warn(
-        'Azure provider selected but AZURE_STORAGE_CONNECTION_STRING missing',
-      );
+      this.logger.warn('Azure provider selected but AZURE_STORAGE_CONNECTION_STRING missing');
     }
   }
 
@@ -54,17 +49,13 @@ export class AzureProvider implements StorageProvider {
   private loadSdk() {
     if (this.sdkLoaded) return;
     if (!this.isAvailable()) {
-      throw new StorageProviderNotConfiguredError('azure', [
-        'AZURE_STORAGE_CONNECTION_STRING',
-      ]);
+      throw new StorageProviderNotConfiguredError('azure', ['AZURE_STORAGE_CONNECTION_STRING']);
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const sdk = require('@azure/storage-blob');
       this.sdk = sdk;
-      this.client = sdk.BlobServiceClient.fromConnectionString(
-        this.connectionString,
-      );
+      this.client = sdk.BlobServiceClient.fromConnectionString(this.connectionString);
       // Pull the StorageSharedKeyCredential out of the connection
       // string so we can sign SAS tokens below. If the connection
       // string uses a SAS token instead of AccountKey, this stays
@@ -72,10 +63,7 @@ export class AzureProvider implements StorageProvider {
       const accountName = /AccountName=([^;]+)/.exec(this.connectionString)?.[1];
       const accountKey = /AccountKey=([^;]+)/.exec(this.connectionString)?.[1];
       if (accountName && accountKey) {
-        this.sharedKeyCredential = new sdk.StorageSharedKeyCredential(
-          accountName,
-          accountKey,
-        );
+        this.sharedKeyCredential = new sdk.StorageSharedKeyCredential(accountName, accountKey);
       }
       this.sdkLoaded = true;
       this.logger.log('@azure/storage-blob loaded');
@@ -87,12 +75,7 @@ export class AzureProvider implements StorageProvider {
     }
   }
 
-  async put(
-    bucket: string,
-    key: string,
-    body: Buffer,
-    options?: PutOptions,
-  ): Promise<PutResult> {
+  async put(bucket: string, key: string, body: Buffer, options?: PutOptions): Promise<PutResult> {
     this.loadSdk();
     const containerClient = this.client.getContainerClient(bucket);
     await containerClient.createIfNotExists();
@@ -119,18 +102,12 @@ export class AzureProvider implements StorageProvider {
 
   async delete(bucket: string, key: string): Promise<void> {
     this.loadSdk();
-    await this.client
-      .getContainerClient(bucket)
-      .getBlobClient(key)
-      .deleteIfExists();
+    await this.client.getContainerClient(bucket).getBlobClient(key).deleteIfExists();
   }
 
   async exists(bucket: string, key: string): Promise<boolean> {
     this.loadSdk();
-    return await this.client
-      .getContainerClient(bucket)
-      .getBlobClient(key)
-      .exists();
+    return await this.client.getContainerClient(bucket).getBlobClient(key).exists();
   }
 
   async list(bucket: string, prefix?: string): Promise<ListedObject[]> {
@@ -157,11 +134,7 @@ export class AzureProvider implements StorageProvider {
     return `https://${account}.blob.core.windows.net/${bucket}/${key}`;
   }
 
-  async getSignedUrl(
-    bucket: string,
-    key: string,
-    expiresInSeconds: number,
-  ): Promise<string> {
+  async getSignedUrl(bucket: string, key: string, expiresInSeconds: number): Promise<string> {
     this.loadSdk();
 
     if (!this.sharedKeyCredential) {
@@ -195,9 +168,7 @@ export class AzureProvider implements StorageProvider {
       .generateBlobSASQueryParameters(sasOptions, this.sharedKeyCredential)
       .toString();
 
-    const blobUrl = this.client
-      .getContainerClient(bucket)
-      .getBlobClient(key).url;
+    const blobUrl = this.client.getContainerClient(bucket).getBlobClient(key).url;
     return `${blobUrl}?${sasToken}`;
   }
 }
