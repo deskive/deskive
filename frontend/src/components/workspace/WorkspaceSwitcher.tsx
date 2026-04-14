@@ -71,8 +71,8 @@ export const WorkspaceSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
 
-  // Fetch subscription for current workspace
-  const { data: subscription } = useSubscription(currentWorkspace?.id || '');
+  // Subscription data (hook not yet implemented)
+  const subscription = undefined as { plan?: string } | undefined;
 
   // Debug logging
   useEffect(() => {
