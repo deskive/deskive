@@ -6,21 +6,9 @@ import { GitHubOAuthService } from './github-oauth.service';
 import { AuthModule } from '../../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
-  controllers: [
-    GitHubController,
-    GitHubOAuthCallbackController,
-  ],
-  providers: [
-    GitHubService,
-    GitHubOAuthService,
-  ],
-  exports: [
-    GitHubService,
-    GitHubOAuthService,
-  ],
+  imports: [ConfigModule, AuthModule],
+  controllers: [GitHubController, GitHubOAuthCallbackController],
+  providers: [GitHubService, GitHubOAuthService],
+  exports: [GitHubService, GitHubOAuthService],
 })
 export class GitHubModule {}

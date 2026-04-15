@@ -20,8 +20,7 @@ import {
   Sparkles,
   User,
   Shield,
-  Bell,
-  CreditCard
+  Bell
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -71,8 +70,8 @@ export const WorkspaceSwitcher: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const intl = useIntl();
 
-  // Fetch subscription for current workspace
-  const { data: subscription } = useSubscription(currentWorkspace?.id || '');
+  // Subscription data (hook not yet implemented)
+  const subscription = undefined as { plan?: string } | undefined;
 
   // Debug logging
   useEffect(() => {
@@ -93,7 +92,7 @@ export const WorkspaceSwitcher: React.FC = () => {
     navigate('/create-workspace');
   };
 
-  const handleQuickAction = (action: 'profile' | 'security' | 'notifications' | 'team' | 'billing' | 'workspace' | 'analytics') => {
+  const handleQuickAction = (action: 'profile' | 'security' | 'notifications' | 'team' | 'workspace' | 'analytics') => {
     if (!currentWorkspace) return;
     setIsOpen(false);
 
@@ -297,13 +296,6 @@ export const WorkspaceSwitcher: React.FC = () => {
                   >
                     <Users className="w-5 h-5 text-muted-foreground" />
                     <span className="text-xs font-medium">{intl.formatMessage({ id: 'sidebar.settings.team', defaultMessage: 'Team' })}</span>
-                  </button>
-                  <button
-                    onClick={() => handleQuickAction('billing')}
-                    className="flex flex-col items-center gap-1 p-3 rounded-lg hover:bg-accent transition-colors"
-                  >
-                    <CreditCard className="w-5 h-5 text-muted-foreground" />
-                    <span className="text-xs font-medium">{intl.formatMessage({ id: 'sidebar.settings.billing', defaultMessage: 'Billing' })}</span>
                   </button>
                   <button
                     onClick={() => handleQuickAction('workspace')}

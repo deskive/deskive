@@ -1,5 +1,18 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsBoolean, IsObject, IsInt, IsUUID, Min, Max, MaxLength, MinLength, ValidateNested } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsBoolean,
+  IsObject,
+  IsInt,
+  IsUUID,
+  Min,
+  Max,
+  MaxLength,
+  MinLength,
+  ValidateNested,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export enum ActionType {
@@ -20,7 +33,10 @@ export enum FailurePolicy {
 
 // Action Config DTOs
 export class SendMessageConfigDto {
-  @ApiProperty({ description: 'Message content (supports {{variables}})', example: 'Hello {{user.name}}!' })
+  @ApiProperty({
+    description: 'Message content (supports {{variables}})',
+    example: 'Hello {{user.name}}!',
+  })
   @IsString()
   @MinLength(1)
   content: string;
@@ -42,7 +58,10 @@ export class SendMessageConfigDto {
 }
 
 export class SendAiMessageConfigDto {
-  @ApiPropertyOptional({ description: 'System prompt for AI', example: 'You are a helpful support assistant.' })
+  @ApiPropertyOptional({
+    description: 'System prompt for AI',
+    example: 'You are a helpful support assistant.',
+  })
   @IsOptional()
   @IsString()
   @MaxLength(2000)
@@ -65,7 +84,10 @@ export class SendAiMessageConfigDto {
   @IsBoolean()
   includeContext?: boolean;
 
-  @ApiPropertyOptional({ description: 'Number of previous messages to include as context', default: 5 })
+  @ApiPropertyOptional({
+    description: 'Number of previous messages to include as context',
+    default: 5,
+  })
   @IsOptional()
   @IsInt()
   @Min(0)
@@ -194,7 +216,10 @@ export class SendEmailConfigDto {
 }
 
 export class AiAutopilotConfigDto {
-  @ApiPropertyOptional({ description: 'Custom system prompt to guide AI behavior', example: 'You are a friendly team assistant. Be concise and helpful.' })
+  @ApiPropertyOptional({
+    description: 'Custom system prompt to guide AI behavior',
+    example: 'You are a friendly team assistant. Be concise and helpful.',
+  })
   @IsOptional()
   @IsString()
   @MaxLength(2000)
@@ -205,7 +230,10 @@ export class AiAutopilotConfigDto {
   @IsBoolean()
   includeContext?: boolean;
 
-  @ApiPropertyOptional({ description: 'Number of previous messages to include as context', default: 10 })
+  @ApiPropertyOptional({
+    description: 'Number of previous messages to include as context',
+    default: 10,
+  })
   @IsOptional()
   @IsInt()
   @Min(0)
@@ -217,7 +245,10 @@ export class AiAutopilotConfigDto {
   @IsBoolean()
   replyToTrigger?: boolean;
 
-  @ApiPropertyOptional({ description: 'Allow AutoPilot to execute actions (create tasks, events, etc.)', default: true })
+  @ApiPropertyOptional({
+    description: 'Allow AutoPilot to execute actions (create tasks, events, etc.)',
+    default: true,
+  })
   @IsOptional()
   @IsBoolean()
   allowActions?: boolean;
@@ -241,7 +272,14 @@ export class CreateActionDto {
 
   @ApiProperty({ description: 'Action configuration (varies by type)' })
   @IsObject()
-  actionConfig: SendMessageConfigDto | SendAiMessageConfigDto | AiAutopilotConfigDto | CreateTaskConfigDto | CreateEventConfigDto | CallWebhookConfigDto | SendEmailConfigDto;
+  actionConfig:
+    | SendMessageConfigDto
+    | SendAiMessageConfigDto
+    | AiAutopilotConfigDto
+    | CreateTaskConfigDto
+    | CreateEventConfigDto
+    | CallWebhookConfigDto
+    | SendEmailConfigDto;
 
   @ApiPropertyOptional({ description: 'Execution order (lower runs first)', default: 0 })
   @IsOptional()
@@ -255,7 +293,11 @@ export class CreateActionDto {
   @IsBoolean()
   isActive?: boolean;
 
-  @ApiPropertyOptional({ enum: FailurePolicy, description: 'What to do if action fails', default: FailurePolicy.CONTINUE })
+  @ApiPropertyOptional({
+    enum: FailurePolicy,
+    description: 'What to do if action fails',
+    default: FailurePolicy.CONTINUE,
+  })
   @IsOptional()
   @IsEnum(FailurePolicy)
   failurePolicy?: FailurePolicy;
@@ -282,7 +324,14 @@ export class UpdateActionDto {
   @ApiPropertyOptional({ description: 'Action configuration' })
   @IsOptional()
   @IsObject()
-  actionConfig?: SendMessageConfigDto | SendAiMessageConfigDto | AiAutopilotConfigDto | CreateTaskConfigDto | CreateEventConfigDto | CallWebhookConfigDto | SendEmailConfigDto;
+  actionConfig?:
+    | SendMessageConfigDto
+    | SendAiMessageConfigDto
+    | AiAutopilotConfigDto
+    | CreateTaskConfigDto
+    | CreateEventConfigDto
+    | CallWebhookConfigDto
+    | SendEmailConfigDto;
 
   @ApiPropertyOptional({ description: 'Execution order' })
   @IsOptional()

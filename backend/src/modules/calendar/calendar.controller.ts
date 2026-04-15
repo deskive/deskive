@@ -32,7 +32,27 @@ import { CalendarAgentService } from './calendar-agent.service';
 import { GoogleCalendarOAuthService } from './google-calendar-oauth.service';
 import { GoogleCalendarSyncService } from './google-calendar-sync.service';
 import { EventBotAssignmentsService } from './event-bot-assignments.service';
-import { CreateEventDto, UpdateEventDto, CreateMeetingRoomDto, CreateEventCategoryDto, UpdateEventCategoryDto, AISchedulingRequestDto, AISchedulingResponseDto, SmartAISchedulingRequestDto, SmartAISchedulingResponseDto, CalendarDashboardStatsDto, CalendarAgentRequestDto, CalendarAgentResponseDto, GoogleCalendarConnectionResponseDto, GoogleCalendarAuthUrlResponseDto, GoogleCalendarSyncResultDto, NativeConnectGoogleCalendarDto, AssignBotToEventDto, UnassignBotFromEventDto, UpdateBotAssignmentDto } from './dto';
+import {
+  CreateEventDto,
+  UpdateEventDto,
+  CreateMeetingRoomDto,
+  CreateEventCategoryDto,
+  UpdateEventCategoryDto,
+  AISchedulingRequestDto,
+  AISchedulingResponseDto,
+  SmartAISchedulingRequestDto,
+  SmartAISchedulingResponseDto,
+  CalendarDashboardStatsDto,
+  CalendarAgentRequestDto,
+  CalendarAgentResponseDto,
+  GoogleCalendarConnectionResponseDto,
+  GoogleCalendarAuthUrlResponseDto,
+  GoogleCalendarSyncResultDto,
+  NativeConnectGoogleCalendarDto,
+  AssignBotToEventDto,
+  UnassignBotFromEventDto,
+  UpdateBotAssignmentDto,
+} from './dto';
 import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
@@ -61,16 +81,21 @@ export class CalendarController {
       fileFilter: (req, file, cb) => {
         // Accept common document and image files
         const allowedMimeTypes = [
-          'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-          'application/pdf', 'application/msword',
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/webp',
+          'application/pdf',
+          'application/msword',
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           'application/vnd.ms-excel',
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           'application/vnd.ms-powerpoint',
           'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-          'text/plain', 'text/csv'
+          'text/plain',
+          'text/csv',
         ];
-        
+
         if (allowedMimeTypes.includes(file.mimetype)) {
           cb(null, true);
         } else {
@@ -99,21 +124,21 @@ export class CalendarController {
         attendees: {
           type: 'array',
           items: { type: 'string' },
-          example: ['john@example.com', 'jane@example.com']
+          example: ['john@example.com', 'jane@example.com'],
         },
         description_file_ids: {
           type: 'array',
           items: { type: 'string' },
           example: ['file-uuid-1', 'file-uuid-2'],
-          description: 'Array of file IDs embedded in the description content'
+          description: 'Array of file IDs embedded in the description content',
         },
         attachments: {
           type: 'array',
           items: { type: 'string', format: 'binary' },
-          description: 'Files to attach to the event'
-        }
-      }
-    }
+          description: 'Files to attach to the event',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 201, description: 'Event created successfully' })
   @ApiResponse({ status: 409, description: 'Room not available' })
@@ -134,13 +159,36 @@ export class CalendarController {
   @ApiQuery({ name: 'end_date', required: false, description: 'End date filter' })
   @ApiQuery({ name: 'search', required: false, description: 'Search query for title, description' })
   @ApiQuery({ name: 'categories', required: false, description: 'Comma-separated category IDs' })
-  @ApiQuery({ name: 'priorities', required: false, description: 'Comma-separated priorities (low,medium,high,urgent)' })
-  @ApiQuery({ name: 'statuses', required: false, description: 'Comma-separated statuses (confirmed,tentative,cancelled,pending)' })
+  @ApiQuery({
+    name: 'priorities',
+    required: false,
+    description: 'Comma-separated priorities (low,medium,high,urgent)',
+  })
+  @ApiQuery({
+    name: 'statuses',
+    required: false,
+    description: 'Comma-separated statuses (confirmed,tentative,cancelled,pending)',
+  })
   @ApiQuery({ name: 'tags', required: false, description: 'Comma-separated tags' })
   @ApiQuery({ name: 'attendees', required: false, description: 'Comma-separated attendee emails' })
-  @ApiQuery({ name: 'show_declined', required: false, description: 'Show declined events', type: Boolean })
-  @ApiQuery({ name: 'show_cancelled', required: false, description: 'Show cancelled events', type: Boolean })
-  @ApiQuery({ name: 'show_private', required: false, description: 'Show private events', type: Boolean })
+  @ApiQuery({
+    name: 'show_declined',
+    required: false,
+    description: 'Show declined events',
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'show_cancelled',
+    required: false,
+    description: 'Show cancelled events',
+    type: Boolean,
+  })
+  @ApiQuery({
+    name: 'show_private',
+    required: false,
+    description: 'Show private events',
+    type: Boolean,
+  })
   @ApiResponse({ status: 200, description: 'List of events' })
   async getEvents(
     @Param('workspaceId') workspaceId: string,
@@ -170,7 +218,13 @@ export class CalendarController {
     };
 
     // Get local events from database
-    const localEvents = await this.calendarService.getEvents(workspaceId, startDate, endDate, userId, filters);
+    const localEvents = await this.calendarService.getEvents(
+      workspaceId,
+      startDate,
+      endDate,
+      userId,
+      filters,
+    );
 
     // Fetch Google Calendar events directly from API (if connected)
     let googleEvents: any[] = [];
@@ -202,7 +256,11 @@ export class CalendarController {
   @Get('upcoming')
   @ApiOperation({ summary: 'Get upcoming events' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'days', required: false, description: 'Number of days to look ahead (default: 7)' })
+  @ApiQuery({
+    name: 'days',
+    required: false,
+    description: 'Number of days to look ahead (default: 7)',
+  })
   @ApiResponse({ status: 200, description: 'List of upcoming events' })
   async getUpcomingEvents(
     @Param('workspaceId') workspaceId: string,
@@ -214,7 +272,12 @@ export class CalendarController {
     const endDate = new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000).toISOString();
 
     // Get local events from database
-    const localEvents = await this.calendarService.getEvents(workspaceId, startDate, endDate, userId);
+    const localEvents = await this.calendarService.getEvents(
+      workspaceId,
+      startDate,
+      endDate,
+      userId,
+    );
 
     // Fetch Google Calendar events directly from API (if connected)
     let googleEvents: any[] = [];
@@ -263,16 +326,21 @@ export class CalendarController {
       fileFilter: (req, file, cb) => {
         // Accept common document and image files
         const allowedMimeTypes = [
-          'image/jpeg', 'image/png', 'image/gif', 'image/webp',
-          'application/pdf', 'application/msword',
+          'image/jpeg',
+          'image/png',
+          'image/gif',
+          'image/webp',
+          'application/pdf',
+          'application/msword',
           'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           'application/vnd.ms-excel',
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
           'application/vnd.ms-powerpoint',
           'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-          'text/plain', 'text/csv'
+          'text/plain',
+          'text/csv',
         ];
-        
+
         if (allowedMimeTypes.includes(file.mimetype)) {
           cb(null, true);
         } else {
@@ -302,21 +370,21 @@ export class CalendarController {
         attendees: {
           type: 'array',
           items: { type: 'string' },
-          example: ['john@example.com', 'jane@example.com', 'bob@example.com']
+          example: ['john@example.com', 'jane@example.com', 'bob@example.com'],
         },
         description_file_ids: {
           type: 'array',
           items: { type: 'string' },
           example: ['file-uuid-1', 'file-uuid-2'],
-          description: 'Array of file IDs embedded in the description content'
+          description: 'Array of file IDs embedded in the description content',
         },
         attachments: {
           type: 'array',
           items: { type: 'string', format: 'binary' },
-          description: 'New files to attach to the event (will be added to existing attachments)'
-        }
-      }
-    }
+          description: 'New files to attach to the event (will be added to existing attachments)',
+        },
+      },
+    },
   })
   @ApiResponse({ status: 200, description: 'Event updated successfully' })
   @ApiResponse({ status: 403, description: 'Permission denied' })
@@ -355,7 +423,10 @@ export class CalendarController {
   @ApiQuery({ name: 'tags', required: false, description: 'Comma-separated tags' })
   @ApiQuery({ name: 'start_date', required: false, description: 'Start date filter' })
   @ApiQuery({ name: 'end_date', required: false, description: 'End date filter' })
-  @ApiResponse({ status: 200, description: 'Search results for events where user is organizer or attendee' })
+  @ApiResponse({
+    status: 200,
+    description: 'Search results for events where user is organizer or attendee',
+  })
   async searchEvents(
     @Param('workspaceId') workspaceId: string,
     @Query('q') query: string,
@@ -374,7 +445,14 @@ export class CalendarController {
       tags: tags ? tags.split(',') : undefined,
     };
 
-    return this.calendarService.searchEvents(workspaceId, query, startDate, endDate, filters, userId);
+    return this.calendarService.searchEvents(
+      workspaceId,
+      query,
+      startDate,
+      endDate,
+      filters,
+      userId,
+    );
   }
 
   @Put('events/:eventId/respond')
@@ -426,10 +504,7 @@ export class CalendarController {
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'roomId', description: 'Room ID' })
   @ApiResponse({ status: 200, description: 'Meeting room details' })
-  async getMeetingRoom(
-    @Param('workspaceId') workspaceId: string,
-    @Param('roomId') roomId: string,
-  ) {
+  async getMeetingRoom(@Param('workspaceId') workspaceId: string, @Param('roomId') roomId: string) {
     return this.calendarService.getMeetingRoom(roomId, workspaceId);
   }
 
@@ -497,9 +572,7 @@ export class CalendarController {
   @ApiOperation({ summary: 'Get all event categories in workspace' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'List of event categories' })
-  async getEventCategories(
-    @Param('workspaceId') workspaceId: string,
-  ) {
+  async getEventCategories(@Param('workspaceId') workspaceId: string) {
     return this.calendarService.getEventCategories(workspaceId);
   }
 
@@ -528,7 +601,12 @@ export class CalendarController {
     @Body() updateEventCategoryDto: UpdateEventCategoryDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.calendarService.updateEventCategory(categoryId, workspaceId, updateEventCategoryDto, userId);
+    return this.calendarService.updateEventCategory(
+      categoryId,
+      workspaceId,
+      updateEventCategoryDto,
+      userId,
+    );
   }
 
   @Delete('categories/:categoryId')
@@ -551,15 +629,16 @@ export class CalendarController {
   // ============================================
 
   @Post('ai/schedule-suggestions')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get AI-powered scheduling suggestions',
-    description: 'Analyze calendar and provide intelligent scheduling recommendations based on availability, preferences, and existing events'
+    description:
+      'Analyze calendar and provide intelligent scheduling recommendations based on availability, preferences, and existing events',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'AI scheduling suggestions generated successfully',
-    type: AISchedulingResponseDto
+    type: AISchedulingResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   @ApiResponse({ status: 500, description: 'AI service temporarily unavailable' })
@@ -572,15 +651,16 @@ export class CalendarController {
   }
 
   @Post('ai/smart-schedule')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Smart AI scheduling with natural language prompts',
-    description: 'Process natural language scheduling requests and provide intelligent suggestions. AI infers missing information and provides comprehensive scheduling recommendations.'
+    description:
+      'Process natural language scheduling requests and provide intelligent suggestions. AI infers missing information and provides comprehensive scheduling recommendations.',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Smart AI scheduling suggestions generated successfully',
-    type: SmartAISchedulingResponseDto
+    type: SmartAISchedulingResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   @ApiResponse({ status: 500, description: 'AI service temporarily unavailable' })
@@ -599,13 +679,14 @@ export class CalendarController {
   @Post('agent')
   @ApiOperation({
     summary: 'Process natural language calendar commands',
-    description: 'AI agent that processes natural language commands to create, update, delete, or search calendar events. Supports commands like "Schedule a meeting tomorrow at 2pm" or "Cancel the team meeting".'
+    description:
+      'AI agent that processes natural language commands to create, update, delete, or search calendar events. Supports commands like "Schedule a meeting tomorrow at 2pm" or "Cancel the team meeting".',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
     status: 200,
     description: 'Calendar agent command processed successfully',
-    type: CalendarAgentResponseDto
+    type: CalendarAgentResponseDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   @ApiResponse({ status: 500, description: 'AI service temporarily unavailable' })
@@ -625,31 +706,32 @@ export class CalendarController {
   // ============================================
 
   @Get('dashboard-stats')
-  @ApiOperation({ 
+  @ApiOperation({
     summary: 'Get comprehensive calendar dashboard statistics',
-    description: 'Returns detailed analytics including overview stats, weekly activity, hourly distribution, category breakdown, priority analysis, and AI-generated insights'
+    description:
+      'Returns detailed analytics including overview stats, weekly activity, hourly distribution, category breakdown, priority analysis, and AI-generated insights',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ 
-    name: 'period', 
-    required: false, 
-    enum: ['today', 'week', 'month', 'last3months', 'year'], 
-    description: 'Time period for statistics (default: week)' 
+  @ApiQuery({
+    name: 'period',
+    required: false,
+    enum: ['today', 'week', 'month', 'last3months', 'year'],
+    description: 'Time period for statistics (default: week)',
   })
-  @ApiQuery({ 
-    name: 'start_date', 
-    required: false, 
-    description: 'Custom start date (ISO format)' 
+  @ApiQuery({
+    name: 'start_date',
+    required: false,
+    description: 'Custom start date (ISO format)',
   })
-  @ApiQuery({ 
-    name: 'end_date', 
-    required: false, 
-    description: 'Custom end date (ISO format)' 
+  @ApiQuery({
+    name: 'end_date',
+    required: false,
+    description: 'Custom end date (ISO format)',
   })
-  @ApiResponse({ 
-    status: 200, 
+  @ApiResponse({
+    status: 200,
     description: 'Calendar dashboard statistics retrieved successfully',
-    type: CalendarDashboardStatsDto
+    type: CalendarDashboardStatsDto,
   })
   @ApiResponse({ status: 400, description: 'Invalid date parameters' })
   @ApiResponse({ status: 500, description: 'Failed to generate statistics' })
@@ -665,7 +747,7 @@ export class CalendarController {
       userId,
       startDate,
       endDate,
-      period
+      period,
     );
   }
 
@@ -676,14 +758,18 @@ export class CalendarController {
   @Get('google/auth-url')
   @ApiOperation({
     summary: 'Get Google Calendar OAuth authorization URL',
-    description: 'Returns the URL to redirect the user to for Google Calendar authorization'
+    description: 'Returns the URL to redirect the user to for Google Calendar authorization',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
-  @ApiQuery({ name: 'returnUrl', required: false, description: 'URL to redirect to after authorization' })
+  @ApiQuery({
+    name: 'returnUrl',
+    required: false,
+    description: 'URL to redirect to after authorization',
+  })
   @ApiResponse({
     status: 200,
     description: 'Authorization URL generated successfully',
-    type: GoogleCalendarAuthUrlResponseDto
+    type: GoogleCalendarAuthUrlResponseDto,
   })
   async getGoogleCalendarAuthUrl(
     @Param('workspaceId') workspaceId: string,
@@ -701,13 +787,13 @@ export class CalendarController {
   @Post('google/connect-native')
   @ApiOperation({
     summary: 'Connect Google Calendar using native mobile sign-in',
-    description: 'Uses server auth code from native Google Sign-In SDK to establish connection'
+    description: 'Uses server auth code from native Google Sign-In SDK to establish connection',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
     status: 200,
     description: 'Google Calendar connected via native sign-in',
-    type: GoogleCalendarConnectionResponseDto
+    type: GoogleCalendarConnectionResponseDto,
   })
   async connectGoogleCalendarNative(
     @Param('workspaceId') workspaceId: string,
@@ -722,7 +808,7 @@ export class CalendarController {
         email: dto.email,
         displayName: dto.displayName,
         photoUrl: dto.photoUrl,
-      }
+      },
     );
     return {
       connected: true,
@@ -733,20 +819,22 @@ export class CalendarController {
   @Get('google/connection')
   @ApiOperation({
     summary: 'Get Google Calendar connection status',
-    description: 'Check if the user has connected their Google Calendar'
+    description: 'Check if the user has connected their Google Calendar',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
     status: 200,
     description: 'Connection status retrieved successfully',
-    type: GoogleCalendarConnectionResponseDto
+    type: GoogleCalendarConnectionResponseDto,
   })
   async getGoogleCalendarConnection(
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ): Promise<GoogleCalendarConnectionResponseDto> {
     try {
-      console.log(`Checking Google Calendar connection for user ${userId} in workspace ${workspaceId}`);
+      console.log(
+        `Checking Google Calendar connection for user ${userId} in workspace ${workspaceId}`,
+      );
       const connection = await this.googleCalendarSyncService.getConnection(userId, workspaceId);
       return {
         connected: !!connection,
@@ -764,13 +852,14 @@ export class CalendarController {
   @Post('google/sync')
   @ApiOperation({
     summary: 'Refresh Google Calendar events',
-    description: 'Events are now fetched directly from Google - this endpoint refreshes the connection status'
+    description:
+      'Events are now fetched directly from Google - this endpoint refreshes the connection status',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({
     status: 200,
     description: 'Sync status refreshed',
-    type: GoogleCalendarSyncResultDto
+    type: GoogleCalendarSyncResultDto,
   })
   @ApiResponse({ status: 404, description: 'Google Calendar not connected' })
   async syncGoogleCalendar(
@@ -790,7 +879,7 @@ export class CalendarController {
   @Delete('google/disconnect')
   @ApiOperation({
     summary: 'Disconnect Google Calendar',
-    description: 'Disconnect Google Calendar and remove synced events'
+    description: 'Disconnect Google Calendar and remove synced events',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Google Calendar disconnected successfully' })
@@ -806,7 +895,7 @@ export class CalendarController {
   @Put('google/calendars')
   @ApiOperation({
     summary: 'Update selected Google Calendars',
-    description: 'Choose which Google Calendars to sync (e.g., primary, holidays, work)'
+    description: 'Choose which Google Calendars to sync (e.g., primary, holidays, work)',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiBody({
@@ -816,11 +905,11 @@ export class CalendarController {
         calendarIds: {
           type: 'array',
           items: { type: 'string' },
-          description: 'Array of Google Calendar IDs to sync'
-        }
+          description: 'Array of Google Calendar IDs to sync',
+        },
       },
-      required: ['calendarIds']
-    }
+      required: ['calendarIds'],
+    },
   })
   @ApiResponse({ status: 200, description: 'Selected calendars updated successfully' })
   @ApiResponse({ status: 404, description: 'Google Calendar not connected' })
@@ -829,13 +918,17 @@ export class CalendarController {
     @CurrentUser('sub') userId: string,
     @Body() body: { calendarIds: string[] },
   ): Promise<any> {
-    return this.googleCalendarSyncService.updateSelectedCalendars(userId, workspaceId, body.calendarIds);
+    return this.googleCalendarSyncService.updateSelectedCalendars(
+      userId,
+      workspaceId,
+      body.calendarIds,
+    );
   }
 
   @Post('google/calendars/refresh')
   @ApiOperation({
     summary: 'Refresh available Google Calendars',
-    description: 'Fetch the latest list of available calendars from Google'
+    description: 'Fetch the latest list of available calendars from Google',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Available calendars refreshed successfully' })
@@ -854,7 +947,8 @@ export class CalendarController {
   @Post('events/:eventId/bots')
   @ApiOperation({
     summary: 'Assign a bot to a calendar event',
-    description: 'Assigns a bot to send reminders, updates, and respond to mentions about the event'
+    description:
+      'Assigns a bot to send reminders, updates, and respond to mentions about the event',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'eventId', description: 'Event ID' })
@@ -867,14 +961,19 @@ export class CalendarController {
     @CurrentUser('sub') userId: string,
     @Body() dto: AssignBotToEventDto,
   ) {
-    const assignment = await this.eventBotAssignmentsService.assignBotToEvent(userId, workspaceId, eventId, dto);
+    const assignment = await this.eventBotAssignmentsService.assignBotToEvent(
+      userId,
+      workspaceId,
+      eventId,
+      dto,
+    );
     return { data: assignment, message: 'Bot assigned to event successfully' };
   }
 
   @Delete('events/:eventId/bots/:botId')
   @ApiOperation({
     summary: 'Unassign a bot from a calendar event',
-    description: 'Removes bot assignment from the event'
+    description: 'Removes bot assignment from the event',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'eventId', description: 'Event ID' })
@@ -896,7 +995,7 @@ export class CalendarController {
   @Patch('events/:eventId/bots/:botId')
   @ApiOperation({
     summary: 'Update bot assignment settings',
-    description: 'Updates the settings or active status of a bot assignment'
+    description: 'Updates the settings or active status of a bot assignment',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'eventId', description: 'Event ID' })
@@ -924,7 +1023,7 @@ export class CalendarController {
   @Get('events/:eventId/bots')
   @ApiOperation({
     summary: 'Get all bots assigned to an event',
-    description: 'Returns a list of bots assigned to the specified event'
+    description: 'Returns a list of bots assigned to the specified event',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'eventId', description: 'Event ID' })
@@ -940,15 +1039,12 @@ export class CalendarController {
   @Get('bots/:botId/events')
   @ApiOperation({
     summary: 'Get all events assigned to a bot',
-    description: 'Returns a list of events that the specified bot is assigned to'
+    description: 'Returns a list of events that the specified bot is assigned to',
   })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiParam({ name: 'botId', description: 'Bot ID' })
   @ApiResponse({ status: 200, description: 'List of events for the bot' })
-  async getEventsForBot(
-    @Param('workspaceId') workspaceId: string,
-    @Param('botId') botId: string,
-  ) {
+  async getEventsForBot(@Param('workspaceId') workspaceId: string, @Param('botId') botId: string) {
     const events = await this.eventBotAssignmentsService.getEventsForBot(workspaceId, botId);
     return { data: events };
   }

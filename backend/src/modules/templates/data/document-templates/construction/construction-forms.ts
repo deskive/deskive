@@ -20,7 +20,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: '\nReport #: ' },
         { insert: '{{report_number}}', attributes: { bold: true } },
         { insert: '\n\nWeather Conditions\n', attributes: { bold: true } },
-        { insert: 'Temperature: {{temperature}}\nConditions: {{weather_conditions}}\nPrecipitation: {{precipitation}}\n\n' },
+        {
+          insert:
+            'Temperature: {{temperature}}\nConditions: {{weather_conditions}}\nPrecipitation: {{precipitation}}\n\n',
+        },
         { insert: 'Workforce\n', attributes: { bold: true } },
         { insert: '{{workforce_details}}\n\n' },
         { insert: 'Equipment on Site\n', attributes: { bold: true } },
@@ -37,7 +40,7 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: '{{safety_observations}}\n\n' },
         { insert: 'Photos/Documentation\n', attributes: { bold: true } },
         { insert: '{{photos}}\n\n' },
-        { insert: 'Tomorrow\'s Plan\n', attributes: { bold: true } },
+        { insert: "Tomorrow's Plan\n", attributes: { bold: true } },
         { insert: '{{tomorrow_plan}}\n\n' },
         { insert: '\nSuperintendent: _______________________  Date: ____________\n' },
       ],
@@ -47,7 +50,13 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'report_date', type: 'date', label: 'Report Date', required: true },
       { key: 'report_number', type: 'text', label: 'Report Number', required: true },
       { key: 'temperature', type: 'text', label: 'Temperature', required: true },
-      { key: 'weather_conditions', type: 'select', label: 'Weather', required: true, options: ['Clear', 'Cloudy', 'Rainy', 'Snow', 'Windy'] },
+      {
+        key: 'weather_conditions',
+        type: 'select',
+        label: 'Weather',
+        required: true,
+        options: ['Clear', 'Cloudy', 'Rainy', 'Snow', 'Windy'],
+      },
       { key: 'precipitation', type: 'text', label: 'Precipitation', required: false },
       { key: 'workforce_details', type: 'textarea', label: 'Workforce Details', required: true },
       { key: 'equipment_list', type: 'textarea', label: 'Equipment List', required: true },
@@ -55,14 +64,28 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'materials_received', type: 'textarea', label: 'Materials Received', required: false },
       { key: 'visitors', type: 'textarea', label: 'Visitors', required: false },
       { key: 'delays_issues', type: 'textarea', label: 'Delays/Issues', required: false },
-      { key: 'safety_observations', type: 'textarea', label: 'Safety Observations', required: false },
+      {
+        key: 'safety_observations',
+        type: 'textarea',
+        label: 'Safety Observations',
+        required: false,
+      },
       { key: 'photos', type: 'textarea', label: 'Photos', required: false },
       { key: 'tomorrow_plan', type: 'textarea', label: 'Tomorrow Plan', required: false },
     ],
     signatureFields: [
-      { id: 'superintendent', label: 'Superintendent', required: true, position: { page: 1, x: 50, y: 700 } },
+      {
+        id: 'superintendent',
+        label: 'Superintendent',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Request for Information (RFI)',
@@ -88,7 +111,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: 'To\n', attributes: { bold: true } },
         { insert: 'Company: {{to_company}}\nContact: {{to_contact}}\n\n' },
         { insert: 'Reference Documents\n', attributes: { bold: true } },
-        { insert: 'Drawing #: {{drawing_number}}\nSpec Section: {{spec_section}}\nDetail: {{detail_reference}}\n\n' },
+        {
+          insert:
+            'Drawing #: {{drawing_number}}\nSpec Section: {{spec_section}}\nDetail: {{detail_reference}}\n\n',
+        },
         { insert: 'Question/Request\n', attributes: { bold: true } },
         { insert: '{{question}}\n\n' },
         { insert: 'Suggested Solution\n', attributes: { bold: true } },
@@ -106,7 +132,13 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
     placeholders: [
       { key: 'rfi_number', type: 'text', label: 'RFI Number', required: true },
       { key: 'date', type: 'date', label: 'Date', required: true },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Critical', 'High', 'Medium', 'Low'] },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Critical', 'High', 'Medium', 'Low'],
+      },
       { key: 'project_name', type: 'text', label: 'Project Name', required: true },
       { key: 'from_company', type: 'text', label: 'From Company', required: true },
       { key: 'from_contact', type: 'text', label: 'From Contact', required: true },
@@ -124,9 +156,18 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
     ],
     signatureFields: [
       { id: 'requester', label: 'Requester', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'responder', label: 'Responder', required: false, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'responder',
+        label: 'Responder',
+        required: false,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Submittal Form',
@@ -148,17 +189,26 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: '{{revision}}', attributes: { bold: true } },
         { insert: '\n\nProject: {{project_name}}\n\n' },
         { insert: 'Submittal Information\n', attributes: { bold: true } },
-        { insert: 'Spec Section: {{spec_section}}\nDescription: {{description}}\nManufacturer: {{manufacturer}}\nModel/Product: {{model_product}}\n\n' },
+        {
+          insert:
+            'Spec Section: {{spec_section}}\nDescription: {{description}}\nManufacturer: {{manufacturer}}\nModel/Product: {{model_product}}\n\n',
+        },
         { insert: 'Contractor Information\n', attributes: { bold: true } },
         { insert: 'Company: {{contractor_name}}\nContact: {{contractor_contact}}\n\n' },
         { insert: 'Attached Documents\n', attributes: { bold: true } },
         { insert: '{{attached_documents}}\n\n' },
         { insert: 'Submittal Type\n', attributes: { bold: true } },
-        { insert: '☐ Shop Drawings\n☐ Product Data\n☐ Samples\n☐ Design Data\n☐ Test Reports\n☐ Certificates\n☐ Manufacturer\'s Instructions\n\n' },
+        {
+          insert:
+            "☐ Shop Drawings\n☐ Product Data\n☐ Samples\n☐ Design Data\n☐ Test Reports\n☐ Certificates\n☐ Manufacturer's Instructions\n\n",
+        },
         { insert: 'Contractor Statement\n', attributes: { bold: true } },
         { insert: '{{contractor_statement}}\n\n' },
         { insert: 'Review Action\n', attributes: { bold: true } },
-        { insert: '☐ Approved\n☐ Approved as Noted\n☐ Revise and Resubmit\n☐ Rejected\n☐ For Information Only\n\n' },
+        {
+          insert:
+            '☐ Approved\n☐ Approved as Noted\n☐ Revise and Resubmit\n☐ Rejected\n☐ For Information Only\n\n',
+        },
         { insert: 'Review Comments\n', attributes: { bold: true } },
         { insert: '{{review_comments}}\n\n' },
         { insert: '\nContractor: _______________________  Date: ____________\n' },
@@ -177,14 +227,33 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'contractor_name', type: 'text', label: 'Contractor Name', required: true },
       { key: 'contractor_contact', type: 'text', label: 'Contractor Contact', required: true },
       { key: 'attached_documents', type: 'textarea', label: 'Attached Documents', required: true },
-      { key: 'contractor_statement', type: 'textarea', label: 'Contractor Statement', required: false },
+      {
+        key: 'contractor_statement',
+        type: 'textarea',
+        label: 'Contractor Statement',
+        required: false,
+      },
       { key: 'review_comments', type: 'textarea', label: 'Review Comments', required: false },
     ],
     signatureFields: [
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'architect', label: 'Architect/Engineer', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'architect',
+        label: 'Architect/Engineer',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Punch List',
@@ -210,7 +279,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: 'Punch List Items\n', attributes: { bold: true } },
         { insert: '{{punch_list_items}}\n\n' },
         { insert: 'Summary\n', attributes: { bold: true } },
-        { insert: 'Total Items: {{total_items}}\nCompleted: {{completed_items}}\nRemaining: {{remaining_items}}\n\n' },
+        {
+          insert:
+            'Total Items: {{total_items}}\nCompleted: {{completed_items}}\nRemaining: {{remaining_items}}\n\n',
+        },
         { insert: 'Target Completion Date: ' },
         { insert: '{{target_date}}', attributes: { bold: true } },
         { insert: '\n\nNotes\n', attributes: { bold: true } },
@@ -223,7 +295,13 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
     placeholders: [
       { key: 'project_name', type: 'text', label: 'Project Name', required: true },
       { key: 'date', type: 'date', label: 'Date', required: true },
-      { key: 'inspection_type', type: 'select', label: 'Inspection Type', required: true, options: ['Substantial Completion', 'Final Completion', 'Warranty'] },
+      {
+        key: 'inspection_type',
+        type: 'select',
+        label: 'Inspection Type',
+        required: true,
+        options: ['Substantial Completion', 'Final Completion', 'Warranty'],
+      },
       { key: 'parties_present', type: 'textarea', label: 'Parties Present', required: true },
       { key: 'area_location', type: 'text', label: 'Area/Location', required: true },
       { key: 'punch_list_items', type: 'textarea', label: 'Punch List Items', required: true },
@@ -234,11 +312,25 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 680 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
       { id: 'owner', label: 'Owner/Rep', required: true, position: { page: 1, x: 50, y: 710 } },
-      { id: 'architect', label: 'Architect', required: false, position: { page: 1, x: 50, y: 740 } },
+      {
+        id: 'architect',
+        label: 'Architect',
+        required: false,
+        position: { page: 1, x: 50, y: 740 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Certificate of Substantial Completion',
@@ -251,14 +343,20 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
     isFeatured: false,
     content: {
       ops: [
-        { insert: 'CERTIFICATE OF SUBSTANTIAL COMPLETION', attributes: { bold: true, size: 'huge' } },
+        {
+          insert: 'CERTIFICATE OF SUBSTANTIAL COMPLETION',
+          attributes: { bold: true, size: 'huge' },
+        },
         { insert: '\n\nCertificate #: ' },
         { insert: '{{certificate_number}}', attributes: { bold: true } },
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProject: {{project_name}}\nProject Address: {{project_address}}\n\n' },
         { insert: 'Parties\n', attributes: { bold: true } },
-        { insert: 'Owner: {{owner_name}}\nContractor: {{contractor_name}}\nArchitect: {{architect_name}}\n\n' },
+        {
+          insert:
+            'Owner: {{owner_name}}\nContractor: {{contractor_name}}\nArchitect: {{architect_name}}\n\n',
+        },
         { insert: 'Contract Information\n', attributes: { bold: true } },
         { insert: 'Contract Date: {{contract_date}}\nContract Sum: {{contract_sum}}\n\n' },
         { insert: 'Date of Substantial Completion: ' },
@@ -268,7 +366,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: 'Punch List Items Remaining\n', attributes: { bold: true } },
         { insert: '{{punch_list}}\n\n' },
         { insert: 'Warranties\n', attributes: { bold: true } },
-        { insert: 'Warranty Start Date: {{warranty_start}}\nWarranty Period: {{warranty_period}}\n\n' },
+        {
+          insert:
+            'Warranty Start Date: {{warranty_start}}\nWarranty Period: {{warranty_period}}\n\n',
+        },
         { insert: 'Responsibilities Transfer\n', attributes: { bold: true } },
         { insert: '{{responsibilities_transfer}}\n\n' },
         { insert: '\nContractor: _______________________  Date: ____________\n' },
@@ -286,19 +387,38 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'architect_name', type: 'text', label: 'Architect Name', required: true },
       { key: 'contract_date', type: 'date', label: 'Contract Date', required: true },
       { key: 'contract_sum', type: 'text', label: 'Contract Sum', required: true },
-      { key: 'substantial_date', type: 'date', label: 'Substantial Completion Date', required: true },
+      {
+        key: 'substantial_date',
+        type: 'date',
+        label: 'Substantial Completion Date',
+        required: true,
+      },
       { key: 'work_included', type: 'textarea', label: 'Work Included', required: true },
       { key: 'punch_list', type: 'textarea', label: 'Punch List', required: false },
       { key: 'warranty_start', type: 'date', label: 'Warranty Start', required: true },
       { key: 'warranty_period', type: 'text', label: 'Warranty Period', required: true },
-      { key: 'responsibilities_transfer', type: 'textarea', label: 'Responsibilities Transfer', required: true },
+      {
+        key: 'responsibilities_transfer',
+        type: 'textarea',
+        label: 'Responsibilities Transfer',
+        required: true,
+      },
     ],
     signatureFields: [
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 680 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
       { id: 'architect', label: 'Architect', required: true, position: { page: 1, x: 50, y: 710 } },
       { id: 'owner', label: 'Owner', required: true, position: { page: 1, x: 50, y: 740 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Application for Payment',
@@ -316,19 +436,34 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: '{{application_number}}', attributes: { bold: true } },
         { insert: '\nPeriod Ending: ' },
         { insert: '{{period_ending}}', attributes: { bold: true } },
-        { insert: '\n\nProject: {{project_name}}\nOwner: {{owner_name}}\nContractor: {{contractor_name}}\nContract #: {{contract_number}}\n\n' },
+        {
+          insert:
+            '\n\nProject: {{project_name}}\nOwner: {{owner_name}}\nContractor: {{contractor_name}}\nContract #: {{contract_number}}\n\n',
+        },
         { insert: 'Contract Summary\n', attributes: { bold: true } },
-        { insert: 'Original Contract Sum: {{original_sum}}\nChange Orders: {{change_orders}}\nCurrent Contract Sum: {{current_sum}}\n\n' },
+        {
+          insert:
+            'Original Contract Sum: {{original_sum}}\nChange Orders: {{change_orders}}\nCurrent Contract Sum: {{current_sum}}\n\n',
+        },
         { insert: 'Work Completed\n', attributes: { bold: true } },
-        { insert: 'Previous Applications: {{previous_applications}}\nThis Period: {{this_period}}\nTotal Completed: {{total_completed}}\nPercent Complete: {{percent_complete}}\n\n' },
+        {
+          insert:
+            'Previous Applications: {{previous_applications}}\nThis Period: {{this_period}}\nTotal Completed: {{total_completed}}\nPercent Complete: {{percent_complete}}\n\n',
+        },
         { insert: 'Payment Calculation\n', attributes: { bold: true } },
-        { insert: 'Total Completed: {{total_completed_value}}\nLess Retainage ({{retainage_percent}}): {{retainage_amount}}\nTotal Less Retainage: {{total_less_retainage}}\nLess Previous Payments: {{previous_payments}}\n\n' },
+        {
+          insert:
+            'Total Completed: {{total_completed_value}}\nLess Retainage ({{retainage_percent}}): {{retainage_amount}}\nTotal Less Retainage: {{total_less_retainage}}\nLess Previous Payments: {{previous_payments}}\n\n',
+        },
         { insert: 'Current Payment Due: ' },
         { insert: '{{current_payment}}', attributes: { bold: true } },
         { insert: '\n\nSchedule of Values (Summary)\n', attributes: { bold: true } },
         { insert: '{{schedule_of_values}}\n\n' },
         { insert: 'Certification\n', attributes: { bold: true } },
-        { insert: 'The undersigned certifies that the work covered by this Application has been completed in accordance with the contract documents.\n\n' },
+        {
+          insert:
+            'The undersigned certifies that the work covered by this Application has been completed in accordance with the contract documents.\n\n',
+        },
         { insert: '\nContractor: _______________________  Date: ____________\n' },
         { insert: 'Architect Approval: _______________________  Date: ____________\n' },
         { insert: 'Owner Approval: _______________________  Date: ____________\n' },
@@ -344,11 +479,21 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'original_sum', type: 'text', label: 'Original Sum', required: true },
       { key: 'change_orders', type: 'text', label: 'Change Orders', required: true },
       { key: 'current_sum', type: 'text', label: 'Current Sum', required: true },
-      { key: 'previous_applications', type: 'text', label: 'Previous Applications', required: true },
+      {
+        key: 'previous_applications',
+        type: 'text',
+        label: 'Previous Applications',
+        required: true,
+      },
       { key: 'this_period', type: 'text', label: 'This Period', required: true },
       { key: 'total_completed', type: 'text', label: 'Total Completed', required: true },
       { key: 'percent_complete', type: 'text', label: 'Percent Complete', required: true },
-      { key: 'total_completed_value', type: 'text', label: 'Total Completed Value', required: true },
+      {
+        key: 'total_completed_value',
+        type: 'text',
+        label: 'Total Completed Value',
+        required: true,
+      },
       { key: 'retainage_percent', type: 'text', label: 'Retainage Percent', required: true },
       { key: 'retainage_amount', type: 'text', label: 'Retainage Amount', required: true },
       { key: 'total_less_retainage', type: 'text', label: 'Total Less Retainage', required: true },
@@ -357,11 +502,20 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'schedule_of_values', type: 'textarea', label: 'Schedule of Values', required: true },
     ],
     signatureFields: [
-      { id: 'contractor', label: 'Contractor', required: true, position: { page: 1, x: 50, y: 680 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: true,
+        position: { page: 1, x: 50, y: 680 },
+      },
       { id: 'architect', label: 'Architect', required: true, position: { page: 1, x: 50, y: 710 } },
       { id: 'owner', label: 'Owner', required: true, position: { page: 1, x: 50, y: 740 } },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Construction Site Safety Plan',
@@ -380,7 +534,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProject Information\n', attributes: { bold: true } },
-        { insert: 'Location: {{project_location}}\nContractor: {{contractor_name}}\nSafety Manager: {{safety_manager}}\nEmergency Contact: {{emergency_contact}}\n\n' },
+        {
+          insert:
+            'Location: {{project_location}}\nContractor: {{contractor_name}}\nSafety Manager: {{safety_manager}}\nEmergency Contact: {{emergency_contact}}\n\n',
+        },
         { insert: 'Scope of Work\n', attributes: { bold: true } },
         { insert: '{{scope_of_work}}\n\n' },
         { insert: 'Hazard Assessment\n', attributes: { bold: true } },
@@ -392,7 +549,10 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
         { insert: 'Emergency Procedures\n', attributes: { bold: true } },
         { insert: '{{emergency_procedures}}\n\n' },
         { insert: 'First Aid\n', attributes: { bold: true } },
-        { insert: 'First Aid Location: {{first_aid_location}}\nNearest Hospital: {{nearest_hospital}}\n\n' },
+        {
+          insert:
+            'First Aid Location: {{first_aid_location}}\nNearest Hospital: {{nearest_hospital}}\n\n',
+        },
         { insert: 'Training Requirements\n', attributes: { bold: true } },
         { insert: '{{training_requirements}}\n\n' },
         { insert: 'Safety Meeting Schedule\n', attributes: { bold: true } },
@@ -412,17 +572,41 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'hazard_assessment', type: 'textarea', label: 'Hazard Assessment', required: true },
       { key: 'required_ppe', type: 'textarea', label: 'Required PPE', required: true },
       { key: 'site_rules', type: 'textarea', label: 'Site Rules', required: true },
-      { key: 'emergency_procedures', type: 'textarea', label: 'Emergency Procedures', required: true },
+      {
+        key: 'emergency_procedures',
+        type: 'textarea',
+        label: 'Emergency Procedures',
+        required: true,
+      },
       { key: 'first_aid_location', type: 'text', label: 'First Aid Location', required: true },
       { key: 'nearest_hospital', type: 'text', label: 'Nearest Hospital', required: true },
-      { key: 'training_requirements', type: 'textarea', label: 'Training Requirements', required: true },
+      {
+        key: 'training_requirements',
+        type: 'textarea',
+        label: 'Training Requirements',
+        required: true,
+      },
       { key: 'meeting_schedule', type: 'textarea', label: 'Meeting Schedule', required: true },
     ],
     signatureFields: [
-      { id: 'prepared_by', label: 'Prepared By', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'project_manager', label: 'Project Manager', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'prepared_by',
+        label: 'Prepared By',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'project_manager',
+        label: 'Project Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Field Work Order',
@@ -469,18 +653,44 @@ export const CONSTRUCTION_FORMS_TEMPLATES = [
       { key: 'requested_by', type: 'text', label: 'Requested By', required: true },
       { key: 'assigned_to', type: 'text', label: 'Assigned To', required: true },
       { key: 'work_description', type: 'textarea', label: 'Work Description', required: true },
-      { key: 'priority', type: 'select', label: 'Priority', required: true, options: ['Emergency', 'High', 'Normal', 'Low'] },
+      {
+        key: 'priority',
+        type: 'select',
+        label: 'Priority',
+        required: true,
+        options: ['Emergency', 'High', 'Normal', 'Low'],
+      },
       { key: 'materials_required', type: 'textarea', label: 'Materials Required', required: false },
       { key: 'equipment_required', type: 'textarea', label: 'Equipment Required', required: false },
       { key: 'estimated_hours', type: 'number', label: 'Estimated Hours', required: true },
       { key: 'actual_hours', type: 'number', label: 'Actual Hours', required: false },
       { key: 'work_completed', type: 'textarea', label: 'Work Completed', required: false },
-      { key: 'status', type: 'select', label: 'Status', required: true, options: ['Open', 'In Progress', 'On Hold', 'Completed'] },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Status',
+        required: true,
+        options: ['Open', 'In Progress', 'On Hold', 'Completed'],
+      },
     ],
     signatureFields: [
-      { id: 'assigned_by', label: 'Assigned By', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'completed_by', label: 'Completed By', required: false, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'assigned_by',
+        label: 'Assigned By',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'completed_by',
+        label: 'Completed By',
+        required: false,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

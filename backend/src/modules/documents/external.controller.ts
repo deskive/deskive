@@ -1,19 +1,5 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Param,
-  Body,
-  Req,
-  HttpCode,
-  HttpStatus,
-} from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-} from '@nestjs/swagger';
+import { Controller, Get, Post, Param, Body, Req, HttpCode, HttpStatus } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam } from '@nestjs/swagger';
 import { DocumentsService } from './documents.service';
 import { SignDocumentDto, DeclineDocumentDto } from './dto';
 import { Request } from 'express';
@@ -58,7 +44,8 @@ export class ExternalDocumentsController {
   @ApiParam({ name: 'accessToken', description: 'Recipient access token' })
   @ApiResponse({ status: 200, description: 'Preview retrieved successfully' })
   async getPreview(@Param('accessToken') accessToken: string) {
-    const { document, recipient } = await this.documentsService.getDocumentByAccessToken(accessToken);
+    const { document, recipient } =
+      await this.documentsService.getDocumentByAccessToken(accessToken);
 
     // Generate preview HTML
     const html = await this.documentsService.getPreview(document.workspaceId, document.id);
@@ -89,11 +76,7 @@ export class ExternalDocumentsController {
     // Get IP address
     const ipAddress = this.getClientIp(req);
 
-    const signature = await this.documentsService.submitSignature(
-      recipient.id,
-      dto,
-      ipAddress,
-    );
+    const signature = await this.documentsService.submitSignature(recipient.id, dto, ipAddress);
 
     return {
       data: signature,

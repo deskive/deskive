@@ -14,7 +14,17 @@ export class TabArrangementDto {
 
   @ApiProperty({
     description: 'Tab IDs in More menu (ordered)',
-    example: ['calendar', 'video_calls', 'files', 'email', 'search', 'connectors', 'tools', 'bots', 'settings'],
+    example: [
+      'calendar',
+      'video_calls',
+      'files',
+      'email',
+      'search',
+      'connectors',
+      'tools',
+      'bots',
+      'settings',
+    ],
     type: [String],
   })
   @IsArray()
@@ -44,7 +54,17 @@ export class UpdateTabArrangementDto {
 
   @ApiProperty({
     description: 'Tab IDs in More menu (ordered)',
-    example: ['calendar', 'video_calls', 'files', 'email', 'search', 'connectors', 'tools', 'bots', 'settings'],
+    example: [
+      'calendar',
+      'video_calls',
+      'files',
+      'email',
+      'search',
+      'connectors',
+      'tools',
+      'bots',
+      'settings',
+    ],
     type: [String],
   })
   @IsArray()

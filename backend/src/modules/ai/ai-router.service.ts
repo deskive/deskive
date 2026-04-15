@@ -61,10 +61,7 @@ export class AIRouterService {
    * Main entry point for the AI Router
    * Uses AI to intelligently determine which agent should handle the request
    */
-  async processCommand(
-    request: RouterAgentRequest,
-    userId: string,
-  ): Promise<RouterAgentResponse> {
+  async processCommand(request: RouterAgentRequest, userId: string): Promise<RouterAgentResponse> {
     const { prompt, workspaceId, currentView, projectId } = request;
 
     this.logger.log(
@@ -210,7 +207,14 @@ Respond with ONLY a valid JSON object (no markdown, no explanation):
         const parsed = JSON.parse(cleanResponse);
 
         // Validate agent type
-        const validAgents: AgentType[] = ['projects', 'tasks', 'notes', 'calendar', 'files', 'chat'];
+        const validAgents: AgentType[] = [
+          'projects',
+          'tasks',
+          'notes',
+          'calendar',
+          'files',
+          'chat',
+        ];
         if (!validAgents.includes(parsed.agent)) {
           this.logger.warn(`[AIRouter] Invalid agent from AI: ${parsed.agent}, defaulting to chat`);
           parsed.agent = 'chat';
@@ -261,7 +265,8 @@ Respond with ONLY a valid JSON object (no markdown, no explanation):
       lowerPrompt.includes('download') ||
       lowerPrompt.includes('storage') ||
       lowerPrompt.includes('directory') ||
-      (lowerPrompt.includes('document') && (lowerPrompt.includes('folder') || lowerPrompt.includes('organize')))
+      (lowerPrompt.includes('document') &&
+        (lowerPrompt.includes('folder') || lowerPrompt.includes('organize')))
     ) {
       return { agent: 'files', confidence: 80, reasoning: 'Files/folder keywords detected' };
     }
@@ -303,11 +308,11 @@ Respond with ONLY a valid JSON object (no markdown, no explanation):
     // Use current view as hint
     if (currentView) {
       const viewToAgent: Record<string, AgentType> = {
-        'projects': 'projects',
-        'notes': 'notes',
-        'calendar': 'calendar',
-        'files': 'files',
-        'chat': 'chat',
+        projects: 'projects',
+        notes: 'notes',
+        calendar: 'calendar',
+        files: 'files',
+        chat: 'chat',
       };
       if (viewToAgent[currentView]) {
         return {
@@ -319,7 +324,11 @@ Respond with ONLY a valid JSON object (no markdown, no explanation):
     }
 
     // Default to chat
-    return { agent: 'chat', confidence: 50, reasoning: 'No specific domain detected, using general chat' };
+    return {
+      agent: 'chat',
+      confidence: 50,
+      reasoning: 'No specific domain detected, using general chat',
+    };
   }
 
   /**
@@ -418,13 +427,10 @@ The user has access to:
 
 Provide helpful, concise responses. If the user seems to want to perform an action, guide them on how to phrase their request more specifically.`;
 
-      const response = await this.aiProvider.generateText(
-        `${systemPrompt}\n\nUser: ${prompt}`,
-        {
-          maxTokens: 500,
-          temperature: 0.7,
-        },
-      );
+      const response = await this.aiProvider.generateText(`${systemPrompt}\n\nUser: ${prompt}`, {
+        maxTokens: 500,
+        temperature: 0.7,
+      });
 
       return {
         success: true,
@@ -467,7 +473,9 @@ Just describe what you'd like to do in natural language!`,
         5,
       );
     } catch (error) {
-      this.logger.warn(`[AIRouter] Could not fetch conversation history: ${(error as Error).message}`);
+      this.logger.warn(
+        `[AIRouter] Could not fetch conversation history: ${(error as Error).message}`,
+      );
       return [];
     }
   }

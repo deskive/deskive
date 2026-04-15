@@ -87,7 +87,9 @@ QVBQZqNBqZWPRlNqNQVXBQMQRMQlQNQVBQZqNBqZWPRlNqNQCgYEA7Z3VS5JJcds
     it('should generate GitHub App installation URL', () => {
       const result = service.getAuthorizationUrl('user-123', 'workspace-456');
 
-      expect(result.authorizationUrl).toContain('https://github.com/apps/mock-github-app-slug/installations/new');
+      expect(result.authorizationUrl).toContain(
+        'https://github.com/apps/mock-github-app-slug/installations/new',
+      );
       expect(result.authorizationUrl).toContain('state=');
       expect(result.state).toBeDefined();
     });
@@ -115,11 +117,9 @@ QVBQZqNBqZWPRlNqNQVXBQMQRMQlQNQVBQZqNBqZWPRlNqNQCgYEA7Z3VS5JJcds
     });
 
     it('should handle unauthorized error', async () => {
-      nock('https://api.github.com')
-        .post('/app/installations/12345/access_tokens')
-        .reply(401, {
-          message: 'Bad credentials',
-        });
+      nock('https://api.github.com').post('/app/installations/12345/access_tokens').reply(401, {
+        message: 'Bad credentials',
+      });
 
       await expect(service.getInstallationAccessToken(12345)).rejects.toThrow();
     });

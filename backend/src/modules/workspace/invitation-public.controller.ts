@@ -9,13 +9,7 @@ import {
   UseGuards,
   Request,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiParam,
-  ApiBearerAuth,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { WorkspaceInvitationService } from './workspace-invitation.service';
 
@@ -26,9 +20,7 @@ import { WorkspaceInvitationService } from './workspace-invitation.service';
 @ApiTags('Invitations (Public)')
 @Controller('invitations')
 export class InvitationPublicController {
-  constructor(
-    private readonly invitationService: WorkspaceInvitationService,
-  ) {}
+  constructor(private readonly invitationService: WorkspaceInvitationService) {}
 
   /**
    * Get invitation details by token (PUBLIC - no auth required)
@@ -89,10 +81,7 @@ export class InvitationPublicController {
     type: String,
     description: 'Unique invitation token',
   })
-  async acceptInvitation(
-    @Param('token') token: string,
-    @Request() req: any,
-  ): Promise<any> {
+  async acceptInvitation(@Param('token') token: string, @Request() req: any): Promise<any> {
     // Get user ID from JWT token (support both sub and userId for compatibility)
     const userId = req.user.sub || req.user.userId;
 
@@ -129,9 +118,7 @@ export class InvitationPublicController {
     type: String,
     description: 'Unique invitation token',
   })
-  async declineInvitation(
-    @Param('token') token: string,
-  ): Promise<{ message: string }> {
+  async declineInvitation(@Param('token') token: string): Promise<{ message: string }> {
     await this.invitationService.declineInvitation(token);
     return { message: 'Invitation declined' };
   }

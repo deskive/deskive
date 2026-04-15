@@ -1,5 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsArray, IsInt, Min, Max, IsDateString, IsBoolean } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsArray,
+  IsInt,
+  Min,
+  Max,
+  IsDateString,
+  IsBoolean,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 
 export class SearchQueryDto {
@@ -7,18 +16,27 @@ export class SearchQueryDto {
   @IsString()
   query: string;
 
-  @ApiProperty({ description: 'Content types to search', example: ['notes', 'files', 'messages'], required: false })
+  @ApiProperty({
+    description: 'Content types to search',
+    example: ['notes', 'files', 'messages'],
+    required: false,
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })
   @Transform(({ value }) => {
     // Handle comma-separated string
     if (typeof value === 'string') {
-      return value.split(',').map(v => v.trim()).filter(v => v.length > 0);
+      return value
+        .split(',')
+        .map((v) => v.trim())
+        .filter((v) => v.length > 0);
     }
     // Handle array input (from query params like types[]=notes&types[]=files)
     if (Array.isArray(value)) {
-      return value.map(v => typeof v === 'string' ? v.trim() : v).filter(v => v && v.length > 0);
+      return value
+        .map((v) => (typeof v === 'string' ? v.trim() : v))
+        .filter((v) => v && v.length > 0);
     }
     return value;
   })

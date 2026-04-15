@@ -6,18 +6,9 @@ import { GoogleDriveOAuthService } from './google-drive-oauth.service';
 import { AuthModule } from '../../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [GoogleDriveController],
-  providers: [
-    GoogleDriveService,
-    GoogleDriveOAuthService,
-  ],
-  exports: [
-    GoogleDriveService,
-    GoogleDriveOAuthService,
-  ],
+  providers: [GoogleDriveService, GoogleDriveOAuthService],
+  exports: [GoogleDriveService, GoogleDriveOAuthService],
 })
 export class GoogleDriveModule {}

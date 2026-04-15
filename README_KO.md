@@ -300,6 +300,25 @@ Deskive는 다음 카테고리에 걸쳐 40개 이상의 통합 모듈을 제공
 
 [상세 기능 문서 보기 &rarr;](https://github.com/deskive/deskive/wiki)
 
+## 플러그형 프로바이더
+
+모든 백엔드 서비스는 단일 환경 변수로 교체할 수 있습니다. 기본 설정에서는 클라우드 자격 증명 없이 Deskive를 실행할 수 있으며, 준비가 되면 관리형 프로바이더로 전환하세요.
+
+| 도메인 | 환경 변수 | 제공되는 프로바이더 |
+|---|---|---|
+| **스토리지** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs` (기본값), `s3`, `r2`, `minio`, `b2`, `gcs`, `azure`, `none` |
+| **이메일** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`, `resend`, `sendgrid`, `postmark`, `ses`, `mailgun`, `none` |
+| **푸시** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`, `fcm`, `onesignal`, `expo`, `none` |
+| **검색** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm` (기본값, 추가 인프라 불필요), `meilisearch`, `typesense`, `none` |
+| **인증 / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`, `google`, `github`, `magic-link` (비밀번호 없는, JWT 기반) |
+| **비디오** | `VIDEO_PROVIDER` | `livekit`, `jitsi`, `daily`, `agora`, `whereby`, `none` |
+| **AI** | `AI_PROVIDER` | `openai`, `anthropic`, `gemini`, `groq`, `ollama` (로컬) |
+
+- **키워드 검색과 시맨틱 검색이 공존합니다.** `SearchProviderService`는 트라이그램/패싯 키워드 검색을 처리하고, `SearchService`는 계속해서 Qdrant 벡터/시맨틱 검색을 담당합니다.
+- **선택적 SDK는 지연 로드됩니다** — `@azure/storage-blob`, `@google-cloud/storage`, `firebase-admin`, `livekit-server-sdk`, `agora-token`은 `optionalDependencies`이므로 `local-fs` / `smtp` / `webpush` / `pg-trgm`을 선택해도 설치 비용이 전혀 들지 않습니다.
+- **스모크 테스트**가 각 어댑터와 함께 제공됩니다 (`backend/scripts/smoke-test-*-providers.ts`) — 스토리지 / 이메일 / 푸시 / 검색 / 인증에서 각각 27 / 45 / 61 / 55 / 37개의 어설션이 있으며 모두 통과합니다.
+- **전체 문서:** 프로바이더별 환경 변수와 설정은 `backend/docs/providers/`를 참조하세요.
+
 ## 국제화
 
 Deskive는 react-i18next를 통해 여러 언어를 지원합니다:

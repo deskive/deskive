@@ -44,7 +44,7 @@ interface deskiveAnalyticsProps {
  * }
  * ```
  */
-export const deskiveAnalytics: React.FC<deskiveAnalyticsProps> = ({ debug = false }) => {
+export const DeskiveAnalytics: React.FC<deskiveAnalyticsProps> = ({ debug = false }) => {
   useEffect(() => {
     // Skip if API key is not configured
     if (!isAnalyticsEnabled()) {
@@ -142,4 +142,4 @@ export const usedeskiveAnalytics = () => {
   return window.deskive || null;
 };
 
-export default deskiveAnalytics;
+export default DeskiveAnalytics;

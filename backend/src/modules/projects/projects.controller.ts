@@ -10,13 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiBearerAuth,
-  ApiResponse,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse, ApiQuery } from '@nestjs/swagger';
 import { ProjectsService } from './projects.service';
 import { ProjectAgentService } from './project-agent.service';
 import { TaskAgentService, TaskAgentRequest } from './task-agent.service';
@@ -34,7 +28,7 @@ import {
   CreateCustomFieldDto,
   UpdateCustomFieldDto,
   ReorderCustomFieldsDto,
-  AddSelectOptionDto
+  AddSelectOptionDto,
 } from './dto';
 
 @ApiTags('projects')
@@ -61,11 +55,7 @@ export class ProjectsController {
     @Body() createProjectDto: CreateProjectDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.create(
-      workspaceId,
-      createProjectDto,
-      userId,
-    );
+    return this.projectsService.create(workspaceId, createProjectDto, userId);
   }
 
   // ==================== UNIFIED AI AGENT ENDPOINT (RECOMMENDED) ====================
@@ -73,7 +63,8 @@ export class ProjectsController {
   @Post('ai')
   @ApiOperation({
     summary: 'Unified AI assistant that intelligently routes to project or task operations',
-    description: 'This is the recommended endpoint for AI interactions. It automatically determines whether you want to work with projects or tasks based on your natural language input.',
+    description:
+      'This is the recommended endpoint for AI interactions. It automatically determines whether you want to work with projects or tasks based on your natural language input.',
   })
   @ApiResponse({
     status: 200,
@@ -101,7 +92,9 @@ export class ProjectsController {
   // ==================== PROJECT AGENT ENDPOINT (LEGACY) ====================
 
   @Post('agent')
-  @ApiOperation({ summary: 'Process natural language command for projects (use /ai endpoint instead)' })
+  @ApiOperation({
+    summary: 'Process natural language command for projects (use /ai endpoint instead)',
+  })
   @ApiResponse({
     status: 200,
     description: 'The AI agent has processed the command.',
@@ -156,7 +149,11 @@ export class ProjectsController {
 
   @Get('agent/history')
   @ApiOperation({ summary: 'Get conversation history for project agent' })
-  @ApiQuery({ name: 'limit', required: false, description: 'Number of messages to retrieve (default: 20)' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of messages to retrieve (default: 20)',
+  })
   @ApiResponse({
     status: 200,
     description: 'Returns the conversation history.',
@@ -167,17 +164,17 @@ export class ProjectsController {
     @Query('limit') limit?: string,
   ) {
     const messageLimit = limit ? parseInt(limit, 10) : 20;
-    return this.conversationMemoryService.getRecentHistory(
-      workspaceId,
-      userId,
-      messageLimit,
-    );
+    return this.conversationMemoryService.getRecentHistory(workspaceId, userId, messageLimit);
   }
 
   @Get('agent/history/search')
   @ApiOperation({ summary: 'Search conversation history semantically' })
   @ApiQuery({ name: 'query', required: true, description: 'Search query for semantic matching' })
-  @ApiQuery({ name: 'limit', required: false, description: 'Number of results to return (default: 10)' })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    description: 'Number of results to return (default: 10)',
+  })
   @ApiResponse({
     status: 200,
     description: 'Returns semantically matched conversation history.',
@@ -207,10 +204,7 @@ export class ProjectsController {
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    const success = await this.conversationMemoryService.deleteUserHistory(
-      workspaceId,
-      userId,
-    );
+    const success = await this.conversationMemoryService.deleteUserHistory(workspaceId, userId);
     return {
       success,
       message: success
@@ -229,10 +223,7 @@ export class ProjectsController {
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.conversationMemoryService.getConversationStats(
-      workspaceId,
-      userId,
-    );
+    return this.conversationMemoryService.getConversationStats(workspaceId, userId);
   }
 
   @Get()
@@ -265,11 +256,11 @@ export class ProjectsController {
     @Query('status') status?: string,
     @Query('limit') limit?: string,
   ) {
-    return this.projectsService.getAllWorkspaceTasks(
-      workspaceId,
-      userId,
-      { search, status, limit: limit ? parseInt(limit, 10) : undefined },
-    );
+    return this.projectsService.getAllWorkspaceTasks(workspaceId, userId, {
+      search,
+      status,
+      limit: limit ? parseInt(limit, 10) : undefined,
+    });
   }
 
   @Get(':id')
@@ -297,11 +288,7 @@ export class ProjectsController {
     @Body() updateProjectDto: UpdateProjectDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.update(
-      id,
-      updateProjectDto,
-      userId,
-    );
+    return this.projectsService.update(id, updateProjectDto, userId);
   }
 
   @Delete(':id')
@@ -323,7 +310,7 @@ export class ProjectsController {
   @ApiOperation({ summary: 'Get all members of a project' })
   @ApiResponse({
     status: 200,
-    description: 'Return all members of the project with their details.'
+    description: 'Return all members of the project with their details.',
   })
   @ApiResponse({ status: 404, description: 'Project not found.' })
   @ApiResponse({ status: 403, description: 'Access denied.' })
@@ -348,12 +335,7 @@ export class ProjectsController {
     @CurrentUser('sub') userId: string,
     @Query() query: any,
   ) {
-    return this.projectsService.getTasks(
-      projectId,
-      userId,
-      query.sprintId,
-      query.status,
-    );
+    return this.projectsService.getTasks(projectId, userId, query.sprintId, query.status);
   }
 
   @Post(':projectId/tasks')
@@ -368,11 +350,7 @@ export class ProjectsController {
     @Body() createTaskDto: CreateTaskDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.createTask(
-      projectId,
-      createTaskDto,
-      userId,
-    );
+    return this.projectsService.createTask(projectId, createTaskDto, userId);
   }
 
   @Get('tasks/:taskId')
@@ -400,11 +378,7 @@ export class ProjectsController {
     @Body() updateTaskDto: any,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.updateTask(
-      taskId,
-      updateTaskDto,
-      userId,
-    );
+    return this.projectsService.updateTask(taskId, updateTaskDto, userId);
   }
 
   @Delete('tasks/:taskId')
@@ -447,11 +421,7 @@ export class ProjectsController {
     @Body() createCustomFieldDto: CreateCustomFieldDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.createCustomField(
-      projectId,
-      createCustomFieldDto,
-      userId,
-    );
+    return this.projectsService.createCustomField(projectId, createCustomFieldDto, userId);
   }
 
   @Patch('custom-fields/:fieldId')
@@ -467,11 +437,7 @@ export class ProjectsController {
     @Body() updateCustomFieldDto: UpdateCustomFieldDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.updateCustomField(
-      fieldId,
-      updateCustomFieldDto,
-      userId,
-    );
+    return this.projectsService.updateCustomField(fieldId, updateCustomFieldDto, userId);
   }
 
   @Delete('custom-fields/:fieldId')
@@ -501,11 +467,7 @@ export class ProjectsController {
     @Body() reorderDto: ReorderCustomFieldsDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.reorderCustomFields(
-      projectId,
-      reorderDto.fieldIds,
-      userId,
-    );
+    return this.projectsService.reorderCustomFields(projectId, reorderDto.fieldIds, userId);
   }
 
   @Post('custom-fields/:fieldId/options')
@@ -520,10 +482,6 @@ export class ProjectsController {
     @Body() addOptionDto: AddSelectOptionDto,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.projectsService.addSelectOption(
-      fieldId,
-      addOptionDto,
-      userId,
-    );
+    return this.projectsService.addSelectOption(fieldId, addOptionDto, userId);
   }
 }

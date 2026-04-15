@@ -4,9 +4,10 @@ import { SemanticSearchService } from './semantic-search.service';
 import { ContentIndexerService } from './content-indexer.service';
 import { SearchController } from './search.controller';
 import { AuthModule } from '../auth/auth.module';
+import { SearchProviderModule } from '../search-provider/search-provider.module';
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, SearchProviderModule],
   controllers: [SearchController],
   providers: [SearchService, SemanticSearchService, ContentIndexerService],
   exports: [SearchService, SemanticSearchService, ContentIndexerService],

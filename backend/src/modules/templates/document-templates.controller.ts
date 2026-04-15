@@ -147,10 +147,7 @@ export class DocumentTemplatesController {
     status: 404,
     description: 'Template not found',
   })
-  async findOne(
-    @Param('workspaceId') workspaceId: string,
-    @Param('idOrSlug') idOrSlug: string,
-  ) {
+  async findOne(@Param('workspaceId') workspaceId: string, @Param('idOrSlug') idOrSlug: string) {
     const template = await this.documentTemplatesService.findOne(workspaceId, idOrSlug);
     return { data: template };
   }

@@ -48,42 +48,41 @@ export class EventBotReminderService implements OnModuleInit {
         .where('status', '!=', 'cancelled')
         .execute();
 
-      const events = Array.isArray(eventsResult) ? eventsResult : (eventsResult.data || []);
+      const events = Array.isArray(eventsResult) ? eventsResult : eventsResult.data || [];
 
       if (events.length === 0) {
         return;
       }
 
       // Get bot assignments for these events
-      const eventIds = events.map(e => e.id);
+      const eventIds = events.map((e) => e.id);
       const assignmentsResult = await this.db
         .table('event_bot_assignments')
         .select('*')
         .where('is_active', '=', true)
         .execute();
 
-      const allAssignments = Array.isArray(assignmentsResult) ? assignmentsResult : (assignmentsResult.data || []);
-      const assignments = allAssignments.filter(a => eventIds.includes(a.event_id));
+      const allAssignments = Array.isArray(assignmentsResult)
+        ? assignmentsResult
+        : assignmentsResult.data || [];
+      const assignments = allAssignments.filter((a) => eventIds.includes(a.event_id));
 
       if (assignments.length === 0) {
         return;
       }
 
       // Get bot details
-      const botIds = [...new Set(assignments.map(a => a.bot_id))];
-      const botsResult = await this.db
-        .table('bots')
-        .select('*')
-        .execute();
+      const botIds = [...new Set(assignments.map((a) => a.bot_id))];
+      const botsResult = await this.db.table('bots').select('*').execute();
 
-      const allBots = Array.isArray(botsResult) ? botsResult : (botsResult.data || []);
-      const bots = allBots.filter(b => botIds.includes(b.id));
-      const botMap = new Map(bots.map(b => [b.id, b]));
+      const allBots = Array.isArray(botsResult) ? botsResult : botsResult.data || [];
+      const bots = allBots.filter((b) => botIds.includes(b.id));
+      const botMap = new Map(bots.map((b) => [b.id, b]));
 
       // Merge data
       const upcomingEvents = events
-        .map(event => {
-          const assignment = assignments.find(a => a.event_id === event.id);
+        .map((event) => {
+          const assignment = assignments.find((a) => a.event_id === event.id);
           if (!assignment) return null;
 
           const bot: any = botMap.get(assignment.bot_id);
@@ -98,7 +97,7 @@ export class EventBotReminderService implements OnModuleInit {
             bot_display_name: bot.display_name,
           };
         })
-        .filter(e => e !== null);
+        .filter((e) => e !== null);
 
       this.logger.debug(`Found ${upcomingEvents.length} upcoming events with bot assignments`);
 
@@ -131,8 +130,7 @@ export class EventBotReminderService implements OnModuleInit {
       for (const reminderMinutes of allReminders) {
         // Check if we should send this reminder now (within a 2-minute window)
         const shouldSendNow =
-          minutesUntilEvent <= reminderMinutes &&
-          minutesUntilEvent >= reminderMinutes - 2;
+          minutesUntilEvent <= reminderMinutes && minutesUntilEvent >= reminderMinutes - 2;
 
         if (shouldSendNow) {
           // Check if reminder was already sent
@@ -171,14 +169,15 @@ export class EventBotReminderService implements OnModuleInit {
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const conversations = Array.isArray(conversationsResult) ? conversationsResult : (conversationsResult.data || []);
+    const conversations = Array.isArray(conversationsResult)
+      ? conversationsResult
+      : conversationsResult.data || [];
 
     for (const conv of conversations) {
       let convParticipants: string[];
       try {
-        convParticipants = typeof conv.participants === 'string'
-          ? JSON.parse(conv.participants)
-          : conv.participants;
+        convParticipants =
+          typeof conv.participants === 'string' ? JSON.parse(conv.participants) : conv.participants;
       } catch {
         continue;
       }
@@ -276,7 +275,9 @@ export class EventBotReminderService implements OnModuleInit {
         },
       });
 
-      this.logger.log(`Sent ${minutesBeforeEvent}-minute reminder for event "${event.title}" (${event.id})`);
+      this.logger.log(
+        `Sent ${minutesBeforeEvent}-minute reminder for event "${event.title}" (${event.id})`,
+      );
     } catch (error) {
       this.logger.error(`Error sending bot reminder for event ${event.id}: ${error.message}`);
     }
@@ -299,7 +300,7 @@ export class EventBotReminderService implements OnModuleInit {
         .where('is_sent', '=', true)
         .execute();
 
-      const reminders = Array.isArray(result) ? result : (result.data || []);
+      const reminders = Array.isArray(result) ? result : result.data || [];
       return reminders.length > 0;
     } catch (error) {
       // If there's an error checking, assume not sent to avoid missing reminders
@@ -310,11 +311,7 @@ export class EventBotReminderService implements OnModuleInit {
   /**
    * Mark a reminder as sent
    */
-  private async markReminderAsSent(
-    eventId: string,
-    botId: string,
-    reminderMinutes: number,
-  ) {
+  private async markReminderAsSent(eventId: string, botId: string, reminderMinutes: number) {
     try {
       // Try to find existing reminder entry
       const existingResult = await this.db
@@ -324,7 +321,9 @@ export class EventBotReminderService implements OnModuleInit {
         .where('reminder_time', '=', reminderMinutes)
         .execute();
 
-      const existingReminders = Array.isArray(existingResult) ? existingResult : (existingResult.data || []);
+      const existingReminders = Array.isArray(existingResult)
+        ? existingResult
+        : existingResult.data || [];
 
       if (existingReminders.length > 0) {
         // Update existing
@@ -372,7 +371,7 @@ export class EventBotReminderService implements OnModuleInit {
         .where('id', '=', eventId)
         .execute();
 
-      const events = Array.isArray(eventResult) ? eventResult : (eventResult.data || []);
+      const events = Array.isArray(eventResult) ? eventResult : eventResult.data || [];
       if (events.length === 0) {
         return; // Event not found
       }
@@ -387,7 +386,9 @@ export class EventBotReminderService implements OnModuleInit {
         .where('is_active', '=', true)
         .execute();
 
-      const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+      const assignments = Array.isArray(assignmentResult)
+        ? assignmentResult
+        : assignmentResult.data || [];
       if (assignments.length === 0) {
         return; // No bot assigned to this event
       }
@@ -401,7 +402,7 @@ export class EventBotReminderService implements OnModuleInit {
         .where('id', '=', assignment.bot_id)
         .execute();
 
-      const bots = Array.isArray(botResult) ? botResult : (botResult.data || []);
+      const bots = Array.isArray(botResult) ? botResult : botResult.data || [];
       if (bots.length === 0) {
         return; // Bot not found
       }

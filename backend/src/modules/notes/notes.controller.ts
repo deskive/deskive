@@ -1,5 +1,27 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, UseInterceptors, UploadedFile, BadRequestException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+  UseInterceptors,
+  UploadedFile,
+  BadRequestException,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBearerAuth,
+  ApiParam,
+  ApiQuery,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { NotesService } from './notes.service';
 import { NotesAgentService } from './notes-agent.service';
@@ -160,13 +182,17 @@ export class NotesController {
 
     // Process URL to extract content
     const result = await this.urlProcessingService.processUrlToMarkdown(importUrlDto.url);
-    console.log(`[ImportUrl] URL processed - title: "${result.title}", htmlLength: ${result.html?.length || 0}`);
+    console.log(
+      `[ImportUrl] URL processed - title: "${result.title}", htmlLength: ${result.html?.length || 0}`,
+    );
 
     // Use provided title or extracted title
     const noteTitle = importUrlDto.title || result.title;
 
     // Create the note
-    console.log(`[ImportUrl] Creating note with title: "${noteTitle}", content length: ${result.html?.length || 0}`);
+    console.log(
+      `[ImportUrl] Creating note with title: "${noteTitle}", content length: ${result.html?.length || 0}`,
+    );
     const note = await this.notesService.createNote(
       workspaceId,
       {
@@ -228,17 +254,21 @@ export class NotesController {
       const text = buffer.toString('utf-8');
       htmlContent = text
         .split('\n\n')
-        .filter(p => p.trim())
-        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+        .filter((p) => p.trim())
+        .map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`)
         .join('');
     } else if (mimeType.includes('application/pdf')) {
       // For PDFs, use the PDF processing service
-      const pdfResult = await this.pdfProcessingService.processPdfToMarkdown(buffer, workspaceId, userId);
+      const pdfResult = await this.pdfProcessingService.processPdfToMarkdown(
+        buffer,
+        workspaceId,
+        userId,
+      );
       // Convert markdown to simple HTML
       htmlContent = pdfResult.markdown
         .split('\n\n')
-        .filter(p => p.trim())
-        .map(p => `<p>${p.replace(/\n/g, '<br>')}</p>`)
+        .filter((p) => p.trim())
+        .map((p) => `<p>${p.replace(/\n/g, '<br>')}</p>`)
         .join('');
     } else {
       // For other formats (like Google Docs exported as HTML), use as-is
@@ -338,11 +368,7 @@ export class NotesController {
     @CurrentUser('sub') userId: string,
   ) {
     const limitNum = limit ? parseInt(limit, 10) : 20;
-    return this.conversationMemoryService.getRecentHistory(
-      workspaceId,
-      userId,
-      limitNum,
-    );
+    return this.conversationMemoryService.getRecentHistory(workspaceId, userId, limitNum);
   }
 
   @Delete('ai/history')
@@ -355,15 +381,10 @@ export class NotesController {
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    const success = await this.conversationMemoryService.deleteUserHistory(
-      workspaceId,
-      userId,
-    );
+    const success = await this.conversationMemoryService.deleteUserHistory(workspaceId, userId);
     return {
       success,
-      message: success
-        ? 'Conversation history cleared'
-        : 'Failed to clear history',
+      message: success ? 'Conversation history cleared' : 'Failed to clear history',
     };
   }
 
@@ -377,10 +398,7 @@ export class NotesController {
     @Param('workspaceId') workspaceId: string,
     @CurrentUser('sub') userId: string,
   ) {
-    return this.conversationMemoryService.getConversationStats(
-      workspaceId,
-      userId,
-    );
+    return this.conversationMemoryService.getConversationStats(workspaceId, userId);
   }
 
   // ==================== STANDARD NOTES CRUD ENDPOINTS ====================
@@ -402,13 +420,15 @@ export class NotesController {
     name: 'is_deleted',
     required: false,
     type: Boolean,
-    description: 'Filter by deletion status. true = only deleted notes, false = only active notes, not provided = active notes (default)'
+    description:
+      'Filter by deletion status. true = only deleted notes, false = only active notes, not provided = active notes (default)',
   })
   @ApiQuery({
     name: 'is_archived',
     required: false,
     type: Boolean,
-    description: 'Filter by archive status. true = only archived notes, false = only non-archived notes, not provided = non-archived notes (default)'
+    description:
+      'Filter by archive status. true = only archived notes, false = only non-archived notes, not provided = non-archived notes (default)',
   })
   async getNotes(
     @Param('workspaceId') workspaceId: string,
@@ -418,17 +438,40 @@ export class NotesController {
     @CurrentUser('sub') userId?: string,
   ) {
     // Convert string query params to boolean
-    const isDeletedBoolean = isDeleted === 'true' ? true : isDeleted === 'false' ? false : undefined;
-    const isArchivedBoolean = isArchived === 'true' ? true : isArchived === 'false' ? false : undefined;
-    return this.notesService.getNotes(workspaceId, parentId, userId, isDeletedBoolean, isArchivedBoolean);
+    const isDeletedBoolean =
+      isDeleted === 'true' ? true : isDeleted === 'false' ? false : undefined;
+    const isArchivedBoolean =
+      isArchived === 'true' ? true : isArchived === 'false' ? false : undefined;
+    return this.notesService.getNotes(
+      workspaceId,
+      parentId,
+      userId,
+      isDeletedBoolean,
+      isArchivedBoolean,
+    );
   }
 
   @Get('search')
   @ApiOperation({ summary: 'Search notes using unified search (keyword, semantic, or hybrid)' })
   @ApiQuery({ name: 'q', required: true, description: 'Search query text' })
-  @ApiQuery({ name: 'mode', required: false, enum: ['keyword', 'semantic', 'hybrid'], description: 'Search mode (default: hybrid)' })
-  @ApiQuery({ name: 'limit', required: false, type: Number, description: 'Maximum results to return (default: 50)' })
-  @ApiQuery({ name: 'offset', required: false, type: Number, description: 'Offset for pagination (default: 0)' })
+  @ApiQuery({
+    name: 'mode',
+    required: false,
+    enum: ['keyword', 'semantic', 'hybrid'],
+    description: 'Search mode (default: hybrid)',
+  })
+  @ApiQuery({
+    name: 'limit',
+    required: false,
+    type: Number,
+    description: 'Maximum results to return (default: 50)',
+  })
+  @ApiQuery({
+    name: 'offset',
+    required: false,
+    type: Number,
+    description: 'Offset for pagination (default: 0)',
+  })
   async searchNotes(
     @Param('workspaceId') workspaceId: string,
     @Query('q') query: string,
@@ -447,7 +490,8 @@ export class NotesController {
   @Post('merge')
   @ApiOperation({
     summary: 'Merge multiple notes into one',
-    description: 'Combine multiple notes into a single merged note with optional headers, dividers, and sorting'
+    description:
+      'Combine multiple notes into a single merged note with optional headers, dividers, and sorting',
   })
   @ApiResponse({
     status: 201,
@@ -465,11 +509,11 @@ export class NotesController {
         merge_options: {
           include_headers: true,
           add_dividers: true,
-          sort_by_date: false
+          sort_by_date: false,
         },
-        created_at: '2024-01-01T00:00:00.000Z'
-      }
-    }
+        created_at: '2024-01-01T00:00:00.000Z',
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request or insufficient notes' })
   @ApiResponse({ status: 404, description: 'One or more notes not found' })
@@ -511,7 +555,8 @@ export class NotesController {
   @Delete('bulk')
   @ApiOperation({
     summary: 'Bulk soft delete multiple notes',
-    description: 'Soft delete multiple notes and all their sub-notes. Each note and its descendants will be marked as deleted.'
+    description:
+      'Soft delete multiple notes and all their sub-notes. Each note and its descendants will be marked as deleted.',
   })
   @ApiResponse({
     status: 200,
@@ -526,11 +571,11 @@ export class NotesController {
         results: [
           { noteId: 'uuid-1', title: 'Note 1', success: true, deletedCount: 2 },
           { noteId: 'uuid-2', title: 'Note 2', success: true, deletedCount: 1 },
-          { noteId: 'uuid-3', title: 'Note 3', success: true, deletedCount: 2 }
+          { noteId: 'uuid-3', title: 'Note 3', success: true, deletedCount: 2 },
         ],
-        errors: []
-      }
-    }
+        errors: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   async bulkDeleteNotes(
@@ -557,7 +602,8 @@ export class NotesController {
   @Post('bulk/restore')
   @ApiOperation({
     summary: 'Bulk restore multiple soft deleted notes',
-    description: 'Restore multiple soft deleted notes and all their sub-notes by setting deleted_at to null'
+    description:
+      'Restore multiple soft deleted notes and all their sub-notes by setting deleted_at to null',
   })
   @ApiResponse({
     status: 200,
@@ -572,11 +618,11 @@ export class NotesController {
         results: [
           { noteId: 'uuid-1', title: 'Note 1', success: true, restoredCount: 2 },
           { noteId: 'uuid-2', title: 'Note 2', success: true, restoredCount: 1 },
-          { noteId: 'uuid-3', title: 'Note 3', success: true, restoredCount: 2 }
+          { noteId: 'uuid-3', title: 'Note 3', success: true, restoredCount: 2 },
         ],
-        errors: []
-      }
-    }
+        errors: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   async bulkRestoreNotes(
@@ -590,7 +636,7 @@ export class NotesController {
   @Post(':noteId/restore')
   @ApiOperation({
     summary: 'Restore a soft deleted note',
-    description: 'Restores a soft deleted note and all its sub-notes by setting deleted_at to null'
+    description: 'Restores a soft deleted note and all its sub-notes by setting deleted_at to null',
   })
   @ApiResponse({
     status: 200,
@@ -599,9 +645,9 @@ export class NotesController {
       example: {
         success: true,
         message: 'Note and all sub-notes restored successfully',
-        restoredCount: 3
-      }
-    }
+        restoredCount: 3,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Note not found' })
   @ApiResponse({ status: 400, description: 'Note is not deleted or permission denied' })
@@ -616,7 +662,7 @@ export class NotesController {
   @Post(':noteId/duplicate')
   @ApiOperation({
     summary: 'Duplicate a note',
-    description: 'Creates a copy of the note with optional custom title and sub-notes'
+    description: 'Creates a copy of the note with optional custom title and sub-notes',
   })
   @ApiResponse({
     status: 201,
@@ -630,11 +676,11 @@ export class NotesController {
           title: 'Note Title (Copy)',
           workspace_id: 'workspace-uuid',
           parent_id: 'parent-uuid',
-          created_at: '2024-01-01T00:00:00.000Z'
+          created_at: '2024-01-01T00:00:00.000Z',
         },
-        duplicatedCount: 3
-      }
-    }
+        duplicatedCount: 3,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Note not found' })
   async duplicateNote(
@@ -649,7 +695,7 @@ export class NotesController {
   @Post('bulk/archive')
   @ApiOperation({
     summary: 'Bulk archive multiple notes',
-    description: 'Archives multiple notes and all their sub-notes'
+    description: 'Archives multiple notes and all their sub-notes',
   })
   @ApiResponse({
     status: 200,
@@ -664,11 +710,11 @@ export class NotesController {
         results: [
           { noteId: 'uuid-1', title: 'Note 1', success: true, archivedCount: 3 },
           { noteId: 'uuid-2', title: 'Note 2', success: true, archivedCount: 1 },
-          { noteId: 'uuid-3', title: 'Note 3', success: true, archivedCount: 3 }
+          { noteId: 'uuid-3', title: 'Note 3', success: true, archivedCount: 3 },
         ],
-        errors: []
-      }
-    }
+        errors: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   async bulkArchiveNotes(
@@ -682,7 +728,7 @@ export class NotesController {
   @Post(':noteId/archive')
   @ApiOperation({
     summary: 'Archive a note',
-    description: 'Archives a note and all its sub-notes by setting archived_at timestamp'
+    description: 'Archives a note and all its sub-notes by setting archived_at timestamp',
   })
   @ApiResponse({
     status: 200,
@@ -691,9 +737,9 @@ export class NotesController {
       example: {
         success: true,
         message: 'Note and all sub-notes archived successfully',
-        archivedCount: 3
-      }
-    }
+        archivedCount: 3,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Note not found' })
   @ApiResponse({ status: 400, description: 'Note already archived or permission denied' })
@@ -708,7 +754,7 @@ export class NotesController {
   @Post('bulk/unarchive')
   @ApiOperation({
     summary: 'Bulk unarchive multiple notes',
-    description: 'Unarchives multiple notes and all their sub-notes by setting archived_at to null'
+    description: 'Unarchives multiple notes and all their sub-notes by setting archived_at to null',
   })
   @ApiResponse({
     status: 200,
@@ -723,16 +769,16 @@ export class NotesController {
         results: [
           { noteId: 'uuid-1', title: 'Note 1', success: true, unarchivedCount: 3 },
           { noteId: 'uuid-2', title: 'Note 2', success: true, unarchivedCount: 1 },
-          { noteId: 'uuid-3', title: 'Note 3', success: true, unarchivedCount: 3 }
+          { noteId: 'uuid-3', title: 'Note 3', success: true, unarchivedCount: 3 },
         ],
-        errors: []
-      }
-    }
+        errors: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   async bulkUnarchiveNotes(
     @Param('workspaceId') workspaceId: string,
-    @Body() bulkArchiveDto: BulkArchiveDto,  // Reusing the same DTO since it has the same structure
+    @Body() bulkArchiveDto: BulkArchiveDto, // Reusing the same DTO since it has the same structure
     @CurrentUser('sub') userId: string,
   ) {
     return this.notesService.bulkUnarchiveNotes(workspaceId, bulkArchiveDto, userId);
@@ -741,7 +787,7 @@ export class NotesController {
   @Post(':noteId/unarchive')
   @ApiOperation({
     summary: 'Unarchive a note',
-    description: 'Unarchives a note and all its sub-notes by setting archived_at to null'
+    description: 'Unarchives a note and all its sub-notes by setting archived_at to null',
   })
   @ApiResponse({
     status: 200,
@@ -750,9 +796,9 @@ export class NotesController {
       example: {
         success: true,
         message: 'Note and all sub-notes unarchived successfully',
-        unarchivedCount: 3
-      }
-    }
+        unarchivedCount: 3,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Note not found' })
   @ApiResponse({ status: 400, description: 'Note is not archived or permission denied' })
@@ -767,7 +813,8 @@ export class NotesController {
   @Delete('bulk/permanent')
   @ApiOperation({
     summary: 'Bulk permanently delete multiple notes',
-    description: 'Permanently delete multiple notes and all their sub-notes from the database. This action cannot be undone.'
+    description:
+      'Permanently delete multiple notes and all their sub-notes from the database. This action cannot be undone.',
   })
   @ApiResponse({
     status: 200,
@@ -782,11 +829,11 @@ export class NotesController {
         results: [
           { noteId: 'uuid-1', title: 'Note 1', success: true, deletedCount: 2 },
           { noteId: 'uuid-2', title: 'Note 2', success: true, deletedCount: 1 },
-          { noteId: 'uuid-3', title: 'Note 3', success: true, deletedCount: 2 }
+          { noteId: 'uuid-3', title: 'Note 3', success: true, deletedCount: 2 },
         ],
-        errors: []
-      }
-    }
+        errors: [],
+      },
+    },
   })
   @ApiResponse({ status: 400, description: 'Invalid request data' })
   async bulkPermanentlyDeleteNotes(
@@ -800,7 +847,8 @@ export class NotesController {
   @Delete(':noteId/permanent')
   @ApiOperation({
     summary: 'Permanently delete a note',
-    description: 'Permanently deletes a note and all its sub-notes from the database. This action cannot be undone.'
+    description:
+      'Permanently deletes a note and all its sub-notes from the database. This action cannot be undone.',
   })
   @ApiResponse({
     status: 200,
@@ -809,9 +857,9 @@ export class NotesController {
       example: {
         success: true,
         message: 'Note and all sub-notes permanently deleted',
-        deletedCount: 3
-      }
-    }
+        deletedCount: 3,
+      },
+    },
   })
   @ApiResponse({ status: 404, description: 'Note not found' })
   @ApiResponse({ status: 400, description: 'Permission denied' })

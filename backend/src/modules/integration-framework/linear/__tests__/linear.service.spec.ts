@@ -74,11 +74,7 @@ describe('LinearService - Actions', () => {
           .matchHeader('authorization', 'lin_api_mock-token')
           .reply(testCase.mock.status, testCase.mock.response);
 
-        const result = await service.createIssue(
-          'user-123',
-          'workspace-456',
-          testCase.input
-        );
+        const result = await service.createIssue('user-123', 'workspace-456', testCase.input);
 
         expect(result).toMatchObject(testCase.expected.data);
       });

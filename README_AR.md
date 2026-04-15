@@ -300,6 +300,25 @@ npm run dev
 
 [عرض توثيق الميزات التفصيلية &rarr;](https://github.com/deskive/deskive/wiki)
 
+## مزودات قابلة للتبديل
+
+كل خدمة خلفية قابلة للتبديل عبر متغير بيئة واحد. الإعدادات الافتراضية تُبقي Deskive قابلاً للتشغيل بدون أي بيانات اعتماد سحابية؛ انتقل إلى مزود مُدار عندما تكون جاهزاً.
+
+| المجال | متغير البيئة | المزودات المُضمَّنة |
+|---|---|---|
+| **التخزين** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs` (افتراضي)، `s3`، `r2`، `minio`، `b2`، `gcs`، `azure`، `none` |
+| **البريد الإلكتروني** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`، `resend`، `sendgrid`، `postmark`، `ses`، `mailgun`، `none` |
+| **الإشعارات الفورية** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`، `fcm`، `onesignal`، `expo`، `none` |
+| **البحث** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm` (افتراضي، بدون بنية تحتية إضافية)، `meilisearch`، `typesense`، `none` |
+| **المصادقة / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`، `google`، `github`، `magic-link` (بدون كلمة مرور، قائم على JWT) |
+| **الفيديو** | `VIDEO_PROVIDER` | `livekit`، `jitsi`، `daily`، `agora`، `whereby`، `none` |
+| **الذكاء الاصطناعي** | `AI_PROVIDER` | `openai`، `anthropic`، `gemini`، `groq`، `ollama` (محلي) |
+
+- **البحث بالكلمات المفتاحية والدلالي يتعايشان معاً.** يتعامل `SearchProviderService` مع البحث بالكلمات المفتاحية القائم على trigram والمصنَّف؛ بينما يستمر `SearchService` في التعامل مع البحث الدلالي/المتجهي عبر Qdrant.
+- **تُحمَّل حزم SDK الاختيارية بشكل كسول** — `@azure/storage-blob` و`@google-cloud/storage` و`firebase-admin` و`livekit-server-sdk` و`agora-token` كلها `optionalDependencies`، لذا اختيار `local-fs` / `smtp` / `webpush` / `pg-trgm` لا يضيف أي تكلفة تثبيت.
+- **اختبارات التدخين (Smoke tests)** مرفقة مع كل مُحوِّل (`backend/scripts/smoke-test-*-providers.ts`) — 27 / 45 / 61 / 55 / 37 تأكيداً للتخزين / البريد الإلكتروني / الإشعارات الفورية / البحث / المصادقة على التوالي، وجميعها ناجحة.
+- **التوثيق الكامل:** راجع `backend/docs/providers/` لمتغيرات البيئة وإعدادات كل مزود.
+
 ## i18n
 
 يدعم Deskive لغات متعددة عبر react-i18next:

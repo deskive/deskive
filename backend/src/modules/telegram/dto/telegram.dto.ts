@@ -83,7 +83,10 @@ export class TelegramSendMessageDto {
   @IsString()
   text: string;
 
-  @ApiPropertyOptional({ description: 'Parse mode: Markdown, MarkdownV2, or HTML', default: 'Markdown' })
+  @ApiPropertyOptional({
+    description: 'Parse mode: Markdown, MarkdownV2, or HTML',
+    default: 'Markdown',
+  })
   @IsOptional()
   @IsString()
   parseMode?: 'Markdown' | 'MarkdownV2' | 'HTML';

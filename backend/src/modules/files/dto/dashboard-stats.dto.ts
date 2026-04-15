@@ -34,68 +34,68 @@ export class FileTypeBreakdown {
 export class DashboardStatsResponseDto {
   @ApiProperty({
     description: 'Total number of files in workspace',
-    example: 6
+    example: 6,
   })
   total_files: number;
 
   @ApiProperty({
     description: 'Number of files added today',
-    example: 5
+    example: 5,
   })
   files_added_today: number;
 
   @ApiProperty({
     description: 'Total storage used in bytes',
-    example: 616243
+    example: 616243,
   })
   storage_used_bytes: number;
 
   @ApiProperty({
     description: 'Total storage used (formatted)',
-    example: '601.8 KB'
+    example: '601.8 KB',
   })
   storage_used_formatted: string;
 
   @ApiProperty({
     description: 'Maximum storage available in bytes',
-    example: 10737418240
+    example: 10737418240,
   })
   storage_total_bytes: number;
 
   @ApiProperty({
     description: 'Maximum storage available (formatted)',
-    example: '10 GB'
+    example: '10 GB',
   })
   storage_total_formatted: string;
 
   @ApiProperty({
     description: 'Percentage of storage used',
-    example: 0.006
+    example: 0.006,
   })
   storage_percentage_used: number;
 
   @ApiProperty({
     description: 'Number of AI-generated files this month',
-    example: 0
+    example: 0,
   })
   ai_generations_this_month: number;
 
   @ApiProperty({
     description: 'Number of unique file types (categories with files)',
-    example: 4
+    example: 4,
   })
   unique_file_types: number;
 
   @ApiProperty({
     description: 'Breakdown of files by type category',
-    type: FileTypeBreakdown
+    type: FileTypeBreakdown,
   })
   file_type_breakdown: FileTypeBreakdown;
 
   @ApiProperty({
     description: 'Subscription plan information',
     type: SubscriptionPlanInfo,
-    required: false
+    required: false,
   })
   plan?: SubscriptionPlanInfo;
 }

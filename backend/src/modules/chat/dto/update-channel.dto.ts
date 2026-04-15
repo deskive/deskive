@@ -8,7 +8,11 @@ export class UpdateChannelDto {
   @MaxLength(50)
   name?: string;
 
-  @ApiProperty({ description: 'Channel description', example: 'General discussion', required: false })
+  @ApiProperty({
+    description: 'Channel description',
+    example: 'General discussion',
+    required: false,
+  })
   @IsOptional()
   @IsString()
   @MaxLength(500)
@@ -19,7 +23,11 @@ export class UpdateChannelDto {
   @IsBoolean()
   is_private?: boolean;
 
-  @ApiProperty({ description: 'Member IDs for private channel', example: ['user-id-1', 'user-id-2'], required: false })
+  @ApiProperty({
+    description: 'Member IDs for private channel',
+    example: ['user-id-1', 'user-id-2'],
+    required: false,
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

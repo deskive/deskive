@@ -20,9 +20,7 @@ import { SharedScheduledJobService } from './services/shared-scheduled-job.servi
  */
 @Global()
 @Module({
-  imports: [
-    ScheduleModule.forRoot(),
-  ],
+  imports: [ScheduleModule.forRoot()],
   providers: [
     SharedConditionEvaluatorService,
     SharedExecutionLoggerService,

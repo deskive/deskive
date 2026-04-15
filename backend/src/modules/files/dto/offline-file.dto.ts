@@ -6,7 +6,7 @@ export enum SyncStatus {
   SYNCING = 'syncing',
   SYNCED = 'synced',
   ERROR = 'error',
-  OUTDATED = 'outdated'
+  OUTDATED = 'outdated',
 }
 
 export class MarkFileOfflineDto {
@@ -14,7 +14,7 @@ export class MarkFileOfflineDto {
     description: 'Enable auto-sync for this file',
     example: true,
     required: false,
-    default: true
+    default: true,
   })
   @IsOptional()
   @IsBoolean()
@@ -24,7 +24,7 @@ export class MarkFileOfflineDto {
     description: 'Sync priority (higher number = higher priority)',
     example: 0,
     required: false,
-    default: 0
+    default: 0,
   })
   @IsOptional()
   @IsNumber()
@@ -35,7 +35,7 @@ export class UpdateOfflineSettingsDto {
   @ApiProperty({
     description: 'Enable or disable auto-sync',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()
@@ -44,7 +44,7 @@ export class UpdateOfflineSettingsDto {
   @ApiProperty({
     description: 'Sync priority (higher number = higher priority)',
     example: 1,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsNumber()
@@ -54,7 +54,7 @@ export class UpdateOfflineSettingsDto {
     description: 'Current sync status',
     enum: SyncStatus,
     example: SyncStatus.SYNCED,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(SyncStatus)
@@ -63,7 +63,7 @@ export class UpdateOfflineSettingsDto {
   @ApiProperty({
     description: 'Synced file version',
     example: 1,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsNumber()
@@ -72,7 +72,7 @@ export class UpdateOfflineSettingsDto {
   @ApiProperty({
     description: 'Error message if sync failed',
     example: 'Network error',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
@@ -89,9 +89,9 @@ export class BatchUpdateSyncStatusDto {
         fileId: { type: 'string' },
         syncStatus: { type: 'string', enum: Object.values(SyncStatus) },
         syncedVersion: { type: 'number' },
-        errorMessage: { type: 'string' }
-      }
-    }
+        errorMessage: { type: 'string' },
+      },
+    },
   })
   @IsArray()
   updates: {
@@ -155,7 +155,10 @@ export class OfflineFileResponseDto {
   @ApiProperty({ description: 'Current server file version', required: false })
   serverVersion?: number;
 
-  @ApiProperty({ description: 'Whether file needs sync (server version > synced version)', required: false })
+  @ApiProperty({
+    description: 'Whether file needs sync (server version > synced version)',
+    required: false,
+  })
   needsSync?: boolean;
 }
 

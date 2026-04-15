@@ -1,4 +1,10 @@
-import { Injectable, Logger, NotFoundException, BadRequestException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  NotFoundException,
+  BadRequestException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { ConversationMemoryService } from '../conversation-memory/conversation-memory.service';
 import { AssignBotToEventDto, UnassignBotFromEventDto, UpdateBotAssignmentDto } from './dto';
@@ -29,7 +35,7 @@ export class EventBotAssignmentsService {
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const events = Array.isArray(eventResult) ? eventResult : (eventResult.data || []);
+    const events = Array.isArray(eventResult) ? eventResult : eventResult.data || [];
     if (events.length === 0) {
       throw new NotFoundException('Event not found');
     }
@@ -42,7 +48,7 @@ export class EventBotAssignmentsService {
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const bots = Array.isArray(botResult) ? botResult : (botResult.data || []);
+    const bots = Array.isArray(botResult) ? botResult : botResult.data || [];
     if (bots.length === 0) {
       throw new NotFoundException('Bot not found');
     }
@@ -55,7 +61,9 @@ export class EventBotAssignmentsService {
       .where('bot_id', '=', dto.botId)
       .execute();
 
-    const existingAssignments = Array.isArray(existingResult) ? existingResult : (existingResult.data || []);
+    const existingAssignments = Array.isArray(existingResult)
+      ? existingResult
+      : existingResult.data || [];
     if (existingAssignments.length > 0) {
       throw new BadRequestException('Bot is already assigned to this event');
     }
@@ -130,11 +138,7 @@ Bot should now have full context about this event and can answer questions about
   /**
    * Unassign a bot from a calendar event
    */
-  async unassignBotFromEvent(
-    userId: string,
-    workspaceId: string,
-    dto: UnassignBotFromEventDto,
-  ) {
+  async unassignBotFromEvent(userId: string, workspaceId: string, dto: UnassignBotFromEventDto) {
     // Verify the assignment exists and user has access
     const assignmentResult = await this.db
       .table('event_bot_assignments')
@@ -144,7 +148,9 @@ Bot should now have full context about this event and can answer questions about
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
     if (assignments.length === 0) {
       throw new NotFoundException('Bot assignment not found');
     }
@@ -187,7 +193,9 @@ Bot should now have full context about this event and can answer questions about
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
     if (assignments.length === 0) {
       throw new NotFoundException('Bot assignment not found');
     }
@@ -211,7 +219,7 @@ Bot should now have full context about this event and can answer questions about
       .returning('*')
       .execute();
 
-    const updated = Array.isArray(updatedResult) ? updatedResult : (updatedResult.data || []);
+    const updated = Array.isArray(updatedResult) ? updatedResult : updatedResult.data || [];
     this.logger.log(`Bot assignment updated for bot ${botId} on event ${eventId}`);
     return updated[0];
   }
@@ -227,7 +235,9 @@ Bot should now have full context about this event and can answer questions about
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
 
     // Fetch bot details for each assignment
     const enrichedAssignments = await Promise.all(
@@ -238,7 +248,7 @@ Bot should now have full context about this event and can answer questions about
           .where('id', '=', assignment.bot_id)
           .execute();
 
-        const bots = Array.isArray(botResult) ? botResult : (botResult.data || []);
+        const bots = Array.isArray(botResult) ? botResult : botResult.data || [];
         const bot = bots[0];
 
         // Convert to camelCase for frontend (per CLAUDE.md rule #2)
@@ -276,7 +286,9 @@ Bot should now have full context about this event and can answer questions about
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
 
     // Fetch event details for each assignment
     const enrichedAssignments = await Promise.all(
@@ -287,7 +299,7 @@ Bot should now have full context about this event and can answer questions about
           .where('id', '=', assignment.event_id)
           .execute();
 
-        const events = Array.isArray(eventResult) ? eventResult : (eventResult.data || []);
+        const events = Array.isArray(eventResult) ? eventResult : eventResult.data || [];
         const event = events[0];
 
         return {
@@ -324,7 +336,9 @@ Bot should now have full context about this event and can answer questions about
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
     if (assignments.length === 0) {
       throw new NotFoundException('Bot assignment not found');
     }
@@ -344,7 +358,9 @@ Bot should now have full context about this event and can answer questions about
       .where('is_active', '=', true)
       .execute();
 
-    const assignments = Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    const assignments = Array.isArray(assignmentResult)
+      ? assignmentResult
+      : assignmentResult.data || [];
     return assignments.length > 0;
   }
 
@@ -360,6 +376,6 @@ Bot should now have full context about this event and can answer questions about
       .where('is_active', '=', true)
       .execute();
 
-    return Array.isArray(assignmentResult) ? assignmentResult : (assignmentResult.data || []);
+    return Array.isArray(assignmentResult) ? assignmentResult : assignmentResult.data || [];
   }
 }

@@ -9,7 +9,8 @@ export const automationTemplates = [
   // ============================================
   {
     name: 'New Project Setup',
-    description: 'Automatically create default folders and starter tasks when a new project is created',
+    description:
+      'Automatically create default folders and starter tasks when a new project is created',
     category: 'project_management',
     icon: 'folder_special',
     color: '#4CAF50',
@@ -53,7 +54,8 @@ export const automationTemplates = [
             action: 'create_task',
             params: {
               title: 'Project Kickoff Meeting',
-              description: 'Schedule and conduct the project kickoff meeting with all stakeholders.',
+              description:
+                'Schedule and conduct the project kickoff meeting with all stakeholders.',
               projectId: '{{trigger.entity.id}}',
               priority: 'high',
               dueDate: '{{add_days(now, 3)}}',
@@ -68,14 +70,20 @@ export const automationTemplates = [
             params: {
               userId: '{{trigger.entity.created_by}}',
               title: 'Project Setup Complete',
-              message: 'Your project "{{trigger.entity.name}}" has been set up with default folders and tasks.',
+              message:
+                'Your project "{{trigger.entity.name}}" has been set up with default folders and tasks.',
             },
           },
         },
       ],
     },
     variables: [
-      { name: 'kickoff_days', type: 'number', default: 3, description: 'Days until kickoff meeting due' },
+      {
+        name: 'kickoff_days',
+        type: 'number',
+        default: 3,
+        description: 'Days until kickoff meeting due',
+      },
     ],
   },
 
@@ -139,9 +147,7 @@ export const automationTemplates = [
           config: {
             condition: {
               operator: 'AND',
-              conditions: [
-                { field: 'trigger.entity.assignee_id', operator: 'is_empty' },
-              ],
+              conditions: [{ field: 'trigger.entity.assignee_id', operator: 'is_empty' }],
             },
           },
         },
@@ -164,14 +170,19 @@ export const automationTemplates = [
             params: {
               userId: '{{team_lead_id}}',
               title: 'High Priority Task Assigned',
-              message: 'You have been assigned a {{trigger.entity.priority}} priority task: "{{trigger.entity.title}}"',
+              message:
+                'You have been assigned a {{trigger.entity.priority}} priority task: "{{trigger.entity.title}}"',
             },
           },
         },
       ],
     },
     variables: [
-      { name: 'team_lead_id', type: 'string', description: 'User ID of the team lead to auto-assign to' },
+      {
+        name: 'team_lead_id',
+        type: 'string',
+        description: 'User ID of the team lead to auto-assign to',
+      },
     ],
   },
 
@@ -200,7 +211,8 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Find all tasks due in the next 24 hours and send reminder notifications to assignees',
+              command:
+                'Find all tasks due in the next 24 hours and send reminder notifications to assignees',
             },
           },
         },
@@ -231,14 +243,20 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Find all tasks overdue by more than 2 days, increase their priority to high, and notify the project manager',
+              command:
+                'Find all tasks overdue by more than 2 days, increase their priority to high, and notify the project manager',
             },
           },
         },
       ],
     },
     variables: [
-      { name: 'overdue_days', type: 'number', default: 2, description: 'Days overdue before escalation' },
+      {
+        name: 'overdue_days',
+        type: 'number',
+        default: 2,
+        description: 'Days overdue before escalation',
+      },
     ],
   },
 
@@ -267,7 +285,8 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Generate a daily standup summary including: tasks completed yesterday, tasks planned for today, and any blockers. Post to the team channel.',
+              command:
+                'Generate a daily standup summary including: tasks completed yesterday, tasks planned for today, and any blockers. Post to the team channel.',
             },
           },
         },
@@ -300,14 +319,19 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Generate a comprehensive weekly progress report including: completed tasks, ongoing work, upcoming deadlines, and team productivity metrics. Send via email to stakeholders.',
+              command:
+                'Generate a comprehensive weekly progress report including: completed tasks, ongoing work, upcoming deadlines, and team productivity metrics. Send via email to stakeholders.',
             },
           },
         },
       ],
     },
     variables: [
-      { name: 'stakeholder_emails', type: 'array', description: 'Email addresses for weekly report' },
+      {
+        name: 'stakeholder_emails',
+        type: 'array',
+        description: 'Email addresses for weekly report',
+      },
     ],
   },
 
@@ -401,7 +425,8 @@ export const automationTemplates = [
             params: {
               userId: '{{trigger.entity.requested_by}}',
               title: 'Approval Granted',
-              message: 'Your {{trigger.entity.type}} request "{{trigger.entity.title}}" has been approved!',
+              message:
+                'Your {{trigger.entity.type}} request "{{trigger.entity.title}}" has been approved!',
             },
           },
         },
@@ -440,7 +465,8 @@ export const automationTemplates = [
             action: 'create_task',
             params: {
               title: 'Welcome! Complete onboarding checklist',
-              description: '1. Review project documentation\\n2. Meet the team\\n3. Set up development environment\\n4. Complete first task',
+              description:
+                '1. Review project documentation\\n2. Meet the team\\n3. Set up development environment\\n4. Complete first task',
               projectId: '{{trigger.entity.id}}',
               assigneeId: '{{trigger.new_member_id}}',
               priority: 'high',
@@ -470,7 +496,8 @@ export const automationTemplates = [
             params: {
               userId: '{{trigger.entity.manager_id}}',
               title: 'New Team Member',
-              message: 'A new member has joined {{trigger.entity.name}}. Onboarding tasks have been created.',
+              message:
+                'A new member has joined {{trigger.entity.name}}. Onboarding tasks have been created.',
             },
           },
         },
@@ -506,7 +533,8 @@ export const automationTemplates = [
             action: 'create_note',
             params: {
               title: 'Meeting Notes: {{trigger.entity.title}}',
-              content: '## Meeting Notes\\n\\n**Date:** {{trigger.entity.start_time}}\\n\\n### Attendees\\n\\n### Discussion Points\\n\\n### Action Items\\n\\n### Next Steps',
+              content:
+                '## Meeting Notes\\n\\n**Date:** {{trigger.entity.start_time}}\\n\\n### Attendees\\n\\n### Discussion Points\\n\\n### Action Items\\n\\n### Next Steps',
             },
           },
         },
@@ -550,7 +578,8 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Find all meetings starting in the next 15 minutes and send reminder notifications to all attendees.',
+              command:
+                'Find all meetings starting in the next 15 minutes and send reminder notifications to all attendees.',
             },
           },
         },
@@ -585,7 +614,8 @@ export const automationTemplates = [
           config: {
             action: 'ai_autopilot',
             params: {
-              command: 'Analyze the note content and extract any action items or todos. Create tasks for each action item found.',
+              command:
+                'Analyze the note content and extract any action items or todos. Create tasks for each action item found.',
               context: {
                 noteId: '{{trigger.entity.id}}',
                 noteContent: '{{trigger.entity.content}}',
@@ -640,7 +670,12 @@ export const automationTemplates = [
     },
     variables: [
       { name: 'slack_webhook_url', type: 'string', description: 'Slack incoming webhook URL' },
-      { name: 'slack_channel', type: 'string', default: '#general', description: 'Slack channel name' },
+      {
+        name: 'slack_channel',
+        type: 'string',
+        default: '#general',
+        description: 'Slack channel name',
+      },
     ],
   },
 ];

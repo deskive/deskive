@@ -102,7 +102,7 @@ interface ParsedIntent {
     | 'create_folder'
     | 'rename_folder'
     | 'rename_file'
-    | 'rename_auto'  // Auto-detect file or folder for rename
+    | 'rename_auto' // Auto-detect file or folder for rename
     | 'delete_folder'
     | 'delete_file'
     | 'move_file'
@@ -168,15 +168,10 @@ export class FilesAgentService {
    * Main entry point for the Files AI Agent
    * Receives natural language prompt and executes the appropriate action
    */
-  async processCommand(
-    request: FileAgentRequest,
-    userId: string,
-  ): Promise<FileAgentResponse> {
+  async processCommand(request: FileAgentRequest, userId: string): Promise<FileAgentResponse> {
     const { prompt, workspaceId } = request;
 
-    this.logger.log(
-      `[FilesAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`,
-    );
+    this.logger.log(`[FilesAgent] Processing command: "${prompt}" for workspace: ${workspaceId}`);
 
     try {
       // Step 1: Store user message in conversation memory (async, don't wait)
@@ -197,10 +192,7 @@ export class FilesAgentService {
       const existingItems = await this.getExistingFilesAndFolders(workspaceId, userId);
 
       // Step 4: Get workspace members for user ID resolution (for sharing)
-      const workspaceMembers = await this.getWorkspaceMembers(
-        workspaceId,
-        userId,
-      );
+      const workspaceMembers = await this.getWorkspaceMembers(workspaceId, userId);
 
       // Step 5: Use AI to parse the user's intent
       const parsedIntent = await this.parseIntentWithAI(
@@ -210,9 +202,7 @@ export class FilesAgentService {
         conversationHistory,
       );
 
-      this.logger.log(
-        `[FilesAgent] AI parsed intent: ${JSON.stringify(parsedIntent)}`,
-      );
+      this.logger.log(`[FilesAgent] AI parsed intent: ${JSON.stringify(parsedIntent)}`);
 
       if (parsedIntent.action === 'unknown') {
         // Store failed response in memory
@@ -235,22 +225,12 @@ export class FilesAgentService {
 
       // Step 6: Resolve user names to IDs for share operations
       if (parsedIntent.action === 'share_file' && parsedIntent.shareWith) {
-        parsedIntent.shareWith = this.resolveUserIds(
-          parsedIntent.shareWith,
-          workspaceMembers,
-        );
-        this.logger.log(
-          `[FilesAgent] Resolved share users: ${parsedIntent.shareWith}`,
-        );
+        parsedIntent.shareWith = this.resolveUserIds(parsedIntent.shareWith, workspaceMembers);
+        this.logger.log(`[FilesAgent] Resolved share users: ${parsedIntent.shareWith}`);
       }
 
       // Step 7: Execute the action
-      const result = await this.executeAction(
-        parsedIntent,
-        workspaceId,
-        userId,
-        existingItems,
-      );
+      const result = await this.executeAction(parsedIntent, workspaceId, userId, existingItems);
 
       // Step 8: Store successful response in memory
       if (result.success) {
@@ -264,30 +244,15 @@ export class FilesAgentService {
           this.extractItemNames(result),
         );
       } else {
-        this.storeAssistantMessage(
-          result.message,
-          workspaceId,
-          userId,
-          result.action,
-          false,
-        );
+        this.storeAssistantMessage(result.message, workspaceId, userId, result.action, false);
       }
 
       return result;
     } catch (error) {
-      this.logger.error(
-        `[FilesAgent] Error processing command: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[FilesAgent] Error processing command: ${error.message}`, error.stack);
 
       // Store error in memory
-      this.storeAssistantMessage(
-        `Error: ${error.message}`,
-        workspaceId,
-        userId,
-        'unknown',
-        false,
-      );
+      this.storeAssistantMessage(`Error: ${error.message}`, workspaceId, userId, 'unknown', false);
 
       return {
         success: false,
@@ -308,9 +273,7 @@ export class FilesAgentService {
   ): Promise<void> {
     try {
       if (!this.conversationMemoryService.isReady()) {
-        this.logger.warn(
-          '[FilesAgent] Conversation memory not ready, skipping message storage',
-        );
+        this.logger.warn('[FilesAgent] Conversation memory not ready, skipping message storage');
         return;
       }
 
@@ -322,9 +285,7 @@ export class FilesAgentService {
         entity_type: 'file',
       });
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Failed to store user message: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Failed to store user message: ${error.message}`);
     }
   }
 
@@ -342,9 +303,7 @@ export class FilesAgentService {
   ): Promise<void> {
     try {
       if (!this.conversationMemoryService.isReady()) {
-        this.logger.warn(
-          '[FilesAgent] Conversation memory not ready, skipping message storage',
-        );
+        this.logger.warn('[FilesAgent] Conversation memory not ready, skipping message storage');
         return;
       }
 
@@ -360,9 +319,7 @@ export class FilesAgentService {
         success,
       });
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Failed to store assistant message: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Failed to store assistant message: ${error.message}`);
     }
   }
 
@@ -376,9 +333,7 @@ export class FilesAgentService {
   ): Promise<ConversationSearchResult[]> {
     try {
       if (!this.conversationMemoryService.isReady()) {
-        this.logger.warn(
-          '[FilesAgent] Conversation memory not ready, skipping history lookup',
-        );
+        this.logger.warn('[FilesAgent] Conversation memory not ready, skipping history lookup');
         return [];
       }
 
@@ -389,9 +344,7 @@ export class FilesAgentService {
         10,
       );
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Failed to get conversation history: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Failed to get conversation history: ${error.message}`);
       return [];
     }
   }
@@ -495,9 +448,7 @@ export class FilesAgentService {
 
       return { files, folders };
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Could not fetch existing items: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Could not fetch existing items: ${error.message}`);
       return { files: [], folders: [] };
     }
   }
@@ -518,16 +469,12 @@ export class FilesAgentService {
         .execute();
 
       const members = membersResult.data || [];
-      this.logger.log(
-        `[FilesAgent] Found ${members.length} workspace members`,
-      );
+      this.logger.log(`[FilesAgent] Found ${members.length} workspace members`);
 
       const membersWithNames: WorkspaceMember[] = await Promise.all(
         members.map(async (member: any) => {
           try {
-            const userProfile = await this.db.getUserById(
-              member.user_id,
-            );
+            const userProfile = await this.db.getUserById(member.user_id);
             const metadata = (userProfile as any)?.metadata || {};
 
             return {
@@ -537,8 +484,7 @@ export class FilesAgentService {
                 (userProfile as any)?.fullName ||
                 (userProfile as any)?.name ||
                 null,
-              username:
-                (userProfile as any)?.username || metadata.username || null,
+              username: (userProfile as any)?.username || metadata.username || null,
               email: (userProfile as any)?.email || null,
               role: member.role,
             };
@@ -559,9 +505,7 @@ export class FilesAgentService {
 
       return membersWithNames;
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Could not fetch workspace members: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Could not fetch workspace members: ${error.message}`);
       return [];
     }
   }
@@ -569,10 +513,7 @@ export class FilesAgentService {
   /**
    * Resolve user names/emails to user IDs
    */
-  private resolveUserIds(
-    userIdentifiers: string[],
-    members: WorkspaceMember[],
-  ): string[] {
+  private resolveUserIds(userIdentifiers: string[], members: WorkspaceMember[]): string[] {
     return userIdentifiers
       .map((identifier) => {
         // If already a UUID, validate it exists
@@ -581,18 +522,14 @@ export class FilesAgentService {
           if (memberExists) {
             return identifier;
           }
-          this.logger.warn(
-            `[FilesAgent] User ID "${identifier}" is not a workspace member`,
-          );
+          this.logger.warn(`[FilesAgent] User ID "${identifier}" is not a workspace member`);
           return null;
         }
 
         // Try to find by name/username/email
         const resolvedId = this.findUserIdByNameOrEmail(identifier, members);
         if (resolvedId) {
-          this.logger.log(
-            `[FilesAgent] Resolved user "${identifier}" to ID: ${resolvedId}`,
-          );
+          this.logger.log(`[FilesAgent] Resolved user "${identifier}" to ID: ${resolvedId}`);
           return resolvedId;
         }
 
@@ -608,18 +545,14 @@ export class FilesAgentService {
    * Check if a string is a valid UUID
    */
   private isValidUUID(str: string): boolean {
-    const uuidRegex =
-      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
     return uuidRegex.test(str);
   }
 
   /**
    * Find user ID by name, username, or email
    */
-  private findUserIdByNameOrEmail(
-    searchTerm: string,
-    members: WorkspaceMember[],
-  ): string | null {
+  private findUserIdByNameOrEmail(searchTerm: string, members: WorkspaceMember[]): string | null {
     const normalizedSearch = searchTerm.toLowerCase().trim();
 
     // Try exact match on name
@@ -682,10 +615,7 @@ export class FilesAgentService {
     const foldersList =
       existingItems.folders.length > 0
         ? existingItems.folders
-            .map(
-              (f) =>
-                `- "${f.name}" (ID: ${f.id}, Parent: ${f.parent_id || 'root'})`,
-            )
+            .map((f) => `- "${f.name}" (ID: ${f.id}, Parent: ${f.parent_id || 'root'})`)
             .join('\n')
         : 'No folders available';
 
@@ -924,7 +854,8 @@ Return ONLY the JSON object, nothing else.`;
       } else if (response?.data?.text) {
         responseText = response.data.text;
       } else if (response?.data) {
-        responseText = typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
+        responseText =
+          typeof response.data === 'string' ? response.data : JSON.stringify(response.data);
       } else {
         responseText = JSON.stringify(response);
       }
@@ -932,7 +863,7 @@ Return ONLY the JSON object, nothing else.`;
 
       try {
         // Clean up potential markdown code blocks
-        let cleanResponse = responseText
+        const cleanResponse = responseText
           .trim()
           .replace(/^```json\s*/i, '')
           .replace(/^```\s*/i, '')
@@ -941,9 +872,7 @@ Return ONLY the JSON object, nothing else.`;
 
         parsedResponse = JSON.parse(cleanResponse);
       } catch (parseError) {
-        this.logger.warn(
-          `[FilesAgent] Failed to parse AI response: ${responseText}`,
-        );
+        this.logger.warn(`[FilesAgent] Failed to parse AI response: ${responseText}`);
         return { action: 'unknown' };
       }
 
@@ -976,18 +905,13 @@ Return ONLY the JSON object, nothing else.`;
       ];
 
       if (!validActions.includes(parsedResponse.action)) {
-        this.logger.warn(
-          `[FilesAgent] Invalid action from AI: ${parsedResponse.action}`,
-        );
+        this.logger.warn(`[FilesAgent] Invalid action from AI: ${parsedResponse.action}`);
         return { action: 'unknown' };
       }
 
       return parsedResponse;
     } catch (error) {
-      this.logger.error(
-        `[FilesAgent] AI parsing failed: ${error.message}`,
-        error.stack,
-      );
+      this.logger.error(`[FilesAgent] AI parsing failed: ${error.message}`, error.stack);
       this.logger.error(`[FilesAgent] Original prompt was: "${prompt}"`);
       return { action: 'unknown' };
     }
@@ -1254,7 +1178,9 @@ Return ONLY the JSON object, nothing else.`;
     // Try to find as file first
     const fileId = this.findFileByName(searchName, existingItems.files);
     if (fileId) {
-      this.logger.log(`[FilesAgent] rename_auto: Found as file, renaming file "${searchName}" to "${newName}"`);
+      this.logger.log(
+        `[FilesAgent] rename_auto: Found as file, renaming file "${searchName}" to "${newName}"`,
+      );
       return this.handleRenameFile(
         { ...intent, action: 'rename_file', fileId, fileName: searchName },
         workspaceId,
@@ -1266,7 +1192,9 @@ Return ONLY the JSON object, nothing else.`;
     // Try to find as folder
     const folderId = this.findFolderByName(searchName, existingItems.folders);
     if (folderId) {
-      this.logger.log(`[FilesAgent] rename_auto: Found as folder, renaming folder "${searchName}" to "${newName}"`);
+      this.logger.log(
+        `[FilesAgent] rename_auto: Found as folder, renaming folder "${searchName}" to "${newName}"`,
+      );
       return this.handleRenameFolder(
         { ...intent, action: 'rename_folder', folderId, folderName: searchName },
         workspaceId,
@@ -1294,7 +1222,8 @@ Return ONLY the JSON object, nothing else.`;
     existingFolders: any[],
   ): Promise<FileAgentResponse> {
     const folderId = intent.folderId || this.findFolderByName(intent.folderName, existingFolders);
-    const folderName = intent.folderName || existingFolders.find(f => f.id === folderId)?.name || 'the folder';
+    const folderName =
+      intent.folderName || existingFolders.find((f) => f.id === folderId)?.name || 'the folder';
 
     if (!folderId) {
       return {
@@ -1334,7 +1263,8 @@ Return ONLY the JSON object, nothing else.`;
     existingFiles: any[],
   ): Promise<FileAgentResponse> {
     const fileId = intent.fileId || this.findFileByName(intent.fileName, existingFiles);
-    const fileName = intent.fileName || existingFiles.find(f => f.id === fileId)?.name || 'the file';
+    const fileName =
+      intent.fileName || existingFiles.find((f) => f.id === fileId)?.name || 'the file';
 
     if (!fileId) {
       return {
@@ -1375,9 +1305,10 @@ Return ONLY the JSON object, nothing else.`;
   ): Promise<FileAgentResponse> {
     const fileId = intent.fileId || this.findFileByName(intent.fileName, existingItems.files);
     const targetFolderId = intent.targetFolderId;
-    const fileName = intent.fileName || existingItems.files.find(f => f.id === fileId)?.name || 'the file';
+    const fileName =
+      intent.fileName || existingItems.files.find((f) => f.id === fileId)?.name || 'the file';
     const targetFolderName = targetFolderId
-      ? existingItems.folders.find(f => f.id === targetFolderId)?.name || 'the folder'
+      ? existingItems.folders.find((f) => f.id === targetFolderId)?.name || 'the folder'
       : 'root';
 
     if (!fileId) {
@@ -1424,9 +1355,10 @@ Return ONLY the JSON object, nothing else.`;
   ): Promise<FileAgentResponse> {
     const folderId = intent.folderId || this.findFolderByName(intent.folderName, existingFolders);
     const targetParentId = intent.targetParentId;
-    const folderName = intent.folderName || existingFolders.find(f => f.id === folderId)?.name || 'the folder';
+    const folderName =
+      intent.folderName || existingFolders.find((f) => f.id === folderId)?.name || 'the folder';
     const targetFolderName = targetParentId
-      ? existingFolders.find(f => f.id === targetParentId)?.name || 'the folder'
+      ? existingFolders.find((f) => f.id === targetParentId)?.name || 'the folder'
       : 'root';
 
     if (!folderId) {
@@ -1473,9 +1405,10 @@ Return ONLY the JSON object, nothing else.`;
   ): Promise<FileAgentResponse> {
     const fileId = intent.fileId || this.findFileByName(intent.fileName, existingItems.files);
     const targetFolderId = intent.targetFolderId;
-    const fileName = intent.fileName || existingItems.files.find(f => f.id === fileId)?.name || 'the file';
+    const fileName =
+      intent.fileName || existingItems.files.find((f) => f.id === fileId)?.name || 'the file';
     const targetFolderName = targetFolderId
-      ? existingItems.folders.find(f => f.id === targetFolderId)?.name || 'the folder'
+      ? existingItems.folders.find((f) => f.id === targetFolderId)?.name || 'the folder'
       : 'root';
 
     if (!fileId) {
@@ -1525,9 +1458,10 @@ Return ONLY the JSON object, nothing else.`;
   ): Promise<FileAgentResponse> {
     const folderId = intent.folderId || this.findFolderByName(intent.folderName, existingFolders);
     const targetParentId = intent.targetParentId;
-    const folderName = intent.folderName || existingFolders.find(f => f.id === folderId)?.name || 'the folder';
+    const folderName =
+      intent.folderName || existingFolders.find((f) => f.id === folderId)?.name || 'the folder';
     const targetFolderName = targetParentId
-      ? existingFolders.find(f => f.id === targetParentId)?.name || 'the folder'
+      ? existingFolders.find((f) => f.id === targetParentId)?.name || 'the folder'
       : 'root';
 
     if (!folderId) {
@@ -1577,7 +1511,8 @@ Return ONLY the JSON object, nothing else.`;
   ): Promise<FileAgentResponse> {
     const fileId = intent.fileId || this.findFileByName(intent.fileName, existingFiles);
     const shareWith = intent.shareWith || [];
-    const fileName = intent.fileName || existingFiles.find(f => f.id === fileId)?.name || 'the file';
+    const fileName =
+      intent.fileName || existingFiles.find((f) => f.id === fileId)?.name || 'the file';
 
     if (!fileId) {
       return {
@@ -1635,7 +1570,8 @@ Return ONLY the JSON object, nothing else.`;
     starred: boolean,
   ): Promise<FileAgentResponse> {
     const fileId = intent.fileId || this.findFileByName(intent.fileName, existingFiles);
-    const fileName = intent.fileName || existingFiles.find(f => f.id === fileId)?.name || 'the file';
+    const fileName =
+      intent.fileName || existingFiles.find((f) => f.id === fileId)?.name || 'the file';
 
     if (!fileId) {
       return {
@@ -1647,19 +1583,12 @@ Return ONLY the JSON object, nothing else.`;
     }
 
     try {
-      const file = await this.filesService.updateFile(
-        fileId,
-        workspaceId,
-        { starred },
-        userId,
-      );
+      const file = await this.filesService.updateFile(fileId, workspaceId, { starred }, userId);
 
       return {
         success: true,
         action: starred ? 'star_file' : 'unstar_file',
-        message: starred
-          ? `⭐ Starred "${fileName}".`
-          : `Removed star from "${fileName}".`,
+        message: starred ? `⭐ Starred "${fileName}".` : `Removed star from "${fileName}".`,
         data: { file },
       };
     } catch (error) {
@@ -1706,9 +1635,10 @@ Return ONLY the JSON object, nothing else.`;
       return {
         success: true,
         action: 'search',
-        message: fileCount > 0
-          ? `🔍 Found ${fileCount} file(s) matching "${query}".`
-          : `No files found matching "${query}".`,
+        message:
+          fileCount > 0
+            ? `🔍 Found ${fileCount} file(s) matching "${query}".`
+            : `No files found matching "${query}".`,
         data: {
           query,
           count: fileCount,
@@ -1774,7 +1704,7 @@ Return ONLY the JSON object, nothing else.`;
     userId: string,
   ): Promise<FileAgentResponse> {
     const files = intent.batch_delete_files || [];
-    const fileIds = files.map(f => f.fileId);
+    const fileIds = files.map((f) => f.fileId);
 
     if (fileIds.length === 0) {
       return {
@@ -1786,11 +1716,7 @@ Return ONLY the JSON object, nothing else.`;
     }
 
     try {
-      const result = await this.filesService.deleteMultipleFiles(
-        fileIds,
-        workspaceId,
-        userId,
-      );
+      const result = await this.filesService.deleteMultipleFiles(fileIds, workspaceId, userId);
 
       return {
         success: true,
@@ -1817,7 +1743,7 @@ Return ONLY the JSON object, nothing else.`;
     userId: string,
   ): Promise<FileAgentResponse> {
     const folders = intent.batch_delete_folders || [];
-    const folderIds = folders.map(f => f.folderId);
+    const folderIds = folders.map((f) => f.folderId);
 
     if (folderIds.length === 0) {
       return {
@@ -1829,11 +1755,7 @@ Return ONLY the JSON object, nothing else.`;
     }
 
     try {
-      const result = await this.filesService.deleteMultipleFolders(
-        folderIds,
-        workspaceId,
-        userId,
-      );
+      const result = await this.filesService.deleteMultipleFolders(folderIds, workspaceId, userId);
 
       return {
         success: true,
@@ -1897,7 +1819,7 @@ Return ONLY the JSON object, nothing else.`;
     userId: string,
   ): Promise<FileAgentResponse> {
     const folders = intent.batch_move_folders || [];
-    const folderIds = folders.map(f => f.folderId);
+    const folderIds = folders.map((f) => f.folderId);
     const targetParentId = folders[0]?.targetParentId || null;
 
     if (folderIds.length === 0) {
@@ -2000,9 +1922,7 @@ Return ONLY the JSON object, nothing else.`;
         limit || 50,
       );
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Failed to get conversation history: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Failed to get conversation history: ${error.message}`);
       return [];
     }
   }
@@ -2019,10 +1939,7 @@ Return ONLY the JSON object, nothing else.`;
         return { success: false, message: 'Conversation memory not available' };
       }
 
-      await this.conversationMemoryService.deleteUserHistory(
-        workspaceId,
-        userId,
-      );
+      await this.conversationMemoryService.deleteUserHistory(workspaceId, userId);
 
       return { success: true, message: 'Conversation history cleared' };
     } catch (error) {
@@ -2033,23 +1950,15 @@ Return ONLY the JSON object, nothing else.`;
   /**
    * Get conversation statistics for the Files AI agent
    */
-  async getConversationStats(
-    workspaceId: string,
-    userId: string,
-  ): Promise<any> {
+  async getConversationStats(workspaceId: string, userId: string): Promise<any> {
     try {
       if (!this.conversationMemoryService.isReady()) {
         return { totalMessages: 0, userMessages: 0, assistantMessages: 0 };
       }
 
-      return await this.conversationMemoryService.getConversationStats(
-        workspaceId,
-        userId,
-      );
+      return await this.conversationMemoryService.getConversationStats(workspaceId, userId);
     } catch (error) {
-      this.logger.warn(
-        `[FilesAgent] Failed to get conversation stats: ${error.message}`,
-      );
+      this.logger.warn(`[FilesAgent] Failed to get conversation stats: ${error.message}`);
       return { totalMessages: 0, userMessages: 0, assistantMessages: 0 };
     }
   }
@@ -2071,8 +1980,9 @@ Return ONLY the JSON object, nothing else.`;
 
     if (!targetFileId && fileName) {
       const file = existingFiles.find(
-        (f) => f.name.toLowerCase() === fileName.toLowerCase() ||
-               f.name.toLowerCase().includes(fileName.toLowerCase())
+        (f) =>
+          f.name.toLowerCase() === fileName.toLowerCase() ||
+          f.name.toLowerCase().includes(fileName.toLowerCase()),
       );
       if (file) {
         targetFileId = file.id;
@@ -2090,11 +2000,7 @@ Return ONLY the JSON object, nothing else.`;
     }
 
     try {
-      const result = await this.filesService.restoreFile(
-        targetFileId,
-        workspaceId,
-        userId,
-      );
+      const result = await this.filesService.restoreFile(targetFileId, workspaceId, userId);
 
       return {
         success: true,
@@ -2130,8 +2036,9 @@ Return ONLY the JSON object, nothing else.`;
 
     if (!targetFolderId && folderName) {
       const folder = existingFolders.find(
-        (f) => f.name.toLowerCase() === folderName.toLowerCase() ||
-               f.name.toLowerCase().includes(folderName.toLowerCase())
+        (f) =>
+          f.name.toLowerCase() === folderName.toLowerCase() ||
+          f.name.toLowerCase().includes(folderName.toLowerCase()),
       );
       if (folder) {
         targetFolderId = folder.id;
@@ -2186,7 +2093,14 @@ Return ONLY the JSON object, nothing else.`;
     if (items.length === 0) {
       try {
         // Get all deleted files using getFiles with isDeleted=true
-        const deletedFilesResult = await this.filesService.getFiles(workspaceId, undefined, 1, 1000, true, userId);
+        const deletedFilesResult = await this.filesService.getFiles(
+          workspaceId,
+          undefined,
+          1,
+          1000,
+          true,
+          userId,
+        );
         const deletedFiles = deletedFilesResult?.data || [];
 
         if (deletedFiles.length === 0) {
@@ -2210,14 +2124,19 @@ Return ONLY the JSON object, nothing else.`;
           }
         }
 
-        const successCount = results.filter(r => r.success).length;
-        const failCount = results.filter(r => !r.success).length;
+        const successCount = results.filter((r) => r.success).length;
+        const failCount = results.filter((r) => !r.success).length;
 
         return {
           success: successCount > 0,
           action: 'batch_restore_files',
           message: `Restored ${successCount} file(s)${failCount > 0 ? `, ${failCount} failed` : ''}.`,
-          data: { results, total: deletedFiles.length, successful: successCount, failed: failCount },
+          data: {
+            results,
+            total: deletedFiles.length,
+            successful: successCount,
+            failed: failCount,
+          },
         };
       } catch (error) {
         this.logger.error(`[FilesAgent] Batch restore files failed: ${error.message}`);
@@ -2242,8 +2161,8 @@ Return ONLY the JSON object, nothing else.`;
       }
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
+    const successCount = results.filter((r) => r.success).length;
+    const failCount = results.filter((r) => !r.success).length;
 
     return {
       success: successCount > 0,
@@ -2267,7 +2186,12 @@ Return ONLY the JSON object, nothing else.`;
     if (items.length === 0) {
       try {
         // Get all deleted folders using getFolders with isDeleted=true
-        const deletedFolders = await this.filesService.getFolders(workspaceId, undefined, true, userId);
+        const deletedFolders = await this.filesService.getFolders(
+          workspaceId,
+          undefined,
+          true,
+          userId,
+        );
 
         if (!deletedFolders || deletedFolders.length === 0) {
           return {
@@ -2290,14 +2214,19 @@ Return ONLY the JSON object, nothing else.`;
           }
         }
 
-        const successCount = results.filter(r => r.success).length;
-        const failCount = results.filter(r => !r.success).length;
+        const successCount = results.filter((r) => r.success).length;
+        const failCount = results.filter((r) => !r.success).length;
 
         return {
           success: successCount > 0,
           action: 'batch_restore_folders',
           message: `Restored ${successCount} folder(s)${failCount > 0 ? `, ${failCount} failed` : ''}.`,
-          data: { results, total: deletedFolders.length, successful: successCount, failed: failCount },
+          data: {
+            results,
+            total: deletedFolders.length,
+            successful: successCount,
+            failed: failCount,
+          },
         };
       } catch (error) {
         this.logger.error(`[FilesAgent] Batch restore folders failed: ${error.message}`);
@@ -2322,8 +2251,8 @@ Return ONLY the JSON object, nothing else.`;
       }
     }
 
-    const successCount = results.filter(r => r.success).length;
-    const failCount = results.filter(r => !r.success).length;
+    const successCount = results.filter((r) => r.success).length;
+    const failCount = results.filter((r) => !r.success).length;
 
     return {
       success: successCount > 0,

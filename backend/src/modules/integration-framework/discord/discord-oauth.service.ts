@@ -85,7 +85,11 @@ export class DiscordOAuthService {
     }
   }
 
-  getAuthorizationUrl(userId: string, workspaceId: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { clientId, redirectUri } = this.getClientCredentials();
     const state = this.generateState(userId, workspaceId, returnUrl);
 

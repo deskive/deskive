@@ -1,5 +1,15 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsBoolean, IsObject, IsArray, MaxLength, MinLength, Matches } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsBoolean,
+  IsObject,
+  IsArray,
+  MaxLength,
+  MinLength,
+  Matches,
+} from 'class-validator';
 import { BotStatus, BotType, BotSettingsDto } from './create-bot.dto';
 
 export class UpdateBotDto {
@@ -8,7 +18,9 @@ export class UpdateBotDto {
   @IsString()
   @MinLength(2)
   @MaxLength(50)
-  @Matches(/^[a-z0-9-]+$/, { message: 'Name must contain only lowercase letters, numbers, and hyphens' })
+  @Matches(/^[a-z0-9-]+$/, {
+    message: 'Name must contain only lowercase letters, numbers, and hyphens',
+  })
   name?: string;
 
   @ApiPropertyOptional({ description: 'Bot display name', example: 'FAQ Bot' })
@@ -44,7 +56,10 @@ export class UpdateBotDto {
   @IsObject()
   settings?: BotSettingsDto;
 
-  @ApiPropertyOptional({ description: 'Allowed action types', example: ['send_message', 'create_task'] })
+  @ApiPropertyOptional({
+    description: 'Allowed action types',
+    example: ['send_message', 'create_task'],
+  })
   @IsOptional()
   @IsArray()
   @IsString({ each: true })

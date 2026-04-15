@@ -48,7 +48,9 @@ describe('DropboxOAuthService', () => {
       const result = service.getAuthorizationUrl('user-123', 'workspace-456');
 
       expect(result.authorizationUrl).toContain('https://www.dropbox.com/oauth2/authorize');
-      expect(result.authorizationUrl).toContain('client_id=' + OAUTH_MOCK_CREDENTIALS.dropbox.clientId);
+      expect(result.authorizationUrl).toContain(
+        'client_id=' + OAUTH_MOCK_CREDENTIALS.dropbox.clientId,
+      );
       expect(result.authorizationUrl).toContain('response_type=code');
       expect(result.authorizationUrl).toContain('token_access_type=offline');
     });
@@ -69,14 +71,22 @@ describe('DropboxOAuthService', () => {
 
   describe('State Management', () => {
     it('should generate valid state', () => {
-      const state = service.generateState('user-123', 'workspace-456', 'http://example.com/callback');
+      const state = service.generateState(
+        'user-123',
+        'workspace-456',
+        'http://example.com/callback',
+      );
 
       expect(state).toBeDefined();
       expect(typeof state).toBe('string');
     });
 
     it('should decode valid state', () => {
-      const state = service.generateState('user-123', 'workspace-456', 'http://example.com/callback');
+      const state = service.generateState(
+        'user-123',
+        'workspace-456',
+        'http://example.com/callback',
+      );
       const decoded = service.decodeState(state);
 
       expect(decoded.userId).toBe('user-123');
@@ -93,7 +103,7 @@ describe('DropboxOAuthService', () => {
           workspaceId: 'workspace-456',
           timestamp: Date.now() - 15 * 60 * 1000, // 15 minutes ago
           nonce: 'test-nonce',
-        })
+        }),
       ).toString('base64url');
 
       // The service catches the expiration error and re-throws as generic "Invalid state parameter"
@@ -108,16 +118,14 @@ describe('DropboxOAuthService', () => {
   describe('Token Exchange', () => {
     it('should exchange authorization code for tokens', async () => {
       // Mock Dropbox token endpoint
-      nock('https://api.dropboxapi.com')
-        .post('/oauth2/token')
-        .reply(200, {
-          access_token: MOCK_TOKENS.dropbox.access_token,
-          refresh_token: MOCK_TOKENS.dropbox.refresh_token,
-          expires_in: MOCK_TOKENS.dropbox.expires_in,
-          token_type: 'bearer',
-          account_id: 'dbid:mock-account-id',
-          uid: '12345678',
-        });
+      nock('https://api.dropboxapi.com').post('/oauth2/token').reply(200, {
+        access_token: MOCK_TOKENS.dropbox.access_token,
+        refresh_token: MOCK_TOKENS.dropbox.refresh_token,
+        expires_in: MOCK_TOKENS.dropbox.expires_in,
+        token_type: 'bearer',
+        account_id: 'dbid:mock-account-id',
+        uid: '12345678',
+      });
 
       const tokens = await service.exchangeCodeForTokens('test-auth-code');
 
@@ -155,15 +163,13 @@ describe('DropboxOAuthService', () => {
     });
 
     it('should handle token exchange error', async () => {
-      nock('https://api.dropboxapi.com')
-        .post('/oauth2/token')
-        .reply(400, {
-          error: 'invalid_grant',
-          error_description: 'The authorization code has expired',
-        });
+      nock('https://api.dropboxapi.com').post('/oauth2/token').reply(400, {
+        error: 'invalid_grant',
+        error_description: 'The authorization code has expired',
+      });
 
       await expect(service.exchangeCodeForTokens('expired-code')).rejects.toThrow(
-        'Failed to exchange authorization code'
+        'Failed to exchange authorization code',
       );
     });
   });
@@ -174,8 +180,10 @@ describe('DropboxOAuthService', () => {
         .post('/oauth2/token', (body: any) => {
           // Body can be string or object depending on how nock parses it
           const bodyStr = typeof body === 'string' ? body : '';
-          return bodyStr.includes('grant_type=refresh_token') ||
-                 (body && body.grant_type === 'refresh_token');
+          return (
+            bodyStr.includes('grant_type=refresh_token') ||
+            (body && body.grant_type === 'refresh_token')
+          );
         })
         .reply(200, {
           access_token: 'new-refreshed-token',
@@ -190,15 +198,13 @@ describe('DropboxOAuthService', () => {
     });
 
     it('should handle refresh token error', async () => {
-      nock('https://api.dropboxapi.com')
-        .post('/oauth2/token')
-        .reply(400, {
-          error: 'invalid_grant',
-          error_description: 'The refresh token is invalid',
-        });
+      nock('https://api.dropboxapi.com').post('/oauth2/token').reply(400, {
+        error: 'invalid_grant',
+        error_description: 'The refresh token is invalid',
+      });
 
       await expect(service.refreshAccessToken('invalid-refresh-token')).rejects.toThrow(
-        'Failed to refresh access token'
+        'Failed to refresh access token',
       );
     });
   });
@@ -226,16 +232,14 @@ describe('DropboxOAuthService', () => {
         });
 
       await expect(service.getUserInfo('invalid-token')).rejects.toThrow(
-        'Failed to get Dropbox user info'
+        'Failed to get Dropbox user info',
       );
     });
   });
 
   describe('Token Revocation', () => {
     it('should revoke access token', async () => {
-      nock('https://api.dropboxapi.com')
-        .post('/2/auth/token/revoke')
-        .reply(200, null);
+      nock('https://api.dropboxapi.com').post('/2/auth/token/revoke').reply(200, null);
 
       // Should not throw
       await expect(service.revokeToken('valid-token')).resolves.not.toThrow();

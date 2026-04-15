@@ -250,7 +250,7 @@ export function VideoCallManager({
       }
       // Clean up video call service if needed
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
   }, [])
 
   return (

@@ -45,14 +45,12 @@ describe('LinearOAuthService', () => {
   });
 
   it('should exchange code for tokens', async () => {
-    nock('https://api.linear.app')
-      .post('/oauth/token')
-      .reply(200, {
-        access_token: 'lin_api_mock-linear-token',
-        token_type: 'Bearer',
-        expires_in: 315360000,
-        scope: 'read,write',
-      });
+    nock('https://api.linear.app').post('/oauth/token').reply(200, {
+      access_token: 'lin_api_mock-linear-token',
+      token_type: 'Bearer',
+      expires_in: 315360000,
+      scope: 'read,write',
+    });
 
     const tokens = await service.exchangeCodeForTokens('test-code');
 

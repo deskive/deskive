@@ -76,7 +76,10 @@ export class ReplyEmailDto {
   @IsOptional()
   isHtml?: boolean;
 
-  @ApiPropertyOptional({ description: 'Reply all (include all original recipients)', default: false })
+  @ApiPropertyOptional({
+    description: 'Reply all (include all original recipients)',
+    default: false,
+  })
   @IsBoolean()
   @IsOptional()
   replyAll?: boolean;

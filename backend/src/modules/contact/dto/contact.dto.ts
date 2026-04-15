@@ -23,13 +23,16 @@ export class ContactFormDto {
   @ApiProperty({
     description: 'Subject of the inquiry',
     example: 'general',
-    enum: ['general', 'sales', 'support', 'partnership', 'other']
+    enum: ['general', 'sales', 'support', 'partnership', 'other'],
   })
   @IsNotEmpty()
   @IsString()
   subject: string;
 
-  @ApiProperty({ description: 'Message content', example: 'I would like to learn more about your product.' })
+  @ApiProperty({
+    description: 'Message content',
+    example: 'I would like to learn more about your product.',
+  })
   @IsNotEmpty()
   @IsString()
   @MinLength(10)

@@ -300,6 +300,25 @@ Deskive 提供 40+ 个集成模块，分为以下类别：
 
 [查看详细功能文档 &rarr;](https://github.com/deskive/deskive/wiki)
 
+## 可插拔提供者
+
+每个后端服务都可以通过单个环境变量进行替换。默认配置让 Deskive 无需任何云凭据即可运行；准备就绪时再切换到托管提供商。
+
+| 领域 | 环境变量 | 附带的提供者 |
+|---|---|---|
+| **存储** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs`（默认）, `s3`, `r2`, `minio`, `b2`, `gcs`, `azure`, `none` |
+| **邮件** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`, `resend`, `sendgrid`, `postmark`, `ses`, `mailgun`, `none` |
+| **推送** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`, `fcm`, `onesignal`, `expo`, `none` |
+| **搜索** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm`（默认，无需额外基础设施）, `meilisearch`, `typesense`, `none` |
+| **认证 / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`, `google`, `github`, `magic-link`（无密码，基于 JWT） |
+| **视频** | `VIDEO_PROVIDER` | `livekit`, `jitsi`, `daily`, `agora`, `whereby`, `none` |
+| **AI** | `AI_PROVIDER` | `openai`, `anthropic`, `gemini`, `groq`, `ollama`（本地） |
+
+- **关键词搜索与语义搜索并存。** `SearchProviderService` 处理三元组/分面关键词搜索；`SearchService` 继续处理 Qdrant 向量/语义搜索。
+- **可选 SDK 按需加载** — `@azure/storage-blob`、`@google-cloud/storage`、`firebase-admin`、`livekit-server-sdk` 和 `agora-token` 均为 `optionalDependencies`，因此选择 `local-fs` / `smtp` / `webpush` / `pg-trgm` 不会带来任何安装成本。
+- **冒烟测试** 随每个适配器一起提供 (`backend/scripts/smoke-test-*-providers.ts`) — 存储 / 邮件 / 推送 / 搜索 / 认证分别包含 27 / 45 / 61 / 55 / 37 个断言，全部通过。
+- **完整文档：** 关于每个提供者的环境变量和设置，请参阅 `backend/docs/providers/`。
+
 ## 国际化
 
 Deskive 通过 react-i18next 支持多种语言：

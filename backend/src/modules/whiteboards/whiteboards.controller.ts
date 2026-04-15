@@ -77,7 +77,9 @@ export class WhiteboardsController {
     @CurrentUser('sub') userId: string,
   ): Promise<WhiteboardResponseDto> {
     this.logger.log(`Controller received update request`);
-    this.logger.log(`DTO elements type: ${typeof dto.elements}, isArray: ${Array.isArray(dto.elements)}, length: ${dto.elements?.length}`);
+    this.logger.log(
+      `DTO elements type: ${typeof dto.elements}, isArray: ${Array.isArray(dto.elements)}, length: ${dto.elements?.length}`,
+    );
     this.logger.log(`DTO elements preview: ${JSON.stringify(dto.elements)?.substring(0, 300)}`);
     return this.whiteboardsService.updateWhiteboard(workspaceId, whiteboardId, dto, userId);
   }
@@ -129,6 +131,11 @@ export class WhiteboardsController {
     @Param('collaboratorUserId') collaboratorUserId: string,
     @CurrentUser('sub') userId: string,
   ): Promise<void> {
-    return this.whiteboardsService.removeCollaborator(workspaceId, whiteboardId, collaboratorUserId, userId);
+    return this.whiteboardsService.removeCollaborator(
+      workspaceId,
+      whiteboardId,
+      collaboratorUserId,
+      userId,
+    );
   }
 }

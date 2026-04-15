@@ -46,7 +46,6 @@ import {
   User,
   Shield,
   Bell,
-  CreditCard,
   Upload,
   Wand2,
   Image,
@@ -1611,14 +1610,6 @@ export const LeftSidebar = React.memo(function LeftSidebar({ currentView, isColl
               active={activeSettingsSection === 'team'}
               onClick={() => navigateToSettingsSection('team')}
             />
-            <SidebarItem
-              icon={<CreditCard className="h-3 w-3" />}
-              label={intl.formatMessage({ id: 'sidebar.settings.billing' })}
-              badge={intl.formatMessage({ id: 'sidebar.settings.billingBadge' })}
-              active={activeSettingsSection === 'billing'}
-              onClick={() => navigateToSettingsSection('billing')}
-            />
-
             {/* Workspace Settings - Only for owner/admin */}
             {isOwnerOrAdmin && (
               <>

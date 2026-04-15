@@ -37,7 +37,7 @@ export class ConnectorTestHelper {
   static async createConnector<T extends BaseConnector>(
     ConnectorClass: new () => T,
     connectorName: string,
-    customCredentials?: any
+    customCredentials?: any,
   ): Promise<T>;
 
   /**
@@ -47,7 +47,7 @@ export class ConnectorTestHelper {
     ConnectorClass: new (...args: any[]) => T,
     connectorName: string,
     customCredentials?: any,
-    constructorArgs?: any[]
+    constructorArgs?: any[],
   ): Promise<T>;
 
   /**
@@ -57,7 +57,7 @@ export class ConnectorTestHelper {
     ConnectorClass: new (...args: any[]) => T,
     connectorName: string,
     customCredentials?: any,
-    constructorArgs?: any[]
+    constructorArgs?: any[],
   ): Promise<T> {
     // Create mock dependencies for connectors that need them
     const mockAuthUtils = {
@@ -101,7 +101,7 @@ export class ConnectorTestHelper {
     method: 'get' | 'post' | 'put' | 'delete' | 'patch',
     path: string,
     response: { status: number; body: any },
-    requestBody?: any
+    requestBody?: any,
   ): nock.Scope {
     const scope = nock(baseUrl);
 
@@ -116,14 +116,19 @@ export class ConnectorTestHelper {
    * Setup mock from test case definition
    */
   static setupMockFromTestCase(baseUrl: string, testCase: TestCase): nock.Scope {
-    const method = testCase.mock.method.toLowerCase() as 'get' | 'post' | 'put' | 'delete' | 'patch';
+    const method = testCase.mock.method.toLowerCase() as
+      | 'get'
+      | 'post'
+      | 'put'
+      | 'delete'
+      | 'patch';
 
     return this.mockApi(
       baseUrl,
       method,
       testCase.mock.path,
       { status: testCase.mock.status, body: testCase.mock.response },
-      testCase.mock.requestBody
+      testCase.mock.requestBody,
     );
   }
 
@@ -131,7 +136,7 @@ export class ConnectorTestHelper {
    * Load fixture from a path (relative to connector's __tests__/fixtures)
    */
   static loadFixture<T = TestFixture>(fixturePath: string): T {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     return require(fixturePath);
   }
 
@@ -145,7 +150,10 @@ export class ConnectorTestHelper {
    *
    * Note: executeAction wraps all results, so we check result.data.success for inner status
    */
-  static assertResponse(actual: any, expected: { success: boolean; data?: any; error?: any }): void {
+  static assertResponse(
+    actual: any,
+    expected: { success: boolean; data?: any; error?: any },
+  ): void {
     // The inner success is in result.data.success (due to executeAction wrapping)
     // For error cases: result.success is true, but result.data.success is false
     const innerSuccess = actual.data?.success !== undefined ? actual.data.success : actual.success;
@@ -170,7 +178,7 @@ export class ConnectorTestHelper {
   static async runFixtureTests(
     connector: BaseConnector,
     fixture: TestFixture,
-    actionId?: string
+    actionId?: string,
   ): Promise<void> {
     const action = actionId || fixture.action;
 
@@ -215,9 +223,7 @@ export class ConnectorTestHelper {
   static verifyAllMocksCalled(): void {
     if (!nock.isDone()) {
       const pendingMocks = nock.pendingMocks();
-      throw new Error(
-        `Not all HTTP mocks were used. Pending mocks:\n${pendingMocks.join('\n')}`
-      );
+      throw new Error(`Not all HTTP mocks were used. Pending mocks:\n${pendingMocks.join('\n')}`);
     }
   }
 }

@@ -37,12 +37,7 @@ import { JwtService } from '@nestjs/jwt';
  * with this shape.
  */
 export interface MagicLinkEmailSender {
-  sendEmail(
-    to: string | string[],
-    subject: string,
-    html: string,
-    text?: string,
-  ): Promise<unknown>;
+  sendEmail(to: string | string[], subject: string, html: string, text?: string): Promise<unknown>;
 }
 
 export const MAGIC_LINK_EMAIL_SENDER = Symbol('MAGIC_LINK_EMAIL_SENDER');
@@ -79,10 +74,7 @@ export class MagicLinkService {
     @Inject(MAGIC_LINK_EMAIL_SENDER)
     private readonly emailService: MagicLinkEmailSender,
   ) {
-    this.ttlSeconds = parseInt(
-      config.get<string>('MAGIC_LINK_TTL_SECONDS', '900') || '900',
-      10,
-    );
+    this.ttlSeconds = parseInt(config.get<string>('MAGIC_LINK_TTL_SECONDS', '900') || '900', 10);
     this.frontendUrl = config.get<string>('FRONTEND_URL', 'http://localhost:5173');
     this.isProduction =
       (config.get<string>('NODE_ENV') || 'development').toLowerCase() === 'production';
@@ -115,9 +107,7 @@ export class MagicLinkService {
     try {
       payload = this.jwtService.verify<MagicLinkTokenPayload>(token);
     } catch (e: any) {
-      throw new BadRequestException(
-        `Magic link token is invalid or expired: ${e.message}`,
-      );
+      throw new BadRequestException(`Magic link token is invalid or expired: ${e.message}`);
     }
     if (payload.purpose !== 'magic-link') {
       throw new BadRequestException('Token purpose mismatch');
@@ -148,20 +138,13 @@ export class MagicLinkService {
     const text = `Click to sign in: ${link}\n\nThis link will expire in ${Math.round(this.ttlSeconds / 60)} minutes.\n\nIf you didn't request this, you can safely ignore this email.`;
 
     try {
-      await this.emailService.sendEmail(
-        normalized,
-        'Your Deskive sign-in link',
-        html,
-        text,
-      );
+      await this.emailService.sendEmail(normalized, 'Your Deskive sign-in link', html, text);
       this.logger.log(`Magic link sent to ${normalized}`);
     } catch (e: any) {
       // Log the failure but don't surface it to the caller —
       // prevents email-existence enumeration. The dev can see
       // the failure in the logs.
-      this.logger.error(
-        `Failed to send magic link to ${normalized}: ${e.message}`,
-      );
+      this.logger.error(`Failed to send magic link to ${normalized}: ${e.message}`);
     }
 
     return {

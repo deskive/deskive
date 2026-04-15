@@ -83,8 +83,8 @@ export class VideoCallsService {
     // Sanitize title to remove spaces and special characters for URL compatibility
     const sanitizedTitle = (dto.title || 'Video Call')
       .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')  // Replace non-alphanumeric chars with hyphens
-      .replace(/^-+|-+$/g, '');      // Remove leading/trailing hyphens
+      .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric chars with hyphens
+      .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
     const uniqueRoomName = `${sanitizedTitle}_${Date.now()}`;
     this.logger.log(`Attempting to create LiveKit room: ${uniqueRoomName}`);
 
@@ -178,16 +178,27 @@ export class VideoCallsService {
     // 7. Send incoming call notifications for instant calls (not scheduled)
     if (!dto.scheduled_start_time && dto.participant_ids && dto.participant_ids.length > 0) {
       try {
-        this.logger.log('📞 [VideoCallService] Instant call detected, preparing to send notifications');
-        this.logger.log(`📋 [VideoCallService] Participant IDs: ${JSON.stringify(dto.participant_ids)}`);
+        this.logger.log(
+          '📞 [VideoCallService] Instant call detected, preparing to send notifications',
+        );
+        this.logger.log(
+          `📋 [VideoCallService] Participant IDs: ${JSON.stringify(dto.participant_ids)}`,
+        );
         this.logger.log(`📋 [VideoCallService] Host User ID: ${userId}`);
 
         // Get host user info
         const hostUser = await this.db.getUserById(userId);
-        const hostName = hostUser?.metadata?.name || (hostUser as any)?.fullName || hostUser?.name || hostUser?.email?.split('@')[0] || 'Someone';
+        const hostName =
+          hostUser?.metadata?.name ||
+          (hostUser as any)?.fullName ||
+          hostUser?.name ||
+          hostUser?.email?.split('@')[0] ||
+          'Someone';
         const hostAvatar = hostUser?.metadata?.avatarUrl || undefined;
 
-        this.logger.log(`👤 [VideoCallService] Host info - Name: ${hostName}, Avatar: ${hostAvatar}`);
+        this.logger.log(
+          `👤 [VideoCallService] Host info - Name: ${hostName}, Avatar: ${hostAvatar}`,
+        );
 
         const callNotificationData = {
           callId: call.id,
@@ -199,17 +210,25 @@ export class VideoCallsService {
           participantIds: dto.participant_ids,
         };
 
-        this.logger.log(`📤 [VideoCallService] Sending notification with data: ${JSON.stringify(callNotificationData, null, 2)}`);
+        this.logger.log(
+          `📤 [VideoCallService] Sending notification with data: ${JSON.stringify(callNotificationData, null, 2)}`,
+        );
 
         // Send incoming call notification via VideoCalls WebSocket namespace (for Flutter app)
-        this.videoCallsGateway.sendIncomingCallNotification(dto.participant_ids, callNotificationData);
+        this.videoCallsGateway.sendIncomingCallNotification(
+          dto.participant_ids,
+          callNotificationData,
+        );
 
-        this.logger.log(`✅ [VideoCallService] Sent WebSocket notifications via /video-calls namespace to ${dto.participant_ids.length} participants`);
+        this.logger.log(
+          `✅ [VideoCallService] Sent WebSocket notifications via /video-calls namespace to ${dto.participant_ids.length} participants`,
+        );
 
         // ALSO send via main AppGateway (for web clients on main '/' namespace)
         // This ensures both web and mobile clients receive the incoming call notification
         for (const participantId of dto.participant_ids) {
-          if (participantId !== userId) { // Don't send to caller
+          if (participantId !== userId) {
+            // Don't send to caller
             this.appGateway.emitToUser(participantId, 'call:incoming', {
               callId: call.id,
               callType: dto.call_type,
@@ -224,26 +243,29 @@ export class VideoCallsService {
           }
         }
 
-        this.logger.log(`✅ [VideoCallService] Sent WebSocket notifications via main '/' namespace to ${dto.participant_ids.length} participants`);
+        this.logger.log(
+          `✅ [VideoCallService] Sent WebSocket notifications via main '/' namespace to ${dto.participant_ids.length} participants`,
+        );
 
         // Send data-only FCM push notification for incoming call
         // This allows Flutter app to show full-screen call UI with ringtone
-        await this.notificationsService.sendIncomingCallNotification(
-          dto.participant_ids,
-          {
-            call_id: call.id,
-            call_type: dto.call_type,
-            is_group_call: dto.is_group_call || false,
-            caller_user_id: userId,
-            caller_name: hostName,
-            caller_avatar: hostAvatar,
-            workspace_id: workspaceId,
-          },
-        );
+        await this.notificationsService.sendIncomingCallNotification(dto.participant_ids, {
+          call_id: call.id,
+          call_type: dto.call_type,
+          is_group_call: dto.is_group_call || false,
+          caller_user_id: userId,
+          caller_name: hostName,
+          caller_avatar: hostAvatar,
+          workspace_id: workspaceId,
+        });
 
-        this.logger.log(`✅ [VideoCallService] Sent data-only FCM call notification to ${dto.participant_ids.length} participants`);
+        this.logger.log(
+          `✅ [VideoCallService] Sent data-only FCM call notification to ${dto.participant_ids.length} participants`,
+        );
       } catch (error) {
-        this.logger.error(`❌ [VideoCallService] Failed to send incoming call notifications: ${error.message}`);
+        this.logger.error(
+          `❌ [VideoCallService] Failed to send incoming call notifications: ${error.message}`,
+        );
         this.logger.error(`📋 [VideoCallService] Error stack: ${error.stack}`);
         // Don't fail the whole operation if notifications fail
       }
@@ -264,7 +286,9 @@ export class VideoCallsService {
             title: dto.title || 'Video Call',
             description: dto.description || `${dto.call_type === 'video' ? 'Video' : 'Audio'} call`,
             start_time: dto.scheduled_start_time,
-            end_time: dto.scheduled_end_time || new Date(new Date(dto.scheduled_start_time).getTime() + 3600000).toISOString(), // Default 1 hour
+            end_time:
+              dto.scheduled_end_time ||
+              new Date(new Date(dto.scheduled_start_time).getTime() + 3600000).toISOString(), // Default 1 hour
             all_day: false,
             location: 'Video Call',
             attendees: dto.participant_ids || [],
@@ -274,7 +298,7 @@ export class VideoCallsService {
             status: EventStatus.CONFIRMED,
             category_id: null,
           },
-          userId
+          userId,
         );
 
         // Link calendar event to video call
@@ -286,7 +310,7 @@ export class VideoCallsService {
               ...call.metadata,
               calendar_event_id: calendarEvent.id,
             },
-          }
+          },
         );
 
         this.logger.log(`Calendar event created for video call: ${calendarEvent.id}`);
@@ -301,7 +325,12 @@ export class VideoCallsService {
       try {
         // Get host user info from auth service
         const hostUser = await this.db.getUserById(userId);
-        const hostName = hostUser?.metadata?.name || (hostUser as any)?.fullName || hostUser?.name || hostUser?.email?.split('@')[0] || 'Someone';
+        const hostName =
+          hostUser?.metadata?.name ||
+          (hostUser as any)?.fullName ||
+          hostUser?.name ||
+          hostUser?.email?.split('@')[0] ||
+          'Someone';
 
         // Format the scheduled time
         const scheduledTime = new Date(dto.scheduled_start_time).toLocaleString('en-US', {
@@ -331,7 +360,9 @@ export class VideoCallsService {
           send_email: false,
         });
 
-        this.logger.log(`Notifications sent to ${dto.participant_ids.length} invitees for meeting: ${call.id}`);
+        this.logger.log(
+          `Notifications sent to ${dto.participant_ids.length} invitees for meeting: ${call.id}`,
+        );
       } catch (error) {
         this.logger.warn(`Failed to send invitee notifications: ${error.message}`);
         // Don't fail the whole operation if notifications fail
@@ -409,18 +440,25 @@ export class VideoCallsService {
                 const user = await this.db.getUserById(participant.user_id);
                 return {
                   ...participant,
-                  name: user?.metadata?.name || (user as any)?.fullName || user?.name || user?.email?.split('@')[0] || 'Unknown',
+                  name:
+                    user?.metadata?.name ||
+                    (user as any)?.fullName ||
+                    user?.name ||
+                    user?.email?.split('@')[0] ||
+                    'Unknown',
                   avatar: user?.metadata?.avatarUrl || user?.avatar_url || null,
                 };
               } catch (error) {
-                this.logger.warn(`Could not fetch user info for participant ${participant.user_id}: ${error.message}`);
+                this.logger.warn(
+                  `Could not fetch user info for participant ${participant.user_id}: ${error.message}`,
+                );
                 return {
                   ...participant,
                   name: 'Unknown',
                   avatar: null,
                 };
               }
-            })
+            }),
           );
 
           return {
@@ -434,7 +472,7 @@ export class VideoCallsService {
             participants: [],
           };
         }
-      })
+      }),
     );
 
     return callsWithParticipants;
@@ -466,18 +504,25 @@ export class VideoCallsService {
           const user = await this.db.getUserById(participant.user_id);
           return {
             ...participant,
-            name: user?.metadata?.name || (user as any)?.fullName || user?.name || user?.email?.split('@')[0] || 'Unknown',
+            name:
+              user?.metadata?.name ||
+              (user as any)?.fullName ||
+              user?.name ||
+              user?.email?.split('@')[0] ||
+              'Unknown',
             avatar: user?.metadata?.avatarUrl || user?.avatar_url || null,
           };
         } catch (error) {
-          this.logger.warn(`Could not fetch user info for participant ${participant.user_id}: ${error.message}`);
+          this.logger.warn(
+            `Could not fetch user info for participant ${participant.user_id}: ${error.message}`,
+          );
           return {
             ...participant,
             name: 'Unknown',
             avatar: null,
           };
         }
-      })
+      }),
     );
 
     // Get database room details
@@ -528,9 +573,7 @@ export class VideoCallsService {
 
     for (const participant of activeParticipants) {
       const duration = participant.joined_at
-        ? Math.floor(
-            (new Date().getTime() - new Date(participant.joined_at).getTime()) / 1000,
-          )
+        ? Math.floor((new Date().getTime() - new Date(participant.joined_at).getTime()) / 1000)
         : 0;
 
       await this.db.update(
@@ -554,7 +597,9 @@ export class VideoCallsService {
 
     // Process meeting intelligence (generate summary, extract action items) - run async
     this.meetingIntelligenceService.processCallEnd(callId, call.workspace_id).catch((err) => {
-      this.logger.error(`Failed to process meeting intelligence for call ${callId}: ${err.message}`);
+      this.logger.error(
+        `Failed to process meeting intelligence for call ${callId}: ${err.message}`,
+      );
     });
 
     // Get ALL participants (including invited/pending ones who haven't answered yet)
@@ -567,10 +612,17 @@ export class VideoCallsService {
 
     // Get caller/host name for the notification
     const hostUser = await this.db.getUserById(userId);
-    const hostName = hostUser?.metadata?.name || (hostUser as any)?.fullName || hostUser?.name || hostUser?.email?.split('@')[0] || 'Someone';
+    const hostName =
+      hostUser?.metadata?.name ||
+      (hostUser as any)?.fullName ||
+      hostUser?.name ||
+      hostUser?.email?.split('@')[0] ||
+      'Someone';
 
     // Notify all participants via WebSocket that the call has ended/been cancelled
-    this.logger.log(`📞 [VideoCallService] Notifying ${participantUserIds.length} participants that call ${callId} has ended`);
+    this.logger.log(
+      `📞 [VideoCallService] Notifying ${participantUserIds.length} participants that call ${callId} has ended`,
+    );
 
     const endedPayload = {
       callId,
@@ -585,7 +637,8 @@ export class VideoCallsService {
 
     // Also send via AppGateway (for web clients on main '/' namespace)
     for (const participantId of participantUserIds) {
-      if (participantId !== userId) { // Don't send to the host who ended the call
+      if (participantId !== userId) {
+        // Don't send to the host who ended the call
         this.appGateway.emitToUser(participantId, 'video_call_cancelled', endedPayload);
       }
     }
@@ -622,12 +675,13 @@ export class VideoCallsService {
     const metadata = user?.metadata || {};
 
     // Get display name from user profile (same logic as auth.service.ts validateUser)
-    const displayName = dto?.display_name ||
-                       metadata.name ||
-                       (user as any)?.fullName ||
-                       user?.name ||
-                       user?.email?.split('@')[0] ||
-                       'Anonymous';
+    const displayName =
+      dto?.display_name ||
+      metadata.name ||
+      (user as any)?.fullName ||
+      user?.name ||
+      user?.email?.split('@')[0] ||
+      'Anonymous';
 
     // Check if user is already a participant
     let participant = await this.db.findOne('video_call_participants', {
@@ -697,11 +751,15 @@ export class VideoCallsService {
       });
       const activeParticipants = result.data || [];
 
-      this.logger.log(`One-to-one call ${callId} now has ${activeParticipants.length} active participants`);
+      this.logger.log(
+        `One-to-one call ${callId} now has ${activeParticipants.length} active participants`,
+      );
 
       // If 3 or more people are in the call, convert to group call
       if (activeParticipants.length >= 3) {
-        this.logger.log(`Converting one-to-one call ${callId} to group call (${activeParticipants.length} participants)`);
+        this.logger.log(
+          `Converting one-to-one call ${callId} to group call (${activeParticipants.length} participants)`,
+        );
 
         await this.db.update(
           'video_calls',
@@ -728,7 +786,8 @@ export class VideoCallsService {
     // Get the room name from the call (stored as livekit_room_id but it's actually the room name)
     // We need to fetch the actual room to get the roomName
     const livekitRoom: any = await this.dbVideoService.getRoom(call.livekit_room_id);
-    const roomName = livekitRoom?.roomName || livekitRoom?.session?.roomName || call.livekit_room_id;
+    const roomName =
+      livekitRoom?.roomName || livekitRoom?.session?.roomName || call.livekit_room_id;
 
     // Generate access token via the configured video provider
     const tokenResponse = await this.dbVideoService.generateToken(roomName, userId, {
@@ -739,7 +798,9 @@ export class VideoCallsService {
       metadata: dto?.metadata || {},
     });
 
-    this.logger.log(`Generated video token for user ${userId}: ${tokenResponse.token.substring(0, 20)}...`);
+    this.logger.log(
+      `Generated video token for user ${userId}: ${tokenResponse.token.substring(0, 20)}...`,
+    );
 
     return {
       token: tokenResponse.token,
@@ -771,9 +832,7 @@ export class VideoCallsService {
 
     // Calculate duration
     const duration = participant.joined_at
-      ? Math.floor(
-          (new Date().getTime() - new Date(participant.joined_at).getTime()) / 1000,
-        )
+      ? Math.floor((new Date().getTime() - new Date(participant.joined_at).getTime()) / 1000)
       : 0;
 
     await this.db.update(
@@ -797,21 +856,18 @@ export class VideoCallsService {
 
     // Check if all participants who JOINED have now left
     // This excludes participants who were invited but never joined or declined
-    const activeParticipantsResult = await this.db.findMany(
-      'video_call_participants',
-      {
-        video_call_id: callId,
-        status: 'joined', // Only count participants who are currently in the call
-      }
-    );
-    console.log("activeParticipantsResult",activeParticipantsResult)
+    const activeParticipantsResult = await this.db.findMany('video_call_participants', {
+      video_call_id: callId,
+      status: 'joined', // Only count participants who are currently in the call
+    });
+    console.log('activeParticipantsResult', activeParticipantsResult);
 
     const activeParticipants = activeParticipantsResult.data || [];
 
     // For ONE-TO-ONE calls: End immediately when either participant leaves
     // For GROUP calls: Only end when all participants have left
     const shouldEndCall = !call.is_group_call
-      ? true  // One-to-one: End as soon as someone leaves
+      ? true // One-to-one: End as soon as someone leaves
       : activeParticipants.length === 0; // Group: End only when everyone left
 
     if (shouldEndCall && call.status === 'active') {
@@ -825,11 +881,15 @@ export class VideoCallsService {
       const isHostLastToLeave = userId === call.host_user_id && activeParticipants.length === 0;
 
       if (isHostLastToLeave) {
-        this.logger.log(`Host ${userId} is the last to leave call ${callId}, cleaning up invitees and join requests`);
+        this.logger.log(
+          `Host ${userId} is the last to leave call ${callId}, cleaning up invitees and join requests`,
+        );
 
         // Remove all invitees except the host
         const currentInvitees = Array.isArray(call.invitees) ? call.invitees : [];
-        const updatedInvitees = currentInvitees.filter(inviteeId => inviteeId === call.host_user_id);
+        const updatedInvitees = currentInvitees.filter(
+          (inviteeId) => inviteeId === call.host_user_id,
+        );
 
         await this.db.update(
           'video_calls',
@@ -897,7 +957,9 @@ export class VideoCallsService {
 
       // Process meeting intelligence (generate summary, extract action items) - run async
       this.meetingIntelligenceService.processCallEnd(callId, call.workspace_id).catch((err) => {
-        this.logger.error(`Failed to process meeting intelligence for call ${callId}: ${err.message}`);
+        this.logger.error(
+          `Failed to process meeting intelligence for call ${callId}: ${err.message}`,
+        );
       });
 
       // Get all participants for this call to broadcast to
@@ -905,7 +967,7 @@ export class VideoCallsService {
         video_call_id: callId,
       });
       const allParticipants = allParticipantsResult.data || [];
-      const participantUserIds = allParticipants.map(p => p.user_id).filter(Boolean);
+      const participantUserIds = allParticipants.map((p) => p.user_id).filter(Boolean);
 
       // Broadcast call ended event to all participants
       // Use both methods to ensure delivery:
@@ -992,19 +1054,18 @@ export class VideoCallsService {
       this.logger.log(`Group call ${callId} - participant ${userId} declined, call continues`);
 
       // For group calls, only end if ALL participants have declined or left
-      const activeParticipantsResult = await this.db.findMany(
-        'video_call_participants',
-        {
-          video_call_id: callId,
-          status: 'joined', // Only count participants currently in the call
-        }
-      );
+      const activeParticipantsResult = await this.db.findMany('video_call_participants', {
+        video_call_id: callId,
+        status: 'joined', // Only count participants currently in the call
+      });
 
       const activeParticipants = activeParticipantsResult.data || [];
 
       // If no one is in the call anymore, end it
       if (activeParticipants.length === 0) {
-        this.logger.log(`No active participants in group call ${callId} after decline, ending call`);
+        this.logger.log(
+          `No active participants in group call ${callId} after decline, ending call`,
+        );
 
         await this.db.update(
           'video_calls',
@@ -1111,15 +1172,13 @@ export class VideoCallsService {
     }
 
     this.logger.log(`Starting recording with LiveKit room ID: ${liveKitRoomId}`);
-    const recording = await this.dbVideoService.startRecording(
-      liveKitRoomId,
-      recordingConfig,
-    );
+    const recording = await this.dbVideoService.startRecording(liveKitRoomId, recordingConfig);
 
     // Store recording in database
     const recordingData = await this.db.insert('video_call_recordings', {
       video_call_id: callId,
-      livekit_recording_id: (recording as any).egressId || recording.recordingId || (recording as any).id, // Use the provider's recording/egress ID for stopping
+      livekit_recording_id:
+        (recording as any).egressId || recording.recordingId || (recording as any).id, // Use the provider's recording/egress ID for stopping
       status: 'recording',
       started_at: new Date().toISOString(),
       metadata: {
@@ -1172,9 +1231,7 @@ export class VideoCallsService {
 
     // Calculate duration
     const duration = recording.started_at
-      ? Math.floor(
-          (new Date().getTime() - new Date(recording.started_at).getTime()) / 1000,
-        )
+      ? Math.floor((new Date().getTime() - new Date(recording.started_at).getTime()) / 1000)
       : 0;
 
     // Update recording status to "processing" - background job will check for completion
@@ -1228,16 +1285,13 @@ export class VideoCallsService {
   /**
    * Invite participants to a call
    */
-  async inviteParticipants(
-    callId: string,
-    userId: string,
-    dto: InviteParticipantsDto,
-  ) {
+  async inviteParticipants(callId: string, userId: string, dto: InviteParticipantsDto) {
     const call = await this.getCallById(callId, userId);
 
     // Get caller info for notifications
     const callerUser = await this.db.getUserById(userId);
-    const callerName = callerUser?.metadata?.name || callerUser?.name || callerUser?.email || 'Unknown User';
+    const callerName =
+      callerUser?.metadata?.name || callerUser?.name || callerUser?.email || 'Unknown User';
     const callerAvatar = callerUser?.avatar_url || undefined;
 
     // Get current invitees list and add new invitees
@@ -1261,7 +1315,9 @@ export class VideoCallsService {
       updated_at: new Date().toISOString(),
     });
 
-    this.logger.log(`✅ [VideoCallService] Updated invitees list for call ${callId}: ${newInvitees.length} total invitees`);
+    this.logger.log(
+      `✅ [VideoCallService] Updated invitees list for call ${callId}: ${newInvitees.length} total invitees`,
+    );
 
     // Verify all invitees are workspace members and add as participants
     for (const inviteeId of dto.user_ids) {
@@ -1299,22 +1355,23 @@ export class VideoCallsService {
     // Send data-only FCM push notification for incoming call invitation
     // This allows Flutter app to show full-screen call UI with ringtone
     try {
-      await this.notificationsService.sendIncomingCallNotification(
-        dto.user_ids,
-        {
-          call_id: callId,
-          call_type: call.call_type,
-          is_group_call: call.is_group_call || false,
-          caller_user_id: userId,
-          caller_name: callerName,
-          caller_avatar: callerAvatar,
-          workspace_id: call.workspace_id,
-        },
-      );
+      await this.notificationsService.sendIncomingCallNotification(dto.user_ids, {
+        call_id: callId,
+        call_type: call.call_type,
+        is_group_call: call.is_group_call || false,
+        caller_user_id: userId,
+        caller_name: callerName,
+        caller_avatar: callerAvatar,
+        workspace_id: call.workspace_id,
+      });
 
-      this.logger.log(`✅ [VideoCallService] Sent data-only FCM call notification to ${dto.user_ids.length} invited participants`);
+      this.logger.log(
+        `✅ [VideoCallService] Sent data-only FCM call notification to ${dto.user_ids.length} invited participants`,
+      );
     } catch (fcmError) {
-      this.logger.error(`❌ [VideoCallService] Failed to send FCM notification: ${fcmError.message}`);
+      this.logger.error(
+        `❌ [VideoCallService] Failed to send FCM notification: ${fcmError.message}`,
+      );
       // Don't fail the entire operation if FCM fails
     }
 
@@ -1373,7 +1430,9 @@ export class VideoCallsService {
           user_id: inviteeId,
           type: NotificationType.VIDEO_CALL,
           title: `${callerName} invited you to a ${call.call_type} call`,
-          message: call.title ? `Meeting: ${call.title}` : `Click to join the ${call.call_type} call`,
+          message: call.title
+            ? `Meeting: ${call.title}`
+            : `Click to join the ${call.call_type} call`,
           priority: NotificationPriority.HIGH,
           action_url: callUrl,
           data: {
@@ -1389,10 +1448,14 @@ export class VideoCallsService {
           send_push: true,
         });
 
-        this.logger.log(`✅ [VideoCallService] Sent in-app notification to ${inviteeId} for call ${callId}`);
+        this.logger.log(
+          `✅ [VideoCallService] Sent in-app notification to ${inviteeId} for call ${callId}`,
+        );
       }
     } catch (inAppError) {
-      this.logger.error(`❌ [VideoCallService] Failed to send in-app notifications: ${inAppError.message}`);
+      this.logger.error(
+        `❌ [VideoCallService] Failed to send in-app notifications: ${inAppError.message}`,
+      );
       // Don't fail the entire operation if in-app notifications fail
     }
 
@@ -1416,9 +1479,7 @@ export class VideoCallsService {
     });
 
     if (!membership) {
-      throw new ForbiddenException(
-        `User ${userId} is not a member of workspace ${workspaceId}`,
-      );
+      throw new ForbiddenException(`User ${userId} is not a member of workspace ${workspaceId}`);
     }
 
     return membership;
@@ -1447,8 +1508,8 @@ export class VideoCallsService {
 
     // Filter for completed/ended calls only for time calculations
     // Note: calls can have status 'ended' (from endCall) or 'completed' (from leaveCall)
-    const finishedCalls = allCalls.filter(call =>
-      call.status === 'ended' || call.status === 'completed'
+    const finishedCalls = allCalls.filter(
+      (call) => call.status === 'ended' || call.status === 'completed',
     );
 
     // Calculate total meetings (includes all statuses)
@@ -1469,15 +1530,16 @@ export class VideoCallsService {
           totalTimeSeconds += duration;
           callsWithValidDuration++;
 
-          this.logger.debug(`Call ${call.id}: start=${call.actual_start_time}, end=${call.actual_end_time}, duration=${duration}s`);
+          this.logger.debug(
+            `Call ${call.id}: start=${call.actual_start_time}, end=${call.actual_end_time}, duration=${duration}s`,
+          );
         }
       }
     }
 
     // Calculate average duration (based on calls with valid duration only)
-    const avgDurationSeconds = callsWithValidDuration > 0
-      ? Math.floor(totalTimeSeconds / callsWithValidDuration)
-      : 0;
+    const avgDurationSeconds =
+      callsWithValidDuration > 0 ? Math.floor(totalTimeSeconds / callsWithValidDuration) : 0;
 
     // Calculate this week count (includes all statuses)
     const now = new Date();
@@ -1485,7 +1547,7 @@ export class VideoCallsService {
     startOfWeek.setDate(now.getDate() - now.getDay()); // Sunday
     startOfWeek.setHours(0, 0, 0, 0);
 
-    const thisWeekCalls = allCalls.filter(call => {
+    const thisWeekCalls = allCalls.filter((call) => {
       // For ended calls, use actual_start_time
       // For scheduled/active calls, use scheduled_start_time
       const callDate = call.actual_start_time
@@ -1540,7 +1602,8 @@ export class VideoCallsService {
 
     // Verify user is host or invitee (has access to this call)
     const isHost = call.host_user_id === userId;
-    const isInvitee = call.invitees && Array.isArray(call.invitees) && call.invitees.includes(userId);
+    const isInvitee =
+      call.invitees && Array.isArray(call.invitees) && call.invitees.includes(userId);
 
     if (!isHost && !isInvitee) {
       throw new ForbiddenException('You do not have access to this video call');
@@ -1595,7 +1658,9 @@ export class VideoCallsService {
     }
 
     if (recording.status === 'recording') {
-      throw new BadRequestException('Recording is still in progress. Please stop the recording first.');
+      throw new BadRequestException(
+        'Recording is still in progress. Please stop the recording first.',
+      );
     }
 
     // Check if transcription already exists
@@ -1636,12 +1701,9 @@ export class VideoCallsService {
       const audioBuffer = await this.dbVideoService.downloadRecording(egressId);
 
       // Call database AI transcription service
-      const transcriptionResult = await this.aiProvider.transcribeAudio(
-        audioBuffer,
-        {
-          responseFormat: 'json',
-        },
-      );
+      const transcriptionResult = await this.aiProvider.transcribeAudio(audioBuffer, {
+        responseFormat: 'json',
+      });
 
       this.logger.log(`Transcription result:`, transcriptionResult);
 
@@ -1727,9 +1789,7 @@ export class VideoCallsService {
       };
     }
 
-    this.logger.log(
-      `Starting translation for recording ${recordingId} to ${targetLanguage}`,
-    );
+    this.logger.log(`Starting translation for recording ${recordingId} to ${targetLanguage}`);
 
     try {
       // Call database AI translation service
@@ -1754,9 +1814,7 @@ export class VideoCallsService {
         },
       );
 
-      this.logger.log(
-        `Translation completed for recording ${recordingId} to ${targetLanguage}`,
-      );
+      this.logger.log(`Translation completed for recording ${recordingId} to ${targetLanguage}`);
 
       return {
         success: true,
@@ -1768,10 +1826,7 @@ export class VideoCallsService {
         },
       };
     } catch (error) {
-      this.logger.error(
-        `Translation failed for recording ${recordingId}:`,
-        error,
-      );
+      this.logger.error(`Translation failed for recording ${recordingId}:`, error);
       throw new BadRequestException(`Translation failed: ${error.message}`);
     }
   }
@@ -1816,12 +1871,9 @@ export class VideoCallsService {
 
     try {
       // Call database AI summarization service
-      const summaryResult = await this.aiProvider.summarizeText(
-        recording.metadata.transcription,
-        {
-          length: 'medium',
-        },
-      );
+      const summaryResult = await this.aiProvider.summarizeText(recording.metadata.transcription, {
+        length: 'medium',
+      });
 
       // Store summary in recording metadata
       await this.db.update(

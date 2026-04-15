@@ -61,7 +61,9 @@ export class TriggerEvaluatorService {
           return { trigger, matched: false, reason: 'Unknown trigger type' };
       }
     } catch (error) {
-      this.logger.error(`[TriggerEvaluator] Error evaluating trigger ${trigger.id}: ${error.message}`);
+      this.logger.error(
+        `[TriggerEvaluator] Error evaluating trigger ${trigger.id}: ${error.message}`,
+      );
       return { trigger, matched: false, reason: `Error: ${error.message}` };
     }
   }
@@ -76,10 +78,12 @@ export class TriggerEvaluatorService {
       caseSensitive?: boolean;
     };
 
-    const content = config.caseSensitive ? context.messageContent : context.messageContent.toLowerCase();
+    const content = config.caseSensitive
+      ? context.messageContent
+      : context.messageContent.toLowerCase();
     const keywords = config.caseSensitive
       ? config.keywords
-      : config.keywords.map(k => k.toLowerCase());
+      : config.keywords.map((k) => k.toLowerCase());
 
     for (const keyword of keywords) {
       let matched = false;
@@ -158,7 +162,10 @@ export class TriggerEvaluatorService {
     const messageLower = context.messageContent.toLowerCase();
 
     // Pattern 1: @BotName at start or after whitespace
-    const atMentionPattern = new RegExp(`(?:^|\\s)@${botNameLower.replace(/[^a-z0-9]/g, '')}(?:\\s|$)`, 'i');
+    const atMentionPattern = new RegExp(
+      `(?:^|\\s)@${botNameLower.replace(/[^a-z0-9]/g, '')}(?:\\s|$)`,
+      'i',
+    );
     const hasAtMention = atMentionPattern.test(messageLower);
 
     // Pattern 2: Bot name anywhere in message (less strict)
@@ -166,9 +173,11 @@ export class TriggerEvaluatorService {
     const hasNameMention = nameMentionPattern.test(messageLower.replace(/[^a-z0-9\s]/g, ''));
 
     // If mentions array is provided (user IDs), check if bot ID is mentioned
-    const hasBotIdMention = context.mentions && context.botId && context.mentions.includes(context.botId);
+    const hasBotIdMention =
+      context.mentions && context.botId && context.mentions.includes(context.botId);
 
-    const isMentioned = hasAtMention || hasBotIdMention || (!config.requireAtMention && hasNameMention);
+    const isMentioned =
+      hasAtMention || hasBotIdMention || (!config.requireAtMention && hasNameMention);
 
     if (!isMentioned) {
       return { trigger, matched: false, reason: 'Bot not mentioned' };
@@ -184,7 +193,9 @@ export class TriggerEvaluatorService {
       commandText = context.messageContent.replace(nameMentionPattern, '').trim();
     }
 
-    this.logger.log(`[TriggerEvaluator] Bot ${context.botName} mentioned. Command: "${commandText}"`);
+    this.logger.log(
+      `[TriggerEvaluator] Bot ${context.botName} mentioned. Command: "${commandText}"`,
+    );
 
     return {
       trigger,
@@ -273,7 +284,8 @@ export class TriggerEvaluatorService {
     channelId?: string,
     conversationId?: string,
   ): Promise<boolean> {
-    let query = this.db.table('bot_user_cooldowns')
+    let query = this.db
+      .table('bot_user_cooldowns')
       .select('*')
       .where('trigger_id', '=', triggerId)
       .where('user_id', '=', userId);
@@ -308,7 +320,8 @@ export class TriggerEvaluatorService {
     const cooldownUntil = new Date(Date.now() + cooldownSeconds * 1000);
 
     // Check if cooldown record exists
-    let query = this.db.table('bot_user_cooldowns')
+    let query = this.db
+      .table('bot_user_cooldowns')
       .select('id')
       .where('trigger_id', '=', triggerId)
       .where('user_id', '=', userId);
@@ -345,7 +358,8 @@ export class TriggerEvaluatorService {
    */
   async cleanupExpiredCooldowns(): Promise<number> {
     const now = new Date().toISOString();
-    const expired = await this.db.table('bot_user_cooldowns')
+    const expired = await this.db
+      .table('bot_user_cooldowns')
       .select('id')
       .where('cooldown_until', '<', now)
       .execute();

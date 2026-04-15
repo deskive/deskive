@@ -29,6 +29,12 @@ import { UrlProcessingService } from './services/url-processing.service';
     PdfProcessingService,
     UrlProcessingService,
   ],
-  exports: [NotesService, NotesAgentService, NoteCollaborationService, PdfProcessingService, UrlProcessingService],
+  exports: [
+    NotesService,
+    NotesAgentService,
+    NoteCollaborationService,
+    PdfProcessingService,
+    UrlProcessingService,
+  ],
 })
 export class NotesModule {}

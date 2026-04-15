@@ -41,7 +41,9 @@ export class DailyBriefingService {
     try {
       // Get all active workspace members
       const userWorkspaces = await this.getActiveUserWorkspaces();
-      this.logger.log(`[DailyBriefing] Generating briefings for ${userWorkspaces.length} user-workspace pairs`);
+      this.logger.log(
+        `[DailyBriefing] Generating briefings for ${userWorkspaces.length} user-workspace pairs`,
+      );
 
       let generated = 0;
       let errors = 0;
@@ -51,7 +53,9 @@ export class DailyBriefingService {
           await this.generateBriefingForUser(uw.userId, uw.workspaceId);
           generated++;
         } catch (error) {
-          this.logger.error(`[DailyBriefing] Error generating briefing for ${uw.userId}: ${error.message}`);
+          this.logger.error(
+            `[DailyBriefing] Error generating briefing for ${uw.userId}: ${error.message}`,
+          );
           errors++;
         }
       }
@@ -66,7 +70,9 @@ export class DailyBriefingService {
    * Generate briefing for a specific user
    */
   async generateBriefingForUser(userId: string, workspaceId: string): Promise<any> {
-    this.logger.log(`[DailyBriefing] Generating briefing for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `[DailyBriefing] Generating briefing for user ${userId} in workspace ${workspaceId}`,
+    );
 
     // Gather context
     const context = await this.gatherBriefingContext(userId, workspaceId);
@@ -89,7 +95,13 @@ export class DailyBriefingService {
     expiresAt.setHours(23, 59, 59, 999);
 
     // Save briefing to database
-    const briefing = await this.saveBriefing(userId, workspaceId, BriefingType.DAILY, content, expiresAt);
+    const briefing = await this.saveBriefing(
+      userId,
+      workspaceId,
+      BriefingType.DAILY,
+      content,
+      expiresAt,
+    );
 
     // Send notification
     await this.sendBriefingNotification(userId, workspaceId, content);
@@ -110,7 +122,10 @@ export class DailyBriefingService {
   /**
    * Gather context for briefing
    */
-  private async gatherBriefingContext(userId: string, workspaceId: string): Promise<BriefingContext> {
+  private async gatherBriefingContext(
+    userId: string,
+    workspaceId: string,
+  ): Promise<BriefingContext> {
     const now = new Date();
     const todayStart = new Date(now);
     todayStart.setHours(0, 0, 0, 0);
@@ -119,14 +134,15 @@ export class DailyBriefingService {
     const weekEnd = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
 
     // Fetch all data in parallel
-    const [overdueTasks, todayTasks, todayEvents, upcomingTasks, highPriorityItems, recentNotes] = await Promise.all([
-      this.getOverdueTasks(userId, workspaceId, now),
-      this.getTasksDueToday(userId, workspaceId, todayStart, todayEnd),
-      this.getEventsToday(userId, workspaceId, todayStart, todayEnd),
-      this.getUpcomingTasks(userId, workspaceId, todayEnd, weekEnd),
-      this.getHighPriorityItems(userId, workspaceId),
-      this.getRecentNotes(userId, workspaceId),
-    ]);
+    const [overdueTasks, todayTasks, todayEvents, upcomingTasks, highPriorityItems, recentNotes] =
+      await Promise.all([
+        this.getOverdueTasks(userId, workspaceId, now),
+        this.getTasksDueToday(userId, workspaceId, todayStart, todayEnd),
+        this.getEventsToday(userId, workspaceId, todayStart, todayEnd),
+        this.getUpcomingTasks(userId, workspaceId, todayEnd, weekEnd),
+        this.getHighPriorityItems(userId, workspaceId),
+        this.getRecentNotes(userId, workspaceId),
+      ]);
 
     return {
       overdueTasks,
@@ -143,7 +159,8 @@ export class DailyBriefingService {
    */
   private async getOverdueTasks(userId: string, workspaceId: string, now: Date): Promise<any[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('id', 'title', 'due_date', 'priority', 'project_id', 'assigned_to', 'user_id')
         .where('workspace_id', '=', workspaceId)
         .where('due_date', '<', now.toISOString())
@@ -154,15 +171,17 @@ export class DailyBriefingService {
       const tasks = Array.isArray(result) ? result : [];
 
       // Filter tasks assigned to user or created by user
-      return tasks.filter((t: any) =>
-        t.assigned_to === userId || t.user_id === userId
-      ).map((t: any) => ({
-        id: t.id,
-        title: t.title,
-        dueDate: t.due_date,
-        priority: t.priority,
-        daysOverdue: Math.floor((now.getTime() - new Date(t.due_date).getTime()) / (24 * 60 * 60 * 1000)),
-      }));
+      return tasks
+        .filter((t: any) => t.assigned_to === userId || t.user_id === userId)
+        .map((t: any) => ({
+          id: t.id,
+          title: t.title,
+          dueDate: t.due_date,
+          priority: t.priority,
+          daysOverdue: Math.floor(
+            (now.getTime() - new Date(t.due_date).getTime()) / (24 * 60 * 60 * 1000),
+          ),
+        }));
     } catch (error) {
       this.logger.warn(`[DailyBriefing] Error fetching overdue tasks: ${error.message}`);
       return [];
@@ -172,9 +191,15 @@ export class DailyBriefingService {
   /**
    * Get tasks due today
    */
-  private async getTasksDueToday(userId: string, workspaceId: string, start: Date, end: Date): Promise<any[]> {
+  private async getTasksDueToday(
+    userId: string,
+    workspaceId: string,
+    start: Date,
+    end: Date,
+  ): Promise<any[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('id', 'title', 'due_date', 'priority', 'status', 'project_id')
         .where('workspace_id', '=', workspaceId)
         .where('due_date', '>=', start.toISOString())
@@ -200,9 +225,15 @@ export class DailyBriefingService {
   /**
    * Get events for today
    */
-  private async getEventsToday(userId: string, workspaceId: string, start: Date, end: Date): Promise<any[]> {
+  private async getEventsToday(
+    userId: string,
+    workspaceId: string,
+    start: Date,
+    end: Date,
+  ): Promise<any[]> {
     try {
-      const result = await this.db.table('calendar_events')
+      const result = await this.db
+        .table('calendar_events')
         .select('id', 'title', 'start_time', 'end_time', 'location', 'attendees')
         .where('workspace_id', '=', workspaceId)
         .where('start_time', '>=', start.toISOString())
@@ -227,9 +258,15 @@ export class DailyBriefingService {
   /**
    * Get upcoming tasks for the week
    */
-  private async getUpcomingTasks(userId: string, workspaceId: string, start: Date, end: Date): Promise<any[]> {
+  private async getUpcomingTasks(
+    userId: string,
+    workspaceId: string,
+    start: Date,
+    end: Date,
+  ): Promise<any[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('id', 'title', 'due_date', 'priority')
         .where('workspace_id', '=', workspaceId)
         .where('due_date', '>', start.toISOString())
@@ -256,7 +293,8 @@ export class DailyBriefingService {
    */
   private async getHighPriorityItems(userId: string, workspaceId: string): Promise<any[]> {
     try {
-      const result = await this.db.table('tasks')
+      const result = await this.db
+        .table('tasks')
         .select('id', 'title', 'due_date', 'priority', 'status')
         .where('workspace_id', '=', workspaceId)
         .where('status', '!=', 'done')
@@ -287,7 +325,8 @@ export class DailyBriefingService {
     try {
       const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
 
-      const result = await this.db.table('notes')
+      const result = await this.db
+        .table('notes')
         .select('id', 'title', 'updated_at')
         .where('workspace_id', '=', workspaceId)
         .where('user_id', '=', userId)
@@ -309,25 +348,40 @@ export class DailyBriefingService {
   /**
    * Generate AI insights using LangChain
    */
-  private async generateAIInsights(context: BriefingContext, workspaceId: string, userId: string): Promise<string[]> {
+  private async generateAIInsights(
+    context: BriefingContext,
+    workspaceId: string,
+    userId: string,
+  ): Promise<string[]> {
     try {
       const insights: string[] = [];
 
       // Generate productivity insight
       if (context.overdueTasks.length > 3) {
-        insights.push(`You have ${context.overdueTasks.length} overdue tasks. Consider prioritizing the oldest ones first.`);
+        insights.push(
+          `You have ${context.overdueTasks.length} overdue tasks. Consider prioritizing the oldest ones first.`,
+        );
       }
 
       if (context.todayTasks.length > 5) {
-        insights.push(`Heavy day ahead with ${context.todayTasks.length} tasks due. Focus on high-priority items first.`);
+        insights.push(
+          `Heavy day ahead with ${context.todayTasks.length} tasks due. Focus on high-priority items first.`,
+        );
       }
 
       if (context.todayEvents.length >= 3) {
-        insights.push(`You have ${context.todayEvents.length} meetings today. Block some focus time between them.`);
+        insights.push(
+          `You have ${context.todayEvents.length} meetings today. Block some focus time between them.`,
+        );
       }
 
-      if (context.highPriorityItems.length > 0 && context.todayTasks.filter(t => t.priority === 'urgent').length === 0) {
-        insights.push(`No urgent tasks due today, but you have ${context.highPriorityItems.length} high-priority items in your backlog.`);
+      if (
+        context.highPriorityItems.length > 0 &&
+        context.todayTasks.filter((t) => t.priority === 'urgent').length === 0
+      ) {
+        insights.push(
+          `No urgent tasks due today, but you have ${context.highPriorityItems.length} high-priority items in your backlog.`,
+        );
       }
 
       // Try to get AI-generated insights (skip for now as it requires complex context)
@@ -358,15 +412,21 @@ export class DailyBriefingService {
     const parts: string[] = [];
 
     if (context.overdueTasks.length > 0) {
-      parts.push(`${context.overdueTasks.length} overdue task${context.overdueTasks.length > 1 ? 's' : ''}`);
+      parts.push(
+        `${context.overdueTasks.length} overdue task${context.overdueTasks.length > 1 ? 's' : ''}`,
+      );
     }
 
     if (context.todayTasks.length > 0) {
-      parts.push(`${context.todayTasks.length} task${context.todayTasks.length > 1 ? 's' : ''} due today`);
+      parts.push(
+        `${context.todayTasks.length} task${context.todayTasks.length > 1 ? 's' : ''} due today`,
+      );
     }
 
     if (context.todayEvents.length > 0) {
-      parts.push(`${context.todayEvents.length} event${context.todayEvents.length > 1 ? 's' : ''} scheduled`);
+      parts.push(
+        `${context.todayEvents.length} event${context.todayEvents.length > 1 ? 's' : ''} scheduled`,
+      );
     }
 
     if (parts.length === 0) {
@@ -407,7 +467,11 @@ export class DailyBriefingService {
   /**
    * Send notification for new briefing
    */
-  private async sendBriefingNotification(userId: string, workspaceId: string, content: BriefingContentDto): Promise<void> {
+  private async sendBriefingNotification(
+    userId: string,
+    workspaceId: string,
+    content: BriefingContentDto,
+  ): Promise<void> {
     try {
       await this.notificationsService.sendNotification({
         user_id: userId,
@@ -432,7 +496,8 @@ export class DailyBriefingService {
    */
   private async getActiveUserWorkspaces(): Promise<UserWorkspace[]> {
     try {
-      const result = await this.db.table('workspace_members')
+      const result = await this.db
+        .table('workspace_members')
         .select('user_id', 'workspace_id')
         .execute();
 
@@ -452,7 +517,8 @@ export class DailyBriefingService {
    */
   async getLatestBriefing(userId: string, workspaceId: string): Promise<any> {
     try {
-      const result = await this.db.table('autopilot_briefings')
+      const result = await this.db
+        .table('autopilot_briefings')
         .select('*')
         .where('user_id', '=', userId)
         .where('workspace_id', '=', workspaceId)
@@ -463,8 +529,8 @@ export class DailyBriefingService {
       if (briefings.length === 0) return null;
 
       // Get most recent
-      const latest = briefings.sort((a: any, b: any) =>
-        new Date(b.generated_at).getTime() - new Date(a.generated_at).getTime()
+      const latest = briefings.sort(
+        (a: any, b: any) => new Date(b.generated_at).getTime() - new Date(a.generated_at).getTime(),
       )[0];
 
       return {
@@ -482,7 +548,8 @@ export class DailyBriefingService {
    */
   async markBriefingAsRead(briefingId: string, userId: string): Promise<boolean> {
     try {
-      await this.db.table('autopilot_briefings')
+      await this.db
+        .table('autopilot_briefings')
         .update({
           is_read: true,
           read_at: new Date().toISOString(),

@@ -23,7 +23,21 @@ import { WorkflowsModule } from '../workflows/workflows.module';
     forwardRef(() => WorkflowsModule),
   ],
   controllers: [CalendarController],
-  providers: [CalendarService, CalendarAgentService, GoogleCalendarOAuthService, GoogleCalendarSyncService, EventBotAssignmentsService, EventBotReminderService],
-  exports: [CalendarService, CalendarAgentService, GoogleCalendarOAuthService, GoogleCalendarSyncService, EventBotAssignmentsService, EventBotReminderService],
+  providers: [
+    CalendarService,
+    CalendarAgentService,
+    GoogleCalendarOAuthService,
+    GoogleCalendarSyncService,
+    EventBotAssignmentsService,
+    EventBotReminderService,
+  ],
+  exports: [
+    CalendarService,
+    CalendarAgentService,
+    GoogleCalendarOAuthService,
+    GoogleCalendarSyncService,
+    EventBotAssignmentsService,
+    EventBotReminderService,
+  ],
 })
 export class CalendarModule {}

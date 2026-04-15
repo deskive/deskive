@@ -89,7 +89,10 @@ export class SharedConditionEvaluatorService {
     return conditions.some((cond) => this.evaluate(cond, context));
   }
 
-  protected evaluateCondition(condition: AutomationCondition, context: Record<string, any>): boolean {
+  protected evaluateCondition(
+    condition: AutomationCondition,
+    context: Record<string, any>,
+  ): boolean {
     const { field, operator, value } = condition;
     const actualValue = this.resolveField(field, context);
     const resolvedValue = this.resolveValue(value, context);
@@ -211,13 +214,19 @@ export class SharedConditionEvaluatorService {
   }
 
   private startsWith(value: any, prefix: any): boolean {
-    return typeof value === 'string' && typeof prefix === 'string' &&
-      value.toLowerCase().startsWith(prefix.toLowerCase());
+    return (
+      typeof value === 'string' &&
+      typeof prefix === 'string' &&
+      value.toLowerCase().startsWith(prefix.toLowerCase())
+    );
   }
 
   private endsWith(value: any, suffix: any): boolean {
-    return typeof value === 'string' && typeof suffix === 'string' &&
-      value.toLowerCase().endsWith(suffix.toLowerCase());
+    return (
+      typeof value === 'string' &&
+      typeof suffix === 'string' &&
+      value.toLowerCase().endsWith(suffix.toLowerCase())
+    );
   }
 
   private greaterThan(a: any, b: any): boolean {
@@ -252,7 +261,11 @@ export class SharedConditionEvaluatorService {
 
   private inList(value: any, list: any): boolean {
     if (!Array.isArray(list)) {
-      try { list = JSON.parse(list); } catch { list = [list]; }
+      try {
+        list = JSON.parse(list);
+      } catch {
+        list = [list];
+      }
     }
     return list.some((item: any) => this.equals(value, item));
   }

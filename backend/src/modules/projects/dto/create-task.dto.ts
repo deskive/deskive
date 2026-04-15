@@ -1,5 +1,14 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsOptional, IsEnum, IsNumber, IsUUID, IsArray, ValidateNested, IsObject } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+  IsUUID,
+  IsArray,
+  ValidateNested,
+  IsObject,
+} from 'class-validator';
 import { Type } from 'class-transformer';
 
 export enum TaskType {
@@ -7,7 +16,7 @@ export enum TaskType {
   STORY = 'story',
   BUG = 'bug',
   EPIC = 'epic',
-  SUBTASK = 'subtask'
+  SUBTASK = 'subtask',
 }
 
 export enum TaskStatus {
@@ -15,7 +24,7 @@ export enum TaskStatus {
   IN_PROGRESS = 'in_progress',
   REVIEW = 'review',
   TESTING = 'testing',
-  DONE = 'done'
+  DONE = 'done',
 }
 
 export enum TaskPriority {
@@ -23,7 +32,7 @@ export enum TaskPriority {
   LOW = 'low',
   MEDIUM = 'medium',
   HIGH = 'high',
-  HIGHEST = 'highest'
+  HIGHEST = 'highest',
 }
 
 // Per-task custom field structure (each task has its own field definitions and values)
@@ -54,7 +63,18 @@ export class TaskCustomFieldDto {
   @ApiProperty({
     description: 'Field type',
     example: 'select',
-    enum: ['text', 'number', 'date', 'select', 'multi_select', 'checkbox', 'url', 'email', 'phone', 'person']
+    enum: [
+      'text',
+      'number',
+      'date',
+      'select',
+      'multi_select',
+      'checkbox',
+      'url',
+      'email',
+      'phone',
+      'person',
+    ],
   })
   @IsString()
   fieldType: string;
@@ -65,7 +85,7 @@ export class TaskCustomFieldDto {
 
   @ApiPropertyOptional({
     description: 'Options for select/multi_select fields',
-    type: [TaskCustomFieldOptionDto]
+    type: [TaskCustomFieldOptionDto],
   })
   @IsOptional()
   @IsArray()
@@ -79,7 +99,7 @@ export class TaskAttachmentsDto {
     description: 'Array of note attachment UUIDs',
     example: ['550e8400-e29b-41d4-a716-446655440000'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -90,7 +110,7 @@ export class TaskAttachmentsDto {
     description: 'Array of file attachment UUIDs',
     example: ['660e8400-e29b-41d4-a716-446655440001'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -101,7 +121,7 @@ export class TaskAttachmentsDto {
     description: 'Array of event attachment UUIDs',
     example: ['770e8400-e29b-41d4-a716-446655440002'],
     type: [String],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -119,11 +139,11 @@ export class CreateTaskDto {
   @IsString()
   description?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Task type',
     enum: TaskType,
     example: TaskType.TASK,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(TaskType)
@@ -132,17 +152,17 @@ export class CreateTaskDto {
   @ApiProperty({
     description: 'Task status (can be any custom kanban stage ID from the project)',
     example: 'todo',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()
   status?: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Task priority',
     enum: TaskPriority,
     example: TaskPriority.MEDIUM,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(TaskPriority)
@@ -201,8 +221,8 @@ export class CreateTaskDto {
     example: {
       note_attachment: ['550e8400-e29b-41d4-a716-446655440000'],
       file_attachment: ['660e8400-e29b-41d4-a716-446655440001'],
-      event_attachment: ['770e8400-e29b-41d4-a716-446655440002']
-    }
+      event_attachment: ['770e8400-e29b-41d4-a716-446655440002'],
+    },
   })
   @IsOptional()
   @ValidateNested()
@@ -220,10 +240,10 @@ export class CreateTaskDto {
         value: 'opt_1',
         options: [
           { id: 'opt_1', label: 'High', color: '#FF0000' },
-          { id: 'opt_2', label: 'Low', color: '#00FF00' }
-        ]
-      }
-    ]
+          { id: 'opt_2', label: 'Low', color: '#00FF00' },
+        ],
+      },
+    ],
   })
   @IsOptional()
   @IsArray()

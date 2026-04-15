@@ -20,13 +20,9 @@ export const schema = {
       { name: 'metadata', type: 'jsonb', default: '{}' },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['owner_id'] },
-      { columns: ['is_active'] },
-      { columns: ['created_at'] }
-    ]
+    indexes: [{ columns: ['owner_id'] }, { columns: ['is_active'] }, { columns: ['created_at'] }],
   },
 
   // ==================== WORKSPACE SUBSCRIPTIONS ====================
@@ -51,7 +47,7 @@ export const schema = {
       { name: 'cancel_at_period_end', type: 'boolean', default: false },
       { name: 'trial_end', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'], unique: true },
@@ -61,8 +57,8 @@ export const schema = {
       { columns: ['stripe_subscription_id'] },
       { columns: ['apple_original_transaction_id'] },
       { columns: ['google_order_id'] },
-      { columns: ['current_period_end'] }
-    ]
+      { columns: ['current_period_end'] },
+    ],
   },
 
   workspace_members: {
@@ -76,15 +72,15 @@ export const schema = {
       { name: 'invited_at', type: 'timestamptz', nullable: true },
       { name: 'invited_by', type: 'string', nullable: true },
       { name: 'is_active', type: 'boolean', default: true },
-      { name: 'collaborative_data', type: 'jsonb', default: '{}' }
+      { name: 'collaborative_data', type: 'jsonb', default: '{}' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id'], unique: true },
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['role'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   workspace_settings: {
@@ -94,12 +90,9 @@ export const schema = {
       { name: 'key', type: 'string', nullable: false },
       { name: 'value', type: 'text', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['workspace_id', 'key'], unique: true },
-      { columns: ['workspace_id'] }
-    ]
+    indexes: [{ columns: ['workspace_id', 'key'], unique: true }, { columns: ['workspace_id'] }],
   },
 
   workspace_invites: {
@@ -113,15 +106,15 @@ export const schema = {
       { name: 'expires_at', type: 'timestamptz', nullable: false },
       { name: 'status', type: 'string', default: 'pending' },
       { name: 'accepted_at', type: 'timestamptz', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['email'] },
       { columns: ['status'] },
       { columns: ['expires_at'] },
-      { columns: ['token'], unique: true }
-    ]
+      { columns: ['token'], unique: true },
+    ],
   },
 
   // ==================== CHANNELS ====================
@@ -139,15 +132,15 @@ export const schema = {
       { name: 'created_by', type: 'string', nullable: true },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['type'] },
       { columns: ['is_private'] },
       { columns: ['is_archived'] },
-      { columns: ['created_by'] }
-    ]
+      { columns: ['created_by'] },
+    ],
   },
 
   // ==================== MESSAGES ====================
@@ -155,7 +148,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'channel_id', type: 'uuid', nullable: true, references: { table: 'channels' } },
-      { name: 'conversation_id', type: 'uuid', nullable: true, references: { table: 'conversations' } },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'conversations' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'content', type: 'text', nullable: true }, // Nullable for E2EE messages
       { name: 'content_html', type: 'text', nullable: true },
@@ -179,7 +177,7 @@ export const schema = {
       { name: 'pinned_by', type: 'string', nullable: true },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['channel_id', 'created_at'] },
@@ -192,8 +190,8 @@ export const schema = {
       { columns: ['conversation_id', 'is_bookmarked'] },
       { columns: ['is_pinned'] },
       { columns: ['conversation_id', 'is_pinned'] },
-      { columns: ['channel_id', 'is_pinned'] }
-    ]
+      { columns: ['channel_id', 'is_pinned'] },
+    ],
   },
 
   message_reactions: {
@@ -202,13 +200,13 @@ export const schema = {
       { name: 'message_id', type: 'uuid', nullable: false, references: { table: 'messages' } },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'emoji', type: 'string', nullable: false },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['message_id', 'user_id', 'emoji'], unique: true },
       { columns: ['message_id'] },
-      { columns: ['user_id'] }
-    ]
+      { columns: ['user_id'] },
+    ],
   },
 
   message_read_receipts: {
@@ -217,14 +215,14 @@ export const schema = {
       { name: 'message_id', type: 'uuid', nullable: false, references: { table: 'messages' } },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'read_at', type: 'timestamptz', default: 'now()' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['message_id', 'user_id'], unique: true },
       { columns: ['message_id'] },
       { columns: ['user_id'] },
-      { columns: ['read_at'] }
-    ]
+      { columns: ['read_at'] },
+    ],
   },
 
   // Poll votes - tracks individual votes on polls (one vote per user per poll)
@@ -235,14 +233,14 @@ export const schema = {
       { name: 'poll_id', type: 'string', nullable: false },
       { name: 'option_id', type: 'string', nullable: false },
       { name: 'user_id', type: 'string', nullable: false },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['message_id'] },
       { columns: ['poll_id'] },
       { columns: ['user_id'] },
-      { columns: ['message_id', 'poll_id', 'user_id'], unique: true }
-    ]
+      { columns: ['message_id', 'poll_id', 'user_id'], unique: true },
+    ],
   },
 
   // Scheduled messages - messages to be sent at a future time
@@ -251,7 +249,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'channel_id', type: 'uuid', nullable: true, references: { table: 'channels' } },
-      { name: 'conversation_id', type: 'uuid', nullable: true, references: { table: 'conversations' } },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'conversations' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'content', type: 'text', nullable: false },
       { name: 'content_html', type: 'text', nullable: true },
@@ -266,7 +269,7 @@ export const schema = {
       { name: 'sent_message_id', type: 'uuid', nullable: true, references: { table: 'messages' } },
       { name: 'failure_reason', type: 'text', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -275,8 +278,8 @@ export const schema = {
       { columns: ['user_id'] },
       { columns: ['scheduled_at'] },
       { columns: ['status'] },
-      { columns: ['status', 'scheduled_at'] }
-    ]
+      { columns: ['status', 'scheduled_at'] },
+    ],
   },
 
   // ==================== PROJECTS ====================
@@ -297,14 +300,23 @@ export const schema = {
       { name: 'actual_hours', type: 'numeric', nullable: true },
       { name: 'budget', type: 'numeric', nullable: true },
       { name: 'is_template', type: 'boolean', default: false },
-      { name: 'kanban_stages', type: 'jsonb', default: '[{"id": "todo", "name": "To Do", "order": 1, "color": "#3B82F6"}, {"id": "in_progress", "name": "In Progress", "order": 2, "color": "#F59E0B"}, {"id": "done", "name": "Done", "order": 3, "color": "#10B981"}]' },
-      { name: 'attachments', type: 'jsonb', default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}' },
+      {
+        name: 'kanban_stages',
+        type: 'jsonb',
+        default:
+          '[{"id": "todo", "name": "To Do", "order": 1, "color": "#3B82F6"}, {"id": "in_progress", "name": "In Progress", "order": 2, "color": "#F59E0B"}, {"id": "done", "name": "Done", "order": 3, "color": "#10B981"}]',
+      },
+      {
+        name: 'attachments',
+        type: 'jsonb',
+        default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}',
+      },
       { name: 'archived_at', type: 'timestamptz', nullable: true },
       { name: 'archived_by', type: 'string', nullable: true },
       { name: 'settings', type: 'jsonb', default: '{}' },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -312,8 +324,8 @@ export const schema = {
       { columns: ['owner_id'] },
       { columns: ['type'] },
       { columns: ['priority'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== PROJECT MEMBERS ====================
@@ -329,7 +341,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'notification_settings', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['project_id', 'user_id'], unique: true },
@@ -337,8 +349,8 @@ export const schema = {
       { columns: ['user_id'] },
       { columns: ['role'] },
       { columns: ['is_active'] },
-      { columns: ['joined_at'] }
-    ]
+      { columns: ['joined_at'] },
+    ],
   },
 
   // ==================== TASKS ====================
@@ -363,13 +375,17 @@ export const schema = {
       { name: 'actual_hours', type: 'numeric', nullable: true },
       { name: 'story_points', type: 'integer', nullable: true },
       { name: 'labels', type: 'jsonb', default: '[]' },
-      { name: 'attachments', type: 'jsonb', default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}' },
+      {
+        name: 'attachments',
+        type: 'jsonb',
+        default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}',
+      },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'custom_fields', type: 'jsonb', default: '[]' }, // Per-task custom fields: array of { id, name, fieldType, value, options? }
       { name: 'created_by', type: 'string', nullable: true },
       { name: 'updated_by', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['project_id'] },
@@ -381,8 +397,8 @@ export const schema = {
       { columns: ['priority'] },
       { columns: ['due_date'] },
       { columns: ['parent_task_id'] },
-      { columns: ['task_type'] }
-    ]
+      { columns: ['task_type'] },
+    ],
   },
 
   // ==================== TASK CUSTOM FIELD DEFINITIONS ====================
@@ -402,7 +418,7 @@ export const schema = {
       { name: 'settings', type: 'jsonb', default: '{}' }, // Additional settings (e.g., number format, date format)
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['project_id'] },
@@ -410,8 +426,8 @@ export const schema = {
       { columns: ['field_type'] },
       { columns: ['is_visible'] },
       { columns: ['sort_order'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   task_comments: {
@@ -425,14 +441,14 @@ export const schema = {
       { name: 'is_edited', type: 'boolean', default: false },
       { name: 'is_deleted', type: 'boolean', default: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['task_id'] },
       { columns: ['user_id'] },
       { columns: ['created_at'] },
-      { columns: ['is_deleted'] }
-    ]
+      { columns: ['is_deleted'] },
+    ],
   },
 
   // ==================== FILES & FOLDERS ====================
@@ -449,15 +465,15 @@ export const schema = {
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['parent_id'] },
       { columns: ['is_deleted'] },
       { columns: ['created_by'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   files: {
@@ -491,7 +507,7 @@ export const schema = {
       { name: 'last_opened_by', type: 'string', nullable: true },
       { name: 'open_count', type: 'integer', default: 0 },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -501,8 +517,8 @@ export const schema = {
       { columns: ['mime_type'] },
       { columns: ['file_hash'] },
       { columns: ['starred'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== FILE SHARES ====================
@@ -524,7 +540,7 @@ export const schema = {
       { name: 'last_accessed_at', type: 'timestamptz', nullable: true },
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['file_id'] },
@@ -534,8 +550,8 @@ export const schema = {
       { columns: ['share_type'] },
       { columns: ['expires_at'] },
       { columns: ['is_active'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== FILE COMMENTS ====================
@@ -555,7 +571,7 @@ export const schema = {
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' }, // For mentions, attachments, etc.
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['file_id'] },
@@ -564,10 +580,9 @@ export const schema = {
       { columns: ['is_resolved'] },
       { columns: ['is_deleted'] },
       { columns: ['created_at'] },
-      { columns: ['file_id', 'is_deleted'] }
-    ]
+      { columns: ['file_id', 'is_deleted'] },
+    ],
   },
-
 
   // ==================== OFFLINE FILES ====================
   offline_files: {
@@ -584,7 +599,7 @@ export const schema = {
       { name: 'file_size', type: 'bigint', nullable: false }, // For tracking offline storage usage
       { name: 'error_message', type: 'text', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['file_id', 'user_id'], unique: true }, // One offline entry per file per user
@@ -592,8 +607,8 @@ export const schema = {
       { columns: ['workspace_id'] },
       { columns: ['sync_status'] },
       { columns: ['auto_sync'] },
-      { columns: ['user_id', 'workspace_id'] }
-    ]
+      { columns: ['user_id', 'workspace_id'] },
+    ],
   },
 
   // ==================== CHANNEL MEMBERS ====================
@@ -609,7 +624,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_read_at', type: 'timestamptz', nullable: true },
       { name: 'notification_settings', type: 'jsonb', default: '{}' },
-      { name: 'collaborative_data', type: 'jsonb', default: '{}' }
+      { name: 'collaborative_data', type: 'jsonb', default: '{}' },
     ],
     indexes: [
       { columns: ['channel_id', 'user_id'], unique: true },
@@ -617,8 +632,8 @@ export const schema = {
       { columns: ['user_id'] },
       { columns: ['role'] },
       { columns: ['is_active'] },
-      { columns: ['joined_at'] }
-    ]
+      { columns: ['joined_at'] },
+    ],
   },
 
   // ==================== CONVERSATIONS ====================
@@ -640,7 +655,7 @@ export const schema = {
       { name: 'settings', type: 'jsonb', default: '{}' },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -649,14 +664,19 @@ export const schema = {
       { columns: ['is_active'] },
       { columns: ['is_archived'] },
       { columns: ['last_message_at'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   conversation_members: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'conversation_id', type: 'uuid', nullable: false, references: { table: 'conversations' } },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'conversations' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'role', type: 'string', default: 'member' },
       { name: 'is_active', type: 'boolean', default: true },
@@ -669,7 +689,7 @@ export const schema = {
       { name: 'notifications_enabled', type: 'boolean', default: true },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['conversation_id', 'user_id'], unique: true },
@@ -677,8 +697,8 @@ export const schema = {
       { columns: ['user_id'] },
       { columns: ['is_active'] },
       { columns: ['is_starred'] },
-      { columns: ['joined_at'] }
-    ]
+      { columns: ['joined_at'] },
+    ],
   },
 
   // ==================== CALENDAR & EVENTS ====================
@@ -695,13 +715,13 @@ export const schema = {
       { name: 'is_default', type: 'boolean', default: false },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['workspace_id', 'name'], unique: true },
-      { columns: ['created_by'] }
-    ]
+      { columns: ['created_by'] },
+    ],
   },
 
   // ==================== MEETING ROOMS ====================
@@ -726,7 +746,7 @@ export const schema = {
       { name: 'thumbnail_url', type: 'text', nullable: true },
       { name: 'images', type: 'jsonb', default: '[]' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -734,8 +754,8 @@ export const schema = {
       { columns: ['capacity'] },
       { columns: ['room_type'] },
       { columns: ['is_active'] },
-      { columns: ['room_code'], unique: true }
-    ]
+      { columns: ['room_code'], unique: true },
+    ],
   },
 
   calendar_events: {
@@ -753,7 +773,12 @@ export const schema = {
       { name: 'attendees', type: 'jsonb', default: '[]' },
       { name: 'recurrence_rule', type: 'jsonb', nullable: true },
       { name: 'is_recurring', type: 'boolean', default: false },
-      { name: 'parent_event_id', type: 'uuid', nullable: true, references: { table: 'calendar_events' } },
+      {
+        name: 'parent_event_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'calendar_events' },
+      },
       { name: 'meeting_url', type: 'text', nullable: true },
       { name: 'visibility', type: 'string', default: 'private' },
       { name: 'busy_status', type: 'string', default: 'busy' },
@@ -761,19 +786,28 @@ export const schema = {
       { name: 'status', type: 'string', default: 'confirmed' },
       { name: 'room_id', type: 'uuid', nullable: true },
       { name: 'category_id', type: 'uuid', nullable: true },
-      { name: 'attachments', type: 'jsonb', default: '{"file_attachment": [], "note_attachment": [], "event_attachment": []}' },
+      {
+        name: 'attachments',
+        type: 'jsonb',
+        default: '{"file_attachment": [], "note_attachment": [], "event_attachment": []}',
+      },
       { name: 'drive_attachment', type: 'jsonb', default: '[]' },
       { name: 'description_file_ids', type: 'jsonb', default: '[]' },
       { name: 'last_modified_by', type: 'string', nullable: true },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       // Google Calendar sync fields
       { name: 'google_calendar_event_id', type: 'string', nullable: true }, // Google Calendar event ID for synced events
-      { name: 'google_calendar_connection_id', type: 'uuid', nullable: true, references: { table: 'google_calendar_connections' } },
+      {
+        name: 'google_calendar_connection_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'google_calendar_connections' },
+      },
       { name: 'synced_from_google', type: 'boolean', default: false }, // True if event was synced from Google
       { name: 'google_calendar_html_link', type: 'text', nullable: true }, // Direct link to event in Google Calendar
       { name: 'google_calendar_updated_at', type: 'timestamptz', nullable: true }, // Last update time from Google
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -787,8 +821,8 @@ export const schema = {
       { columns: ['status'] },
       { columns: ['google_calendar_event_id'] },
       { columns: ['google_calendar_connection_id'] },
-      { columns: ['synced_from_google'] }
-    ]
+      { columns: ['synced_from_google'] },
+    ],
   },
 
   meeting_bookings: {
@@ -811,7 +845,7 @@ export const schema = {
       { name: 'cancelled_by', type: 'string', nullable: true },
       { name: 'cancellation_reason', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['room_id'] },
@@ -819,8 +853,8 @@ export const schema = {
       { columns: ['booked_by'] },
       { columns: ['status'] },
       { columns: ['event_id'] },
-      { columns: ['is_recurring'] }
-    ]
+      { columns: ['is_recurring'] },
+    ],
   },
 
   // Room bookings table (alias for meeting_bookings for backward compatibility)
@@ -834,14 +868,14 @@ export const schema = {
       { name: 'end_time', type: 'timestamptz', nullable: false },
       { name: 'status', type: 'string', default: 'confirmed' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['room_id'] },
       { columns: ['start_time', 'end_time'] },
       { columns: ['status'] },
-      { columns: ['event_id'] }
-    ]
+      { columns: ['event_id'] },
+    ],
   },
 
   // Event attendees table
@@ -858,14 +892,14 @@ export const schema = {
       { name: 'is_organizer', type: 'boolean', default: false },
       { name: 'is_required', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['event_id'] },
       { columns: ['user_id'] },
       { columns: ['status'] },
-      { columns: ['event_id', 'user_id'], unique: true }
-    ]
+      { columns: ['event_id', 'user_id'], unique: true },
+    ],
   },
 
   // Event reminders table
@@ -879,14 +913,14 @@ export const schema = {
       { name: 'is_sent', type: 'boolean', default: false },
       { name: 'sent_at', type: 'timestamptz', nullable: true },
       { name: 'scheduled_for', type: 'timestamptz', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['event_id'] },
       { columns: ['user_id'] },
       { columns: ['is_sent'] },
-      { columns: ['scheduled_for'] }
-    ]
+      { columns: ['scheduled_for'] },
+    ],
   },
 
   // Event bot assignments (linking bots to calendar events)
@@ -900,15 +934,15 @@ export const schema = {
       { name: 'settings', type: 'jsonb', default: '{}' }, // Bot-specific settings for this event
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['event_id'] },
       { columns: ['bot_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id'] },
-      { columns: ['event_id', 'bot_id'], unique: true }
-    ]
+      { columns: ['event_id', 'bot_id'], unique: true },
+    ],
   },
 
   // Project bot assignments (linking bots to projects)
@@ -922,15 +956,15 @@ export const schema = {
       { name: 'settings', type: 'jsonb', default: '{}' }, // Bot-specific settings for this project
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['project_id'] },
       { columns: ['bot_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id'] },
-      { columns: ['project_id', 'bot_id'], unique: true }
-    ]
+      { columns: ['project_id', 'bot_id'], unique: true },
+    ],
   },
 
   // ==================== NOTES ====================
@@ -946,7 +980,12 @@ export const schema = {
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'last_edited_by', type: 'string', nullable: true },
       { name: 'position', type: 'integer', default: 0 },
-      { name: 'template_id', type: 'uuid', nullable: true, references: { table: 'note_templates' } },
+      {
+        name: 'template_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'note_templates' },
+      },
       { name: 'view_count', type: 'integer', default: 0 },
       { name: 'is_published', type: 'boolean', default: false },
       { name: 'published_at', type: 'timestamptz', nullable: true },
@@ -954,7 +993,11 @@ export const schema = {
       { name: 'cover_image', type: 'text', nullable: true },
       { name: 'icon', type: 'string', nullable: true },
       { name: 'tags', type: 'jsonb', default: '[]' },
-      { name: 'attachments', type: 'jsonb', default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}' },
+      {
+        name: 'attachments',
+        type: 'jsonb',
+        default: '{"note_attachment": [], "file_attachment": [], "event_attachment": []}',
+      },
       { name: 'is_template', type: 'boolean', default: false },
       { name: 'is_public', type: 'boolean', default: false },
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
@@ -962,7 +1005,7 @@ export const schema = {
       { name: 'is_favorite', type: 'boolean', default: false },
       { name: 'collaborative_data', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -973,8 +1016,8 @@ export const schema = {
       { columns: ['is_template'] },
       { columns: ['template_id'] },
       { columns: ['slug'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   note_templates: {
@@ -988,15 +1031,15 @@ export const schema = {
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'is_public', type: 'boolean', default: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['created_by'] },
       { columns: ['category'] },
       { columns: ['is_public'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== ACTIVITY LOGS ====================
@@ -1013,7 +1056,7 @@ export const schema = {
       { name: 'ip_address', type: 'string', nullable: true },
       { name: 'user_agent', type: 'text', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1021,8 +1064,8 @@ export const schema = {
       { columns: ['action'] },
       { columns: ['entity_type'] },
       { columns: ['entity_id'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== USER SETTINGS & AUTH TOKENS ====================
@@ -1040,16 +1083,16 @@ export const schema = {
       { name: 'editor_preferences', type: 'jsonb', default: '{}' },
       { name: 'dashboard_layout', type: 'jsonb', default: '{}' },
       { name: 'sidebar_collapsed', type: 'boolean', default: false },
-      // { name: 'tab_arrangement', type: 'jsonb', default: '{}' }, 
+      // { name: 'tab_arrangement', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'], unique: true },
       { columns: ['theme'] },
       { columns: ['language'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   password_reset_tokens: {
@@ -1062,14 +1105,14 @@ export const schema = {
       { name: 'used_at', type: 'timestamptz', nullable: true },
       { name: 'ip_address', type: 'string', nullable: true },
       { name: 'user_agent', type: 'text', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
       { columns: ['token'], unique: true },
       { columns: ['expires_at'] },
-      { columns: ['is_used'] }
-    ]
+      { columns: ['is_used'] },
+    ],
   },
 
   email_verification_tokens: {
@@ -1084,15 +1127,15 @@ export const schema = {
       { name: 'attempts', type: 'integer', default: 0 },
       { name: 'ip_address', type: 'string', nullable: true },
       { name: 'user_agent', type: 'text', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
       { columns: ['email'] },
       { columns: ['token'], unique: true },
       { columns: ['expires_at'] },
-      { columns: ['is_verified'] }
-    ]
+      { columns: ['is_verified'] },
+    ],
   },
   // ==================== ENHANCED FEATURES ====================
   task_dependencies: {
@@ -1105,15 +1148,15 @@ export const schema = {
       { name: 'is_critical_path', type: 'boolean', default: false },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['task_id', 'depends_on_task_id'], unique: true },
       { columns: ['task_id'] },
       { columns: ['depends_on_task_id'] },
       { columns: ['dependency_type'] },
-      { columns: ['is_critical_path'] }
-    ]
+      { columns: ['is_critical_path'] },
+    ],
   },
 
   integration_logs: {
@@ -1136,7 +1179,7 @@ export const schema = {
       { name: 'entity_type', type: 'string', nullable: true },
       { name: 'entity_id', type: 'uuid', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1144,8 +1187,8 @@ export const schema = {
       { columns: ['status'] },
       { columns: ['action'] },
       { columns: ['created_at'] },
-      { columns: ['entity_type', 'entity_id'] }
-    ]
+      { columns: ['entity_type', 'entity_id'] },
+    ],
   },
 
   user_activity_logs: {
@@ -1168,7 +1211,7 @@ export const schema = {
       { name: 'device_info', type: 'jsonb', nullable: true },
       { name: 'location_info', type: 'jsonb', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1176,8 +1219,8 @@ export const schema = {
       { columns: ['action'] },
       { columns: ['category'] },
       { columns: ['entity_type', 'entity_id'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== AI SERVICES ====================
@@ -1192,14 +1235,14 @@ export const schema = {
       { name: 'usage', type: 'jsonb', default: '{}' },
       { name: 'status', type: 'string', default: 'completed' },
       { name: 'error', type: 'text', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
       { columns: ['service_type'] },
       { columns: ['status'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   ai_usage_stats: {
@@ -1212,13 +1255,13 @@ export const schema = {
       { name: 'characters_translated', type: 'bigint', default: 0 },
       { name: 'last_reset', type: 'timestamptz', default: 'now()' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'], unique: true },
       { columns: ['total_requests'] },
-      { columns: ['last_reset'] }
-    ]
+      { columns: ['last_reset'] },
+    ],
   },
 
   chat_sessions: {
@@ -1230,13 +1273,9 @@ export const schema = {
       { name: 'personality', type: 'string', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['user_id'] },
-      { columns: ['created_at'] },
-      { columns: ['updated_at'] }
-    ]
+    indexes: [{ columns: ['user_id'] }, { columns: ['created_at'] }, { columns: ['updated_at'] }],
   },
 
   chat_messages: {
@@ -1246,13 +1285,9 @@ export const schema = {
       { name: 'role', type: 'string', nullable: false },
       { name: 'content', type: 'text', nullable: false },
       { name: 'timestamp', type: 'timestamptz', default: 'now()' },
-      { name: 'metadata', type: 'jsonb', default: '{}' }
+      { name: 'metadata', type: 'jsonb', default: '{}' },
     ],
-    indexes: [
-      { columns: ['session_id'] },
-      { columns: ['timestamp'] },
-      { columns: ['role'] }
-    ]
+    indexes: [{ columns: ['session_id'] }, { columns: ['timestamp'] }, { columns: ['role'] }],
   },
 
   // ==================== VIDEO CALLS ====================
@@ -1276,7 +1311,7 @@ export const schema = {
       { name: 'settings', type: 'jsonb', default: '{}' }, // videoQuality, maxParticipants, etc.
       { name: 'metadata', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1286,14 +1321,19 @@ export const schema = {
       { columns: ['livekit_room_id'], unique: true },
       { columns: ['scheduled_start_time'] },
       { columns: ['actual_start_time'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   video_call_join_requests: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'video_call_id', type: 'uuid', nullable: false, references: { table: 'video_calls' } },
+      {
+        name: 'video_call_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'video_calls' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'display_name', type: 'string', nullable: false },
       { name: 'message', type: 'text', nullable: true },
@@ -1301,21 +1341,26 @@ export const schema = {
       { name: 'requested_at', type: 'timestamptz', default: 'now()' },
       { name: 'responded_at', type: 'timestamptz', nullable: true },
       { name: 'responded_by', type: 'string', nullable: true },
-      { name: 'metadata', type: 'jsonb', default: '{}' }
+      { name: 'metadata', type: 'jsonb', default: '{}' },
     ],
     indexes: [
       { columns: ['video_call_id'] },
       { columns: ['user_id'] },
       { columns: ['status'] },
       { columns: ['requested_at'] },
-      { columns: ['video_call_id', 'user_id'], unique: true }
-    ]
+      { columns: ['video_call_id', 'user_id'], unique: true },
+    ],
   },
 
   video_call_participants: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'video_call_id', type: 'uuid', nullable: false, references: { table: 'video_calls' } },
+      {
+        name: 'video_call_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'video_calls' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'livekit_participant_id', type: 'string', nullable: true },
       { name: 'display_name', type: 'string', nullable: true },
@@ -1330,7 +1375,7 @@ export const schema = {
       { name: 'is_hand_raised', type: 'boolean', default: false },
       { name: 'connection_quality', type: 'string', nullable: true }, // 'excellent' | 'good' | 'poor'
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['video_call_id'] },
@@ -1338,14 +1383,19 @@ export const schema = {
       { columns: ['video_call_id', 'user_id'] },
       { columns: ['joined_at'] },
       { columns: ['left_at'] },
-      { columns: ['status'] }
-    ]
+      { columns: ['status'] },
+    ],
   },
 
   video_call_recordings: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'video_call_id', type: 'uuid', nullable: false, references: { table: 'video_calls' } },
+      {
+        name: 'video_call_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'video_calls' },
+      },
       { name: 'livekit_recording_id', type: 'string', nullable: false },
       { name: 'recording_url', type: 'text', nullable: true },
       { name: 'transcript_url', type: 'text', nullable: true },
@@ -1355,39 +1405,49 @@ export const schema = {
       { name: 'started_at', type: 'timestamptz', nullable: true },
       { name: 'completed_at', type: 'timestamptz', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['video_call_id'] },
       { columns: ['livekit_recording_id'], unique: true },
       { columns: ['status'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   video_call_transcripts: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'video_call_id', type: 'uuid', nullable: false, references: { table: 'video_calls' } },
+      {
+        name: 'video_call_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'video_calls' },
+      },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'full_text', type: 'text', nullable: false },
       { name: 'segments', type: 'jsonb', default: '[]' }, // Array of transcript segments with speaker, timestamp
       { name: 'language', type: 'string', default: 'en' },
       { name: 'duration_seconds', type: 'integer', default: 0 },
       { name: 'word_count', type: 'integer', default: 0 },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['video_call_id'], unique: true },
       { columns: ['workspace_id'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   meeting_summaries: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'video_call_id', type: 'uuid', nullable: false, references: { table: 'video_calls' } },
+      {
+        name: 'video_call_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'video_calls' },
+      },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'summary', type: 'text', nullable: false },
       { name: 'key_points', type: 'jsonb', default: '[]' }, // Array of key discussion points
@@ -1398,13 +1458,13 @@ export const schema = {
       { name: 'participants', type: 'jsonb', default: '[]' }, // Array of participant names
       { name: 'generated_by', type: 'string', default: 'ai' }, // 'ai' | 'manual'
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['video_call_id'], unique: true },
       { columns: ['workspace_id'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== SEARCH HISTORY ====================
@@ -1417,15 +1477,15 @@ export const schema = {
       { name: 'result_count', type: 'integer', default: 0 },
       { name: 'content_types', type: 'jsonb', default: '[]' }, // types searched
       { name: 'filters', type: 'jsonb', default: '{}' }, // applied filters
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id'] },
       { columns: ['created_at'] },
-      { columns: ['query'] }
-    ]
+      { columns: ['query'] },
+    ],
   },
 
   // Saved Searches - User-saved search queries with filters and results
@@ -1445,14 +1505,14 @@ export const schema = {
       { name: 'is_notification_enabled', type: 'boolean', default: false }, // Enable notifications for new results
       { name: 'shared_with', type: 'jsonb', default: '[]' }, // Array of user IDs this search is shared with
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== NOTIFICATIONS SYSTEM ====================
@@ -1487,7 +1547,7 @@ export const schema = {
       { name: 'failure_reason', type: 'text', nullable: true }, // Reason for failure if any
       { name: 'sent_via', type: 'jsonb', default: '{}' }, // Channels used
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
@@ -1506,8 +1566,8 @@ export const schema = {
       { columns: ['scheduled_at'] },
       { columns: ['is_scheduled', 'is_sent'] },
       { columns: ['is_scheduled', 'schedule_status'] },
-      { columns: ['scheduled_at', 'is_sent', 'schedule_status'] } // Composite index for pending scheduled notifications
-    ]
+      { columns: ['scheduled_at', 'is_sent', 'schedule_status'] }, // Composite index for pending scheduled notifications
+    ],
   },
 
   notification_preferences: {
@@ -1530,14 +1590,14 @@ export const schema = {
       { name: 'muted_projects', type: 'jsonb', default: [] }, // Array of project IDs
       { name: 'muted_channels', type: 'jsonb', default: [] }, // Array of channel IDs
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'], unique: true },
       { columns: ['workspace_id'] },
       { columns: ['do_not_disturb'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   push_subscriptions: {
@@ -1551,14 +1611,14 @@ export const schema = {
       { name: 'os', type: 'string', nullable: true },
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_used_at', type: 'timestamptz', default: 'now()' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
       { columns: ['endpoint'], unique: true },
       { columns: ['is_active'] },
-      { columns: ['last_used_at'] }
-    ]
+      { columns: ['last_used_at'] },
+    ],
   },
 
   // FCM Device Tokens for Flutter mobile app
@@ -1574,7 +1634,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_used_at', type: 'timestamptz', default: 'now()' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
@@ -1583,8 +1643,8 @@ export const schema = {
       { columns: ['is_active'] },
       { columns: ['user_id', 'is_active'] },
       { columns: ['last_used_at'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== GOOGLE DRIVE INTEGRATION ====================
@@ -1606,15 +1666,15 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
-      { columns: ['google_email'] }
-    ]
+      { columns: ['google_email'] },
+    ],
   },
 
   // ==================== DROPBOX INTEGRATION ====================
@@ -1637,7 +1697,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1645,8 +1705,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
       { columns: ['dropbox_email'] },
-      { columns: ['account_id'] }
-    ]
+      { columns: ['account_id'] },
+    ],
   },
 
   // ==================== YOUTUBE INTEGRATION ====================
@@ -1670,7 +1730,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1678,8 +1738,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'], unique: true },
       { columns: ['is_active'] },
       { columns: ['google_email'] },
-      { columns: ['channel_id'] }
-    ]
+      { columns: ['channel_id'] },
+    ],
   },
 
   // ==================== SLACK INTEGRATION ====================
@@ -1707,7 +1767,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1715,8 +1775,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
       { columns: ['team_id'] },
-      { columns: ['slack_user_id'] }
-    ]
+      { columns: ['slack_user_id'] },
+    ],
   },
 
   // ==================== TWITTER/X INTEGRATION ====================
@@ -1742,7 +1802,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1750,8 +1810,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
       { columns: ['twitter_user_id'] },
-      { columns: ['twitter_username'] }
-    ]
+      { columns: ['twitter_username'] },
+    ],
   },
 
   // ==================== TELEGRAM INTEGRATION ====================
@@ -1768,7 +1828,7 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -1776,8 +1836,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
       { columns: ['bot_id'] },
-      { columns: ['bot_username'] }
-    ]
+      { columns: ['bot_username'] },
+    ],
   },
 
   // ==================== OPENAI INTEGRATION ====================
@@ -1793,14 +1853,14 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_used_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // ==================== SENDGRID INTEGRATION ====================
@@ -1815,15 +1875,15 @@ export const schema = {
       { name: 'sender_name', type: 'string', nullable: true }, // Default sender name
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
-      { columns: ['sender_email'] }
-    ]
+      { columns: ['sender_email'] },
+    ],
   },
 
   // ==================== EMAIL CONNECTIONS ====================
@@ -1863,7 +1923,7 @@ export const schema = {
       { name: 'last_history_id', type: 'string', nullable: true }, // Gmail history ID
       { name: 'last_uid', type: 'string', nullable: true }, // IMAP last processed UID
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       // Changed: Allow multiple connections per provider, but same email can't be added twice
@@ -1873,8 +1933,8 @@ export const schema = {
       { columns: ['provider'] },
       { columns: ['is_active'] },
       { columns: ['notifications_enabled'] },
-      { columns: ['email_address'] }
-    ]
+      { columns: ['email_address'] },
+    ],
   },
 
   // ==================== EMAIL PRIORITIES ====================
@@ -1884,7 +1944,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'user_id', type: 'string', nullable: false },
-      { name: 'connection_id', type: 'uuid', nullable: false, references: { table: 'email_connections' } },
+      {
+        name: 'connection_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'email_connections' },
+      },
       { name: 'email_id', type: 'string', nullable: false }, // Gmail/IMAP message ID
       { name: 'level', type: 'string', nullable: false }, // 'high' | 'medium' | 'low' | 'none'
       { name: 'score', type: 'integer', nullable: false }, // 0-10 scale
@@ -1892,7 +1957,7 @@ export const schema = {
       { name: 'factors', type: 'jsonb', default: '[]' }, // Array of factor strings
       { name: 'analyzed_at', type: 'timestamptz', default: 'now()' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id', 'email_id'], unique: true },
@@ -1901,8 +1966,8 @@ export const schema = {
       { columns: ['connection_id'] },
       { columns: ['email_id'] },
       { columns: ['level'] },
-      { columns: ['analyzed_at'] }
-    ]
+      { columns: ['analyzed_at'] },
+    ],
   },
 
   // ==================== GOOGLE CALENDAR CONNECTIONS ====================
@@ -1928,15 +1993,15 @@ export const schema = {
       { name: 'sync_token', type: 'text', nullable: true }, // Deprecated: sync tokens now per-calendar
       { name: 'calendar_sync_tokens', type: 'jsonb', default: '{}' }, // Map of calendarId -> syncToken
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true },
       { columns: ['is_active'] },
-      { columns: ['google_email'] }
-    ]
+      { columns: ['google_email'] },
+    ],
   },
 
   // ==================== GITHUB CONNECTIONS ====================
@@ -1960,15 +2025,15 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true }, // One connection per user per workspace
       { columns: ['is_active'] },
-      { columns: ['github_login'] }
-    ]
+      { columns: ['github_login'] },
+    ],
   },
 
   // ==================== GITHUB ISSUE LINKS ====================
@@ -1978,7 +2043,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'task_id', type: 'uuid', nullable: false, references: { table: 'tasks' } },
-      { name: 'github_connection_id', type: 'uuid', nullable: false, references: { table: 'github_connections' } },
+      {
+        name: 'github_connection_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'github_connections' },
+      },
       // GitHub issue/PR details
       { name: 'issue_type', type: 'string', nullable: false }, // 'issue' | 'pull_request'
       { name: 'issue_number', type: 'integer', nullable: false },
@@ -2001,7 +2071,7 @@ export const schema = {
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'linked_by', type: 'string', nullable: false }, // User who created the link
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2010,8 +2080,8 @@ export const schema = {
       { columns: ['repo_full_name', 'issue_number'], unique: false }, // For finding by repo+issue
       { columns: ['task_id', 'repo_full_name', 'issue_number'], unique: true }, // Prevent duplicate links
       { columns: ['state'] },
-      { columns: ['issue_type'] }
-    ]
+      { columns: ['issue_type'] },
+    ],
   },
 
   // ==================== GOOGLE SHEETS CONNECTIONS ====================
@@ -2032,15 +2102,15 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'last_synced_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
       { columns: ['workspace_id', 'user_id'], unique: true },
       { columns: ['is_active'] },
-      { columns: ['google_email'] }
-    ]
+      { columns: ['google_email'] },
+    ],
   },
 
   // ==================== GOOGLE SHEETS SYNCS ====================
@@ -2050,7 +2120,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'user_id', type: 'string', nullable: false },
-      { name: 'connection_id', type: 'uuid', nullable: false, references: { table: 'google_sheets_connections' } },
+      {
+        name: 'connection_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'google_sheets_connections' },
+      },
       { name: 'spreadsheet_id', type: 'string', nullable: false },
       { name: 'spreadsheet_name', type: 'string', nullable: false },
       { name: 'sheet_name', type: 'string', nullable: false },
@@ -2064,7 +2139,7 @@ export const schema = {
       { name: 'last_row_count', type: 'integer', default: 0 },
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2073,8 +2148,8 @@ export const schema = {
       { columns: ['spreadsheet_id'] },
       { columns: ['workspace_id', 'spreadsheet_id', 'sheet_name'], unique: true },
       { columns: ['sync_frequency'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // ==================== REQUEST & APPROVAL ====================
@@ -2094,13 +2169,13 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['is_active'] },
-      { columns: ['created_by'] }
-    ]
+      { columns: ['created_by'] },
+    ],
   },
 
   // Approval requests - the actual submitted requests
@@ -2108,7 +2183,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'request_type_id', type: 'uuid', nullable: false, references: { table: 'request_types' } },
+      {
+        name: 'request_type_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'request_types' },
+      },
       { name: 'requester_id', type: 'string', nullable: false },
       { name: 'title', type: 'string', nullable: false },
       { name: 'description', type: 'text', nullable: true },
@@ -2124,7 +2204,7 @@ export const schema = {
       { name: 'rejection_reason', type: 'text', nullable: true },
       { name: 'cancelled_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2133,46 +2213,52 @@ export const schema = {
       { columns: ['status'] },
       { columns: ['priority'] },
       { columns: ['created_at'] },
-      { columns: ['workspace_id', 'status'] }
-    ]
+      { columns: ['workspace_id', 'status'] },
+    ],
   },
 
   // Approvers assigned to each request
   approval_request_approvers: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'request_id', type: 'uuid', nullable: false, references: { table: 'approval_requests' } },
+      {
+        name: 'request_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'approval_requests' },
+      },
       { name: 'approver_id', type: 'string', nullable: false },
       { name: 'status', type: 'string', default: 'pending' }, // pending, approved, rejected
       { name: 'comments', type: 'text', nullable: true },
       { name: 'responded_at', type: 'timestamptz', nullable: true },
       { name: 'sort_order', type: 'integer', default: 0 }, // For sequential approvals
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['request_id'] },
       { columns: ['approver_id'] },
       { columns: ['status'] },
-      { columns: ['request_id', 'approver_id'], unique: true }
-    ]
+      { columns: ['request_id', 'approver_id'], unique: true },
+    ],
   },
 
   // Comments on approval requests
   approval_request_comments: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'request_id', type: 'uuid', nullable: false, references: { table: 'approval_requests' } },
+      {
+        name: 'request_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'approval_requests' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'content', type: 'text', nullable: false },
       { name: 'is_internal', type: 'boolean', default: false }, // Internal notes only for approvers
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['request_id'] },
-      { columns: ['user_id'] },
-      { columns: ['created_at'] }
-    ]
+    indexes: [{ columns: ['request_id'] }, { columns: ['user_id'] }, { columns: ['created_at'] }],
   },
 
   // ==================== AUTOPILOT SESSIONS ====================
@@ -2185,15 +2271,15 @@ export const schema = {
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'messages', type: 'jsonb', default: '[]' }, // Array of conversation messages
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['session_id'], unique: true },
       { columns: ['workspace_id', 'user_id'] },
       { columns: ['workspace_id'] },
       { columns: ['user_id'] },
-      { columns: ['updated_at'] }
-    ]
+      { columns: ['updated_at'] },
+    ],
   },
 
   // ==================== WHITEBOARD ====================
@@ -2211,30 +2297,35 @@ export const schema = {
       { name: 'is_public', type: 'boolean', default: false },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['created_by'] },
       { columns: ['is_public'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // Whiteboard collaborators for access control
   whiteboard_collaborators: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'whiteboard_id', type: 'uuid', nullable: false, references: { table: 'whiteboards' } },
+      {
+        name: 'whiteboard_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'whiteboards' },
+      },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'permission', type: 'string', default: 'edit' }, // view, edit, admin
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['whiteboard_id'] },
       { columns: ['user_id'] },
-      { columns: ['whiteboard_id', 'user_id'], unique: true }
-    ]
+      { columns: ['whiteboard_id', 'user_id'], unique: true },
+    ],
   },
 
   // ==================== CHAT BOTS ====================
@@ -2257,7 +2348,7 @@ export const schema = {
       { name: 'is_public', type: 'boolean', default: false }, // Shareable across workspaces
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2265,8 +2356,8 @@ export const schema = {
       { columns: ['status'] },
       { columns: ['bot_type'] },
       { columns: ['created_by'] },
-      { columns: ['is_public'] }
-    ]
+      { columns: ['is_public'] },
+    ],
   },
 
   // Bot triggers - when bot activates
@@ -2282,14 +2373,14 @@ export const schema = {
       { name: 'cooldown_seconds', type: 'integer', default: 0 }, // Per-user cooldown
       { name: 'conditions', type: 'jsonb', default: '{}' }, // Additional filters
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['bot_id'] },
       { columns: ['trigger_type'] },
       { columns: ['is_active'] },
-      { columns: ['priority'] }
-    ]
+      { columns: ['priority'] },
+    ],
   },
 
   // Bot actions - what bot does when triggered
@@ -2305,15 +2396,15 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'failure_policy', type: 'string', default: 'continue' }, // continue, stop, retry
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['bot_id'] },
       { columns: ['trigger_id'] },
       { columns: ['action_type'] },
       { columns: ['execution_order'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // Bot installations - where bot is installed (channels/DMs)
@@ -2322,12 +2413,17 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'bot_id', type: 'uuid', nullable: false, references: { table: 'bots' } },
       { name: 'channel_id', type: 'uuid', nullable: true, references: { table: 'channels' } },
-      { name: 'conversation_id', type: 'uuid', nullable: true, references: { table: 'conversations' } },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'conversations' },
+      },
       { name: 'installed_by', type: 'string', nullable: false },
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'settings_override', type: 'jsonb', default: '{}' }, // Per-installation overrides
       { name: 'installed_at', type: 'timestamptz', default: 'now()' },
-      { name: 'uninstalled_at', type: 'timestamptz', nullable: true }
+      { name: 'uninstalled_at', type: 'timestamptz', nullable: true },
     ],
     indexes: [
       { columns: ['bot_id'] },
@@ -2335,8 +2431,8 @@ export const schema = {
       { columns: ['conversation_id'] },
       { columns: ['bot_id', 'channel_id'], unique: true },
       { columns: ['bot_id', 'conversation_id'], unique: true },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // Bot execution logs - audit trail
@@ -2346,7 +2442,12 @@ export const schema = {
       { name: 'bot_id', type: 'uuid', nullable: false, references: { table: 'bots' } },
       { name: 'trigger_id', type: 'uuid', nullable: true, references: { table: 'bot_triggers' } },
       { name: 'action_id', type: 'uuid', nullable: true, references: { table: 'bot_actions' } },
-      { name: 'installation_id', type: 'uuid', nullable: true, references: { table: 'bot_installations' } },
+      {
+        name: 'installation_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'bot_installations' },
+      },
       { name: 'channel_id', type: 'uuid', nullable: true },
       { name: 'conversation_id', type: 'uuid', nullable: true },
       { name: 'message_id', type: 'uuid', nullable: true },
@@ -2359,7 +2460,7 @@ export const schema = {
       { name: 'status', type: 'string', default: 'pending' }, // pending, running, success, failed, skipped
       { name: 'error_message', type: 'text', nullable: true },
       { name: 'execution_time_ms', type: 'integer', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['bot_id'] },
@@ -2368,8 +2469,8 @@ export const schema = {
       { columns: ['installation_id'] },
       { columns: ['status'] },
       { columns: ['created_at'] },
-      { columns: ['triggered_by_user'] }
-    ]
+      { columns: ['triggered_by_user'] },
+    ],
   },
 
   // Bot user cooldowns - per-user rate limiting
@@ -2381,13 +2482,13 @@ export const schema = {
       { name: 'channel_id', type: 'uuid', nullable: true },
       { name: 'conversation_id', type: 'uuid', nullable: true },
       { name: 'last_triggered_at', type: 'timestamptz', default: 'now()' },
-      { name: 'cooldown_until', type: 'timestamptz', nullable: false }
+      { name: 'cooldown_until', type: 'timestamptz', nullable: false },
     ],
     indexes: [
       { columns: ['trigger_id', 'user_id', 'channel_id'] },
       { columns: ['trigger_id', 'user_id', 'conversation_id'] },
-      { columns: ['cooldown_until'] }
-    ]
+      { columns: ['cooldown_until'] },
+    ],
   },
 
   // Bot scheduled jobs - cron trigger tracking
@@ -2395,21 +2496,26 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'trigger_id', type: 'uuid', nullable: false, references: { table: 'bot_triggers' } },
-      { name: 'installation_id', type: 'uuid', nullable: false, references: { table: 'bot_installations' } },
+      {
+        name: 'installation_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'bot_installations' },
+      },
       { name: 'next_run_at', type: 'timestamptz', nullable: false },
       { name: 'last_run_at', type: 'timestamptz', nullable: true },
       { name: 'last_status', type: 'string', nullable: true }, // success, failed
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['trigger_id'] },
       { columns: ['installation_id'] },
       { columns: ['trigger_id', 'installation_id'], unique: true },
       { columns: ['next_run_at'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // ==================== SUBSCRIPTION MANAGEMENT ====================
@@ -2460,7 +2566,7 @@ export const schema = {
       { name: 'rating', type: 'numeric', nullable: true },
       { name: 'review_count', type: 'integer', default: 0 },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['slug'], unique: true },
@@ -2470,8 +2576,8 @@ export const schema = {
       { columns: ['is_active'] },
       { columns: ['is_featured'] },
       { columns: ['is_verified'] },
-      { columns: ['install_count'] }
-    ]
+      { columns: ['install_count'] },
+    ],
   },
 
   // Integration Connections - User connections to integrations (unified storage)
@@ -2480,7 +2586,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'user_id', type: 'string', nullable: false },
-      { name: 'integration_id', type: 'uuid', nullable: false, references: { table: 'integration_catalog' } },
+      {
+        name: 'integration_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'integration_catalog' },
+      },
 
       // Authentication Credentials (encrypted at rest)
       { name: 'auth_type', type: 'string', nullable: false }, // mirrors integration auth_type
@@ -2514,7 +2625,7 @@ export const schema = {
 
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2524,8 +2635,8 @@ export const schema = {
       { columns: ['status'] },
       { columns: ['is_active'] },
       { columns: ['external_email'] },
-      { columns: ['expires_at'] }
-    ]
+      { columns: ['expires_at'] },
+    ],
   },
 
   // Integration Webhooks - Webhook subscriptions for integrations
@@ -2533,8 +2644,18 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'connection_id', type: 'uuid', nullable: false, references: { table: 'integration_connections' } },
-      { name: 'integration_id', type: 'uuid', nullable: false, references: { table: 'integration_catalog' } },
+      {
+        name: 'connection_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'integration_connections' },
+      },
+      {
+        name: 'integration_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'integration_catalog' },
+      },
 
       // Webhook Configuration
       { name: 'webhook_id', type: 'string', nullable: true }, // External webhook ID from provider
@@ -2550,22 +2671,27 @@ export const schema = {
       { name: 'last_failure_reason', type: 'text', nullable: true },
 
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
       { columns: ['connection_id'] },
       { columns: ['integration_id'] },
       { columns: ['webhook_id'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   // Integration Sync History - Track sync operations
   integration_sync_history: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'connection_id', type: 'uuid', nullable: false, references: { table: 'integration_connections' } },
+      {
+        name: 'connection_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'integration_connections' },
+      },
       { name: 'sync_type', type: 'string', nullable: false }, // full, incremental, webhook
       { name: 'status', type: 'string', nullable: false }, // pending, running, completed, failed
       { name: 'started_at', type: 'timestamptz', default: 'now()' },
@@ -2576,14 +2702,14 @@ export const schema = {
       { name: 'items_deleted', type: 'integer', default: 0 },
       { name: 'error_message', type: 'text', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['connection_id'] },
       { columns: ['status'] },
       { columns: ['sync_type'] },
-      { columns: ['started_at'] }
-    ]
+      { columns: ['started_at'] },
+    ],
   },
 
   // ==================== PROJECT TEMPLATES ====================
@@ -2608,7 +2734,7 @@ export const schema = {
       { name: 'usage_count', type: 'integer', default: 0 }, // Track popularity
       { name: 'created_by', type: 'string', nullable: true }, // null for system templates
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2617,8 +2743,8 @@ export const schema = {
       { columns: ['is_system'] },
       { columns: ['is_featured'] },
       { columns: ['usage_count'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ===========================================
@@ -2649,7 +2775,7 @@ export const schema = {
       { name: 'last_accessed_at', type: 'timestamptz', nullable: true },
       { name: 'is_active', type: 'boolean', default: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id'] },
@@ -2659,8 +2785,8 @@ export const schema = {
       { columns: ['importance'] },
       { columns: ['expires_at'] },
       { columns: ['is_active'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   /**
@@ -2677,13 +2803,13 @@ export const schema = {
       { name: 'confidence', type: 'numeric', default: 0.5 }, // 0-1 confidence score
       { name: 'learned_from', type: 'jsonb', default: '[]' }, // Array of memory IDs that contributed
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id', 'user_id', 'preference_key'], unique: true },
       { columns: ['workspace_id', 'user_id'] },
-      { columns: ['confidence'] }
-    ]
+      { columns: ['confidence'] },
+    ],
   },
   // ==================== DOCUMENT BUILDER ====================
   // Document templates for proposals, contracts, invoices, and SOWs
@@ -2715,7 +2841,7 @@ export const schema = {
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2727,8 +2853,8 @@ export const schema = {
       { columns: ['is_deleted'] },
       { columns: ['usage_count'] },
       { columns: ['created_by'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
   /**
    * Documents - Document instances created from templates
@@ -2738,7 +2864,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'template_id', type: 'uuid', nullable: true, references: { table: 'document_templates' } },
+      {
+        name: 'template_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'document_templates' },
+      },
       { name: 'document_number', type: 'string', nullable: false }, // e.g., 'PROP-2025-001', 'INV-2025-042'
       { name: 'title', type: 'string', nullable: false },
       { name: 'description', type: 'text', nullable: true },
@@ -2749,7 +2880,12 @@ export const schema = {
       { name: 'placeholder_values', type: 'jsonb', default: '{}' }, // Filled placeholder values
       { name: 'status', type: 'string', default: 'draft' }, // 'draft' | 'pending_signature' | 'partially_signed' | 'signed' | 'expired' | 'declined' | 'archived'
       { name: 'version', type: 'integer', default: 1 },
-      { name: 'previous_version_id', type: 'uuid', nullable: true, references: { table: 'documents' } },
+      {
+        name: 'previous_version_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'documents' },
+      },
       { name: 'settings', type: 'jsonb', default: '{}' }, // page_size, margins, styling overrides
       { name: 'expires_at', type: 'timestamptz', nullable: true }, // Document/signature expiration
       { name: 'signed_at', type: 'timestamptz', nullable: true }, // When all signatures collected
@@ -2764,7 +2900,7 @@ export const schema = {
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' }, // client_info, project_info, etc.
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2778,8 +2914,8 @@ export const schema = {
       { columns: ['workspace_id', 'status'] },
       { columns: ['workspace_id', 'document_type'] },
       { columns: ['created_at'] },
-      { columns: ['updated_at'] }
-    ]
+      { columns: ['updated_at'] },
+    ],
   },
   /**
    * Document Recipients - People who need to sign or view documents
@@ -2808,7 +2944,7 @@ export const schema = {
       { name: 'user_agent', type: 'text', nullable: true }, // Captured at signing
       { name: 'metadata', type: 'jsonb', default: '{}' },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['document_id'] },
@@ -2818,8 +2954,8 @@ export const schema = {
       { columns: ['access_token'], unique: true },
       { columns: ['document_id', 'email'], unique: true },
       { columns: ['signing_order'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
   /**
    * Document Signatures - Captured signatures for documents
@@ -2829,7 +2965,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'document_id', type: 'uuid', nullable: false, references: { table: 'documents' } },
-      { name: 'recipient_id', type: 'uuid', nullable: false, references: { table: 'document_recipients' } },
+      {
+        name: 'recipient_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'document_recipients' },
+      },
       { name: 'signature_field_id', type: 'string', nullable: false }, // Matches signature_fields[].id in template
       { name: 'signature_type', type: 'string', nullable: false }, // 'drawn' | 'typed' | 'uploaded'
       { name: 'signature_data', type: 'text', nullable: false }, // Base64 image data or typed name
@@ -2845,7 +2986,7 @@ export const schema = {
       { name: 'device_info', type: 'jsonb', default: '{}' },
       { name: 'signed_at', type: 'timestamptz', default: 'now()' },
       { name: 'certificate_hash', type: 'string', nullable: true }, // For audit trail
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['document_id'] },
@@ -2853,8 +2994,8 @@ export const schema = {
       { columns: ['signature_field_id'] },
       { columns: ['document_id', 'recipient_id', 'signature_field_id'], unique: true },
       { columns: ['signed_at'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
   /**
    * Document Activity Logs - Audit trail for all document actions
@@ -2865,7 +3006,12 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'document_id', type: 'uuid', nullable: false, references: { table: 'documents' } },
       { name: 'user_id', type: 'string', nullable: true }, // null for external recipients
-      { name: 'recipient_id', type: 'uuid', nullable: true, references: { table: 'document_recipients' } },
+      {
+        name: 'recipient_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'document_recipients' },
+      },
       { name: 'action', type: 'string', nullable: false }, // 'created' | 'updated' | 'viewed' | 'signed' | 'declined' | 'sent' | 'reminded' | 'shared' | 'downloaded' | 'archived'
       { name: 'details', type: 'text', nullable: true },
       { name: 'old_values', type: 'jsonb', nullable: true },
@@ -2873,7 +3019,7 @@ export const schema = {
       { name: 'ip_address', type: 'string', nullable: true },
       { name: 'user_agent', type: 'text', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['document_id'] },
@@ -2881,13 +3027,13 @@ export const schema = {
       { columns: ['recipient_id'] },
       { columns: ['action'] },
       { columns: ['created_at'] },
-      { columns: ['document_id', 'action'] }
-    ]
+      { columns: ['document_id', 'action'] },
+    ],
   },
   /**
-     * User Signatures - Saved signatures for users
-     * Users can create multiple signatures (drawn, typed, uploaded) and reuse them
-     */
+   * User Signatures - Saved signatures for users
+   * Users can create multiple signatures (drawn, typed, uploaded) and reuse them
+   */
   user_signatures: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
@@ -2902,7 +3048,7 @@ export const schema = {
       { name: 'is_deleted', type: 'boolean', default: false },
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2910,8 +3056,8 @@ export const schema = {
       { columns: ['workspace_id', 'user_id'] },
       { columns: ['is_default'] },
       { columns: ['is_deleted'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
   // ==================== BUDGET MANAGEMENT ====================
   /**
@@ -2937,7 +3083,7 @@ export const schema = {
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -2947,8 +3093,8 @@ export const schema = {
       { columns: ['is_deleted'] },
       { columns: ['workspace_id', 'project_id'] },
       { columns: ['start_date'] },
-      { columns: ['end_date'] }
-    ]
+      { columns: ['end_date'] },
+    ],
   },
 
   /**
@@ -2968,14 +3114,14 @@ export const schema = {
       { name: 'is_deleted', type: 'boolean', default: false },
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['budget_id'] },
       { columns: ['category_type'] },
       { columns: ['cost_nature'] },
-      { columns: ['is_deleted'] }
-    ]
+      { columns: ['is_deleted'] },
+    ],
   },
 
   /**
@@ -2986,7 +3132,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'budget_id', type: 'uuid', nullable: false, references: { table: 'budgets' } },
-      { name: 'category_id', type: 'uuid', nullable: true, references: { table: 'budget_categories' } },
+      {
+        name: 'category_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'budget_categories' },
+      },
       { name: 'task_id', type: 'uuid', nullable: true, references: { table: 'tasks' } },
       { name: 'title', type: 'string', nullable: false },
       { name: 'description', type: 'text', nullable: true },
@@ -3016,7 +3167,7 @@ export const schema = {
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['budget_id'] },
@@ -3028,8 +3179,8 @@ export const schema = {
       { columns: ['billable'] },
       { columns: ['approved'] },
       { columns: ['is_deleted'] },
-      { columns: ['budget_id', 'expense_date'] }
-    ]
+      { columns: ['budget_id', 'expense_date'] },
+    ],
   },
 
   /**
@@ -3041,7 +3192,7 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
       { name: 'user_id', type: 'string', nullable: true }, // Specific user rate (null means role-based)
-      { name: 'role', type: 'string', nullable: true }, // 'developer' | 'designer' | 'manager' | 'qa' | 'admin' | etc.   
+      { name: 'role', type: 'string', nullable: true }, // 'developer' | 'designer' | 'manager' | 'qa' | 'admin' | etc.
       { name: 'rate_name', type: 'string', nullable: true }, // Optional name for the rate
       { name: 'hourly_rate', type: 'numeric', nullable: false },
       { name: 'currency', type: 'string', nullable: false, default: 'USD' },
@@ -3052,7 +3203,7 @@ export const schema = {
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -3062,8 +3213,8 @@ export const schema = {
       { columns: ['is_deleted'] },
       { columns: ['workspace_id', 'user_id'] },
       { columns: ['effective_from'] },
-      { columns: ['effective_to'] }
-    ]
+      { columns: ['effective_to'] },
+    ],
   },
 
   /**
@@ -3082,7 +3233,12 @@ export const schema = {
       { name: 'duration_seconds', type: 'integer', nullable: false, default: 0 },
       { name: 'billable', type: 'boolean', nullable: false, default: true },
       { name: 'billing_rate', type: 'numeric', nullable: true }, // Cached rate at time of entry
-      { name: 'billing_rate_id', type: 'uuid', nullable: true, references: { table: 'billing_rates' } },
+      {
+        name: 'billing_rate_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'billing_rates' },
+      },
       { name: 'billed_amount', type: 'numeric', nullable: true }, // Auto-calculated
       { name: 'currency', type: 'string', nullable: false, default: 'USD' },
       { name: 'is_running', type: 'boolean', nullable: false, default: false },
@@ -3094,7 +3250,7 @@ export const schema = {
       { name: 'deleted_at', type: 'timestamptz', nullable: true },
       { name: 'deleted_by', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -3106,8 +3262,8 @@ export const schema = {
       { columns: ['is_approved'] },
       { columns: ['is_deleted'] },
       { columns: ['workspace_id', 'user_id'] },
-      { columns: ['task_id', 'user_id'] }
-    ]
+      { columns: ['task_id', 'user_id'] },
+    ],
   },
 
   /**
@@ -3120,19 +3276,24 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'task_id', type: 'uuid', nullable: false, references: { table: 'tasks' } },
       { name: 'budget_id', type: 'uuid', nullable: false, references: { table: 'budgets' } },
-      { name: 'category_id', type: 'uuid', nullable: false, references: { table: 'budget_categories' } },
+      {
+        name: 'category_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'budget_categories' },
+      },
       { name: 'allocated_amount', type: 'numeric', nullable: false, default: 0 },
       { name: 'notes', type: 'text', nullable: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['task_id'] },
       { columns: ['budget_id'] },
       { columns: ['category_id'] },
-      { columns: ['task_id', 'category_id'], unique: true } // One allocation per task-category pair
-    ]
+      { columns: ['task_id', 'category_id'], unique: true }, // One allocation per task-category pair
+    ],
   },
 
   /**
@@ -3149,13 +3310,13 @@ export const schema = {
       { name: 'notes', type: 'text', nullable: true },
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['task_id'] },
       { columns: ['user_id'] },
-      { columns: ['task_id', 'user_id'], unique: true } // One rate per task-assignee pair
-    ]
+      { columns: ['task_id', 'user_id'], unique: true }, // One rate per task-assignee pair
+    ],
   },
 
   /**
@@ -3173,33 +3334,31 @@ export const schema = {
       { name: 'message', type: 'text', nullable: false },
       { name: 'sent_to', type: 'jsonb', nullable: false, default: '[]' }, // Array of user IDs
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'sent_at', type: 'timestamptz', default: 'now()' }
+      { name: 'sent_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['budget_id'] },
-      { columns: ['alert_type'] },
-      { columns: ['sent_at'] }
-    ]
+    indexes: [{ columns: ['budget_id'] }, { columns: ['alert_type'] }, { columns: ['sent_at'] }],
   },
-  // ==================== AUTOPILOT PROACTIVE FEATURES ====================    /**     * Autopilot Briefings - Daily/weekly summaries for users     * Generated proactively to help users stay on top of their work     */    
+  // ==================== AUTOPILOT PROACTIVE FEATURES ====================    /**     * Autopilot Briefings - Daily/weekly summaries for users     * Generated proactively to help users stay on top of their work     */
   autopilot_briefings: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'briefing_type', type: 'string', nullable: false }, // 'daily', 'weekly', 'deadline_alert'        
-      { name: 'content', type: 'jsonb', nullable: false }, // { summary, tasks, events, highlights, recommendations }        
+      { name: 'briefing_type', type: 'string', nullable: false }, // 'daily', 'weekly', 'deadline_alert'
+      { name: 'content', type: 'jsonb', nullable: false }, // { summary, tasks, events, highlights, recommendations }
       { name: 'generated_at', type: 'timestamptz', default: 'now()' },
       { name: 'is_read', type: 'boolean', default: false },
       { name: 'read_at', type: 'timestamptz', nullable: true },
       { name: 'expires_at', type: 'timestamptz', nullable: true },
-      { name: 'metadata', type: 'jsonb', default: '{}' }],
+      { name: 'metadata', type: 'jsonb', default: '{}' },
+    ],
     indexes: [
       { columns: ['user_id', 'workspace_id'] },
       { columns: ['briefing_type'] },
       { columns: ['generated_at'] },
       { columns: ['is_read'] },
-      { columns: ['expires_at'] }]
+      { columns: ['expires_at'] },
+    ],
   },
   /**     * Autopilot Alerts - Proactive deadline and reminder alerts     * Monitors tasks and events to alert users before deadlines     */
   autopilot_alerts: {
@@ -3207,10 +3366,10 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'alert_type', type: 'string', nullable: false }, // 'deadline_24h', 'deadline_3d', 'overdue', 'conflict', 'reminder'        
-      { name: 'entity_type', type: 'string', nullable: false }, // 'task', 'event', 'project'        
+      { name: 'alert_type', type: 'string', nullable: false }, // 'deadline_24h', 'deadline_3d', 'overdue', 'conflict', 'reminder'
+      { name: 'entity_type', type: 'string', nullable: false }, // 'task', 'event', 'project'
       { name: 'entity_id', type: 'uuid', nullable: false },
-      { name: 'priority', type: 'string', default: 'normal' }, // 'low', 'normal', 'high', 'urgent'        
+      { name: 'priority', type: 'string', default: 'normal' }, // 'low', 'normal', 'high', 'urgent'
       { name: 'title', type: 'string', nullable: false },
       { name: 'message', type: 'text', nullable: false },
       { name: 'action_url', type: 'string', nullable: true },
@@ -3219,7 +3378,7 @@ export const schema = {
       { name: 'is_dismissed', type: 'boolean', default: false },
       { name: 'dismissed_at', type: 'timestamptz', nullable: true },
       { name: 'metadata', type: 'jsonb', default: '{}' },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id', 'workspace_id'] },
@@ -3228,7 +3387,8 @@ export const schema = {
       { columns: ['priority'] },
       { columns: ['is_sent'] },
       { columns: ['is_dismissed'] },
-      { columns: ['created_at'] }]
+      { columns: ['created_at'] },
+    ],
   },
   /**     * Autopilot Suggestions Cache - Pre-generated smart suggestions     * Caches AI-generated suggestions for faster home screen loading     */
   autopilot_suggestions_cache: {
@@ -3236,18 +3396,18 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'user_id', type: 'string', nullable: false },
       { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-      { name: 'suggestions', type: 'jsonb', nullable: false }, // Array of suggestion objects        
-      { name: 'context_hash', type: 'string', nullable: true }, // Hash for cache invalidation       
+      { name: 'suggestions', type: 'jsonb', nullable: false }, // Array of suggestion objects
+      { name: 'context_hash', type: 'string', nullable: true }, // Hash for cache invalidation
       { name: 'generated_at', type: 'timestamptz', default: 'now()' },
       { name: 'expires_at', type: 'timestamptz', nullable: false },
       { name: 'hit_count', type: 'integer', default: 0 },
-      { name: 'last_accessed_at', type: 'timestamptz', nullable: true }
+      { name: 'last_accessed_at', type: 'timestamptz', nullable: true },
     ],
     indexes: [
       { columns: ['user_id', 'workspace_id'], unique: true },
       { columns: ['expires_at'] },
-      { columns: ['generated_at'] }
-    ]
+      { columns: ['generated_at'] },
+    ],
   },
 
   // ==================== BLOG ====================
@@ -3275,15 +3435,15 @@ export const schema = {
       { name: 'is_featured', type: 'boolean', default: false },
       { name: 'is_deleted', type: 'boolean', default: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['slug'], unique: true },
       { columns: ['author_id'] },
       { columns: ['status'] },
       { columns: ['published_at'] },
-      { columns: ['rating_average'] }
-    ]
+      { columns: ['rating_average'] },
+    ],
   },
 
   blog_categories: {
@@ -3291,11 +3451,9 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'name', type: 'string', nullable: false },
       { name: 'slug', type: 'string', nullable: false },
-      { name: 'post_count', type: 'integer', default: 0 }
+      { name: 'post_count', type: 'integer', default: 0 },
     ],
-    indexes: [
-      { columns: ['slug'], unique: true }
-    ]
+    indexes: [{ columns: ['slug'], unique: true }],
   },
 
   blog_tags: {
@@ -3303,66 +3461,90 @@ export const schema = {
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'name', type: 'string', nullable: false },
       { name: 'slug', type: 'string', nullable: false },
-      { name: 'post_count', type: 'integer', default: 0 }
+      { name: 'post_count', type: 'integer', default: 0 },
     ],
-    indexes: [
-      { columns: ['slug'], unique: true }
-    ]
+    indexes: [{ columns: ['slug'], unique: true }],
   },
 
   blog_post_categories: {
     columns: [
-      { name: 'post_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_posts' } },
-      { name: 'category_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_categories' } }
+      {
+        name: 'post_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_posts' },
+      },
+      {
+        name: 'category_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_categories' },
+      },
     ],
-    indexes: [
-      { columns: ['post_id', 'category_id'], unique: true }
-    ]
+    indexes: [{ columns: ['post_id', 'category_id'], unique: true }],
   },
 
   blog_post_tags: {
     columns: [
-      { name: 'post_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_posts' } },
-      { name: 'tag_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_tags' } }
+      {
+        name: 'post_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_posts' },
+      },
+      { name: 'tag_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_tags' } },
     ],
-    indexes: [
-      { columns: ['post_id', 'tag_id'], unique: true }
-    ]
+    indexes: [{ columns: ['post_id', 'tag_id'], unique: true }],
   },
 
   blog_comments: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'post_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_posts' } },
-      { name: 'parent_id', type: 'uuid', nullable: true, references: { table: 'deskive_blog_comments' } },
+      {
+        name: 'post_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_posts' },
+      },
+      {
+        name: 'parent_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'deskive_blog_comments' },
+      },
       { name: 'author_name', type: 'string', nullable: false },
       { name: 'author_email', type: 'string', nullable: false },
       { name: 'content', type: 'text', nullable: false },
       { name: 'is_approved', type: 'boolean', default: false },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['post_id'] },
-      { columns: ['is_approved'] }
-    ]
+    indexes: [{ columns: ['post_id'] }, { columns: ['is_approved'] }],
   },
 
   blog_post_likes: {
     columns: [
-      { name: 'post_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_posts' } },
+      {
+        name: 'post_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_posts' },
+      },
       { name: 'user_id', type: 'string', nullable: true },
       { name: 'ip_address', type: 'string', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['post_id'] }
-    ]
+    indexes: [{ columns: ['post_id'] }],
   },
 
   blog_ratings: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'post_id', type: 'uuid', nullable: false, references: { table: 'deskive_blog_posts' } },
+      {
+        name: 'post_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'deskive_blog_posts' },
+      },
       { name: 'user_id', type: 'string', nullable: true },
       { name: 'user_email', type: 'string', nullable: true },
       { name: 'user_name', type: 'string', nullable: true },
@@ -3371,14 +3553,14 @@ export const schema = {
       { name: 'ip_address', type: 'string', nullable: true },
       { name: 'is_verified_purchase', type: 'boolean', default: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['post_id'] },
       { columns: ['user_id'] },
       { columns: ['rating'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== FORMS ====================
@@ -3415,7 +3597,7 @@ export const schema = {
 
       { name: 'created_by', type: 'string', nullable: false },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['workspace_id'] },
@@ -3423,8 +3605,8 @@ export const schema = {
       { columns: ['created_by'] },
       { columns: ['status'] },
       { columns: ['is_deleted'] },
-      { columns: ['published_at'] }
-    ]
+      { columns: ['published_at'] },
+    ],
   },
 
   /**
@@ -3454,15 +3636,15 @@ export const schema = {
       { name: 'is_complete', type: 'boolean', default: true },
 
       { name: 'submitted_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', nullable: true }
+      { name: 'updated_at', type: 'timestamptz', nullable: true },
     ],
     indexes: [
       { columns: ['form_id'] },
       { columns: ['respondent_id'] },
       { columns: ['respondent_email'] },
       { columns: ['submitted_at'] },
-      { columns: ['form_id', 'respondent_id'] }
-    ]
+      { columns: ['form_id', 'respondent_id'] },
+    ],
   },
 
   /**
@@ -3472,7 +3654,12 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'form_id', type: 'uuid', nullable: false, references: { table: 'form_templates' } },
-      { name: 'response_id', type: 'uuid', nullable: false, references: { table: 'form_responses' } },
+      {
+        name: 'response_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'form_responses' },
+      },
       { name: 'field_id', type: 'string', nullable: false },
 
       { name: 'file_name', type: 'string', nullable: false },
@@ -3480,13 +3667,9 @@ export const schema = {
       { name: 'file_size', type: 'bigint', nullable: false },
       { name: 'mime_type', type: 'string', nullable: false },
 
-      { name: 'uploaded_at', type: 'timestamptz', default: 'now()' }
+      { name: 'uploaded_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['form_id'] },
-      { columns: ['response_id'] },
-      { columns: ['field_id'] }
-    ]
+    indexes: [{ columns: ['form_id'] }, { columns: ['response_id'] }, { columns: ['field_id'] }],
   },
 
   /**
@@ -3510,13 +3693,13 @@ export const schema = {
       { name: 'is_active', type: 'boolean', default: true },
 
       { name: 'created_by', type: 'string', nullable: false },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['form_id'] },
       { columns: ['share_token'], unique: true },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   /**
@@ -3530,12 +3713,9 @@ export const schema = {
       { name: 'event_type', type: 'string', nullable: false }, // 'new_response', 'form_closed', 'response_limit_reached'
       { name: 'recipient_email', type: 'string', nullable: false },
 
-      { name: 'sent_at', type: 'timestamptz', default: 'now()' }
+      { name: 'sent_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['form_id'] },
-      { columns: ['event_type'] }
-    ]
+    indexes: [{ columns: ['form_id'] }, { columns: ['event_type'] }],
   },
 
   /**
@@ -3555,11 +3735,9 @@ export const schema = {
       { name: 'field_stats', type: 'jsonb', default: '{}' },
 
       { name: 'last_calculated_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['form_id'], unique: true }
-    ]
+    indexes: [{ columns: ['form_id'], unique: true }],
   },
   // ============================================
   // ADVANCED WORKFLOW AUTOMATION SYSTEM
@@ -3610,7 +3788,12 @@ export const schema = {
       { name: 'step_type', type: 'string', nullable: false }, // action, condition, delay, loop, parallel, set_variable, stop
       { name: 'step_name', type: 'string', nullable: true },
       { name: 'step_config', type: 'jsonb', default: '{}' },
-      { name: 'parent_step_id', type: 'uuid', nullable: true, references: { table: 'workflow_steps' } }, // For branching
+      {
+        name: 'parent_step_id',
+        type: 'uuid',
+        nullable: true,
+        references: { table: 'workflow_steps' },
+      }, // For branching
       { name: 'branch_path', type: 'string', nullable: true }, // 'true', 'false', or loop index
       { name: 'is_active', type: 'boolean', default: 'true' },
       { name: 'position_x', type: 'integer', default: '0' }, // For visual builder canvas
@@ -3661,7 +3844,12 @@ export const schema = {
   workflow_step_executions: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'execution_id', type: 'uuid', nullable: false, references: { table: 'workflow_executions' } },
+      {
+        name: 'execution_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'workflow_executions' },
+      },
       { name: 'step_id', type: 'uuid', nullable: false, references: { table: 'workflow_steps' } },
       { name: 'status', type: 'string', default: 'pending' }, // pending, running, completed, failed, skipped
       { name: 'input_data', type: 'jsonb', default: '{}' },
@@ -3796,37 +3984,34 @@ export const schema = {
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
       { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
+    indexes: [{ columns: ['workspace_id'] }, { columns: ['workspace_id', 'name'], unique: true }],
+  },
+  scheduled_actions: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
+      { name: 'user_id', type: 'string', nullable: false }, // User who scheduled the action
+      { name: 'action_type', type: 'string', nullable: false }, // send_email, send_notification, create_task, etc.
+      { name: 'action_config', type: 'jsonb', nullable: false }, // Action parameters
+      { name: 'scheduled_at', type: 'timestamptz', nullable: false }, // When to execute
+      { name: 'status', type: 'string', default: 'pending' }, // pending, executing, completed, failed, cancelled
+      { name: 'executed_at', type: 'timestamptz', nullable: true }, // Actual execution time
+      { name: 'result', type: 'jsonb', nullable: true }, // Execution result or error
+      { name: 'description', type: 'text', nullable: true }, // Human readable description
+      { name: 'retry_count', type: 'integer', default: '0' },
+      { name: 'max_retries', type: 'integer', default: '3' },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
+    ],
     indexes: [
       { columns: ['workspace_id'] },
-      { columns: ['workspace_id', 'name'], unique: true },
+      { columns: ['user_id'] },
+      { columns: ['status'] },
+      { columns: ['scheduled_at'] },
+      { columns: ['status', 'scheduled_at'] }, // For finding pending actions to execute
     ],
   },
-  scheduled_actions: 
-  {  columns: [   
-    { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },   
-    { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },   
-    { name: 'user_id', type: 'string', nullable: false }, // User who scheduled the action   
-    { name: 'action_type', type: 'string', nullable: false }, // send_email, send_notification, create_task, etc.   
-    { name: 'action_config', type: 'jsonb', nullable: false }, // Action parameters   
-    { name: 'scheduled_at', type: 'timestamptz', nullable: false }, // When to execute   
-    { name: 'status', type: 'string', default: 'pending' }, // pending, executing, completed, failed, cancelled   
-    { name: 'executed_at', type: 'timestamptz', nullable: true }, // Actual execution time   
-    { name: 'result', type: 'jsonb', nullable: true }, // Execution result or error   
-    { name: 'description', type: 'text', nullable: true }, // Human readable description   
-    { name: 'retry_count', type: 'integer', default: '0' },   
-    { name: 'max_retries', type: 'integer', default: '3' },   
-    { name: 'created_at', type: 'timestamptz', default: 'now()' },   
-    { name: 'updated_at', type: 'timestamptz', default: 'now()' },  
-  ],  
-  indexes: [   
-    { columns: ['workspace_id'] },   
-    { columns: ['user_id'] },   
-    { columns: ['status'] },   
-    { columns: ['scheduled_at'] },   
-    { columns: ['status', 'scheduled_at'] }, // For finding pending actions to execute  
-    ], 
-    },
-     // ==================== USER FEEDBACK ====================
+  // ==================== USER FEEDBACK ====================
   /**
    * Feedback - User-submitted bugs, issues, and improvement suggestions
    * Global per user (not workspace-scoped)
@@ -3851,15 +4036,15 @@ export const schema = {
       { name: 'assigned_to', type: 'string', nullable: true },
       { name: 'duplicate_of_id', type: 'uuid', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
       { columns: ['type'] },
       { columns: ['status'] },
       { columns: ['priority'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   /**
@@ -3873,12 +4058,9 @@ export const schema = {
       { name: 'content', type: 'text', nullable: false },
       { name: 'is_internal', type: 'boolean', default: false },
       { name: 'status_change', type: 'string', nullable: true },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
-    indexes: [
-      { columns: ['feedback_id'] },
-      { columns: ['created_at'] }
-    ]
+    indexes: [{ columns: ['feedback_id'] }, { columns: ['created_at'] }],
   },
 
   /**
@@ -3902,7 +4084,7 @@ export const schema = {
       { name: 'reviewed_at', type: 'timestamptz', nullable: true },
       { name: 'reviewed_by', type: 'string', nullable: true },
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['user_id'] },
@@ -3912,8 +4094,8 @@ export const schema = {
       { columns: ['priority'] },
       { columns: ['was_retained'] },
       { columns: ['deleted_account'] },
-      { columns: ['created_at'] }
-    ]
+      { columns: ['created_at'] },
+    ],
   },
 
   // ==================== SLACK WHITEBOARD INTEGRATION ====================
@@ -3925,25 +4107,25 @@ export const schema = {
   slack_whiteboard_installations: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'team_id', type: 'string', nullable: false },              // Slack workspace ID
-      { name: 'team_name', type: 'string', nullable: false },            // Workspace name
-      { name: 'bot_token', type: 'string', nullable: false },            // OAuth bot token
-      { name: 'bot_user_id', type: 'string', nullable: false },          // Bot user ID
-      { name: 'installer_user_id', type: 'string', nullable: false },    // Who installed the app
-      { name: 'user_token', type: 'string', nullable: true },            // User OAuth token (optional)
-      { name: 'scope', type: 'string', nullable: false },                // Granted permissions
-      { name: 'webhook_url', type: 'string', nullable: true },           // Incoming webhook URL
-      { name: 'webhook_channel', type: 'string', nullable: true },       // Default webhook channel
-      { name: 'is_active', type: 'boolean', default: true },             // Installation active status
-      { name: 'uninstalled_at', type: 'timestamptz', nullable: true },   // When app was uninstalled
+      { name: 'team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'team_name', type: 'string', nullable: false }, // Workspace name
+      { name: 'bot_token', type: 'string', nullable: false }, // OAuth bot token
+      { name: 'bot_user_id', type: 'string', nullable: false }, // Bot user ID
+      { name: 'installer_user_id', type: 'string', nullable: false }, // Who installed the app
+      { name: 'user_token', type: 'string', nullable: true }, // User OAuth token (optional)
+      { name: 'scope', type: 'string', nullable: false }, // Granted permissions
+      { name: 'webhook_url', type: 'string', nullable: true }, // Incoming webhook URL
+      { name: 'webhook_channel', type: 'string', nullable: true }, // Default webhook channel
+      { name: 'is_active', type: 'boolean', default: true }, // Installation active status
+      { name: 'uninstalled_at', type: 'timestamptz', nullable: true }, // When app was uninstalled
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
-      { columns: ['team_id'], unique: true },                            // One installation per workspace
+      { columns: ['team_id'], unique: true }, // One installation per workspace
       { columns: ['bot_user_id'] },
-      { columns: ['is_active'] }
-    ]
+      { columns: ['is_active'] },
+    ],
   },
 
   /**
@@ -3953,21 +4135,26 @@ export const schema = {
   slack_whiteboard_links: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'whiteboard_id', type: 'uuid', nullable: false, references: { table: 'whiteboards' } },
-      { name: 'team_id', type: 'string', nullable: false },              // Slack workspace ID
-      { name: 'channel_id', type: 'string', nullable: true },            // Slack channel where created
+      {
+        name: 'whiteboard_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'whiteboards' },
+      },
+      { name: 'team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'channel_id', type: 'string', nullable: true }, // Slack channel where created
       { name: 'creator_slack_user_id', type: 'string', nullable: false }, // Slack user who created it
-      { name: 'message_ts', type: 'string', nullable: true },            // Slack message timestamp
-      { name: 'is_shared', type: 'boolean', default: false },            // Shared in channel
+      { name: 'message_ts', type: 'string', nullable: true }, // Slack message timestamp
+      { name: 'is_shared', type: 'boolean', default: false }, // Shared in channel
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
-      { columns: ['whiteboard_id'] },                                    // Lookup by whiteboard
-      { columns: ['team_id'] },                                          // Lookup by workspace
-      { columns: ['team_id', 'channel_id'] },                           // Workspace + channel
-      { columns: ['creator_slack_user_id'] }                            // User's whiteboards
-    ]
+      { columns: ['whiteboard_id'] }, // Lookup by whiteboard
+      { columns: ['team_id'] }, // Lookup by workspace
+      { columns: ['team_id', 'channel_id'] }, // Workspace + channel
+      { columns: ['creator_slack_user_id'] }, // User's whiteboards
+    ],
   },
 
   /**
@@ -3981,13 +4168,13 @@ export const schema = {
       { name: 'slack_data', type: 'jsonb', nullable: false },
       { name: 'expires_at', type: 'timestamptz', nullable: false },
       { name: 'completed', type: 'boolean', default: false },
-      { name: 'created_at', type: 'timestamptz', default: 'now()' }
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['setup_token'], unique: true },
       { columns: ['expires_at'] },
-      { columns: ['completed'] }
-    ]
+      { columns: ['completed'] },
+    ],
   },
 
   /**
@@ -3998,20 +4185,20 @@ export const schema = {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
       { name: 'project_id', type: 'uuid', nullable: false, references: { table: 'projects' } },
-      { name: 'team_id', type: 'string', nullable: false },              // Slack workspace ID
-      { name: 'channel_id', type: 'string', nullable: true },            // Slack channel where created
+      { name: 'team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'channel_id', type: 'string', nullable: true }, // Slack channel where created
       { name: 'creator_slack_user_id', type: 'string', nullable: false }, // Slack user who created it
-      { name: 'message_ts', type: 'string', nullable: true },            // Slack message timestamp
-      { name: 'is_shared', type: 'boolean', default: false },            // Shared in channel
+      { name: 'message_ts', type: 'string', nullable: true }, // Slack message timestamp
+      { name: 'is_shared', type: 'boolean', default: false }, // Shared in channel
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
-      { columns: ['project_id'] },                                       // Lookup by project
-      { columns: ['team_id'] },                                          // Lookup by workspace
-      { columns: ['team_id', 'channel_id'] },                           // Workspace + channel
-      { columns: ['creator_slack_user_id'] }                            // User's projects
-    ]
+      { columns: ['project_id'] }, // Lookup by project
+      { columns: ['team_id'] }, // Lookup by workspace
+      { columns: ['team_id', 'channel_id'] }, // Workspace + channel
+      { columns: ['creator_slack_user_id'] }, // User's projects
+    ],
   },
 
   /**
@@ -4021,136 +4208,143 @@ export const schema = {
   slack_user_mappings: {
     columns: [
       { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-      { name: 'deskive_user_id', type: 'string', nullable: false },      // Deskive user ID
-      { name: 'slack_user_id', type: 'string', nullable: false },        // Slack user ID
-      { name: 'slack_team_id', type: 'string', nullable: false },        // Slack workspace ID
-      { name: 'slack_email', type: 'string', nullable: true },           // Slack user email
-      { name: 'slack_name', type: 'string', nullable: true },            // Slack user name
-      { name: 'slack_avatar', type: 'text', nullable: true },            // Slack user avatar URL
-      { name: 'user_access_token', type: 'text', nullable: true },       // User-level access token
-      { name: 'is_active', type: 'boolean', default: true },             // Mapping active status
+      { name: 'deskive_user_id', type: 'string', nullable: false }, // Deskive user ID
+      { name: 'slack_user_id', type: 'string', nullable: false }, // Slack user ID
+      { name: 'slack_team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'slack_email', type: 'string', nullable: true }, // Slack user email
+      { name: 'slack_name', type: 'string', nullable: true }, // Slack user name
+      { name: 'slack_avatar', type: 'text', nullable: true }, // Slack user avatar URL
+      { name: 'user_access_token', type: 'text', nullable: true }, // User-level access token
+      { name: 'is_active', type: 'boolean', default: true }, // Mapping active status
       { name: 'onboarding_completed', type: 'boolean', default: false }, // User completed onboarding
       { name: 'created_at', type: 'timestamptz', default: 'now()' },
-      { name: 'updated_at', type: 'timestamptz', default: 'now()' }
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
     ],
     indexes: [
       { columns: ['deskive_user_id'] },
-      { columns: ['slack_user_id', 'slack_team_id'], unique: true },    // One mapping per Slack user per team
+      { columns: ['slack_user_id', 'slack_team_id'], unique: true }, // One mapping per Slack user per team
       { columns: ['slack_team_id'] },
-      { columns: ['slack_email'] }
-    ]
+      { columns: ['slack_email'] },
+    ],
   },
   /**
-  * Links Deskive workspaces to Slack channels for calendar notifications
-  * Allows users to receive event notifications in specific Slack channels
-  */
- slack_calendar_channel_links: {
-  columns: [
-   { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-   { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
-   { name: 'team_id', type: 'string', nullable: false },       // Slack workspace ID
-   { name: 'channel_id', type: 'string', nullable: false },      // Slack channel ID
-   { name: 'channel_name', type: 'string', nullable: true },     // Slack channel name
-   { name: 'creator_slack_user_id', type: 'string', nullable: false }, // Slack user who linked
-   { name: 'notification_settings', type: 'jsonb', default: '{}' },
-   { name: 'reminder_minutes', type: 'jsonb', default: '[]' }, // Minutes before event to remind
-   { name: 'is_active', type: 'boolean', default: true },
-   { name: 'created_at', type: 'timestamptz', default: 'now()' },
-   { name: 'updated_at', type: 'timestamptz', default: 'now()' }
-  ],
-  indexes: [
-   { columns: ['workspace_id'] },
-   { columns: ['team_id'] },
-   { columns: ['team_id', 'channel_id'], unique: true },       // One link per channel per team
-   { columns: ['is_active'] }
-  ]
- },
+   * Links Deskive workspaces to Slack channels for calendar notifications
+   * Allows users to receive event notifications in specific Slack channels
+   */
+  slack_calendar_channel_links: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'workspace_id', type: 'uuid', nullable: false, references: { table: 'workspaces' } },
+      { name: 'team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'channel_id', type: 'string', nullable: false }, // Slack channel ID
+      { name: 'channel_name', type: 'string', nullable: true }, // Slack channel name
+      { name: 'creator_slack_user_id', type: 'string', nullable: false }, // Slack user who linked
+      { name: 'notification_settings', type: 'jsonb', default: '{}' },
+      { name: 'reminder_minutes', type: 'jsonb', default: '[]' }, // Minutes before event to remind
+      { name: 'is_active', type: 'boolean', default: true },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
+    ],
+    indexes: [
+      { columns: ['workspace_id'] },
+      { columns: ['team_id'] },
+      { columns: ['team_id', 'channel_id'], unique: true }, // One link per channel per team
+      { columns: ['is_active'] },
+    ],
+  },
   /**
-  * Tracks Slack messages posted for calendar events
-  * Used for updating messages when events change and tracking RSVPs
-  */
- slack_event_messages: {
-  columns: [
-   { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-   { name: 'event_id', type: 'uuid', nullable: false, references: { table: 'calendar_events' } },
-   { name: 'team_id', type: 'string', nullable: false },       // Slack workspace ID
-   { name: 'channel_id', type: 'string', nullable: false },      // Slack channel ID
-   { name: 'message_ts', type: 'string', nullable: false },      // Slack message timestamp
-   { name: 'message_type', type: 'string', default: 'event_created' }, // event_created, reminder, update
-   { name: 'created_at', type: 'timestamptz', default: 'now()' },
-   { name: 'updated_at', type: 'timestamptz', default: 'now()' }
-  ],
-  indexes: [
-   { columns: ['event_id'] },
-   { columns: ['team_id', 'channel_id'] },
-   { columns: ['message_ts'] }
-  ]
- },
+   * Tracks Slack messages posted for calendar events
+   * Used for updating messages when events change and tracking RSVPs
+   */
+  slack_event_messages: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'event_id', type: 'uuid', nullable: false, references: { table: 'calendar_events' } },
+      { name: 'team_id', type: 'string', nullable: false }, // Slack workspace ID
+      { name: 'channel_id', type: 'string', nullable: false }, // Slack channel ID
+      { name: 'message_ts', type: 'string', nullable: false }, // Slack message timestamp
+      { name: 'message_type', type: 'string', default: 'event_created' }, // event_created, reminder, update
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
+    ],
+    indexes: [
+      { columns: ['event_id'] },
+      { columns: ['team_id', 'channel_id'] },
+      { columns: ['message_ts'] },
+    ],
+  },
 
- // ==================== END-TO-END ENCRYPTION (E2EE) ====================
+  // ==================== END-TO-END ENCRYPTION (E2EE) ====================
 
- /**
-  * Stores users' public keys for end-to-end encryption
-  * Each user can have multiple devices with different keys
-  */
- user_keys: {
-  columns: [
-   { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-   { name: 'user_id', type: 'string', nullable: false },
-   { name: 'public_key', type: 'text', nullable: false },
-   { name: 'device_id', type: 'string', nullable: false },
-   { name: 'device_name', type: 'string', nullable: true },
-   { name: 'is_active', type: 'boolean', default: true },
-   { name: 'last_used_at', type: 'timestamptz', nullable: true },
-   { name: 'created_at', type: 'timestamptz', default: 'now()' },
-   { name: 'updated_at', type: 'timestamptz', default: 'now()' }
-  ],
-  indexes: [
-   { columns: ['user_id'] },
-   { columns: ['user_id', 'device_id'], unique: true },
-   { columns: ['is_active'] }
-  ]
- },
+  /**
+   * Stores users' public keys for end-to-end encryption
+   * Each user can have multiple devices with different keys
+   */
+  user_keys: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      { name: 'user_id', type: 'string', nullable: false },
+      { name: 'public_key', type: 'text', nullable: false },
+      { name: 'device_id', type: 'string', nullable: false },
+      { name: 'device_name', type: 'string', nullable: true },
+      { name: 'is_active', type: 'boolean', default: true },
+      { name: 'last_used_at', type: 'timestamptz', nullable: true },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
+    ],
+    indexes: [
+      { columns: ['user_id'] },
+      { columns: ['user_id', 'device_id'], unique: true },
+      { columns: ['is_active'] },
+    ],
+  },
 
- /**
-  * Stores encrypted conversation keys for group chats
-  */
- conversation_keys: {
-  columns: [
-   { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-   { name: 'conversation_id', type: 'uuid', nullable: false, references: { table: 'conversations' } },
-   { name: 'user_id', type: 'string', nullable: false },
-   { name: 'encrypted_key', type: 'text', nullable: false },
-   { name: 'created_by', type: 'string', nullable: true },
-   { name: 'key_version', type: 'integer', default: 1 },
-   { name: 'created_at', type: 'timestamptz', default: 'now()' },
-   { name: 'updated_at', type: 'timestamptz', default: 'now()' }
-  ],
-  indexes: [
-   { columns: ['conversation_id', 'user_id'], unique: true },
-   { columns: ['conversation_id'] },
-   { columns: ['user_id'] }
-  ]
- },
+  /**
+   * Stores encrypted conversation keys for group chats
+   */
+  conversation_keys: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'conversations' },
+      },
+      { name: 'user_id', type: 'string', nullable: false },
+      { name: 'encrypted_key', type: 'text', nullable: false },
+      { name: 'created_by', type: 'string', nullable: true },
+      { name: 'key_version', type: 'integer', default: 1 },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+      { name: 'updated_at', type: 'timestamptz', default: 'now()' },
+    ],
+    indexes: [
+      { columns: ['conversation_id', 'user_id'], unique: true },
+      { columns: ['conversation_id'] },
+      { columns: ['user_id'] },
+    ],
+  },
 
- /**
-  * Tracks encryption key rotation history
-  */
- key_rotation_history: {
-  columns: [
-   { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
-   { name: 'conversation_id', type: 'uuid', nullable: false, references: { table: 'conversations' } },
-   { name: 'old_key_version', type: 'integer', nullable: false },
-   { name: 'new_key_version', type: 'integer', nullable: false },
-   { name: 'rotated_by', type: 'string', nullable: false },
-   { name: 'rotation_reason', type: 'string', nullable: true },
-   { name: 'created_at', type: 'timestamptz', default: 'now()' }
-  ],
-  indexes: [
-   { columns: ['conversation_id'] },
-   { columns: ['created_at'] }
-  ]
- },
+  /**
+   * Tracks encryption key rotation history
+   */
+  key_rotation_history: {
+    columns: [
+      { name: 'id', type: 'uuid', primaryKey: true, default: 'gen_random_uuid()' },
+      {
+        name: 'conversation_id',
+        type: 'uuid',
+        nullable: false,
+        references: { table: 'conversations' },
+      },
+      { name: 'old_key_version', type: 'integer', nullable: false },
+      { name: 'new_key_version', type: 'integer', nullable: false },
+      { name: 'rotated_by', type: 'string', nullable: false },
+      { name: 'rotation_reason', type: 'string', nullable: true },
+      { name: 'created_at', type: 'timestamptz', default: 'now()' },
+    ],
+    indexes: [{ columns: ['conversation_id'] }, { columns: ['created_at'] }],
+  },
 };
 
 export default schema;

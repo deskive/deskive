@@ -12,13 +12,7 @@ import {
   HttpCode,
   HttpStatus,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { WorkflowsService } from './services/workflows.service';
 import { WorkflowExecutorService } from './services/workflow-executor.service';
@@ -139,7 +133,10 @@ export class WorkflowsController {
     @Param('workflowId') workflowId: string,
   ) {
     const workflow = await this.workflowsService.toggleWorkflow(workspaceId, workflowId);
-    return { data: workflow, message: `Workflow ${workflow.isActive ? 'activated' : 'deactivated'}` };
+    return {
+      data: workflow,
+      message: `Workflow ${workflow.isActive ? 'activated' : 'deactivated'}`,
+    };
   }
 
   @Post(':workflowId/duplicate')
@@ -180,9 +177,7 @@ export class WorkflowsController {
 
   @Post('generate/suggestions')
   @ApiOperation({ summary: 'Get suggestions for workflow description' })
-  async getWorkflowSuggestions(
-    @Body() dto: { partialDescription: string },
-  ) {
+  async getWorkflowSuggestions(@Body() dto: { partialDescription: string }) {
     const suggestions = this.aiWorkflowGeneratorService.getSuggestions(dto.partialDescription);
     return { data: suggestions };
   }
@@ -230,12 +225,13 @@ export class WorkflowsController {
         stepConfig: {
           actionType: step.actionType,
           actionConfig: step.actionConfig,
-          conditions: step.conditions?.map(cond => ({
-            field: cond.field,
-            operator: cond.operator as any,
-            value: cond.value,
-            logicalOperator: cond.logicalOperator as any,
-          })) || [],
+          conditions:
+            step.conditions?.map((cond) => ({
+              field: cond.field,
+              operator: cond.operator as any,
+              value: cond.value,
+              logicalOperator: cond.logicalOperator as any,
+            })) || [],
         },
       })),
     };
@@ -360,7 +356,8 @@ export class WorkflowsController {
     const workflow = await this.workflowsService.getWorkflow(workspaceId, workflowId);
 
     // Create test trigger data based on workflow trigger type
-    const testData = dto.triggerData || this.generateTestData(workflow.triggerType, workflow.triggerConfig);
+    const testData =
+      dto.triggerData || this.generateTestData(workflow.triggerType, workflow.triggerConfig);
 
     const executionId = await this.workflowExecutorService.executeWorkflow(
       workflowId,

@@ -60,7 +60,9 @@ export class LiveKitProvider implements VideoProvider {
     if (this.isAvailable()) {
       this.logger.log(`LiveKit provider configured: ${this.url}`);
     } else {
-      this.logger.warn('LiveKit provider selected but not fully configured (LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET missing)');
+      this.logger.warn(
+        'LiveKit provider selected but not fully configured (LIVEKIT_URL/LIVEKIT_API_KEY/LIVEKIT_API_SECRET missing)',
+      );
     }
   }
 
@@ -90,7 +92,7 @@ export class LiveKitProvider implements VideoProvider {
       throw new VideoProviderNotConfiguredError('livekit', this.missingVars());
     }
     try {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       const sdk = require('livekit-server-sdk');
       this.roomService = new sdk.RoomServiceClient(this.url, this.apiKey, this.apiSecret);
       this.egressService = new sdk.EgressClient(this.url, this.apiKey, this.apiSecret);
@@ -100,7 +102,7 @@ export class LiveKitProvider implements VideoProvider {
     } catch (e: any) {
       throw new Error(
         `LiveKit provider selected but the "livekit-server-sdk" package is not installed. ` +
-        `Run: npm install livekit-server-sdk    Original error: ${e.message}`,
+          `Run: npm install livekit-server-sdk    Original error: ${e.message}`,
       );
     }
   }
@@ -206,13 +208,16 @@ export class LiveKitProvider implements VideoProvider {
 
   async startRecording(roomId: string, config: RecordingConfig = {}): Promise<Recording> {
     this.loadSdk();
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const sdk = require('livekit-server-sdk');
 
     const fileType =
-      config.fileType === 'webm' ? sdk.EncodedFileType.WEBM :
-      config.fileType === 'ogg' ? sdk.EncodedFileType.OGG :
-      sdk.EncodedFileType.MP4;
+      config.fileType === 'webm'
+        ? sdk.EncodedFileType.WEBM
+        : config.fileType === 'ogg'
+          ? sdk.EncodedFileType.OGG
+          : sdk.EncodedFileType.MP4;
 
     const filename = `${roomId}-${Date.now()}.${config.fileType ?? 'mp4'}`;
     const keyPrefix = config.s3KeyPrefix ?? 'video-recordings';
@@ -244,7 +249,9 @@ export class LiveKitProvider implements VideoProvider {
         fileType,
         filepath: `/out/${filename}`,
       });
-      this.logger.warn('No recording bucket configured - recording will only be stored locally on the LiveKit server');
+      this.logger.warn(
+        'No recording bucket configured - recording will only be stored locally on the LiveKit server',
+      );
     }
 
     const response = await this.egressService.startRoomCompositeEgress(roomId, output, {
@@ -287,12 +294,10 @@ export class LiveKitProvider implements VideoProvider {
    */
   validateWebhook(body: string, signature: string): boolean {
     if (!this.webhookSecret) return true;
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
+
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const crypto = require('crypto');
-    const hash = crypto
-      .createHmac('sha256', this.webhookSecret)
-      .update(body)
-      .digest('base64');
+    const hash = crypto.createHmac('sha256', this.webhookSecret).update(body).digest('base64');
     return hash === signature;
   }
 }

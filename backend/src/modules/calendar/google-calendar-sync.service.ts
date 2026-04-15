@@ -133,7 +133,7 @@ export class GoogleCalendarSyncService {
     }
 
     // Transform calendars to our format
-    const availableCalendars: GoogleCalendarInfo[] = calendars.map(cal => ({
+    const availableCalendars: GoogleCalendarInfo[] = calendars.map((cal) => ({
       id: cal.id,
       name: cal.summary,
       color: cal.backgroundColor,
@@ -142,7 +142,7 @@ export class GoogleCalendarSyncService {
     }));
 
     // Pre-select the primary calendar by default
-    const primaryCalendar = availableCalendars.find(cal => cal.primary);
+    const primaryCalendar = availableCalendars.find((cal) => cal.primary);
     const selectedCalendars: GoogleCalendarInfo[] = primaryCalendar ? [primaryCalendar] : [];
 
     // Check if connection already exists
@@ -164,9 +164,10 @@ export class GoogleCalendarSyncService {
       google_picture: userInfo.picture,
       calendar_id: primaryCalendar?.id || 'primary', // Deprecated, for backward compatibility
       available_calendars: availableCalendars,
-      selected_calendars: existingConnection?.selected_calendars?.length > 0
-        ? existingConnection.selected_calendars // Keep existing selection on reconnect
-        : selectedCalendars,
+      selected_calendars:
+        existingConnection?.selected_calendars?.length > 0
+          ? existingConnection.selected_calendars // Keep existing selection on reconnect
+          : selectedCalendars,
       calendar_sync_tokens: existingConnection?.calendar_sync_tokens || {},
       is_active: true,
       updated_at: new Date().toISOString(),
@@ -176,13 +177,17 @@ export class GoogleCalendarSyncService {
     if (existingConnection) {
       await this.db.update('google_calendar_connections', existingConnection.id, connectionData);
       connection = { ...existingConnection, ...connectionData } as GoogleCalendarConnection;
-      this.logger.log(`Updated Google Calendar connection for user ${userId} in workspace ${workspaceId}`);
+      this.logger.log(
+        `Updated Google Calendar connection for user ${userId} in workspace ${workspaceId}`,
+      );
     } else {
-      connection = await this.db.insert('google_calendar_connections', {
+      connection = (await this.db.insert('google_calendar_connections', {
         ...connectionData,
         created_at: new Date().toISOString(),
-      }) as GoogleCalendarConnection;
-      this.logger.log(`Created Google Calendar connection for user ${userId} in workspace ${workspaceId}`);
+      })) as GoogleCalendarConnection;
+      this.logger.log(
+        `Created Google Calendar connection for user ${userId} in workspace ${workspaceId}`,
+      );
     }
 
     // No longer syncing to database - events are fetched directly from Google API
@@ -198,10 +203,11 @@ export class GoogleCalendarSyncService {
     userId: string,
     workspaceId: string,
     serverAuthCode: string,
-    userInfo: { email?: string; displayName?: string; photoUrl?: string }
+    userInfo: { email?: string; displayName?: string; photoUrl?: string },
   ): Promise<any> {
     // Exchange native auth code for tokens (no redirect_uri)
-    const tokens = await this.googleCalendarOAuthService.exchangeNativeCodeForTokens(serverAuthCode);
+    const tokens =
+      await this.googleCalendarOAuthService.exchangeNativeCodeForTokens(serverAuthCode);
 
     // Get user info from tokens if not provided by client
     let email = userInfo.email;
@@ -223,7 +229,7 @@ export class GoogleCalendarSyncService {
     }
 
     // Transform calendars to our format
-    const availableCalendars: GoogleCalendarInfo[] = calendars.map(cal => ({
+    const availableCalendars: GoogleCalendarInfo[] = calendars.map((cal) => ({
       id: cal.id,
       name: cal.summary,
       color: cal.backgroundColor,
@@ -232,7 +238,7 @@ export class GoogleCalendarSyncService {
     }));
 
     // Pre-select the primary calendar by default
-    const primaryCalendar = availableCalendars.find(cal => cal.primary);
+    const primaryCalendar = availableCalendars.find((cal) => cal.primary);
     const selectedCalendars: GoogleCalendarInfo[] = primaryCalendar ? [primaryCalendar] : [];
 
     // Check if connection already exists
@@ -254,9 +260,10 @@ export class GoogleCalendarSyncService {
       google_picture: picture,
       calendar_id: primaryCalendar?.id || 'primary',
       available_calendars: availableCalendars,
-      selected_calendars: existingConnection?.selected_calendars?.length > 0
-        ? existingConnection.selected_calendars
-        : selectedCalendars,
+      selected_calendars:
+        existingConnection?.selected_calendars?.length > 0
+          ? existingConnection.selected_calendars
+          : selectedCalendars,
       calendar_sync_tokens: existingConnection?.calendar_sync_tokens || {},
       is_active: true,
       updated_at: new Date().toISOString(),
@@ -266,13 +273,17 @@ export class GoogleCalendarSyncService {
     if (existingConnection) {
       await this.db.update('google_calendar_connections', existingConnection.id, connectionData);
       connection = { ...existingConnection, ...connectionData } as GoogleCalendarConnection;
-      this.logger.log(`Updated Google Calendar connection via native sign-in for user ${userId} in workspace ${workspaceId}`);
+      this.logger.log(
+        `Updated Google Calendar connection via native sign-in for user ${userId} in workspace ${workspaceId}`,
+      );
     } else {
-      connection = await this.db.insert('google_calendar_connections', {
+      connection = (await this.db.insert('google_calendar_connections', {
         ...connectionData,
         created_at: new Date().toISOString(),
-      }) as GoogleCalendarConnection;
-      this.logger.log(`Created Google Calendar connection via native sign-in for user ${userId} in workspace ${workspaceId}`);
+      })) as GoogleCalendarConnection;
+      this.logger.log(
+        `Created Google Calendar connection via native sign-in for user ${userId} in workspace ${workspaceId}`,
+      );
     }
 
     return this.transformConnection(connection);
@@ -282,11 +293,11 @@ export class GoogleCalendarSyncService {
    * Get Google Calendar connection for a user
    */
   async getConnection(userId: string, workspaceId: string): Promise<any | null> {
-    const connection = await this.db.findOne('google_calendar_connections', {
+    const connection = (await this.db.findOne('google_calendar_connections', {
       workspace_id: workspaceId,
       user_id: userId,
       is_active: true,
-    }) as GoogleCalendarConnection | null;
+    })) as GoogleCalendarConnection | null;
 
     if (!connection) {
       return null;
@@ -299,10 +310,10 @@ export class GoogleCalendarSyncService {
    * Disconnect Google Calendar
    */
   async disconnect(userId: string, workspaceId: string): Promise<void> {
-    const connection = await this.db.findOne('google_calendar_connections', {
+    const connection = (await this.db.findOne('google_calendar_connections', {
       workspace_id: workspaceId,
       user_id: userId,
-    }) as GoogleCalendarConnection | null;
+    })) as GoogleCalendarConnection | null;
 
     if (!connection) {
       throw new NotFoundException('Google Calendar connection not found');
@@ -334,26 +345,29 @@ export class GoogleCalendarSyncService {
     workspaceId: string,
     selectedCalendarIds: string[],
   ): Promise<any> {
-    const connection = await this.db.findOne('google_calendar_connections', {
+    const connection = (await this.db.findOne('google_calendar_connections', {
       workspace_id: workspaceId,
       user_id: userId,
       is_active: true,
-    }) as GoogleCalendarConnection | null;
+    })) as GoogleCalendarConnection | null;
 
     if (!connection) {
-      throw new NotFoundException('Google Calendar not connected. Please connect your Google Calendar first.');
+      throw new NotFoundException(
+        'Google Calendar not connected. Please connect your Google Calendar first.',
+      );
     }
 
     // Validate that all selected calendars are in available calendars
-    const availableIds = (connection.available_calendars || []).map(c => c.id);
-    const invalidIds = selectedCalendarIds.filter(id => !availableIds.includes(id));
+    const availableIds = (connection.available_calendars || []).map((c) => c.id);
+    const invalidIds = selectedCalendarIds.filter((id) => !availableIds.includes(id));
     if (invalidIds.length > 0) {
       throw new BadRequestException(`Invalid calendar IDs: ${invalidIds.join(', ')}`);
     }
 
     // Get the full calendar info for selected calendars
-    const selectedCalendars = (connection.available_calendars || [])
-      .filter(cal => selectedCalendarIds.includes(cal.id));
+    const selectedCalendars = (connection.available_calendars || []).filter((cal) =>
+      selectedCalendarIds.includes(cal.id),
+    );
 
     // Update connection with new selected calendars
     await this.db.update('google_calendar_connections', connection.id, {
@@ -361,7 +375,9 @@ export class GoogleCalendarSyncService {
       updated_at: new Date().toISOString(),
     });
 
-    this.logger.log(`Updated selected calendars for user ${userId}: ${selectedCalendarIds.join(', ')}`);
+    this.logger.log(
+      `Updated selected calendars for user ${userId}: ${selectedCalendarIds.join(', ')}`,
+    );
 
     // No sync needed - events are fetched directly from Google API
 
@@ -372,14 +388,16 @@ export class GoogleCalendarSyncService {
    * Refresh available calendars from Google
    */
   async refreshAvailableCalendars(userId: string, workspaceId: string): Promise<any> {
-    const connection = await this.db.findOne('google_calendar_connections', {
+    const connection = (await this.db.findOne('google_calendar_connections', {
       workspace_id: workspaceId,
       user_id: userId,
       is_active: true,
-    }) as GoogleCalendarConnection | null;
+    })) as GoogleCalendarConnection | null;
 
     if (!connection) {
-      throw new NotFoundException('Google Calendar not connected. Please connect your Google Calendar first.');
+      throw new NotFoundException(
+        'Google Calendar not connected. Please connect your Google Calendar first.',
+      );
     }
 
     const accessToken = await this.getValidAccessToken(connection);
@@ -387,7 +405,7 @@ export class GoogleCalendarSyncService {
     // Fetch fresh calendar list from Google
     const calendars = await this.googleCalendarOAuthService.getCalendarList(accessToken);
 
-    const availableCalendars: GoogleCalendarInfo[] = calendars.map(cal => ({
+    const availableCalendars: GoogleCalendarInfo[] = calendars.map((cal) => ({
       id: cal.id,
       name: cal.summary,
       color: cal.backgroundColor,
@@ -422,11 +440,15 @@ export class GoogleCalendarSyncService {
     }
 
     if (!connection.refresh_token) {
-      throw new BadRequestException('Token expired and no refresh token available. Please reconnect Google Calendar.');
+      throw new BadRequestException(
+        'Token expired and no refresh token available. Please reconnect Google Calendar.',
+      );
     }
 
     // Refresh the token
-    const newTokens = await this.googleCalendarOAuthService.refreshAccessToken(connection.refresh_token);
+    const newTokens = await this.googleCalendarOAuthService.refreshAccessToken(
+      connection.refresh_token,
+    );
 
     // Update connection with new tokens
     await this.db.update('google_calendar_connections', connection.id, {
@@ -452,11 +474,11 @@ export class GoogleCalendarSyncService {
     startDate: string,
     endDate: string,
   ): Promise<any[]> {
-    const connection = await this.db.findOne('google_calendar_connections', {
+    const connection = (await this.db.findOne('google_calendar_connections', {
       workspace_id: workspaceId,
       user_id: userId,
       is_active: true,
-    }) as GoogleCalendarConnection | null;
+    })) as GoogleCalendarConnection | null;
 
     if (!connection) {
       return []; // No connection, return empty array
@@ -465,9 +487,10 @@ export class GoogleCalendarSyncService {
     const accessToken = await this.getValidAccessToken(connection);
 
     // Get calendars to fetch - use selected_calendars if available
-    const calendarsToFetch = connection.selected_calendars?.length > 0
-      ? connection.selected_calendars
-      : [{ id: connection.calendar_id || 'primary', name: 'Primary', primary: true }];
+    const calendarsToFetch =
+      connection.selected_calendars?.length > 0
+        ? connection.selected_calendars
+        : [{ id: connection.calendar_id || 'primary', name: 'Primary', primary: true }];
 
     const allEvents: any[] = [];
 
@@ -483,7 +506,9 @@ export class GoogleCalendarSyncService {
         );
         allEvents.push(...events);
       } catch (error) {
-        this.logger.error(`Failed to fetch from calendar "${calendar.name}" (${calendar.id}): ${error.message}`);
+        this.logger.error(
+          `Failed to fetch from calendar "${calendar.name}" (${calendar.id}): ${error.message}`,
+        );
         // Continue with other calendars
       }
     }
@@ -530,7 +555,7 @@ export class GoogleCalendarSyncService {
           {
             headers: { Authorization: `Bearer ${accessToken}` },
             params,
-          }
+          },
         );
 
         const data = response.data;
@@ -578,7 +603,7 @@ export class GoogleCalendarSyncService {
     }
 
     // Extract attendees
-    const attendees = googleEvent.attendees?.map(a => a.email) || [];
+    const attendees = googleEvent.attendees?.map((a) => a.email) || [];
 
     // Get meeting URL
     let meetingUrl: string | null = null;
@@ -586,7 +611,7 @@ export class GoogleCalendarSyncService {
       meetingUrl = googleEvent.hangoutLink;
     } else if (googleEvent.conferenceData?.entryPoints) {
       const videoEntry = googleEvent.conferenceData.entryPoints.find(
-        e => e.entryPointType === 'video'
+        (e) => e.entryPointType === 'video',
       );
       if (videoEntry) {
         meetingUrl = videoEntry.uri;

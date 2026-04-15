@@ -36,7 +36,9 @@ export class LivekitVideoService {
     private readonly config: ConfigService,
   ) {
     this.provider = createVideoProvider(this.config);
-    this.logger.log(`Video provider initialized: ${this.provider.name} (available=${this.provider.isAvailable()})`);
+    this.logger.log(
+      `Video provider initialized: ${this.provider.name} (available=${this.provider.isAvailable()})`,
+    );
   }
 
   /**
@@ -112,7 +114,11 @@ export class LivekitVideoService {
    * Generate a room access token for a participant.
    * Legacy signature: generateToken(roomId, identity, options?)
    */
-  async generateToken(roomId: string, identityOrOptions: string | TokenOptions, options?: any): Promise<RoomToken> {
+  async generateToken(
+    roomId: string,
+    identityOrOptions: string | TokenOptions,
+    options?: any,
+  ): Promise<RoomToken> {
     const tokenOptions: TokenOptions =
       typeof identityOrOptions === 'string'
         ? {
@@ -125,7 +131,9 @@ export class LivekitVideoService {
             isAdmin: options?.isAdmin ?? options?.isOwner,
           }
         : identityOrOptions;
-    this.logger.log(`Generating ${this.provider.name} token for ${tokenOptions.identity} on room ${roomId}`);
+    this.logger.log(
+      `Generating ${this.provider.name} token for ${tokenOptions.identity} on room ${roomId}`,
+    );
     return this.provider.generateToken(roomId, tokenOptions);
   }
 

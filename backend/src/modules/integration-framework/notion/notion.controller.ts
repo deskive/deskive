@@ -25,10 +25,7 @@ export class NotionController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get Notion OAuth authorization URL' })
-  getAuthUrl(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: AuthenticatedRequest,
-  ) {
+  getAuthUrl(@Param('workspaceId') workspaceId: string, @Req() req: AuthenticatedRequest) {
     const userId = req.user.sub || req.user.userId;
     return this.notionOAuthService.getAuthorizationUrl(userId, workspaceId);
   }

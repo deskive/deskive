@@ -35,7 +35,7 @@ export class BlogService {
 
       // Filter out the post being updated (if excludePostId is provided)
       const conflicts = excludePostId
-        ? existingPosts.filter(p => p.id !== excludePostId)
+        ? existingPosts.filter((p) => p.id !== excludePostId)
         : existingPosts;
 
       if (conflicts.length === 0) {
@@ -110,7 +110,12 @@ export class BlogService {
           const metadata = user.metadata || {};
           author = {
             id: user.id,
-            name: metadata.name || (user as any).fullName || (user as any).name || user.email?.split('@')[0] || 'Anonymous',
+            name:
+              metadata.name ||
+              (user as any).fullName ||
+              (user as any).name ||
+              user.email?.split('@')[0] ||
+              'Anonymous',
             email: user.email,
             avatar: user.avatar_url || metadata.avatarUrl || null,
           };
@@ -197,7 +202,8 @@ export class BlogService {
       if (dto.featuredImage !== undefined) updateData.featured_image = dto.featuredImage;
       if (dto.images !== undefined) updateData.images = JSON.stringify(dto.images);
       if (dto.seoMetaTitle !== undefined) updateData.seo_meta_title = dto.seoMetaTitle;
-      if (dto.seoMetaDescription !== undefined) updateData.seo_meta_description = dto.seoMetaDescription;
+      if (dto.seoMetaDescription !== undefined)
+        updateData.seo_meta_description = dto.seoMetaDescription;
       if (dto.isFeatured !== undefined) updateData.is_featured = dto.isFeatured;
       if (dto.publish !== undefined) {
         updateData.status = dto.publish ? 'published' : 'draft';
@@ -222,10 +228,14 @@ export class BlogService {
   }
 
   async deletePost(postId: string, authorId: string) {
-    await this.db.update('blog_posts', { id: postId, author_id: authorId }, {
-      is_deleted: true,
-      updated_at: new Date().toISOString(),
-    });
+    await this.db.update(
+      'blog_posts',
+      { id: postId, author_id: authorId },
+      {
+        is_deleted: true,
+        updated_at: new Date().toISOString(),
+      },
+    );
   }
 
   async getPublishedPosts(page = 1, limit = 12, search?: string) {
@@ -278,9 +288,13 @@ export class BlogService {
     }
 
     // Increment view count
-    await this.db.update('blog_posts', { id: result.id }, {
-      view_count: (result.view_count || 0) + 1,
-    });
+    await this.db.update(
+      'blog_posts',
+      { id: result.id },
+      {
+        view_count: (result.view_count || 0) + 1,
+      },
+    );
 
     return this.enrichPost(result);
   }
@@ -315,7 +329,9 @@ export class BlogService {
       .select('*')
       .where('post_id', '=', postId)
       .execute();
-    const categoryIds = ((categoryResults as any).data || categoryResults).map((c: any) => c.category_id);
+    const categoryIds = ((categoryResults as any).data || categoryResults).map(
+      (c: any) => c.category_id,
+    );
 
     let relatedPosts = [];
 
@@ -401,10 +417,7 @@ export class BlogService {
   // ==================== CATEGORIES ====================
 
   async getAllCategories() {
-    const results = await this.db
-      .table('blog_categories')
-      .select('*')
-      .execute();
+    const results = await this.db.table('blog_categories').select('*').execute();
 
     const categories = (results as any).data || results;
     return categories.map((c: any) => this.transformToCamelCase(c));
@@ -417,7 +430,7 @@ export class BlogService {
       const category = await this.db.insert('blog_categories', {
         name,
         slug,
-        post_count: 0
+        post_count: 0,
       });
 
       this.logger.log(`✅ Created category: ${name}`);
@@ -519,9 +532,13 @@ export class BlogService {
   private async incrementCommentCount(postId: string) {
     const post = await this.db.findOne('blog_posts', { id: postId });
     if (post) {
-      await this.db.update('blog_posts', { id: postId }, {
-        comment_count: (post.comment_count || 0) + 1,
-      });
+      await this.db.update(
+        'blog_posts',
+        { id: postId },
+        {
+          comment_count: (post.comment_count || 0) + 1,
+        },
+      );
     }
   }
 
@@ -579,7 +596,7 @@ export class BlogService {
             rating: dto.rating,
             review: dto.review || null,
             updated_at: new Date().toISOString(),
-          }
+          },
         );
       } else {
         // Create new rating
@@ -624,7 +641,7 @@ export class BlogService {
 
     const rating = await this.db.findOne('blog_ratings', {
       post_id: postId,
-      user_id: userId
+      user_id: userId,
     });
 
     return rating ? this.transformToCamelCase(rating) : null;
@@ -642,10 +659,14 @@ export class BlogService {
     const sum = ratings.reduce((acc: number, r: any) => acc + r.rating, 0);
     const average = count > 0 ? (sum / count).toFixed(2) : 0;
 
-    await this.db.update('blog_posts', { id: postId }, {
-      rating_count: count,
-      rating_average: average,
-    });
+    await this.db.update(
+      'blog_posts',
+      { id: postId },
+      {
+        rating_count: count,
+        rating_average: average,
+      },
+    );
   }
 
   // ==================== IMAGE UPLOAD ====================
@@ -669,8 +690,8 @@ export class BlogService {
         `blog/images/${filename}`,
         {
           contentType: 'image/jpeg',
-          metadata: { type: 'blog_image' }
-        }
+          metadata: { type: 'blog_image' },
+        },
       );
 
       this.logger.log(`✅ Blog image uploaded: ${filename}`);

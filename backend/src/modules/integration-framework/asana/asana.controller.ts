@@ -25,10 +25,7 @@ export class AsanaController {
   @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Get Asana OAuth authorization URL' })
-  getAuthUrl(
-    @Param('workspaceId') workspaceId: string,
-    @Req() req: AuthenticatedRequest,
-  ) {
+  getAuthUrl(@Param('workspaceId') workspaceId: string, @Req() req: AuthenticatedRequest) {
     const userId = req.user.sub || req.user.userId;
     return this.asanaOAuthService.getAuthorizationUrl(userId, workspaceId);
   }

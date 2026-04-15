@@ -1,9 +1,38 @@
-import { Injectable, NotFoundException, BadRequestException, ForbiddenException, Inject, forwardRef } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+  ForbiddenException,
+  Inject,
+  forwardRef,
+} from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { NotificationsService } from '../notifications/notifications.service';
 import { NotificationType } from '../notifications/dto';
 import { AppGateway } from '../../common/gateways/app.gateway';
-import { UploadFileDto, AddFileByUrlDto, CreateFolderDto, ShareFileDto, MoveFileDto, MoveFolderDto, UpdateFileDto, UpdateFolderDto, CopyFileDto, CopyFolderDto, FilterFilesByTypeDto, FileCategory, DashboardStatsResponseDto, CreateShareLinkDto, UpdateShareLinkDto, AccessLevel, CreateFileCommentDto, UpdateFileCommentDto, MarkFileOfflineDto, UpdateOfflineSettingsDto, SyncStatus } from './dto';
+import {
+  UploadFileDto,
+  AddFileByUrlDto,
+  CreateFolderDto,
+  ShareFileDto,
+  MoveFileDto,
+  MoveFolderDto,
+  UpdateFileDto,
+  UpdateFolderDto,
+  CopyFileDto,
+  CopyFolderDto,
+  FilterFilesByTypeDto,
+  FileCategory,
+  DashboardStatsResponseDto,
+  CreateShareLinkDto,
+  UpdateShareLinkDto,
+  AccessLevel,
+  CreateFileCommentDto,
+  UpdateFileCommentDto,
+  MarkFileOfflineDto,
+  UpdateOfflineSettingsDto,
+  SyncStatus,
+} from './dto';
 import { v4 as uuidv4 } from 'uuid';
 import * as crypto from 'crypto';
 import axios from 'axios';
@@ -28,7 +57,7 @@ export class FilesService {
       workspace_id: workspaceId,
       name: createFolderDto.name,
       parent_id: createFolderDto.parent_id || null,
-      is_deleted: false
+      is_deleted: false,
     });
 
     const existingFoldersData = Array.isArray(existingFolders.data) ? existingFolders.data : [];
@@ -42,7 +71,7 @@ export class FilesService {
       parent_id: createFolderDto.parent_id || null,
       created_by: userId,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     return await this.db.insert('folders', folderData);
@@ -67,7 +96,10 @@ export class FilesService {
       queryConditions.created_by = userId;
     }
 
-    const foldersQuery = await this.db.find('folders', queryConditions, { orderBy: 'name', order: 'asc' });
+    const foldersQuery = await this.db.find('folders', queryConditions, {
+      orderBy: 'name',
+      order: 'asc',
+    });
 
     return Array.isArray(foldersQuery.data) ? foldersQuery.data : [];
   }
@@ -78,12 +110,12 @@ export class FilesService {
     // Check if folder has children
     const childrenQuery = await this.db.find('folders', {
       parent_id: folderId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     const filesQuery = await this.db.find('files', {
       parent_folder_ids: { $like: `%${folderId}%` },
-      is_deleted: false
+      is_deleted: false,
     });
 
     const childrenData = Array.isArray(childrenQuery.data) ? childrenQuery.data : [];
@@ -96,7 +128,7 @@ export class FilesService {
     return await this.db.update('folders', folderId, {
       is_deleted: true,
       deleted_at: new Date().toISOString(),
-      deleted_by: userId
+      deleted_by: userId,
     });
   }
 
@@ -116,7 +148,7 @@ export class FilesService {
       await this.db.update('folders', folderIdToDelete, {
         is_deleted: true,
         deleted_at: deletedAt,
-        deleted_by: userId
+        deleted_by: userId,
       });
     }
 
@@ -125,18 +157,19 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Filter files that belong to any of the deleted folders
-    const filesToDelete = allFilesData.filter(file =>
-      file.workspace_id === workspaceId &&
-      !file.is_deleted &&
-      file.folder_id &&
-      allFolderIds.includes(file.folder_id)
+    const filesToDelete = allFilesData.filter(
+      (file) =>
+        file.workspace_id === workspaceId &&
+        !file.is_deleted &&
+        file.folder_id &&
+        allFolderIds.includes(file.folder_id),
     );
 
     // Soft delete all files
     for (const file of filesToDelete) {
       await this.db.update('files', file.id, {
         is_deleted: true,
-        deleted_at: deletedAt
+        deleted_at: deletedAt,
       });
     }
 
@@ -144,7 +177,7 @@ export class FilesService {
       message: 'Folder and all contents deleted successfully',
       deleted_folders_count: allFolderIds.length,
       deleted_files_count: filesToDelete.length,
-      deleted_at: deletedAt
+      deleted_at: deletedAt,
     };
   }
 
@@ -152,7 +185,7 @@ export class FilesService {
     const deletedAt = new Date().toISOString();
     const results = {
       success: [] as Array<{ folderId: string; folders_deleted: number; files_deleted: number }>,
-      failed: [] as Array<{ folderId: string; reason: string }>
+      failed: [] as Array<{ folderId: string; reason: string }>,
     };
 
     let totalFoldersDeleted = 0;
@@ -162,7 +195,7 @@ export class FilesService {
     const membership = await this.db.findOne('workspace_members', {
       workspace_id: workspaceId,
       user_id: userId,
-      is_active: true
+      is_active: true,
     });
 
     const isAdmin = membership && (membership.role === 'admin' || membership.role === 'owner');
@@ -177,7 +210,7 @@ export class FilesService {
         if (folder.created_by !== userId && !isAdmin) {
           results.failed.push({
             folderId,
-            reason: 'You do not have permission to delete this folder'
+            reason: 'You do not have permission to delete this folder',
           });
           continue;
         }
@@ -193,7 +226,7 @@ export class FilesService {
           await this.db.update('folders', folderIdToDelete, {
             is_deleted: true,
             deleted_at: deletedAt,
-            deleted_by: userId
+            deleted_by: userId,
           });
         }
 
@@ -202,18 +235,19 @@ export class FilesService {
         const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
         // Filter files that belong to any of the deleted folders
-        const filesToDelete = allFilesData.filter(file =>
-          file.workspace_id === workspaceId &&
-          !file.is_deleted &&
-          file.folder_id &&
-          allFolderIds.includes(file.folder_id)
+        const filesToDelete = allFilesData.filter(
+          (file) =>
+            file.workspace_id === workspaceId &&
+            !file.is_deleted &&
+            file.folder_id &&
+            allFolderIds.includes(file.folder_id),
         );
 
         // Soft delete all files
         for (const file of filesToDelete) {
           await this.db.update('files', file.id, {
             is_deleted: true,
-            deleted_at: deletedAt
+            deleted_at: deletedAt,
           });
         }
 
@@ -223,12 +257,12 @@ export class FilesService {
         results.success.push({
           folderId,
           folders_deleted: allFolderIds.length,
-          files_deleted: filesToDelete.length
+          files_deleted: filesToDelete.length,
         });
       } catch (error) {
         results.failed.push({
           folderId,
-          reason: error.message || 'Failed to delete folder'
+          reason: error.message || 'Failed to delete folder',
         });
       }
     }
@@ -239,7 +273,7 @@ export class FilesService {
       deleted_files_count: totalFilesDeleted,
       deleted_at: deletedAt,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
@@ -249,7 +283,7 @@ export class FilesService {
     // Get immediate children
     const childrenQuery = await this.db.find('folders', {
       parent_id: parentFolderId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     const children = Array.isArray(childrenQuery.data) ? childrenQuery.data : [];
@@ -271,7 +305,7 @@ export class FilesService {
     // Get immediate deleted children
     const childrenQuery = await this.db.find('folders', {
       parent_id: parentFolderId,
-      is_deleted: true
+      is_deleted: true,
     });
 
     const children = Array.isArray(childrenQuery.data) ? childrenQuery.data : [];
@@ -292,7 +326,7 @@ export class FilesService {
     const folderQuery = await this.db.find('folders', {
       id: folderId,
       workspace_id: workspaceId,
-      is_deleted: true
+      is_deleted: true,
     });
 
     const folderData = Array.isArray(folderQuery.data) ? folderQuery.data : [];
@@ -313,7 +347,7 @@ export class FilesService {
       await this.db.update('folders', folderIdToRestore, {
         is_deleted: false,
         deleted_at: null,
-        deleted_by: null
+        deleted_by: null,
       });
     }
 
@@ -322,25 +356,26 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Filter files that belong to any of the restored folders
-    const filesToRestore = allFilesData.filter(file =>
-      file.workspace_id === workspaceId &&
-      file.is_deleted === true &&
-      file.folder_id &&
-      allFolderIds.includes(file.folder_id)
+    const filesToRestore = allFilesData.filter(
+      (file) =>
+        file.workspace_id === workspaceId &&
+        file.is_deleted === true &&
+        file.folder_id &&
+        allFolderIds.includes(file.folder_id),
     );
 
     // Restore all files
     for (const file of filesToRestore) {
       await this.db.update('files', file.id, {
         is_deleted: false,
-        deleted_at: null
+        deleted_at: null,
       });
     }
 
     return {
       message: 'Folder and all contents restored successfully',
       restored_folders_count: allFolderIds.length,
-      restored_files_count: filesToRestore.length
+      restored_files_count: filesToRestore.length,
     };
   }
 
@@ -349,7 +384,7 @@ export class FilesService {
     const fileQuery = await this.db.find('files', {
       id: fileId,
       workspace_id: workspaceId,
-      is_deleted: true
+      is_deleted: true,
     });
 
     const fileData = Array.isArray(fileQuery.data) ? fileQuery.data : [];
@@ -363,13 +398,13 @@ export class FilesService {
     if (file.folder_id) {
       const folderQuery = await this.db.find('folders', {
         id: file.folder_id,
-        workspace_id: workspaceId
+        workspace_id: workspaceId,
       });
 
       const folderData = Array.isArray(folderQuery.data) ? folderQuery.data : [];
       if (folderData.length === 0 || folderData[0].is_deleted) {
         throw new BadRequestException(
-          'Cannot restore file: parent folder is deleted. Please restore the folder first or the file will be restored to root.'
+          'Cannot restore file: parent folder is deleted. Please restore the folder first or the file will be restored to root.',
         );
       }
     }
@@ -377,7 +412,7 @@ export class FilesService {
     // Restore the file
     await this.db.update('files', fileId, {
       is_deleted: false,
-      deleted_at: null
+      deleted_at: null,
     });
 
     return {
@@ -385,12 +420,17 @@ export class FilesService {
       file: {
         id: file.id,
         name: file.name,
-        folder_id: file.folder_id
-      }
+        folder_id: file.folder_id,
+      },
     };
   }
 
-  async updateFolder(folderId: string, workspaceId: string, updateFolderDto: UpdateFolderDto, userId: string) {
+  async updateFolder(
+    folderId: string,
+    workspaceId: string,
+    updateFolderDto: UpdateFolderDto,
+    userId: string,
+  ) {
     const folder = await this.getFolderWithAccess(folderId, workspaceId, userId);
 
     // If updating name, check if new name already exists in the same location
@@ -399,19 +439,19 @@ export class FilesService {
         workspace_id: workspaceId,
         name: updateFolderDto.name,
         parent_id: folder.parent_id || null,
-        is_deleted: false
+        is_deleted: false,
       });
 
       const existingFoldersData = Array.isArray(existingFolders.data) ? existingFolders.data : [];
       // Filter out the current folder from the results
-      const duplicates = existingFoldersData.filter(f => f.id !== folderId);
+      const duplicates = existingFoldersData.filter((f) => f.id !== folderId);
       if (duplicates.length > 0) {
         throw new BadRequestException('Folder with this name already exists in the same location');
       }
     }
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (updateFolderDto.name) {
@@ -425,7 +465,12 @@ export class FilesService {
   // FILE OPERATIONS
   // ============================================
 
-  async uploadFile(workspaceId: string, file: Express.Multer.File, uploadFileDto: UploadFileDto, userId: string) {
+  async uploadFile(
+    workspaceId: string,
+    file: Express.Multer.File,
+    uploadFileDto: UploadFileDto,
+    userId: string,
+  ) {
     try {
       // Check workspace storage limits
       await this.checkStorageQuota(workspaceId, file.size);
@@ -436,9 +481,14 @@ export class FilesService {
       const storagePath = `workspaces/${workspaceId}/files/${Date.now()}-${uuidv4()}.${fileExtension}`;
 
       // Upload to storage service
-      const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile('files', file.buffer, storagePath, {
-        contentType: file.mimetype
-      });
+      const uploadResult = await /* TODO: use StorageService */ this.db.uploadFile(
+        'files',
+        file.buffer,
+        storagePath,
+        {
+          contentType: file.mimetype,
+        },
+      );
 
       // Extract public URL string from upload result
       let publicUrl = uploadResult.url;
@@ -453,7 +503,10 @@ export class FilesService {
       let tagsArray: string[] = [];
       if (uploadFileDto.tags) {
         if (typeof uploadFileDto.tags === 'string') {
-          tagsArray = uploadFileDto.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+          tagsArray = uploadFileDto.tags
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0);
         } else if (Array.isArray(uploadFileDto.tags)) {
           tagsArray = uploadFileDto.tags;
         }
@@ -474,17 +527,17 @@ export class FilesService {
         metadata: {
           original_name: file.originalname,
           description: uploadFileDto.description,
-          tags: tagsArray
+          tags: tagsArray,
         },
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       const createdFile = await this.db.insert('files', fileData);
 
       return {
         ...createdFile,
-        url: publicUrl
+        url: publicUrl,
       };
     } catch (error) {
       console.error('File upload error:', error);
@@ -492,7 +545,12 @@ export class FilesService {
     }
   }
 
-  async uploadMultipleFiles(workspaceId: string, files: Express.Multer.File[], uploadFileDto: UploadFileDto, userId: string) {
+  async uploadMultipleFiles(
+    workspaceId: string,
+    files: Express.Multer.File[],
+    uploadFileDto: UploadFileDto,
+    userId: string,
+  ) {
     const results = [];
     const errors = [];
 
@@ -503,7 +561,7 @@ export class FilesService {
       } catch (error) {
         errors.push({
           filename: file.originalname,
-          error: error.message
+          error: error.message,
         });
       }
     }
@@ -512,7 +570,7 @@ export class FilesService {
       success: results,
       errors: errors,
       totalUploaded: results.length,
-      totalFailed: errors.length
+      totalFailed: errors.length,
     };
   }
 
@@ -528,7 +586,7 @@ export class FilesService {
         const folderResult = await this.db.find('folders', {
           id: addFileByUrlDto.folder_id,
           workspace_id: workspaceId,
-          is_deleted: false
+          is_deleted: false,
         });
         const folderData = Array.isArray(folderResult.data) ? folderResult.data : [];
         if (folderData.length === 0) {
@@ -541,7 +599,7 @@ export class FilesService {
         workspace_id: workspaceId,
         name: addFileByUrlDto.name,
         folder_id: addFileByUrlDto.folder_id || null,
-        is_deleted: false
+        is_deleted: false,
       });
       const existingFilesData = Array.isArray(existingFiles.data) ? existingFiles.data : [];
       if (existingFilesData.length > 0) {
@@ -552,14 +610,19 @@ export class FilesService {
       let tagsArray: string[] = [];
       if (addFileByUrlDto.tags) {
         if (typeof addFileByUrlDto.tags === 'string') {
-          tagsArray = addFileByUrlDto.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+          tagsArray = addFileByUrlDto.tags
+            .split(',')
+            .map((tag) => tag.trim())
+            .filter((tag) => tag.length > 0);
         } else if (Array.isArray(addFileByUrlDto.tags)) {
           tagsArray = addFileByUrlDto.tags;
         }
       }
 
       // Generate storage path if not provided
-      const storagePath = addFileByUrlDto.storage_path || `workspaces/${workspaceId}/files/${Date.now()}-${uuidv4()}-${addFileByUrlDto.name}`;
+      const storagePath =
+        addFileByUrlDto.storage_path ||
+        `workspaces/${workspaceId}/files/${Date.now()}-${uuidv4()}-${addFileByUrlDto.name}`;
 
       const fileData = {
         workspace_id: workspaceId,
@@ -579,17 +642,17 @@ export class FilesService {
           tags: tagsArray,
           is_public: addFileByUrlDto.is_public || false,
           source: 'url',
-          ...(addFileByUrlDto.metadata || {})
+          ...(addFileByUrlDto.metadata || {}),
         },
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       const createdFile = await this.db.insert('files', fileData);
 
       return {
         ...createdFile,
-        url: addFileByUrlDto.url
+        url: addFileByUrlDto.url,
       };
     } catch (error) {
       console.error('Add file by URL error:', error);
@@ -600,7 +663,14 @@ export class FilesService {
     }
   }
 
-  async getFiles(workspaceId: string, folderId?: string, page = 1, limit = 50, isDeleted?: boolean, userId?: string) {
+  async getFiles(
+    workspaceId: string,
+    folderId?: string,
+    page = 1,
+    limit = 50,
+    isDeleted?: boolean,
+    userId?: string,
+  ) {
     const offset = (page - 1) * limit;
 
     // Using workaround pattern for complex queries
@@ -608,19 +678,19 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Apply workspace filter
-    let files = allFilesData.filter(f => f.workspace_id === workspaceId);
+    let files = allFilesData.filter((f) => f.workspace_id === workspaceId);
 
     // Filter by uploaded_by to only show files uploaded by the user
     if (userId) {
-      files = files.filter(f => f.uploaded_by === userId);
+      files = files.filter((f) => f.uploaded_by === userId);
     }
 
     // Apply is_deleted filter
     if (isDeleted !== undefined) {
-      files = files.filter(f => f.is_deleted === isDeleted);
+      files = files.filter((f) => f.is_deleted === isDeleted);
     } else {
       // Default to non-deleted files if not specified
-      files = files.filter(f => !f.is_deleted);
+      files = files.filter((f) => !f.is_deleted);
     }
 
     // Helper to parse parent_folder_ids (may be string or array)
@@ -640,13 +710,13 @@ export class FilesService {
 
     // Filter by folder
     if (folderId) {
-      files = files.filter(f => {
+      files = files.filter((f) => {
         const parentIds = parseParentFolderIds(f.parent_folder_ids);
         return parentIds.includes(folderId);
       });
     } else {
       // Show files in root (no parent folder)
-      files = files.filter(f => {
+      files = files.filter((f) => {
         const parentIds = parseParentFolderIds(f.parent_folder_ids);
         return parentIds.length === 0;
       });
@@ -660,7 +730,7 @@ export class FilesService {
       data: paginatedFiles,
       total: files.length,
       page,
-      limit
+      limit,
     };
   }
 
@@ -671,22 +741,26 @@ export class FilesService {
     await this.db.update('files', fileId, {
       last_opened_at: new Date().toISOString(),
       last_opened_by: userId,
-      open_count: (file.open_count || 0) + 1
+      open_count: (file.open_count || 0) + 1,
     });
 
     // Use the existing URL from database, or generate a new public URL if needed
     let fileUrl = file.url;
     if (!fileUrl && file.storage_path) {
-      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl('files', file.storage_path);
+      const publicUrlResult = await /* TODO: use StorageService */ this.db.getPublicUrl(
+        'files',
+        file.storage_path,
+      );
       // getPublicUrl returns { publicUrl: string }, extract the string
-      fileUrl = typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
-        ? publicUrlResult.publicUrl
-        : publicUrlResult;
+      fileUrl =
+        typeof publicUrlResult === 'object' && publicUrlResult?.publicUrl
+          ? publicUrlResult.publicUrl
+          : publicUrlResult;
     }
 
     return {
       ...file,
-      url: fileUrl
+      url: fileUrl,
     };
   }
 
@@ -696,7 +770,7 @@ export class FilesService {
     try {
       // Fetch file content directly from S3 URL
       const response = await axios.get(file.url, {
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
       });
 
       const fileContent = Buffer.from(response.data);
@@ -705,13 +779,13 @@ export class FilesService {
       await this.db.update('files', fileId, {
         last_opened_at: new Date().toISOString(),
         last_opened_by: userId,
-        open_count: (file.open_count || 0) + 1
+        open_count: (file.open_count || 0) + 1,
       });
 
       return {
         content: fileContent,
         fileName: file.name,
-        mimeType: file.mime_type
+        mimeType: file.mime_type,
       };
     } catch (error) {
       console.error('File download error:', error);
@@ -728,7 +802,7 @@ export class FilesService {
       const membership = await this.db.findOne('workspace_members', {
         workspace_id: workspaceId,
         user_id: userId,
-        is_active: true
+        is_active: true,
       });
 
       if (!membership || (membership.role !== 'admin' && membership.role !== 'owner')) {
@@ -739,7 +813,7 @@ export class FilesService {
     // Soft delete the file
     const result = await this.db.update('files', fileId, {
       is_deleted: true,
-      deleted_at: new Date().toISOString()
+      deleted_at: new Date().toISOString(),
     });
 
     // TODO: In future if possible - Clean up physical file from storage (could be done asynchronously)
@@ -752,14 +826,14 @@ export class FilesService {
     const deletedAt = new Date().toISOString();
     const results = {
       success: [] as string[],
-      failed: [] as { fileId: string; reason: string }[]
+      failed: [] as { fileId: string; reason: string }[],
     };
 
     // Get workspace membership once for permission checking
     const membership = await this.db.findOne('workspace_members', {
       workspace_id: workspaceId,
       user_id: userId,
-      is_active: true
+      is_active: true,
     });
 
     const isAdmin = membership && (membership.role === 'admin' || membership.role === 'owner');
@@ -774,7 +848,7 @@ export class FilesService {
         if (file.uploaded_by !== userId && !isAdmin) {
           results.failed.push({
             fileId,
-            reason: 'You do not have permission to delete this file'
+            reason: 'You do not have permission to delete this file',
           });
           continue;
         }
@@ -782,14 +856,14 @@ export class FilesService {
         // Soft delete the file
         await this.db.update('files', fileId, {
           is_deleted: true,
-          deleted_at: deletedAt
+          deleted_at: deletedAt,
         });
 
         results.success.push(fileId);
       } catch (error) {
         results.failed.push({
           fileId,
-          reason: error.message || 'Failed to delete file'
+          reason: error.message || 'Failed to delete file',
         });
       }
     }
@@ -800,7 +874,7 @@ export class FilesService {
       failed_count: results.failed.length,
       deleted_at: deletedAt,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
@@ -808,7 +882,7 @@ export class FilesService {
     const file = await this.getFileWithAccess(fileId, workspaceId, userId);
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Update folder location
@@ -831,10 +905,15 @@ export class FilesService {
     return await this.db.update('files', fileId, updateData);
   }
 
-  async moveMultipleFiles(fileIds: string[], workspaceId: string, targetFolderId: string | null | undefined, userId: string) {
+  async moveMultipleFiles(
+    fileIds: string[],
+    workspaceId: string,
+    targetFolderId: string | null | undefined,
+    userId: string,
+  ) {
     const results = {
       success: [] as Array<{ fileId: string; name: string }>,
-      failed: [] as Array<{ fileId: string; reason: string }>
+      failed: [] as Array<{ fileId: string; reason: string }>,
     };
 
     // Verify target folder exists if provided
@@ -857,19 +936,19 @@ export class FilesService {
         const updateData: any = {
           updated_at: updatedAt,
           folder_id: targetFolderId || null,
-          parent_folder_ids: targetFolderId ? [targetFolderId] : []
+          parent_folder_ids: targetFolderId ? [targetFolderId] : [],
         };
 
         await this.db.update('files', fileId, updateData);
 
         results.success.push({
           fileId,
-          name: file.name
+          name: file.name,
         });
       } catch (error) {
         results.failed.push({
           fileId,
-          reason: error.message || 'Failed to move file'
+          reason: error.message || 'Failed to move file',
         });
       }
     }
@@ -879,15 +958,20 @@ export class FilesService {
       moved_count: results.success.length,
       failed_count: results.failed.length,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
-  async moveFolder(folderId: string, workspaceId: string, moveFolderDto: MoveFolderDto, userId: string) {
+  async moveFolder(
+    folderId: string,
+    workspaceId: string,
+    moveFolderDto: MoveFolderDto,
+    userId: string,
+  ) {
     const folder = await this.getFolderWithAccess(folderId, workspaceId, userId);
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Update parent location
@@ -916,22 +1000,25 @@ export class FilesService {
     // Update folder name
     if (moveFolderDto.new_name) {
       // Check if new name already exists in target location
-      const targetParentId = moveFolderDto.target_parent_id !== undefined
-        ? (moveFolderDto.target_parent_id || null)
-        : folder.parent_id;
+      const targetParentId =
+        moveFolderDto.target_parent_id !== undefined
+          ? moveFolderDto.target_parent_id || null
+          : folder.parent_id;
 
       const existingFolders = await this.db.find('folders', {
         workspace_id: workspaceId,
         name: moveFolderDto.new_name,
         parent_id: targetParentId,
-        is_deleted: false
+        is_deleted: false,
       });
 
       const existingFoldersData = Array.isArray(existingFolders.data) ? existingFolders.data : [];
       // Filter out the current folder from the results
-      const duplicates = existingFoldersData.filter(f => f.id !== folderId);
+      const duplicates = existingFoldersData.filter((f) => f.id !== folderId);
       if (duplicates.length > 0) {
-        throw new BadRequestException('Folder with this name already exists in the target location');
+        throw new BadRequestException(
+          'Folder with this name already exists in the target location',
+        );
       }
 
       updateData.name = moveFolderDto.new_name;
@@ -940,10 +1027,15 @@ export class FilesService {
     return await this.db.update('folders', folderId, updateData);
   }
 
-  async moveMultipleFolders(folderIds: string[], workspaceId: string, targetParentId: string | null | undefined, userId: string) {
+  async moveMultipleFolders(
+    folderIds: string[],
+    workspaceId: string,
+    targetParentId: string | null | undefined,
+    userId: string,
+  ) {
     const results = {
       success: [] as Array<{ folderId: string; name: string }>,
-      failed: [] as Array<{ folderId: string; reason: string }>
+      failed: [] as Array<{ folderId: string; reason: string }>,
     };
 
     // Verify target parent folder exists if provided
@@ -967,35 +1059,35 @@ export class FilesService {
         if (targetParentId === folderId) {
           results.failed.push({
             folderId,
-            reason: 'Cannot move folder into itself'
+            reason: 'Cannot move folder into itself',
           });
           continue;
         }
 
         // Prevent moving folder into its own descendants
-        if (targetParentId && await this.isFolderDescendantOf(targetParentId, folderId)) {
+        if (targetParentId && (await this.isFolderDescendantOf(targetParentId, folderId))) {
           results.failed.push({
             folderId,
-            reason: 'Cannot move folder into its own descendants'
+            reason: 'Cannot move folder into its own descendants',
           });
           continue;
         }
 
         const updateData: any = {
           updated_at: updatedAt,
-          parent_id: targetParentId || null
+          parent_id: targetParentId || null,
         };
 
         await this.db.update('folders', folderId, updateData);
 
         results.success.push({
           folderId,
-          name: folder.name
+          name: folder.name,
         });
       } catch (error) {
         results.failed.push({
           folderId,
-          reason: error.message || 'Failed to move folder'
+          reason: error.message || 'Failed to move folder',
         });
       }
     }
@@ -1005,18 +1097,23 @@ export class FilesService {
       moved_count: results.success.length,
       failed_count: results.failed.length,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
-  async updateFile(fileId: string, workspaceId: string, updateFileDto: UpdateFileDto, userId: string) {
+  async updateFile(
+    fileId: string,
+    workspaceId: string,
+    updateFileDto: UpdateFileDto,
+    userId: string,
+  ) {
     const file = await this.getFileWithAccess(fileId, workspaceId, userId);
 
     // Get current metadata
     const currentMetadata = file.metadata || {};
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     // Update file name if provided
@@ -1047,7 +1144,10 @@ export class FilesService {
       // Process tags - handle both string (comma-separated) and array formats
       let tagsArray: string[] = [];
       if (typeof updateFileDto.tags === 'string') {
-        tagsArray = updateFileDto.tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
+        tagsArray = updateFileDto.tags
+          .split(',')
+          .map((tag) => tag.trim())
+          .filter((tag) => tag.length > 0);
       } else if (Array.isArray(updateFileDto.tags)) {
         tagsArray = updateFileDto.tags;
       }
@@ -1093,17 +1193,17 @@ export class FilesService {
           ...file.metadata,
           original_file_id: fileId,
           copied_at: new Date().toISOString(),
-          copied_by: userId
+          copied_by: userId,
         },
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       const copiedFile = await this.db.insert('files', newFileData);
 
       return {
         ...copiedFile,
-        url: file.url
+        url: file.url,
       };
     } catch (error) {
       console.error('File copy error:', error);
@@ -1111,10 +1211,15 @@ export class FilesService {
     }
   }
 
-  async copyMultipleFiles(fileIds: string[], workspaceId: string, targetFolderId: string | null | undefined, userId: string) {
+  async copyMultipleFiles(
+    fileIds: string[],
+    workspaceId: string,
+    targetFolderId: string | null | undefined,
+    userId: string,
+  ) {
     const results = {
       success: [] as Array<{ fileId: string; newFileId: string; name: string }>,
-      failed: [] as Array<{ fileId: string; reason: string }>
+      failed: [] as Array<{ fileId: string; reason: string }>,
     };
 
     // Verify target folder exists if provided
@@ -1153,10 +1258,10 @@ export class FilesService {
             ...file.metadata,
             original_file_id: fileId,
             copied_at: new Date().toISOString(),
-            copied_by: userId
+            copied_by: userId,
           },
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         };
 
         const copiedFile = await this.db.insert('files', newFileData);
@@ -1164,12 +1269,12 @@ export class FilesService {
         results.success.push({
           fileId,
           newFileId: copiedFile.id,
-          name: newName
+          name: newName,
         });
       } catch (error) {
         results.failed.push({
           fileId,
-          reason: error.message || 'Failed to copy file'
+          reason: error.message || 'Failed to copy file',
         });
       }
     }
@@ -1179,11 +1284,16 @@ export class FilesService {
       copied_count: results.success.length,
       failed_count: results.failed.length,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
-  async copyFolder(folderId: string, workspaceId: string, copyFolderDto: CopyFolderDto, userId: string) {
+  async copyFolder(
+    folderId: string,
+    workspaceId: string,
+    copyFolderDto: CopyFolderDto,
+    userId: string,
+  ) {
     const folder = await this.getFolderWithAccess(folderId, workspaceId, userId);
 
     // Verify target parent folder exists if provided
@@ -1206,7 +1316,7 @@ export class FilesService {
         workspaceId,
         copyFolderDto.target_parent_id || null,
         newName,
-        userId
+        userId,
       );
 
       return copiedFolder;
@@ -1216,10 +1326,15 @@ export class FilesService {
     }
   }
 
-  async copyMultipleFolders(folderIds: string[], workspaceId: string, targetParentId: string | null | undefined, userId: string) {
+  async copyMultipleFolders(
+    folderIds: string[],
+    workspaceId: string,
+    targetParentId: string | null | undefined,
+    userId: string,
+  ) {
     const results = {
       success: [] as Array<{ folderId: string; newFolderId: string; name: string }>,
-      failed: [] as Array<{ folderId: string; reason: string }>
+      failed: [] as Array<{ folderId: string; reason: string }>,
     };
 
     // Verify target parent folder exists if provided
@@ -1238,10 +1353,10 @@ export class FilesService {
         const folder = await this.getFolderWithAccess(folderId, workspaceId, userId);
 
         // Prevent copying folder into itself or its descendants
-        if (targetParentId && await this.isFolderDescendantOf(targetParentId, folderId)) {
+        if (targetParentId && (await this.isFolderDescendantOf(targetParentId, folderId))) {
           results.failed.push({
             folderId,
-            reason: 'Cannot copy folder into itself or its descendants'
+            reason: 'Cannot copy folder into itself or its descendants',
           });
           continue;
         }
@@ -1255,18 +1370,18 @@ export class FilesService {
           workspaceId,
           targetParentId || null,
           newName,
-          userId
+          userId,
         );
 
         results.success.push({
           folderId,
           newFolderId: copiedFolder.id,
-          name: newName
+          name: newName,
         });
       } catch (error) {
         results.failed.push({
           folderId,
-          reason: error.message || 'Failed to copy folder'
+          reason: error.message || 'Failed to copy folder',
         });
       }
     }
@@ -1276,7 +1391,7 @@ export class FilesService {
       copied_count: results.success.length,
       failed_count: results.failed.length,
       success: results.success,
-      failed: results.failed
+      failed: results.failed,
     };
   }
 
@@ -1286,7 +1401,7 @@ export class FilesService {
     targetParentId: string | null,
     newName: string,
     userId: string,
-    folderIdMap: Map<string, string> = new Map()
+    folderIdMap: Map<string, string> = new Map(),
   ): Promise<any> {
     // Create the new folder
     const newFolderData = {
@@ -1298,10 +1413,10 @@ export class FilesService {
         ...folder.collaborative_data,
         original_folder_id: folder.id,
         copied_at: new Date().toISOString(),
-        copied_by: userId
+        copied_by: userId,
       },
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const newFolder = await this.db.insert('folders', newFolderData);
@@ -1312,7 +1427,7 @@ export class FilesService {
     // Get all subfolders
     const subFoldersQuery = await this.db.find('folders', {
       parent_id: folder.id,
-      is_deleted: false
+      is_deleted: false,
     });
     const subFolders = Array.isArray(subFoldersQuery.data) ? subFoldersQuery.data : [];
 
@@ -1324,14 +1439,14 @@ export class FilesService {
         newFolder.id,
         subFolder.name,
         userId,
-        folderIdMap
+        folderIdMap,
       );
     }
 
     // Get all files in this folder
     const filesQuery = await this.db.find('files', {
       folder_id: folder.id,
-      is_deleted: false
+      is_deleted: false,
     });
     const files = Array.isArray(filesQuery.data) ? filesQuery.data : [];
 
@@ -1356,10 +1471,10 @@ export class FilesService {
             ...file.metadata,
             original_file_id: file.id,
             copied_at: new Date().toISOString(),
-            copied_by: userId
+            copied_by: userId,
           },
           created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         };
 
         await this.db.insert('files', newFileData);
@@ -1401,7 +1516,7 @@ export class FilesService {
     }
 
     const folderQuery = await this.db.find('folders', {
-      id: folderId
+      id: folderId,
     });
 
     const folderData = Array.isArray(folderQuery.data) ? folderQuery.data : [];
@@ -1426,7 +1541,7 @@ export class FilesService {
       workspaceId: file.workspace_id,
       userIds: shareFileDto.user_ids,
       sharedBy: userId,
-      userIdsCount: shareFileDto.user_ids?.length
+      userIdsCount: shareFileDto.user_ids?.length,
     });
 
     // Create share records for each user
@@ -1441,14 +1556,14 @@ export class FilesService {
         expires_at: shareFileDto.expires_at || null,
         is_active: true,
         created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       };
 
       console.log('[FilesService] Creating share record:', {
         shareId: shareData.id,
         fileId: shareData.file_id,
         sharedWith: shareData.shared_with,
-        sharedBy: shareData.shared_by
+        sharedBy: shareData.shared_by,
       });
 
       return this.db.insert('file_shares', shareData);
@@ -1458,7 +1573,7 @@ export class FilesService {
 
     console.log('[FilesService] Successfully created shares:', {
       count: shares.length,
-      shareIds: shares.map(s => s.id)
+      shareIds: shares.map((s) => s.id),
     });
 
     // Send notifications to newly shared users
@@ -1481,10 +1596,13 @@ export class FilesService {
               workspace_id: workspaceId,
               file_name: file.name,
               file_id: fileId,
-            }
+            },
           });
         } catch (error) {
-          console.error(`Failed to send file share notification to user ${sharedWithUserId}:`, error);
+          console.error(
+            `Failed to send file share notification to user ${sharedWithUserId}:`,
+            error,
+          );
         }
       }
     }
@@ -1492,12 +1610,12 @@ export class FilesService {
     return {
       success: true,
       shared_count: shares.length,
-      shares: shares.map(share => ({
+      shares: shares.map((share) => ({
         id: share.id,
         shared_with: share.shared_with,
         share_token: share.share_token,
-        share_url: `/api/files/shared/${share.share_token}`
-      }))
+        share_url: `/api/files/shared/${share.share_token}`,
+      })),
     };
   }
 
@@ -1505,7 +1623,8 @@ export class FilesService {
     console.log('[FilesService] Getting files shared with user:', { workspaceId, userId });
 
     // Get all shares where current user is the recipient
-    const sharesResult = await this.db.table('file_shares')
+    const sharesResult = await this.db
+      .table('file_shares')
       .select('*')
       .where('shared_with', '=', userId)
       .where('is_active', '=', true)
@@ -1514,12 +1633,12 @@ export class FilesService {
     const sharesData = Array.isArray(sharesResult.data) ? sharesResult.data : [];
     console.log('[FilesService] Found shares:', {
       count: sharesData.length,
-      shares: sharesData.map(s => ({
+      shares: sharesData.map((s) => ({
         id: s.id,
         fileId: s.file_id,
         sharedBy: s.shared_by,
-        sharedWith: s.shared_with
-      }))
+        sharedWith: s.shared_with,
+      })),
     });
 
     // Get file details for each share
@@ -1530,11 +1649,12 @@ export class FilesService {
             shareId: share.id,
             fileId: share.file_id,
             workspaceId,
-            sharedWith: share.shared_with
+            sharedWith: share.shared_with,
           });
 
           // Get file details
-          const fileResult = await this.db.table('files')
+          const fileResult = await this.db
+            .table('files')
             .select('*')
             .where('id', '=', share.file_id)
             .where('workspace_id', '=', workspaceId)
@@ -1547,7 +1667,7 @@ export class FilesService {
             console.log('[FilesService] ⚠️ File not found for share:', {
               shareId: share.id,
               fileId: share.file_id,
-              workspaceId
+              workspaceId,
             });
             return null;
           }
@@ -1557,7 +1677,7 @@ export class FilesService {
             shareId: share.id,
             fileId: file.id,
             fileName: file.name,
-            fileWorkspaceId: file.workspace_id
+            fileWorkspaceId: file.workspace_id,
           });
 
           // Get owner info
@@ -1568,7 +1688,12 @@ export class FilesService {
               const metadata = userInfo.metadata || {};
               sharedByUser = {
                 id: userInfo.id,
-                name: metadata.name || userInfo.fullName || userInfo.name || userInfo.email?.split('@')[0] || 'User',
+                name:
+                  metadata.name ||
+                  userInfo.fullName ||
+                  userInfo.name ||
+                  userInfo.email?.split('@')[0] ||
+                  'User',
                 email: userInfo.email,
                 avatarUrl: userInfo.avatar_url || null,
               };
@@ -1578,9 +1703,10 @@ export class FilesService {
           }
 
           // Parse JSON fields
-          const permissions = typeof share.permissions === 'string'
-            ? JSON.parse(share.permissions)
-            : share.permissions;
+          const permissions =
+            typeof share.permissions === 'string'
+              ? JSON.parse(share.permissions)
+              : share.permissions;
 
           // The URL should already be stored as a string in the database
           // If it's not available or is an object, generate it from storage_path
@@ -1594,8 +1720,15 @@ export class FilesService {
           // If still no valid URL, generate from storage_path
           if (!publicUrl && file.storage_path) {
             try {
-              const generatedUrl = await /* TODO: use StorageService */ this.db.getPublicUrl('files', file.storage_path);
-              if (typeof generatedUrl === 'object' && generatedUrl !== null && generatedUrl.publicUrl) {
+              const generatedUrl = await /* TODO: use StorageService */ this.db.getPublicUrl(
+                'files',
+                file.storage_path,
+              );
+              if (
+                typeof generatedUrl === 'object' &&
+                generatedUrl !== null &&
+                generatedUrl.publicUrl
+              ) {
                 publicUrl = generatedUrl.publicUrl;
               } else {
                 publicUrl = generatedUrl;
@@ -1609,7 +1742,7 @@ export class FilesService {
             fileName: file.name,
             originalUrl: file.url,
             finalUrl: publicUrl,
-            storagePath: file.storage_path
+            storagePath: file.storage_path,
           });
 
           return {
@@ -1626,11 +1759,11 @@ export class FilesService {
           console.error('[FilesService] Error processing shared file:', error);
           return null;
         }
-      })
+      }),
     );
 
     // Filter out nulls and return
-    const validSharedFiles = sharedFiles.filter(f => f !== null);
+    const validSharedFiles = sharedFiles.filter((f) => f !== null);
     console.log('[FilesService] Returning shared files:', validSharedFiles.length);
 
     return validSharedFiles;
@@ -1639,7 +1772,7 @@ export class FilesService {
   async getSharedFile(shareToken: string, password?: string) {
     const shareQuery = await this.db.find('file_shares', {
       share_token: shareToken,
-      is_active: true
+      is_active: true,
     });
 
     const shareData = Array.isArray(shareQuery.data) ? shareQuery.data : [];
@@ -1666,7 +1799,7 @@ export class FilesService {
 
     // Get the file
     const fileQuery = await this.db.find('files', {
-      id: share.file_id
+      id: share.file_id,
     });
 
     const fileData = Array.isArray(fileQuery.data) ? fileQuery.data : [];
@@ -1678,36 +1811,43 @@ export class FilesService {
 
     // Update download count
     await this.db.update('file_shares', share.id, {
-      download_count: (share.download_count || 0) + 1
+      download_count: (share.download_count || 0) + 1,
     });
 
-    const publicUrl = await /* TODO: use StorageService */ this.db.getPublicUrl('files', file.storage_path);
+    const publicUrl = await /* TODO: use StorageService */ this.db.getPublicUrl(
+      'files',
+      file.storage_path,
+    );
 
     return {
       ...file,
       url: publicUrl,
-      permissions: share.permissions
+      permissions: share.permissions,
     };
   }
 
   async getFileShares(fileId: string, workspaceId: string, userId: string) {
     await this.getFileWithAccess(fileId, workspaceId, userId);
 
-    const sharesQuery = await this.db.find('file_shares', {
-      file_id: fileId,
-      is_active: true
-    }, { orderBy: 'created_at', order: 'desc' });
+    const sharesQuery = await this.db.find(
+      'file_shares',
+      {
+        file_id: fileId,
+        is_active: true,
+      },
+      { orderBy: 'created_at', order: 'desc' },
+    );
 
     const sharesData = Array.isArray(sharesQuery.data) ? sharesQuery.data : [];
-    return sharesData.map(share => ({
+    return sharesData.map((share) => ({
       ...share,
-      share_url: `/api/files/shared/${share.share_token}`
+      share_url: `/api/files/shared/${share.share_token}`,
     }));
   }
 
   async revokeFileShare(shareId: string, userId: string) {
     const shareQuery = await this.db.find('file_shares', {
-      id: shareId
+      id: shareId,
     });
 
     const shareData = Array.isArray(shareQuery.data) ? shareQuery.data : [];
@@ -1722,7 +1862,7 @@ export class FilesService {
     }
 
     return await this.db.update('file_shares', shareId, {
-      is_active: false
+      is_active: false,
     });
   }
 
@@ -1733,7 +1873,12 @@ export class FilesService {
   /**
    * Create a public share link for a file
    */
-  async createShareLink(fileId: string, workspaceId: string, dto: CreateShareLinkDto, userId: string) {
+  async createShareLink(
+    fileId: string,
+    workspaceId: string,
+    dto: CreateShareLinkDto,
+    userId: string,
+  ) {
     // Verify user has access to the file
     const file = await this.getFileWithAccess(fileId, workspaceId, userId);
 
@@ -1756,7 +1901,7 @@ export class FilesService {
       permissions: JSON.stringify({
         read: true,
         download: dto.accessLevel === AccessLevel.DOWNLOAD || dto.accessLevel === AccessLevel.EDIT,
-        edit: dto.accessLevel === AccessLevel.EDIT
+        edit: dto.accessLevel === AccessLevel.EDIT,
       }),
       expires_at: dto.expiresAt || null,
       password: hashedPassword,
@@ -1765,7 +1910,7 @@ export class FilesService {
       view_count: 0,
       is_active: true,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const share = await this.db.insert('file_shares', shareData);
@@ -1785,11 +1930,11 @@ export class FilesService {
     const sharesResult = await this.db.find('file_shares', {
       file_id: fileId,
       share_type: 'link',
-      is_active: true
+      is_active: true,
     });
 
     const shares = Array.isArray(sharesResult.data) ? sharesResult.data : [];
-    return shares.map(share => this.formatShareLinkResponse(share));
+    return shares.map((share) => this.formatShareLinkResponse(share));
   }
 
   /**
@@ -1832,7 +1977,7 @@ export class FilesService {
     }
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (dto.accessLevel !== undefined) {
@@ -1840,7 +1985,7 @@ export class FilesService {
       updateData.permissions = JSON.stringify({
         read: true,
         download: dto.accessLevel === AccessLevel.DOWNLOAD || dto.accessLevel === AccessLevel.EDIT,
-        edit: dto.accessLevel === AccessLevel.EDIT
+        edit: dto.accessLevel === AccessLevel.EDIT,
       });
     }
 
@@ -1900,7 +2045,7 @@ export class FilesService {
   async accessSharedFile(shareToken: string, password?: string) {
     const shareResult = await this.db.find('file_shares', {
       share_token: shareToken,
-      share_type: 'link'
+      share_type: 'link',
     });
 
     const shares = Array.isArray(shareResult.data) ? shareResult.data : [];
@@ -1931,7 +2076,7 @@ export class FilesService {
       if (!password) {
         return {
           requiresPassword: true,
-          message: 'This link is password protected'
+          message: 'This link is password protected',
         };
       }
 
@@ -1954,7 +2099,7 @@ export class FilesService {
     // Update view count and last accessed
     await this.db.update('file_shares', share.id, {
       view_count: (share.view_count || 0) + 1,
-      last_accessed_at: new Date().toISOString()
+      last_accessed_at: new Date().toISOString(),
     });
 
     // Get sharer info
@@ -1983,7 +2128,10 @@ export class FilesService {
     }
     if (!fileUrl && file.storage_path) {
       try {
-        const generatedUrl = await /* TODO: use StorageService */ this.db.getPublicUrl('files', file.storage_path);
+        const generatedUrl = await /* TODO: use StorageService */ this.db.getPublicUrl(
+          'files',
+          file.storage_path,
+        );
         fileUrl = typeof generatedUrl === 'object' ? generatedUrl.publicUrl : generatedUrl;
       } catch (error) {
         console.warn('[FilesService] Could not generate public URL:', error.message);
@@ -2002,8 +2150,8 @@ export class FilesService {
         accessLevel,
         canDownload,
         sharedBy: sharedByUser,
-        sharedAt: share.created_at
-      }
+        sharedAt: share.created_at,
+      },
     };
   }
 
@@ -2013,7 +2161,7 @@ export class FilesService {
   async downloadSharedFile(shareToken: string, password?: string) {
     const shareResult = await this.db.find('file_shares', {
       share_token: shareToken,
-      share_type: 'link'
+      share_type: 'link',
     });
 
     const shares = Array.isArray(shareResult.data) ? shareResult.data : [];
@@ -2070,19 +2218,19 @@ export class FilesService {
     // Update download count
     await this.db.update('file_shares', share.id, {
       download_count: (share.download_count || 0) + 1,
-      last_accessed_at: new Date().toISOString()
+      last_accessed_at: new Date().toISOString(),
     });
 
     // Get file content
     try {
       const response = await axios.get(file.url, {
-        responseType: 'arraybuffer'
+        responseType: 'arraybuffer',
       });
 
       return {
         content: Buffer.from(response.data),
         fileName: file.name,
-        mimeType: file.mime_type
+        mimeType: file.mime_type,
       };
     } catch (error) {
       console.error('Shared file download error:', error);
@@ -2116,7 +2264,7 @@ export class FilesService {
       downloadCount: share.download_count || 0,
       viewCount: share.view_count || 0,
       isActive: share.is_active,
-      createdAt: share.created_at
+      createdAt: share.created_at,
     };
   }
 
@@ -2124,49 +2272,59 @@ export class FilesService {
   // SEARCH AND FILTERS
   // ============================================
 
-  async searchFiles(workspaceId: string, query: string, filters?: any, page = 1, limit = 50, userId?: string) {
+  async searchFiles(
+    workspaceId: string,
+    query: string,
+    filters?: any,
+    page = 1,
+    limit = 50,
+    userId?: string,
+  ) {
     const offset = (page - 1) * limit;
 
     // Using workaround pattern for complex search
     const allFilesResult = await this.db.find('files', {});
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
-    let files = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted &&
-      (userId ? f.uploaded_by === userId : true) // Filter by current user if userId provided
+    let files = allFilesData.filter(
+      (f) =>
+        f.workspace_id === workspaceId &&
+        !f.is_deleted &&
+        (userId ? f.uploaded_by === userId : true), // Filter by current user if userId provided
     );
 
     // Apply text search
     if (query) {
       const searchTerm = query.toLowerCase();
-      files = files.filter(f => 
-        f.name.toLowerCase().includes(searchTerm) ||
-        (f.extracted_text && f.extracted_text.toLowerCase().includes(searchTerm)) ||
-        (f.metadata?.description && f.metadata.description.toLowerCase().includes(searchTerm)) ||
-        (f.metadata?.tags && f.metadata.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm)))
+      files = files.filter(
+        (f) =>
+          f.name.toLowerCase().includes(searchTerm) ||
+          (f.extracted_text && f.extracted_text.toLowerCase().includes(searchTerm)) ||
+          (f.metadata?.description && f.metadata.description.toLowerCase().includes(searchTerm)) ||
+          (f.metadata?.tags &&
+            f.metadata.tags.some((tag: string) => tag.toLowerCase().includes(searchTerm))),
       );
     }
 
     // Apply filters
     if (filters?.mime_type) {
-      files = files.filter(f => f.mime_type === filters.mime_type);
+      files = files.filter((f) => f.mime_type === filters.mime_type);
     }
 
     if (filters?.uploaded_by) {
-      files = files.filter(f => f.uploaded_by === filters.uploaded_by);
+      files = files.filter((f) => f.uploaded_by === filters.uploaded_by);
     }
 
     if (filters?.date_from) {
-      files = files.filter(f => new Date(f.created_at) >= new Date(filters.date_from));
+      files = files.filter((f) => new Date(f.created_at) >= new Date(filters.date_from));
     }
 
     if (filters?.date_to) {
-      files = files.filter(f => new Date(f.created_at) <= new Date(filters.date_to));
+      files = files.filter((f) => new Date(f.created_at) <= new Date(filters.date_to));
     }
 
     // Sort by relevance/date
     files.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    
+
     const paginatedFiles = files.slice(offset, offset + limit);
 
     return {
@@ -2175,7 +2333,7 @@ export class FilesService {
       page,
       limit,
       query,
-      filters
+      filters,
     };
   }
 
@@ -2187,7 +2345,7 @@ export class FilesService {
     const fileQuery = await this.db.find('files', {
       id: fileId,
       workspace_id: workspaceId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     const fileData = Array.isArray(fileQuery.data) ? fileQuery.data : [];
@@ -2202,7 +2360,7 @@ export class FilesService {
     const folderQuery = await this.db.find('folders', {
       id: folderId,
       workspace_id: workspaceId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     const folderData = Array.isArray(folderQuery.data) ? folderQuery.data : [];
@@ -2218,7 +2376,7 @@ export class FilesService {
 
     // Get workspace owner to fetch subscription
     const workspaceQuery = await this.db.find('workspaces', {
-      id: workspaceId
+      id: workspaceId,
     });
 
     const workspaceData = Array.isArray(workspaceQuery.data) ? workspaceQuery.data : [];
@@ -2236,9 +2394,8 @@ export class FilesService {
     // Calculate current usage - using workaround pattern
     const allFilesResult = await this.db.find('files', {});
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
-    const workspaceFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted
+    const workspaceFiles = allFilesData.filter(
+      (f) => f.workspace_id === workspaceId && !f.is_deleted,
     );
 
     const currentUsage = workspaceFiles.reduce((total, file) => {
@@ -2251,8 +2408,8 @@ export class FilesService {
     if (currentUsage + fileSize > maxStorageBytes) {
       throw new BadRequestException(
         `Storage quota exceeded. Your ${planName} plan allows ${maxStorageGb} GB. ` +
-        `Currently using ${usedGB} GB. This file (${fileGB} GB) would exceed your limit. ` +
-        `Please upgrade your plan or delete some files.`
+          `Currently using ${usedGB} GB. This file (${fileGB} GB) would exceed your limit. ` +
+          `Please upgrade your plan or delete some files.`,
       );
     }
   }
@@ -2261,7 +2418,7 @@ export class FilesService {
     // Get workspace subscription to determine storage limits
 
     const workspaceQuery = await this.db.find('workspaces', {
-      id: workspaceId
+      id: workspaceId,
     });
 
     const workspaceData = Array.isArray(workspaceQuery.data) ? workspaceQuery.data : [];
@@ -2280,9 +2437,8 @@ export class FilesService {
     // Calculate current usage - using workaround pattern
     const allFilesResult = await this.db.find('files', {});
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
-    const workspaceFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted
+    const workspaceFiles = allFilesData.filter(
+      (f) => f.workspace_id === workspaceId && !f.is_deleted,
     );
 
     const currentUsage = workspaceFiles.reduce((total, file) => {
@@ -2297,8 +2453,8 @@ export class FilesService {
       plan: {
         id: planId,
         name: planName,
-        max_storage_gb: maxStorageGb
-      }
+        max_storage_gb: maxStorageGb,
+      },
     };
   }
 
@@ -2308,11 +2464,12 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Filter by workspace, uploaded by current user, non-deleted, and must have last_opened_at
-    let recentFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted &&
-      f.last_opened_at &&
-      (userId ? f.uploaded_by === userId : true) // Filter by current user if userId provided
+    const recentFiles = allFilesData.filter(
+      (f) =>
+        f.workspace_id === workspaceId &&
+        !f.is_deleted &&
+        f.last_opened_at &&
+        (userId ? f.uploaded_by === userId : true), // Filter by current user if userId provided
     );
 
     // Sort by last_opened_at descending (most recent first)
@@ -2327,7 +2484,7 @@ export class FilesService {
 
     return {
       data: limitedFiles,
-      total: limitedFiles.length
+      total: limitedFiles.length,
     };
   }
 
@@ -2339,10 +2496,8 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Filter by workspace, non-deleted, and starred
-    let starredFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted &&
-      f.starred === true
+    const starredFiles = allFilesData.filter(
+      (f) => f.workspace_id === workspaceId && !f.is_deleted && f.starred === true,
     );
 
     // Sort by updated_at descending (most recently updated first)
@@ -2359,7 +2514,7 @@ export class FilesService {
       data: paginatedFiles,
       total: starredFiles.length,
       page,
-      limit
+      limit,
     };
   }
 
@@ -2372,10 +2527,11 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // Filter by workspace, uploaded by current user, and non-deleted
-    let files = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted &&
-      (userId ? f.uploaded_by === userId : true) // Filter by current user if userId provided
+    let files = allFilesData.filter(
+      (f) =>
+        f.workspace_id === workspaceId &&
+        !f.is_deleted &&
+        (userId ? f.uploaded_by === userId : true), // Filter by current user if userId provided
     );
 
     // Helper to parse parent_folder_ids (may be string or array)
@@ -2395,7 +2551,7 @@ export class FilesService {
 
     // Filter by folder if provided
     if (folder_id) {
-      files = files.filter(f => {
+      files = files.filter((f) => {
         const parentIds = parseParentFolderIds(f.parent_folder_ids);
         return parentIds.includes(folder_id);
       });
@@ -2412,7 +2568,7 @@ export class FilesService {
         const pdfMimeTypes = this.getMimeTypesForCategory(FileCategory.PDFS);
         const spreadsheetMimeTypes = this.getMimeTypesForCategory(FileCategory.SPREADSHEETS);
 
-        files = files.filter(f => {
+        files = files.filter((f) => {
           const mimeType = f.mime_type || '';
           // Exclude images, videos, audio, pdfs, and spreadsheets
           const isImage = this.matchesMimeTypes(mimeType, imageMimeTypes);
@@ -2425,26 +2581,26 @@ export class FilesService {
         });
       } else {
         const categoryMimeTypes = this.getMimeTypesForCategory(category);
-        files = files.filter(f =>
-          categoryMimeTypes.some(mimePattern => {
+        files = files.filter((f) =>
+          categoryMimeTypes.some((mimePattern) => {
             if (mimePattern.includes('*')) {
               const regex = new RegExp('^' + mimePattern.replace('*', '.*') + '$');
               return regex.test(f.mime_type);
             }
             return f.mime_type === mimePattern;
-          })
+          }),
         );
       }
     }
 
     // Filter by specific MIME type
     if (mime_type) {
-      files = files.filter(f => f.mime_type === mime_type);
+      files = files.filter((f) => f.mime_type === mime_type);
     }
 
     // Filter by extension
     if (extension) {
-      files = files.filter(f => {
+      files = files.filter((f) => {
         const fileExtension = f.name.split('.').pop()?.toLowerCase();
         return fileExtension === extension.toLowerCase();
       });
@@ -2465,8 +2621,8 @@ export class FilesService {
         category,
         mime_type,
         extension,
-        folder_id
-      }
+        folder_id,
+      },
     };
   }
 
@@ -2480,32 +2636,27 @@ export class FilesService {
         'text/markdown',
         'application/vnd.oasis.opendocument.text',
         'application/vnd.ms-word',
-        'application/vnd.wordperfect'
+        'application/vnd.wordperfect',
       ],
-      [FileCategory.IMAGES]: [
-        'image/*'
-      ],
+      [FileCategory.IMAGES]: ['image/*'],
       [FileCategory.SPREADSHEETS]: [
         'application/vnd.ms-excel',
         'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         'text/csv',
-        'application/vnd.oasis.opendocument.spreadsheet'
+        'application/vnd.oasis.opendocument.spreadsheet',
       ],
-      [FileCategory.VIDEOS]: [
-        'video/*'
-      ],
-      [FileCategory.AUDIO]: [
-        'audio/*'
-      ],
-      [FileCategory.PDFS]: [
-        'application/pdf'
-      ]
+      [FileCategory.VIDEOS]: ['video/*'],
+      [FileCategory.AUDIO]: ['audio/*'],
+      [FileCategory.PDFS]: ['application/pdf'],
     };
 
     return mimeTypeMap[category] || [];
   }
 
-  async getDashboardStats(workspaceId: string, userId?: string): Promise<DashboardStatsResponseDto> {
+  async getDashboardStats(
+    workspaceId: string,
+    userId?: string,
+  ): Promise<DashboardStatsResponseDto> {
     // Get workspace details for storage limits
     const workspaceQuery = await this.db.find('workspaces', { id: workspaceId });
     const workspaceData = Array.isArray(workspaceQuery.data) ? workspaceQuery.data : [];
@@ -2525,15 +2676,12 @@ export class FilesService {
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
 
     // WORKSPACE-WIDE: All files for storage calculation (used by all users)
-    const workspaceFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      !f.is_deleted
+    const workspaceFiles = allFilesData.filter(
+      (f) => f.workspace_id === workspaceId && !f.is_deleted,
     );
 
     // USER-SPECIFIC: Only current user's files for counts
-    const userFiles = workspaceFiles.filter(f =>
-      userId ? f.uploaded_by === userId : true
-    );
+    const userFiles = workspaceFiles.filter((f) => (userId ? f.uploaded_by === userId : true));
 
     // Calculate total files (USER-SPECIFIC)
     const totalFiles = userFiles.length;
@@ -2541,7 +2689,7 @@ export class FilesService {
     // Calculate files added today (USER-SPECIFIC)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const filesAddedToday = userFiles.filter(f => {
+    const filesAddedToday = userFiles.filter((f) => {
       const createdDate = new Date(f.created_at);
       return createdDate >= today;
     }).length;
@@ -2555,7 +2703,7 @@ export class FilesService {
     const startOfMonth = new Date();
     startOfMonth.setDate(1);
     startOfMonth.setHours(0, 0, 0, 0);
-    const aiGenerationsThisMonth = userFiles.filter(f => {
+    const aiGenerationsThisMonth = userFiles.filter((f) => {
       const createdDate = new Date(f.created_at);
       return f.is_ai_generated === true && createdDate >= startOfMonth;
     }).length;
@@ -2567,7 +2715,7 @@ export class FilesService {
       audio: 0,
       documents: 0,
       spreadsheets: 0,
-      pdfs: 0
+      pdfs: 0,
     };
 
     for (const file of userFiles) {
@@ -2579,13 +2727,21 @@ export class FilesService {
       // Finally, count anything that's NOT image/video/audio as a document
       if (this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.PDFS))) {
         fileTypeBreakdown.pdfs++;
-      } else if (this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.IMAGES))) {
+      } else if (
+        this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.IMAGES))
+      ) {
         fileTypeBreakdown.images++;
-      } else if (this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.VIDEOS))) {
+      } else if (
+        this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.VIDEOS))
+      ) {
         fileTypeBreakdown.videos++;
-      } else if (this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.AUDIO))) {
+      } else if (
+        this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.AUDIO))
+      ) {
         fileTypeBreakdown.audio++;
-      } else if (this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.SPREADSHEETS))) {
+      } else if (
+        this.matchesMimeTypes(mimeType, this.getMimeTypesForCategory(FileCategory.SPREADSHEETS))
+      ) {
         fileTypeBreakdown.spreadsheets++;
       } else {
         // Count all other files (zip, env, unknown types, etc.) as documents
@@ -2595,12 +2751,11 @@ export class FilesService {
     }
 
     // Count unique file types (categories with at least one file)
-    const uniqueFileTypes = Object.values(fileTypeBreakdown).filter(count => count > 0).length;
+    const uniqueFileTypes = Object.values(fileTypeBreakdown).filter((count) => count > 0).length;
 
     // Calculate storage percentage
-    const storagePercentageUsed = maxStorageBytes > 0
-      ? Math.round((storageUsedBytes / maxStorageBytes) * 10000) / 100
-      : 0;
+    const storagePercentageUsed =
+      maxStorageBytes > 0 ? Math.round((storageUsedBytes / maxStorageBytes) * 10000) / 100 : 0;
 
     return {
       total_files: totalFiles,
@@ -2616,13 +2771,13 @@ export class FilesService {
       plan: {
         id: planId,
         name: planName,
-        max_storage_gb: maxStorageGb
-      }
+        max_storage_gb: maxStorageGb,
+      },
     };
   }
 
   private matchesMimeTypes(mimeType: string, patterns: string[]): boolean {
-    return patterns.some(pattern => {
+    return patterns.some((pattern) => {
       if (pattern.includes('*')) {
         const regex = new RegExp('^' + pattern.replace('*', '.*') + '$');
         return regex.test(mimeType);
@@ -2645,34 +2800,32 @@ export class FilesService {
     // Get all deleted folders
     const allFoldersResult = await this.db.find('folders', {});
     const allFoldersData = Array.isArray(allFoldersResult.data) ? allFoldersResult.data : [];
-    const deletedFolders = allFoldersData.filter(f =>
-      f.workspace_id === workspaceId &&
-      f.is_deleted === true
+    const deletedFolders = allFoldersData.filter(
+      (f) => f.workspace_id === workspaceId && f.is_deleted === true,
     );
 
     // Get all deleted files
     const allFilesResult = await this.db.find('files', {});
     const allFilesData = Array.isArray(allFilesResult.data) ? allFilesResult.data : [];
-    const deletedFiles = allFilesData.filter(f =>
-      f.workspace_id === workspaceId &&
-      f.is_deleted === true
+    const deletedFiles = allFilesData.filter(
+      (f) => f.workspace_id === workspaceId && f.is_deleted === true,
     );
 
     // Build folder map for quick lookup
     const folderMap = new Map();
-    deletedFolders.forEach(folder => {
+    deletedFolders.forEach((folder) => {
       folderMap.set(folder.id, {
         ...folder,
         type: 'folder',
         children: [],
-        files: []
+        files: [],
       });
     });
 
     // Build tree structure for folders
     const rootFolders = [];
 
-    deletedFolders.forEach(folder => {
+    deletedFolders.forEach((folder) => {
       const folderNode = folderMap.get(folder.id);
 
       if (folder.parent_id && folderMap.has(folder.parent_id)) {
@@ -2686,10 +2839,10 @@ export class FilesService {
     });
 
     // Add files to their respective folders
-    deletedFiles.forEach(file => {
+    deletedFiles.forEach((file) => {
       const fileNode = {
         ...file,
-        type: 'file'
+        type: 'file',
       };
 
       if (file.folder_id && folderMap.has(file.folder_id)) {
@@ -2714,7 +2867,7 @@ export class FilesService {
     const sortFolder = (folder) => {
       if (folder.children) {
         folder.children.sort(sortByDeletedAt);
-        folder.children.forEach(child => sortFolder(child));
+        folder.children.forEach((child) => sortFolder(child));
       }
       if (folder.files) {
         folder.files.sort(sortByDeletedAt);
@@ -2722,7 +2875,7 @@ export class FilesService {
     };
 
     rootFolders.sort(sortByDeletedAt);
-    rootFolders.forEach(item => {
+    rootFolders.forEach((item) => {
       if (item.type === 'folder') {
         sortFolder(item);
       }
@@ -2735,13 +2888,13 @@ export class FilesService {
       total_deleted_items: deletedFolders.length + deletedFiles.length,
       total_size_bytes: deletedFiles.reduce((sum, file) => sum + (parseInt(file.size) || 0), 0),
       total_size_formatted: this.formatBytes(
-        deletedFiles.reduce((sum, file) => sum + (parseInt(file.size) || 0), 0)
-      )
+        deletedFiles.reduce((sum, file) => sum + (parseInt(file.size) || 0), 0),
+      ),
     };
 
     return {
       items: rootFolders,
-      stats
+      stats,
     };
   }
 
@@ -2749,7 +2902,12 @@ export class FilesService {
   // FILE COMMENTS
   // ============================================
 
-  async createComment(workspaceId: string, fileId: string, dto: CreateFileCommentDto, userId: string) {
+  async createComment(
+    workspaceId: string,
+    fileId: string,
+    dto: CreateFileCommentDto,
+    userId: string,
+  ) {
     // Verify file exists and user has access
     const file = await this.getFile(fileId, workspaceId, userId);
     if (!file) {
@@ -2761,7 +2919,7 @@ export class FilesService {
       const parentComment = await this.db.findOne('file_comments', {
         id: dto.parent_id,
         file_id: fileId,
-        is_deleted: false
+        is_deleted: false,
       });
       if (!parentComment) {
         throw new NotFoundException('Parent comment not found');
@@ -2778,7 +2936,7 @@ export class FilesService {
       is_edited: false,
       is_deleted: false,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const result = await this.db.insert('file_comments', commentData);
@@ -2796,7 +2954,8 @@ export class FilesService {
     if (file.uploaded_by && file.uploaded_by !== userId) {
       try {
         const commenterInfo = await this.db.getUserById(userId);
-        const commenterName = commenterInfo?.name || commenterInfo?.email?.split('@')[0] || 'Someone';
+        const commenterName =
+          commenterInfo?.name || commenterInfo?.email?.split('@')[0] || 'Someone';
 
         await this.notificationsService.sendNotification({
           user_id: file.uploaded_by,
@@ -2822,10 +2981,15 @@ export class FilesService {
     // If this is a reply, also notify the parent comment author
     if (dto.parent_id) {
       const parentComment = await this.db.findOne('file_comments', { id: dto.parent_id });
-      if (parentComment && parentComment.user_id !== userId && parentComment.user_id !== file.uploaded_by) {
+      if (
+        parentComment &&
+        parentComment.user_id !== userId &&
+        parentComment.user_id !== file.uploaded_by
+      ) {
         try {
           const commenterInfo = await this.db.getUserById(userId);
-          const commenterName = commenterInfo?.name || commenterInfo?.email?.split('@')[0] || 'Someone';
+          const commenterName =
+            commenterInfo?.name || commenterInfo?.email?.split('@')[0] || 'Someone';
 
           await this.notificationsService.sendNotification({
             user_id: parentComment.user_id,
@@ -2862,31 +3026,31 @@ export class FilesService {
     // Get all non-deleted comments for the file
     const comments = await this.db.find('file_comments', {
       file_id: fileId,
-      is_deleted: false
+      is_deleted: false,
     });
 
-    const commentsData = Array.isArray(comments.data) ? comments.data : (comments ? [comments] : []);
+    const commentsData = Array.isArray(comments.data) ? comments.data : comments ? [comments] : [];
 
     // Enrich with author info and organize into threads
     const enrichedComments = await Promise.all(
-      commentsData.map(comment => this.enrichCommentWithAuthor(comment))
+      commentsData.map((comment) => this.enrichCommentWithAuthor(comment)),
     );
 
     // Organize into threads (top-level comments with their replies)
-    const topLevelComments = enrichedComments.filter(c => !c.parentId);
-    const replies = enrichedComments.filter(c => c.parentId);
+    const topLevelComments = enrichedComments.filter((c) => !c.parentId);
+    const replies = enrichedComments.filter((c) => c.parentId);
 
     // Attach replies to their parent comments
-    const commentsWithReplies = topLevelComments.map(comment => ({
+    const commentsWithReplies = topLevelComments.map((comment) => ({
       ...comment,
       replies: replies
-        .filter(r => r.parentId === comment.id)
-        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+        .filter((r) => r.parentId === comment.id)
+        .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()),
     }));
 
     // Sort by created date (newest first for top-level)
-    commentsWithReplies.sort((a, b) =>
-      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    commentsWithReplies.sort(
+      (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     );
 
     return commentsWithReplies;
@@ -2902,7 +3066,7 @@ export class FilesService {
     const comment = await this.db.findOne('file_comments', {
       id: commentId,
       file_id: fileId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     if (!comment) {
@@ -2912,7 +3076,13 @@ export class FilesService {
     return this.enrichCommentWithAuthor(comment);
   }
 
-  async updateComment(workspaceId: string, fileId: string, commentId: string, dto: UpdateFileCommentDto, userId: string) {
+  async updateComment(
+    workspaceId: string,
+    fileId: string,
+    commentId: string,
+    dto: UpdateFileCommentDto,
+    userId: string,
+  ) {
     // Verify file exists and user has access
     const file = await this.getFile(fileId, workspaceId, userId);
     if (!file) {
@@ -2922,7 +3092,7 @@ export class FilesService {
     const comment = await this.db.findOne('file_comments', {
       id: commentId,
       file_id: fileId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     if (!comment) {
@@ -2939,7 +3109,7 @@ export class FilesService {
       metadata: dto.metadata !== undefined ? dto.metadata : comment.metadata,
       is_edited: true,
       edited_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     await this.db.update('file_comments', commentId, updateData);
@@ -2966,7 +3136,7 @@ export class FilesService {
     const comment = await this.db.findOne('file_comments', {
       id: commentId,
       file_id: fileId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     if (!comment) {
@@ -2982,22 +3152,22 @@ export class FilesService {
     await this.db.update('file_comments', commentId, {
       is_deleted: true,
       deleted_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     });
 
     // Also soft delete all replies
     const replies = await this.db.find('file_comments', {
       parent_id: commentId,
-      is_deleted: false
+      is_deleted: false,
     });
 
-    const repliesData = Array.isArray(replies.data) ? replies.data : (replies ? [replies] : []);
+    const repliesData = Array.isArray(replies.data) ? replies.data : replies ? [replies] : [];
     const deletedReplyIds: string[] = [];
     for (const reply of repliesData) {
       await this.db.update('file_comments', reply.id, {
         is_deleted: true,
         deleted_at: new Date().toISOString(),
-        updated_at: new Date().toISOString()
+        updated_at: new Date().toISOString(),
       });
       deletedReplyIds.push(reply.id);
     }
@@ -3012,7 +3182,13 @@ export class FilesService {
     return { success: true, message: 'Comment deleted successfully' };
   }
 
-  async resolveComment(workspaceId: string, fileId: string, commentId: string, isResolved: boolean, userId: string) {
+  async resolveComment(
+    workspaceId: string,
+    fileId: string,
+    commentId: string,
+    isResolved: boolean,
+    userId: string,
+  ) {
     // Verify file exists and user has access
     const file = await this.getFile(fileId, workspaceId, userId);
     if (!file) {
@@ -3022,7 +3198,7 @@ export class FilesService {
     const comment = await this.db.findOne('file_comments', {
       id: commentId,
       file_id: fileId,
-      is_deleted: false
+      is_deleted: false,
     });
 
     if (!comment) {
@@ -3031,7 +3207,7 @@ export class FilesService {
 
     const updateData: any = {
       is_resolved: isResolved,
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (isResolved) {
@@ -3068,7 +3244,7 @@ export class FilesService {
           id: userInfo.id,
           name: userInfo.name || userInfo.email?.split('@')[0] || 'Unknown',
           email: userInfo.email,
-          avatarUrl: userInfo.avatar_url
+          avatarUrl: userInfo.avatar_url,
         };
       }
     } catch (error) {
@@ -3077,7 +3253,7 @@ export class FilesService {
         id: comment.user_id,
         name: 'Unknown User',
         email: '',
-        avatarUrl: null
+        avatarUrl: null,
       };
     }
 
@@ -3095,7 +3271,7 @@ export class FilesService {
       metadata: comment.metadata || {},
       createdAt: comment.created_at,
       updatedAt: comment.updated_at,
-      author
+      author,
     };
   }
 
@@ -3110,7 +3286,7 @@ export class FilesService {
     workspaceId: string,
     fileId: string,
     userId: string,
-    dto: MarkFileOfflineDto = {}
+    dto: MarkFileOfflineDto = {},
   ) {
     // Get the file to verify it exists and get its size
     const file = await this.getFile(fileId, workspaceId, userId);
@@ -3119,7 +3295,8 @@ export class FilesService {
     }
 
     // Check if already marked for offline
-    const existingResult = await this.db.table('offline_files')
+    const existingResult = await this.db
+      .table('offline_files')
       .select('*')
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
@@ -3129,12 +3306,13 @@ export class FilesService {
 
     if (existing.length > 0) {
       // Update existing record
-      const updateResult = await this.db.table('offline_files')
+      const updateResult = await this.db
+        .table('offline_files')
         .update({
           auto_sync: dto.autoSync ?? true,
           priority: dto.priority ?? 0,
           sync_status: SyncStatus.PENDING,
-          updated_at: new Date().toISOString()
+          updated_at: new Date().toISOString(),
         })
         .where('id', '=', existing[0].id)
         .execute();
@@ -3152,22 +3330,24 @@ export class FilesService {
       priority: dto.priority ?? 0,
       file_size: file.size || 0,
       created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     const insertResult = await this.db.insert('offline_files', offlineData);
 
     // The insert might not return data, so query it back
-    const queryResult = await this.db.table('offline_files')
+    const queryResult = await this.db
+      .table('offline_files')
       .select('*')
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
       .where('workspace_id', '=', workspaceId)
       .execute();
 
-    const inserted = Array.isArray(queryResult.data) && queryResult.data.length > 0
-      ? queryResult.data[0]
-      : { ...offlineData, id: insertResult?.data?.id || 'temp' };
+    const inserted =
+      Array.isArray(queryResult.data) && queryResult.data.length > 0
+        ? queryResult.data[0]
+        : { ...offlineData, id: insertResult?.data?.id || 'temp' };
 
     return this.formatOfflineFile(inserted, file);
   }
@@ -3176,7 +3356,8 @@ export class FilesService {
    * Remove file from offline access
    */
   async removeFileOffline(workspaceId: string, fileId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .delete()
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
@@ -3190,7 +3371,8 @@ export class FilesService {
    * Get all offline files for a user in a workspace
    */
   async getOfflineFiles(workspaceId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -3208,7 +3390,7 @@ export class FilesService {
           // File might have been deleted
           return this.formatOfflineFile(offlineFile, null);
         }
-      })
+      }),
     );
 
     return filesWithDetails;
@@ -3218,7 +3400,8 @@ export class FilesService {
    * Get offline status for a specific file
    */
   async getOfflineStatus(workspaceId: string, fileId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
@@ -3234,7 +3417,7 @@ export class FilesService {
     const file = await this.getFile(fileId, workspaceId, userId);
     return {
       isOffline: true,
-      ...this.formatOfflineFile(offlineFiles[0], file)
+      ...this.formatOfflineFile(offlineFiles[0], file),
     };
   }
 
@@ -3245,9 +3428,10 @@ export class FilesService {
     workspaceId: string,
     fileId: string,
     userId: string,
-    dto: UpdateOfflineSettingsDto
+    dto: UpdateOfflineSettingsDto,
   ) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
@@ -3261,7 +3445,7 @@ export class FilesService {
     }
 
     const updateData: any = {
-      updated_at: new Date().toISOString()
+      updated_at: new Date().toISOString(),
     };
 
     if (dto.autoSync !== undefined) updateData.auto_sync = dto.autoSync;
@@ -3276,7 +3460,8 @@ export class FilesService {
     if (dto.syncedVersion !== undefined) updateData.synced_version = dto.syncedVersion;
     if (dto.errorMessage !== undefined) updateData.error_message = dto.errorMessage;
 
-    await this.db.table('offline_files')
+    await this.db
+      .table('offline_files')
       .update(updateData)
       .where('id', '=', offlineFiles[0].id)
       .execute();
@@ -3289,7 +3474,8 @@ export class FilesService {
    * Check if file has updates available (compare versions)
    */
   async checkFileUpdate(workspaceId: string, fileId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('file_id', '=', fileId)
       .where('user_id', '=', userId)
@@ -3314,7 +3500,7 @@ export class FilesService {
       syncedVersion,
       hasUpdate: serverVersion > syncedVersion,
       fileSize: file.size || 0,
-      updatedAt: file.updatedAt || file.updated_at
+      updatedAt: file.updatedAt || file.updated_at,
     };
   }
 
@@ -3329,7 +3515,7 @@ export class FilesService {
       syncStatus: SyncStatus;
       syncedVersion?: number;
       errorMessage?: string;
-    }>
+    }>,
   ) {
     const results = await Promise.all(
       updates.map(async (update) => {
@@ -3337,13 +3523,13 @@ export class FilesService {
           await this.updateOfflineSettings(workspaceId, update.fileId, userId, {
             syncStatus: update.syncStatus,
             syncedVersion: update.syncedVersion,
-            errorMessage: update.errorMessage
+            errorMessage: update.errorMessage,
           });
           return { fileId: update.fileId, success: true };
         } catch (error) {
           return { fileId: update.fileId, success: false, error: error.message };
         }
-      })
+      }),
     );
 
     return results;
@@ -3353,7 +3539,8 @@ export class FilesService {
    * Get offline storage statistics for a user
    */
   async getOfflineStorageStats(workspaceId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -3367,7 +3554,7 @@ export class FilesService {
       pendingCount: 0,
       syncedCount: 0,
       errorCount: 0,
-      outdatedCount: 0
+      outdatedCount: 0,
     };
 
     offlineFiles.forEach((file: any) => {
@@ -3397,7 +3584,8 @@ export class FilesService {
    * Get files that need syncing (auto_sync enabled and outdated)
    */
   async getFilesNeedingSync(workspaceId: string, userId: string) {
-    const result = await this.db.table('offline_files')
+    const result = await this.db
+      .table('offline_files')
       .select('*')
       .where('workspace_id', '=', workspaceId)
       .where('user_id', '=', userId)
@@ -3421,10 +3609,10 @@ export class FilesService {
         } catch (error) {
           return null;
         }
-      })
+      }),
     );
 
-    return filesNeedingSync.filter(f => f !== null);
+    return filesNeedingSync.filter((f) => f !== null);
   }
 
   /**
@@ -3444,7 +3632,7 @@ export class FilesService {
       fileSize: parseInt(offlineRecord.file_size) || 0,
       errorMessage: offlineRecord.error_message,
       createdAt: offlineRecord.created_at,
-      updatedAt: offlineRecord.updated_at
+      updatedAt: offlineRecord.updated_at,
     };
 
     if (file) {

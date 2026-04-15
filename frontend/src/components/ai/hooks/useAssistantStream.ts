@@ -135,7 +135,7 @@ export function useAssistantStream(callbacks: StreamCallbacks, options?: UseAssi
       return
     }
 
-    let completedActions: ActionResult[] = []
+    const completedActions: ActionResult[] = []
 
     try {
       await autopilotApi.executeCommandStream(

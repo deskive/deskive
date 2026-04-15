@@ -46,12 +46,16 @@ export class ContactService {
                   <a href="mailto:${dto.email}" style="color: #0ea5e9;">${dto.email}</a>
                 </td>
               </tr>
-              ${dto.company ? `
+              ${
+                dto.company
+                  ? `
               <tr>
                 <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #374151;">Company:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${dto.company}</td>
               </tr>
-              ` : ''}
+              `
+                  : ''
+              }
               <tr>
                 <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; font-weight: bold; color: #374151;">Subject:</td>
                 <td style="padding: 10px 0; border-bottom: 1px solid #e5e7eb; color: #1f2937;">${subjectLabel}</td>
@@ -81,7 +85,7 @@ ${dto.message}
         htmlContent,
         {
           replyTo: dto.email,
-        }
+        },
       );
 
       this.logger.log(`Contact email sent successfully to ${this.contactEmails.join(', ')}`);
@@ -143,7 +147,7 @@ ${dto.message}
         htmlContent,
         {
           replyTo: this.contactEmails[0], // support@deskive.com
-        }
+        },
       );
 
       this.logger.log(`Confirmation email sent to ${dto.email}`);

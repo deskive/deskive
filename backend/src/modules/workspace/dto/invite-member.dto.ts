@@ -5,7 +5,7 @@ export enum WorkspaceRole {
   OWNER = 'owner',
   ADMIN = 'admin',
   MEMBER = 'member',
-  VIEWER = 'viewer'
+  VIEWER = 'viewer',
 }
 
 export class InviteMemberDto {
@@ -13,11 +13,11 @@ export class InviteMemberDto {
   @IsEmail()
   email: string;
 
-  @ApiProperty({ 
+  @ApiProperty({
     description: 'Role for the invited member',
     enum: WorkspaceRole,
     example: WorkspaceRole.MEMBER,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsEnum(WorkspaceRole)

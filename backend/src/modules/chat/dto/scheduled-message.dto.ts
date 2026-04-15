@@ -1,5 +1,15 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsOptional, IsUUID, IsDateString, IsIn, IsArray, ValidateNested, IsNumber, Min } from 'class-validator';
+import {
+  IsString,
+  IsOptional,
+  IsUUID,
+  IsDateString,
+  IsIn,
+  IsArray,
+  ValidateNested,
+  IsNumber,
+  Min,
+} from 'class-validator';
 import { Type, Transform } from 'class-transformer';
 import { AttachmentDto, LinkedContentDto } from './send-message.dto';
 
@@ -43,7 +53,7 @@ export class ScheduleMessageDto {
   @ApiProperty({
     description: 'File attachments with full metadata',
     type: [AttachmentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -59,7 +69,7 @@ export class ScheduleMessageDto {
   @ApiProperty({
     description: 'Linked content items (notes, events, files) attached to the message',
     type: [LinkedContentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -67,7 +77,10 @@ export class ScheduleMessageDto {
   @Type(() => LinkedContentDto)
   linkedContent?: LinkedContentDto[];
 
-  @ApiProperty({ description: 'Scheduled send time (ISO 8601 format)', example: '2024-12-25T10:00:00Z' })
+  @ApiProperty({
+    description: 'Scheduled send time (ISO 8601 format)',
+    example: '2024-12-25T10:00:00Z',
+  })
   @IsDateString()
   scheduledAt: string;
 }
@@ -91,7 +104,7 @@ export class UpdateScheduledMessageDto {
   @ApiProperty({
     description: 'File attachments with full metadata',
     type: [AttachmentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()
@@ -107,7 +120,7 @@ export class UpdateScheduledMessageDto {
   @ApiProperty({
     description: 'Linked content items (notes, events, files) attached to the message',
     type: [LinkedContentDto],
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsArray()

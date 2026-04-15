@@ -138,7 +138,10 @@ export class CreateDocumentTemplateDto {
   @IsString()
   name: string;
 
-  @ApiProperty({ description: 'Template slug (URL-friendly)', example: 'professional-services-proposal' })
+  @ApiProperty({
+    description: 'Template slug (URL-friendly)',
+    example: 'professional-services-proposal',
+  })
   @IsString()
   slug: string;
 

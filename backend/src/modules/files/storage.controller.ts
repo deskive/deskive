@@ -7,13 +7,7 @@ import {
   UploadedFile,
   BadRequestException,
 } from '@nestjs/common';
-import {
-  ApiTags,
-  ApiOperation,
-  ApiResponse,
-  ApiBearerAuth,
-  ApiConsumes,
-} from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiConsumes } from '@nestjs/swagger';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { FilesService } from './files.service';
 import { UploadFileDto } from './dto';
@@ -30,23 +24,28 @@ export class StorageController {
   @Post('upload')
   @ApiOperation({
     summary: 'Upload a file to storage',
-    description: 'Universal file upload endpoint for workspace icons, file attachments, and other assets'
+    description:
+      'Universal file upload endpoint for workspace icons, file attachments, and other assets',
   })
   @ApiConsumes('multipart/form-data')
-  @ApiResponse({ status: 201, description: 'File uploaded successfully', schema: {
-    type: 'object',
-    properties: {
-      id: { type: 'string', description: 'File ID' },
-      name: { type: 'string', description: 'File name' },
-      url: { type: 'string', description: 'Public URL to access the file' },
-      mime_type: { type: 'string', description: 'MIME type' },
-      size: { type: 'string', description: 'File size in bytes' },
-      storage_path: { type: 'string', description: 'Internal storage path' },
-      uploaded_by: { type: 'string', description: 'User ID who uploaded the file' },
-      workspace_id: { type: 'string', description: 'Workspace ID' },
-      created_at: { type: 'string', description: 'Upload timestamp' }
-    }
-  }})
+  @ApiResponse({
+    status: 201,
+    description: 'File uploaded successfully',
+    schema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'File ID' },
+        name: { type: 'string', description: 'File name' },
+        url: { type: 'string', description: 'Public URL to access the file' },
+        mime_type: { type: 'string', description: 'MIME type' },
+        size: { type: 'string', description: 'File size in bytes' },
+        storage_path: { type: 'string', description: 'Internal storage path' },
+        uploaded_by: { type: 'string', description: 'User ID who uploaded the file' },
+        workspace_id: { type: 'string', description: 'Workspace ID' },
+        created_at: { type: 'string', description: 'Upload timestamp' },
+      },
+    },
+  })
   @ApiResponse({ status: 400, description: 'Invalid file or missing workspace_id' })
   @ApiResponse({ status: 413, description: 'File too large' })
   @UseInterceptors(FileInterceptor('file'))
@@ -76,20 +75,50 @@ export class StorageController {
     // Validate file type
     const allowedTypes = [
       // Images
-      'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml', 'image/bmp', 'image/tiff',
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml',
+      'image/bmp',
+      'image/tiff',
       // Videos
-      'video/mp4', 'video/mpeg', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/x-matroska',
+      'video/mp4',
+      'video/mpeg',
+      'video/quicktime',
+      'video/x-msvideo',
+      'video/webm',
+      'video/x-matroska',
       // Audio
-      'audio/mpeg', 'audio/mp3', 'audio/wav', 'audio/ogg', 'audio/webm', 'audio/aac', 'audio/x-m4a',
+      'audio/mpeg',
+      'audio/mp3',
+      'audio/wav',
+      'audio/ogg',
+      'audio/webm',
+      'audio/aac',
+      'audio/x-m4a',
       // Documents
-      'application/pdf', 'text/plain', 'text/markdown',
-      'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/pdf',
+      'text/plain',
+      'text/markdown',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'application/vnd.ms-powerpoint',
+      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       // Archives
-      'application/zip', 'application/x-rar-compressed', 'application/x-7z-compressed', 'application/x-zip-compressed',
+      'application/zip',
+      'application/x-rar-compressed',
+      'application/x-7z-compressed',
+      'application/x-zip-compressed',
       // Code/Text
-      'application/json', 'text/html', 'text/css', 'text/javascript', 'application/javascript',
+      'application/json',
+      'text/html',
+      'text/css',
+      'text/javascript',
+      'application/javascript',
       // Generic binary (fallback for files with undetected MIME type)
       'application/octet-stream',
     ];
@@ -103,7 +132,7 @@ export class StorageController {
         uploadFileDto.workspace_id,
         file,
         uploadFileDto,
-        userId
+        userId,
       );
     } catch (error) {
       console.error('Storage upload error:', error);

@@ -72,9 +72,7 @@ export class DropboxController {
   @ApiOperation({ summary: 'Handle OAuth callback and store connection' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Connection established successfully' })
-  async handleCallback(
-    @Body() callbackDto: DropboxOAuthCallbackDto,
-  ) {
+  async handleCallback(@Body() callbackDto: DropboxOAuthCallbackDto) {
     const connection = await this.dropboxService.handleOAuthCallback(
       callbackDto.code,
       callbackDto.state,
@@ -109,10 +107,7 @@ export class DropboxController {
   @ApiOperation({ summary: 'Disconnect your Dropbox connection' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.dropboxService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -366,16 +361,11 @@ export class DropboxController {
     @CurrentUser('sub') userId: string,
     @Body() dto: DropboxShareFileDto,
   ) {
-    const result = await this.dropboxService.createSharedLink(
-      userId,
-      workspaceId,
-      dto.path,
-      {
-        requestedVisibility: dto.requestedVisibility,
-        expires: dto.expires,
-        linkPassword: dto.linkPassword,
-      },
-    );
+    const result = await this.dropboxService.createSharedLink(userId, workspaceId, dto.path, {
+      requestedVisibility: dto.requestedVisibility,
+      expires: dto.expires,
+      linkPassword: dto.linkPassword,
+    });
     return {
       data: result,
       message: 'Shared link created successfully',
@@ -420,7 +410,10 @@ export class DropboxController {
       required: ['fileId'],
       properties: {
         fileId: { type: 'string', description: 'Deskive file ID to export' },
-        targetPath: { type: 'string', description: 'Dropbox path (optional, defaults to root with file name)' },
+        targetPath: {
+          type: 'string',
+          description: 'Dropbox path (optional, defaults to root with file name)',
+        },
       },
     },
   })
@@ -565,7 +558,12 @@ export class DropboxCallbackController {
       return res.send(html);
     };
 
-    const handleRedirect = (stateParam: string, success: boolean, errorMsg?: string, email?: string) => {
+    const handleRedirect = (
+      stateParam: string,
+      success: boolean,
+      errorMsg?: string,
+      email?: string,
+    ) => {
       try {
         const decoded = Buffer.from(stateParam, 'base64url').toString('utf-8');
         const stateData = JSON.parse(decoded);
@@ -582,14 +580,20 @@ export class DropboxCallbackController {
         }
 
         if (success) {
-          return res.redirect(`${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations?dropbox_success=true`);
+          return res.redirect(
+            `${frontendUrl}/workspaces/${stateData.workspaceId}/settings/integrations?dropbox_success=true`,
+          );
         }
-        return res.redirect(`${frontendUrl}/settings/integrations?dropbox_error=${encodeURIComponent(errorMsg || 'unknown_error')}`);
+        return res.redirect(
+          `${frontendUrl}/settings/integrations?dropbox_error=${encodeURIComponent(errorMsg || 'unknown_error')}`,
+        );
       } catch {
         if (success) {
           return res.redirect(`${frontendUrl}/settings/integrations?dropbox_success=true`);
         }
-        return res.redirect(`${frontendUrl}/settings/integrations?dropbox_error=${encodeURIComponent(errorMsg || 'unknown_error')}`);
+        return res.redirect(
+          `${frontendUrl}/settings/integrations?dropbox_error=${encodeURIComponent(errorMsg || 'unknown_error')}`,
+        );
       }
     };
 

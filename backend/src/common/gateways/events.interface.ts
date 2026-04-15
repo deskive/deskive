@@ -162,7 +162,7 @@ export interface AIEvent extends RealtimeEvent {
 }
 
 // Union type for all possible events
-export type LifeOSEvent = 
+export type LifeOSEvent =
   | NotificationEvent
   | PresenceEvent
   | ConnectionEvent
@@ -200,14 +200,14 @@ export interface WebSocketResponse<T = any> {
 }
 
 // Room types for different features
-export type RoomType = 
-  | `user:${string}`                    // Personal user room
-  | `user:${string}:notifications`      // User notifications
-  | `user:${string}:presence`           // User presence updates
-  | `conversation:${string}`            // Chat conversations
-  | `group:${string}`                   // Group rooms
-  | `project:${string}`                 // Project-specific rooms
-  | 'authenticated'                     // All authenticated users
-  | 'system'                           // System announcements
-  | 'general'                          // General public room
-  | string;                            // Custom room names
+export type RoomType =
+  | `user:${string}` // Personal user room
+  | `user:${string}:notifications` // User notifications
+  | `user:${string}:presence` // User presence updates
+  | `conversation:${string}` // Chat conversations
+  | `group:${string}` // Group rooms
+  | `project:${string}` // Project-specific rooms
+  | 'authenticated' // All authenticated users
+  | 'system' // System announcements
+  | 'general' // General public room
+  | string; // Custom room names

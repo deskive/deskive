@@ -35,9 +35,12 @@ export class FormAnalyticsService {
       .filter((r: any) => r.submission_time_seconds)
       .map((r: any) => r.submission_time_seconds);
 
-    const avgCompletionTime = completionTimes.length > 0
-      ? Math.round(completionTimes.reduce((a: number, b: number) => a + b, 0) / completionTimes.length)
-      : null;
+    const avgCompletionTime =
+      completionTimes.length > 0
+        ? Math.round(
+            completionTimes.reduce((a: number, b: number) => a + b, 0) / completionTimes.length,
+          )
+        : null;
 
     // Calculate field-level statistics
     const fieldStats: Record<string, any> = {};
@@ -50,9 +53,8 @@ export class FormAnalyticsService {
 
       fieldStats[fieldId] = {
         responseCount: fieldResponses.length,
-        responseRate: totalResponses > 0
-          ? ((fieldResponses.length / totalResponses) * 100).toFixed(2)
-          : 0,
+        responseRate:
+          totalResponses > 0 ? ((fieldResponses.length / totalResponses) * 100).toFixed(2) : 0,
       };
 
       // Calculate specific stats based on field type
@@ -73,9 +75,13 @@ export class FormAnalyticsService {
           break;
 
         case FieldType.NUMBER:
-          const numbers = fieldResponses.map((r: any) => parseFloat(r.value)).filter((n: number) => !isNaN(n));
+          const numbers = fieldResponses
+            .map((r: any) => parseFloat(r.value))
+            .filter((n: number) => !isNaN(n));
           if (numbers.length > 0) {
-            fieldStats[fieldId].average = (numbers.reduce((a: number, b: number) => a + b, 0) / numbers.length).toFixed(2);
+            fieldStats[fieldId].average = (
+              numbers.reduce((a: number, b: number) => a + b, 0) / numbers.length
+            ).toFixed(2);
             fieldStats[fieldId].min = Math.min(...numbers);
             fieldStats[fieldId].max = Math.max(...numbers);
           }
@@ -84,9 +90,12 @@ export class FormAnalyticsService {
         case FieldType.SHORT_TEXT:
         case FieldType.LONG_TEXT:
           const texts = fieldResponses.map((r: any) => r.value);
-          const avgLength = texts.length > 0
-            ? Math.round(texts.reduce((sum: number, text: string) => sum + text.length, 0) / texts.length)
-            : 0;
+          const avgLength =
+            texts.length > 0
+              ? Math.round(
+                  texts.reduce((sum: number, text: string) => sum + text.length, 0) / texts.length,
+                )
+              : 0;
           fieldStats[fieldId].averageLength = avgLength;
           fieldStats[fieldId].commonWords = this.extractCommonWords(texts);
           break;
@@ -191,7 +200,7 @@ export class FormAnalyticsService {
     // Group by date
     const grouped = new Map<string, number>();
 
-    for (const response of (responses.data || [])) {
+    for (const response of responses.data || []) {
       const date = new Date(response.submitted_at);
       let key: string;
 
@@ -259,7 +268,10 @@ export class FormAnalyticsService {
   /**
    * Calculate rating distribution
    */
-  private calculateRatingDistribution(responses: any[], scale: { min: number; max: number }): any[] {
+  private calculateRatingDistribution(
+    responses: any[],
+    scale: { min: number; max: number },
+  ): any[] {
     const distribution: any[] = [];
 
     for (let i = scale.min; i <= scale.max; i++) {
@@ -282,14 +294,80 @@ export class FormAnalyticsService {
 
     // Common stop words to exclude
     const stopWords = new Set([
-      'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
-      'of', 'with', 'by', 'from', 'as', 'is', 'was', 'are', 'were', 'been',
-      'be', 'have', 'has', 'had', 'do', 'does', 'did', 'will', 'would', 'should',
-      'could', 'may', 'might', 'must', 'can', 'this', 'that', 'these', 'those',
-      'i', 'you', 'he', 'she', 'it', 'we', 'they', 'what', 'which', 'who',
-      'when', 'where', 'why', 'how', 'all', 'each', 'every', 'both', 'few',
-      'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not', 'only',
-      'own', 'same', 'so', 'than', 'too', 'very',
+      'the',
+      'a',
+      'an',
+      'and',
+      'or',
+      'but',
+      'in',
+      'on',
+      'at',
+      'to',
+      'for',
+      'of',
+      'with',
+      'by',
+      'from',
+      'as',
+      'is',
+      'was',
+      'are',
+      'were',
+      'been',
+      'be',
+      'have',
+      'has',
+      'had',
+      'do',
+      'does',
+      'did',
+      'will',
+      'would',
+      'should',
+      'could',
+      'may',
+      'might',
+      'must',
+      'can',
+      'this',
+      'that',
+      'these',
+      'those',
+      'i',
+      'you',
+      'he',
+      'she',
+      'it',
+      'we',
+      'they',
+      'what',
+      'which',
+      'who',
+      'when',
+      'where',
+      'why',
+      'how',
+      'all',
+      'each',
+      'every',
+      'both',
+      'few',
+      'more',
+      'most',
+      'other',
+      'some',
+      'such',
+      'no',
+      'nor',
+      'not',
+      'only',
+      'own',
+      'same',
+      'so',
+      'than',
+      'too',
+      'very',
     ]);
 
     for (const text of texts) {
@@ -297,7 +375,7 @@ export class FormAnalyticsService {
         .toLowerCase()
         .replace(/[^\w\s]/g, '')
         .split(/\s+/)
-        .filter(word => word.length > 3 && !stopWords.has(word));
+        .filter((word) => word.length > 3 && !stopWords.has(word));
 
       for (const word of textWords) {
         words.set(word, (words.get(word) || 0) + 1);

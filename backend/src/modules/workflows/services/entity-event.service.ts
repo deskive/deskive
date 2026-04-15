@@ -289,7 +289,8 @@ export class EntityEventService {
    * Find entity subscriptions matching the event
    */
   private async findMatchingSubscriptions(event: EntityChangeEvent): Promise<EntitySubscription[]> {
-    const result = await this.db.table('workflow_entity_subscriptions')
+    const result = await this.db
+      .table('workflow_entity_subscriptions')
       .select('*')
       .where('workspace_id', '=', event.workspaceId)
       .where('entity_type', '=', event.entityType)
@@ -386,7 +387,10 @@ export class EntityEventService {
   /**
    * Detect which fields changed between previous and current state
    */
-  private detectChangedFields(previous: Record<string, any>, current: Record<string, any>): string[] {
+  private detectChangedFields(
+    previous: Record<string, any>,
+    current: Record<string, any>,
+  ): string[] {
     const changedFields: string[] = [];
     const allKeys = new Set([...Object.keys(previous), ...Object.keys(current)]);
 
@@ -431,7 +435,10 @@ export class EntityEventService {
           }
           return EntityEventType.STATUS_CHANGED;
         }
-        if (previous.assignee_id !== current.assignee_id || previous.assigned_to !== current.assigned_to) {
+        if (
+          previous.assignee_id !== current.assignee_id ||
+          previous.assigned_to !== current.assigned_to
+        ) {
           return EntityEventType.ASSIGNED;
         }
         if (previous.due_date !== current.due_date) {

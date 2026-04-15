@@ -54,9 +54,11 @@ export class WorkflowExecutorService {
     private readonly db: DatabaseService,
     private readonly conditionEvaluator: ConditionEvaluatorService,
     @Optional() private readonly sharedExecutionLogger?: SharedExecutionLoggerService,
-    @Optional() @Inject(forwardRef(() => EmailService))
+    @Optional()
+    @Inject(forwardRef(() => EmailService))
     private readonly emailService?: EmailService,
-    @Optional() @Inject(forwardRef(() => VideoCallsService))
+    @Optional()
+    @Inject(forwardRef(() => VideoCallsService))
     private readonly videoCallsService?: VideoCallsService,
   ) {}
 
@@ -76,7 +78,12 @@ export class WorkflowExecutorService {
       }
 
       // Execute the workflow
-      await this.executeWorkflow(event.workflowId, event.triggerData, event.triggeredBy, event.triggerSource);
+      await this.executeWorkflow(
+        event.workflowId,
+        event.triggerData,
+        event.triggeredBy,
+        event.triggerSource,
+      );
     } catch (error) {
       this.logger.error(`[WorkflowExecutor] Error handling trigger: ${error.message}`);
     }
@@ -135,7 +142,7 @@ export class WorkflowExecutorService {
       });
 
       // Get execution context
-      let execution = await this.getExecution(executionId);
+      const execution = await this.getExecution(executionId);
       let context = execution.context;
       context = this.conditionEvaluator.addHelperFunctions(context);
 
@@ -205,7 +212,9 @@ export class WorkflowExecutorService {
       // Update workflow stats
       await this.updateWorkflowStats(execution.workflowId, 'success');
 
-      this.logger.log(`[WorkflowExecutor] Execution ${executionId} completed in ${executionTime}ms`);
+      this.logger.log(
+        `[WorkflowExecutor] Execution ${executionId} completed in ${executionTime}ms`,
+      );
     } catch (error) {
       const executionTime = Date.now() - startTime;
       const execution = await this.getExecution(executionId);
@@ -279,7 +288,8 @@ export class WorkflowExecutorService {
       await this.updateStepExecution(stepExecution.id, {
         status: 'completed',
         output_data: result.output,
-        condition_result: step.stepType === WorkflowStepType.CONDITION ? result.output?.result : null,
+        condition_result:
+          step.stepType === WorkflowStepType.CONDITION ? result.output?.result : null,
         completed_at: new Date().toISOString(),
         execution_time_ms: executionTime,
       });
@@ -436,7 +446,10 @@ export class WorkflowExecutorService {
   // ACTION IMPLEMENTATIONS
   // ============================================
 
-  private async actionCreateTask(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCreateTask(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const taskData = {
       title: params.title,
       description: params.description,
@@ -452,7 +465,10 @@ export class WorkflowExecutorService {
     return { taskId: result.data?.id, ...result.data };
   }
 
-  private async actionUpdateTask(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionUpdateTask(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const taskId = params.taskId || context.trigger?.entity?.id;
     if (!taskId) throw new Error('Task ID required for update');
 
@@ -468,7 +484,10 @@ export class WorkflowExecutorService {
     return { taskId, updated: true };
   }
 
-  private async actionCompleteTask(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCompleteTask(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const taskId = params.taskId || context.trigger?.entity?.id;
     if (!taskId) throw new Error('Task ID required');
 
@@ -481,7 +500,10 @@ export class WorkflowExecutorService {
     return { taskId, completed: true };
   }
 
-  private async actionSendNotification(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionSendNotification(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const notificationData = {
       user_id: params.userId || context.trigger?.entity?.assignee_id,
       workspace_id: params.workspaceId || context.trigger?.workspaceId,
@@ -496,7 +518,10 @@ export class WorkflowExecutorService {
     return { notificationId: result.data?.id, sent: true };
   }
 
-  private async actionSendEmail(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionSendEmail(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     this.logger.log(`[WorkflowExecutor] Email action: to=${params.to}, subject=${params.subject}`);
 
     if (!this.emailService) {
@@ -524,7 +549,10 @@ export class WorkflowExecutorService {
     }
   }
 
-  private async actionSendMessage(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionSendMessage(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const messageData = {
       channel_id: params.channelId,
       conversation_id: params.conversationId,
@@ -542,7 +570,10 @@ export class WorkflowExecutorService {
     return { sent: false, error: 'No channel or conversation specified' };
   }
 
-  private async actionCreateNote(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCreateNote(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const noteData = {
       title: params.title,
       content: params.content || '',
@@ -556,7 +587,10 @@ export class WorkflowExecutorService {
     return { noteId: result.data?.id, ...result.data };
   }
 
-  private async actionCreateEvent(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCreateEvent(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const eventData = {
       title: params.title,
       description: params.description,
@@ -571,7 +605,10 @@ export class WorkflowExecutorService {
     return { eventId: result.data?.id, ...result.data };
   }
 
-  private async actionCallWebhook(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCallWebhook(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     const { url, method = 'POST', headers = {}, body } = params;
 
     // Security: Block internal URLs
@@ -601,13 +638,19 @@ export class WorkflowExecutorService {
     }
   }
 
-  private async actionAIAutopilot(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionAIAutopilot(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     // This would integrate with your Autopilot service
     this.logger.log(`[WorkflowExecutor] AI Autopilot action: ${params.command}`);
     return { command: params.command, status: 'queued' };
   }
 
-  private async actionCreateVideoMeeting(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionCreateVideoMeeting(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     this.logger.log(`[WorkflowExecutor] Create video meeting: ${params.title}`);
 
     if (!this.videoCallsService) {
@@ -642,7 +685,10 @@ export class WorkflowExecutorService {
     }
   }
 
-  private async actionInviteToMeeting(params: Record<string, any>, context: Record<string, any>): Promise<any> {
+  private async actionInviteToMeeting(
+    params: Record<string, any>,
+    context: Record<string, any>,
+  ): Promise<any> {
     this.logger.log(`[WorkflowExecutor] Invite to meeting: ${params.callId}`);
 
     if (!this.videoCallsService) {
@@ -671,7 +717,8 @@ export class WorkflowExecutorService {
   // ============================================
 
   private async getWorkflow(workflowId: string): Promise<any> {
-    const result = await this.db.table('workflows')
+    const result = await this.db
+      .table('workflows')
       .select('*')
       .where('id', '=', workflowId)
       .execute();
@@ -679,7 +726,8 @@ export class WorkflowExecutorService {
   }
 
   private async getWorkflowSteps(workflowId: string): Promise<WorkflowStep[]> {
-    const result = await this.db.table('workflow_steps')
+    const result = await this.db
+      .table('workflow_steps')
       .select('*')
       .where('workflow_id', '=', workflowId)
       .execute();
@@ -715,7 +763,8 @@ export class WorkflowExecutorService {
   }
 
   private async getExecution(executionId: string): Promise<WorkflowExecution> {
-    const result = await this.db.table('workflow_executions')
+    const result = await this.db
+      .table('workflow_executions')
       .select('*')
       .where('id', '=', executionId)
       .execute();
@@ -755,11 +804,17 @@ export class WorkflowExecutorService {
     return result.data;
   }
 
-  private async updateStepExecution(stepExecutionId: string, data: Record<string, any>): Promise<void> {
+  private async updateStepExecution(
+    stepExecutionId: string,
+    data: Record<string, any>,
+  ): Promise<void> {
     await this.db.update('workflow_step_executions', stepExecutionId, data);
   }
 
-  private async updateWorkflowStats(workflowId: string, result: 'success' | 'failure'): Promise<void> {
+  private async updateWorkflowStats(
+    workflowId: string,
+    result: 'success' | 'failure',
+  ): Promise<void> {
     const workflow = await this.getWorkflow(workflowId);
     if (!workflow) return;
 

@@ -18,7 +18,10 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{inspection_date}}', attributes: { bold: true } },
         { insert: '\n\nProject Information\n', attributes: { bold: true } },
-        { insert: 'Project: {{project_name}}\nAddress: {{project_address}}\nPermit #: {{permit_number}}\nContractor: {{contractor_name}}\n\n' },
+        {
+          insert:
+            'Project: {{project_name}}\nAddress: {{project_address}}\nPermit #: {{permit_number}}\nContractor: {{contractor_name}}\n\n',
+        },
         { insert: 'Inspection Type: ' },
         { insert: '{{inspection_type}}', attributes: { bold: true } },
         { insert: '\n\nInspector: {{inspector_name}}\nLicense #: {{inspector_license}}\n\n' },
@@ -46,22 +49,67 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
       { key: 'project_address', type: 'textarea', label: 'Project Address', required: true },
       { key: 'permit_number', type: 'text', label: 'Permit Number', required: true },
       { key: 'contractor_name', type: 'text', label: 'Contractor Name', required: true },
-      { key: 'inspection_type', type: 'select', label: 'Inspection Type', required: true, options: ['Foundation', 'Framing', 'Electrical', 'Plumbing', 'Mechanical', 'Insulation', 'Final'] },
+      {
+        key: 'inspection_type',
+        type: 'select',
+        label: 'Inspection Type',
+        required: true,
+        options: [
+          'Foundation',
+          'Framing',
+          'Electrical',
+          'Plumbing',
+          'Mechanical',
+          'Insulation',
+          'Final',
+        ],
+      },
       { key: 'inspector_name', type: 'text', label: 'Inspector Name', required: true },
       { key: 'inspector_license', type: 'text', label: 'Inspector License', required: false },
-      { key: 'inspection_checklist', type: 'textarea', label: 'Inspection Checklist', required: true },
+      {
+        key: 'inspection_checklist',
+        type: 'textarea',
+        label: 'Inspection Checklist',
+        required: true,
+      },
       { key: 'findings', type: 'textarea', label: 'Findings', required: true },
       { key: 'code_violations', type: 'textarea', label: 'Code Violations', required: false },
-      { key: 'corrections_required', type: 'textarea', label: 'Corrections Required', required: false },
-      { key: 'result', type: 'select', label: 'Result', required: true, options: ['Approved', 'Approved with Conditions', 'Failed', 'Partial'] },
-      { key: 'reinspection_required', type: 'select', label: 'Reinspection Required', required: true, options: ['Yes', 'No'] },
+      {
+        key: 'corrections_required',
+        type: 'textarea',
+        label: 'Corrections Required',
+        required: false,
+      },
+      {
+        key: 'result',
+        type: 'select',
+        label: 'Result',
+        required: true,
+        options: ['Approved', 'Approved with Conditions', 'Failed', 'Partial'],
+      },
+      {
+        key: 'reinspection_required',
+        type: 'select',
+        label: 'Reinspection Required',
+        required: true,
+        options: ['Yes', 'No'],
+      },
       { key: 'comments', type: 'textarea', label: 'Comments', required: false },
     ],
     signatureFields: [
       { id: 'inspector', label: 'Inspector', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'contractor', label: 'Contractor', required: false, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'contractor',
+        label: 'Contractor',
+        required: false,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Quality Inspection Report',
@@ -81,7 +129,10 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nProject: {{project_name}}\nLocation: {{location}}\n\n' },
         { insert: 'Inspection Details\n', attributes: { bold: true } },
-        { insert: 'Inspector: {{inspector_name}}\nWork Item: {{work_item}}\nSpec Reference: {{spec_reference}}\n\n' },
+        {
+          insert:
+            'Inspector: {{inspector_name}}\nWork Item: {{work_item}}\nSpec Reference: {{spec_reference}}\n\n',
+        },
         { insert: 'Quality Criteria\n', attributes: { bold: true } },
         { insert: '{{quality_criteria}}\n\n' },
         { insert: 'Inspection Results\n', attributes: { bold: true } },
@@ -113,14 +164,34 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
       { key: 'measurements', type: 'textarea', label: 'Measurements', required: false },
       { key: 'non_conformances', type: 'textarea', label: 'Non-Conformances', required: false },
       { key: 'corrective_actions', type: 'textarea', label: 'Corrective Actions', required: false },
-      { key: 'status', type: 'select', label: 'Status', required: true, options: ['Accepted', 'Accepted with NCR', 'Rejected', 'On Hold'] },
+      {
+        key: 'status',
+        type: 'select',
+        label: 'Status',
+        required: true,
+        options: ['Accepted', 'Accepted with NCR', 'Rejected', 'On Hold'],
+      },
       { key: 'photos', type: 'textarea', label: 'Photos/Documentation', required: false },
     ],
     signatureFields: [
-      { id: 'qc_inspector', label: 'QC Inspector', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'supervisor', label: 'Supervisor', required: false, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'qc_inspector',
+        label: 'QC Inspector',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'supervisor',
+        label: 'Supervisor',
+        required: false,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Material Test Report',
@@ -140,9 +211,15 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
         { insert: '{{test_date}}', attributes: { bold: true } },
         { insert: '\n\nProject: {{project_name}}\nLocation: {{location}}\n\n' },
         { insert: 'Material Information\n', attributes: { bold: true } },
-        { insert: 'Material Type: {{material_type}}\nSupplier: {{supplier}}\nBatch/Lot #: {{batch_number}}\nSample ID: {{sample_id}}\n\n' },
+        {
+          insert:
+            'Material Type: {{material_type}}\nSupplier: {{supplier}}\nBatch/Lot #: {{batch_number}}\nSample ID: {{sample_id}}\n\n',
+        },
         { insert: 'Testing Laboratory\n', attributes: { bold: true } },
-        { insert: 'Lab Name: {{lab_name}}\nLab Accreditation: {{lab_accreditation}}\nTechnician: {{technician}}\n\n' },
+        {
+          insert:
+            'Lab Name: {{lab_name}}\nLab Accreditation: {{lab_accreditation}}\nTechnician: {{technician}}\n\n',
+        },
         { insert: 'Test Specifications\n', attributes: { bold: true } },
         { insert: 'Standard: {{test_standard}}\nTest Method: {{test_method}}\n\n' },
         { insert: 'Test Results\n', attributes: { bold: true } },
@@ -162,7 +239,13 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
       { key: 'test_date', type: 'date', label: 'Test Date', required: true },
       { key: 'project_name', type: 'text', label: 'Project Name', required: true },
       { key: 'location', type: 'text', label: 'Location', required: true },
-      { key: 'material_type', type: 'select', label: 'Material Type', required: true, options: ['Concrete', 'Steel', 'Aggregate', 'Asphalt', 'Soil', 'Other'] },
+      {
+        key: 'material_type',
+        type: 'select',
+        label: 'Material Type',
+        required: true,
+        options: ['Concrete', 'Steel', 'Aggregate', 'Asphalt', 'Soil', 'Other'],
+      },
       { key: 'supplier', type: 'text', label: 'Supplier', required: true },
       { key: 'batch_number', type: 'text', label: 'Batch/Lot Number', required: true },
       { key: 'sample_id', type: 'text', label: 'Sample ID', required: true },
@@ -173,14 +256,29 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
       { key: 'test_method', type: 'text', label: 'Test Method', required: true },
       { key: 'test_results', type: 'textarea', label: 'Test Results', required: true },
       { key: 'spec_requirements', type: 'textarea', label: 'Spec Requirements', required: true },
-      { key: 'compliance_status', type: 'select', label: 'Compliance Status', required: true, options: ['Pass', 'Fail', 'Marginal'] },
+      {
+        key: 'compliance_status',
+        type: 'select',
+        label: 'Compliance Status',
+        required: true,
+        options: ['Pass', 'Fail', 'Marginal'],
+      },
       { key: 'remarks', type: 'textarea', label: 'Remarks', required: false },
     ],
     signatureFields: [
       { id: 'tested_by', label: 'Tested By', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'reviewed_by', label: 'Reviewed By', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'reviewed_by',
+        label: 'Reviewed By',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
   {
     name: 'Pre-Construction Checklist',
@@ -199,15 +297,30 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
         { insert: '\nDate: ' },
         { insert: '{{date}}', attributes: { bold: true } },
         { insert: '\n\nPermits and Approvals\n', attributes: { bold: true } },
-        { insert: '☐ Building permit obtained\n☐ Zoning approval confirmed\n☐ Environmental permits secured\n☐ Utility permits acquired\n☐ Traffic control permits (if needed)\n\n' },
+        {
+          insert:
+            '☐ Building permit obtained\n☐ Zoning approval confirmed\n☐ Environmental permits secured\n☐ Utility permits acquired\n☐ Traffic control permits (if needed)\n\n',
+        },
         { insert: 'Site Preparation\n', attributes: { bold: true } },
-        { insert: '☐ Site survey completed\n☐ Property boundaries marked\n☐ Existing utilities located\n☐ Demolition complete (if applicable)\n☐ Site access established\n\n' },
+        {
+          insert:
+            '☐ Site survey completed\n☐ Property boundaries marked\n☐ Existing utilities located\n☐ Demolition complete (if applicable)\n☐ Site access established\n\n',
+        },
         { insert: 'Documentation\n', attributes: { bold: true } },
-        { insert: '☐ Contract fully executed\n☐ Insurance certificates received\n☐ Bond requirements satisfied\n☐ Drawings approved for construction\n☐ Specifications distributed\n\n' },
+        {
+          insert:
+            '☐ Contract fully executed\n☐ Insurance certificates received\n☐ Bond requirements satisfied\n☐ Drawings approved for construction\n☐ Specifications distributed\n\n',
+        },
         { insert: 'Safety\n', attributes: { bold: true } },
-        { insert: '☐ Safety plan developed\n☐ Site security established\n☐ Emergency contacts posted\n☐ First aid kit on site\n☐ Safety orientation scheduled\n\n' },
+        {
+          insert:
+            '☐ Safety plan developed\n☐ Site security established\n☐ Emergency contacts posted\n☐ First aid kit on site\n☐ Safety orientation scheduled\n\n',
+        },
         { insert: 'Resources\n', attributes: { bold: true } },
-        { insert: '☐ Subcontractors scheduled\n☐ Materials ordered\n☐ Equipment arranged\n☐ Temporary facilities planned\n☐ Project schedule finalized\n\n' },
+        {
+          insert:
+            '☐ Subcontractors scheduled\n☐ Materials ordered\n☐ Equipment arranged\n☐ Temporary facilities planned\n☐ Project schedule finalized\n\n',
+        },
         { insert: 'Additional Items\n', attributes: { bold: true } },
         { insert: '{{additional_items}}\n\n' },
         { insert: 'Notes\n', attributes: { bold: true } },
@@ -223,9 +336,23 @@ export const CONSTRUCTION_INSPECTIONS_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [
-      { id: 'project_manager', label: 'Project Manager', required: true, position: { page: 1, x: 50, y: 700 } },
-      { id: 'superintendent', label: 'Superintendent', required: true, position: { page: 1, x: 50, y: 730 } },
+      {
+        id: 'project_manager',
+        label: 'Project Manager',
+        required: true,
+        position: { page: 1, x: 50, y: 700 },
+      },
+      {
+        id: 'superintendent',
+        label: 'Superintendent',
+        required: true,
+        position: { page: 1, x: 50, y: 730 },
+      },
     ],
-    settings: { paperSize: 'A4', orientation: 'portrait', margins: { top: 20, right: 20, bottom: 20, left: 20 } },
+    settings: {
+      paperSize: 'A4',
+      orientation: 'portrait',
+      margins: { top: 20, right: 20, bottom: 20, left: 20 },
+    },
   },
 ];

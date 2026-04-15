@@ -5,7 +5,7 @@ export class UpdateBotAssignmentDto {
   @ApiProperty({
     description: 'Bot-specific settings for this event',
     example: { sendReminders: true, reminderIntervals: [15, 60], notifyOnUpdates: true },
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsObject()
@@ -14,7 +14,7 @@ export class UpdateBotAssignmentDto {
   @ApiProperty({
     description: 'Whether the bot should be active for this event',
     example: true,
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsBoolean()

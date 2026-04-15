@@ -46,12 +46,16 @@ export class HubSpotService {
 
   async createContact(userId: string, workspaceId: string, contactData: any) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', '/crm/v3/objects/contacts', connection, { properties: contactData });
+    return this.makeRequest('POST', '/crm/v3/objects/contacts', connection, {
+      properties: contactData,
+    });
   }
 
   async updateContact(userId: string, workspaceId: string, contactId: string, updates: any) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('PATCH', `/crm/v3/objects/contacts/${contactId}`, connection, { properties: updates });
+    return this.makeRequest('PATCH', `/crm/v3/objects/contacts/${contactId}`, connection, {
+      properties: updates,
+    });
   }
 
   async getContact(userId: string, workspaceId: string, contactId: string) {
@@ -73,7 +77,9 @@ export class HubSpotService {
 
   async createCompany(userId: string, workspaceId: string, companyData: any) {
     const connection = await this.getConnection(userId, workspaceId);
-    return this.makeRequest('POST', '/crm/v3/objects/companies', connection, { properties: companyData });
+    return this.makeRequest('POST', '/crm/v3/objects/companies', connection, {
+      properties: companyData,
+    });
   }
 
   async getCompany(userId: string, workspaceId: string, companyId: string) {

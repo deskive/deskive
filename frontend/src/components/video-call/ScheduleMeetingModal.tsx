@@ -294,7 +294,7 @@ export function ScheduleMeetingModal({ open, onOpenChange, defaultDate, defaultH
       const platform = selectedPlatformData?.name || 'Video Call'
 
       // Build context based on meeting details
-      let contextParts: string[] = []
+      const contextParts: string[] = []
       if (selectedPlatform === 'deskive-video') {
         contextParts.push('Video conference meeting')
       } else if (selectedPlatform === 'deskive-audio') {

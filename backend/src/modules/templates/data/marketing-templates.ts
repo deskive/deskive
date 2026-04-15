@@ -66,8 +66,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create messaging framework',
-              description:
-                'Develop key messages, positioning, and value propositions.',
+              description: 'Develop key messages, positioning, and value propositions.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -80,8 +79,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Design launch landing page',
-              description:
-                'Create a dedicated landing page for the product launch.',
+              description: 'Create a dedicated landing page for the product launch.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -95,8 +93,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create teaser content',
-              description:
-                'Develop teaser posts and content to build anticipation.',
+              description: 'Develop teaser posts and content to build anticipation.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'medium',
@@ -104,8 +101,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Prepare email sequences',
-              description:
-                'Create pre-launch, launch day, and follow-up email sequences.',
+              description: 'Create pre-launch, launch day, and follow-up email sequences.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -118,8 +114,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Brief PR and communications team',
-              description:
-                'Prepare press materials and brief PR team on key messages.',
+              description: 'Prepare press materials and brief PR team on key messages.',
               assigneeRole: 'lead',
               dueOffset: 10,
               priority: 'medium',
@@ -133,8 +128,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Final asset review',
-              description:
-                'Review all launch assets for quality and consistency.',
+              description: 'Review all launch assets for quality and consistency.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -148,8 +142,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Coordinate with sales team',
-              description:
-                'Brief sales team on launch details and enable them with materials.',
+              description: 'Brief sales team on launch details and enable them with materials.',
               assigneeRole: 'lead',
               dueOffset: 23,
               priority: 'high',
@@ -157,8 +150,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Schedule social media posts',
-              description:
-                'Schedule all launch-related social media content.',
+              description: 'Schedule all launch-related social media content.',
               assigneeRole: 'member',
               dueOffset: 24,
               priority: 'high',
@@ -166,8 +158,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Launch Day: Execute campaign',
-              description:
-                'Publish landing page, send emails, post on social media.',
+              description: 'Publish landing page, send emails, post on social media.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'urgent',
@@ -181,8 +172,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Monitor and respond',
-              description:
-                'Monitor social media, comments, and respond to inquiries.',
+              description: 'Monitor social media, comments, and respond to inquiries.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -196,8 +186,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Analyze launch performance',
-              description:
-                'Review metrics and compare against KPIs.',
+              description: 'Review metrics and compare against KPIs.',
               assigneeRole: 'lead',
               dueOffset: 35,
               priority: 'high',
@@ -211,8 +200,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Gather customer feedback',
-              description:
-                'Collect initial customer feedback and testimonials.',
+              description: 'Collect initial customer feedback and testimonials.',
               assigneeRole: 'member',
               dueOffset: 35,
               priority: 'medium',
@@ -220,8 +208,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create launch retrospective',
-              description:
-                'Document what worked, what didnt, and lessons learned.',
+              description: 'Document what worked, what didnt, and lessons learned.',
               assigneeRole: 'lead',
               dueOffset: 42,
               priority: 'medium',
@@ -229,8 +216,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Plan ongoing promotion',
-              description:
-                'Develop plan for sustained marketing after launch.',
+              description: 'Develop plan for sustained marketing after launch.',
               assigneeRole: 'lead',
               dueOffset: 42,
               priority: 'medium',
@@ -299,8 +285,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Monthly theme and goals',
-              description:
-                'Define the overarching theme and content goals for the month.',
+              description: 'Define the overarching theme and content goals for the month.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -313,8 +298,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Keyword and topic research',
-              description:
-                'Research trending topics and keywords for content optimization.',
+              description: 'Research trending topics and keywords for content optimization.',
               assigneeRole: 'member',
               dueOffset: 2,
               priority: 'high',
@@ -322,8 +306,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Content ideation session',
-              description:
-                'Brainstorm content ideas aligned with monthly theme.',
+              description: 'Brainstorm content ideas aligned with monthly theme.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'high',
@@ -331,8 +314,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create content calendar',
-              description:
-                'Map out publication schedule for the month.',
+              description: 'Map out publication schedule for the month.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -346,8 +328,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Blog Post: Week 1',
-              description:
-                'Research, write, and publish first blog post of the month.',
+              description: 'Research, write, and publish first blog post of the month.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -361,8 +342,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Blog Post: Week 2',
-              description:
-                'Research, write, and publish second blog post.',
+              description: 'Research, write, and publish second blog post.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -370,8 +350,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Blog Post: Week 3',
-              description:
-                'Research, write, and publish third blog post.',
+              description: 'Research, write, and publish third blog post.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'high',
@@ -379,8 +358,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Blog Post: Week 4',
-              description:
-                'Research, write, and publish fourth blog post.',
+              description: 'Research, write, and publish fourth blog post.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -394,8 +372,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Create social media posts batch',
-              description:
-                'Create batch of social media posts for the month.',
+              description: 'Create batch of social media posts for the month.',
               assigneeRole: 'member',
               dueOffset: 5,
               priority: 'high',
@@ -408,8 +385,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Engagement strategy',
-              description:
-                'Plan community engagement and response strategy.',
+              description: 'Plan community engagement and response strategy.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'medium',
@@ -423,8 +399,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Newsletter: Week 2',
-              description:
-                'Create and send bi-weekly newsletter.',
+              description: 'Create and send bi-weekly newsletter.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -438,8 +413,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Newsletter: Week 4',
-              description:
-                'Create and send end-of-month newsletter.',
+              description: 'Create and send end-of-month newsletter.',
               assigneeRole: 'member',
               dueOffset: 28,
               priority: 'high',
@@ -501,8 +475,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Crawlability analysis',
-              description:
-                'Analyze site crawlability using tools like Screaming Frog.',
+              description: 'Analyze site crawlability using tools like Screaming Frog.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -516,8 +489,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Site speed analysis',
-              description:
-                'Analyze page load times and Core Web Vitals.',
+              description: 'Analyze page load times and Core Web Vitals.',
               assigneeRole: 'owner',
               dueOffset: 3,
               priority: 'high',
@@ -530,8 +502,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Mobile-friendliness check',
-              description:
-                'Ensure site is fully optimized for mobile devices.',
+              description: 'Ensure site is fully optimized for mobile devices.',
               assigneeRole: 'member',
               dueOffset: 4,
               priority: 'high',
@@ -539,8 +510,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Security and HTTPS review',
-              description:
-                'Verify HTTPS implementation and security headers.',
+              description: 'Verify HTTPS implementation and security headers.',
               assigneeRole: 'owner',
               dueOffset: 4,
               priority: 'high',
@@ -554,8 +524,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Title tag optimization',
-              description:
-                'Review and optimize title tags across key pages.',
+              description: 'Review and optimize title tags across key pages.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -568,8 +537,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Meta description review',
-              description:
-                'Optimize meta descriptions for click-through rate.',
+              description: 'Optimize meta descriptions for click-through rate.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'medium',
@@ -577,8 +545,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Header structure analysis',
-              description:
-                'Review H1-H6 structure and keyword usage.',
+              description: 'Review H1-H6 structure and keyword usage.',
               assigneeRole: 'member',
               dueOffset: 8,
               priority: 'medium',
@@ -586,8 +553,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Internal linking audit',
-              description:
-                'Analyze and improve internal link structure.',
+              description: 'Analyze and improve internal link structure.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'medium',
@@ -601,8 +567,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Content inventory',
-              description:
-                'Create inventory of all content and assess performance.',
+              description: 'Create inventory of all content and assess performance.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -610,8 +575,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Identify content gaps',
-              description:
-                'Find keyword opportunities without existing content.',
+              description: 'Find keyword opportunities without existing content.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -619,8 +583,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Update underperforming content',
-              description:
-                'Refresh and optimize content with declining traffic.',
+              description: 'Refresh and optimize content with declining traffic.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'medium',
@@ -634,8 +597,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Implement technical fixes',
-              description:
-                'Execute technical SEO improvements from audit.',
+              description: 'Execute technical SEO improvements from audit.',
               assigneeRole: 'owner',
               dueOffset: 21,
               priority: 'high',
@@ -643,8 +605,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Set up rank tracking',
-              description:
-                'Configure keyword rank tracking for target keywords.',
+              description: 'Configure keyword rank tracking for target keywords.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -652,8 +613,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Monthly SEO report',
-              description:
-                'Create template for monthly SEO performance reporting.',
+              description: 'Create template for monthly SEO performance reporting.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'medium',
@@ -716,8 +676,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Define campaign objectives',
-              description:
-                'Set clear goals, KPIs, and success metrics.',
+              description: 'Set clear goals, KPIs, and success metrics.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -725,8 +684,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Audience research',
-              description:
-                'Research target audience demographics and behaviors.',
+              description: 'Research target audience demographics and behaviors.',
               assigneeRole: 'member',
               dueOffset: 2,
               priority: 'high',
@@ -734,8 +692,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Competitor analysis',
-              description:
-                'Analyze competitor social media strategies.',
+              description: 'Analyze competitor social media strategies.',
               assigneeRole: 'member',
               dueOffset: 3,
               priority: 'medium',
@@ -743,8 +700,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create content strategy',
-              description:
-                'Develop content pillars and posting schedule.',
+              description: 'Develop content pillars and posting schedule.',
               assigneeRole: 'lead',
               dueOffset: 5,
               priority: 'high',
@@ -758,8 +714,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Design visual assets',
-              description:
-                'Create graphics, images, and templates for campaign.',
+              description: 'Create graphics, images, and templates for campaign.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -772,8 +727,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Write post copy',
-              description:
-                'Write engaging captions and copy for all posts.',
+              description: 'Write engaging captions and copy for all posts.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -781,8 +735,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create video content',
-              description:
-                'Produce video content for campaign.',
+              description: 'Produce video content for campaign.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'medium',
@@ -790,8 +743,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Prepare hashtag strategy',
-              description:
-                'Research and compile relevant hashtags.',
+              description: 'Research and compile relevant hashtags.',
               assigneeRole: 'member',
               dueOffset: 8,
               priority: 'medium',
@@ -805,8 +757,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Schedule content',
-              description:
-                'Schedule all posts in social media management tool.',
+              description: 'Schedule all posts in social media management tool.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -814,8 +765,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Community management',
-              description:
-                'Monitor and respond to comments and messages.',
+              description: 'Monitor and respond to comments and messages.',
               assigneeRole: 'member',
               dueOffset: 14,
               priority: 'high',
@@ -823,8 +773,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Influencer outreach',
-              description:
-                'Coordinate with influencers if applicable.',
+              description: 'Coordinate with influencers if applicable.',
               assigneeRole: 'lead',
               dueOffset: 7,
               priority: 'medium',
@@ -838,8 +787,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Track daily metrics',
-              description:
-                'Monitor engagement and reach metrics daily.',
+              description: 'Monitor engagement and reach metrics daily.',
               assigneeRole: 'member',
               dueOffset: 21,
               priority: 'medium',
@@ -847,8 +795,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create campaign report',
-              description:
-                'Compile comprehensive performance report.',
+              description: 'Compile comprehensive performance report.',
               assigneeRole: 'lead',
               dueOffset: 28,
               priority: 'high',
@@ -915,8 +862,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Define campaign goals',
-              description:
-                'Set objectives: opens, clicks, conversions.',
+              description: 'Set objectives: opens, clicks, conversions.',
               assigneeRole: 'lead',
               dueOffset: 0,
               priority: 'high',
@@ -924,8 +870,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Segment audience',
-              description:
-                'Define and create target audience segments.',
+              description: 'Define and create target audience segments.',
               assigneeRole: 'member',
               dueOffset: 2,
               priority: 'high',
@@ -933,8 +878,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Plan email sequence',
-              description:
-                'Map out email flow and timing.',
+              description: 'Map out email flow and timing.',
               assigneeRole: 'lead',
               dueOffset: 3,
               priority: 'high',
@@ -948,8 +892,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Write email copy',
-              description:
-                'Write subject lines, preview text, and body copy.',
+              description: 'Write subject lines, preview text, and body copy.',
               assigneeRole: 'member',
               dueOffset: 7,
               priority: 'high',
@@ -963,8 +906,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Design email template',
-              description:
-                'Create or customize email template design.',
+              description: 'Create or customize email template design.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'high',
@@ -972,8 +914,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Create visual assets',
-              description:
-                'Design images, banners, and graphics.',
+              description: 'Design images, banners, and graphics.',
               assigneeRole: 'member',
               dueOffset: 10,
               priority: 'medium',
@@ -987,8 +928,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Build email in ESP',
-              description:
-                'Build email in email service provider.',
+              description: 'Build email in email service provider.',
               assigneeRole: 'member',
               dueOffset: 12,
               priority: 'high',
@@ -996,8 +936,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Test across email clients',
-              description:
-                'Test rendering in major email clients.',
+              description: 'Test rendering in major email clients.',
               assigneeRole: 'member',
               dueOffset: 13,
               priority: 'high',
@@ -1011,8 +950,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Review links and tracking',
-              description:
-                'Verify all links work and tracking is configured.',
+              description: 'Verify all links work and tracking is configured.',
               assigneeRole: 'member',
               dueOffset: 13,
               priority: 'high',
@@ -1020,8 +958,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'A/B test setup',
-              description:
-                'Configure A/B test for subject lines or content.',
+              description: 'Configure A/B test for subject lines or content.',
               assigneeRole: 'member',
               dueOffset: 13,
               priority: 'medium',
@@ -1035,8 +972,7 @@ export const MARKETING_TEMPLATES = [
           tasks: [
             {
               title: 'Schedule/Send email',
-              description:
-                'Schedule or send email to target audience.',
+              description: 'Schedule or send email to target audience.',
               assigneeRole: 'lead',
               dueOffset: 14,
               priority: 'high',
@@ -1044,8 +980,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Monitor delivery',
-              description:
-                'Monitor delivery rates and initial engagement.',
+              description: 'Monitor delivery rates and initial engagement.',
               assigneeRole: 'member',
               dueOffset: 15,
               priority: 'high',
@@ -1053,8 +988,7 @@ export const MARKETING_TEMPLATES = [
             },
             {
               title: 'Analyze performance',
-              description:
-                'Review campaign metrics and create report.',
+              description: 'Review campaign metrics and create report.',
               assigneeRole: 'lead',
               dueOffset: 21,
               priority: 'high',
@@ -2395,7 +2329,14 @@ export const MARKETING_TEMPLATES = [
         name: 'Video Type',
         type: 'select',
         description: 'Type of video content',
-        options: ['Tutorial', 'Product Demo', 'Testimonial', 'Brand Story', 'Live Stream', 'Short Form'],
+        options: [
+          'Tutorial',
+          'Product Demo',
+          'Testimonial',
+          'Brand Story',
+          'Live Stream',
+          'Short Form',
+        ],
         isRequired: false,
       },
     ],
@@ -3723,7 +3664,15 @@ export const MARKETING_TEMPLATES = [
         name: 'Holiday',
         type: 'select',
         description: 'Target holiday',
-        options: ['Christmas', 'Thanksgiving', 'Halloween', 'Easter', 'Valentines Day', 'Mothers Day', 'Fathers Day'],
+        options: [
+          'Christmas',
+          'Thanksgiving',
+          'Halloween',
+          'Easter',
+          'Valentines Day',
+          'Mothers Day',
+          'Fathers Day',
+        ],
         isRequired: true,
       },
     ],
@@ -4908,8 +4857,7 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Award Submission Campaign',
     slug: 'award-submission-campaign',
-    description:
-      'Prepare and submit entries for industry awards and recognition programs.',
+    description: 'Prepare and submit entries for industry awards and recognition programs.',
     category: 'marketing',
     icon: 'Award',
     color: '#F59E0B',
@@ -5063,7 +5011,13 @@ export const MARKETING_TEMPLATES = [
         name: 'Report Type',
         type: 'select',
         description: 'Research format',
-        options: ['Survey Report', 'Trend Analysis', 'Benchmark Study', 'State of Industry', 'Forecast'],
+        options: [
+          'Survey Report',
+          'Trend Analysis',
+          'Benchmark Study',
+          'State of Industry',
+          'Forecast',
+        ],
         isRequired: false,
       },
     ],
@@ -5182,8 +5136,7 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Case Study Development',
     slug: 'case-study-development',
-    description:
-      'Create compelling customer case studies showcasing success stories and ROI.',
+    description: 'Create compelling customer case studies showcasing success stories and ROI.',
     category: 'marketing',
     icon: 'FileText',
     color: '#059669',
@@ -5447,8 +5400,7 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Ebook Launch',
     slug: 'ebook-launch',
-    description:
-      'Create and launch ebook as lead magnet or thought leadership content.',
+    description: 'Create and launch ebook as lead magnet or thought leadership content.',
     category: 'marketing',
     icon: 'BookOpen',
     color: '#8B5CF6',
@@ -5712,8 +5664,7 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Blog Content Calendar',
     slug: 'blog-content-calendar',
-    description:
-      'Plan and manage blog content production with editorial calendar and workflow.',
+    description: 'Plan and manage blog content production with editorial calendar and workflow.',
     category: 'marketing',
     icon: 'Layout',
     color: '#10B981',
@@ -5841,7 +5792,8 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Guest Posting Strategy',
     slug: 'guest-posting-strategy',
-    description: 'Build authority and backlinks through strategic guest posting on relevant publications.',
+    description:
+      'Build authority and backlinks through strategic guest posting on relevant publications.',
     category: 'marketing',
     icon: 'ExternalLink',
     color: '#7C3AED',
@@ -5854,7 +5806,12 @@ export const MARKETING_TEMPLATES = [
       { id: 'published', name: 'Published', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Target Publication', type: 'text', description: 'Publication name', isRequired: false },
+      {
+        name: 'Target Publication',
+        type: 'text',
+        description: 'Publication name',
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -5862,30 +5819,89 @@ export const MARKETING_TEMPLATES = [
           name: 'Research',
           description: 'Identify guest posting opportunities',
           tasks: [
-            { title: 'Research target publications', description: 'Find relevant sites.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research', 'outreach'] },
-            { title: 'Analyze publication guidelines', description: 'Review submission requirements.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['research', 'guidelines'] },
-            { title: 'Create pitch templates', description: 'Draft outreach emails.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['content', 'templates'] },
+            {
+              title: 'Research target publications',
+              description: 'Find relevant sites.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'outreach'],
+            },
+            {
+              title: 'Analyze publication guidelines',
+              description: 'Review submission requirements.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['research', 'guidelines'],
+            },
+            {
+              title: 'Create pitch templates',
+              description: 'Draft outreach emails.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['content', 'templates'],
+            },
           ],
         },
         {
           name: 'Outreach & Writing',
           description: 'Pitch and create content',
           tasks: [
-            { title: 'Send pitches', description: 'Contact editors.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['outreach', 'pitching'] },
-            { title: 'Write guest posts', description: 'Create approved content.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['writing', 'content'] },
-            { title: 'Submit for review', description: 'Send to publication.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['submission', 'review'] },
+            {
+              title: 'Send pitches',
+              description: 'Contact editors.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['outreach', 'pitching'],
+            },
+            {
+              title: 'Write guest posts',
+              description: 'Create approved content.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['writing', 'content'],
+            },
+            {
+              title: 'Submit for review',
+              description: 'Send to publication.',
+              assigneeRole: 'member',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['submission', 'review'],
+            },
           ],
         },
         {
           name: 'Promotion',
           description: 'Promote published posts',
           tasks: [
-            { title: 'Share published posts', description: 'Promote on social.', assigneeRole: 'member', dueOffset: 30, priority: 'medium', labels: ['promotion', 'social'] },
-            { title: 'Track backlinks', description: 'Monitor link metrics.', assigneeRole: 'member', dueOffset: 35, priority: 'medium', labels: ['analytics', 'seo'] },
+            {
+              title: 'Share published posts',
+              description: 'Promote on social.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'medium',
+              labels: ['promotion', 'social'],
+            },
+            {
+              title: 'Track backlinks',
+              description: 'Monitor link metrics.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'medium',
+              labels: ['analytics', 'seo'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['research', 'outreach', 'writing', 'published'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'outreach', 'writing', 'published'],
+      },
     },
     settings: { trackBacklinks: true },
   },
@@ -5894,7 +5910,8 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Link Building Campaign',
     slug: 'link-building-campaign',
-    description: 'Acquire high-quality backlinks through outreach, content, and relationship building.',
+    description:
+      'Acquire high-quality backlinks through outreach, content, and relationship building.',
     category: 'marketing',
     icon: 'Link',
     color: '#059669',
@@ -5907,7 +5924,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'acquired', name: 'Acquired', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Link Type', type: 'select', description: 'Type of link', options: ['Editorial', 'Guest Post', 'Resource', 'Directory', 'Mention'], isRequired: false },
+      {
+        name: 'Link Type',
+        type: 'select',
+        description: 'Type of link',
+        options: ['Editorial', 'Guest Post', 'Resource', 'Directory', 'Mention'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -5915,22 +5938,67 @@ export const MARKETING_TEMPLATES = [
           name: 'Research',
           description: 'Identify link opportunities',
           tasks: [
-            { title: 'Analyze competitor backlinks', description: 'Research competitor links.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research', 'competitive'] },
-            { title: 'Identify link prospects', description: 'Build prospect list.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research', 'prospects'] },
-            { title: 'Create linkable assets', description: 'Develop link-worthy content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content', 'assets'] },
+            {
+              title: 'Analyze competitor backlinks',
+              description: 'Research competitor links.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
+            {
+              title: 'Identify link prospects',
+              description: 'Build prospect list.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'prospects'],
+            },
+            {
+              title: 'Create linkable assets',
+              description: 'Develop link-worthy content.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content', 'assets'],
+            },
           ],
         },
         {
           name: 'Outreach',
           description: 'Contact prospects',
           tasks: [
-            { title: 'Personalize outreach', description: 'Craft custom emails.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['outreach', 'email'] },
-            { title: 'Follow up', description: 'Send follow-up emails.', assigneeRole: 'member', dueOffset: 24, priority: 'medium', labels: ['outreach', 'follow-up'] },
-            { title: 'Track acquired links', description: 'Monitor new backlinks.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['tracking', 'analytics'] },
+            {
+              title: 'Personalize outreach',
+              description: 'Craft custom emails.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['outreach', 'email'],
+            },
+            {
+              title: 'Follow up',
+              description: 'Send follow-up emails.',
+              assigneeRole: 'member',
+              dueOffset: 24,
+              priority: 'medium',
+              labels: ['outreach', 'follow-up'],
+            },
+            {
+              title: 'Track acquired links',
+              description: 'Monitor new backlinks.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['tracking', 'analytics'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['research', 'outreach', 'negotiation', 'acquired'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'outreach', 'negotiation', 'acquired'],
+      },
     },
     settings: { trackBacklinks: true },
   },
@@ -5960,23 +6028,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Local Audit',
           description: 'Assess local SEO status',
           tasks: [
-            { title: 'Audit Google Business Profile', description: 'Review GBP listing.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit', 'gbp'] },
-            { title: 'Check NAP consistency', description: 'Verify name, address, phone.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['audit', 'citations'] },
-            { title: 'Analyze local competitors', description: 'Research local competition.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research', 'competitive'] },
+            {
+              title: 'Audit Google Business Profile',
+              description: 'Review GBP listing.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit', 'gbp'],
+            },
+            {
+              title: 'Check NAP consistency',
+              description: 'Verify name, address, phone.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['audit', 'citations'],
+            },
+            {
+              title: 'Analyze local competitors',
+              description: 'Research local competition.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
           ],
         },
         {
           name: 'Optimization',
           description: 'Optimize local presence',
           tasks: [
-            { title: 'Optimize GBP listing', description: 'Enhance profile.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['optimization', 'gbp'] },
-            { title: 'Build local citations', description: 'Submit to directories.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['citations', 'directories'] },
-            { title: 'Generate reviews', description: 'Implement review strategy.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['reviews', 'reputation'] },
-            { title: 'Create local content', description: 'Develop location pages.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['content', 'local'] },
+            {
+              title: 'Optimize GBP listing',
+              description: 'Enhance profile.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['optimization', 'gbp'],
+            },
+            {
+              title: 'Build local citations',
+              description: 'Submit to directories.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['citations', 'directories'],
+            },
+            {
+              title: 'Generate reviews',
+              description: 'Implement review strategy.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['reviews', 'reputation'],
+            },
+            {
+              title: 'Create local content',
+              description: 'Develop location pages.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['content', 'local'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['audit', 'optimization', 'citations', 'monitoring'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['audit', 'optimization', 'citations', 'monitoring'],
+      },
     },
     settings: { trackLocalRankings: true },
   },
@@ -5985,7 +6105,8 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'International SEO',
     slug: 'international-seo',
-    description: 'Expand search presence to international markets with multi-language optimization.',
+    description:
+      'Expand search presence to international markets with multi-language optimization.',
     category: 'marketing',
     icon: 'Globe',
     color: '#3B82F6',
@@ -5998,7 +6119,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'live', name: 'Live', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Target Markets', type: 'multiselect', description: 'Target countries', options: ['US', 'UK', 'Germany', 'France', 'Spain', 'Japan', 'Brazil'], isRequired: true },
+      {
+        name: 'Target Markets',
+        type: 'multiselect',
+        description: 'Target countries',
+        options: ['US', 'UK', 'Germany', 'France', 'Spain', 'Japan', 'Brazil'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6006,26 +6133,82 @@ export const MARKETING_TEMPLATES = [
           name: 'Market Research',
           description: 'Research target markets',
           tasks: [
-            { title: 'Analyze target markets', description: 'Research market potential.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['research', 'markets'] },
-            { title: 'Keyword research by market', description: 'Localized keyword research.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research', 'keywords'] },
-            { title: 'Competitor analysis', description: 'Research local competitors.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['research', 'competitive'] },
+            {
+              title: 'Analyze target markets',
+              description: 'Research market potential.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'markets'],
+            },
+            {
+              title: 'Keyword research by market',
+              description: 'Localized keyword research.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'keywords'],
+            },
+            {
+              title: 'Competitor analysis',
+              description: 'Research local competitors.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
           ],
         },
         {
           name: 'Technical Setup',
           description: 'Configure technical infrastructure',
           tasks: [
-            { title: 'Implement hreflang tags', description: 'Set up language targeting.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['technical', 'hreflang'] },
-            { title: 'Configure URL structure', description: 'Set up subdirectories/subdomains.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['technical', 'structure'] },
-            { title: 'Set up Search Console', description: 'Configure for each market.', assigneeRole: 'member', dueOffset: 19, priority: 'high', labels: ['technical', 'setup'] },
+            {
+              title: 'Implement hreflang tags',
+              description: 'Set up language targeting.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['technical', 'hreflang'],
+            },
+            {
+              title: 'Configure URL structure',
+              description: 'Set up subdirectories/subdomains.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['technical', 'structure'],
+            },
+            {
+              title: 'Set up Search Console',
+              description: 'Configure for each market.',
+              assigneeRole: 'member',
+              dueOffset: 19,
+              priority: 'high',
+              labels: ['technical', 'setup'],
+            },
           ],
         },
         {
           name: 'Content Localization',
           description: 'Localize content',
           tasks: [
-            { title: 'Translate priority pages', description: 'Localize key content.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['content', 'translation'] },
-            { title: 'Create local content', description: 'Develop market-specific content.', assigneeRole: 'member', dueOffset: 42, priority: 'medium', labels: ['content', 'local'] },
+            {
+              title: 'Translate priority pages',
+              description: 'Localize key content.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['content', 'translation'],
+            },
+            {
+              title: 'Create local content',
+              description: 'Develop market-specific content.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'medium',
+              labels: ['content', 'local'],
+            },
           ],
         },
       ],
@@ -6051,7 +6234,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'monitoring', name: 'Monitoring', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Device Focus', type: 'multiselect', description: 'Target devices', options: ['Google Assistant', 'Alexa', 'Siri', 'Cortana'], isRequired: false },
+      {
+        name: 'Device Focus',
+        type: 'multiselect',
+        description: 'Target devices',
+        options: ['Google Assistant', 'Alexa', 'Siri', 'Cortana'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -6059,22 +6248,67 @@ export const MARKETING_TEMPLATES = [
           name: 'Research',
           description: 'Research voice search patterns',
           tasks: [
-            { title: 'Analyze voice queries', description: 'Research question patterns.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research', 'queries'] },
-            { title: 'Identify featured snippet opportunities', description: 'Find position zero targets.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research', 'snippets'] },
-            { title: 'Audit current content', description: 'Review conversational content.', assigneeRole: 'member', dueOffset: 7, priority: 'medium', labels: ['audit', 'content'] },
+            {
+              title: 'Analyze voice queries',
+              description: 'Research question patterns.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'queries'],
+            },
+            {
+              title: 'Identify featured snippet opportunities',
+              description: 'Find position zero targets.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'snippets'],
+            },
+            {
+              title: 'Audit current content',
+              description: 'Review conversational content.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'medium',
+              labels: ['audit', 'content'],
+            },
           ],
         },
         {
           name: 'Optimization',
           description: 'Optimize for voice',
           tasks: [
-            { title: 'Optimize for questions', description: 'Add FAQ content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content', 'faq'] },
-            { title: 'Implement structured data', description: 'Add speakable schema.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['technical', 'schema'] },
-            { title: 'Optimize for featured snippets', description: 'Target position zero.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['content', 'snippets'] },
+            {
+              title: 'Optimize for questions',
+              description: 'Add FAQ content.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content', 'faq'],
+            },
+            {
+              title: 'Implement structured data',
+              description: 'Add speakable schema.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['technical', 'schema'],
+            },
+            {
+              title: 'Optimize for featured snippets',
+              description: 'Target position zero.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['content', 'snippets'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['research', 'optimization', 'implementation', 'monitoring'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['research', 'optimization', 'implementation', 'monitoring'],
+      },
     },
     settings: { trackVoiceSearch: true },
   },
@@ -6096,7 +6330,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'optimization', name: 'Optimization', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Mobile Channel', type: 'multiselect', description: 'Marketing channels', options: ['SMS', 'Push', 'In-App', 'Mobile Web', 'App Ads'], isRequired: true },
+      {
+        name: 'Mobile Channel',
+        type: 'multiselect',
+        description: 'Marketing channels',
+        options: ['SMS', 'Push', 'In-App', 'Mobile Web', 'App Ads'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6104,30 +6344,89 @@ export const MARKETING_TEMPLATES = [
           name: 'Strategy',
           description: 'Plan mobile campaign',
           tasks: [
-            { title: 'Define mobile objectives', description: 'Set campaign goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Research mobile behavior', description: 'Analyze user patterns.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['research', 'behavior'] },
-            { title: 'Select mobile channels', description: 'Choose marketing channels.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['strategy', 'channels'] },
+            {
+              title: 'Define mobile objectives',
+              description: 'Set campaign goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Research mobile behavior',
+              description: 'Analyze user patterns.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['research', 'behavior'],
+            },
+            {
+              title: 'Select mobile channels',
+              description: 'Choose marketing channels.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['strategy', 'channels'],
+            },
           ],
         },
         {
           name: 'Content Creation',
           description: 'Create mobile content',
           tasks: [
-            { title: 'Design mobile-first creatives', description: 'Create mobile assets.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['design', 'mobile'] },
-            { title: 'Write mobile copy', description: 'Create short-form content.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['content', 'copywriting'] },
-            { title: 'Set up mobile campaigns', description: 'Configure channels.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['setup', 'technical'] },
+            {
+              title: 'Design mobile-first creatives',
+              description: 'Create mobile assets.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['design', 'mobile'],
+            },
+            {
+              title: 'Write mobile copy',
+              description: 'Create short-form content.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['content', 'copywriting'],
+            },
+            {
+              title: 'Set up mobile campaigns',
+              description: 'Configure channels.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['setup', 'technical'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Launch and optimize',
           tasks: [
-            { title: 'Launch mobile campaign', description: 'Activate campaigns.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['launch', 'execution'] },
-            { title: 'Optimize mobile experience', description: 'Improve conversion.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['optimization', 'cro'] },
+            {
+              title: 'Launch mobile campaign',
+              description: 'Activate campaigns.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['launch', 'execution'],
+            },
+            {
+              title: 'Optimize mobile experience',
+              description: 'Improve conversion.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['optimization', 'cro'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['planning', 'creation', 'live', 'optimization'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'creation', 'live', 'optimization'],
+      },
     },
     settings: { mobileFirst: true },
   },
@@ -6149,7 +6448,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'monitoring', name: 'Monitoring', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'App Store', type: 'multiselect', description: 'Target stores', options: ['iOS App Store', 'Google Play', 'Amazon Appstore'], isRequired: true },
+      {
+        name: 'App Store',
+        type: 'multiselect',
+        description: 'Target stores',
+        options: ['iOS App Store', 'Google Play', 'Amazon Appstore'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6157,23 +6462,75 @@ export const MARKETING_TEMPLATES = [
           name: 'ASO Audit',
           description: 'Audit current ASO',
           tasks: [
-            { title: 'Audit app listing', description: 'Review current optimization.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit', 'analysis'] },
-            { title: 'Research app keywords', description: 'Find target keywords.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research', 'keywords'] },
-            { title: 'Analyze competitors', description: 'Review competitor apps.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research', 'competitive'] },
+            {
+              title: 'Audit app listing',
+              description: 'Review current optimization.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit', 'analysis'],
+            },
+            {
+              title: 'Research app keywords',
+              description: 'Find target keywords.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'keywords'],
+            },
+            {
+              title: 'Analyze competitors',
+              description: 'Review competitor apps.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'competitive'],
+            },
           ],
         },
         {
           name: 'Optimization',
           description: 'Optimize app listing',
           tasks: [
-            { title: 'Optimize title and subtitle', description: 'Improve app name.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['optimization', 'title'] },
-            { title: 'Write compelling description', description: 'Update app description.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['content', 'description'] },
-            { title: 'Optimize screenshots', description: 'Improve visual assets.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['design', 'screenshots'] },
-            { title: 'Improve ratings and reviews', description: 'Implement review strategy.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['reviews', 'ratings'] },
+            {
+              title: 'Optimize title and subtitle',
+              description: 'Improve app name.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['optimization', 'title'],
+            },
+            {
+              title: 'Write compelling description',
+              description: 'Update app description.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['content', 'description'],
+            },
+            {
+              title: 'Optimize screenshots',
+              description: 'Improve visual assets.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['design', 'screenshots'],
+            },
+            {
+              title: 'Improve ratings and reviews',
+              description: 'Implement review strategy.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['reviews', 'ratings'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['audit', 'optimization', 'testing', 'monitoring'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['audit', 'optimization', 'testing', 'monitoring'],
+      },
     },
     settings: { trackDownloads: true },
   },
@@ -6195,7 +6552,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'optimization', name: 'Optimization', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Platform', type: 'multiselect', description: 'Notification platforms', options: ['iOS', 'Android', 'Web'], isRequired: true },
+      {
+        name: 'Platform',
+        type: 'multiselect',
+        description: 'Notification platforms',
+        options: ['iOS', 'Android', 'Web'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6203,19 +6566,68 @@ export const MARKETING_TEMPLATES = [
           name: 'Strategy',
           description: 'Plan push strategy',
           tasks: [
-            { title: 'Define notification goals', description: 'Set engagement objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Map notification triggers', description: 'Identify send events.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['planning', 'triggers'] },
-            { title: 'Plan content types', description: 'Define message categories.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['content', 'planning'] },
+            {
+              title: 'Define notification goals',
+              description: 'Set engagement objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Map notification triggers',
+              description: 'Identify send events.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'triggers'],
+            },
+            {
+              title: 'Plan content types',
+              description: 'Define message categories.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['content', 'planning'],
+            },
           ],
         },
         {
           name: 'Implementation',
           description: 'Set up notifications',
           tasks: [
-            { title: 'Configure push platform', description: 'Set up technical infrastructure.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['technical', 'setup'] },
-            { title: 'Write notification copy', description: 'Create message templates.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['content', 'copywriting'] },
-            { title: 'Set up automation', description: 'Configure triggered sends.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['automation', 'setup'] },
-            { title: 'Test notifications', description: 'QA all notifications.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['testing', 'qa'] },
+            {
+              title: 'Configure push platform',
+              description: 'Set up technical infrastructure.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['technical', 'setup'],
+            },
+            {
+              title: 'Write notification copy',
+              description: 'Create message templates.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['content', 'copywriting'],
+            },
+            {
+              title: 'Set up automation',
+              description: 'Configure triggered sends.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['automation', 'setup'],
+            },
+            {
+              title: 'Test notifications',
+              description: 'QA all notifications.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['testing', 'qa'],
+            },
           ],
         },
       ],
@@ -6241,7 +6653,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'analysis', name: 'Analysis', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Campaign Type', type: 'select', description: 'SMS campaign type', options: ['Promotional', 'Transactional', 'Automated', 'Conversational'], isRequired: false },
+      {
+        name: 'Campaign Type',
+        type: 'select',
+        description: 'SMS campaign type',
+        options: ['Promotional', 'Transactional', 'Automated', 'Conversational'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -6249,19 +6667,68 @@ export const MARKETING_TEMPLATES = [
           name: 'Planning',
           description: 'Plan SMS campaign',
           tasks: [
-            { title: 'Define SMS objectives', description: 'Set campaign goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Review compliance', description: 'Ensure TCPA compliance.', assigneeRole: 'lead', dueOffset: 2, priority: 'high', labels: ['compliance', 'legal'] },
-            { title: 'Build subscriber list', description: 'Grow SMS opt-ins.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['list', 'growth'] },
+            {
+              title: 'Define SMS objectives',
+              description: 'Set campaign goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Review compliance',
+              description: 'Ensure TCPA compliance.',
+              assigneeRole: 'lead',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['compliance', 'legal'],
+            },
+            {
+              title: 'Build subscriber list',
+              description: 'Grow SMS opt-ins.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['list', 'growth'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Launch SMS campaign',
           tasks: [
-            { title: 'Write SMS copy', description: 'Create message content.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content', 'copywriting'] },
-            { title: 'Set up automation', description: 'Configure triggers.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['automation', 'setup'] },
-            { title: 'Launch campaign', description: 'Send SMS messages.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['launch', 'execution'] },
-            { title: 'Analyze results', description: 'Review performance.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['analytics', 'reporting'] },
+            {
+              title: 'Write SMS copy',
+              description: 'Create message content.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['content', 'copywriting'],
+            },
+            {
+              title: 'Set up automation',
+              description: 'Configure triggers.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['automation', 'setup'],
+            },
+            {
+              title: 'Launch campaign',
+              description: 'Send SMS messages.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['launch', 'execution'],
+            },
+            {
+              title: 'Analyze results',
+              description: 'Review performance.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['analytics', 'reporting'],
+            },
           ],
         },
       ],
@@ -6274,7 +6741,8 @@ export const MARKETING_TEMPLATES = [
   {
     name: 'Chatbot Marketing',
     slug: 'chatbot-marketing',
-    description: 'Implement conversational marketing through chatbots for lead generation and support.',
+    description:
+      'Implement conversational marketing through chatbots for lead generation and support.',
     category: 'marketing',
     icon: 'MessageSquare',
     color: '#8B5CF6',
@@ -6287,7 +6755,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'live', name: 'Live', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Chatbot Platform', type: 'select', description: 'Bot platform', options: ['Intercom', 'Drift', 'HubSpot', 'Zendesk', 'Custom'], isRequired: true },
+      {
+        name: 'Chatbot Platform',
+        type: 'select',
+        description: 'Bot platform',
+        options: ['Intercom', 'Drift', 'HubSpot', 'Zendesk', 'Custom'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6295,19 +6769,68 @@ export const MARKETING_TEMPLATES = [
           name: 'Strategy',
           description: 'Plan chatbot strategy',
           tasks: [
-            { title: 'Define chatbot goals', description: 'Set objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Map conversation flows', description: 'Design user journeys.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['planning', 'flows'] },
-            { title: 'Write bot scripts', description: 'Create conversation content.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content', 'scripts'] },
+            {
+              title: 'Define chatbot goals',
+              description: 'Set objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Map conversation flows',
+              description: 'Design user journeys.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'flows'],
+            },
+            {
+              title: 'Write bot scripts',
+              description: 'Create conversation content.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['content', 'scripts'],
+            },
           ],
         },
         {
           name: 'Implementation',
           description: 'Build and launch chatbot',
           tasks: [
-            { title: 'Build chatbot flows', description: 'Configure bot logic.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['building', 'technical'] },
-            { title: 'Test conversations', description: 'QA all flows.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['testing', 'qa'] },
-            { title: 'Launch chatbot', description: 'Deploy to live.', assigneeRole: 'lead', dueOffset: 25, priority: 'high', labels: ['launch', 'deployment'] },
-            { title: 'Monitor and optimize', description: 'Improve conversations.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['optimization', 'analytics'] },
+            {
+              title: 'Build chatbot flows',
+              description: 'Configure bot logic.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['building', 'technical'],
+            },
+            {
+              title: 'Test conversations',
+              description: 'QA all flows.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['testing', 'qa'],
+            },
+            {
+              title: 'Launch chatbot',
+              description: 'Deploy to live.',
+              assigneeRole: 'lead',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['launch', 'deployment'],
+            },
+            {
+              title: 'Monitor and optimize',
+              description: 'Improve conversations.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['optimization', 'analytics'],
+            },
           ],
         },
       ],
@@ -6333,7 +6856,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'conversion', name: 'Conversion', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Account Tier', type: 'select', description: 'Account priority', options: ['Tier 1', 'Tier 2', 'Tier 3'], isRequired: true },
+      {
+        name: 'Account Tier',
+        type: 'select',
+        description: 'Account priority',
+        options: ['Tier 1', 'Tier 2', 'Tier 3'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6341,23 +6870,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Account Selection',
           description: 'Identify target accounts',
           tasks: [
-            { title: 'Define ICP', description: 'Create ideal customer profile.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'icp'] },
-            { title: 'Build target account list', description: 'Identify target accounts.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research', 'accounts'] },
-            { title: 'Research account insights', description: 'Gather account intelligence.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['research', 'insights'] },
+            {
+              title: 'Define ICP',
+              description: 'Create ideal customer profile.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'icp'],
+            },
+            {
+              title: 'Build target account list',
+              description: 'Identify target accounts.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research', 'accounts'],
+            },
+            {
+              title: 'Research account insights',
+              description: 'Gather account intelligence.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['research', 'insights'],
+            },
           ],
         },
         {
           name: 'Campaign Development',
           description: 'Create ABM campaigns',
           tasks: [
-            { title: 'Create personalized content', description: 'Develop account-specific content.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['content', 'personalization'] },
-            { title: 'Launch multi-channel campaigns', description: 'Activate ABM campaigns.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['launch', 'campaigns'] },
-            { title: 'Coordinate with sales', description: 'Align with sales team.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['sales', 'alignment'] },
-            { title: 'Track account engagement', description: 'Monitor account activity.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['tracking', 'engagement'] },
+            {
+              title: 'Create personalized content',
+              description: 'Develop account-specific content.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['content', 'personalization'],
+            },
+            {
+              title: 'Launch multi-channel campaigns',
+              description: 'Activate ABM campaigns.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['launch', 'campaigns'],
+            },
+            {
+              title: 'Coordinate with sales',
+              description: 'Align with sales team.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['sales', 'alignment'],
+            },
+            {
+              title: 'Track account engagement',
+              description: 'Monitor account activity.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['tracking', 'engagement'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['identification', 'engagement', 'nurturing', 'conversion'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['identification', 'engagement', 'nurturing', 'conversion'],
+      },
     },
     settings: { salesAlignment: true },
   },
@@ -6379,7 +6960,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'analysis', name: 'Analysis', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Partner Type', type: 'select', description: 'Type of partner', options: ['Channel', 'Technology', 'Strategic', 'Referral'], isRequired: false },
+      {
+        name: 'Partner Type',
+        type: 'select',
+        description: 'Type of partner',
+        options: ['Channel', 'Technology', 'Strategic', 'Referral'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -6387,22 +6974,67 @@ export const MARKETING_TEMPLATES = [
           name: 'Planning',
           description: 'Plan partner campaign',
           tasks: [
-            { title: 'Align on campaign goals', description: 'Set joint objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'alignment'] },
-            { title: 'Define campaign scope', description: 'Agree on deliverables.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['planning', 'scope'] },
-            { title: 'Create joint value proposition', description: 'Develop combined messaging.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['messaging', 'content'] },
+            {
+              title: 'Align on campaign goals',
+              description: 'Set joint objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'alignment'],
+            },
+            {
+              title: 'Define campaign scope',
+              description: 'Agree on deliverables.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['planning', 'scope'],
+            },
+            {
+              title: 'Create joint value proposition',
+              description: 'Develop combined messaging.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['messaging', 'content'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Execute partner campaign',
           tasks: [
-            { title: 'Create co-branded content', description: 'Develop joint assets.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content', 'co-branded'] },
-            { title: 'Launch campaign', description: 'Activate joint campaign.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['launch', 'execution'] },
-            { title: 'Track joint metrics', description: 'Monitor shared KPIs.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['analytics', 'tracking'] },
+            {
+              title: 'Create co-branded content',
+              description: 'Develop joint assets.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content', 'co-branded'],
+            },
+            {
+              title: 'Launch campaign',
+              description: 'Activate joint campaign.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['launch', 'execution'],
+            },
+            {
+              title: 'Track joint metrics',
+              description: 'Monitor shared KPIs.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['analytics', 'tracking'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['planning', 'collaboration', 'execution', 'analysis'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['planning', 'collaboration', 'execution', 'analysis'],
+      },
     },
     settings: { partnerCollaboration: true },
   },
@@ -6424,7 +7056,12 @@ export const MARKETING_TEMPLATES = [
       { id: 'results', name: 'Results', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Partner Brand', type: 'text', description: 'Co-marketing partner', isRequired: true },
+      {
+        name: 'Partner Brand',
+        type: 'text',
+        description: 'Co-marketing partner',
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6432,23 +7069,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Partnership',
           description: 'Establish co-marketing partnership',
           tasks: [
-            { title: 'Identify co-marketing partners', description: 'Find complementary brands.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['research', 'partners'] },
-            { title: 'Pitch partnership', description: 'Propose collaboration.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['outreach', 'proposal'] },
-            { title: 'Agree on terms', description: 'Define partnership scope.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['negotiation', 'agreement'] },
+            {
+              title: 'Identify co-marketing partners',
+              description: 'Find complementary brands.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research', 'partners'],
+            },
+            {
+              title: 'Pitch partnership',
+              description: 'Propose collaboration.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['outreach', 'proposal'],
+            },
+            {
+              title: 'Agree on terms',
+              description: 'Define partnership scope.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['negotiation', 'agreement'],
+            },
           ],
         },
         {
           name: 'Campaign Execution',
           description: 'Execute co-marketing',
           tasks: [
-            { title: 'Plan joint campaign', description: 'Design campaign together.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['planning', 'collaboration'] },
-            { title: 'Create joint content', description: 'Produce co-branded assets.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['content', 'co-branded'] },
-            { title: 'Launch campaign', description: 'Activate together.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['launch', 'execution'] },
-            { title: 'Share results', description: 'Review joint performance.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['analytics', 'reporting'] },
+            {
+              title: 'Plan joint campaign',
+              description: 'Design campaign together.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['planning', 'collaboration'],
+            },
+            {
+              title: 'Create joint content',
+              description: 'Produce co-branded assets.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['content', 'co-branded'],
+            },
+            {
+              title: 'Launch campaign',
+              description: 'Activate together.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['launch', 'execution'],
+            },
+            {
+              title: 'Share results',
+              description: 'Review joint performance.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['analytics', 'reporting'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['partnership', 'planning', 'execution', 'results'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['partnership', 'planning', 'execution', 'results'],
+      },
     },
     settings: { jointCampaign: true },
   },
@@ -6470,7 +7159,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'optimization', name: 'Optimization', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Commission Model', type: 'select', description: 'Payout structure', options: ['Percentage', 'Flat Rate', 'Tiered', 'Hybrid'], isRequired: true },
+      {
+        name: 'Commission Model',
+        type: 'select',
+        description: 'Payout structure',
+        options: ['Percentage', 'Flat Rate', 'Tiered', 'Hybrid'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6478,23 +7173,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Program Setup',
           description: 'Set up affiliate program',
           tasks: [
-            { title: 'Define program structure', description: 'Design commission model.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning', 'structure'] },
-            { title: 'Select affiliate platform', description: 'Choose tracking software.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['platform', 'selection'] },
-            { title: 'Create affiliate assets', description: 'Build promotional materials.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content', 'assets'] },
+            {
+              title: 'Define program structure',
+              description: 'Design commission model.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning', 'structure'],
+            },
+            {
+              title: 'Select affiliate platform',
+              description: 'Choose tracking software.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['platform', 'selection'],
+            },
+            {
+              title: 'Create affiliate assets',
+              description: 'Build promotional materials.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['content', 'assets'],
+            },
           ],
         },
         {
           name: 'Recruitment',
           description: 'Recruit affiliates',
           tasks: [
-            { title: 'Identify target affiliates', description: 'Research potential partners.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['research', 'affiliates'] },
-            { title: 'Launch recruitment campaign', description: 'Promote program.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['recruitment', 'outreach'] },
-            { title: 'Onboard affiliates', description: 'Set up new partners.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['onboarding', 'setup'] },
-            { title: 'Monitor performance', description: 'Track affiliate results.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['tracking', 'analytics'] },
+            {
+              title: 'Identify target affiliates',
+              description: 'Research potential partners.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['research', 'affiliates'],
+            },
+            {
+              title: 'Launch recruitment campaign',
+              description: 'Promote program.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['recruitment', 'outreach'],
+            },
+            {
+              title: 'Onboard affiliates',
+              description: 'Set up new partners.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['onboarding', 'setup'],
+            },
+            {
+              title: 'Monitor performance',
+              description: 'Track affiliate results.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['tracking', 'analytics'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['setup', 'recruitment', 'active', 'optimization'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['setup', 'recruitment', 'active', 'optimization'],
+      },
     },
     settings: { performanceBased: true },
   },
@@ -6516,7 +7263,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'evaluation', name: 'Evaluation', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Sponsorship Type', type: 'select', description: 'Type of sponsorship', options: ['Event', 'Content', 'Team', 'Cause', 'Media'], isRequired: false },
+      {
+        name: 'Sponsorship Type',
+        type: 'select',
+        description: 'Type of sponsorship',
+        options: ['Event', 'Content', 'Team', 'Cause', 'Media'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -6524,23 +7277,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Selection',
           description: 'Select sponsorship opportunities',
           tasks: [
-            { title: 'Define sponsorship criteria', description: 'Set selection parameters.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'criteria'] },
-            { title: 'Research opportunities', description: 'Find sponsorship options.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['research', 'opportunities'] },
-            { title: 'Evaluate ROI potential', description: 'Assess expected return.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['analysis', 'roi'] },
+            {
+              title: 'Define sponsorship criteria',
+              description: 'Set selection parameters.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'criteria'],
+            },
+            {
+              title: 'Research opportunities',
+              description: 'Find sponsorship options.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['research', 'opportunities'],
+            },
+            {
+              title: 'Evaluate ROI potential',
+              description: 'Assess expected return.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['analysis', 'roi'],
+            },
           ],
         },
         {
           name: 'Activation',
           description: 'Activate sponsorship',
           tasks: [
-            { title: 'Negotiate terms', description: 'Finalize agreement.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['negotiation', 'contract'] },
-            { title: 'Plan activation', description: 'Design sponsorship activities.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['planning', 'activation'] },
-            { title: 'Execute sponsorship', description: 'Deliver sponsorship elements.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['execution', 'delivery'] },
-            { title: 'Measure impact', description: 'Evaluate results.', assigneeRole: 'member', dueOffset: 56, priority: 'high', labels: ['measurement', 'analytics'] },
+            {
+              title: 'Negotiate terms',
+              description: 'Finalize agreement.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['negotiation', 'contract'],
+            },
+            {
+              title: 'Plan activation',
+              description: 'Design sponsorship activities.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['planning', 'activation'],
+            },
+            {
+              title: 'Execute sponsorship',
+              description: 'Deliver sponsorship elements.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['execution', 'delivery'],
+            },
+            {
+              title: 'Measure impact',
+              description: 'Evaluate results.',
+              assigneeRole: 'member',
+              dueOffset: 56,
+              priority: 'high',
+              labels: ['measurement', 'analytics'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['selection', 'negotiation', 'activation', 'evaluation'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['selection', 'negotiation', 'activation', 'evaluation'],
+      },
     },
     settings: { trackROI: true },
   },
@@ -6562,7 +7367,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'follow-up', name: 'Follow-up', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Event Type', type: 'select', description: 'Type of event', options: ['Conference', 'Workshop', 'Meetup', 'Launch', 'Virtual'], isRequired: true },
+      {
+        name: 'Event Type',
+        type: 'select',
+        description: 'Type of event',
+        options: ['Conference', 'Workshop', 'Meetup', 'Launch', 'Virtual'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6570,19 +7381,68 @@ export const MARKETING_TEMPLATES = [
           name: 'Planning',
           description: 'Plan event marketing',
           tasks: [
-            { title: 'Define event objectives', description: 'Set marketing goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Plan promotional strategy', description: 'Design promotion plan.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning', 'promotion'] },
-            { title: 'Create event branding', description: 'Design event identity.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['design', 'branding'] },
+            {
+              title: 'Define event objectives',
+              description: 'Set marketing goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Plan promotional strategy',
+              description: 'Design promotion plan.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'promotion'],
+            },
+            {
+              title: 'Create event branding',
+              description: 'Design event identity.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['design', 'branding'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Execute event marketing',
           tasks: [
-            { title: 'Launch registration', description: 'Open event registration.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['registration', 'launch'] },
-            { title: 'Execute promotion campaign', description: 'Drive registrations.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['promotion', 'campaign'] },
-            { title: 'Coordinate event day', description: 'Manage event execution.', assigneeRole: 'lead', dueOffset: 35, priority: 'urgent', labels: ['event', 'execution'] },
-            { title: 'Post-event follow-up', description: 'Nurture attendees.', assigneeRole: 'member', dueOffset: 40, priority: 'high', labels: ['follow-up', 'nurturing'] },
+            {
+              title: 'Launch registration',
+              description: 'Open event registration.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['registration', 'launch'],
+            },
+            {
+              title: 'Execute promotion campaign',
+              description: 'Drive registrations.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['promotion', 'campaign'],
+            },
+            {
+              title: 'Coordinate event day',
+              description: 'Manage event execution.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'urgent',
+              labels: ['event', 'execution'],
+            },
+            {
+              title: 'Post-event follow-up',
+              description: 'Nurture attendees.',
+              assigneeRole: 'member',
+              dueOffset: 40,
+              priority: 'high',
+              labels: ['follow-up', 'nurturing'],
+            },
           ],
         },
       ],
@@ -6608,7 +7468,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'post-event', name: 'Post-Event', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Platform', type: 'select', description: 'Virtual platform', options: ['Zoom', 'Hopin', 'Webex', 'Teams', 'Custom'], isRequired: true },
+      {
+        name: 'Platform',
+        type: 'select',
+        description: 'Virtual platform',
+        options: ['Zoom', 'Hopin', 'Webex', 'Teams', 'Custom'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6616,26 +7482,82 @@ export const MARKETING_TEMPLATES = [
           name: 'Planning',
           description: 'Plan virtual event',
           tasks: [
-            { title: 'Set event goals', description: 'Define objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Plan virtual experience', description: 'Design online experience.', assigneeRole: 'lead', dueOffset: 5, priority: 'high', labels: ['planning', 'experience'] },
-            { title: 'Set up platform', description: 'Configure virtual venue.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['technical', 'setup'] },
+            {
+              title: 'Set event goals',
+              description: 'Define objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Plan virtual experience',
+              description: 'Design online experience.',
+              assigneeRole: 'lead',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['planning', 'experience'],
+            },
+            {
+              title: 'Set up platform',
+              description: 'Configure virtual venue.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['technical', 'setup'],
+            },
           ],
         },
         {
           name: 'Promotion',
           description: 'Promote virtual event',
           tasks: [
-            { title: 'Build landing page', description: 'Create registration page.', assigneeRole: 'member', dueOffset: 12, priority: 'high', labels: ['web', 'landing-page'] },
-            { title: 'Launch email campaign', description: 'Drive registrations.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['email', 'promotion'] },
-            { title: 'Run paid promotion', description: 'Advertise event.', assigneeRole: 'member', dueOffset: 14, priority: 'medium', labels: ['paid', 'advertising'] },
+            {
+              title: 'Build landing page',
+              description: 'Create registration page.',
+              assigneeRole: 'member',
+              dueOffset: 12,
+              priority: 'high',
+              labels: ['web', 'landing-page'],
+            },
+            {
+              title: 'Launch email campaign',
+              description: 'Drive registrations.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['email', 'promotion'],
+            },
+            {
+              title: 'Run paid promotion',
+              description: 'Advertise event.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'medium',
+              labels: ['paid', 'advertising'],
+            },
           ],
         },
         {
           name: 'Post-Event',
           description: 'Post-event activities',
           tasks: [
-            { title: 'Share recording', description: 'Distribute event recording.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['content', 'distribution'] },
-            { title: 'Analyze attendance', description: 'Review metrics.', assigneeRole: 'member', dueOffset: 30, priority: 'high', labels: ['analytics', 'reporting'] },
+            {
+              title: 'Share recording',
+              description: 'Distribute event recording.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['content', 'distribution'],
+            },
+            {
+              title: 'Analyze attendance',
+              description: 'Review metrics.',
+              assigneeRole: 'member',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['analytics', 'reporting'],
+            },
           ],
         },
       ],
@@ -6661,7 +7583,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'advocacy', name: 'Advocacy', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Community Platform', type: 'select', description: 'Main platform', options: ['Discord', 'Slack', 'Facebook Groups', 'Circle', 'Forum'], isRequired: true },
+      {
+        name: 'Community Platform',
+        type: 'select',
+        description: 'Main platform',
+        options: ['Discord', 'Slack', 'Facebook Groups', 'Circle', 'Forum'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6669,23 +7597,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Foundation',
           description: 'Build community foundation',
           tasks: [
-            { title: 'Define community purpose', description: 'Set community vision.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'vision'] },
-            { title: 'Choose platform', description: 'Select community home.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['platform', 'selection'] },
-            { title: 'Set up community space', description: 'Configure platform.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['setup', 'configuration'] },
-            { title: 'Create community guidelines', description: 'Establish rules.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['guidelines', 'moderation'] },
+            {
+              title: 'Define community purpose',
+              description: 'Set community vision.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'vision'],
+            },
+            {
+              title: 'Choose platform',
+              description: 'Select community home.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['platform', 'selection'],
+            },
+            {
+              title: 'Set up community space',
+              description: 'Configure platform.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['setup', 'configuration'],
+            },
+            {
+              title: 'Create community guidelines',
+              description: 'Establish rules.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['guidelines', 'moderation'],
+            },
           ],
         },
         {
           name: 'Growth',
           description: 'Grow community',
           tasks: [
-            { title: 'Launch community', description: 'Open to members.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['launch', 'opening'] },
-            { title: 'Drive initial growth', description: 'Attract first members.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['growth', 'acquisition'] },
-            { title: 'Implement engagement programs', description: 'Create activities.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['engagement', 'programs'] },
+            {
+              title: 'Launch community',
+              description: 'Open to members.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['launch', 'opening'],
+            },
+            {
+              title: 'Drive initial growth',
+              description: 'Attract first members.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['growth', 'acquisition'],
+            },
+            {
+              title: 'Implement engagement programs',
+              description: 'Create activities.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['engagement', 'programs'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['foundation', 'growth', 'engagement', 'advocacy'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['foundation', 'growth', 'engagement', 'advocacy'],
+      },
     },
     settings: { communityManagement: true },
   },
@@ -6707,7 +7687,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'optimization', name: 'Optimization', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'LinkedIn Focus', type: 'multiselect', description: 'Campaign types', options: ['Organic', 'Sponsored Content', 'InMail', 'Text Ads', 'Thought Leadership'], isRequired: true },
+      {
+        name: 'LinkedIn Focus',
+        type: 'multiselect',
+        description: 'Campaign types',
+        options: ['Organic', 'Sponsored Content', 'InMail', 'Text Ads', 'Thought Leadership'],
+        isRequired: true,
+      },
     ],
     structure: {
       sections: [
@@ -6715,23 +7701,75 @@ export const MARKETING_TEMPLATES = [
           name: 'Strategy',
           description: 'Define LinkedIn strategy',
           tasks: [
-            { title: 'Set LinkedIn objectives', description: 'Define B2B goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Optimize company page', description: 'Update page presence.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['optimization', 'page'] },
-            { title: 'Plan content strategy', description: 'Design content mix.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['content', 'strategy'] },
+            {
+              title: 'Set LinkedIn objectives',
+              description: 'Define B2B goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Optimize company page',
+              description: 'Update page presence.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['optimization', 'page'],
+            },
+            {
+              title: 'Plan content strategy',
+              description: 'Design content mix.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['content', 'strategy'],
+            },
           ],
         },
         {
           name: 'Execution',
           description: 'Execute LinkedIn marketing',
           tasks: [
-            { title: 'Create LinkedIn content', description: 'Produce platform content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content', 'creation'] },
-            { title: 'Launch thought leadership', description: 'Executive posting.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['thought-leadership', 'content'] },
-            { title: 'Run LinkedIn ads', description: 'Activate paid campaigns.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['paid', 'advertising'] },
-            { title: 'Engage with network', description: 'Build relationships.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['engagement', 'networking'] },
+            {
+              title: 'Create LinkedIn content',
+              description: 'Produce platform content.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content', 'creation'],
+            },
+            {
+              title: 'Launch thought leadership',
+              description: 'Executive posting.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['thought-leadership', 'content'],
+            },
+            {
+              title: 'Run LinkedIn ads',
+              description: 'Activate paid campaigns.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['paid', 'advertising'],
+            },
+            {
+              title: 'Engage with network',
+              description: 'Build relationships.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['engagement', 'networking'],
+            },
           ],
         },
       ],
-      settings: { defaultView: 'board', statuses: ['strategy', 'content', 'active', 'optimization'] },
+      settings: {
+        defaultView: 'board',
+        statuses: ['strategy', 'content', 'active', 'optimization'],
+      },
     },
     settings: { b2bFocused: true },
   },
@@ -6753,7 +7791,13 @@ export const MARKETING_TEMPLATES = [
       { id: 'viral', name: 'Viral', order: 3, color: '#10B981' },
     ],
     customFields: [
-      { name: 'Content Style', type: 'select', description: 'TikTok approach', options: ['Educational', 'Entertainment', 'Behind-Scenes', 'Trends', 'UGC'], isRequired: false },
+      {
+        name: 'Content Style',
+        type: 'select',
+        description: 'TikTok approach',
+        options: ['Educational', 'Entertainment', 'Behind-Scenes', 'Trends', 'UGC'],
+        isRequired: false,
+      },
     ],
     structure: {
       sections: [
@@ -6761,19 +7805,68 @@ export const MARKETING_TEMPLATES = [
           name: 'Strategy',
           description: 'Plan TikTok strategy',
           tasks: [
-            { title: 'Define TikTok goals', description: 'Set platform objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy', 'goals'] },
-            { title: 'Research trends', description: 'Analyze trending content.', assigneeRole: 'member', dueOffset: 3, priority: 'high', labels: ['research', 'trends'] },
-            { title: 'Set up TikTok account', description: 'Optimize profile.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['setup', 'profile'] },
+            {
+              title: 'Define TikTok goals',
+              description: 'Set platform objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy', 'goals'],
+            },
+            {
+              title: 'Research trends',
+              description: 'Analyze trending content.',
+              assigneeRole: 'member',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['research', 'trends'],
+            },
+            {
+              title: 'Set up TikTok account',
+              description: 'Optimize profile.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['setup', 'profile'],
+            },
           ],
         },
         {
           name: 'Content Production',
           description: 'Create TikTok content',
           tasks: [
-            { title: 'Plan content calendar', description: 'Schedule video ideas.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['planning', 'calendar'] },
-            { title: 'Produce TikTok videos', description: 'Create short-form content.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['production', 'video'] },
-            { title: 'Engage with community', description: 'Respond and duet.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['engagement', 'community'] },
-            { title: 'Run TikTok ads', description: 'Activate paid promotion.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['paid', 'advertising'] },
+            {
+              title: 'Plan content calendar',
+              description: 'Schedule video ideas.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning', 'calendar'],
+            },
+            {
+              title: 'Produce TikTok videos',
+              description: 'Create short-form content.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['production', 'video'],
+            },
+            {
+              title: 'Engage with community',
+              description: 'Respond and duet.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['engagement', 'community'],
+            },
+            {
+              title: 'Run TikTok ads',
+              description: 'Activate paid promotion.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['paid', 'advertising'],
+            },
           ],
         },
       ],
@@ -6800,19 +7893,77 @@ export const MARKETING_TEMPLATES = [
       { id: 'production', name: 'Production', order: 1, color: '#3B82F6' },
       { id: 'published', name: 'Published', order: 2, color: '#10B981' },
     ],
-    customFields: [{ name: 'Video Type', type: 'select', description: 'Content format', options: ['Tutorial', 'Vlog', 'Review', 'Shorts', 'Live'], isRequired: false }],
+    customFields: [
+      {
+        name: 'Video Type',
+        type: 'select',
+        description: 'Content format',
+        options: ['Tutorial', 'Vlog', 'Review', 'Shorts', 'Live'],
+        isRequired: false,
+      },
+    ],
     structure: {
       sections: [
-        { name: 'Strategy', description: 'Plan YouTube strategy', tasks: [
-          { title: 'Define channel strategy', description: 'Set YouTube goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] },
-          { title: 'Optimize channel', description: 'Update channel branding.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['optimization'] },
-          { title: 'Plan content series', description: 'Create video series.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['planning'] },
-        ]},
-        { name: 'Production', description: 'Produce videos', tasks: [
-          { title: 'Create video content', description: 'Film and edit videos.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['production'] },
-          { title: 'Optimize for search', description: 'SEO for YouTube.', assigneeRole: 'member', dueOffset: 25, priority: 'high', labels: ['seo'] },
-          { title: 'Promote videos', description: 'Cross-promote content.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['promotion'] },
-        ]},
+        {
+          name: 'Strategy',
+          description: 'Plan YouTube strategy',
+          tasks: [
+            {
+              title: 'Define channel strategy',
+              description: 'Set YouTube goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Optimize channel',
+              description: 'Update channel branding.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['optimization'],
+            },
+            {
+              title: 'Plan content series',
+              description: 'Create video series.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['planning'],
+            },
+          ],
+        },
+        {
+          name: 'Production',
+          description: 'Produce videos',
+          tasks: [
+            {
+              title: 'Create video content',
+              description: 'Film and edit videos.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['production'],
+            },
+            {
+              title: 'Optimize for search',
+              description: 'SEO for YouTube.',
+              assigneeRole: 'member',
+              dueOffset: 25,
+              priority: 'high',
+              labels: ['seo'],
+            },
+            {
+              title: 'Promote videos',
+              description: 'Cross-promote content.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['promotion'],
+            },
+          ],
+        },
       ],
       settings: { defaultView: 'board', statuses: ['planning', 'production', 'published'] },
     },
@@ -6834,19 +7985,77 @@ export const MARKETING_TEMPLATES = [
       { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
       { id: 'active', name: 'Active', order: 2, color: '#10B981' },
     ],
-    customFields: [{ name: 'Content Type', type: 'multiselect', description: 'Format', options: ['Feed', 'Stories', 'Reels', 'IGTV', 'Live'], isRequired: false }],
+    customFields: [
+      {
+        name: 'Content Type',
+        type: 'multiselect',
+        description: 'Format',
+        options: ['Feed', 'Stories', 'Reels', 'IGTV', 'Live'],
+        isRequired: false,
+      },
+    ],
     structure: {
       sections: [
-        { name: 'Strategy', description: 'Plan Instagram strategy', tasks: [
-          { title: 'Define Instagram goals', description: 'Set objectives.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] },
-          { title: 'Plan content mix', description: 'Balance content types.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['content'] },
-          { title: 'Create content calendar', description: 'Schedule posts.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning'] },
-        ]},
-        { name: 'Execution', description: 'Execute Instagram', tasks: [
-          { title: 'Create visual content', description: 'Design and shoot.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['creation'] },
-          { title: 'Engage community', description: 'Respond and interact.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['engagement'] },
-          { title: 'Run Instagram ads', description: 'Paid promotion.', assigneeRole: 'member', dueOffset: 21, priority: 'medium', labels: ['paid'] },
-        ]},
+        {
+          name: 'Strategy',
+          description: 'Plan Instagram strategy',
+          tasks: [
+            {
+              title: 'Define Instagram goals',
+              description: 'Set objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Plan content mix',
+              description: 'Balance content types.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Create content calendar',
+              description: 'Schedule posts.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+          ],
+        },
+        {
+          name: 'Execution',
+          description: 'Execute Instagram',
+          tasks: [
+            {
+              title: 'Create visual content',
+              description: 'Design and shoot.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['creation'],
+            },
+            {
+              title: 'Engage community',
+              description: 'Respond and interact.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['engagement'],
+            },
+            {
+              title: 'Run Instagram ads',
+              description: 'Paid promotion.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'medium',
+              labels: ['paid'],
+            },
+          ],
+        },
       ],
       settings: { defaultView: 'board', statuses: ['planning', 'creation', 'active'] },
     },
@@ -6868,18 +8077,69 @@ export const MARKETING_TEMPLATES = [
       { id: 'content', name: 'Content', order: 1, color: '#3B82F6' },
       { id: 'active', name: 'Active', order: 2, color: '#10B981' },
     ],
-    customFields: [{ name: 'Focus Area', type: 'select', description: 'Main focus', options: ['Thought Leadership', 'Customer Service', 'News', 'Community'], isRequired: false }],
+    customFields: [
+      {
+        name: 'Focus Area',
+        type: 'select',
+        description: 'Main focus',
+        options: ['Thought Leadership', 'Customer Service', 'News', 'Community'],
+        isRequired: false,
+      },
+    ],
     structure: {
       sections: [
-        { name: 'Strategy', description: 'Plan Twitter strategy', tasks: [
-          { title: 'Define Twitter voice', description: 'Establish brand voice.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] },
-          { title: 'Plan content themes', description: 'Set posting themes.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['content'] },
-        ]},
-        { name: 'Execution', description: 'Execute Twitter strategy', tasks: [
-          { title: 'Create tweet content', description: 'Write tweets.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['content'] },
-          { title: 'Engage in conversations', description: 'Join discussions.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['engagement'] },
-          { title: 'Monitor mentions', description: 'Track brand mentions.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['monitoring'] },
-        ]},
+        {
+          name: 'Strategy',
+          description: 'Plan Twitter strategy',
+          tasks: [
+            {
+              title: 'Define Twitter voice',
+              description: 'Establish brand voice.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Plan content themes',
+              description: 'Set posting themes.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['content'],
+            },
+          ],
+        },
+        {
+          name: 'Execution',
+          description: 'Execute Twitter strategy',
+          tasks: [
+            {
+              title: 'Create tweet content',
+              description: 'Write tweets.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Engage in conversations',
+              description: 'Join discussions.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['engagement'],
+            },
+            {
+              title: 'Monitor mentions',
+              description: 'Track brand mentions.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['monitoring'],
+            },
+          ],
+        },
       ],
       settings: { defaultView: 'board', statuses: ['strategy', 'content', 'active'] },
     },
@@ -6901,19 +8161,77 @@ export const MARKETING_TEMPLATES = [
       { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
       { id: 'pinning', name: 'Pinning', order: 2, color: '#10B981' },
     ],
-    customFields: [{ name: 'Pin Type', type: 'multiselect', description: 'Content type', options: ['Standard', 'Video', 'Idea', 'Product', 'Rich'], isRequired: false }],
+    customFields: [
+      {
+        name: 'Pin Type',
+        type: 'multiselect',
+        description: 'Content type',
+        options: ['Standard', 'Video', 'Idea', 'Product', 'Rich'],
+        isRequired: false,
+      },
+    ],
     structure: {
       sections: [
-        { name: 'Strategy', description: 'Plan Pinterest strategy', tasks: [
-          { title: 'Set up business account', description: 'Optimize profile.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['setup'] },
-          { title: 'Research keywords', description: 'Find search terms.', assigneeRole: 'member', dueOffset: 5, priority: 'high', labels: ['research'] },
-          { title: 'Create board strategy', description: 'Plan board structure.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning'] },
-        ]},
-        { name: 'Content', description: 'Create Pinterest content', tasks: [
-          { title: 'Design pin graphics', description: 'Create visual pins.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['design'] },
-          { title: 'Schedule pins', description: 'Plan pin publishing.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['scheduling'] },
-          { title: 'Track analytics', description: 'Monitor performance.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['analytics'] },
-        ]},
+        {
+          name: 'Strategy',
+          description: 'Plan Pinterest strategy',
+          tasks: [
+            {
+              title: 'Set up business account',
+              description: 'Optimize profile.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup'],
+            },
+            {
+              title: 'Research keywords',
+              description: 'Find search terms.',
+              assigneeRole: 'member',
+              dueOffset: 5,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Create board strategy',
+              description: 'Plan board structure.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+          ],
+        },
+        {
+          name: 'Content',
+          description: 'Create Pinterest content',
+          tasks: [
+            {
+              title: 'Design pin graphics',
+              description: 'Create visual pins.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Schedule pins',
+              description: 'Plan pin publishing.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['scheduling'],
+            },
+            {
+              title: 'Track analytics',
+              description: 'Monitor performance.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['analytics'],
+            },
+          ],
+        },
       ],
       settings: { defaultView: 'board', statuses: ['planning', 'creation', 'pinning'] },
     },
@@ -6935,19 +8253,77 @@ export const MARKETING_TEMPLATES = [
       { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
       { id: 'active', name: 'Active', order: 2, color: '#10B981' },
     ],
-    customFields: [{ name: 'Focus Area', type: 'multiselect', description: 'Marketing areas', options: ['Page', 'Groups', 'Ads', 'Messenger', 'Marketplace'], isRequired: false }],
+    customFields: [
+      {
+        name: 'Focus Area',
+        type: 'multiselect',
+        description: 'Marketing areas',
+        options: ['Page', 'Groups', 'Ads', 'Messenger', 'Marketplace'],
+        isRequired: false,
+      },
+    ],
     structure: {
       sections: [
-        { name: 'Strategy', description: 'Plan Facebook strategy', tasks: [
-          { title: 'Audit Facebook presence', description: 'Review current state.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit'] },
-          { title: 'Set Facebook goals', description: 'Define objectives.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['strategy'] },
-          { title: 'Plan content strategy', description: 'Design content mix.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['content'] },
-        ]},
-        { name: 'Execution', description: 'Execute Facebook marketing', tasks: [
-          { title: 'Create Facebook content', description: 'Produce posts.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content'] },
-          { title: 'Launch Facebook ads', description: 'Activate paid.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['paid'] },
-          { title: 'Engage community', description: 'Manage interactions.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['engagement'] },
-        ]},
+        {
+          name: 'Strategy',
+          description: 'Plan Facebook strategy',
+          tasks: [
+            {
+              title: 'Audit Facebook presence',
+              description: 'Review current state.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit'],
+            },
+            {
+              title: 'Set Facebook goals',
+              description: 'Define objectives.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Plan content strategy',
+              description: 'Design content mix.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['content'],
+            },
+          ],
+        },
+        {
+          name: 'Execution',
+          description: 'Execute Facebook marketing',
+          tasks: [
+            {
+              title: 'Create Facebook content',
+              description: 'Produce posts.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Launch Facebook ads',
+              description: 'Activate paid.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['paid'],
+            },
+            {
+              title: 'Engage community',
+              description: 'Manage interactions.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['engagement'],
+            },
+          ],
+        },
       ],
       settings: { defaultView: 'board', statuses: ['planning', 'creation', 'active'] },
     },
@@ -6955,51 +8331,1461 @@ export const MARKETING_TEMPLATES = [
   },
 
   // 66-100: Remaining templates in even more compact format
-  { name: 'Growth Hacking Sprint', slug: 'growth-hacking-sprint', description: 'Rapid experimentation for growth through creative tactics.', category: 'marketing', icon: 'Zap', color: '#8B5CF6', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'ideation', name: 'Ideation', order: 0, color: '#6B7280' }, { id: 'testing', name: 'Testing', order: 1, color: '#3B82F6' }, { id: 'scaling', name: 'Scaling', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Experiments', description: 'Run growth experiments', tasks: [{ title: 'Brainstorm growth ideas', description: 'Generate hypotheses.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['ideation'] }, { title: 'Prioritize experiments', description: 'Rank by impact.', assigneeRole: 'lead', dueOffset: 2, priority: 'high', labels: ['planning'] }, { title: 'Run experiments', description: 'Test hypotheses.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['testing'] }, { title: 'Analyze results', description: 'Review outcomes.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['analysis'] }] }], settings: { defaultView: 'board', statuses: ['ideation', 'testing', 'scaling'] } }, settings: { rapidExperimentation: true } },
+  {
+    name: 'Growth Hacking Sprint',
+    slug: 'growth-hacking-sprint',
+    description: 'Rapid experimentation for growth through creative tactics.',
+    category: 'marketing',
+    icon: 'Zap',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'ideation', name: 'Ideation', order: 0, color: '#6B7280' },
+      { id: 'testing', name: 'Testing', order: 1, color: '#3B82F6' },
+      { id: 'scaling', name: 'Scaling', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Experiments',
+          description: 'Run growth experiments',
+          tasks: [
+            {
+              title: 'Brainstorm growth ideas',
+              description: 'Generate hypotheses.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['ideation'],
+            },
+            {
+              title: 'Prioritize experiments',
+              description: 'Rank by impact.',
+              assigneeRole: 'lead',
+              dueOffset: 2,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Run experiments',
+              description: 'Test hypotheses.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['testing'],
+            },
+            {
+              title: 'Analyze results',
+              description: 'Review outcomes.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['ideation', 'testing', 'scaling'] },
+    },
+    settings: { rapidExperimentation: true },
+  },
 
-  { name: 'Viral Marketing Campaign', slug: 'viral-marketing-campaign', description: 'Create shareable content designed for viral spread.', category: 'marketing', icon: 'Share', color: '#EC4899', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'concept', name: 'Concept', order: 0, color: '#6B7280' }, { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' }, { id: 'launch', name: 'Launch', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Campaign', description: 'Create viral campaign', tasks: [{ title: 'Research viral triggers', description: 'Study what works.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Develop viral concept', description: 'Create shareable idea.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['concept'] }, { title: 'Produce viral content', description: 'Create content.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['production'] }, { title: 'Seed content', description: 'Initial distribution.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['launch'] }] }], settings: { defaultView: 'board', statuses: ['concept', 'creation', 'launch'] } }, settings: { shareability: true } },
+  {
+    name: 'Viral Marketing Campaign',
+    slug: 'viral-marketing-campaign',
+    description: 'Create shareable content designed for viral spread.',
+    category: 'marketing',
+    icon: 'Share',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'concept', name: 'Concept', order: 0, color: '#6B7280' },
+      { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
+      { id: 'launch', name: 'Launch', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Campaign',
+          description: 'Create viral campaign',
+          tasks: [
+            {
+              title: 'Research viral triggers',
+              description: 'Study what works.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Develop viral concept',
+              description: 'Create shareable idea.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['concept'],
+            },
+            {
+              title: 'Produce viral content',
+              description: 'Create content.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['production'],
+            },
+            {
+              title: 'Seed content',
+              description: 'Initial distribution.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['concept', 'creation', 'launch'] },
+    },
+    settings: { shareability: true },
+  },
 
-  { name: 'Guerrilla Marketing', slug: 'guerrilla-marketing', description: 'Unconventional, low-cost marketing tactics for maximum impact.', category: 'marketing', icon: 'Target', color: '#F97316', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'planning', name: 'Planning', order: 0, color: '#6B7280' }, { id: 'execution', name: 'Execution', order: 1, color: '#3B82F6' }, { id: 'impact', name: 'Impact', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Campaign', description: 'Plan guerrilla tactics', tasks: [{ title: 'Brainstorm unconventional ideas', description: 'Creative tactics.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['ideation'] }, { title: 'Plan execution logistics', description: 'Coordinate details.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning'] }, { title: 'Execute campaign', description: 'Launch tactics.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['execution'] }, { title: 'Amplify results', description: 'Share outcomes.', assigneeRole: 'member', dueOffset: 17, priority: 'high', labels: ['amplification'] }] }], settings: { defaultView: 'board', statuses: ['planning', 'execution', 'impact'] } }, settings: { unconventional: true } },
+  {
+    name: 'Guerrilla Marketing',
+    slug: 'guerrilla-marketing',
+    description: 'Unconventional, low-cost marketing tactics for maximum impact.',
+    category: 'marketing',
+    icon: 'Target',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'execution', name: 'Execution', order: 1, color: '#3B82F6' },
+      { id: 'impact', name: 'Impact', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Campaign',
+          description: 'Plan guerrilla tactics',
+          tasks: [
+            {
+              title: 'Brainstorm unconventional ideas',
+              description: 'Creative tactics.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['ideation'],
+            },
+            {
+              title: 'Plan execution logistics',
+              description: 'Coordinate details.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Execute campaign',
+              description: 'Launch tactics.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['execution'],
+            },
+            {
+              title: 'Amplify results',
+              description: 'Share outcomes.',
+              assigneeRole: 'member',
+              dueOffset: 17,
+              priority: 'high',
+              labels: ['amplification'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'execution', 'impact'] },
+    },
+    settings: { unconventional: true },
+  },
 
-  { name: 'Experiential Marketing', slug: 'experiential-marketing', description: 'Create immersive brand experiences for lasting impressions.', category: 'marketing', icon: 'Star', color: '#D946EF', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'concept', name: 'Concept', order: 0, color: '#6B7280' }, { id: 'production', name: 'Production', order: 1, color: '#3B82F6' }, { id: 'activation', name: 'Activation', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Experience', description: 'Create brand experience', tasks: [{ title: 'Define experience concept', description: 'Design experience.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['concept'] }, { title: 'Plan logistics', description: 'Coordinate details.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['planning'] }, { title: 'Execute activation', description: 'Run experience.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['execution'] }, { title: 'Capture content', description: 'Document experience.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['content'] }] }], settings: { defaultView: 'board', statuses: ['concept', 'production', 'activation'] } }, settings: { immersive: true } },
+  {
+    name: 'Experiential Marketing',
+    slug: 'experiential-marketing',
+    description: 'Create immersive brand experiences for lasting impressions.',
+    category: 'marketing',
+    icon: 'Star',
+    color: '#D946EF',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'concept', name: 'Concept', order: 0, color: '#6B7280' },
+      { id: 'production', name: 'Production', order: 1, color: '#3B82F6' },
+      { id: 'activation', name: 'Activation', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Experience',
+          description: 'Create brand experience',
+          tasks: [
+            {
+              title: 'Define experience concept',
+              description: 'Design experience.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['concept'],
+            },
+            {
+              title: 'Plan logistics',
+              description: 'Coordinate details.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Execute activation',
+              description: 'Run experience.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['execution'],
+            },
+            {
+              title: 'Capture content',
+              description: 'Document experience.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['content'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['concept', 'production', 'activation'] },
+    },
+    settings: { immersive: true },
+  },
 
-  { name: 'Cause Marketing', slug: 'cause-marketing', description: 'Align brand with social causes for purpose-driven marketing.', category: 'marketing', icon: 'Heart', color: '#059669', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'planning', name: 'Planning', order: 0, color: '#6B7280' }, { id: 'partnership', name: 'Partnership', order: 1, color: '#3B82F6' }, { id: 'campaign', name: 'Campaign', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Initiative', description: 'Plan cause marketing', tasks: [{ title: 'Identify relevant causes', description: 'Find aligned causes.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Partner with organizations', description: 'Establish partnerships.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['partnership'] }, { title: 'Launch campaign', description: 'Activate initiative.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['launch'] }, { title: 'Measure impact', description: 'Track results.', assigneeRole: 'member', dueOffset: 42, priority: 'high', labels: ['measurement'] }] }], settings: { defaultView: 'board', statuses: ['planning', 'partnership', 'campaign'] } }, settings: { purposeDriven: true } },
+  {
+    name: 'Cause Marketing',
+    slug: 'cause-marketing',
+    description: 'Align brand with social causes for purpose-driven marketing.',
+    category: 'marketing',
+    icon: 'Heart',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'partnership', name: 'Partnership', order: 1, color: '#3B82F6' },
+      { id: 'campaign', name: 'Campaign', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Initiative',
+          description: 'Plan cause marketing',
+          tasks: [
+            {
+              title: 'Identify relevant causes',
+              description: 'Find aligned causes.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Partner with organizations',
+              description: 'Establish partnerships.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['partnership'],
+            },
+            {
+              title: 'Launch campaign',
+              description: 'Activate initiative.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['launch'],
+            },
+            {
+              title: 'Measure impact',
+              description: 'Track results.',
+              assigneeRole: 'member',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['measurement'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'partnership', 'campaign'] },
+    },
+    settings: { purposeDriven: true },
+  },
 
-  { name: 'Sustainability Marketing', slug: 'sustainability-marketing', description: 'Communicate sustainability initiatives and eco-friendly practices.', category: 'marketing', icon: 'Leaf', color: '#22C55E', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'audit', name: 'Audit', order: 0, color: '#6B7280' }, { id: 'messaging', name: 'Messaging', order: 1, color: '#3B82F6' }, { id: 'communication', name: 'Communication', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Initiative', description: 'Plan sustainability marketing', tasks: [{ title: 'Audit sustainability efforts', description: 'Document initiatives.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit'] }, { title: 'Develop messaging', description: 'Create narratives.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['messaging'] }, { title: 'Launch communications', description: 'Share story.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['launch'] }] }], settings: { defaultView: 'board', statuses: ['audit', 'messaging', 'communication'] } }, settings: { ecoFriendly: true } },
+  {
+    name: 'Sustainability Marketing',
+    slug: 'sustainability-marketing',
+    description: 'Communicate sustainability initiatives and eco-friendly practices.',
+    category: 'marketing',
+    icon: 'Leaf',
+    color: '#22C55E',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'messaging', name: 'Messaging', order: 1, color: '#3B82F6' },
+      { id: 'communication', name: 'Communication', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Initiative',
+          description: 'Plan sustainability marketing',
+          tasks: [
+            {
+              title: 'Audit sustainability efforts',
+              description: 'Document initiatives.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit'],
+            },
+            {
+              title: 'Develop messaging',
+              description: 'Create narratives.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['messaging'],
+            },
+            {
+              title: 'Launch communications',
+              description: 'Share story.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['audit', 'messaging', 'communication'] },
+    },
+    settings: { ecoFriendly: true },
+  },
 
-  { name: 'Diversity Marketing', slug: 'diversity-marketing', description: 'Create inclusive marketing that represents diverse audiences.', category: 'marketing', icon: 'Users', color: '#7C3AED', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'research', name: 'Research', order: 0, color: '#6B7280' }, { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' }, { id: 'review', name: 'Review', order: 2, color: '#F59E0B' }, { id: 'launch', name: 'Launch', order: 3, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Initiative', description: 'Plan inclusive marketing', tasks: [{ title: 'Research diverse audiences', description: 'Understand communities.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Create inclusive content', description: 'Develop representative content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content'] }, { title: 'Review for authenticity', description: 'Ensure genuine representation.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['review'] }, { title: 'Launch campaign', description: 'Activate messaging.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['launch'] }] }], settings: { defaultView: 'board', statuses: ['research', 'creation', 'review', 'launch'] } }, settings: { inclusive: true } },
+  {
+    name: 'Diversity Marketing',
+    slug: 'diversity-marketing',
+    description: 'Create inclusive marketing that represents diverse audiences.',
+    category: 'marketing',
+    icon: 'Users',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#F59E0B' },
+      { id: 'launch', name: 'Launch', order: 3, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Initiative',
+          description: 'Plan inclusive marketing',
+          tasks: [
+            {
+              title: 'Research diverse audiences',
+              description: 'Understand communities.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Create inclusive content',
+              description: 'Develop representative content.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Review for authenticity',
+              description: 'Ensure genuine representation.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['review'],
+            },
+            {
+              title: 'Launch campaign',
+              description: 'Activate messaging.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'creation', 'review', 'launch'] },
+    },
+    settings: { inclusive: true },
+  },
 
-  { name: 'Employer Branding', slug: 'employer-branding', description: 'Build employer brand to attract and retain talent.', category: 'marketing', icon: 'Briefcase', color: '#0891B2', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'audit', name: 'Audit', order: 0, color: '#6B7280' }, { id: 'development', name: 'Development', order: 1, color: '#3B82F6' }, { id: 'activation', name: 'Activation', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Branding', description: 'Build employer brand', tasks: [{ title: 'Audit employer brand', description: 'Assess current perception.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit'] }, { title: 'Define EVP', description: 'Create value proposition.', assigneeRole: 'lead', dueOffset: 10, priority: 'high', labels: ['strategy'] }, { title: 'Create employer content', description: 'Develop assets.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['content'] }, { title: 'Launch employer brand', description: 'Activate messaging.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['launch'] }] }], settings: { defaultView: 'board', statuses: ['audit', 'development', 'activation'] } }, settings: { talentAttraction: true } },
+  {
+    name: 'Employer Branding',
+    slug: 'employer-branding',
+    description: 'Build employer brand to attract and retain talent.',
+    category: 'marketing',
+    icon: 'Briefcase',
+    color: '#0891B2',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'activation', name: 'Activation', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Branding',
+          description: 'Build employer brand',
+          tasks: [
+            {
+              title: 'Audit employer brand',
+              description: 'Assess current perception.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit'],
+            },
+            {
+              title: 'Define EVP',
+              description: 'Create value proposition.',
+              assigneeRole: 'lead',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Create employer content',
+              description: 'Develop assets.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Launch employer brand',
+              description: 'Activate messaging.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['audit', 'development', 'activation'] },
+    },
+    settings: { talentAttraction: true },
+  },
 
-  { name: 'Personal Branding', slug: 'personal-branding', description: 'Build personal brand for executives and thought leaders.', category: 'marketing', icon: 'User', color: '#F59E0B', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'audit', name: 'Audit', order: 0, color: '#6B7280' }, { id: 'development', name: 'Development', order: 1, color: '#3B82F6' }, { id: 'execution', name: 'Execution', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Brand Building', description: 'Build personal brand', tasks: [{ title: 'Define personal brand', description: 'Clarify positioning.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] }, { title: 'Optimize online presence', description: 'Update profiles.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['optimization'] }, { title: 'Create thought leadership content', description: 'Develop content.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['content'] }, { title: 'Engage in industry', description: 'Build visibility.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['engagement'] }] }], settings: { defaultView: 'board', statuses: ['audit', 'development', 'execution'] } }, settings: { thoughtLeadership: true } },
+  {
+    name: 'Personal Branding',
+    slug: 'personal-branding',
+    description: 'Build personal brand for executives and thought leaders.',
+    category: 'marketing',
+    icon: 'User',
+    color: '#F59E0B',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'execution', name: 'Execution', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Brand Building',
+          description: 'Build personal brand',
+          tasks: [
+            {
+              title: 'Define personal brand',
+              description: 'Clarify positioning.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Optimize online presence',
+              description: 'Update profiles.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['optimization'],
+            },
+            {
+              title: 'Create thought leadership content',
+              description: 'Develop content.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Engage in industry',
+              description: 'Build visibility.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['engagement'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['audit', 'development', 'execution'] },
+    },
+    settings: { thoughtLeadership: true },
+  },
 
-  { name: 'Executive Thought Leadership', slug: 'executive-thought-leadership', description: 'Position executives as industry thought leaders.', category: 'marketing', icon: 'Award', color: '#6366F1', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'strategy', name: 'Strategy', order: 0, color: '#6B7280' }, { id: 'content', name: 'Content', order: 1, color: '#3B82F6' }, { id: 'amplification', name: 'Amplification', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Program', description: 'Build thought leadership', tasks: [{ title: 'Define expertise areas', description: 'Identify topics.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] }, { title: 'Create content calendar', description: 'Plan publishing.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['planning'] }, { title: 'Produce thought leadership content', description: 'Create articles and talks.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['content'] }, { title: 'Amplify reach', description: 'Promote content.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['amplification'] }] }], settings: { defaultView: 'board', statuses: ['strategy', 'content', 'amplification'] } }, settings: { executiveVisibility: true } },
+  {
+    name: 'Executive Thought Leadership',
+    slug: 'executive-thought-leadership',
+    description: 'Position executives as industry thought leaders.',
+    category: 'marketing',
+    icon: 'Award',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'strategy', name: 'Strategy', order: 0, color: '#6B7280' },
+      { id: 'content', name: 'Content', order: 1, color: '#3B82F6' },
+      { id: 'amplification', name: 'Amplification', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Program',
+          description: 'Build thought leadership',
+          tasks: [
+            {
+              title: 'Define expertise areas',
+              description: 'Identify topics.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Create content calendar',
+              description: 'Plan publishing.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Produce thought leadership content',
+              description: 'Create articles and talks.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['content'],
+            },
+            {
+              title: 'Amplify reach',
+              description: 'Promote content.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['amplification'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['strategy', 'content', 'amplification'] },
+    },
+    settings: { executiveVisibility: true },
+  },
 
-  { name: 'Brand Refresh', slug: 'brand-refresh', description: 'Update and modernize brand identity while maintaining recognition.', category: 'marketing', icon: 'RefreshCw', color: '#EC4899', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'audit', name: 'Audit', order: 0, color: '#6B7280' }, { id: 'development', name: 'Development', order: 1, color: '#3B82F6' }, { id: 'rollout', name: 'Rollout', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Refresh', description: 'Refresh brand identity', tasks: [{ title: 'Audit current brand', description: 'Assess brand elements.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['audit'] }, { title: 'Define refresh scope', description: 'Determine changes.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['strategy'] }, { title: 'Develop updated identity', description: 'Create new elements.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['design'] }, { title: 'Roll out refresh', description: 'Implement changes.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['rollout'] }] }], settings: { defaultView: 'board', statuses: ['audit', 'development', 'rollout'] } }, settings: { brandEvolution: true } },
+  {
+    name: 'Brand Refresh',
+    slug: 'brand-refresh',
+    description: 'Update and modernize brand identity while maintaining recognition.',
+    category: 'marketing',
+    icon: 'RefreshCw',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'rollout', name: 'Rollout', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Refresh',
+          description: 'Refresh brand identity',
+          tasks: [
+            {
+              title: 'Audit current brand',
+              description: 'Assess brand elements.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit'],
+            },
+            {
+              title: 'Define refresh scope',
+              description: 'Determine changes.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Develop updated identity',
+              description: 'Create new elements.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Roll out refresh',
+              description: 'Implement changes.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['rollout'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['audit', 'development', 'rollout'] },
+    },
+    settings: { brandEvolution: true },
+  },
 
-  { name: 'Rebranding Campaign', slug: 'rebranding-campaign', description: 'Complete brand overhaul with new identity and positioning.', category: 'marketing', icon: 'Repeat', color: '#DC2626', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'strategy', name: 'Strategy', order: 0, color: '#6B7280' }, { id: 'development', name: 'Development', order: 1, color: '#3B82F6' }, { id: 'launch', name: 'Launch', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Rebrand', description: 'Execute rebrand', tasks: [{ title: 'Define rebrand strategy', description: 'Set new direction.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] }, { title: 'Develop new brand identity', description: 'Create new brand.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['design'] }, { title: 'Plan launch campaign', description: 'Design announcement.', assigneeRole: 'lead', dueOffset: 49, priority: 'high', labels: ['planning'] }, { title: 'Launch rebrand', description: 'Announce new brand.', assigneeRole: 'lead', dueOffset: 63, priority: 'high', labels: ['launch'] }] }], settings: { defaultView: 'board', statuses: ['strategy', 'development', 'launch'] } }, settings: { majorChange: true } },
+  {
+    name: 'Rebranding Campaign',
+    slug: 'rebranding-campaign',
+    description: 'Complete brand overhaul with new identity and positioning.',
+    category: 'marketing',
+    icon: 'Repeat',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'strategy', name: 'Strategy', order: 0, color: '#6B7280' },
+      { id: 'development', name: 'Development', order: 1, color: '#3B82F6' },
+      { id: 'launch', name: 'Launch', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Rebrand',
+          description: 'Execute rebrand',
+          tasks: [
+            {
+              title: 'Define rebrand strategy',
+              description: 'Set new direction.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Develop new brand identity',
+              description: 'Create new brand.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['design'],
+            },
+            {
+              title: 'Plan launch campaign',
+              description: 'Design announcement.',
+              assigneeRole: 'lead',
+              dueOffset: 49,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Launch rebrand',
+              description: 'Announce new brand.',
+              assigneeRole: 'lead',
+              dueOffset: 63,
+              priority: 'high',
+              labels: ['launch'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['strategy', 'development', 'launch'] },
+    },
+    settings: { majorChange: true },
+  },
 
-  { name: 'Brand Guidelines Development', slug: 'brand-guidelines-development', description: 'Create comprehensive brand guidelines for consistent usage.', category: 'marketing', icon: 'Book', color: '#0EA5E9', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'audit', name: 'Audit', order: 0, color: '#6B7280' }, { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' }, { id: 'distribution', name: 'Distribution', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Guidelines', description: 'Create brand guidelines', tasks: [{ title: 'Audit brand assets', description: 'Inventory existing elements.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['audit'] }, { title: 'Define brand standards', description: 'Document rules.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['documentation'] }, { title: 'Create guidelines document', description: 'Compile guide.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['creation'] }, { title: 'Distribute to stakeholders', description: 'Share and train.', assigneeRole: 'lead', dueOffset: 35, priority: 'high', labels: ['distribution'] }] }], settings: { defaultView: 'board', statuses: ['audit', 'creation', 'distribution'] } }, settings: { documentation: true } },
+  {
+    name: 'Brand Guidelines Development',
+    slug: 'brand-guidelines-development',
+    description: 'Create comprehensive brand guidelines for consistent usage.',
+    category: 'marketing',
+    icon: 'Book',
+    color: '#0EA5E9',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'audit', name: 'Audit', order: 0, color: '#6B7280' },
+      { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
+      { id: 'distribution', name: 'Distribution', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Guidelines',
+          description: 'Create brand guidelines',
+          tasks: [
+            {
+              title: 'Audit brand assets',
+              description: 'Inventory existing elements.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['audit'],
+            },
+            {
+              title: 'Define brand standards',
+              description: 'Document rules.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['documentation'],
+            },
+            {
+              title: 'Create guidelines document',
+              description: 'Compile guide.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['creation'],
+            },
+            {
+              title: 'Distribute to stakeholders',
+              description: 'Share and train.',
+              assigneeRole: 'lead',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['distribution'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['audit', 'creation', 'distribution'] },
+    },
+    settings: { documentation: true },
+  },
 
-  { name: 'Marketing Analytics Setup', slug: 'marketing-analytics-setup', description: 'Implement marketing analytics and reporting infrastructure.', category: 'marketing', icon: 'BarChart2', color: '#10B981', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'planning', name: 'Planning', order: 0, color: '#6B7280' }, { id: 'implementation', name: 'Implementation', order: 1, color: '#3B82F6' }, { id: 'live', name: 'Live', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Analytics', description: 'Set up analytics', tasks: [{ title: 'Define KPIs', description: 'Identify metrics.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['strategy'] }, { title: 'Configure tracking', description: 'Set up tools.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['technical'] }, { title: 'Build dashboards', description: 'Create reports.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['reporting'] }, { title: 'Train team', description: 'Enable adoption.', assigneeRole: 'member', dueOffset: 28, priority: 'medium', labels: ['training'] }] }], settings: { defaultView: 'board', statuses: ['planning', 'implementation', 'live'] } }, settings: { datadriven: true } },
+  {
+    name: 'Marketing Analytics Setup',
+    slug: 'marketing-analytics-setup',
+    description: 'Implement marketing analytics and reporting infrastructure.',
+    category: 'marketing',
+    icon: 'BarChart2',
+    color: '#10B981',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'implementation', name: 'Implementation', order: 1, color: '#3B82F6' },
+      { id: 'live', name: 'Live', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Analytics',
+          description: 'Set up analytics',
+          tasks: [
+            {
+              title: 'Define KPIs',
+              description: 'Identify metrics.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Configure tracking',
+              description: 'Set up tools.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['technical'],
+            },
+            {
+              title: 'Build dashboards',
+              description: 'Create reports.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['reporting'],
+            },
+            {
+              title: 'Train team',
+              description: 'Enable adoption.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'medium',
+              labels: ['training'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'implementation', 'live'] },
+    },
+    settings: { datadriven: true },
+  },
 
-  { name: 'Attribution Modeling', slug: 'attribution-modeling', description: 'Implement marketing attribution to understand channel impact.', category: 'marketing', icon: 'GitBranch', color: '#8B5CF6', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'research', name: 'Research', order: 0, color: '#6B7280' }, { id: 'implementation', name: 'Implementation', order: 1, color: '#3B82F6' }, { id: 'optimization', name: 'Optimization', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Attribution', description: 'Set up attribution', tasks: [{ title: 'Research attribution models', description: 'Evaluate options.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Select attribution model', description: 'Choose approach.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['strategy'] }, { title: 'Implement tracking', description: 'Configure tools.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['technical'] }, { title: 'Analyze attribution data', description: 'Review insights.', assigneeRole: 'member', dueOffset: 35, priority: 'high', labels: ['analysis'] }] }], settings: { defaultView: 'board', statuses: ['research', 'implementation', 'optimization'] } }, settings: { measurementFocus: true } },
+  {
+    name: 'Attribution Modeling',
+    slug: 'attribution-modeling',
+    description: 'Implement marketing attribution to understand channel impact.',
+    category: 'marketing',
+    icon: 'GitBranch',
+    color: '#8B5CF6',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'implementation', name: 'Implementation', order: 1, color: '#3B82F6' },
+      { id: 'optimization', name: 'Optimization', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Attribution',
+          description: 'Set up attribution',
+          tasks: [
+            {
+              title: 'Research attribution models',
+              description: 'Evaluate options.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Select attribution model',
+              description: 'Choose approach.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+            {
+              title: 'Implement tracking',
+              description: 'Configure tools.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['technical'],
+            },
+            {
+              title: 'Analyze attribution data',
+              description: 'Review insights.',
+              assigneeRole: 'member',
+              dueOffset: 35,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'implementation', 'optimization'] },
+    },
+    settings: { measurementFocus: true },
+  },
 
-  { name: 'Customer Journey Mapping', slug: 'customer-journey-mapping', description: 'Map customer touchpoints to optimize marketing interactions.', category: 'marketing', icon: 'Map', color: '#F97316', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'research', name: 'Research', order: 0, color: '#6B7280' }, { id: 'mapping', name: 'Mapping', order: 1, color: '#3B82F6' }, { id: 'optimization', name: 'Optimization', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Journey Mapping', description: 'Map customer journey', tasks: [{ title: 'Research customer behaviors', description: 'Gather insights.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Identify touchpoints', description: 'Map interactions.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['mapping'] }, { title: 'Create journey maps', description: 'Visualize journeys.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['creation'] }, { title: 'Identify optimization opportunities', description: 'Find improvements.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['optimization'] }] }], settings: { defaultView: 'board', statuses: ['research', 'mapping', 'optimization'] } }, settings: { customerCentric: true } },
+  {
+    name: 'Customer Journey Mapping',
+    slug: 'customer-journey-mapping',
+    description: 'Map customer touchpoints to optimize marketing interactions.',
+    category: 'marketing',
+    icon: 'Map',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'mapping', name: 'Mapping', order: 1, color: '#3B82F6' },
+      { id: 'optimization', name: 'Optimization', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Journey Mapping',
+          description: 'Map customer journey',
+          tasks: [
+            {
+              title: 'Research customer behaviors',
+              description: 'Gather insights.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Identify touchpoints',
+              description: 'Map interactions.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['mapping'],
+            },
+            {
+              title: 'Create journey maps',
+              description: 'Visualize journeys.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['creation'],
+            },
+            {
+              title: 'Identify optimization opportunities',
+              description: 'Find improvements.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['optimization'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'mapping', 'optimization'] },
+    },
+    settings: { customerCentric: true },
+  },
 
-  { name: 'Persona Development', slug: 'persona-development', description: 'Create detailed buyer personas to guide marketing strategy.', category: 'marketing', icon: 'Users', color: '#0891B2', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'research', name: 'Research', order: 0, color: '#6B7280' }, { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' }, { id: 'validation', name: 'Validation', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Personas', description: 'Develop buyer personas', tasks: [{ title: 'Gather customer data', description: 'Collect insights.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Conduct interviews', description: 'Talk to customers.', assigneeRole: 'member', dueOffset: 10, priority: 'high', labels: ['interviews'] }, { title: 'Create persona documents', description: 'Build profiles.', assigneeRole: 'member', dueOffset: 21, priority: 'high', labels: ['creation'] }, { title: 'Validate with sales', description: 'Confirm accuracy.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['validation'] }] }], settings: { defaultView: 'board', statuses: ['research', 'creation', 'validation'] } }, settings: { audienceFocus: true } },
+  {
+    name: 'Persona Development',
+    slug: 'persona-development',
+    description: 'Create detailed buyer personas to guide marketing strategy.',
+    category: 'marketing',
+    icon: 'Users',
+    color: '#0891B2',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'creation', name: 'Creation', order: 1, color: '#3B82F6' },
+      { id: 'validation', name: 'Validation', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Personas',
+          description: 'Develop buyer personas',
+          tasks: [
+            {
+              title: 'Gather customer data',
+              description: 'Collect insights.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Conduct interviews',
+              description: 'Talk to customers.',
+              assigneeRole: 'member',
+              dueOffset: 10,
+              priority: 'high',
+              labels: ['interviews'],
+            },
+            {
+              title: 'Create persona documents',
+              description: 'Build profiles.',
+              assigneeRole: 'member',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['creation'],
+            },
+            {
+              title: 'Validate with sales',
+              description: 'Confirm accuracy.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['validation'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'creation', 'validation'] },
+    },
+    settings: { audienceFocus: true },
+  },
 
-  { name: 'Market Research Project', slug: 'market-research-project', description: 'Conduct comprehensive market research for strategic decisions.', category: 'marketing', icon: 'Search', color: '#7C3AED', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'planning', name: 'Planning', order: 0, color: '#6B7280' }, { id: 'research', name: 'Research', order: 1, color: '#3B82F6' }, { id: 'analysis', name: 'Analysis', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Research', description: 'Conduct market research', tasks: [{ title: 'Define research objectives', description: 'Set goals.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['planning'] }, { title: 'Design research methodology', description: 'Plan approach.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['methodology'] }, { title: 'Collect data', description: 'Gather information.', assigneeRole: 'member', dueOffset: 28, priority: 'high', labels: ['collection'] }, { title: 'Analyze and report', description: 'Present findings.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['analysis'] }] }], settings: { defaultView: 'board', statuses: ['planning', 'research', 'analysis'] } }, settings: { strategic: true } },
+  {
+    name: 'Market Research Project',
+    slug: 'market-research-project',
+    description: 'Conduct comprehensive market research for strategic decisions.',
+    category: 'marketing',
+    icon: 'Search',
+    color: '#7C3AED',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'planning', name: 'Planning', order: 0, color: '#6B7280' },
+      { id: 'research', name: 'Research', order: 1, color: '#3B82F6' },
+      { id: 'analysis', name: 'Analysis', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Research',
+          description: 'Conduct market research',
+          tasks: [
+            {
+              title: 'Define research objectives',
+              description: 'Set goals.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['planning'],
+            },
+            {
+              title: 'Design research methodology',
+              description: 'Plan approach.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['methodology'],
+            },
+            {
+              title: 'Collect data',
+              description: 'Gather information.',
+              assigneeRole: 'member',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['collection'],
+            },
+            {
+              title: 'Analyze and report',
+              description: 'Present findings.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['planning', 'research', 'analysis'] },
+    },
+    settings: { strategic: true },
+  },
 
-  { name: 'Competitive Analysis', slug: 'competitive-analysis', description: 'Analyze competitors to inform marketing strategy.', category: 'marketing', icon: 'Eye', color: '#DC2626', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'identification', name: 'Identification', order: 0, color: '#6B7280' }, { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' }, { id: 'strategy', name: 'Strategy', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Analysis', description: 'Analyze competitors', tasks: [{ title: 'Identify competitors', description: 'List competitors.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['identification'] }, { title: 'Analyze competitor marketing', description: 'Review strategies.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['analysis'] }, { title: 'Identify opportunities', description: 'Find gaps.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['opportunities'] }, { title: 'Develop competitive strategy', description: 'Create response.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['strategy'] }] }], settings: { defaultView: 'board', statuses: ['identification', 'analysis', 'strategy'] } }, settings: { competitiveIntelligence: true } },
+  {
+    name: 'Competitive Analysis',
+    slug: 'competitive-analysis',
+    description: 'Analyze competitors to inform marketing strategy.',
+    category: 'marketing',
+    icon: 'Eye',
+    color: '#DC2626',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'identification', name: 'Identification', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'strategy', name: 'Strategy', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Analysis',
+          description: 'Analyze competitors',
+          tasks: [
+            {
+              title: 'Identify competitors',
+              description: 'List competitors.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['identification'],
+            },
+            {
+              title: 'Analyze competitor marketing',
+              description: 'Review strategies.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Identify opportunities',
+              description: 'Find gaps.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['opportunities'],
+            },
+            {
+              title: 'Develop competitive strategy',
+              description: 'Create response.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['identification', 'analysis', 'strategy'] },
+    },
+    settings: { competitiveIntelligence: true },
+  },
 
-  { name: 'SWOT Analysis Project', slug: 'swot-analysis-project', description: 'Conduct SWOT analysis for strategic marketing planning.', category: 'marketing', icon: 'Grid', color: '#FBBF24', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'research', name: 'Research', order: 0, color: '#6B7280' }, { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' }, { id: 'strategy', name: 'Strategy', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'SWOT', description: 'Conduct SWOT analysis', tasks: [{ title: 'Gather internal data', description: 'Assess strengths/weaknesses.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['research'] }, { title: 'Analyze external factors', description: 'Identify opportunities/threats.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['analysis'] }, { title: 'Create SWOT matrix', description: 'Document findings.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['documentation'] }, { title: 'Develop strategic recommendations', description: 'Create action plan.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['strategy'] }] }], settings: { defaultView: 'board', statuses: ['research', 'analysis', 'strategy'] } }, settings: { strategicPlanning: true } },
+  {
+    name: 'SWOT Analysis Project',
+    slug: 'swot-analysis-project',
+    description: 'Conduct SWOT analysis for strategic marketing planning.',
+    category: 'marketing',
+    icon: 'Grid',
+    color: '#FBBF24',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'research', name: 'Research', order: 0, color: '#6B7280' },
+      { id: 'analysis', name: 'Analysis', order: 1, color: '#3B82F6' },
+      { id: 'strategy', name: 'Strategy', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'SWOT',
+          description: 'Conduct SWOT analysis',
+          tasks: [
+            {
+              title: 'Gather internal data',
+              description: 'Assess strengths/weaknesses.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['research'],
+            },
+            {
+              title: 'Analyze external factors',
+              description: 'Identify opportunities/threats.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Create SWOT matrix',
+              description: 'Document findings.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['documentation'],
+            },
+            {
+              title: 'Develop strategic recommendations',
+              description: 'Create action plan.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['strategy'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['research', 'analysis', 'strategy'] },
+    },
+    settings: { strategicPlanning: true },
+  },
 
-  { name: 'Marketing Budget Planning', slug: 'marketing-budget-planning', description: 'Plan and allocate annual marketing budget across channels.', category: 'marketing', icon: 'DollarSign', color: '#059669', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'analysis', name: 'Analysis', order: 0, color: '#6B7280' }, { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' }, { id: 'approval', name: 'Approval', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Budget', description: 'Plan marketing budget', tasks: [{ title: 'Analyze historical spend', description: 'Review past budgets.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['analysis'] }, { title: 'Forecast marketing needs', description: 'Project requirements.', assigneeRole: 'lead', dueOffset: 7, priority: 'high', labels: ['forecasting'] }, { title: 'Allocate budget by channel', description: 'Distribute funds.', assigneeRole: 'lead', dueOffset: 14, priority: 'high', labels: ['allocation'] }, { title: 'Present for approval', description: 'Get sign-off.', assigneeRole: 'lead', dueOffset: 21, priority: 'high', labels: ['approval'] }] }], settings: { defaultView: 'board', statuses: ['analysis', 'planning', 'approval'] } }, settings: { financialPlanning: true } },
+  {
+    name: 'Marketing Budget Planning',
+    slug: 'marketing-budget-planning',
+    description: 'Plan and allocate annual marketing budget across channels.',
+    category: 'marketing',
+    icon: 'DollarSign',
+    color: '#059669',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'analysis', name: 'Analysis', order: 0, color: '#6B7280' },
+      { id: 'planning', name: 'Planning', order: 1, color: '#3B82F6' },
+      { id: 'approval', name: 'Approval', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Budget',
+          description: 'Plan marketing budget',
+          tasks: [
+            {
+              title: 'Analyze historical spend',
+              description: 'Review past budgets.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['analysis'],
+            },
+            {
+              title: 'Forecast marketing needs',
+              description: 'Project requirements.',
+              assigneeRole: 'lead',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['forecasting'],
+            },
+            {
+              title: 'Allocate budget by channel',
+              description: 'Distribute funds.',
+              assigneeRole: 'lead',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['allocation'],
+            },
+            {
+              title: 'Present for approval',
+              description: 'Get sign-off.',
+              assigneeRole: 'lead',
+              dueOffset: 21,
+              priority: 'high',
+              labels: ['approval'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['analysis', 'planning', 'approval'] },
+    },
+    settings: { financialPlanning: true },
+  },
 
-  { name: 'Marketing Team Onboarding', slug: 'marketing-team-onboarding', description: 'Onboard new marketing team members effectively.', category: 'marketing', icon: 'UserPlus', color: '#6366F1', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'preparation', name: 'Preparation', order: 0, color: '#6B7280' }, { id: 'week1', name: 'Week 1', order: 1, color: '#3B82F6' }, { id: 'month1', name: 'Month 1', order: 2, color: '#F59E0B' }, { id: 'complete', name: 'Complete', order: 3, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Onboarding', description: 'Onboard new hire', tasks: [{ title: 'Prepare onboarding materials', description: 'Ready documentation.', assigneeRole: 'lead', dueOffset: -7, priority: 'high', labels: ['preparation'] }, { title: 'Set up tools access', description: 'Configure accounts.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['setup'] }, { title: 'Conduct marketing orientation', description: 'Team introductions.', assigneeRole: 'lead', dueOffset: 3, priority: 'high', labels: ['orientation'] }, { title: 'Complete onboarding', description: 'Verify readiness.', assigneeRole: 'lead', dueOffset: 30, priority: 'high', labels: ['completion'] }] }], settings: { defaultView: 'board', statuses: ['preparation', 'week1', 'month1', 'complete'] } }, settings: { peopleManagement: true } },
+  {
+    name: 'Marketing Team Onboarding',
+    slug: 'marketing-team-onboarding',
+    description: 'Onboard new marketing team members effectively.',
+    category: 'marketing',
+    icon: 'UserPlus',
+    color: '#6366F1',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'preparation', name: 'Preparation', order: 0, color: '#6B7280' },
+      { id: 'week1', name: 'Week 1', order: 1, color: '#3B82F6' },
+      { id: 'month1', name: 'Month 1', order: 2, color: '#F59E0B' },
+      { id: 'complete', name: 'Complete', order: 3, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Onboarding',
+          description: 'Onboard new hire',
+          tasks: [
+            {
+              title: 'Prepare onboarding materials',
+              description: 'Ready documentation.',
+              assigneeRole: 'lead',
+              dueOffset: -7,
+              priority: 'high',
+              labels: ['preparation'],
+            },
+            {
+              title: 'Set up tools access',
+              description: 'Configure accounts.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['setup'],
+            },
+            {
+              title: 'Conduct marketing orientation',
+              description: 'Team introductions.',
+              assigneeRole: 'lead',
+              dueOffset: 3,
+              priority: 'high',
+              labels: ['orientation'],
+            },
+            {
+              title: 'Complete onboarding',
+              description: 'Verify readiness.',
+              assigneeRole: 'lead',
+              dueOffset: 30,
+              priority: 'high',
+              labels: ['completion'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['preparation', 'week1', 'month1', 'complete'] },
+    },
+    settings: { peopleManagement: true },
+  },
 
-  { name: 'Agency Selection Process', slug: 'agency-selection-process', description: 'Evaluate and select marketing agencies for partnerships.', category: 'marketing', icon: 'Building', color: '#F97316', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'rfp', name: 'RFP', order: 0, color: '#6B7280' }, { id: 'evaluation', name: 'Evaluation', order: 1, color: '#3B82F6' }, { id: 'selection', name: 'Selection', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Selection', description: 'Select agency', tasks: [{ title: 'Define agency requirements', description: 'Document needs.', assigneeRole: 'lead', dueOffset: 0, priority: 'high', labels: ['requirements'] }, { title: 'Create and distribute RFP', description: 'Send RFP.', assigneeRole: 'member', dueOffset: 7, priority: 'high', labels: ['rfp'] }, { title: 'Evaluate proposals', description: 'Review submissions.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['evaluation'] }, { title: 'Select and onboard agency', description: 'Make selection.', assigneeRole: 'lead', dueOffset: 42, priority: 'high', labels: ['selection'] }] }], settings: { defaultView: 'board', statuses: ['rfp', 'evaluation', 'selection'] } }, settings: { procurement: true } },
+  {
+    name: 'Agency Selection Process',
+    slug: 'agency-selection-process',
+    description: 'Evaluate and select marketing agencies for partnerships.',
+    category: 'marketing',
+    icon: 'Building',
+    color: '#F97316',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'rfp', name: 'RFP', order: 0, color: '#6B7280' },
+      { id: 'evaluation', name: 'Evaluation', order: 1, color: '#3B82F6' },
+      { id: 'selection', name: 'Selection', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Selection',
+          description: 'Select agency',
+          tasks: [
+            {
+              title: 'Define agency requirements',
+              description: 'Document needs.',
+              assigneeRole: 'lead',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['requirements'],
+            },
+            {
+              title: 'Create and distribute RFP',
+              description: 'Send RFP.',
+              assigneeRole: 'member',
+              dueOffset: 7,
+              priority: 'high',
+              labels: ['rfp'],
+            },
+            {
+              title: 'Evaluate proposals',
+              description: 'Review submissions.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+            {
+              title: 'Select and onboard agency',
+              description: 'Make selection.',
+              assigneeRole: 'lead',
+              dueOffset: 42,
+              priority: 'high',
+              labels: ['selection'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['rfp', 'evaluation', 'selection'] },
+    },
+    settings: { procurement: true },
+  },
 
-  { name: 'Vendor Management', slug: 'vendor-management', description: 'Manage relationships with marketing vendors and suppliers.', category: 'marketing', icon: 'Users', color: '#EC4899', projectType: 'kanban', isFeatured: false, kanbanStages: [{ id: 'evaluation', name: 'Evaluation', order: 0, color: '#6B7280' }, { id: 'active', name: 'Active', order: 1, color: '#3B82F6' }, { id: 'review', name: 'Review', order: 2, color: '#10B981' }], customFields: [], structure: { sections: [{ name: 'Management', description: 'Manage vendors', tasks: [{ title: 'Inventory current vendors', description: 'List all vendors.', assigneeRole: 'member', dueOffset: 0, priority: 'high', labels: ['inventory'] }, { title: 'Evaluate vendor performance', description: 'Review performance.', assigneeRole: 'member', dueOffset: 14, priority: 'high', labels: ['evaluation'] }, { title: 'Negotiate contracts', description: 'Manage agreements.', assigneeRole: 'lead', dueOffset: 28, priority: 'high', labels: ['contracts'] }, { title: 'Conduct quarterly reviews', description: 'Ongoing assessment.', assigneeRole: 'lead', dueOffset: 90, priority: 'medium', labels: ['review'] }] }], settings: { defaultView: 'board', statuses: ['evaluation', 'active', 'review'] } }, settings: { vendorRelations: true } },
+  {
+    name: 'Vendor Management',
+    slug: 'vendor-management',
+    description: 'Manage relationships with marketing vendors and suppliers.',
+    category: 'marketing',
+    icon: 'Users',
+    color: '#EC4899',
+    projectType: 'kanban',
+    isFeatured: false,
+    kanbanStages: [
+      { id: 'evaluation', name: 'Evaluation', order: 0, color: '#6B7280' },
+      { id: 'active', name: 'Active', order: 1, color: '#3B82F6' },
+      { id: 'review', name: 'Review', order: 2, color: '#10B981' },
+    ],
+    customFields: [],
+    structure: {
+      sections: [
+        {
+          name: 'Management',
+          description: 'Manage vendors',
+          tasks: [
+            {
+              title: 'Inventory current vendors',
+              description: 'List all vendors.',
+              assigneeRole: 'member',
+              dueOffset: 0,
+              priority: 'high',
+              labels: ['inventory'],
+            },
+            {
+              title: 'Evaluate vendor performance',
+              description: 'Review performance.',
+              assigneeRole: 'member',
+              dueOffset: 14,
+              priority: 'high',
+              labels: ['evaluation'],
+            },
+            {
+              title: 'Negotiate contracts',
+              description: 'Manage agreements.',
+              assigneeRole: 'lead',
+              dueOffset: 28,
+              priority: 'high',
+              labels: ['contracts'],
+            },
+            {
+              title: 'Conduct quarterly reviews',
+              description: 'Ongoing assessment.',
+              assigneeRole: 'lead',
+              dueOffset: 90,
+              priority: 'medium',
+              labels: ['review'],
+            },
+          ],
+        },
+      ],
+      settings: { defaultView: 'board', statuses: ['evaluation', 'active', 'review'] },
+    },
+    settings: { vendorRelations: true },
+  },
 ];

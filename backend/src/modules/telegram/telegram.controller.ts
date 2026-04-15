@@ -49,11 +49,7 @@ export class TelegramController {
     @CurrentUser('sub') userId: string,
     @Body() dto: TelegramConnectDto,
   ) {
-    const connection = await this.telegramService.saveConnection(
-      userId,
-      workspaceId,
-      dto.botToken,
-    );
+    const connection = await this.telegramService.saveConnection(userId, workspaceId, dto.botToken);
     return {
       data: connection,
       message: 'Telegram bot connected successfully',
@@ -80,10 +76,7 @@ export class TelegramController {
   @ApiOperation({ summary: 'Disconnect your Telegram bot' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Disconnected successfully' })
-  async disconnect(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async disconnect(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     await this.telegramService.disconnect(userId, workspaceId);
     return {
       data: null,
@@ -96,9 +89,7 @@ export class TelegramController {
   @ApiOperation({ summary: 'Test a Telegram bot token before connecting' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Bot token test result' })
-  async testConnection(
-    @Body() dto: TelegramTestConnectionDto,
-  ) {
+  async testConnection(@Body() dto: TelegramTestConnectionDto) {
     const result = await this.telegramService.testBotToken(dto.botToken);
     return {
       data: result,
@@ -112,10 +103,7 @@ export class TelegramController {
   @ApiOperation({ summary: 'Get bot information (getMe)' })
   @ApiParam({ name: 'workspaceId', description: 'Workspace ID' })
   @ApiResponse({ status: 200, description: 'Bot information' })
-  async getMe(
-    @Param('workspaceId') workspaceId: string,
-    @CurrentUser('sub') userId: string,
-  ) {
+  async getMe(@Param('workspaceId') workspaceId: string, @CurrentUser('sub') userId: string) {
     const botInfo = await this.telegramService.getMe(userId, workspaceId);
     return {
       data: botInfo,

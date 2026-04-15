@@ -15,6 +15,10 @@
 </p>
 
 <p align="center">
+  <img src="docs/hero-preview.gif" alt="Deskive landing hero preview" width="820">
+</p>
+
+<p align="center">
   <a href="https://github.com/deskive/deskive/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-GNU%20AGPL%203.0-blue.svg" alt="License"></a>
   <a href="https://github.com/deskive/deskive/stargazers"><img src="https://img.shields.io/github/stars/deskive/deskive?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/deskive/deskive/issues"><img src="https://img.shields.io/github/issues/deskive/deskive" alt="Issues"></a>
@@ -330,6 +334,25 @@ Deskive ships with 40+ integrated modules across these categories:
 | **Platform** | Auth (OAuth, SSO), Workspace Management, Roles & Permissions, Search (semantic), Analytics, Integrations |
 
 [View detailed feature documentation &rarr;](https://github.com/deskive/deskive/wiki)
+
+## Pluggable Providers
+
+Every backing service is swappable via a single env var. Defaults keep Deskive runnable with zero cloud credentials; swap in a managed provider when you're ready.
+
+| Domain | Env var | Providers shipped |
+|---|---|---|
+| **Storage** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs` (default), `s3`, `r2`, `minio`, `b2`, `gcs`, `azure`, `none` |
+| **Email** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`, `resend`, `sendgrid`, `postmark`, `ses`, `mailgun`, `none` |
+| **Push** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`, `fcm`, `onesignal`, `expo`, `none` |
+| **Search** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm` (default, zero extra infra), `meilisearch`, `typesense`, `none` |
+| **Auth / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`, `google`, `github`, `magic-link` (passwordless, JWT-based) |
+| **Video** | `VIDEO_PROVIDER` | `livekit`, `jitsi`, `daily`, `agora`, `whereby`, `none` |
+| **AI** | `AI_PROVIDER` | `openai`, `anthropic`, `gemini`, `groq`, `ollama` (local) |
+
+- **Keyword + semantic search coexist.** `SearchProviderService` handles trigram/faceted keyword search; `SearchService` keeps handling Qdrant vector/semantic search.
+- **Optional SDKs are lazy-loaded** — `@azure/storage-blob`, `@google-cloud/storage`, `firebase-admin`, `livekit-server-sdk`, and `agora-token` are `optionalDependencies`, so picking `local-fs` / `smtp` / `webpush` / `pg-trgm` adds zero install cost.
+- **Smoke tests** ship with each adapter (`backend/scripts/smoke-test-*-providers.ts`) — 27 / 45 / 61 / 55 / 37 assertions for storage / email / push / search / auth respectively, all passing.
+- **Full docs:** see `backend/docs/providers/` for per-provider env vars and setup.
 
 ## i18n
 

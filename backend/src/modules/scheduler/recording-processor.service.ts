@@ -104,7 +104,9 @@ export class RecordingProcessorService {
       });
 
       if (!call) {
-        this.logger.warn(`[Recording] Video call not found for recording ${recordingId}, marking as failed`);
+        this.logger.warn(
+          `[Recording] Video call not found for recording ${recordingId}, marking as failed`,
+        );
         await this.markRecordingFailed(recordingId, recording, 'Video call not found');
         return;
       }
@@ -117,7 +119,10 @@ export class RecordingProcessorService {
       try {
         // Use the new endpoint that queries by egress ID
         const livekitRecording = await this.dbVideoService.getRecordingByEgressId(egressId);
-        this.logger.log(`[Recording] LiveKit recording response:`, JSON.stringify(livekitRecording, null, 2));
+        this.logger.log(
+          `[Recording] LiveKit recording response:`,
+          JSON.stringify(livekitRecording, null, 2),
+        );
 
         if (livekitRecording) {
           recordingUrl = livekitRecording.fileUrl || null;
@@ -142,35 +147,53 @@ export class RecordingProcessorService {
 
         // If recording is older than 10 minutes and not found in database, mark as failed
         if (minutesPassed > 10) {
-          this.logger.warn(`[Recording] Recording ${recordingId} not found in LiveKit after ${minutesPassed.toFixed(1)} mins, marking as failed`);
-          await this.markRecordingFailed(recordingId, recording, 'Recording not found in LiveKit (legacy recording)');
+          this.logger.warn(
+            `[Recording] Recording ${recordingId} not found in LiveKit after ${minutesPassed.toFixed(1)} mins, marking as failed`,
+          );
+          await this.markRecordingFailed(
+            recordingId,
+            recording,
+            'Recording not found in LiveKit (legacy recording)',
+          );
           return;
         }
       }
 
       // Check timeout using created_at as fallback
       if (!recordingUrl) {
-        const checkTime = recording.completed_at ? new Date(recording.completed_at) : new Date(recording.created_at);
+        const checkTime = recording.completed_at
+          ? new Date(recording.completed_at)
+          : new Date(recording.created_at);
         const now = new Date();
         const minutesPassed = (now.getTime() - checkTime.getTime()) / (1000 * 60);
 
         if (minutesPassed > 30) {
-          this.logger.warn(`[Recording] Recording ${recordingId} timed out after ${minutesPassed.toFixed(1)} minutes`);
+          this.logger.warn(
+            `[Recording] Recording ${recordingId} timed out after ${minutesPassed.toFixed(1)} minutes`,
+          );
           await this.markRecordingFailed(recordingId, recording, 'Recording processing timed out');
         } else {
-          this.logger.debug(`[Recording] Recording ${recordingId} still processing (no URL yet, ${minutesPassed.toFixed(1)} mins elapsed)`);
+          this.logger.debug(
+            `[Recording] Recording ${recordingId} still processing (no URL yet, ${minutesPassed.toFixed(1)} mins elapsed)`,
+          );
         }
         return;
       }
 
-      this.logger.log(`[Recording] Recording ${recordingId} is complete! URL: ${recordingUrl}, Size: ${fileSize}`);
+      this.logger.log(
+        `[Recording] Recording ${recordingId} is complete! URL: ${recordingUrl}, Size: ${fileSize}`,
+      );
 
       // Update recording with URL and completed status
-      await this.db.update('video_call_recordings', { id: recordingId }, {
-        status: 'completed',
-        recording_url: recordingUrl,
-        file_size_bytes: fileSize.toString(),
-      });
+      await this.db.update(
+        'video_call_recordings',
+        { id: recordingId },
+        {
+          status: 'completed',
+          recording_url: recordingUrl,
+          file_size_bytes: fileSize.toString(),
+        },
+      );
 
       // Create file entry in Files/Videos section
       await this.createFileEntry(recording, call, recordingUrl, fileSize);
@@ -182,31 +205,46 @@ export class RecordingProcessorService {
       try {
         this.videoCallsGateway.sendRecordingMessage(call.id, recordingUrl);
       } catch (error) {
-        this.logger.debug(`[Recording] Could not send chat message (call may have ended): ${error.message}`);
+        this.logger.debug(
+          `[Recording] Could not send chat message (call may have ended): ${error.message}`,
+        );
       }
 
       this.logger.log(`[Recording] Successfully processed recording ${recordingId}`);
     } catch (error) {
-      this.logger.error(`[Recording] Error processing recording ${recordingId}: ${error.message}`, error.stack);
+      this.logger.error(
+        `[Recording] Error processing recording ${recordingId}: ${error.message}`,
+        error.stack,
+      );
     }
   }
 
   /**
    * Mark a recording as failed with a reason
    */
-  private async markRecordingFailed(recordingId: string, recording: any, reason: string): Promise<void> {
+  private async markRecordingFailed(
+    recordingId: string,
+    recording: any,
+    reason: string,
+  ): Promise<void> {
     try {
-      await this.db.update('video_call_recordings', { id: recordingId }, {
-        status: 'failed',
-        metadata: {
-          ...recording.metadata,
-          failure_reason: reason,
-          failed_at: new Date().toISOString(),
+      await this.db.update(
+        'video_call_recordings',
+        { id: recordingId },
+        {
+          status: 'failed',
+          metadata: {
+            ...recording.metadata,
+            failure_reason: reason,
+            failed_at: new Date().toISOString(),
+          },
         },
-      });
+      );
       this.logger.log(`[Recording] Marked recording ${recordingId} as failed: ${reason}`);
     } catch (error) {
-      this.logger.error(`[Recording] Failed to mark recording ${recordingId} as failed: ${error.message}`);
+      this.logger.error(
+        `[Recording] Failed to mark recording ${recordingId} as failed: ${error.message}`,
+      );
     }
   }
 
@@ -225,7 +263,11 @@ export class RecordingProcessorService {
 
       // Mark as failed if older than 5 minutes (for cleanup)
       if (minutesPassed > 5) {
-        await this.markRecordingFailed(recording.id, recording, 'Manual cleanup - legacy recording');
+        await this.markRecordingFailed(
+          recording.id,
+          recording,
+          'Manual cleanup - legacy recording',
+        );
         cleanedIds.push(recording.id);
       }
     }
@@ -245,7 +287,9 @@ export class RecordingProcessorService {
   ): Promise<void> {
     try {
       const callTitle = call.title || 'Video Call Recording';
-      const formattedDate = new Date(recording.started_at || recording.created_at).toLocaleDateString('en-US', {
+      const formattedDate = new Date(
+        recording.started_at || recording.created_at,
+      ).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
         day: 'numeric',
@@ -280,7 +324,9 @@ export class RecordingProcessorService {
       };
 
       const createdFile = await this.db.insert('files', fileData);
-      this.logger.log(`[Recording] Created file entry: ${createdFile.id} for recording ${recording.id}`);
+      this.logger.log(
+        `[Recording] Created file entry: ${createdFile.id} for recording ${recording.id}`,
+      );
     } catch (error) {
       this.logger.error(`[Recording] Failed to create file entry: ${error.message}`, error.stack);
     }
@@ -339,7 +385,9 @@ export class RecordingProcessorService {
               },
             });
           } catch (error) {
-            this.logger.debug(`[Recording] Failed to notify participant ${participant.user_id}: ${error.message}`);
+            this.logger.debug(
+              `[Recording] Failed to notify participant ${participant.user_id}: ${error.message}`,
+            );
           }
         }
       }

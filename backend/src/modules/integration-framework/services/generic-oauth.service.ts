@@ -33,16 +33,12 @@ export class GenericOAuthService {
     const oauthConfig = integration.authConfig as OAuthConfig;
 
     if (!oauthConfig.authorizationUrl) {
-      throw new BadRequestException(
-        `Integration '${integration.slug}' does not support OAuth`,
-      );
+      throw new BadRequestException(`Integration '${integration.slug}' does not support OAuth`);
     }
 
     const clientId = this.getEnvValue(oauthConfig.clientIdEnvKey);
     if (!clientId) {
-      throw new BadRequestException(
-        `OAuth client ID not configured for '${integration.slug}'`,
-      );
+      throw new BadRequestException(`OAuth client ID not configured for '${integration.slug}'`);
     }
 
     const state = this.generateState(integration.slug, userId, workspaceId, returnUrl);
@@ -87,9 +83,7 @@ export class GenericOAuthService {
     const clientSecret = this.getEnvValue(oauthConfig.clientSecretEnvKey);
 
     if (!clientId || !clientSecret) {
-      throw new BadRequestException(
-        `OAuth credentials not configured for '${integration.slug}'`,
-      );
+      throw new BadRequestException(`OAuth credentials not configured for '${integration.slug}'`);
     }
 
     const redirectUri = this.getRedirectUri(integration.slug);
@@ -123,9 +117,7 @@ export class GenericOAuthService {
         `Failed to exchange code for tokens for ${integration.slug}`,
         error?.response?.data || error,
       );
-      throw new UnauthorizedException(
-        `Failed to authenticate with ${integration.name}`,
-      );
+      throw new UnauthorizedException(`Failed to authenticate with ${integration.name}`);
     }
   }
 
@@ -142,9 +134,7 @@ export class GenericOAuthService {
     const clientSecret = this.getEnvValue(oauthConfig.clientSecretEnvKey);
 
     if (!clientId || !clientSecret) {
-      throw new BadRequestException(
-        `OAuth credentials not configured for '${integration.slug}'`,
-      );
+      throw new BadRequestException(`OAuth credentials not configured for '${integration.slug}'`);
     }
 
     const tokenData = {
@@ -177,9 +167,7 @@ export class GenericOAuthService {
         `Failed to refresh token for ${integration.slug}`,
         error?.response?.data || error,
       );
-      throw new UnauthorizedException(
-        `Failed to refresh authentication with ${integration.name}`,
-      );
+      throw new UnauthorizedException(`Failed to refresh authentication with ${integration.name}`);
     }
   }
 
@@ -221,10 +209,7 @@ export class GenericOAuthService {
   /**
    * Revoke OAuth token (if supported)
    */
-  async revokeToken(
-    integration: IntegrationCatalogEntry,
-    token: string,
-  ): Promise<boolean> {
+  async revokeToken(integration: IntegrationCatalogEntry, token: string): Promise<boolean> {
     const oauthConfig = integration.authConfig as OAuthConfig;
 
     if (!oauthConfig.revokeUrl) {
@@ -234,15 +219,11 @@ export class GenericOAuthService {
 
     try {
       await firstValueFrom(
-        this.httpService.post(
-          oauthConfig.revokeUrl,
-          new URLSearchParams({ token }),
-          {
-            headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-            },
+        this.httpService.post(oauthConfig.revokeUrl, new URLSearchParams({ token }), {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-        ),
+        }),
       );
 
       this.logger.log(`Successfully revoked token for ${integration.slug}`);
@@ -307,8 +288,15 @@ export class GenericOAuthService {
   private getRedirectUri(integrationSlug?: string): string {
     // Google services use a dedicated redirect URI
     const googleServices = [
-      'google-drive', 'gmail', 'google-calendar', 'google-sheets',
-      'google-chat', 'google-meet', 'google-cloud', 'google-analytics', 'youtube',
+      'google-drive',
+      'gmail',
+      'google-calendar',
+      'google-sheets',
+      'google-chat',
+      'google-meet',
+      'google-cloud',
+      'google-analytics',
+      'youtube',
     ];
 
     if (integrationSlug && googleServices.includes(integrationSlug)) {
@@ -320,9 +308,10 @@ export class GenericOAuthService {
     }
 
     // Default redirect URI for other providers
-    const baseUrl = this.configService.get<string>('API_BASE_URL') ||
-                    // TODO: configure base URL
-                    'http://localhost:3000';
+    const baseUrl =
+      this.configService.get<string>('API_BASE_URL') ||
+      // TODO: configure base URL
+      'http://localhost:3000';
     return `${baseUrl}/api/v1/integrations/oauth/callback`;
   }
 
@@ -354,9 +343,7 @@ export class GenericOAuthService {
     const scope = data[mapping.scope || 'scope'] as string | undefined;
     const tokenType = (data[mapping.tokenType || 'token_type'] as string) || 'Bearer';
 
-    const expiresAt = expiresIn
-      ? new Date(Date.now() + expiresIn * 1000)
-      : undefined;
+    const expiresAt = expiresIn ? new Date(Date.now() + expiresIn * 1000) : undefined;
 
     return {
       accessToken,
@@ -377,7 +364,9 @@ export class GenericOAuthService {
     // Handle nested paths (e.g., 'data.user.id')
     const getValue = (obj: Record<string, unknown>, path: string): unknown => {
       return path.split('.').reduce((current, key) => {
-        return current && typeof current === 'object' ? (current as Record<string, unknown>)[key] : undefined;
+        return current && typeof current === 'object'
+          ? (current as Record<string, unknown>)[key]
+          : undefined;
       }, obj as unknown);
     };
 
@@ -385,13 +374,16 @@ export class GenericOAuthService {
       id: String(getValue(data, mapping.id || 'id') || getValue(data, 'sub') || 'unknown'),
       email: (getValue(data, mapping.email || 'email') as string) || undefined,
       name: (getValue(data, mapping.name || 'name') as string) || undefined,
-      avatar: (getValue(data, mapping.avatar || 'picture') || getValue(data, 'avatar_url')) as string | undefined,
+      avatar: (getValue(data, mapping.avatar || 'picture') || getValue(data, 'avatar_url')) as
+        | string
+        | undefined,
       metadata: data,
     };
   }
 
   private generateNonce(): string {
-    return Math.random().toString(36).substring(2, 15) +
-           Math.random().toString(36).substring(2, 15);
+    return (
+      Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
+    );
   }
 }

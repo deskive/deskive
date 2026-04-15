@@ -3,10 +3,7 @@
  * Core accounting documents, journal entries, and financial records
  */
 
-import {
-  DocumentType,
-  DocumentTemplateCategory,
-} from '../../../dto/document-template.dto';
+import { DocumentType, DocumentTemplateCategory } from '../../../dto/document-template.dto';
 
 export const FINANCE_ACCOUNTING_TEMPLATES = [
   {
@@ -59,7 +56,13 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'entry_number', type: 'text', label: 'Entry Number', required: true },
       { key: 'entry_date', type: 'date', label: 'Entry Date', required: true },
       { key: 'prepared_by', type: 'text', label: 'Prepared By', required: true },
-      { key: 'entry_type', type: 'select', label: 'Entry Type', required: true, options: ['Standard', 'Adjusting', 'Closing', 'Reversing', 'Correcting'] },
+      {
+        key: 'entry_type',
+        type: 'select',
+        label: 'Entry Type',
+        required: true,
+        options: ['Standard', 'Adjusting', 'Closing', 'Reversing', 'Correcting'],
+      },
       { key: 'source_document', type: 'text', label: 'Source Document', required: false },
       { key: 'acct_1', type: 'text', label: 'Account Code 1', required: true },
       { key: 'name_1', type: 'text', label: 'Account Name 1', required: true },
@@ -83,9 +86,24 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'supporting_refs', type: 'textarea', label: 'Supporting References', required: false },
     ],
     signatureFields: [
-      { id: 'preparer_signature', label: 'Preparer Signature', required: true, position: { x: 100, y: 700 } },
-      { id: 'reviewer_signature', label: 'Reviewer Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'approver_signature', label: 'Approver Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'preparer_signature',
+        label: 'Preparer Signature',
+        required: true,
+        position: { x: 100, y: 700 },
+      },
+      {
+        id: 'reviewer_signature',
+        label: 'Reviewer Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'approver_signature',
+        label: 'Approver Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -234,7 +252,12 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'ar_debit', type: 'currency', label: 'Accounts Receivable', required: true },
       { key: 'inventory_debit', type: 'currency', label: 'Inventory', required: true },
       { key: 'fixed_assets_debit', type: 'currency', label: 'Fixed Assets', required: true },
-      { key: 'accum_depr_credit', type: 'currency', label: 'Accumulated Depreciation', required: true },
+      {
+        key: 'accum_depr_credit',
+        type: 'currency',
+        label: 'Accumulated Depreciation',
+        required: true,
+      },
       { key: 'ap_credit', type: 'currency', label: 'Accounts Payable', required: true },
       { key: 'payroll_credit', type: 'currency', label: 'Payroll Liabilities', required: true },
       { key: 'ltdebt_credit', type: 'currency', label: 'Long-term Debt', required: true },
@@ -274,14 +297,38 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
         { insert: '\n', attributes: { header: 1 } },
         { insert: '\n{{company_name}}' },
         { insert: '\nAs of {{as_of_date}}' },
-        { insert: '\n\n| Asset ID | Description | Category | Acquisition Date | Cost | Useful Life | Depr Method | Accum Depr | Net Book Value |' },
-        { insert: '\n|----------|-------------|----------|------------------|------|-------------|-------------|------------|----------------|' },
-        { insert: '\n| {{id_1}} | {{desc_1}} | {{cat_1}} | {{date_1}} | {{cost_1}} | {{life_1}} | {{method_1}} | {{accum_1}} | {{nbv_1}} |' },
-        { insert: '\n| {{id_2}} | {{desc_2}} | {{cat_2}} | {{date_2}} | {{cost_2}} | {{life_2}} | {{method_2}} | {{accum_2}} | {{nbv_2}} |' },
-        { insert: '\n| {{id_3}} | {{desc_3}} | {{cat_3}} | {{date_3}} | {{cost_3}} | {{life_3}} | {{method_3}} | {{accum_3}} | {{nbv_3}} |' },
-        { insert: '\n| {{id_4}} | {{desc_4}} | {{cat_4}} | {{date_4}} | {{cost_4}} | {{life_4}} | {{method_4}} | {{accum_4}} | {{nbv_4}} |' },
-        { insert: '\n| {{id_5}} | {{desc_5}} | {{cat_5}} | {{date_5}} | {{cost_5}} | {{life_5}} | {{method_5}} | {{accum_5}} | {{nbv_5}} |' },
-        { insert: '\n|----------|-------------|----------|------------------|------|-------------|-------------|------------|----------------|' },
+        {
+          insert:
+            '\n\n| Asset ID | Description | Category | Acquisition Date | Cost | Useful Life | Depr Method | Accum Depr | Net Book Value |',
+        },
+        {
+          insert:
+            '\n|----------|-------------|----------|------------------|------|-------------|-------------|------------|----------------|',
+        },
+        {
+          insert:
+            '\n| {{id_1}} | {{desc_1}} | {{cat_1}} | {{date_1}} | {{cost_1}} | {{life_1}} | {{method_1}} | {{accum_1}} | {{nbv_1}} |',
+        },
+        {
+          insert:
+            '\n| {{id_2}} | {{desc_2}} | {{cat_2}} | {{date_2}} | {{cost_2}} | {{life_2}} | {{method_2}} | {{accum_2}} | {{nbv_2}} |',
+        },
+        {
+          insert:
+            '\n| {{id_3}} | {{desc_3}} | {{cat_3}} | {{date_3}} | {{cost_3}} | {{life_3}} | {{method_3}} | {{accum_3}} | {{nbv_3}} |',
+        },
+        {
+          insert:
+            '\n| {{id_4}} | {{desc_4}} | {{cat_4}} | {{date_4}} | {{cost_4}} | {{life_4}} | {{method_4}} | {{accum_4}} | {{nbv_4}} |',
+        },
+        {
+          insert:
+            '\n| {{id_5}} | {{desc_5}} | {{cat_5}} | {{date_5}} | {{cost_5}} | {{life_5}} | {{method_5}} | {{accum_5}} | {{nbv_5}} |',
+        },
+        {
+          insert:
+            '\n|----------|-------------|----------|------------------|------|-------------|-------------|------------|----------------|',
+        },
         { insert: '\n| ' },
         { insert: 'TOTALS', attributes: { bold: true } },
         { insert: ' | | | | ' },
@@ -298,7 +345,10 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
         { insert: '\n- Vehicles' },
         { insert: '\n- Computer Equipment' },
         { insert: '\n- Leasehold Improvements' },
-        { insert: '\n\nDepreciation Methods: SL = Straight Line, DDB = Double Declining Balance, SYD = Sum of Years Digits' },
+        {
+          insert:
+            '\n\nDepreciation Methods: SL = Straight Line, DDB = Double Declining Balance, SYD = Sum of Years Digits',
+        },
         { insert: '\n\nPrepared By: {{prepared_by}}' },
         { insert: '\nDate: {{prepared_date}}' },
         { insert: '\n' },
@@ -353,7 +403,12 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'accum_5', type: 'currency', label: 'Accumulated Depreciation 5', required: false },
       { key: 'nbv_5', type: 'currency', label: 'Net Book Value 5', required: false },
       { key: 'total_cost', type: 'currency', label: 'Total Cost', required: true },
-      { key: 'total_accum', type: 'currency', label: 'Total Accumulated Depreciation', required: true },
+      {
+        key: 'total_accum',
+        type: 'currency',
+        label: 'Total Accumulated Depreciation',
+        required: true,
+      },
       { key: 'total_nbv', type: 'currency', label: 'Total Net Book Value', required: true },
       { key: 'prepared_by', type: 'text', label: 'Prepared By', required: true },
       { key: 'prepared_date', type: 'date', label: 'Prepared Date', required: true },
@@ -447,13 +502,35 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'gl_2', type: 'text', label: 'GL Account 2', required: false },
       { key: 'dept_2', type: 'text', label: 'Department 2', required: false },
       { key: 'gl_amt_2', type: 'currency', label: 'GL Amount 2', required: false },
-      { key: 'payment_terms', type: 'select', label: 'Payment Terms', required: true, options: ['Net 15', 'Net 30', 'Net 45', 'Net 60', 'Due on Receipt'] },
+      {
+        key: 'payment_terms',
+        type: 'select',
+        label: 'Payment Terms',
+        required: true,
+        options: ['Net 15', 'Net 30', 'Net 45', 'Net 60', 'Due on Receipt'],
+      },
       { key: 'due_date', type: 'date', label: 'Due Date', required: true },
-      { key: 'payment_method', type: 'select', label: 'Payment Method', required: true, options: ['Check', 'ACH', 'Wire', 'Credit Card'] },
+      {
+        key: 'payment_method',
+        type: 'select',
+        label: 'Payment Method',
+        required: true,
+        options: ['Check', 'ACH', 'Wire', 'Credit Card'],
+      },
     ],
     signatureFields: [
-      { id: 'preparer_signature', label: 'Preparer Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'approver_signature', label: 'Approver Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'preparer_signature',
+        label: 'Preparer Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'approver_signature',
+        label: 'Approver Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -519,7 +596,18 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'salvage_value', type: 'currency', label: 'Salvage Value', required: true },
       { key: 'depreciable_base', type: 'currency', label: 'Depreciable Base', required: true },
       { key: 'useful_life', type: 'number', label: 'Useful Life (Years)', required: true },
-      { key: 'depreciation_method', type: 'select', label: 'Depreciation Method', required: true, options: ['Straight Line', 'Double Declining Balance', 'Sum of Years Digits', 'Units of Production'] },
+      {
+        key: 'depreciation_method',
+        type: 'select',
+        label: 'Depreciation Method',
+        required: true,
+        options: [
+          'Straight Line',
+          'Double Declining Balance',
+          'Sum of Years Digits',
+          'Units of Production',
+        ],
+      },
       { key: 'year_1', type: 'text', label: 'Year 1', required: true },
       { key: 'begin_1', type: 'currency', label: 'Beginning Value 1', required: true },
       { key: 'depr_1', type: 'currency', label: 'Depreciation 1', required: true },
@@ -545,8 +633,18 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'depr_5', type: 'currency', label: 'Depreciation 5', required: false },
       { key: 'accum_5', type: 'currency', label: 'Accumulated 5', required: false },
       { key: 'end_5', type: 'currency', label: 'Ending Value 5', required: false },
-      { key: 'current_period_depr', type: 'currency', label: 'Current Period Depreciation', required: true },
-      { key: 'accum_depr_to_date', type: 'currency', label: 'Accumulated Depreciation to Date', required: true },
+      {
+        key: 'current_period_depr',
+        type: 'currency',
+        label: 'Current Period Depreciation',
+        required: true,
+      },
+      {
+        key: 'accum_depr_to_date',
+        type: 'currency',
+        label: 'Accumulated Depreciation to Date',
+        required: true,
+      },
       { key: 'net_book_value', type: 'currency', label: 'Net Book Value', required: true },
       { key: 'prepared_by', type: 'text', label: 'Prepared By', required: true },
       { key: 'prepared_date', type: 'date', label: 'Prepared Date', required: true },
@@ -636,7 +734,12 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'notes', type: 'textarea', label: 'Notes', required: false },
     ],
     signatureFields: [
-      { id: 'reviewer_signature', label: 'Reviewer Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'reviewer_signature',
+        label: 'Reviewer Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',
@@ -719,8 +822,18 @@ export const FINANCE_ACCOUNTING_TEMPLATES = [
       { key: 'close_date', type: 'date', label: 'Close Date', required: true },
     ],
     signatureFields: [
-      { id: 'completed_signature', label: 'Completed By Signature', required: true, position: { x: 100, y: 750 } },
-      { id: 'reviewer_signature', label: 'Reviewer Signature', required: true, position: { x: 100, y: 800 } },
+      {
+        id: 'completed_signature',
+        label: 'Completed By Signature',
+        required: true,
+        position: { x: 100, y: 750 },
+      },
+      {
+        id: 'reviewer_signature',
+        label: 'Reviewer Signature',
+        required: true,
+        position: { x: 100, y: 800 },
+      },
     ],
     settings: {
       paperSize: 'A4',

@@ -7,20 +7,9 @@ import { GoogleSheetsSyncService } from './google-sheets-sync.service';
 import { AuthModule } from '../../auth/auth.module';
 
 @Module({
-  imports: [
-    ConfigModule,
-    AuthModule,
-  ],
+  imports: [ConfigModule, AuthModule],
   controllers: [GoogleSheetsController],
-  providers: [
-    GoogleSheetsService,
-    GoogleSheetsOAuthService,
-    GoogleSheetsSyncService,
-  ],
-  exports: [
-    GoogleSheetsService,
-    GoogleSheetsOAuthService,
-    GoogleSheetsSyncService,
-  ],
+  providers: [GoogleSheetsService, GoogleSheetsOAuthService, GoogleSheetsSyncService],
+  exports: [GoogleSheetsService, GoogleSheetsOAuthService, GoogleSheetsSyncService],
 })
 export class GoogleSheetsModule {}

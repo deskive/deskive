@@ -70,7 +70,9 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
       this.logger.log(`Handshake auth: ${JSON.stringify(client.handshake.auth)}`);
 
       // Check both query and auth for workspaceId (Flutter sends in both)
-      const workspaceId = client.handshake.query?.workspaceId as string || client.handshake.auth?.workspaceId as string;
+      const workspaceId =
+        (client.handshake.query?.workspaceId as string) ||
+        (client.handshake.auth?.workspaceId as string);
       if (!workspaceId) {
         this.logger.warn(`Note collaboration connection rejected: No workspace ID - ${client.id}`);
         client.disconnect();
@@ -92,7 +94,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
         userId: client.userId,
         userName: client.userName,
       });
-
     } catch (error) {
       this.logger.error('Connection error:', error);
       client.disconnect();
@@ -178,7 +179,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
         user,
         users,
       };
-
     } catch (error) {
       this.logger.error(`Failed to join note ${data.noteId}:`, error);
       return { success: false, error: 'Failed to join note' };
@@ -257,7 +257,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
       }
 
       return { success };
-
     } catch (error) {
       this.logger.error(`Failed to apply update for note ${data.noteId}:`, error);
       return { success: false, error: 'Failed to apply update' };
@@ -293,7 +292,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
       }
 
       return { success };
-
     } catch (error) {
       this.logger.error(`Failed to apply awareness update for note ${data.noteId}:`, error);
       return { success: false, error: 'Failed to apply awareness update' };
@@ -333,7 +331,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
       }
 
       return { success: true };
-
     } catch (error) {
       this.logger.error(`Failed to update cursor for note ${data.noteId}:`, error);
       return { success: false, error: 'Failed to update cursor' };
@@ -486,7 +483,6 @@ export class NoteCollaborationGateway implements OnGatewayConnection, OnGatewayD
       }
 
       return { success: true };
-
     } catch (error) {
       this.logger.error(`Failed to handle sync request for note ${data.noteId}:`, error);
       return { success: false, error: 'Failed to sync' };

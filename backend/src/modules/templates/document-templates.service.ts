@@ -104,11 +104,7 @@ export class DocumentTemplatesService {
   async ensureTableExists(): Promise<boolean> {
     try {
       // Try to query the table to check if it exists
-      await this.db
-        .table('document_templates')
-        .select('id')
-        .limit(1)
-        .execute();
+      await this.db.table('document_templates').select('id').limit(1).execute();
       // Table exists - no need to log every startup
       return true;
     } catch (error: any) {
@@ -143,9 +139,21 @@ export class DocumentTemplatesService {
   }> {
     // Select only necessary fields for listing (exclude large content fields)
     const listingFields = [
-      'id', 'workspace_id', 'name', 'slug', 'description', 'document_type',
-      'category', 'icon', 'color', 'is_system', 'is_featured', 'usage_count',
-      'created_by', 'created_at', 'updated_at',
+      'id',
+      'workspace_id',
+      'name',
+      'slug',
+      'description',
+      'document_type',
+      'category',
+      'icon',
+      'color',
+      'is_system',
+      'is_featured',
+      'usage_count',
+      'created_by',
+      'created_at',
+      'updated_at',
     ].join(', ');
 
     // Build optimized queries for system templates and workspace templates

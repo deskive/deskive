@@ -26,11 +26,7 @@ import {
   getPublicUrlFn,
   createSignedUrlFn,
 } from './storage-helpers';
-import {
-  EmailConfig,
-  getEmailConfig,
-  sendEmailFn,
-} from './email-helpers';
+import { EmailConfig, getEmailConfig, sendEmailFn } from './email-helpers';
 
 @Injectable()
 export class DatabaseService implements OnModuleInit, OnModuleDestroy {
@@ -126,7 +122,8 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
 
   async findOne(tableName: string, conditions: string | Record<string, any>): Promise<any | null> {
     // Accept either an ID string or a conditions object
-    const cond: Record<string, any> = typeof conditions === 'string' ? { id: conditions } : conditions;
+    const cond: Record<string, any> =
+      typeof conditions === 'string' ? { id: conditions } : conditions;
     const { whereClause, values } = this.buildWhereClause(cond);
     const sql = `SELECT * FROM ${this.escapeIdentifier(tableName)} ${whereClause} LIMIT 1`;
     const { rows } = await this.query(sql, values);
@@ -215,7 +212,11 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     return rows;
   }
 
-  async update(tableName: string, conditions: string | Record<string, any>, data: Record<string, any>): Promise<any> {
+  async update(
+    tableName: string,
+    conditions: string | Record<string, any>,
+    data: Record<string, any>,
+  ): Promise<any> {
     const updateKeys = Object.keys(data).filter((k) => data[k] !== undefined);
     const updateValues = updateKeys.map((k) => data[k]);
     const setClauses = updateKeys.map((k, i) => `${this.escapeIdentifier(k)} = $${i + 1}`);
@@ -238,12 +239,19 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     return rows[0] || null;
   }
 
-  async updateMany(tableName: string, conditions: Record<string, any>, data: Record<string, any>): Promise<any[]> {
+  async updateMany(
+    tableName: string,
+    conditions: Record<string, any>,
+    data: Record<string, any>,
+  ): Promise<any[]> {
     const updateKeys = Object.keys(data).filter((k) => data[k] !== undefined);
     const updateValues = updateKeys.map((k) => data[k]);
     const setClauses = updateKeys.map((k, i) => `${this.escapeIdentifier(k)} = $${i + 1}`);
 
-    const { whereClause, values: whereValues } = this.buildWhereClause(conditions, updateValues.length);
+    const { whereClause, values: whereValues } = this.buildWhereClause(
+      conditions,
+      updateValues.length,
+    );
 
     const sql = `UPDATE ${this.escapeIdentifier(tableName)} SET ${setClauses.join(', ')} ${whereClause} RETURNING *`;
     const { rows } = await this.query(sql, [...updateValues, ...whereValues]);
@@ -337,11 +345,22 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   // ============================================
   // Email (SMTP via nodemailer - works with any provider)
   // ============================================
-  async sendEmail(to: string | string[], subject: string, html: string, text?: string, options?: any): Promise<any> {
+  async sendEmail(
+    to: string | string[],
+    subject: string,
+    html: string,
+    text?: string,
+    options?: any,
+  ): Promise<any> {
     return sendEmailFn(this.emailConfig, to, subject, html, text, options);
   }
 
-  async sendPushNotification(to: string | string[], title: string, body: string, data?: any): Promise<any> {
+  async sendPushNotification(
+    to: string | string[],
+    title: string,
+    body: string,
+    data?: any,
+  ): Promise<any> {
     this.logger.warn(`sendPushNotification called - migrate to FirebaseService`);
     return { success: false };
   }
@@ -355,9 +374,10 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   // ============================================
   async signUp(emailOrData: any, password?: string, name?: string, metadata?: any): Promise<any> {
     // Support both: signUp({email, password, name, metadata}) and signUp(email, password, name, metadata)
-    const data = typeof emailOrData === 'object'
-      ? emailOrData
-      : { email: emailOrData, password, name, metadata };
+    const data =
+      typeof emailOrData === 'object'
+        ? emailOrData
+        : { email: emailOrData, password, name, metadata };
     return registerUser(this.pool, this.authConfig, data);
   }
 
@@ -388,7 +408,11 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
     return updateUserFn(this.pool, userId, { metadata, user_metadata: metadata });
   }
 
-  async changeUserPassword(userId: string, currentPassword: string, newPassword: string): Promise<any> {
+  async changeUserPassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<any> {
     return changePasswordFn(this.pool, this.authConfig, userId, currentPassword, newPassword);
   }
 
@@ -403,22 +427,62 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   async deleteUser(userId: string): Promise<any> {
     return deleteUserFn(this.pool, userId);
   }
-  getAI(...args: any[]): any { this.logger.warn('getAI called'); return { generateText: async () => ({ text: '' }) }; }
-  async generateText(...args: any[]): Promise<any> { this.logger.warn('generateText called'); return { text: '' }; }
-  async generateImage(...args: any[]): Promise<any> { this.logger.warn('generateImage called'); return { url: '', imageUrl: '' }; }
-  async hybridSearch(...args: any[]): Promise<any> { this.logger.warn('hybridSearch called'); return this.wrapResult([]); }
-  async unifiedSearch(...args: any[]): Promise<any> { this.logger.warn('unifiedSearch called'); return this.wrapResult([]); }
-  async unsubscribe(...args: any[]): Promise<void> { this.logger.warn('unsubscribe called'); }
-  get users(): any { this.logger.warn('db.users called'); return { list: async () => this.wrapResult([]), get: async () => null }; }
+  getAI(...args: any[]): any {
+    this.logger.warn('getAI called');
+    return { generateText: async () => ({ text: '' }) };
+  }
+  async generateText(...args: any[]): Promise<any> {
+    this.logger.warn('generateText called');
+    return { text: '' };
+  }
+  async generateImage(...args: any[]): Promise<any> {
+    this.logger.warn('generateImage called');
+    return { url: '', imageUrl: '' };
+  }
+  async hybridSearch(...args: any[]): Promise<any> {
+    this.logger.warn('hybridSearch called');
+    return this.wrapResult([]);
+  }
+  async unifiedSearch(...args: any[]): Promise<any> {
+    this.logger.warn('unifiedSearch called');
+    return this.wrapResult([]);
+  }
+  async unsubscribe(...args: any[]): Promise<void> {
+    this.logger.warn('unsubscribe called');
+  }
+  get users(): any {
+    this.logger.warn('db.users called');
+    return { list: async () => this.wrapResult([]), get: async () => null };
+  }
 
   // Vector / video / recording stubs
-  async ensureVectorCollection(...args: any[]): Promise<void> { this.logger.warn('ensureVectorCollection called'); }
-  async upsertVectors(...args: any[]): Promise<any> { this.logger.warn('upsertVectors called'); return { success: false }; }
-  async searchVectors(...args: any[]): Promise<any> { this.logger.warn('searchVectors called'); return this.wrapResult([]); }
-  async scrollVectors(...args: any[]): Promise<any> { this.logger.warn('scrollVectors called'); return this.wrapResult([]); }
-  async deleteVectorsByFilter(...args: any[]): Promise<any> { this.logger.warn('deleteVectorsByFilter called'); return { success: false }; }
-  async getVideoJobStatus(...args: any[]): Promise<any> { this.logger.warn('getVideoJobStatus called'); return null; }
-  async downloadRecording(...args: any[]): Promise<Buffer> { this.logger.warn('downloadRecording called'); return Buffer.from(''); }
+  async ensureVectorCollection(...args: any[]): Promise<void> {
+    this.logger.warn('ensureVectorCollection called');
+  }
+  async upsertVectors(...args: any[]): Promise<any> {
+    this.logger.warn('upsertVectors called');
+    return { success: false };
+  }
+  async searchVectors(...args: any[]): Promise<any> {
+    this.logger.warn('searchVectors called');
+    return this.wrapResult([]);
+  }
+  async scrollVectors(...args: any[]): Promise<any> {
+    this.logger.warn('scrollVectors called');
+    return this.wrapResult([]);
+  }
+  async deleteVectorsByFilter(...args: any[]): Promise<any> {
+    this.logger.warn('deleteVectorsByFilter called');
+    return { success: false };
+  }
+  async getVideoJobStatus(...args: any[]): Promise<any> {
+    this.logger.warn('getVideoJobStatus called');
+    return null;
+  }
+  async downloadRecording(...args: any[]): Promise<Buffer> {
+    this.logger.warn('downloadRecording called');
+    return Buffer.from('');
+  }
 
   // Legacy SDK shape: db.auth.{register,signIn,...}. Delegates to the real
   // Postgres-backed implementations defined above. Return type is `any` so
@@ -430,8 +494,10 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
       refreshToken: (token: string) => this.refreshSession(token),
       verifyEmail: (token: string) => verifyEmailFn(this.pool, token),
       requestPasswordReset: (email: string, _url?: string) => this.resetPasswordForEmail(email),
-      resetPassword: (data: any) => this.resetPassword(data.token, data.password || data.newPassword),
-      changePassword: (data: any) => this.changeUserPassword(data.userId, data.currentPassword, data.newPassword),
+      resetPassword: (data: any) =>
+        this.resetPassword(data.token, data.password || data.newPassword),
+      changePassword: (data: any) =>
+        this.changeUserPassword(data.userId, data.currentPassword, data.newPassword),
       resendEmailVerification: async (email: string) => {
         // Re-issue a token; emailing it is up to the caller
         const r = await this.pool.query(
@@ -442,7 +508,9 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
         return { success: r.rowCount! > 0, token: r.rows[0]?.email_verification_token };
       },
       getOAuthUrl: async (provider: string, _redirect: string) => {
-        this.logger.warn(`db.auth.getOAuthUrl(${provider}) - OAuth providers not configured. See MIGRATION.md.`);
+        this.logger.warn(
+          `db.auth.getOAuthUrl(${provider}) - OAuth providers not configured. See MIGRATION.md.`,
+        );
         return { url: '' };
       },
       deleteUser: (userId: string) => this.deleteUser(userId),
@@ -458,9 +526,13 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
   }
 
   get client(): any {
-    const log = (path: string) => this.logger.warn(`db.client.${path} called - migrate to dedicated service`);
+    const log = (path: string) =>
+      this.logger.warn(`db.client.${path} called - migrate to dedicated service`);
     // `query` is a callable AND chainable shim: db.client.query.from('t')...
-    const queryShim: any = (...args: any[]) => { log('query'); return Promise.resolve(this.wrapResult([])); };
+    const queryShim: any = (...args: any[]) => {
+      log('query');
+      return Promise.resolve(this.wrapResult([]));
+    };
     queryShim.from = (tableName: string) => this.table(tableName);
     return {
       query: queryShim,
@@ -476,28 +548,84 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
         delete: (bucket: string, path: string) => this.deleteFileFromStorage(bucket, path),
       },
       ai: {
-        transcribeAudio: async (...args: any[]) => { log('ai.transcribeAudio'); return { text: '' }; },
-        translateText: async (...args: any[]) => { log('ai.translateText'); return { text: '' }; },
-        summarizeText: async (...args: any[]) => { log('ai.summarizeText'); return { text: '' }; },
-        generateText: async (...args: any[]) => { log('ai.generateText'); return { text: '' }; },
+        transcribeAudio: async (...args: any[]) => {
+          log('ai.transcribeAudio');
+          return { text: '' };
+        },
+        translateText: async (...args: any[]) => {
+          log('ai.translateText');
+          return { text: '' };
+        },
+        summarizeText: async (...args: any[]) => {
+          log('ai.summarizeText');
+          return { text: '' };
+        },
+        generateText: async (...args: any[]) => {
+          log('ai.generateText');
+          return { text: '' };
+        },
       },
       videoConferencing: {
-        createRoom: async (...args: any[]) => { log('videoConferencing.createRoom'); return null; },
-        getRoom: async (...args: any[]) => { log('videoConferencing.getRoom'); return null; },
-        listRooms: async (...args: any[]) => { log('videoConferencing.listRooms'); return []; },
-        updateRoom: async (...args: any[]) => { log('videoConferencing.updateRoom'); return null; },
-        deleteRoom: async (...args: any[]) => { log('videoConferencing.deleteRoom'); },
-        generateToken: async (...args: any[]) => { log('videoConferencing.generateToken'); return ''; },
-        listParticipants: async (...args: any[]) => { log('videoConferencing.listParticipants'); return []; },
-        getParticipant: async (...args: any[]) => { log('videoConferencing.getParticipant'); return null; },
-        removeParticipant: async (...args: any[]) => { log('videoConferencing.removeParticipant'); },
-        startRecording: async (...args: any[]) => { log('videoConferencing.startRecording'); return null; },
-        stopRecording: async (...args: any[]) => { log('videoConferencing.stopRecording'); },
-        listRecordings: async (...args: any[]) => { log('videoConferencing.listRecordings'); return []; },
-        getRecording: async (...args: any[]) => { log('videoConferencing.getRecording'); return null; },
-        startEgress: async (...args: any[]) => { log('videoConferencing.startEgress'); return null; },
-        stopEgress: async (...args: any[]) => { log('videoConferencing.stopEgress'); },
-        getSessionStats: async (...args: any[]) => { log('videoConferencing.getSessionStats'); return null; },
+        createRoom: async (...args: any[]) => {
+          log('videoConferencing.createRoom');
+          return null;
+        },
+        getRoom: async (...args: any[]) => {
+          log('videoConferencing.getRoom');
+          return null;
+        },
+        listRooms: async (...args: any[]) => {
+          log('videoConferencing.listRooms');
+          return [];
+        },
+        updateRoom: async (...args: any[]) => {
+          log('videoConferencing.updateRoom');
+          return null;
+        },
+        deleteRoom: async (...args: any[]) => {
+          log('videoConferencing.deleteRoom');
+        },
+        generateToken: async (...args: any[]) => {
+          log('videoConferencing.generateToken');
+          return '';
+        },
+        listParticipants: async (...args: any[]) => {
+          log('videoConferencing.listParticipants');
+          return [];
+        },
+        getParticipant: async (...args: any[]) => {
+          log('videoConferencing.getParticipant');
+          return null;
+        },
+        removeParticipant: async (...args: any[]) => {
+          log('videoConferencing.removeParticipant');
+        },
+        startRecording: async (...args: any[]) => {
+          log('videoConferencing.startRecording');
+          return null;
+        },
+        stopRecording: async (...args: any[]) => {
+          log('videoConferencing.stopRecording');
+        },
+        listRecordings: async (...args: any[]) => {
+          log('videoConferencing.listRecordings');
+          return [];
+        },
+        getRecording: async (...args: any[]) => {
+          log('videoConferencing.getRecording');
+          return null;
+        },
+        startEgress: async (...args: any[]) => {
+          log('videoConferencing.startEgress');
+          return null;
+        },
+        stopEgress: async (...args: any[]) => {
+          log('videoConferencing.stopEgress');
+        },
+        getSessionStats: async (...args: any[]) => {
+          log('videoConferencing.getSessionStats');
+          return null;
+        },
       },
     };
   }

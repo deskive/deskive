@@ -5,7 +5,7 @@ export class UpdateFolderDto {
   @ApiProperty({
     description: 'New folder name',
     example: 'Updated Folder Name',
-    required: false
+    required: false,
   })
   @IsOptional()
   @IsString()

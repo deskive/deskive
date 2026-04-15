@@ -1,6 +1,11 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../../database/database.service';
-import { CreateActionDto, UpdateActionDto, ActionType, FailurePolicy } from '../dto/create-action.dto';
+import {
+  CreateActionDto,
+  UpdateActionDto,
+  ActionType,
+  FailurePolicy,
+} from '../dto/create-action.dto';
 
 export interface BotAction {
   id: string;
@@ -49,7 +54,8 @@ export class BotActionsService {
    * Get all actions for a bot
    */
   async findAllForBot(botId: string): Promise<BotAction[]> {
-    const result = await this.db.table('bot_actions')
+    const result = await this.db
+      .table('bot_actions')
       .select('*')
       .where('bot_id', '=', botId)
       .execute();
@@ -76,7 +82,8 @@ export class BotActionsService {
    * Get actions for a specific trigger
    */
   async getActionsForTrigger(botId: string, triggerId?: string): Promise<BotAction[]> {
-    let query = this.db.table('bot_actions')
+    const query = this.db
+      .table('bot_actions')
       .select('*')
       .where('bot_id', '=', botId)
       .where('is_active', '=', true);

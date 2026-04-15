@@ -65,7 +65,9 @@ export class GitHubOAuthService {
     const redirectUri = this.configService.get<string>('GITHUB_OAUTH_REDIRECT_URI');
 
     if (!appId || !privateKey) {
-      throw new Error('GitHub App not configured. Please set GITHUB_OAUTH_APP_ID and GITHUB_PRIVATE_KEY');
+      throw new Error(
+        'GitHub App not configured. Please set GITHUB_OAUTH_APP_ID and GITHUB_PRIVATE_KEY',
+      );
     }
 
     const apiUrl = this.configService.get<string>('API_URL') || 'http://localhost:3002';
@@ -99,7 +101,7 @@ export class GitHubOAuthService {
     const now = Math.floor(Date.now() / 1000);
     const payload = {
       iat: now - 60, // Issued at time (60 seconds in the past to allow for clock drift)
-      exp: now + (5 * 60), // JWT expiration time (5 minutes - safer margin for clock drift)
+      exp: now + 5 * 60, // JWT expiration time (5 minutes - safer margin for clock drift)
       iss: appId, // GitHub App's identifier
     };
 
@@ -137,7 +139,12 @@ export class GitHubOAuthService {
   /**
    * Decode and validate state parameter
    */
-  decodeState(state: string): { userId: string; workspaceId: string; returnUrl?: string; timestamp: number } {
+  decodeState(state: string): {
+    userId: string;
+    workspaceId: string;
+    returnUrl?: string;
+    timestamp: number;
+  } {
     try {
       const decoded = Buffer.from(state, 'base64url').toString('utf-8');
       const stateData = JSON.parse(decoded);
@@ -149,7 +156,9 @@ export class GitHubOAuthService {
         throw new Error('State parameter expired. Please try again.');
       }
 
-      this.logger.log(`State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`);
+      this.logger.log(
+        `State decoded successfully for user ${stateData.userId}, workspace ${stateData.workspaceId}`,
+      );
       return stateData;
     } catch (error) {
       this.logger.error('Failed to decode state parameter:', error);
@@ -161,7 +170,11 @@ export class GitHubOAuthService {
    * Generate GitHub App installation URL
    * This shows the "Where do you want to install" picker
    */
-  getAuthorizationUrl(userId: string, workspaceId: string, returnUrl?: string): { authorizationUrl: string; state: string } {
+  getAuthorizationUrl(
+    userId: string,
+    workspaceId: string,
+    returnUrl?: string,
+  ): { authorizationUrl: string; state: string } {
     const { appSlug } = this.getAppConfig();
     const state = this.generateState(userId, workspaceId, returnUrl);
 
@@ -172,7 +185,9 @@ export class GitHubOAuthService {
     // GitHub App installation URL with state
     const authorizationUrl = `${this.GITHUB_APP_INSTALL_URL}/${appSlug}/installations/new?state=${state}`;
 
-    this.logger.log(`Generated GitHub App installation URL for user ${userId} in workspace ${workspaceId}`);
+    this.logger.log(
+      `Generated GitHub App installation URL for user ${userId} in workspace ${workspaceId}`,
+    );
 
     return { authorizationUrl, state };
   }
@@ -212,7 +227,10 @@ export class GitHubOAuthService {
 
       return tokens;
     } catch (error) {
-      this.logger.error('Failed to get installation access token:', error.response?.data || error.message);
+      this.logger.error(
+        'Failed to get installation access token:',
+        error.response?.data || error.message,
+      );
       throw new UnauthorizedException('Failed to get installation access token');
     }
   }
@@ -248,7 +266,10 @@ export class GitHubOAuthService {
         permissions: data.permissions,
       };
     } catch (error) {
-      this.logger.error('Failed to get installation details:', error.response?.data || error.message);
+      this.logger.error(
+        'Failed to get installation details:',
+        error.response?.data || error.message,
+      );
       throw new UnauthorizedException('Failed to get installation details');
     }
   }
@@ -279,7 +300,9 @@ export class GitHubOAuthService {
             },
           });
 
-          const primaryEmail = emailsResponse.data.find((e: { primary: boolean; email: string }) => e.primary);
+          const primaryEmail = emailsResponse.data.find(
+            (e: { primary: boolean; email: string }) => e.primary,
+          );
           if (primaryEmail) {
             email = primaryEmail.email;
           }
@@ -347,15 +370,12 @@ export class GitHubOAuthService {
     const appJWT = this.generateAppJWT();
 
     try {
-      const response = await axios.get(
-        `${this.GITHUB_API_BASE}/app/installations`,
-        {
-          headers: {
-            Authorization: `Bearer ${appJWT}`,
-            Accept: 'application/vnd.github.v3+json',
-          },
+      const response = await axios.get(`${this.GITHUB_API_BASE}/app/installations`, {
+        headers: {
+          Authorization: `Bearer ${appJWT}`,
+          Accept: 'application/vnd.github.v3+json',
         },
-      );
+      });
 
       return response.data.map((inst: any) => ({
         id: inst.id,

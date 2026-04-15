@@ -14,15 +14,7 @@ import { WebSocketModule } from '../../../common/gateways/websocket.module';
     forwardRef(() => NotificationsModule),
     forwardRef(() => WebSocketModule),
   ],
-  providers: [
-    DailyBriefingService,
-    DeadlineAlertService,
-    SuggestionsCacheService,
-  ],
-  exports: [
-    DailyBriefingService,
-    DeadlineAlertService,
-    SuggestionsCacheService,
-  ],
+  providers: [DailyBriefingService, DeadlineAlertService, SuggestionsCacheService],
+  exports: [DailyBriefingService, DeadlineAlertService, SuggestionsCacheService],
 })
 export class ProactiveModule {}

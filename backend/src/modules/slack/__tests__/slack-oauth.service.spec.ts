@@ -48,7 +48,11 @@ describe('SlackOAuthService', () => {
     });
 
     it('should include return URL in state when provided', () => {
-      const url = service.getAuthorizationUrl('workspace-123', 'user-456', 'https://app.example.com/callback');
+      const url = service.getAuthorizationUrl(
+        'workspace-123',
+        'user-456',
+        'https://app.example.com/callback',
+      );
 
       expect(url).toContain('state=');
       // State should be base64url encoded
@@ -78,9 +82,7 @@ describe('SlackOAuthService', () => {
         },
       };
 
-      nock('https://slack.com')
-        .post('/api/oauth.v2.access')
-        .reply(200, mockResponse);
+      nock('https://slack.com').post('/api/oauth.v2.access').reply(200, mockResponse);
 
       const tokens = await service.exchangeCodeForTokens('test-code');
 
@@ -140,9 +142,7 @@ describe('SlackOAuthService', () => {
 
   describe('testAuth', () => {
     it('should return true for valid token', async () => {
-      nock('https://slack.com')
-        .post('/api/auth.test')
-        .reply(200, { ok: true, user_id: 'U123456' });
+      nock('https://slack.com').post('/api/auth.test').reply(200, { ok: true, user_id: 'U123456' });
 
       const result = await service.testAuth('valid-token');
       expect(result).toBe(true);
@@ -160,9 +160,7 @@ describe('SlackOAuthService', () => {
 
   describe('revokeToken', () => {
     it('should revoke token successfully', async () => {
-      nock('https://slack.com')
-        .post('/api/auth.revoke')
-        .reply(200, { ok: true, revoked: true });
+      nock('https://slack.com').post('/api/auth.revoke').reply(200, { ok: true, revoked: true });
 
       await expect(service.revokeToken('test-token')).resolves.not.toThrow();
     });
@@ -179,7 +177,11 @@ describe('SlackOAuthService', () => {
 
   describe('generateState / decodeState', () => {
     it('should generate and decode state correctly', () => {
-      const state = service.generateState('workspace-123', 'user-456', 'https://example.com/callback');
+      const state = service.generateState(
+        'workspace-123',
+        'user-456',
+        'https://example.com/callback',
+      );
       const decoded = service.decodeState(state);
 
       expect(decoded.workspaceId).toBe('workspace-123');

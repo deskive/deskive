@@ -13,13 +13,25 @@ import {
   ParseUUIDPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiConsumes,
+  ApiBody,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { FeedbackService } from './feedback.service';
 import { CreateFeedbackDto } from './dto/create-feedback.dto';
 import { UpdateFeedbackDto, ResolveFeedbackDto } from './dto/update-feedback.dto';
 import { FeedbackQueryDto } from './dto/feedback-query.dto';
-import { CreateFeedbackResponseDto, FeedbackDto, FeedbackResponseDto, PaginatedFeedbackDto } from './dto/create-feedback-response.dto';
+import {
+  CreateFeedbackResponseDto,
+  FeedbackDto,
+  FeedbackResponseDto,
+  PaginatedFeedbackDto,
+} from './dto/create-feedback-response.dto';
 
 @ApiTags('Feedback')
 @ApiBearerAuth()
@@ -93,11 +105,13 @@ export class FeedbackController {
     },
   })
   @ApiResponse({ status: 201, description: 'File uploaded successfully' })
-  @UseInterceptors(FileInterceptor('file', {
-    limits: {
-      fileSize: 10 * 1024 * 1024, // 10MB
-    },
-  }))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB
+      },
+    }),
+  )
   async uploadAttachment(
     @Request() req,
     @UploadedFile() file: Express.Multer.File,

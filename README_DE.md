@@ -300,6 +300,25 @@ Deskive wird mit 40+ integrierten Modulen in diesen Kategorien ausgeliefert:
 
 [Detaillierte Feature-Dokumentation anzeigen &rarr;](https://github.com/deskive/deskive/wiki)
 
+## Austauschbare Provider
+
+Jeder zugrunde liegende Dienst ist über eine einzelne Umgebungsvariable austauschbar. Die Standardwerte halten Deskive ohne Cloud-Zugangsdaten lauffähig; wechseln Sie zu einem Managed Provider, wenn Sie bereit sind.
+
+| Domäne | Umgebungsvariable | Mitgelieferte Provider |
+|---|---|---|
+| **Speicher** (PR [#28](https://github.com/deskive/deskive/pull/28)) | `STORAGE_PROVIDER` | `local-fs` (Standard), `s3`, `r2`, `minio`, `b2`, `gcs`, `azure`, `none` |
+| **E-Mail** (PR [#30](https://github.com/deskive/deskive/pull/30)) | `EMAIL_PROVIDER` | `smtp`, `resend`, `sendgrid`, `postmark`, `ses`, `mailgun`, `none` |
+| **Push** (PR [#31](https://github.com/deskive/deskive/pull/31)) | `PUSH_PROVIDER` | `webpush`, `fcm`, `onesignal`, `expo`, `none` |
+| **Suche** (PR [#32](https://github.com/deskive/deskive/pull/32)) | `SEARCH_PROVIDER` | `pg-trgm` (Standard, keine zusätzliche Infrastruktur), `meilisearch`, `typesense`, `none` |
+| **Auth / SSO** (PR [#33](https://github.com/deskive/deskive/pull/33)) | `AUTH_PROVIDERS` | `local`, `google`, `github`, `magic-link` (passwortlos, JWT-basiert) |
+| **Video** | `VIDEO_PROVIDER` | `livekit`, `jitsi`, `daily`, `agora`, `whereby`, `none` |
+| **KI** | `AI_PROVIDER` | `openai`, `anthropic`, `gemini`, `groq`, `ollama` (lokal) |
+
+- **Keyword- und semantische Suche koexistieren.** `SearchProviderService` übernimmt Trigramm-/Facettensuche nach Keywords; `SearchService` ist weiterhin für die Qdrant-Vektor-/Semantiksuche zuständig.
+- **Optionale SDKs werden lazy geladen** — `@azure/storage-blob`, `@google-cloud/storage`, `firebase-admin`, `livekit-server-sdk` und `agora-token` sind `optionalDependencies`, sodass die Wahl von `local-fs` / `smtp` / `webpush` / `pg-trgm` keinerlei Installationskosten verursacht.
+- **Smoke-Tests** werden mit jedem Adapter ausgeliefert (`backend/scripts/smoke-test-*-providers.ts`) — 27 / 45 / 61 / 55 / 37 Assertions für Storage / E-Mail / Push / Suche / Auth, alle erfolgreich.
+- **Vollständige Dokumentation:** Siehe `backend/docs/providers/` für Provider-spezifische Umgebungsvariablen und Einrichtung.
+
 ## i18n
 
 Deskive unterstützt mehrere Sprachen über react-i18next:
