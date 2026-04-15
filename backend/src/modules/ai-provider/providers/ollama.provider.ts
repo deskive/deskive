@@ -17,6 +17,12 @@
  *
  * Run via `docker compose --profile ollama up -d` (once install PR #27 lands).
  *
+ * Tool calling: Ollama's /api/chat endpoint accepts OpenAI-style
+ * `tools` for models that advertise tool support (Llama 3.1+, Mistral
+ * Nemo, Qwen 2.5+, and a growing list). Unlike OpenAI, Ollama returns
+ * tool_calls with `arguments` as a parsed object (not a JSON string)
+ * and doesn't assign per-call ids. The provider normalizes both.
+ *
  * Pure REST via fetch — no SDK needed.
  */
 import { Logger } from '@nestjs/common';
@@ -25,11 +31,31 @@ import {
   AiProvider,
   AiProviderNotConfiguredError,
   AnalyzeImageInput,
+  ChatMessage,
   GenerateEmbeddingInput,
   GenerateEmbeddingResult,
   GenerateTextInput,
   GenerateTextResult,
+  NormalizedToolCall,
+  StopReason,
+  ToolChoice,
+  ToolDefinition,
 } from './ai-provider.interface';
+
+type OllamaWireMessage = {
+  role: 'system' | 'user' | 'assistant' | 'tool';
+  content: string;
+  tool_calls?: Array<{
+    function: { name: string; arguments: Record<string, unknown> };
+  }>;
+  tool_call_id?: string;
+  name?: string;
+  images?: string[];
+};
+
+type OllamaWireToolCall = {
+  function?: { name?: string; arguments?: Record<string, unknown> | string };
+};
 
 export class OllamaProvider implements AiProvider {
   readonly name = 'ollama' as const;
@@ -88,7 +114,7 @@ export class OllamaProvider implements AiProvider {
     // top-level temperature, and `num_predict` instead of max_tokens.
     const payload: any = {
       model,
-      messages: input.messages,
+      messages: input.messages.map(translateMessageToOllama),
       stream: false,
       options: {
         temperature: input.temperature ?? 0.7,
@@ -98,18 +124,32 @@ export class OllamaProvider implements AiProvider {
     if (input.jsonMode) {
       payload.format = 'json';
     }
+    if (input.tools && input.tools.length > 0) {
+      payload.tools = input.tools.map(translateToolToOllama);
+      // Ollama doesn't expose a native tool_choice parameter; the
+      // closest we can do for 'none' is omit tools. 'required' is
+      // approximated via a system-level nudge — or just leave to the
+      // model (docs say the behavior matches the model's training).
+      // For now we silently accept toolChoice but don't attach it.
+    }
 
     const res = (await this.api('/api/chat', payload)) as {
-      message: { content: string };
+      message: { content: string; tool_calls?: OllamaWireToolCall[] };
       model: string;
+      done_reason?: string;
       prompt_eval_count?: number;
       eval_count?: number;
     };
+
+    const toolCalls = normalizeOllamaToolCalls(res.message?.tool_calls);
+    const stopReason = mapOllamaDoneReason(res.done_reason, toolCalls.length > 0);
 
     return {
       text: res.message?.content ?? '',
       model: res.model,
       provider: 'ollama',
+      ...(toolCalls.length > 0 ? { toolCalls } : {}),
+      ...(stopReason ? { stopReason } : {}),
       usage: {
         promptTokens: res.prompt_eval_count,
         completionTokens: res.eval_count,
@@ -184,5 +224,94 @@ export class OllamaProvider implements AiProvider {
       provider: 'ollama',
       dimensions: res.embeddings?.[0]?.length ?? 0,
     };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Translation helpers (exported for smoke tests).
+// ---------------------------------------------------------------------------
+
+export function translateToolToOllama(t: ToolDefinition) {
+  return {
+    type: 'function' as const,
+    function: {
+      name: t.name,
+      description: t.description,
+      parameters: t.parameters,
+    },
+  };
+}
+
+export function translateMessageToOllama(msg: ChatMessage): OllamaWireMessage {
+  if (msg.role === 'tool') {
+    return {
+      role: 'tool',
+      content: msg.content,
+      ...(msg.toolCallId ? { tool_call_id: msg.toolCallId } : {}),
+      ...(msg.name ? { name: msg.name } : {}),
+    };
+  }
+  if (msg.role === 'assistant' && msg.toolCalls && msg.toolCalls.length > 0) {
+    return {
+      role: 'assistant',
+      content: msg.content ?? '',
+      tool_calls: msg.toolCalls.map((tc) => ({
+        function: {
+          name: tc.name,
+          // Ollama expects arguments as a parsed object, not a JSON
+          // string. Fall back to {} if the caller preserved only a raw
+          // argument string (shouldn't happen in practice).
+          arguments: (tc.arguments ?? {}) as Record<string, unknown>,
+        },
+      })),
+    };
+  }
+  return { role: msg.role, content: msg.content };
+}
+
+export function normalizeOllamaToolCalls(
+  calls: OllamaWireToolCall[] | undefined,
+): NormalizedToolCall[] {
+  if (!calls || calls.length === 0) return [];
+  return calls.map((c, i) => {
+    const args = c.function?.arguments;
+    let parsed: Record<string, unknown> | null = {};
+    let raw: string | undefined;
+    if (args && typeof args === 'object') {
+      parsed = args as Record<string, unknown>;
+      raw = JSON.stringify(args);
+    } else if (typeof args === 'string') {
+      raw = args;
+      try {
+        parsed = JSON.parse(args) as Record<string, unknown>;
+      } catch {
+        parsed = null;
+      }
+    }
+    return {
+      // Ollama doesn't assign per-call ids; synthesize one so callers
+      // can still correlate tool replies.
+      id: `call_${i}_${c.function?.name ?? 'unnamed'}`,
+      name: c.function?.name ?? '',
+      arguments: parsed,
+      argumentsRaw: raw,
+    };
+  });
+}
+
+export function mapOllamaDoneReason(
+  reason: string | undefined,
+  hasToolCalls: boolean,
+): StopReason | undefined {
+  if (hasToolCalls) return 'tool_use';
+  switch (reason) {
+    case 'stop':
+      return 'stop';
+    case 'length':
+      return 'length';
+    case undefined:
+      return undefined;
+    default:
+      return 'other';
   }
 }

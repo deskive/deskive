@@ -13,6 +13,11 @@
  * System instructions go in a separate `system_instruction` field — the
  * provider handles the translation.
  *
+ * Tool calling uses `tools: [{ functionDeclarations }]` on the request
+ * and `parts: [{ functionCall }]` on the response. Tool replies come
+ * back as a user turn with `parts: [{ functionResponse }]`. The
+ * provider translates the unified tool/result shape to/from these.
+ *
  * Free tier is generous and multimodal handling is excellent. Great
  * default when cost matters and you want strong multimodal + long-
  * context support.
@@ -23,13 +28,33 @@ import {
   AiProvider,
   AiProviderNotConfiguredError,
   AnalyzeImageInput,
+  ChatMessage,
   GenerateEmbeddingInput,
   GenerateEmbeddingResult,
   GenerateTextInput,
   GenerateTextResult,
+  NormalizedToolCall,
+  StopReason,
+  ToolChoice,
+  ToolDefinition,
 } from './ai-provider.interface';
 
 const GEMINI_API_BASE = 'https://generativelanguage.googleapis.com/v1beta';
+
+type GeminiPart =
+  | { text: string }
+  | { functionCall: { name: string; args: Record<string, unknown> } }
+  | {
+      functionResponse: {
+        name: string;
+        response: Record<string, unknown>;
+      };
+    };
+
+type GeminiContent = {
+  role: 'user' | 'model';
+  parts: GeminiPart[];
+};
 
 export class GeminiProvider implements AiProvider {
   readonly name = 'gemini' as const;
@@ -74,33 +99,8 @@ export class GeminiProvider implements AiProvider {
     return res.json();
   }
 
-  private translateMessages(input: GenerateTextInput): {
-    system?: { parts: Array<{ text: string }> };
-    contents: Array<{ role: 'user' | 'model'; parts: Array<{ text: string }> }>;
-  } {
-    const systems: string[] = [];
-    const contents: Array<{
-      role: 'user' | 'model';
-      parts: Array<{ text: string }>;
-    }> = [];
-    for (const msg of input.messages) {
-      if (msg.role === 'system') {
-        systems.push(msg.content);
-      } else {
-        contents.push({
-          role: msg.role === 'assistant' ? 'model' : 'user',
-          parts: [{ text: msg.content }],
-        });
-      }
-    }
-    return {
-      system: systems.length > 0 ? { parts: [{ text: systems.join('\n\n') }] } : undefined,
-      contents,
-    };
-  }
-
   async generateText(input: GenerateTextInput): Promise<GenerateTextResult> {
-    const { system, contents } = this.translateMessages(input);
+    const { system, contents } = translateMessagesToGemini(input.messages);
     const model = input.model ?? this.defaultModel;
 
     const payload: any = {
@@ -114,10 +114,16 @@ export class GeminiProvider implements AiProvider {
     if (input.jsonMode) {
       payload.generationConfig.response_mime_type = 'application/json';
     }
+    if (input.tools && input.tools.length > 0) {
+      payload.tools = [{ functionDeclarations: input.tools.map(translateToolToGemini) }];
+      const tc = translateToolChoiceToGemini(input.toolChoice);
+      if (tc !== undefined) payload.toolConfig = { functionCallingConfig: tc };
+    }
 
     const res = (await this.api(model, 'generateContent', payload)) as {
       candidates: Array<{
-        content: { parts: Array<{ text?: string }> };
+        content: { parts: GeminiPart[] };
+        finishReason?: string;
       }>;
       usageMetadata?: {
         promptTokenCount?: number;
@@ -126,12 +132,23 @@ export class GeminiProvider implements AiProvider {
       };
     };
 
-    const text = res.candidates?.[0]?.content?.parts?.map((p) => p.text ?? '').join('') ?? '';
+    const candidate = res.candidates?.[0];
+    const parts = candidate?.content?.parts ?? [];
+
+    const text = parts
+      .filter((p): p is { text: string } => 'text' in p && typeof p.text === 'string')
+      .map((p) => p.text ?? '')
+      .join('');
+
+    const toolCalls = normalizeGeminiToolCalls(parts);
+    const stopReason = mapGeminiFinishReason(candidate?.finishReason, toolCalls.length > 0);
 
     return {
       text,
       model,
       provider: 'gemini',
+      ...(toolCalls.length > 0 ? { toolCalls } : {}),
+      ...(stopReason ? { stopReason } : {}),
       usage: res.usageMetadata
         ? {
             promptTokens: res.usageMetadata.promptTokenCount,
@@ -227,5 +244,141 @@ export class GeminiProvider implements AiProvider {
       provider: 'gemini',
       dimensions: res.embeddings[0]?.values.length ?? 0,
     };
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Translation helpers (exported for smoke tests).
+// ---------------------------------------------------------------------------
+
+export function translateToolToGemini(t: ToolDefinition) {
+  return {
+    name: t.name,
+    description: t.description,
+    parameters: t.parameters,
+  };
+}
+
+export function translateToolChoiceToGemini(
+  choice: ToolChoice | undefined,
+):
+  | { mode: 'AUTO' }
+  | { mode: 'NONE' }
+  | { mode: 'ANY' }
+  | { mode: 'ANY'; allowedFunctionNames: string[] }
+  | undefined {
+  if (choice === undefined) return undefined;
+  if (choice === 'auto') return { mode: 'AUTO' };
+  if (choice === 'none') return { mode: 'NONE' };
+  if (choice === 'required') return { mode: 'ANY' };
+  return { mode: 'ANY', allowedFunctionNames: [choice.name] };
+}
+
+/**
+ * Translate ChatMessage[] to Gemini's `{ system_instruction, contents }`.
+ *
+ * - `system` messages fold into the `system` field.
+ * - `assistant` turns (with or without tool calls) map to `role: 'model'`.
+ *   Tool calls become `functionCall` parts.
+ * - `tool` turns map to `role: 'user'` with a `functionResponse` part.
+ *   Gemini requires the tool result content to be a JSON object; we
+ *   attempt to parse the content string, otherwise wrap it in
+ *   `{ result: "<string>" }`.
+ */
+export function translateMessagesToGemini(messages: ChatMessage[]): {
+  system?: { parts: Array<{ text: string }> };
+  contents: GeminiContent[];
+} {
+  const systems: string[] = [];
+  const contents: GeminiContent[] = [];
+
+  for (const msg of messages) {
+    if (msg.role === 'system') {
+      systems.push(msg.content);
+      continue;
+    }
+
+    if (msg.role === 'tool') {
+      let response: Record<string, unknown>;
+      try {
+        const parsed = JSON.parse(msg.content);
+        response =
+          parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+            ? (parsed as Record<string, unknown>)
+            : { result: parsed };
+      } catch {
+        response = { result: msg.content };
+      }
+      const part: GeminiPart = {
+        functionResponse: {
+          name: msg.name ?? '',
+          response,
+        },
+      };
+      const last = contents[contents.length - 1];
+      if (last && last.role === 'user') {
+        last.parts.push(part);
+      } else {
+        contents.push({ role: 'user', parts: [part] });
+      }
+      continue;
+    }
+
+    if (msg.role === 'assistant') {
+      const parts: GeminiPart[] = [];
+      if (msg.content) parts.push({ text: msg.content });
+      if (msg.toolCalls) {
+        for (const tc of msg.toolCalls) {
+          parts.push({
+            functionCall: {
+              name: tc.name,
+              args: (tc.arguments ?? {}) as Record<string, unknown>,
+            },
+          });
+        }
+      }
+      contents.push({ role: 'model', parts: parts.length > 0 ? parts : [{ text: '' }] });
+      continue;
+    }
+
+    contents.push({ role: 'user', parts: [{ text: msg.content }] });
+  }
+
+  return {
+    system: systems.length > 0 ? { parts: [{ text: systems.join('\n\n') }] } : undefined,
+    contents,
+  };
+}
+
+export function normalizeGeminiToolCalls(parts: GeminiPart[] | undefined): NormalizedToolCall[] {
+  if (!parts) return [];
+  return parts
+    .filter(
+      (p): p is { functionCall: { name: string; args: Record<string, unknown> } } =>
+        'functionCall' in p,
+    )
+    .map((p, i) => ({
+      // Gemini doesn't return a per-call id, so we synthesize one.
+      id: `call_${i}_${p.functionCall.name}`,
+      name: p.functionCall.name,
+      arguments: (p.functionCall.args ?? {}) as Record<string, unknown>,
+      argumentsRaw: JSON.stringify(p.functionCall.args ?? {}),
+    }));
+}
+
+export function mapGeminiFinishReason(
+  reason: string | undefined,
+  hasToolCalls: boolean,
+): StopReason | undefined {
+  if (hasToolCalls) return 'tool_use';
+  switch (reason) {
+    case 'STOP':
+      return 'stop';
+    case 'MAX_TOKENS':
+      return 'length';
+    case undefined:
+      return undefined;
+    default:
+      return 'other';
   }
 }
