@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowRight, MessageSquare, Kanban, FolderOpen, Calendar, FileText, Video, ChevronDown, AlertTriangle, Sparkles, User } from 'lucide-react';
+import { Menu, X, ArrowRight, MessageSquare, Kanban, FolderOpen, Calendar, FileText, Video, ChevronDown, AlertTriangle, User, Star, Github } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
@@ -14,6 +14,75 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import LanguageSwitcher from '../LanguageSwitcher';
+
+const GITHUB_REPO = 'deskive/deskive';
+const GITHUB_URL = `https://github.com/${GITHUB_REPO}`;
+
+const formatStarCount = (count: number): string => {
+  if (count >= 1000) return `${(count / 1000).toFixed(1)}k`;
+  return String(count);
+};
+
+const GitHubStarsButton: React.FC = () => {
+  const [stars, setStars] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    const cached = (() => {
+      try {
+        const raw = localStorage.getItem('deskive:github-stars');
+        if (!raw) return null;
+        const parsed = JSON.parse(raw) as { count: number; ts: number };
+        if (Date.now() - parsed.ts < 60 * 60 * 1000) return parsed.count;
+        return null;
+      } catch {
+        return null;
+      }
+    })();
+
+    if (cached !== null) {
+      setStars(cached);
+      return;
+    }
+
+    fetch(`https://api.github.com/repos/${GITHUB_REPO}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (cancelled || !data) return;
+        const count = Number(data.stargazers_count) || 0;
+        setStars(count);
+        try {
+          localStorage.setItem('deskive:github-stars', JSON.stringify({ count, ts: Date.now() }));
+        } catch {
+          /* ignore */
+        }
+      })
+      .catch(() => {
+        /* ignore */
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  return (
+    <a
+      href={GITHUB_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="hidden md:inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 hover:border-gray-300 transition-colors whitespace-nowrap text-sm font-semibold text-gray-800"
+      aria-label="Star Deskive on GitHub"
+    >
+      <Github className="w-4 h-4" />
+      <span className="hidden lg:inline">Star</span>
+      <span className="inline-flex items-center gap-1 text-gray-600">
+        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+        {stars === null ? '—' : formatStarCount(stars)}
+      </span>
+    </a>
+  );
+};
 
 const ModernHeader: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -189,20 +258,6 @@ const ModernHeader: React.FC = () => {
                 <span className="text-gray-900 font-black text-lg sm:text-xl md:text-2xl tracking-tight">
                   Deskive
                 </span>
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="hidden xs:flex items-center"
-                >
-                  {/* BETA Badge */}
-                  <div className="flex items-center gap-0.5 sm:gap-1 px-1.5 sm:px-2.5 py-0.5 sm:py-1 bg-gradient-to-r from-blue-500 to-sky-500 rounded-md sm:rounded-lg relative shadow-lg">
-                    <Sparkles className="absolute -top-0.5 sm:-top-1 -right-0.5 sm:-right-1 w-2 sm:w-3 h-2 sm:h-3 text-yellow-300 fill-yellow-300" />
-                    <span className="text-[9px] sm:text-[11px] font-black text-white uppercase tracking-wide">
-                      BETA
-                    </span>
-                  </div>
-                </motion.div>
               </div>
             </div>
           </motion.div>
@@ -285,6 +340,7 @@ const ModernHeader: React.FC = () => {
           {/* Desktop CTA Buttons / User Profile */}
           {isAuthenticated ? (
             <div className="hidden lg:flex items-center gap-3">
+              <GitHubStarsButton />
               {/* User Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
@@ -336,6 +392,7 @@ const ModernHeader: React.FC = () => {
             </div>
           ) : (
             <div className="hidden lg:flex items-center gap-2 xl:gap-3">
+              <GitHubStarsButton />
               <Button
                 variant="ghost"
                 className="text-gray-700 hover:text-gray-900 hover:bg-gray-100 font-semibold px-3 xl:px-4 py-2 rounded-lg transition-all duration-200 whitespace-nowrap"

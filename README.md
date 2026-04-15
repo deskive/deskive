@@ -15,6 +15,10 @@
 </p>
 
 <p align="center">
+  <img src="docs/hero-preview.gif" alt="Deskive landing hero preview" width="820">
+</p>
+
+<p align="center">
   <a href="https://github.com/deskive/deskive/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-GNU%20AGPL%203.0-blue.svg" alt="License"></a>
   <a href="https://github.com/deskive/deskive/stargazers"><img src="https://img.shields.io/github/stars/deskive/deskive?style=social" alt="GitHub Stars"></a>
   <a href="https://github.com/deskive/deskive/issues"><img src="https://img.shields.io/github/issues/deskive/deskive" alt="Issues"></a>
