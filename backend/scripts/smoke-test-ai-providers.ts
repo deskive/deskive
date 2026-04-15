@@ -477,6 +477,331 @@ async function main(): Promise<void> {
     console.log(`  ✅ fallback to none`);
   }
 
+  // ======================================================================
+  // TOOL CALLING NORMALIZATION
+  // One roundtrip per provider: verify the request payload uses the
+  // native tool shape, and the mocked tool-call response normalizes to
+  // the same NormalizedToolCall[] across every provider.
+  // ======================================================================
+
+  const sampleTool = {
+    name: 'get_weather',
+    description: 'Get the current weather for a city',
+    parameters: {
+      type: 'object',
+      properties: { city: { type: 'string' } },
+      required: ['city'],
+    },
+  };
+
+  // 16. OpenAI: translates tools; normalizes tool_calls in response
+  console.log('\n16. openai tool calling: request shape + response normalization');
+  {
+    installMockFetch(200, {
+      model: 'gpt-4o-mini',
+      choices: [
+        {
+          message: {
+            content: null,
+            tool_calls: [
+              {
+                id: 'call_abc',
+                type: 'function',
+                function: { name: 'get_weather', arguments: '{"city":"Tokyo"}' },
+              },
+            ],
+          },
+          finish_reason: 'tool_calls',
+        },
+      ],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'openai', OPENAI_API_KEY: 'sk_t' }),
+      );
+      const r = await p.generateText({
+        messages: [{ role: 'user', content: 'Weather in Tokyo?' }],
+        tools: [sampleTool],
+        toolChoice: 'auto',
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      ok(Array.isArray(body.tools) && body.tools[0].type === 'function');
+      ok(body.tools[0].function.name === 'get_weather');
+      ok(body.tool_choice === 'auto');
+      ok(r.stopReason === 'tool_use');
+      ok(!!r.toolCalls && r.toolCalls.length === 1);
+      ok(r.toolCalls![0].id === 'call_abc');
+      ok(r.toolCalls![0].name === 'get_weather');
+      ok((r.toolCalls![0].arguments as any)?.city === 'Tokyo');
+      console.log(`  ✅ openai tool request/response normalized`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 17. Anthropic: translates tools to input_schema; normalizes tool_use blocks
+  console.log('\n17. anthropic tool calling: tool_use block → NormalizedToolCall');
+  {
+    installMockFetch(200, {
+      model: 'claude-sonnet-4-5',
+      stop_reason: 'tool_use',
+      content: [
+        { type: 'text', text: 'Let me check.' },
+        {
+          type: 'tool_use',
+          id: 'toolu_01',
+          name: 'get_weather',
+          input: { city: 'Paris' },
+        },
+      ],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'anthropic', ANTHROPIC_API_KEY: 'sk_a' }),
+      );
+      const r = await p.generateText({
+        messages: [{ role: 'user', content: 'Weather in Paris?' }],
+        tools: [sampleTool],
+        toolChoice: 'required',
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      ok(Array.isArray(body.tools) && body.tools[0].input_schema?.type === 'object');
+      ok(body.tools[0].name === 'get_weather');
+      // 'required' → Anthropic's 'any'
+      ok(body.tool_choice?.type === 'any');
+      ok(r.stopReason === 'tool_use');
+      ok(r.text === 'Let me check.');
+      ok(!!r.toolCalls && r.toolCalls.length === 1);
+      ok(r.toolCalls![0].id === 'toolu_01');
+      ok(r.toolCalls![0].name === 'get_weather');
+      ok((r.toolCalls![0].arguments as any)?.city === 'Paris');
+      console.log(`  ✅ anthropic tool request/response normalized`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 18. Gemini: translates tools to functionDeclarations; normalizes functionCall parts
+  console.log('\n18. gemini tool calling: functionCall part → NormalizedToolCall');
+  {
+    installMockFetch(200, {
+      candidates: [
+        {
+          content: {
+            parts: [
+              {
+                functionCall: {
+                  name: 'get_weather',
+                  args: { city: 'Berlin' },
+                },
+              },
+            ],
+          },
+          finishReason: 'STOP',
+        },
+      ],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'gemini', GEMINI_API_KEY: 'gk_t' }),
+      );
+      const r = await p.generateText({
+        messages: [{ role: 'user', content: 'Weather in Berlin?' }],
+        tools: [sampleTool],
+        toolChoice: 'auto',
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      ok(Array.isArray(body.tools) && Array.isArray(body.tools[0].functionDeclarations));
+      ok(body.tools[0].functionDeclarations[0].name === 'get_weather');
+      ok(body.toolConfig?.functionCallingConfig?.mode === 'AUTO');
+      ok(r.stopReason === 'tool_use');
+      ok(!!r.toolCalls && r.toolCalls.length === 1);
+      ok(r.toolCalls![0].name === 'get_weather');
+      ok((r.toolCalls![0].arguments as any)?.city === 'Berlin');
+      console.log(`  ✅ gemini tool request/response normalized`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 19. Ollama: OpenAI-style tools; args come back as parsed objects
+  console.log('\n19. ollama tool calling: object-arg tool_calls → NormalizedToolCall');
+  {
+    installMockFetch(200, {
+      model: 'llama3.2',
+      done_reason: 'stop',
+      message: {
+        role: 'assistant',
+        content: '',
+        tool_calls: [
+          {
+            function: { name: 'get_weather', arguments: { city: 'Oslo' } },
+          },
+        ],
+      },
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'ollama', OLLAMA_BASE_URL: 'http://localhost:11434' }),
+      );
+      const r = await p.generateText({
+        messages: [{ role: 'user', content: 'Weather in Oslo?' }],
+        tools: [sampleTool],
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      ok(Array.isArray(body.tools) && body.tools[0].type === 'function');
+      ok(body.tools[0].function.name === 'get_weather');
+      ok(r.stopReason === 'tool_use');
+      ok(!!r.toolCalls && r.toolCalls.length === 1);
+      ok(r.toolCalls![0].name === 'get_weather');
+      ok((r.toolCalls![0].arguments as any)?.city === 'Oslo');
+      // Ollama synthesizes an id since the API doesn't provide one
+      ok(typeof r.toolCalls![0].id === 'string' && r.toolCalls![0].id.length > 0);
+      console.log(`  ✅ ollama tool request/response normalized`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
+  // 20. Tool reply round-trip: caller appends role:'tool' messages after
+  //     receiving tool calls. Each provider must translate them back to
+  //     its native shape.
+  console.log('\n20. tool reply round-trip: role:"tool" translation per provider');
+  {
+    // OpenAI: role:'tool' + tool_call_id
+    installMockFetch(200, {
+      model: 'gpt-4o-mini',
+      choices: [{ message: { content: 'Sunny, 72°F.' }, finish_reason: 'stop' }],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'openai', OPENAI_API_KEY: 'sk_t' }),
+      );
+      const r = await p.generateText({
+        messages: [
+          { role: 'user', content: 'Weather in Tokyo?' },
+          {
+            role: 'assistant',
+            content: '',
+            toolCalls: [
+              { id: 'call_abc', name: 'get_weather', arguments: { city: 'Tokyo' } },
+            ],
+          },
+          {
+            role: 'tool',
+            toolCallId: 'call_abc',
+            name: 'get_weather',
+            content: '{"temp":72,"conditions":"sunny"}',
+          },
+        ],
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      const toolMsg = body.messages.find((m: any) => m.role === 'tool');
+      const assistantMsg = body.messages.find((m: any) => m.role === 'assistant');
+      ok(!!toolMsg);
+      ok(toolMsg.tool_call_id === 'call_abc');
+      ok(toolMsg.content === '{"temp":72,"conditions":"sunny"}');
+      ok(Array.isArray(assistantMsg?.tool_calls) && assistantMsg.tool_calls[0].id === 'call_abc');
+      ok(assistantMsg.tool_calls[0].function.arguments === '{"city":"Tokyo"}');
+      ok(assistantMsg.content === null);
+      ok(r.text === 'Sunny, 72°F.');
+      ok(r.stopReason === 'stop');
+      console.log(`  ✅ openai tool reply round-trip preserved`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+
+    // Anthropic: consecutive role:'tool' messages merge into a single user turn
+    installMockFetch(200, {
+      model: 'claude-sonnet-4-5',
+      stop_reason: 'end_turn',
+      content: [{ type: 'text', text: 'All done.' }],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'anthropic', ANTHROPIC_API_KEY: 'sk_a' }),
+      );
+      await p.generateText({
+        messages: [
+          { role: 'user', content: 'Weather in NYC and LA?' },
+          {
+            role: 'assistant',
+            content: '',
+            toolCalls: [
+              { id: 'toolu_1', name: 'get_weather', arguments: { city: 'NYC' } },
+              { id: 'toolu_2', name: 'get_weather', arguments: { city: 'LA' } },
+            ],
+          },
+          { role: 'tool', toolCallId: 'toolu_1', name: 'get_weather', content: '72F' },
+          { role: 'tool', toolCallId: 'toolu_2', name: 'get_weather', content: '85F' },
+        ],
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      // Must be: user, assistant(tool_use x2), user(tool_result x2 merged)
+      ok(body.messages.length === 3);
+      ok(body.messages[1].role === 'assistant');
+      ok(
+        Array.isArray(body.messages[1].content) &&
+          body.messages[1].content.filter((b: any) => b.type === 'tool_use').length === 2,
+      );
+      ok(body.messages[2].role === 'user');
+      ok(
+        Array.isArray(body.messages[2].content) &&
+          body.messages[2].content.length === 2 &&
+          body.messages[2].content.every((b: any) => b.type === 'tool_result'),
+      );
+      console.log(`  ✅ anthropic merges consecutive tool replies into one user turn`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+
+    // Gemini: role:'tool' → user message with functionResponse part
+    installMockFetch(200, {
+      candidates: [{ content: { parts: [{ text: 'Done.' }] }, finishReason: 'STOP' }],
+    });
+    try {
+      const p = createAiProvider(
+        fakeConfig({ AI_PROVIDER: 'gemini', GEMINI_API_KEY: 'gk' }),
+      );
+      await p.generateText({
+        messages: [
+          { role: 'user', content: 'Weather in Berlin?' },
+          {
+            role: 'assistant',
+            content: '',
+            toolCalls: [
+              { id: 'call_0_get_weather', name: 'get_weather', arguments: { city: 'Berlin' } },
+            ],
+          },
+          {
+            role: 'tool',
+            toolCallId: 'call_0_get_weather',
+            name: 'get_weather',
+            content: '{"temp":65}',
+          },
+        ],
+      });
+      const body = JSON.parse(fetchCalls[fetchCalls.length - 1].body ?? '{}');
+      const toolTurn = body.contents.find(
+        (c: any) =>
+          Array.isArray(c.parts) && c.parts.some((p: any) => p.functionResponse),
+      );
+      ok(!!toolTurn);
+      ok(toolTurn.parts[0].functionResponse.name === 'get_weather');
+      ok(toolTurn.parts[0].functionResponse.response?.temp === 65);
+      console.log(`  ✅ gemini tool reply mapped to functionResponse part`);
+    } finally {
+      restoreFetch();
+      fetchCalls.length = 0;
+    }
+  }
+
   console.log(`\n=== Result: ${pass} passed, ${fail} failed ===`);
   process.exit(fail > 0 ? 1 : 0);
 }

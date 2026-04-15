@@ -14,6 +14,11 @@
  * Claude is excellent at long-context reasoning and product copy.
  * Embeddings are NOT supported (Anthropic has no embeddings endpoint
  * as of this writing) — the provider throws AiProviderNotSupportedError.
+ *
+ * Tool calling uses Claude's `tool_use` / `tool_result` content blocks;
+ * assistant turns with tool calls arrive as content blocks, and the
+ * caller replies with a user message containing a `tool_result` block.
+ * This provider handles the translation in both directions.
  */
 import { Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -22,14 +27,42 @@ import {
   AiProviderNotConfiguredError,
   AiProviderNotSupportedError,
   AnalyzeImageInput,
+  ChatMessage,
   GenerateEmbeddingInput,
   GenerateEmbeddingResult,
   GenerateTextInput,
   GenerateTextResult,
+  NormalizedToolCall,
+  StopReason,
+  ToolChoice,
+  ToolDefinition,
 } from './ai-provider.interface';
 
 const ANTHROPIC_API_BASE = 'https://api.anthropic.com/v1';
 const ANTHROPIC_VERSION = '2023-06-01';
+
+/** Content block shapes used by Anthropic's Messages API. */
+type AnthropicTextBlock = { type: 'text'; text: string };
+type AnthropicToolUseBlock = {
+  type: 'tool_use';
+  id: string;
+  name: string;
+  input: Record<string, unknown>;
+};
+type AnthropicToolResultBlock = {
+  type: 'tool_result';
+  tool_use_id: string;
+  content: string;
+};
+type AnthropicContentBlock =
+  | AnthropicTextBlock
+  | AnthropicToolUseBlock
+  | AnthropicToolResultBlock;
+
+type AnthropicWireMessage = {
+  role: 'user' | 'assistant';
+  content: string | AnthropicContentBlock[];
+};
 
 export class AnthropicProvider implements AiProvider {
   readonly name = 'anthropic' as const;
@@ -75,31 +108,8 @@ export class AnthropicProvider implements AiProvider {
     return res.json();
   }
 
-  /**
-   * Anthropic's Messages API takes `system` as a separate top-level
-   * field, not as a message. Split the caller's messages accordingly.
-   */
-  private splitSystemMessages(input: GenerateTextInput): {
-    system?: string;
-    messages: Array<{ role: 'user' | 'assistant'; content: string }>;
-  } {
-    const systems: string[] = [];
-    const rest: Array<{ role: 'user' | 'assistant'; content: string }> = [];
-    for (const msg of input.messages) {
-      if (msg.role === 'system') {
-        systems.push(msg.content);
-      } else {
-        rest.push({ role: msg.role, content: msg.content });
-      }
-    }
-    return {
-      system: systems.length > 0 ? systems.join('\n\n') : undefined,
-      messages: rest,
-    };
-  }
-
   async generateText(input: GenerateTextInput): Promise<GenerateTextResult> {
-    const { system, messages } = this.splitSystemMessages(input);
+    const { system, messages } = translateMessagesToAnthropic(input.messages);
 
     // jsonMode: Anthropic doesn't have a native JSON mode, so prepend
     // a system instruction asking for JSON only.
@@ -107,29 +117,40 @@ export class AnthropicProvider implements AiProvider {
       ? `${system ?? ''}\n\nRespond with ONLY a valid JSON object. No prose, no markdown code fences.`.trim()
       : system;
 
-    const res = (await this.api('/messages', {
+    const payload: any = {
       model: input.model ?? this.defaultModel,
       max_tokens: input.maxTokens ?? 2000,
       temperature: input.temperature ?? 0.7,
       system: systemText,
       messages,
-    })) as {
-      content: Array<{ type: string; text?: string }>;
+    };
+    if (input.tools && input.tools.length > 0) {
+      payload.tools = input.tools.map(translateToolToAnthropic);
+      const tc = translateToolChoiceToAnthropic(input.toolChoice);
+      if (tc !== undefined) payload.tool_choice = tc;
+    }
+
+    const res = (await this.api('/messages', payload)) as {
+      content: AnthropicContentBlock[];
       model: string;
+      stop_reason?: string;
       usage?: { input_tokens?: number; output_tokens?: number };
     };
 
-    // Claude returns content as an array of content blocks; we only
-    // emit text blocks (no tool use yet).
     const text = (res.content ?? [])
-      .filter((block) => block.type === 'text')
-      .map((block) => block.text ?? '')
+      .filter((b): b is AnthropicTextBlock => b.type === 'text')
+      .map((b) => b.text ?? '')
       .join('');
+
+    const toolCalls = normalizeAnthropicToolCalls(res.content);
+    const stopReason = mapAnthropicStopReason(res.stop_reason, toolCalls.length > 0);
 
     return {
       text,
       model: res.model,
       provider: 'anthropic',
+      ...(toolCalls.length > 0 ? { toolCalls } : {}),
+      ...(stopReason ? { stopReason } : {}),
       usage: res.usage
         ? {
             promptTokens: res.usage.input_tokens,
@@ -200,5 +221,129 @@ export class AnthropicProvider implements AiProvider {
   private extractDataUriMediaType(dataUri: string): string | null {
     const m = /^data:([^;]+);/.exec(dataUri);
     return m?.[1] ?? null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Translation helpers (exported for smoke tests).
+// ---------------------------------------------------------------------------
+
+export function translateToolToAnthropic(t: ToolDefinition) {
+  return {
+    name: t.name,
+    description: t.description,
+    input_schema: t.parameters,
+  };
+}
+
+export function translateToolChoiceToAnthropic(
+  choice: ToolChoice | undefined,
+):
+  | { type: 'auto' }
+  | { type: 'any' }
+  | { type: 'tool'; name: string }
+  | undefined {
+  if (choice === undefined) return undefined;
+  // Anthropic has no 'none' option — callers asking for 'none' should
+  // simply omit tools; for safety we return undefined here so the
+  // request doesn't force a tool call.
+  if (choice === 'none') return undefined;
+  if (choice === 'auto') return { type: 'auto' };
+  if (choice === 'required') return { type: 'any' };
+  return { type: 'tool', name: choice.name };
+}
+
+/**
+ * Translate the unified ChatMessage[] to Anthropic's
+ * `{ system, messages: Array<{role, content blocks}> }` shape.
+ *
+ * - `system` turns are concatenated into the top-level `system` field.
+ * - `assistant` turns with `toolCalls` become an assistant message
+ *   with text + `tool_use` blocks.
+ * - `tool` turns become `user` messages with `tool_result` blocks.
+ *   Consecutive tool turns are merged into a single user message, which
+ *   is what Anthropic expects when multiple tools were called in parallel.
+ */
+export function translateMessagesToAnthropic(messages: ChatMessage[]): {
+  system?: string;
+  messages: AnthropicWireMessage[];
+} {
+  const systems: string[] = [];
+  const out: AnthropicWireMessage[] = [];
+
+  for (const msg of messages) {
+    if (msg.role === 'system') {
+      systems.push(msg.content);
+      continue;
+    }
+
+    if (msg.role === 'tool') {
+      const block: AnthropicToolResultBlock = {
+        type: 'tool_result',
+        tool_use_id: msg.toolCallId ?? '',
+        content: msg.content,
+      };
+      const last = out[out.length - 1];
+      if (last && last.role === 'user' && Array.isArray(last.content)) {
+        last.content.push(block);
+      } else {
+        out.push({ role: 'user', content: [block] });
+      }
+      continue;
+    }
+
+    if (msg.role === 'assistant' && msg.toolCalls && msg.toolCalls.length > 0) {
+      const blocks: AnthropicContentBlock[] = [];
+      if (msg.content) blocks.push({ type: 'text', text: msg.content });
+      for (const tc of msg.toolCalls) {
+        blocks.push({
+          type: 'tool_use',
+          id: tc.id,
+          name: tc.name,
+          input: (tc.arguments ?? {}) as Record<string, unknown>,
+        });
+      }
+      out.push({ role: 'assistant', content: blocks });
+      continue;
+    }
+
+    out.push({ role: msg.role, content: msg.content });
+  }
+
+  return {
+    system: systems.length > 0 ? systems.join('\n\n') : undefined,
+    messages: out,
+  };
+}
+
+export function normalizeAnthropicToolCalls(
+  content: AnthropicContentBlock[] | undefined,
+): NormalizedToolCall[] {
+  if (!content) return [];
+  return content
+    .filter((b): b is AnthropicToolUseBlock => b.type === 'tool_use')
+    .map((b) => ({
+      id: b.id,
+      name: b.name,
+      arguments: (b.input ?? {}) as Record<string, unknown>,
+      argumentsRaw: JSON.stringify(b.input ?? {}),
+    }));
+}
+
+export function mapAnthropicStopReason(
+  reason: string | undefined,
+  hasToolCalls: boolean,
+): StopReason | undefined {
+  if (hasToolCalls || reason === 'tool_use') return 'tool_use';
+  switch (reason) {
+    case 'end_turn':
+    case 'stop_sequence':
+      return 'stop';
+    case 'max_tokens':
+      return 'length';
+    case undefined:
+      return undefined;
+    default:
+      return 'other';
   }
 }
