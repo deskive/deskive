@@ -5,6 +5,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
 import { IoAdapter } from '@nestjs/platform-socket.io';
 import * as bodyParser from 'body-parser';
+import { MulterExceptionFilter } from './common/filters/multer-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -46,6 +47,9 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+
+  //multer exception filter
+   app.useGlobalFilters(new MulterExceptionFilter());
 
   // MANUAL CORS MIDDLEWARE - This works reliably
   console.log('🔓 Enabling CORS...');

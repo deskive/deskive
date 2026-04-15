@@ -102,7 +102,33 @@ export async function fetchWithAuth(
         window.location.href = "/auth/login";
       }
     }
+    
+    // Handle 403 Payload Too Large - this is a special case where we want to show a custom error message
+    if (response.status === 413) {
+      try {
+        const errorData = await response.json();
 
+        const maxBytes = errorData?.details?.maxBytes;
+        const receivedBytes = errorData?.details?.receivedBytes;
+
+        const MB = 1024 * 1024;
+
+        const maxMB = maxBytes ? (maxBytes / MB).toFixed(2) : null;
+        const receivedMB = receivedBytes ? (receivedBytes / MB).toFixed(2) : null;
+
+        let message = 'File too large';
+
+        if (maxMB && receivedMB) {
+          message = `File too large (${receivedMB} MB). Max allowed is ${maxMB} MB`;
+        } else if (maxMB) {
+          message = `File too large. Max allowed is ${maxMB} MB`;
+        }
+
+      } catch (error) {
+        console.error('Failed to parse 413 response', error);
+      }
+    }
+ 
     return response;
   } catch (error) {
     console.error(`API request to ${path} failed:`, error);
