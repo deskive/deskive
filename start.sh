@@ -14,6 +14,18 @@ if ! docker info > /dev/null 2>&1; then
     exit 1
 fi
 
+if [ ! -f .env.docker ]; then
+    echo -e "${RED}❌ .env.docker not found.${NC}"
+    echo ""
+    echo "This file configures the infrastructure containers (postgres, redis, qdrant)."
+    echo "It is normally committed to the repo — if yours is missing, restore it with:"
+    echo ""
+    echo "   git checkout -- .env.docker"
+    echo ""
+    echo "Then edit it to set database credentials (and optional API keys), and re-run ./start.sh."
+    exit 1
+fi
+
 echo -e "${BLUE}Starting Infrastructure (Docker)...${NC}"
 
 if [ ! -f backend/.env ]; then
