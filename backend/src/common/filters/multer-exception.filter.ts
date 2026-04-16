@@ -6,15 +6,14 @@ export class MulterExceptionFilter implements ExceptionFilter {
   catch(exception: MulterError, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse();
-    
 
     if (exception.code === 'LIMIT_FILE_SIZE') {
       return response.status(413).json({
         statusCode: 413,
         message: 'File too large',
         details: {
-          maxBytes: Number(process.env.MAX_UPLOAD_SIZE || 10485760), // or from env
-          receivedBytes: exception?.fieldSize || null,
+          maxBytes: Number(process.env.MAX_UPLOAD_SIZE || 10485760),
+          receivedBytes: null, // Multer does not provide this information, so we set it to null
         },
       });
     }
