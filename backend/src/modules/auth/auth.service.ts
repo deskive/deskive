@@ -154,8 +154,7 @@ export class AuthService {
       }
 
       // NOW attempt database sign in (email is verified or user doesn't exist)
-      // TODO: implement password verification with bcrypt
-      const response = await this.db.findOne('users', { email: dto.email }); // was: this.db.signIn(dto.email, dto.password);
+      const response = await this.db.signIn(dto.email, dto.password);
 
       this.logger.log('Login response:', response);
 

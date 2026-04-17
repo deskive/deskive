@@ -2890,16 +2890,16 @@ CREATE UNIQUE INDEX IF NOT EXISTS "idx_blog_tags_slug" ON "blog_tags" ("slug");
 
 -- ==================== BLOG_POST_CATEGORIES ====================
 CREATE TABLE IF NOT EXISTS "blog_post_categories" (
-  "post_id" UUID NOT NULL REFERENCES "deskive_blog_posts"(id) ON DELETE CASCADE,
-  "category_id" UUID NOT NULL REFERENCES "deskive_blog_categories"(id) ON DELETE CASCADE
+  "post_id" UUID NOT NULL REFERENCES "blog_posts"(id) ON DELETE CASCADE,
+  "category_id" UUID NOT NULL REFERENCES "blog_categories"(id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "idx_blog_post_categories_post_id_category_id" ON "blog_post_categories" ("post_id", "category_id");
 
 -- ==================== BLOG_POST_TAGS ====================
 CREATE TABLE IF NOT EXISTS "blog_post_tags" (
-  "post_id" UUID NOT NULL REFERENCES "deskive_blog_posts"(id) ON DELETE CASCADE,
-  "tag_id" UUID NOT NULL REFERENCES "deskive_blog_tags"(id) ON DELETE CASCADE
+  "post_id" UUID NOT NULL REFERENCES "blog_posts"(id) ON DELETE CASCADE,
+  "tag_id" UUID NOT NULL REFERENCES "blog_tags"(id) ON DELETE CASCADE
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS "idx_blog_post_tags_post_id_tag_id" ON "blog_post_tags" ("post_id", "tag_id");
@@ -2907,8 +2907,8 @@ CREATE UNIQUE INDEX IF NOT EXISTS "idx_blog_post_tags_post_id_tag_id" ON "blog_p
 -- ==================== BLOG_COMMENTS ====================
 CREATE TABLE IF NOT EXISTS "blog_comments" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  "post_id" UUID NOT NULL REFERENCES "deskive_blog_posts"(id) ON DELETE CASCADE,
-  "parent_id" UUID REFERENCES "deskive_blog_comments"(id) ON DELETE CASCADE,
+  "post_id" UUID NOT NULL REFERENCES "blog_posts"(id) ON DELETE CASCADE,
+  "parent_id" UUID REFERENCES "blog_comments"(id) ON DELETE CASCADE,
   "author_name" VARCHAR(255) NOT NULL,
   "author_email" VARCHAR(255) NOT NULL,
   "content" TEXT NOT NULL,
@@ -2921,7 +2921,7 @@ CREATE INDEX IF NOT EXISTS "idx_blog_comments_is_approved" ON "blog_comments" ("
 
 -- ==================== BLOG_POST_LIKES ====================
 CREATE TABLE IF NOT EXISTS "blog_post_likes" (
-  "post_id" UUID NOT NULL REFERENCES "deskive_blog_posts"(id) ON DELETE CASCADE,
+  "post_id" UUID NOT NULL REFERENCES "blog_posts"(id) ON DELETE CASCADE,
   "user_id" VARCHAR(255),
   "ip_address" VARCHAR(255),
   "created_at" TIMESTAMPTZ DEFAULT now()
@@ -2932,7 +2932,7 @@ CREATE INDEX IF NOT EXISTS "idx_blog_post_likes_post_id" ON "blog_post_likes" ("
 -- ==================== BLOG_RATINGS ====================
 CREATE TABLE IF NOT EXISTS "blog_ratings" (
   "id" UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  "post_id" UUID NOT NULL REFERENCES "deskive_blog_posts"(id) ON DELETE CASCADE,
+  "post_id" UUID NOT NULL REFERENCES "blog_posts"(id) ON DELETE CASCADE,
   "user_id" VARCHAR(255),
   "user_email" VARCHAR(255),
   "user_name" VARCHAR(255),

@@ -33,17 +33,17 @@
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> |
-  <a href="./README_JA.md">日本語</a> |
-  <a href="./README_ZH.md">中文</a> |
-  <a href="./README_KO.md">한국어</a> |
-  <a href="./README_ES.md">Español</a> |
-  <a href="./README_FR.md">Français</a> |
-  <a href="./README_DE.md">Deutsch</a> |
-  <a href="./README_PT-BR.md">Português</a> |
-  <a href="./README_RU.md">Русский</a> |
-  <a href="./README_HI.md">हिन्दी</a> |
-  <a href="./README_AR.md">العربية</a>
+  <a href="./README.md">🇬🇧 English</a> |
+  <a href="./README_JA.md">🇯🇵 日本語</a> |
+  <a href="./README_ZH.md">🇨🇳 中文</a> |
+  <a href="./README_KO.md">🇰🇷 한국어</a> |
+  <a href="./README_ES.md">🇪🇸 Español</a> |
+  <a href="./README_FR.md">🇫🇷 Français</a> |
+  <a href="./README_DE.md">🇩🇪 Deutsch</a> |
+  <a href="./README_PT-BR.md">🇧🇷 Português</a> |
+  <a href="./README_RU.md">🇷🇺 Русский</a> |
+  <a href="./README_HI.md">🇮🇳 हिन्दी</a> |
+  <a href="./README_AR.md">🇸🇦 العربية</a>
 </p>
 
 ---
@@ -66,7 +66,8 @@ Unlike Slack that requires paid plans for video calls or Notion that lacks real-
 2. **Communicate in Real-Time** -- Chat with threads, reactions, mentions, GIFs, and HD video calls
 3. **Manage Projects** -- Organize work with Kanban boards, sprints, task dependencies, and time tracking
 4. **Collaborate on Documents** -- Share notes, whiteboards, files with version control and digital signatures
-5. **Automate with AI** -- Let AutoPilot handle scheduling, meeting summaries, and daily briefings
+5. **Automate with AI** -- AutoPilot has full access across the entire app and can automate anything -- scheduling, messages, project updates, and more
+6. **Get Smart Suggestions** -- AI analyzes your data and suggests tasks, actions, and priorities right from the dashboard
 
 ### Key Capabilities
 
@@ -77,13 +78,41 @@ Unlike Slack that requires paid plans for video calls or Notion that lacks real-
 - **📝 Collaborative Notes** -- Block-based editor with real-time collaboration and templates
 - **📅 Calendar & Scheduling** -- Event management, recurring events, meeting rooms, and availability tracking
 - **🎨 Whiteboard** -- Visual collaboration workspace for brainstorming and planning
-- **🤖 AI Assistant** -- AutoPilot for scheduling, meeting intelligence, and document analysis
+- **🤖 AutoPilot AI Agent** -- Fully autonomous AI assistant with access to the entire app -- automates tasks, schedules meetings, sends messages, manages projects, and handles workflows across all modules
+- **🧠 Smart Suggestions** -- AI-powered dashboard suggestions that analyze your activity, projects, and deadlines to recommend tasks and priorities
+- **🧰 Built-in Tools** -- Ready-to-use productivity tools for everyday tasks -- polls, reminders, time tracking, templates, and more -- no extra setup needed
+- **🔌 Connectors** -- 180+ third-party app connectors with 6+ pre-wired OAuth integrations including Slack, Google Drive, GitHub, Dropbox, Gmail, and more
 - **📊 Forms & Analytics** -- Custom form builder with response tracking and workspace metrics
 - **✅ Approval Workflows** -- Built-in approval system for documents and processes
 - **💰 Budget Tracking** -- Expense management, billing rates, and budget monitoring
-- **🔗 Integrations** -- Connect with Slack, Google Drive, GitHub, Dropbox, and more
 - **🔍 Semantic Search** -- AI-powered search across all content types
 - **🌍 Internationalization** -- Multi-language support (English, Japanese, expandable)
+
+### Feature Highlights
+
+<p align="center">
+  <strong>🤖 AutoPilot AI Agent</strong><br>
+  <em>Fully autonomous AI assistant with access to the entire app -- ask it anything, automate everything</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Smart Suggestions</strong><br>
+  <em>AI analyzes your activity and deadlines to recommend tasks and priorities right from the dashboard</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Built-in Tools</strong><br>
+  <em>Ready-to-use productivity tools -- document builder, bots, budgets, whiteboards, forms, and more</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Connectors</strong><br>
+  <em>180+ third-party app connectors with pre-wired OAuth for Gmail, Google Calendar, Drive, GitHub, Dropbox, and more</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
 
 ## What Problem We Solve
 
@@ -218,7 +247,9 @@ Deskive is an **actively maintained** project with a growing community. Here's w
 - ✅ **40+ Modules** -- Comprehensive backend API with modular architecture
 - ✅ **148 Database Tables** -- Production-ready schema with migrations
 - ✅ **HD Video Conferencing** -- LiveKit integration with recording and transcription
-- ✅ **AI AutoPilot** -- Intelligent agent for task automation and scheduling
+- ✅ **AI AutoPilot** -- Fully autonomous AI agent with app-wide access for end-to-end task automation
+- ✅ **Smart Suggestions** -- AI-driven dashboard that analyzes user data to recommend tasks and priorities
+- ✅ **180+ Connectors** -- Third-party app integrations with pre-wired OAuth for Slack, GitHub, Google, and more
 - ✅ **Multi-Language Support** -- i18n with English and Japanese
 - ✅ **Desktop Apps** -- Tauri-based apps for macOS, Windows, and Linux
 
@@ -289,28 +320,32 @@ For development environments:
 
 ## Architecture
 
+<div align="center">
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Frontend (React 19)                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Chat   │  │ Projects │  │  Files   │  │ Calendar │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                     Frontend (React 19)                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Chat   │  │ Projects │  │  Files   │  │ Calendar │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         Vite + TypeScript + Tailwind CSS + Radix UI         │
 └────────────────────────┬────────────────────────────────────┘
                          │ REST API + Socket.io
 ┌────────────────────────┴────────────────────────────────────┐
-│                    Backend (NestJS 11)                       │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Auth   │  │   Chat   │  │  Tasks   │  │    AI    │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                    Backend (NestJS 11)                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Auth   │  │   Chat   │  │  Tasks   │  │    AI    │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         40+ Modules with TypeScript + Raw SQL               │
 └────────┬─────────────┬─────────────┬─────────────┬──────────┘
          │             │             │             │
-    ┌────┴────┐   ┌────┴────┐  ┌────┴────┐   ┌────┴────┐
-    │Postgres │   │  Redis  │  │ Qdrant  │   │LiveKit  │
-    │(Storage)│   │(Cache)  │  │(Vector) │   │(Video)  │
-    └─────────┘   └─────────┘  └─────────┘   └─────────┘
+    ┌────┴────┐   ┌────┴────┐   ┌────┴────┐   ┌────┴────┐
+    │Postgres │   │  Redis  │   │ Qdrant  │   │LiveKit  │
+    │(Storage)│   │(Cache)  │   │(Vector) │   │(Video)  │
+    └─────────┘   └─────────┘   └─────────┘   └─────────┘
 ```
+
+</div>
 
 **Frontend** (`/frontend`) -- React 19 with Vite, TypeScript, Tailwind CSS, Radix UI components, Zustand for state management, React Query for data fetching
 
@@ -329,9 +364,9 @@ Deskive ships with 40+ integrated modules across these categories:
 | **Communication** | Chat (channels, DMs, threads), Video Calls (HD, recording), Email (Gmail OAuth, SMTP/IMAP), Notifications |
 | **Project Management** | Tasks, Milestones, Sprints, Kanban Boards, Time Tracking, Dependencies, Labels |
 | **Content** | Notes (block editor), Documents (digital signatures), Whiteboards, File Management (versioning, sharing) |
-| **Productivity** | Calendar (events, rooms), Forms (builder, analytics), Approvals (workflows), Budgets (expenses, billing) |
-| **AI & Automation** | AutoPilot (agent), Meeting Intelligence, Document Analysis, Bots (triggers, actions, scheduling) |
-| **Platform** | Auth (OAuth, SSO), Workspace Management, Roles & Permissions, Search (semantic), Analytics, Integrations |
+| **Productivity** | Calendar (events, rooms), Forms (builder, analytics), Approvals (workflows), Budgets (expenses, billing), Built-in Tools (polls, reminders, templates) |
+| **AI & Automation** | AutoPilot (full app-wide autonomous agent), Smart Suggestions (AI-driven task recommendations), Meeting Intelligence, Document Analysis, Bots (triggers, actions, scheduling) |
+| **Platform** | Auth (OAuth, SSO), Workspace Management, Roles & Permissions, Search (semantic), Analytics, 180+ Connectors (Slack, GitHub, Google, Dropbox, and more) |
 
 [View detailed feature documentation &rarr;](https://github.com/deskive/deskive/wiki)
 

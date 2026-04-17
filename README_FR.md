@@ -29,17 +29,17 @@
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> |
-  <a href="./README_JA.md">日本語</a> |
-  <a href="./README_ZH.md">中文</a> |
-  <a href="./README_KO.md">한국어</a> |
-  <a href="./README_ES.md">Español</a> |
+  <a href="./README.md">🇬🇧 English</a> |
+  <a href="./README_JA.md">🇯🇵 日本語</a> |
+  <a href="./README_ZH.md">🇨🇳 中文</a> |
+  <a href="./README_KO.md">🇰🇷 한국어</a> |
+  <a href="./README_ES.md">🇪🇸 Español</a> |
   <strong>Français</strong> |
-  <a href="./README_DE.md">Deutsch</a> |
-  <a href="./README_PT-BR.md">Português</a> |
-  <a href="./README_RU.md">Русский</a> |
-  <a href="./README_HI.md">हिन्दी</a> |
-  <a href="./README_AR.md">العربية</a>
+  <a href="./README_DE.md">🇩🇪 Deutsch</a> |
+  <a href="./README_PT-BR.md">🇧🇷 Português</a> |
+  <a href="./README_RU.md">🇷🇺 Русский</a> |
+  <a href="./README_HI.md">🇮🇳 हिन्दी</a> |
+  <a href="./README_AR.md">🇸🇦 العربية</a>
 </p>
 
 ---
@@ -62,7 +62,8 @@ Contrairement à Slack qui nécessite des abonnements payants pour les appels vi
 2. **Communiquez en temps réel** -- Discutez avec des fils de discussion, des réactions, des mentions, des GIF et des appels vidéo HD
 3. **Gérez vos projets** -- Organisez le travail avec des tableaux Kanban, des sprints, des dépendances de tâches et un suivi du temps
 4. **Collaborez sur des documents** -- Partagez des notes, des tableaux blancs, des fichiers avec contrôle de version et signatures numériques
-5. **Automatisez avec l'IA** -- Laissez AutoPilot gérer la planification, les résumés de réunions et les briefings quotidiens
+5. **Automatisez avec l'IA** -- AutoPilot a un accès complet à toute l'application et peut tout automatiser -- planification, messages, mises à jour de projets et plus encore
+6. **Obtenez des suggestions intelligentes** -- L'IA analyse vos données et suggère des tâches, des actions et des priorités directement depuis le tableau de bord
 
 ### Capacités clés
 
@@ -73,13 +74,41 @@ Contrairement à Slack qui nécessite des abonnements payants pour les appels vi
 - **📝 Notes collaboratives** -- Éditeur par blocs avec collaboration en temps réel et modèles
 - **📅 Calendrier et planification** -- Gestion d'événements, événements récurrents, salles de réunion et suivi de disponibilité
 - **🎨 Tableau blanc** -- Espace de collaboration visuel pour le brainstorming et la planification
-- **🤖 Assistant IA** -- AutoPilot pour la planification, l'intelligence de réunion et l'analyse de documents
+- **🤖 Agent IA AutoPilot** -- Assistant IA entièrement autonome avec accès à toute l'application -- automatise les tâches, planifie les réunions, envoie des messages, gère les projets et traite les flux de travail dans tous les modules
+- **🧠 Suggestions intelligentes** -- Suggestions de tableau de bord alimentées par l'IA qui analysent votre activité, vos projets et vos échéances pour recommander des tâches et des priorités
+- **🧰 Outils intégrés** -- Outils de productivité prêts à l'emploi pour les tâches quotidiennes -- sondages, rappels, suivi du temps, modèles et plus -- aucune configuration supplémentaire nécessaire
+- **🔌 Connecteurs** -- Plus de 180 connecteurs d'applications tierces avec plus de 6 intégrations OAuth préconfigurées incluant Slack, Google Drive, GitHub, Dropbox, Gmail et plus
 - **📊 Formulaires et analytiques** -- Générateur de formulaires personnalisés avec suivi des réponses et métriques d'espace de travail
 - **✅ Flux d'approbation** -- Système d'approbation intégré pour les documents et les processus
 - **💰 Suivi budgétaire** -- Gestion des dépenses, tarifs de facturation et surveillance du budget
-- **🔗 Intégrations** -- Connectez-vous à Slack, Google Drive, GitHub, Dropbox et plus encore
 - **🔍 Recherche sémantique** -- Recherche alimentée par l'IA sur tous les types de contenu
 - **🌍 Internationalisation** -- Support multilingue (anglais, japonais, extensible)
+
+### Points forts des fonctionnalités
+
+<p align="center">
+  <strong>🤖 Agent IA AutoPilot</strong><br>
+  <em>Assistant IA entièrement autonome avec accès à toute l'application -- posez-lui n'importe quelle question, automatisez tout</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Suggestions intelligentes</strong><br>
+  <em>L'IA analyse votre activité et vos échéances pour recommander des tâches et des priorités directement depuis le tableau de bord</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Outils intégrés</strong><br>
+  <em>Outils de productivité prêts à l'emploi -- constructeur de documents, bots, budgets, tableaux blancs, formulaires et plus</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Connecteurs</strong><br>
+  <em>Plus de 180 connecteurs d'applications tierces avec OAuth préconfiguré pour Gmail, Google Calendar, Drive, GitHub, Dropbox et plus</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
 
 ## Quel problème résolvons-nous
 
@@ -183,7 +212,9 @@ Deskive est un projet **activement maintenu** avec une communauté croissante. V
 - ✅ **Plus de 40 modules** -- API backend complète avec architecture modulaire
 - ✅ **148 tables de base de données** -- Schéma prêt pour la production avec migrations
 - ✅ **Visioconférence HD** -- Intégration LiveKit avec enregistrement et transcription
-- ✅ **IA AutoPilot** -- Agent intelligent pour l'automatisation des tâches et la planification
+- ✅ **IA AutoPilot** -- Agent IA entièrement autonome avec accès à toute l'application pour l'automatisation des tâches de bout en bout
+- ✅ **Suggestions intelligentes** -- Tableau de bord alimenté par l'IA qui analyse les données utilisateur pour recommander des tâches et des priorités
+- ✅ **180+ Connecteurs** -- Intégrations d'applications tierces avec OAuth préconfiguré pour Slack, GitHub, Google et plus
 - ✅ **Support multilingue** -- i18n avec anglais et japonais
 - ✅ **Applications desktop** -- Applications basées sur Tauri pour macOS, Windows et Linux
 
@@ -256,25 +287,25 @@ Pour les environnements de développement :
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Frontend (React 19)                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Chat   │  │ Projets  │  │ Fichiers │  │Calendrier│   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                     Frontend (React 19)                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Chat   │  │ Projets  │  │ Fichiers │  │Calendrier│     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         Vite + TypeScript + Tailwind CSS + Radix UI         │
 └────────────────────────┬────────────────────────────────────┘
                          │ REST API + Socket.io
 ┌────────────────────────┴────────────────────────────────────┐
-│                    Backend (NestJS 11)                       │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Auth   │  │   Chat   │  │  Tâches  │  │    IA    │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                    Backend (NestJS 11)                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Auth   │  │   Chat   │  │  Tâches  │  │    IA    │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         40+ Modules avec TypeScript + SQL brut              │
 └────────┬─────────────┬─────────────┬─────────────┬──────────┘
          │             │             │             │
-    ┌────┴────┐   ┌────┴────┐  ┌────┴────┐   ┌────┴────┐
-    │Postgres │   │  Redis  │  │ Qdrant  │   │LiveKit  │
-    │(Stockage│   │ (Cache) │  │(Vecteur)│   │ (Vidéo) │
-    └─────────┘   └─────────┘  └─────────┘   └─────────┘
+    ┌────┴────┐   ┌────┴────┐   ┌────┴────┐   ┌────┴────┐
+    │Postgres │   │  Redis  │   │ Qdrant  │   │ LiveKit │
+    │(Stoage) │   │ (Cache) │   │(Vecteur)│   │ (Vidéo) │
+    └─────────┘   └─────────┘   └─────────┘   └─────────┘
 ```
 
 **Frontend** (`/frontend`) -- React 19 avec Vite, TypeScript, Tailwind CSS, composants Radix UI, Zustand pour la gestion d'état, React Query pour la récupération de données
@@ -294,9 +325,9 @@ Deskive est livré avec plus de 40 modules intégrés dans ces catégories :
 | **Communication** | Chat (canaux, DM, fils), Appels vidéo (HD, enregistrement), Email (Gmail OAuth, SMTP/IMAP), Notifications |
 | **Gestion de projet** | Tâches, Jalons, Sprints, Tableaux Kanban, Suivi du temps, Dépendances, Étiquettes |
 | **Contenu** | Notes (éditeur par blocs), Documents (signatures numériques), Tableaux blancs, Gestion de fichiers (versionnage, partage) |
-| **Productivité** | Calendrier (événements, salles), Formulaires (générateur, analytique), Approbations (flux de travail), Budgets (dépenses, facturation) |
-| **IA et automatisation** | AutoPilot (agent), Intelligence de réunion, Analyse de documents, Bots (déclencheurs, actions, planification) |
-| **Plateforme** | Auth (OAuth, SSO), Gestion d'espace de travail, Rôles et permissions, Recherche (sémantique), Analytique, Intégrations |
+| **Productivité** | Calendrier (événements, salles), Formulaires (constructeur, analytiques), Approbations (flux), Budgets (dépenses, facturation), Outils intégrés (sondages, rappels, modèles) |
+| **IA et Automatisation** | AutoPilot (agent autonome pour toute l'application), Suggestions intelligentes (recommandations de tâches par IA), Intelligence de réunion, Analyse de documents, Bots (déclencheurs, actions, planification) |
+| **Plateforme** | Auth (OAuth, SSO), Gestion d'espace de travail, Rôles et Permissions, Recherche (sémantique), Analytiques, 180+ Connecteurs (Slack, GitHub, Google, Dropbox et plus) |
 
 [Voir la documentation détaillée des fonctionnalités &rarr;](https://github.com/deskive/deskive/wiki)
 
