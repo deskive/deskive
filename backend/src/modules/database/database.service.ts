@@ -182,7 +182,14 @@ export class DatabaseService implements OnModuleInit, OnModuleDestroy {
 
   async insert(tableName: string, data: Record<string, any>): Promise<any> {
     const keys = Object.keys(data).filter((k) => data[k] !== undefined);
-    const values = keys.map((k) => data[k]);
+    const values = keys.map((k) => {
+      const v = data[k];
+      // Stringify plain objects/arrays so pg can insert them into json/jsonb columns
+      if (v !== null && typeof v === 'object' && !(v instanceof Date)) {
+        return JSON.stringify(v);
+      }
+      return v;
+    });
     const placeholders = keys.map((_, i) => `$${i + 1}`);
     const columns = keys.map((k) => this.escapeIdentifier(k));
 
