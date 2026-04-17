@@ -256,25 +256,25 @@ Para ambientes de desenvolvimento:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Frontend (React 19)                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Chat   │  │ Projetos │  │ Arquivos │  │Calendário│   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                     Frontend (React 19)                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Chat   │  │ Projetos │  │ Arquivos │  │Calendário│     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         Vite + TypeScript + Tailwind CSS + Radix UI         │
 └────────────────────────┬────────────────────────────────────┘
                          │ REST API + Socket.io
 ┌────────────────────────┴────────────────────────────────────┐
-│                    Backend (NestJS 11)                       │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Auth   │  │   Chat   │  │ Tarefas  │  │    IA    │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
-│         Mais de 40 Módulos com TypeScript + SQL Puro       │
+│                    Backend (NestJS 11)                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Auth   │  │   Chat   │  │ Tarefas  │  │    IA    │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
+│         Mais de 40 Módulos com TypeScript + SQL Puro        │
 └────────┬─────────────┬─────────────┬─────────────┬──────────┘
          │             │             │             │
-    ┌────┴────┐   ┌────┴────┐  ┌────┴────┐   ┌────┴────┐
-    │Postgres │   │  Redis  │  │ Qdrant  │   │LiveKit  │
-    │(Storage)│   │(Cache)  │  │(Vector) │   │(Vídeo)  │
-    └─────────┘   └─────────┘  └─────────┘   └─────────┘
+    ┌────┴────┐   ┌────┴────┐   ┌────┴────┐   ┌────┴────┐
+    │Postgres │   │  Redis  │   │ Qdrant  │   │LiveKit  │
+    │(Storage)│   │(Cache)  │   │(Vector) │   │(Vídeo)  │
+    └─────────┘   └─────────┘   └─────────┘   └─────────┘
 ```
 
 **Frontend** (`/frontend`) -- React 19 com Vite, TypeScript, Tailwind CSS, componentes Radix UI, Zustand para gerenciamento de estado, React Query para busca de dados
