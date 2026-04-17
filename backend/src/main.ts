@@ -48,8 +48,8 @@ async function bootstrap() {
     }),
   );
 
-  //multer exception filter
-   app.useGlobalFilters(new MulterExceptionFilter());
+  // multer exception filter
+  app.useGlobalFilters(new MulterExceptionFilter());
 
   // MANUAL CORS MIDDLEWARE - This works reliably
   console.log('🔓 Enabling CORS...');

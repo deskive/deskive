@@ -256,9 +256,7 @@ export function translateMessageToOpenAi(msg: ChatMessage): OpenAiWireMessage {
         type: 'function' as const,
         function: {
           name: tc.name,
-          arguments:
-            tc.argumentsRaw ??
-            (tc.arguments !== null ? JSON.stringify(tc.arguments) : ''),
+          arguments: tc.argumentsRaw ?? (tc.arguments !== null ? JSON.stringify(tc.arguments) : ''),
         },
       })),
     };

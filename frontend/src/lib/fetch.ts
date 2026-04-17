@@ -103,10 +103,12 @@ export async function fetchWithAuth(
       }
     }
     
-    // Handle 403 Payload Too Large - this is a special case where we want to show a custom error message
+    // Handle 413 Payload Too Large - this is a special case where we want to show a custom error message
     if (response.status === 413) {
+      let errorMessage = 'File too large';
       try {
-        const errorData = await response.json();
+        const cloned = response.clone(); 
+        const errorData = await cloned.json();
 
         const maxBytes = errorData?.details?.maxBytes;
         const receivedBytes = errorData?.details?.receivedBytes;
@@ -116,17 +118,16 @@ export async function fetchWithAuth(
         const maxMB = maxBytes ? (maxBytes / MB).toFixed(2) : null;
         const receivedMB = receivedBytes ? (receivedBytes / MB).toFixed(2) : null;
 
-        let message = 'File too large';
-
         if (maxMB && receivedMB) {
-          message = `File too large (${receivedMB} MB). Max allowed is ${maxMB} MB`;
+          errorMessage = `File too large (${receivedMB} MB). Max allowed is ${maxMB} MB`;
         } else if (maxMB) {
-          message = `File too large. Max allowed is ${maxMB} MB`;
+          errorMessage = `File too large. Max allowed is ${maxMB} MB`;
         }
 
       } catch (error) {
         console.error('Failed to parse 413 response', error);
       }
+      throw new Error(errorMessage);
     }
  
     return response;

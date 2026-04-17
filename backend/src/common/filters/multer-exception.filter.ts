@@ -1,5 +1,6 @@
 import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
 import { MulterError } from 'multer';
+import { MAX_UPLOAD_SIZE } from '@/constants/upload';
 
 @Catch(MulterError)
 export class MulterExceptionFilter implements ExceptionFilter {
@@ -12,7 +13,7 @@ export class MulterExceptionFilter implements ExceptionFilter {
         statusCode: 413,
         message: 'File too large',
         details: {
-          maxBytes: Number(process.env.MAX_UPLOAD_SIZE || 10485760),
+          maxBytes: MAX_UPLOAD_SIZE,
           receivedBytes: null, // Multer does not provide this information, so we set it to null
         },
       });
