@@ -65,6 +65,7 @@ import { AuthGuard } from '../../common/guards/auth.guard';
 import { WorkspaceGuard } from '../../common/guards/workspace.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { CurrentWorkspace } from '../../common/decorators/current-workspace.decorator';
+import { MAX_UPLOAD_SIZE } from '@/constants/upload';
 
 @ApiTags('files')
 @ApiBearerAuth()
@@ -473,7 +474,13 @@ export class FilesController {
   @ApiConsumes('multipart/form-data')
   @ApiResponse({ status: 201, description: 'File uploaded successfully' })
   @ApiResponse({ status: 400, description: 'Storage quota exceeded or invalid file' })
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      limits: {
+        fileSize: MAX_UPLOAD_SIZE,
+      },
+    })
+  )
   async uploadFile(
     @Param('workspaceId') workspaceId: string,
     @UploadedFile() file: Express.Multer.File,

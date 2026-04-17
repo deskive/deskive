@@ -54,10 +54,7 @@ type AnthropicToolResultBlock = {
   tool_use_id: string;
   content: string;
 };
-type AnthropicContentBlock =
-  | AnthropicTextBlock
-  | AnthropicToolUseBlock
-  | AnthropicToolResultBlock;
+type AnthropicContentBlock = AnthropicTextBlock | AnthropicToolUseBlock | AnthropicToolResultBlock;
 
 type AnthropicWireMessage = {
   role: 'user' | 'assistant';
@@ -238,11 +235,7 @@ export function translateToolToAnthropic(t: ToolDefinition) {
 
 export function translateToolChoiceToAnthropic(
   choice: ToolChoice | undefined,
-):
-  | { type: 'auto' }
-  | { type: 'any' }
-  | { type: 'tool'; name: string }
-  | undefined {
+): { type: 'auto' } | { type: 'any' } | { type: 'tool'; name: string } | undefined {
   if (choice === undefined) return undefined;
   // Anthropic has no 'none' option — callers asking for 'none' should
   // simply omit tools; for safety we return undefined here so the
