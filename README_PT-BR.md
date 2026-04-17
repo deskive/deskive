@@ -62,7 +62,8 @@ Diferentemente do Slack que requer planos pagos para videochamadas ou do Notion 
 2. **Comunique-se em Tempo Real** -- Chat com threads, reações, menções, GIFs e videochamadas HD
 3. **Gerencie Projetos** -- Organize trabalho com quadros Kanban, sprints, dependências de tarefas e controle de tempo
 4. **Colabore em Documentos** -- Compartilhe notas, quadros brancos, arquivos com controle de versão e assinaturas digitais
-5. **Automatize com IA** -- Deixe o AutoPilot cuidar do agendamento, resumos de reuniões e briefings diários
+5. **Automatize com IA** -- O AutoPilot tem acesso total a todo o aplicativo e pode automatizar tudo -- agendamento, mensagens, atualizações de projetos e mais
+6. **Receba Sugestões Inteligentes** -- A IA analisa seus dados e sugere tarefas, ações e prioridades diretamente do painel
 
 ### Capacidades Principais
 
@@ -73,11 +74,13 @@ Diferentemente do Slack que requer planos pagos para videochamadas ou do Notion 
 - **📝 Notas Colaborativas** -- Editor baseado em blocos com colaboração em tempo real e templates
 - **📅 Calendário e Agendamento** -- Gerenciamento de eventos, eventos recorrentes, salas de reunião e rastreamento de disponibilidade
 - **🎨 Quadro Branco** -- Workspace de colaboração visual para brainstorming e planejamento
-- **🤖 Assistente de IA** -- AutoPilot para agendamento, inteligência de reuniões e análise de documentos
+- **🤖 Agente IA AutoPilot** -- Assistente de IA totalmente autônomo com acesso a todo o aplicativo -- automatiza tarefas, agenda reuniões, envia mensagens, gerencia projetos e lida com fluxos de trabalho em todos os módulos
+- **🧠 Sugestões Inteligentes** -- Sugestões do painel alimentadas por IA que analisam sua atividade, projetos e prazos para recomendar tarefas e prioridades
+- **🧰 Ferramentas Integradas** -- Ferramentas de produtividade prontas para uso para tarefas diárias -- enquetes, lembretes, controle de tempo, templates e mais -- sem configuração adicional
+- **🔌 Conectores** -- Mais de 180 conectores de aplicativos de terceiros com mais de 6 integrações OAuth pré-configuradas incluindo Slack, Google Drive, GitHub, Dropbox, Gmail e mais
 - **📊 Formulários e Análises** -- Construtor de formulários personalizados com rastreamento de respostas e métricas de workspace
 - **✅ Fluxos de Aprovação** -- Sistema de aprovação integrado para documentos e processos
 - **💰 Rastreamento de Orçamento** -- Gerenciamento de despesas, taxas de cobrança e monitoramento de orçamento
-- **🔗 Integrações** -- Conecte com Slack, Google Drive, GitHub, Dropbox e muito mais
 - **🔍 Busca Semântica** -- Busca alimentada por IA em todos os tipos de conteúdo
 - **🌍 Internacionalização** -- Suporte multilíngue (Inglês, Japonês, expansível)
 
@@ -183,7 +186,9 @@ Deskive é um projeto **ativamente mantido** com uma comunidade crescente. Veja 
 - ✅ **Mais de 40 Módulos** -- API backend abrangente com arquitetura modular
 - ✅ **148 Tabelas de Banco de Dados** -- Schema pronto para produção com migrações
 - ✅ **Videoconferência HD** -- Integração LiveKit com gravação e transcrição
-- ✅ **IA AutoPilot** -- Agente inteligente para automação de tarefas e agendamento
+- ✅ **IA AutoPilot** -- Agente de IA totalmente autônomo com acesso a todo o aplicativo para automação de tarefas de ponta a ponta
+- ✅ **Sugestões Inteligentes** -- Painel alimentado por IA que analisa dados do usuário para recomendar tarefas e prioridades
+- ✅ **180+ Conectores** -- Integrações de aplicativos de terceiros com OAuth pré-configurado para Slack, GitHub, Google e mais
 - ✅ **Suporte Multilíngue** -- i18n com Inglês e Japonês
 - ✅ **Apps Desktop** -- Apps baseados em Tauri para macOS, Windows e Linux
 
@@ -294,9 +299,9 @@ Deskive vem com mais de 40 módulos integrados nestas categorias:
 | **Comunicação** | Chat (canais, DMs, threads), Videochamadas (HD, gravação), Email (Gmail OAuth, SMTP/IMAP), Notificações |
 | **Gerenciamento de Projetos** | Tarefas, Marcos, Sprints, Quadros Kanban, Controle de Tempo, Dependências, Etiquetas |
 | **Conteúdo** | Notas (editor de blocos), Documentos (assinaturas digitais), Quadros Brancos, Gerenciamento de Arquivos (versionamento, compartilhamento) |
-| **Produtividade** | Calendário (eventos, salas), Formulários (construtor, análises), Aprovações (fluxos de trabalho), Orçamentos (despesas, cobrança) |
-| **IA e Automação** | AutoPilot (agente), Inteligência de Reuniões, Análise de Documentos, Bots (gatilhos, ações, agendamento) |
-| **Plataforma** | Auth (OAuth, SSO), Gerenciamento de Workspace, Funções e Permissões, Busca (semântica), Análises, Integrações |
+| **Produtividade** | Calendário (eventos, salas), Formulários (construtor, análises), Aprovações (fluxos), Orçamentos (despesas, cobrança), Ferramentas integradas (enquetes, lembretes, templates) |
+| **IA e Automação** | AutoPilot (agente autônomo de todo o aplicativo), Sugestões Inteligentes (recomendações de tarefas por IA), Inteligência de Reuniões, Análise de Documentos, Bots (gatilhos, ações, agendamento) |
+| **Plataforma** | Auth (OAuth, SSO), Gestão de Workspace, Funções e Permissões, Busca (semântica), Análises, 180+ Conectores (Slack, GitHub, Google, Dropbox e mais) |
 
 [Ver documentação detalhada de recursos &rarr;](https://github.com/deskive/deskive/wiki)
 

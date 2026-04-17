@@ -62,7 +62,8 @@ Im Gegensatz zu Slack, das kostenpflichtige Tarife für Videoanrufe erfordert, o
 2. **Kommunizieren Sie in Echtzeit** -- Chatten Sie mit Threads, Reaktionen, Erwähnungen, GIFs und HD-Videoanrufen
 3. **Projekte verwalten** -- Organisieren Sie Arbeit mit Kanban-Boards, Sprints, Aufgabenabhängigkeiten und Zeiterfassung
 4. **Gemeinsam an Dokumenten arbeiten** -- Teilen Sie Notizen, Whiteboards, Dateien mit Versionskontrolle und digitalen Signaturen
-5. **Mit KI automatisieren** -- Lassen Sie AutoPilot Terminplanung, Meeting-Zusammenfassungen und tägliche Briefings übernehmen
+5. **Mit KI automatisieren** -- AutoPilot hat vollen Zugriff auf die gesamte App und kann alles automatisieren -- Terminplanung, Nachrichten, Projektaktualisierungen und mehr
+6. **Intelligente Vorschläge erhalten** -- KI analysiert Ihre Daten und schlägt Aufgaben, Aktionen und Prioritäten direkt vom Dashboard vor
 
 ### Hauptfunktionen
 
@@ -73,11 +74,13 @@ Im Gegensatz zu Slack, das kostenpflichtige Tarife für Videoanrufe erfordert, o
 - **📝 Gemeinsame Notizen** -- Blockbasierter Editor mit Echtzeit-Zusammenarbeit und Vorlagen
 - **📅 Kalender & Terminplanung** -- Veranstaltungsverwaltung, wiederkehrende Termine, Besprechungsräume und Verfügbarkeitsverfolgung
 - **🎨 Whiteboard** -- Visueller Kollaborations-Workspace für Brainstorming und Planung
-- **🤖 KI-Assistent** -- AutoPilot für Terminplanung, Meeting-Intelligence und Dokumentenanalyse
+- **🤖 AutoPilot KI-Agent** -- Vollständig autonomer KI-Assistent mit Zugriff auf die gesamte App -- automatisiert Aufgaben, plant Meetings, sendet Nachrichten, verwaltet Projekte und bearbeitet Workflows über alle Module
+- **🧠 Intelligente Vorschläge** -- KI-gestützte Dashboard-Vorschläge, die Ihre Aktivität, Projekte und Fristen analysieren, um Aufgaben und Prioritäten zu empfehlen
+- **🧰 Integrierte Tools** -- Sofort einsetzbare Produktivitätswerkzeuge für tägliche Aufgaben -- Umfragen, Erinnerungen, Zeiterfassung, Vorlagen und mehr -- keine zusätzliche Einrichtung erforderlich
+- **🔌 Konnektoren** -- Über 180 Drittanbieter-App-Konnektoren mit über 6 vorkonfigurierten OAuth-Integrationen einschließlich Slack, Google Drive, GitHub, Dropbox, Gmail und mehr
 - **📊 Formulare & Analytics** -- Benutzerdefinierter Formular-Builder mit Antwortverfolgung und Workspace-Metriken
 - **✅ Genehmigungs-Workflows** -- Integriertes Genehmigungssystem für Dokumente und Prozesse
 - **💰 Budget-Tracking** -- Kostenverwaltung, Abrechnungssätze und Budget-Überwachung
-- **🔗 Integrationen** -- Verbindung mit Slack, Google Drive, GitHub, Dropbox und mehr
 - **🔍 Semantische Suche** -- KI-gestützte Suche über alle Inhaltstypen
 - **🌍 Internationalisierung** -- Mehrsprachige Unterstützung (Englisch, Japanisch, erweiterbar)
 
@@ -183,7 +186,9 @@ Deskive ist ein **aktiv gewartetes** Projekt mit einer wachsenden Community. Das
 - ✅ **40+ Module** -- Umfassende Backend-API mit modularer Architektur
 - ✅ **148 Datenbanktabellen** -- Produktionsreifes Schema mit Migrationen
 - ✅ **HD-Videokonferenzen** -- LiveKit-Integration mit Aufzeichnung und Transkription
-- ✅ **KI-AutoPilot** -- Intelligenter Agent für Aufgabenautomatisierung und Terminplanung
+- ✅ **AI AutoPilot** -- Vollständig autonomer KI-Agent mit App-weitem Zugriff für End-to-End-Aufgabenautomatisierung
+- ✅ **Intelligente Vorschläge** -- KI-gestütztes Dashboard, das Benutzerdaten analysiert, um Aufgaben und Prioritäten zu empfehlen
+- ✅ **180+ Konnektoren** -- Drittanbieter-App-Integrationen mit vorkonfiguriertem OAuth für Slack, GitHub, Google und mehr
 - ✅ **Mehrsprachige Unterstützung** -- i18n mit Englisch und Japanisch
 - ✅ **Desktop-Apps** -- Tauri-basierte Apps für macOS, Windows und Linux
 
@@ -294,9 +299,9 @@ Deskive wird mit 40+ integrierten Modulen in diesen Kategorien ausgeliefert:
 | **Kommunikation** | Chat (Kanäle, DMs, Threads), Videoanrufe (HD, Aufzeichnung), E-Mail (Gmail OAuth, SMTP/IMAP), Benachrichtigungen |
 | **Projektmanagement** | Aufgaben, Meilensteine, Sprints, Kanban-Boards, Zeiterfassung, Abhängigkeiten, Labels |
 | **Inhalte** | Notizen (Block-Editor), Dokumente (digitale Signaturen), Whiteboards, Dateiverwaltung (Versionierung, Freigabe) |
-| **Produktivität** | Kalender (Termine, Räume), Formulare (Builder, Analytics), Genehmigungen (Workflows), Budgets (Ausgaben, Abrechnung) |
-| **KI & Automatisierung** | AutoPilot (Agent), Meeting-Intelligence, Dokumentenanalyse, Bots (Trigger, Aktionen, Planung) |
-| **Plattform** | Auth (OAuth, SSO), Workspace-Verwaltung, Rollen & Berechtigungen, Suche (semantisch), Analytics, Integrationen |
+| **Produktivität** | Kalender (Events, Räume), Formulare (Builder, Analytics), Genehmigungen (Workflows), Budgets (Ausgaben, Abrechnung), Integrierte Tools (Umfragen, Erinnerungen, Vorlagen) |
+| **KI & Automatisierung** | AutoPilot (App-weiter autonomer Agent), Intelligente Vorschläge (KI-Aufgabenempfehlungen), Meeting-Intelligence, Dokumentenanalyse, Bots (Trigger, Aktionen, Planung) |
+| **Plattform** | Auth (OAuth, SSO), Workspace-Verwaltung, Rollen & Berechtigungen, Suche (semantisch), Analytics, 180+ Konnektoren (Slack, GitHub, Google, Dropbox und mehr) |
 
 [Detaillierte Feature-Dokumentation anzeigen &rarr;](https://github.com/deskive/deskive/wiki)
 
