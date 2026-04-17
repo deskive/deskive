@@ -88,6 +88,32 @@ Unlike Slack that requires paid plans for video calls or Notion that lacks real-
 - **🔍 Semantic Search** -- AI-powered search across all content types
 - **🌍 Internationalization** -- Multi-language support (English, Japanese, expandable)
 
+### Feature Highlights
+
+<p align="center">
+  <strong>🤖 AutoPilot AI Agent</strong><br>
+  <em>Fully autonomous AI assistant with access to the entire app -- ask it anything, automate everything</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Smart Suggestions</strong><br>
+  <em>AI analyzes your activity and deadlines to recommend tasks and priorities right from the dashboard</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Built-in Tools</strong><br>
+  <em>Ready-to-use productivity tools -- document builder, bots, budgets, whiteboards, forms, and more</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Connectors</strong><br>
+  <em>180+ third-party app connectors with pre-wired OAuth for Gmail, Google Calendar, Drive, GitHub, Dropbox, and more</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
+
 ## What Problem We Solve
 
 ### The Collaboration Tool Fragmentation Dilemma
@@ -298,18 +324,18 @@ For development environments:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Frontend (React 19)                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Chat   │  │ Projects │  │  Files   │  │ Calendar │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                     Frontend (React 19)                     │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Chat   │  │ Projects │  │  Files   │  │ Calendar │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         Vite + TypeScript + Tailwind CSS + Radix UI         │
 └────────────────────────┬────────────────────────────────────┘
                          │ REST API + Socket.io
 ┌────────────────────────┴────────────────────────────────────┐
-│                    Backend (NestJS 11)                       │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
-│  │   Auth   │  │   Chat   │  │  Tasks   │  │    AI    │   │
-│  └──────────┘  └──────────┘  └──────────┘  └──────────┘   │
+│                    Backend (NestJS 11)                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐     │
+│  │   Auth   │  │   Chat   │  │  Tasks   │  │    AI    │     │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────┘     │
 │         40+ Modules with TypeScript + Raw SQL               │
 └────────┬─────────────┬─────────────┬─────────────┬──────────┘
          │             │             │             │
