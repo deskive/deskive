@@ -289,6 +289,8 @@ For development environments:
 
 ## Architecture
 
+<div align="center">
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                     Frontend (React 19)                      │
@@ -311,6 +313,8 @@ For development environments:
     │(Storage)│   │(Cache)  │  │(Vector) │   │(Video)  │
     └─────────┘   └─────────┘  └─────────┘   └─────────┘
 ```
+
+</div>
 
 **Frontend** (`/frontend`) -- React 19 with Vite, TypeScript, Tailwind CSS, Radix UI components, Zustand for state management, React Query for data fetching
 
