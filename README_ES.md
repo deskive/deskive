@@ -84,6 +84,32 @@ A diferencia de Slack que requiere planes de pago para videollamadas o Notion qu
 - **🔍 Búsqueda Semántica** -- Búsqueda impulsada por IA en todos los tipos de contenido
 - **🌍 Internacionalización** -- Soporte multiidioma (inglés, japonés, expandible)
 
+### Destacados de Funciones
+
+<p align="center">
+  <strong>🤖 Agente IA AutoPilot</strong><br>
+  <em>Asistente de IA totalmente autónomo con acceso a toda la aplicación -- pregúntale cualquier cosa, automatiza todo</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Sugerencias Inteligentes</strong><br>
+  <em>La IA analiza tu actividad y plazos para recomendar tareas y prioridades directamente desde el panel</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Herramientas Integradas</strong><br>
+  <em>Herramientas de productividad listas para usar -- constructor de documentos, bots, presupuestos, pizarras, formularios y más</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Conectores</strong><br>
+  <em>180+ conectores de apps de terceros con OAuth preconfigurado para Gmail, Google Calendar, Drive, GitHub, Dropbox y más</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
+
 ## Qué Problema Resolvemos
 
 ### El Dilema de la Fragmentación de Herramientas de Colaboración

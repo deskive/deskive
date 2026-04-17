@@ -84,6 +84,32 @@ Contrairement à Slack qui nécessite des abonnements payants pour les appels vi
 - **🔍 Recherche sémantique** -- Recherche alimentée par l'IA sur tous les types de contenu
 - **🌍 Internationalisation** -- Support multilingue (anglais, japonais, extensible)
 
+### Points forts des fonctionnalités
+
+<p align="center">
+  <strong>🤖 Agent IA AutoPilot</strong><br>
+  <em>Assistant IA entièrement autonome avec accès à toute l'application -- posez-lui n'importe quelle question, automatisez tout</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Suggestions intelligentes</strong><br>
+  <em>L'IA analyse votre activité et vos échéances pour recommander des tâches et des priorités directement depuis le tableau de bord</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Outils intégrés</strong><br>
+  <em>Outils de productivité prêts à l'emploi -- constructeur de documents, bots, budgets, tableaux blancs, formulaires et plus</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Connecteurs</strong><br>
+  <em>Plus de 180 connecteurs d'applications tierces avec OAuth préconfiguré pour Gmail, Google Calendar, Drive, GitHub, Dropbox et plus</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
+
 ## Quel problème résolvons-nous
 
 ### Le dilemme de la fragmentation des outils de collaboration

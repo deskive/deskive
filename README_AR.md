@@ -84,6 +84,32 @@ Deskive هو **منصة تعاون لمساحات العمل قابلة للاس
 - **🔍 البحث الدلالي** -- بحث مدعوم بالذكاء الاصطناعي عبر جميع أنواع المحتوى
 - **🌍 التدويل** -- دعم متعدد اللغات (الإنجليزية واليابانية وقابل للتوسع)
 
+### أبرز الميزات
+
+<p align="center">
+  <strong>🤖 وكيل AutoPilot للذكاء الاصطناعي</strong><br>
+  <em>مساعد ذكاء اصطناعي مستقل تماماً مع وصول كامل إلى التطبيق -- اسأله أي شيء، أتمت كل شيء</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 اقتراحات ذكية</strong><br>
+  <em>يحلل الذكاء الاصطناعي نشاطك ومواعيدك النهائية لتوصية المهام والأولويات مباشرة من لوحة القيادة</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 أدوات مدمجة</strong><br>
+  <em>أدوات إنتاجية جاهزة للاستخدام -- منشئ المستندات والبوتات والميزانيات واللوحات البيضاء والنماذج والمزيد</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 الموصلات</strong><br>
+  <em>أكثر من 180 موصل تطبيقات خارجية مع OAuth مُعد مسبقاً لـ Gmail وGoogle Calendar وDrive وGitHub وDropbox والمزيد</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
+
 ## المشكلة التي نحلها
 
 ### معضلة تجزئة أدوات التعاون

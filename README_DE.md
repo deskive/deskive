@@ -84,6 +84,32 @@ Im Gegensatz zu Slack, das kostenpflichtige Tarife für Videoanrufe erfordert, o
 - **🔍 Semantische Suche** -- KI-gestützte Suche über alle Inhaltstypen
 - **🌍 Internationalisierung** -- Mehrsprachige Unterstützung (Englisch, Japanisch, erweiterbar)
 
+### Funktions-Highlights
+
+<p align="center">
+  <strong>🤖 AutoPilot KI-Agent</strong><br>
+  <em>Vollständig autonomer KI-Assistent mit Zugriff auf die gesamte App -- fragen Sie alles, automatisieren Sie alles</em><br><br>
+  <img src="docs/autopilot.png" alt="AutoPilot AI Agent" width="800">
+</p>
+
+<p align="center">
+  <strong>🧠 Intelligente Vorschläge</strong><br>
+  <em>KI analysiert Ihre Aktivität und Fristen, um Aufgaben und Prioritäten direkt vom Dashboard zu empfehlen</em><br><br>
+  <img src="docs/suggestions.png" alt="Smart Suggestions Dashboard" width="800">
+</p>
+
+<p align="center">
+  <strong>🧰 Integrierte Tools</strong><br>
+  <em>Sofort einsetzbare Produktivitätswerkzeuge -- Dokumenten-Builder, Bots, Budgets, Whiteboards, Formulare und mehr</em><br><br>
+  <img src="docs/tools.png" alt="Built-in Tools" width="800">
+</p>
+
+<p align="center">
+  <strong>🔌 Konnektoren</strong><br>
+  <em>Über 180 Drittanbieter-App-Konnektoren mit vorkonfiguriertem OAuth für Gmail, Google Kalender, Drive, GitHub, Dropbox und mehr</em><br><br>
+  <img src="docs/connectors.png" alt="Connectors" width="800">
+</p>
+
 ## Welches Problem wir lösen
 
 ### Das Dilemma der Fragmentierung von Kollaborations-Tools
