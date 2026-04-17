@@ -29,17 +29,17 @@
 </p>
 
 <p align="center">
-  <a href="./README.md">English</a> |
-  <a href="./README_JA.md">日本語</a> |
-  <a href="./README_ZH.md">中文</a> |
-  <a href="./README_KO.md">한국어</a> |
-  <a href="./README_ES.md">Español</a> |
-  <a href="./README_FR.md">Français</a> |
-  <a href="./README_DE.md">Deutsch</a> |
-  <a href="./README_PT-BR.md">Português</a> |
-  <a href="./README_RU.md">Русский</a> |
+  <a href="./README.md">🇬🇧 English</a> |
+  <a href="./README_JA.md">🇯🇵 日本語</a> |
+  <a href="./README_ZH.md">🇨🇳 中文</a> |
+  <a href="./README_KO.md">🇰🇷 한국어</a> |
+  <a href="./README_ES.md">🇪🇸 Español</a> |
+  <a href="./README_FR.md">🇫🇷 Français</a> |
+  <a href="./README_DE.md">🇩🇪 Deutsch</a> |
+  <a href="./README_PT-BR.md">🇧🇷 Português</a> |
+  <a href="./README_RU.md">🇷🇺 Русский</a> |
   <strong>हिन्दी</strong> |
-  <a href="./README_AR.md">العربية</a>
+  <a href="./README_AR.md">🇸🇦 العربية</a>
 </p>
 
 ---
