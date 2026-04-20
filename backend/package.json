@@ -93,7 +93,7 @@
     "swagger-ui-express": "^5.0.1",
     "tweetnacl": "^1.0.3",
     "tweetnacl-util": "^0.15.1",
-    "uuid": "^11.1.0",
+    "uuid": "^14.0.0",
     "ws": "^8.18.3",
     "y-protocols": "^1.0.6",
     "yjs": "^13.6.20",
