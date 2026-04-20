@@ -1,0 +1,1 @@
+export const MAX_UPLOAD_SIZE = Number(process.env.MAX_FILE_SIZE_BYTES) || 10 * 1024 * 1024;
