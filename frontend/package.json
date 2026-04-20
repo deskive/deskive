@@ -49,7 +49,7 @@
     "@tanstack/react-query": "^5.85.9",
     "@tiptap/extension-placeholder": "^3.3.1",
     "@tiptap/react": "^3.3.1",
-    "@tiptap/starter-kit": "^3.3.1",
+    "@tiptap/starter-kit": "^3.22.4",
     "@types/dompurify": "^3.0.5",
     "@types/quill": "^2.0.14",
     "autoprefixer": "^10.4.21",
